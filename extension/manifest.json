@@ -28,7 +28,7 @@
     "default_popup": "browser_action_menu.html"
   },
   "plugins": [
-      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.1.18b.plugin", "public": false },
+      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.2.23.plugin", "public": false },
       { "path": "plugins/Linux_x86-gcc3/npwebpgPlugin-v0.2.23.so", "public": false },
       { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.2.22.dll", "public": false }
   ]
