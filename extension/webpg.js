@@ -1,5 +1,5 @@
 /* Constants */
-VERSION = "0.2.08"
+VERSION = "0.2.12"
 
 /*
    Class: webpg
