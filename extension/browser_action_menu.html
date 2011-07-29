@@ -21,11 +21,15 @@ $(document).ready(function() {
 var MenuActions = {
     options: function(){
         console.log("options was selected");
+        url = chrome.extension.getURL('options.html') + "?tab=0";
+        chrome.tabs.create({ 'url': url });
         return false;
     },
 
     key_manager: function(){
         console.log("key mangager was selected");
+        url = chrome.extension.getURL('options.html') + "?tab=1";
+        chrome.tabs.create({ 'url': url });
         return false;
     }
 }
