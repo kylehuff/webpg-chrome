@@ -1,0 +1,86 @@
+<html>
+<head>
+    <title>Test page for the WebPG Chrome Extension</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+        });
+    </script>
+</head>
+<body>
+    <h3>A signed message:</h3>
+    <pre id="signed_message">
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+owEBWgGl/pANAwACAcWZcR9egruTAcsqYgBOLuKeVGhpcyBpcyBhIHNhbXBsZWQg
+c2lnbmVkIG1lc3NhZ2UuLi4KiQEcBAABAgAGBQJOLuKeAAoJEMWZcR9egruTOg4H
+/2BZZvv8HQDhSE1R8FYuDGmHBOJDmONmn3Q9sz93vTYL0WLkaAnvu0mg4zi2aE2y
+iV5Jie5rMPuCmQcL65LxwKD6H6r5XuSuAzyuQaDAlTclj9k+WJe+DavbJ8Oqf80T
+P2qAknRZb3FmwluRDt0ituN74h16mVTiLGYWrw6zomz+KyauM4JdK4RPeypfQZZI
+jWMhpLSDzkUBJx8d2iGcxcA+Ahd4REsRimOkVwmp92erROeSdakx+ka0fTw1ue0E
+ggPK/j/L0mAu8LguDalYpaHYCYKrewMTWcp0rGwwpUjjea/Uybl1L3GCP1239Q8U
+cwYMNDox35bMQr0W9IRuSlM=
+=l2va
+-----END PGP MESSAGE-----
+</pre>
+    <h3>A clear-signed message</h3>
+    <pre id="clearsigned_message">
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+This is a sample of text that has been clear-signed...
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJOLuJlAAoJEMWZcR9egruTAo0H/iWSfkgU/6AqIfzHtAmBLKxO
+01D1uu2OYVhbypw7fD0xdYs8bokvrDceOC3ep8T9LKRRm6uBORo3Z8NtxX0HY4LT
+ZahSbdl1RwKKF88XzBmNmBun/Ya3CFpD9oEBb7W8+jisXfrdqVsuYWjtkc6OMiu5
+z49vllZj7VCEozC11fqDdNZSPgZfYfvQprD3ajrt/vJBPst5/yWpz7Gve45UHv3+
+vpbXXJJxaNoXvq/nMt9ZoOM2AD5cVDMo44FXKSg8IPUuI5fcZESiRI2sI8QioBJZ
+PxStTenjz1Xdfflf9Gez4S5nWCBJvLBxTvZhvNI+VL2OygA5NrdfIaRTclPKvX4=
+=tImB
+-----END PGP SIGNATURE-----
+    </pre>
+    <h3>Public Key:</h3>
+    <div id="public-keylist">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+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
+hdXAYDFH6ZbP6G5bTUdn6kdkPw==
+=O6t+
+-----END PGP PUBLIC KEY BLOCK-----
+    </div>
+</body>
+</html>
