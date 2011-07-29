@@ -1,0 +1,215 @@
+<html>
+<head>
+<script>
+
+/* setup the preferences object
+    this is probably overkill for chrome/chromium, but added as generic object
+        for use in extensions for other browsers.
+*/
+var webpg_prefs = {
+    webpg_enabled: {
+        get: function() {
+            return window.localStorage.getItem('enabled');
+        },
+        set: function(value) {
+            window.localStorage.setItem('enabled', value);
+        },
+    },
+    enabled_keys: {
+        get: function() {
+            keys_arr = [];
+            if (window.localStorage.getItem('enabled_keys')) {
+                keys_arr = window.localStorage.getItem('enabled_keys').split(',');
+            }
+            return keys_arr;
+        },
+        add: function(keyid) {
+            keys_arr = this.get();
+            keys_arr.push(keyid);
+            window.localStorage.setItem('enabled_keys', keys_arr);
+        },
+        remove: function(keyid) {
+            keys_tmp = this.get();
+            keys_arr = [];
+            for (key in keys_tmp) {
+                if (keys_tmp[key] != keyid) {
+                    keys_arr.push(keys_tmp[key]);
+                }
+            }
+            window.localStorage.setItem('enabled_keys', keys_arr);
+        },
+        clear: function(){
+            window.localStorage.setItem('enabled_keys', '');
+        },
+        length: function(){
+            keys_tmp = [];
+            if (window.localStorage.getItem('enabled_keys')) {
+                store_value = window.localStorage.getItem('enabled_keys').split(',');
+                for (key in store_value) {
+                    keys_tmp.push(store_value[key]);
+                }
+            }
+            return keys_tmp.length + 1;
+        },
+        has: function(keyid){
+            key_arr = this.get();
+            for (var i = 0; i < this.length(); i++) {
+                if (key_arr[i] == keyid)
+                    return true;
+            }
+            return false;
+        },
+    },
+    default_key: {
+        get: function() {
+            return window.localStorage.getItem('default_key');
+        },
+        set: function(keyid) {
+            return window.localStorage.setItem('default_key', keyid);
+        },
+        clear: function(keyid) {
+            return window.localStorage.clear('default_key');
+        },
+    },
+};
+/* end prefs setup */
+
+var webpgBackground = {
+
+    init: function() {
+        if (!localStorage.config_complete) {
+            // The configuration druid has not run, we need to start it.
+            //chrome.tabs.create({url: chrome.extension.getURL('druid.html')});
+        }
+
+        // information and source code for the plugin can be found here:
+        //      TBD
+
+        plugin = document.createElement('embed');
+        plugin.id = 'plugin';
+        plugin.type = 'application/x-webpg';
+        document.body.appendChild(plugin);
+        plugin.addEventListener("keygenprogress", webpgBackground.gpgGenKeyProgress, false);
+        plugin.addEventListener("keygencomplete", webpgBackground.gpgGenKeyComplete, false);
+        var result = plugin.valid;
+        console.log("my plugin returned: " + result);
+        /* Check to make sure all of the enabled_keys are private keys 
+            this would occur if the key was enabled and then the secret key was deleted. */
+        secret_keys = plugin.getPrivateKeyList();
+        enabled_keys = webpg_prefs.enabled_keys.get();
+        for (key in enabled_keys){
+            if (enabled_keys[key] in secret_keys == false){
+                webpg_prefs.enabled_keys.remove(enabled_keys[key]);
+            }
+        }
+        console.log("background initted");
+    },
+
+
+    // Called when a message is passed.
+    onRequest: function(request, sender, sendResponse) {
+        // set the default response to null
+        response = null;
+        // Show the page action for the tab that the sender (content script) was on.
+        if (request.msg == 'enabled') {
+            response = {'enabled': webpg_prefs.webpg_enabled.get() };
+        }
+        if (request.msg == 'decrypt') {
+            console.log("gpgDecrypt requested");
+            response = plugin.gpgDecrypt(request.data);
+            response.original_text = request.data;
+        }
+        if (request.msg == 'async-gpgGenKey') {
+            console.log("async-gpgGenKey requested");
+            var result = plugin.gpgGenKey(
+                    request.data['publicKey_algo'],
+                    request.data['publicKey_size'],
+                    request.data['subKey_algo'],
+                    request.data['subKey_size'],
+                    request.data['uid_0_name'],
+                    '',
+                    request.data['uid_0_email'],
+                    request.data['key_expire'],
+                    request.data['passphrase']
+                );
+            response = "queued";
+        }
+        if (request.msg == 'complete' || request.msg == 'stage2') {
+            if (webpgBackground.pulses[sender.tab.id] != null) {
+                clearInterval(webpgBackground.pulses[sender.tab.id]['timer']);
+            }
+            chrome.pageAction.setIcon({
+                tabId: sender.tab.id,
+                path: 'images/badges/authenticated.png'
+            });
+            chrome.pageAction.setPopup({tabId: sender.tab.id, popup: "dialogs/success.html"});
+        }
+        if (request.msg == 'doKeyImport') {
+            response = { 'import_status': plugin.gpgImportKey(request.data) };
+        }
+        if (request.msg == 'sendtoiframe') {
+            console.log("sending message to frame or content script", request, sender.tab.id);
+            //we need to send a message the action badge
+            chrome.tabs.sendRequest(sender.tab.id, {request: request});
+        }
+        if (request.msg == 'deleteKey'){
+            if (request.key_type == 'public_key'){
+                
+                response = plugin.gpgDeletePublicKey(request.key_id);
+            } else if (request.key_type == 'private_key'){
+                response = plugin.gpgDeletePrivateKey(request.key_id);
+            }
+        }
+        if (request.msg == "getNamedKey") {
+            response = plugin.getNamedKey(request.key_id);
+        }
+        // Return the response and let the connection be cleaned up.
+        sendResponse({'result': response});
+    },
+
+    parseUrl: function(url) {
+        var re = /^((\w+):\/\/\/?)?((\w+):?(\w+)?@)?([^\/\?:]+):?(\d+)?(\/?[^\?#;\|]+)?([;\|])?([^\?#]+)?\??([^#]+)?#?(\w*)/gi
+        result = re.exec(url);
+        return { 'url': result[0],
+            'proto_full': result[1],
+            'proto_clean': result[2],
+            'domain': result[6],
+            'port': result[7],
+            'path': result[8],
+            'query': result[11],
+            'anchor': result[12]
+        }
+    },
+
+    gpgGenKeyProgress: function(data) {
+        var port = chrome.extension.connect({name: "gpgGenKeyProgress"});
+        port.postMessage({"type": "progress", "data": data});
+        port.disconnect()
+    },
+
+    gpgGenKeyComplete: function(data) {
+        var port = chrome.extension.connect({name: "gpgGenKeyProgress"});
+        port.postMessage({"type": "progress", "data": data});
+        port.disconnect();
+        var notification = webkitNotifications.createNotification(
+          'images/webpg-48.png',
+          'Key Generation Complete',
+          'The generation of your new Key is now complete.'
+        );
+        notification.show();
+    },
+
+}
+
+
+// Listen for the content script to send a message to the background page.
+chrome.extension.onRequest.addListener(webpgBackground.onRequest);
+</script>
+</head>
+<body>
+
+</body>
+<script>
+    webpgBackground.init();
+</script>
+</html>

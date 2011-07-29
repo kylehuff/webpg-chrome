@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>WebPG for Chrome Menu</title>
+<script type="text/javascript" src="jquery/js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+
+var ext = chrome.extension.getBackgroundPage();
+
+$(document).ready(function() {
+    $('.menu-option').hover(
+        function(){ 
+            $(this).addClass("menu-option-over");
+        },
+        function(){
+            $(this).removeClass("menu-option-over");
+        }
+    );
+});
+
+var MenuActions = {
+    options: function(){
+        console.log("options was selected");
+        return false;
+    },
+
+    key_manager: function(){
+        console.log("key mangager was selected");
+        return false;
+    }
+}
+
+/* ]]> */
+</script>
+<style>
+body {
+    font: 62.5% "Trebuchet MS", sans-serif;
+    margin: 0 25px 4px 15px;
+    min-width: 150px;
+    text-align: left;
+}
+
+.menu-option {
+    font-size: 16px;
+    text-align: center;
+<!--    margin-left: auto;-->
+<!--    margin-right: auto;-->
+    font-family:sans-serif;
+    margin-top: 4px;
+    background:#fff;
+    width: 100%;
+    cursor:pointer;
+    border:1px solid #ddd;
+    padding:4px;
+    text-shadow:#999 1px 1px 1px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-box-shadow:#eef 1px 1px 10px;
+    -webkit-box-shadow:#eef 1px 1px 10px;
+    background: #eee  url('images/menumask.png') repeat-x;
+}
+
+.menu-option-over {
+<!--    border:1px solid #88d;-->
+    -moz-box-shadow:#666 2px 2px 2px;
+    -webkit-box-shadow:#666 2px 2px 2px;
+}
+</style>
+</head>
+<body>
+<div>
+    <div class="menu-option" onclick="MenuActions.options();">Options</div>
+    <div class="menu-option" onclick="MenuActions.key_manager();">Key Manager</div>
+</div>
+</body>
+</html>

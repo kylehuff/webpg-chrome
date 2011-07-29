@@ -1,0 +1,282 @@
+<html>
+<head>
+<title>WebPG secure iframe</title>
+<link type="text/css" href="jquery/css/ui-darkness/jquery-ui-1.8.14.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="jquery/js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="jquery/js/jquery-ui-1.8.14.custom.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+$(document).ready(function() {
+
+});
+
+$(function(){
+
+    block_type_actions = [
+        "public_key",
+        "other_type"
+    ]
+
+    key_algorithm_types = {
+        "RSA": "R",
+        "DSA": "D",
+        "ELG-E": "g",
+    }
+
+    var oldWidth = null;
+    var originalHeight = null;
+    var height = null;
+
+    function doResize(id, document) {
+        if (!originalHeight) {
+            originalHeight = document.body.offsetHeight;
+        }
+        if (document.body.scrollHeight == originalHeight || height > originalHeight) {
+            height = originalHeight;
+        } else {
+            height = document.body.scrollHeight;
+        }
+        width = document.body.scrollWidth;
+        chrome.extension.sendRequest({
+            msg: 'sendtoiframe',
+            cmd: 'resizeiframe',
+            iframe_id: qs.id,
+            width: width,
+            height: height }
+        );
+    }
+
+    var qs = {};
+    (function () {
+        var e,
+            a = /\+/g,  // Regex for replacing addition symbol with a space
+            r = /([^&=]+)=?([^&]*)/g,
+            d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+            q = window.location.search.substring(1);
+
+        while (e = r.exec(q))
+           qs[d(e[1])] = d(e[2]);
+    })();
+    
+    chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+        if (request.request.target_id == qs.id) {
+            icon = document.createElement("img");
+            switch(request.request.block_type) {
+                case "signed_message":
+                    $('#header')[0].innerHTML = "PGP SIGNED MESSAGE";
+                    $('#signature_text')[0].innerText = request.request.verify_result.data;
+                    $('#original_text')[0].innerText = request.request.verify_result.original_text;
+                    $('#original_text').hide();
+                    for (sig in request.request.verify_result.signatures) {
+                        if (request.request.verify_result.signatures[sig].status == "GOOD") {
+                            icon.src = "/images/badges/stock_signature-ok.png";
+                            $(icon).addClass('footer_icon');
+                            $('#footer').addClass("signature_good");
+                            $('#footer')[0].innerHTML = icon.outerHTML;
+                            $('#footer')[0].innerHTML += "THIS MESSAGE WAS SIGNED WITH FINGERPRINT " + request.request.verify_result.signatures[sig].fingerprint + "<br/\><br/\><a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a>";
+                        }
+                        if (request.request.verify_result.signatures[sig].status == "NO_PUBKEY") {
+                            $('#footer').addClass("signature_no_pubkey");
+                            $('#footer')[0].innerHTML = "THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING<br/\><br/\>";
+                            $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | <a href=\"javascript:void(0)\">TRY TO FETCH MISSING KEY</a>";
+                        }
+                        if (request.request.verify_result.signatures[sig].status == "BAD_SIG") {
+                            $('#footer').addClass("signature_bad_sig");
+                            $('#footer')[0].innerHTML = "THE SIGNATURE ON THIS MESSAGE FAILED; THE MESSAGE MAY BE TAMPERED WITH<br/\><br/\>";
+                            $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a>";
+                        }
+                    }
+                    doResize(qs.id, document);
+                    $('.original_text_link').click(function(){
+                        if (this.innerHTML == "DISPLAY ORIGINAL"){
+                            $('#signature_text').hide();
+                            $('#original_text').show();
+                            doResize(qs.id, document);
+                            this.innerHTML = "HIDE ORIGINAL";
+                        } else {
+                            this.innerHTML = "DISPLAY ORIGINAL";
+                            $('#signature_text').show();
+                            $('#original_text').hide();
+                            doResize(qs.id, document);
+                        }
+                    });
+                    break;
+                case "public_key":
+                    $('#header')[0].innerHTML = "<a name=\"" + qs.id + "\">PGP PUBLIC KEY</a>";
+                    $('#original_text')[0].innerText = request.request.original_text;
+                    var get_key_response = null;
+                    chrome.extension.sendRequest({
+                        msg: 'doKeyImport',
+                        data: request.request.original_text },
+                        function(response) {
+                            var fpsi = {};
+                            fpsi.keys_found = [];
+                            fpsi.keys_imported = [];
+                            var import_status = response.result.import_status;
+                            for (imported in import_status.imports) {
+                                key_id = import_status.imports[imported].fingerprint;
+                                chrome.extension.sendRequest({
+                                    msg: "getNamedKey",
+                                    "key_id": key_id},
+                                    function(get_key_response) {
+                                        key = get_key_response.result;
+                                        fpsi.keys_found[fpsi.keys_found.length] = key;
+                                        if (import_status.imports[imported].new_key){
+                                            fpsi.keys_imported[fpsi.keys_imported.length] = key;
+                                            chrome.extension.sendRequest({
+                                                msg: 'deleteKey',
+                                                key_type: "public_key",
+                                                key_id: key_id }
+                                            );
+                                        }
+                                        for (key in fpsi.keys_found[0]) {
+                                            keyobj = fpsi.keys_found[0][key];
+                                            console.log(keyobj);
+                                            new_public_key = (fpsi.keys_imported.length && key in fpsi.keys_imported[0]);
+                                            $('#signature_text')[0].innerHTML = "<span class=\"uid_line\">" + keyobj.name + " &lt;<a href=\"mailto:" + keyobj.email + "\">" + keyobj.email + "</a>&gt;</span><br/\>";
+                                            key_algo = {}
+                                            key_algo.abbr = "?"
+                                            key_algo.name = keyobj.subkeys[0].algorithm_name;
+                                            if (key_algo.name in key_algorithm_types) {
+                                                key_algo.abbr = key_algorithm_types[key_algo.name];
+                                            }
+                                            $('#header')[0].innerHTML += " (" + keyobj.subkeys[0].size + key_algo.abbr + "/" + keyobj.fingerprint.substr(-8) + ")<br/\>";
+                                            created = new Date();
+                                            created.setTime(keyobj.subkeys[0].created*1000);
+                                            expires = new Date();
+                                            expires.setTime(keyobj.subkeys[0].expires*1000);
+                                            $('#signature_text')[0].innerHTML += "Created: " + created.toUTCString() + "<br/\>";
+                                            $('#signature_text')[0].innerHTML += "Expires: " + expires.toUTCString() + "<br/\>";
+                                            $('#footer').addClass("public_key");
+                                            if (new_public_key) {
+                                                $('#footer')[0].innerHTML = "THIS KEY IS NOT IN YOUR KEYRING<br/\><br/\>";
+                                            } else {
+                                                $('#footer')[0].innerHTML = "THIS KEY IS ALREADY IN YOUR KEYRING<br/\><br/\>";
+                                            }
+                                            $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ";
+                                            if (new_public_key) {
+                                                // This is a key we don't already have, make import available
+                                                $('#footer')[0].innerHTML += "<a class=\"import_key_link\" href=\"javascript:void(0);\">IMPORT THIS KEY</a>";
+                                            } else {
+                                                // This is a key we already have, make delete available
+                                                $('#footer')[0].innerHTML += "<a class=\"delete_key_link\" href=\"javascript:void(0);\" id=\"" + keyobj.fingerprint + "\">DELETE THIS KEY</a>";
+                                            }
+                                            $('#original_text').hide();
+                                            doResize(qs.id, document);
+                                            $('.original_text_link').click(function(){
+                                                if (this.innerHTML == "DISPLAY ORIGINAL"){
+                                                    $('#signature_text').hide();
+                                                    $('#original_text').show();
+                                                    doResize(qs.id, document);
+                                                    this.innerHTML = "HIDE ORIGINAL";
+                                                } else {
+                                                    this.innerHTML = "DISPLAY ORIGINAL";
+                                                    $('#signature_text').show();
+                                                    $('#original_text').hide();
+                                                    doResize(qs.id, document);
+                                                }
+                                            });
+                                            $('.import_key_link').click(function(){
+                                                chrome.extension.sendRequest({
+                                                    msg: 'doKeyImport',
+                                                    data: request.request.original_text },
+                                                    function(response) {
+                                                        console.log("imported; ", response);
+                                                        window.location.reload();
+                                                    }
+                                                );
+                                            })
+                                            $('.delete_key_link').click(function(){
+                                                console.log(this.id);
+                                                chrome.extension.sendRequest({
+                                                    msg: 'deleteKey',
+                                                    key_type: "public_key",
+                                                    key_id: this.id },
+                                                    function(response) {
+                                                        console.log("deleted key response ", response);
+                                                        window.location.reload();
+                                                    }
+                                                );
+                                            })
+                                        }
+                                    }
+                                )
+                            }
+                        }
+                    );
+
+                    break;
+            }
+            if (sendResponse) {
+                sendResponse({'result': "done"});
+            }
+        }
+    });
+
+});
+/* ]]> */
+</script>
+<style>
+    body{
+        padding: 6px;
+        margin: 0;
+        border: 1px dotted #686868;
+        background: transparent url('images/menumask.png') repeat-x;
+    }
+    .signed_text_header {
+        border-bottom: 1px dotted;
+        display: inline;
+        font-size: smaller;
+        font-weight: bold;
+    }
+    .signed_text, .original_text {
+        padding-top: 10px;
+        display: block;
+        margin-bottom: 45px;
+    }
+    .footer {
+        font-size: smaller;
+        font-weight: bold;
+        position: absolute;
+        padding-left: 60px;
+        margin: auto;
+        bottom: 0;
+        width: 75%;
+        left: 9%;
+        border-radius: 6px 6px 0 0;
+        box-shadow: 1px 1px 10px #000;
+        background: #1c1 url('images/menumask.png') repeat-x;
+    }
+    .footer_icon {
+        display: inline-block;
+        position: absolute;
+        left: 4px;
+        bottom: 0;
+    }
+    .public_key, .private_key {
+        background-color: #aaa;
+    }
+    .signature_no_pubkey {
+        background-color: #ee2;
+    }
+    .signature_bad_sig {
+        background-color: #f44;
+    }
+    .signature_good {
+        background-color: #1c1;
+    }
+    .uid_line {
+        margin-bottom: 8px;
+        display: inline-block;
+    }
+</style>
+</head>
+<body>
+    <div class="pgp_block_container">
+        <div id="header" class="signed_text_header"></div>
+        <div id="signature_text" class="signed_text"></div>
+        <div id="original_text" class="original_text"></div>
+        <div id="footer" class="footer"></div>
+    </div>
+</body>
+</html>
