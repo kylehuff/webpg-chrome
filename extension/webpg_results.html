@@ -4,10 +4,6 @@
 <script type="text/javascript" src="jquery/js/jquery-1.5.1.min.js"></script>
 <script type="text/javascript">
 /* <![CDATA[ */
-$(document).ready(function() {
-
-});
-
 $(function(){
 
     block_type_actions = [
@@ -55,13 +51,13 @@ $(function(){
         while (e = r.exec(q))
            qs[d(e[1])] = d(e[2]);
     })();
-    
+
     chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
         if (request.request.target_id == qs.id) {
             icon = document.createElement("img");
             switch(request.request.block_type) {
                 case "signed_message":
-                    $('#header')[0].innerHTML = "PGP SIGNED MESSAGE";
+                    $('#header')[0].innerHTML = "<a name=\"" + qs.id + "\">PGP SIGNED MESSAGE</a>";
                     $('#signature_text')[0].innerText = request.request.verify_result.data;
                     $('#original_text')[0].innerText = request.request.verify_result.original_text;
                     $('#original_text').hide();
@@ -129,7 +125,6 @@ $(function(){
                                         }
                                         for (key in fpsi.keys_found[0]) {
                                             keyobj = fpsi.keys_found[0][key];
-                                            console.log(keyobj);
                                             new_public_key = (fpsi.keys_imported.length && key in fpsi.keys_imported[0]);
                                             $('#signature_text')[0].innerHTML = "<span class=\"uid_line\">" + keyobj.name + " &lt;<a href=\"mailto:" + keyobj.email + "\">" + keyobj.email + "</a>&gt;</span><br/\>";
                                             key_algo = {}
@@ -185,7 +180,6 @@ $(function(){
                                                 );
                                             })
                                             $('.delete_key_link').click(function(){
-                                                console.log(this.id);
                                                 chrome.extension.sendRequest({
                                                     msg: 'deleteKey',
                                                     key_type: "public_key",
@@ -202,7 +196,6 @@ $(function(){
                             }
                         }
                     );
-
                     break;
             }
             if (sendResponse) {
