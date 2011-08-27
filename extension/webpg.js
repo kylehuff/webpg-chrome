@@ -18,8 +18,14 @@ var webpg = {
     onLoad: function() {
 
         window.onresize = function(){
+            // Check if the iframe has a parent, if so, resize the iframe to fit within
+            //  the parent element; otherwise, fit it to the document
             $('.webpg-result-frame').each(function(){
-                this.style.width = document.body.offsetWidth + "px";
+                if ($(this).parent()) {
+                    this.style.width = $(this).parent()[0].offsetWidth + "px";
+                } else if (this.offsetWidth > document.body.offsetWidth) {
+                    this.style.width = document.body.offsetWidth + "px";
+                }
             });
         }
 

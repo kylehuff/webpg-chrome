@@ -98,7 +98,7 @@ function isValidEmailAddress(emailAddress) {
                                 error += "Name Required<br>";
                                 $(form.uid_0_name).addClass("ui-state-error");
                             }
-                            if (form.uid_0_name.value.length > 5){
+                            if (form.uid_0_name.value.length < 5){
                                 error += "UID Names must be at least 5 characters<br>";
                                 $(form.uid_0_name).addClass("ui-state-error");
                             } else {
