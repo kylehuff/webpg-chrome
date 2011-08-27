@@ -29,6 +29,6 @@
   },
   "plugins": [
       { "path": "plugins/Linux_x86-gcc3/npwebpgPlugin-v0.1.18b.so", "public": false },
-      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.1.18b.dll", "public": true }
+      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.1.18b.dll", "public": false }
   ]
 }
