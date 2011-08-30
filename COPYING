@@ -1,0 +1,107 @@
+License
+
+  webpg-chrome is Free Software and available under the GNU General Public License (GNU GPL).
+
+  Copyright (C) 2010-2011 Kyle L. Huff, CURE|THE|ITCH [http://www.curetheitch.com]
+
+  webpg-chrome is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License as
+  published by the Free Software Foundation; either version 2 of
+  the License, or (at your option) any later version.
+
+  webpg-chrome is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+  02110-1301, USA
+
+
+Copyright Statements
+Here is a list with collected copyright notices. For details see the description of each individual package.
+
+webpg-npapi is
+
+  Copyright 2010, 2011 Kyle L. Huff, CURE|THE|ITCH [http://www.curetheitch.com]
+
+  webpg-npapi is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 3 of the License, or
+  (at your option) any later version.
+
+  webpg-npapi is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
+  License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, see http://www.gnu.org/licenses/gpl-3.0.txt.
+
+  please visit http://www.curetheitch.com/projects/webpg-chrome for help or
+  support regarding webpg-npapi.
+
+
+GnuPG is
+
+  Copyright 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+            2006, 2007, 2008, 2009, 2010 Free Software Foundation, Inc.
+
+  GnuPG is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 3 of the License, or
+  (at your option) any later version.
+
+  GnuPG is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
+  License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, see http://www.gnu.org/licenses/gpl-3.0.txt.
+
+  See the files AUTHORS and THANKS for credits, further legal
+  information and bug reporting addresses pertaining to GnuPG.
+
+
+GPGME is
+
+  Copyright (C) 2000 Werner Koch (dd9jn)
+  Copyright (C) 2001, 2002, 2003, 2004, 2005, 2007, 2008,
+                2009 g10 Code GmbH
+
+  GPGME is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  GPGME is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this program; if not, see http://www.gnu.org/licenses/lgpl.txt.
+
+  See the files AUTHORS and THANKS for credits, further legal
+  information and bug reporting addresses pertaining to GPGME.
+
+
+LIBGPG-ERROR is
+
+  Copyright (C) 2003, 2004 g10 Code GmbH
+
+  libgpg-error is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public License
+  as published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  libgpg-error is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this program; if not, see http://www.gnu.org/licenses/lgpl.txt.

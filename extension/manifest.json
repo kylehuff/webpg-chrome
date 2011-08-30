@@ -1,6 +1,6 @@
 {
   "name": "WebPG - GnuPG browser interface",
-  "version": "0.1.14",
+  "version": "0.2.08",
   "description": "An extension which provides GnuPG related functions to the browser",
   "background_page": "background.html",
   "icons": {
