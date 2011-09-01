@@ -40,8 +40,21 @@ webpg-npapi is
   You should have received a copy of the GNU General Public License
   along with this program; if not, see http://www.gnu.org/licenses/gpl-3.0.txt.
 
-  please visit http://www.curetheitch.com/projects/webpg-chrome for help or
+  please visit http://www.curetheitch.com/projects/webpg-npapi for help or
   support regarding webpg-npapi.
+
+
+FireBreath is
+
+  Copyright 2009, 2010, 2011 Richard Bateman, Firebreath development team
+
+  FireBreath is licensed under a dual license structure, which means that you
+  can use it either under the New BSD license or under the LGPL v 1.2 license.
+
+  FireBreath is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
+  License for more details.
 
 
 GnuPG is
