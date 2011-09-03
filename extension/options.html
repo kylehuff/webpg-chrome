@@ -296,6 +296,7 @@ function isValidEmailAddress(emailAddress) {
             } else {
                 keyobj.innerHTML = "<h3 class='private_keylist' style='height: 24px;'><a href='#'><span style='margin: 0;width: 50%;'>" + keylist[key].name + 
                     "&nbsp;&nbsp;-&nbsp;&nbsp;[0x" + key.substr(-8) + "]</span></a><span class='trust' style='z-index:1000; left: 12px; top:-28px;height:22px;'>" +
+                    "<span class='keyoption-help-text' style=\"margin-right: 14px;\"></span>" +
                     "<input class='enable-check' id='check-" + key +"' type='checkbox' " + enabled + " onclick=\"if ('" + key + "' == window.ext.webpg_prefs.default_key.get()){" +
                     " $(this).next().addClass('ui-state-active'); return false }; if (this.checked && !window.ext.webpg_prefs.default_key.get()) { $(this).next().next().click(); $(this).next().next().next().addClass('ui-state-active'); } (this.checked) ? window.ext.webpg_prefs.enabled_keys.add('" + key + "') : " +
                     "window.ext.webpg_prefs.enabled_keys.remove('" + key + "'); (this.checked) ? $(this).button('option', 'label', 'Enabled') : $(this).button('option', " +
@@ -602,6 +603,8 @@ function isValidEmailAddress(emailAddress) {
                                 $("#keyexp-date-input").hide();
                             } else {
                                 $("#keyexp-ondate")[0].checked = true;
+                                $("#keyexp-date-input").show();
+                                $('#keyexp-buttonset').children().blur();
                                 $("#keyexp-dialog").dialog({ height: 390 })
                             }
                             $("#keyexp-buttonset").buttonset();
@@ -616,7 +619,9 @@ function isValidEmailAddress(emailAddress) {
 
                         },
                         close: function(event,ui) {
+                            console.log("destroyed...");
                             $("#keyexp-date-input").datepicker('destroy');
+                            $(this).dialog('destroy');
                         },
 			            buttons: {
 				            "Save": function() {
@@ -949,6 +954,23 @@ function isValidEmailAddress(emailAddress) {
                     $(enable_element).next()[0].innerHTML = $(enable_element).next()[0].innerHTML.replace('Disabled', 'Enabled');
                 }
             }).parent().buttonset();
+
+            $('.enable-check').next().hover(
+                function(e){
+                    $(this).parent().children('.keyoption-help-text')[0].innerHTML = "Enable this key for signing";
+                },
+                function(e){
+                    $(this).parent().children('.keyoption-help-text')[0].innerHTML = "";
+                }
+            );
+            $('input.default-check').next().hover(
+                function(e){
+                    $(this).parent().children('.keyoption-help-text')[0].innerHTML = "Make this the default key for encryption operations";
+                },
+                function(e){
+                    $(this).parent().children('.keyoption-help-text')[0].innerHTML = "";
+                }
+            );
     }
     /* end publickeylist */
 
