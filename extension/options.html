@@ -11,18 +11,16 @@
 var ext = chrome.extension.getBackgroundPage();
 $(function(){
 
-key_algorithm_types = {
-    "RSA": "R",
-    "DSA": "D",
-    "ELG-E": "g",
-}
+    key_algorithm_types = {
+        "RSA": "R",
+        "DSA": "D",
+        "ELG-E": "g",
+    }
 
-function isValidEmailAddress(emailAddress) {
-    var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-    return pattern.test(emailAddress);
-};
-    $('#enable-webpg-check')[0].checked = 
-        (window.ext.webpg_prefs.webpg_enabled.get() == 'true');
+    function isValidEmailAddress(emailAddress) {
+        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        return pattern.test(emailAddress);
+    };
 
     $('#enable-decorate-inline-check')[0].checked = 
         (window.ext.webpg_prefs.decorate_inline.get() == 'true');
@@ -974,16 +972,6 @@ function isValidEmailAddress(emailAddress) {
     }
     /* end publickeylist */
 
-    $('#enable-webpg-check').button({
-        'label': (window.ext.webpg_prefs.webpg_enabled.get() == 'true') ? 'Enabled' : 'Disabled'
-        }).click(function(e) {
-            (window.ext.webpg_prefs.webpg_enabled.get() == 'true') ? window.ext.webpg_prefs.webpg_enabled.set(false) : ext.webpg_prefs.webpg_enabled.set(true);
-            status = (window.ext.webpg_prefs.webpg_enabled.get() == 'true') ? 'Enabled' : 'Disabled'
-            $(this).button('option', 'label', status);
-            this.checked = (window.ext.webpg_prefs.webpg_enabled.get() == 'true');
-            $(this).button('refresh');
-        });
-
     $('#enable-decorate-inline-check').button({
         'label': (window.ext.webpg_prefs.decorate_inline.get() == 'true') ? 'Enabled' : 'Disabled'
         }).click(function(e) {
@@ -1374,7 +1362,6 @@ ul.expand ul
         <li><a id="tab-3-btn" href="#tabs-3">Public Keys</a></li>
     </ul>
     <div id="tabs-1">
-        <span id='enable-webpg'><span style="text-shadow:#CCC 1px 1px 1px;">Enable webpg: </span><input type='checkbox' id='enable-webpg-check'/><label for='enable-webpg-check'></label></span><br/><br/>
         <span id='enable-decorate-inline'><span style="text-shadow:#CCC 1px 1px 1px;">Enable Inline formatting of PGP Data, Signatures and Keys: </span><input type='checkbox' id='enable-decorate-inline-check'/><label for='enable-decorate-inline-check'></label></span><br/><br/>
         <span id='enable-auto-import-info'><span style="text-shadow:#CCC 1px 1px 1px;">Allow temporary importation of Public Keys to display key details: </span><input type='checkbox' id='enable-auto-import-info-check'/><label for='enable-auto-import-info-check'></label></span><br/><br/>
     </div>
