@@ -1,5 +1,5 @@
 /* Constants */
-VERSION = "0.2.31"
+VERSION = "0.2.32"
 
 /*
    Class: webpg
@@ -44,9 +44,16 @@ var webpg = {
             }
         });
 
-        // Begin parsing the document for PGP Data
-        webpg.PGPDataSearch();
-
+        // Check if inline formatting is enabled
+        chrome.extension.sendRequest({
+            msg: "decorate_inline" },
+            function(response) {
+                if (response.result.decorate_inline == "true") {
+                    // Begin parsing the document for PGP Data
+                    webpg.PGPDataSearch();
+                }
+            }
+        );
     },
 
     PGPTags: {

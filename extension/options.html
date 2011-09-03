@@ -24,6 +24,12 @@ function isValidEmailAddress(emailAddress) {
     $('#enable-webpg-check')[0].checked = 
         (window.ext.webpg_prefs.webpg_enabled.get() == 'true');
 
+    $('#enable-decorate-inline-check')[0].checked = 
+        (window.ext.webpg_prefs.decorate_inline.get() == 'true');
+
+    $('#enable-auto-import-info-check')[0].checked = 
+        (window.ext.webpg_prefs.auto_import_info.get() == 'true');
+
     $('#setup_link')[0].href = chrome.extension.getURL('druid.html');
 
     $('#tab-2-btn').click(function(){
@@ -307,7 +313,7 @@ function isValidEmailAddress(emailAddress) {
             created_date = new Date(keylist[key].subkeys[0].created * 1000).toJSON().substring(0, 10);
             expiry = (keylist[key].subkeys[0].expires == 0) ? 'Never' : new Date(keylist[key].subkeys[0].expires * 1000).toJSON();
             if (keylist[key].subkeys[0].expires > 0) {
-                expiry = (Math.round(new Date().getTime()/1000.0) > keylist[key].subkeys[0].expires) ? "Expired" : expiry.substring(0, 10);
+                expiry = (Math.round(new Date().getTime()/1000.0) > keylist[key].subkeys[0].expires) ? "Expired [" + expiry.substring(0, 10) + "]" : expiry.substring(0, 10);
             }
             options_list = [];
             if (type == "private") {
@@ -390,7 +396,7 @@ function isValidEmailAddress(emailAddress) {
             key_option_button = "<span class='uid-options' style='font-size:12px;'><input class='" + 
                     type + "-key-option-button' id='" + keystatus + "-" + type + "-" + key + 
                         "' type='button' value='" + keystatus_text + "'/\></span>";
-            uidlist.innerHTML = "<div class='keydetails'><span class='dh'>Key Details</span><hr/\>" +
+            uidlist_innerHTML = "<div class='keydetails'><span class='dh'>Key Details</span><hr/\>" +
                 "<span><h4>KeyID:</h4> 0x" + key.substr(-8) + "</span><span><h4>Key Created:</h4> " + 
                     created_date + "</span><span><h4>Expires:</h4> " + expiry +
                         "</span><span><h4>UIDs:</h4> " + keylist[key].nuids + "</span><br/\>" +
@@ -405,14 +411,17 @@ function isValidEmailAddress(emailAddress) {
                     key_option_button + 
                 "<span class='uid-options' style='font-size:12px;'><input class='" + 
                             type + "-key-option-button' id='delete-" + type + "-" + key + 
-                                "' type='button' value='Delete this Key'/\></span>" +
-                "<span class='uid-options' style='font-size:12px;'><input class='" + 
+                                "' type='button' value='Delete this Key'/\></span>";
+                if (type == "private") {
+                    uidlist_innerHTML += "<span class='uid-options' style='font-size:12px;'><input class='" + 
                             type + "-key-option-button' id='revoke-" + type + "-" + key + 
-                                "' type='button' value='Revoke this Key'/\></span>" +
-                "<span class='uid-options' style='font-size:12px;'><input class='" + 
+                                "' type='button' value='Revoke this Key'/\></span>";
+                }
+                uidlist_innerHTML += "<span class='uid-options' style='font-size:12px;'><input class='" + 
                             type + "-key-option-button' id='export-" + type + "-" + key + 
                                 "' type='button' value='Export this Key'/\></span><br/\>" +
                 "</div>";
+            uidlist.innerHTML = uidlist_innerHTML;
             subkey_info = "<span class='dh'>Subkeys</span><hr/\>";
             for (subkey in keylist[key].subkeys) {
                 skey = keylist[key].subkeys[subkey];
@@ -686,7 +695,7 @@ function isValidEmailAddress(emailAddress) {
 		        case "adduid":
                     $("#adduid-dialog").dialog({
 			            resizable: true,
-			            height: 200,
+			            height: 230,
 			            width: 550,
 			            modal: true,
                         "buttons": { 
@@ -739,6 +748,7 @@ function isValidEmailAddress(emailAddress) {
                             }
                         },
                     });
+                    break;
                 default:
                     console.log("we don't know what to do with ourselves...");
                     alert("You attempted to activate " + params[0] +
@@ -949,6 +959,26 @@ function isValidEmailAddress(emailAddress) {
             status = (window.ext.webpg_prefs.webpg_enabled.get() == 'true') ? 'Enabled' : 'Disabled'
             $(this).button('option', 'label', status);
             this.checked = (window.ext.webpg_prefs.webpg_enabled.get() == 'true');
+            $(this).button('refresh');
+        });
+
+    $('#enable-decorate-inline-check').button({
+        'label': (window.ext.webpg_prefs.decorate_inline.get() == 'true') ? 'Enabled' : 'Disabled'
+        }).click(function(e) {
+            (window.ext.webpg_prefs.decorate_inline.get() == 'true') ? window.ext.webpg_prefs.decorate_inline.set(false) : ext.webpg_prefs.decorate_inline.set(true);
+            status = (window.ext.webpg_prefs.decorate_inline.get() == 'true') ? 'Enabled' : 'Disabled'
+            $(this).button('option', 'label', status);
+            this.checked = (window.ext.webpg_prefs.decorate_inline.get() == 'true');
+            $(this).button('refresh');
+        });
+
+    $('#enable-auto-import-info-check').button({
+        'label': (window.ext.webpg_prefs.auto_import_info.get() == 'true') ? 'Enabled' : 'Disabled'
+        }).click(function(e) {
+            (window.ext.webpg_prefs.auto_import_info.get() == 'true') ? window.ext.webpg_prefs.auto_import_info.set(false) : ext.webpg_prefs.auto_import_info.set(true);
+            status = (window.ext.webpg_prefs.auto_import_info.get() == 'true') ? 'Enabled' : 'Disabled'
+            $(this).button('option', 'label', status);
+            this.checked = (window.ext.webpg_prefs.auto_import_info.get() == 'true');
             $(this).button('refresh');
         });
 
@@ -1323,6 +1353,8 @@ ul.expand ul
     </ul>
     <div id="tabs-1">
         <span id='enable-webpg'><span style="text-shadow:#CCC 1px 1px 1px;">Enable webpg: </span><input type='checkbox' id='enable-webpg-check'/><label for='enable-webpg-check'></label></span><br/><br/>
+        <span id='enable-decorate-inline'><span style="text-shadow:#CCC 1px 1px 1px;">Enable Inline formatting of PGP Data, Signatures and Keys: </span><input type='checkbox' id='enable-decorate-inline-check'/><label for='enable-decorate-inline-check'></label></span><br/><br/>
+        <span id='enable-auto-import-info'><span style="text-shadow:#CCC 1px 1px 1px;">Allow temporary importation of Public Keys to display key details: </span><input type='checkbox' id='enable-auto-import-info-check'/><label for='enable-auto-import-info-check'></label></span><br/><br/>
     </div>
     <div id="tabs-2">
         <div id="private_keylist">

@@ -15,6 +15,22 @@ var webpg_prefs = {
             window.localStorage.setItem('enabled', value);
         },
     },
+    decorate_inline: {
+        get: function() {
+            return window.localStorage.getItem('decorate_inline')
+        },
+        set: function(value) {
+            window.localStorage.setItem('decorate_inline', value);
+        },
+    },
+    auto_import_info: {
+        get: function() {
+            return window.localStorage.getItem('auto_import_info')
+        },
+        set: function(value) {
+            window.localStorage.setItem('auto_import_info', value);
+        },
+    },
     enabled_keys: {
         get: function() {
             keys_arr = [];
@@ -114,12 +130,15 @@ var webpgBackground = {
         if (request.msg == 'enabled') {
             response = {'enabled': webpg_prefs.webpg_enabled.get() };
         }
+        if (request.msg == 'decorate_inline') {
+            response = {'decorate_inline': webpg_prefs.decorate_inline.get() };
+        }
         if (request.msg == 'decrypt') {
             console.log("gpgDecrypt requested");
-            console.log(request.data);
+//            console.log(request.data);
             response = plugin.gpgDecrypt(request.data);
             response.original_text = request.data;
-            console.log(response);
+//            console.log(response);
         }
         if (request.msg == 'async-gpgGenKey') {
             console.log("async-gpgGenKey requested");
@@ -147,7 +166,29 @@ var webpgBackground = {
             chrome.pageAction.setPopup({tabId: sender.tab.id, popup: "dialogs/success.html"});
         }
         if (request.msg == 'doKeyImport') {
-            response = { 'import_status': plugin.gpgImportKey(request.data) };
+            if (webpg_prefs.auto_import_info.get() == "true") {
+                import_status = plugin.gpgImportKey(request.data);
+                if (!import_status.imports.hasOwnProperty(0)) {
+                    console.log("NO IMPORT; Something failed");
+                    import_status = { 'imports':
+                        { 0 : {
+                            'new_key': false,
+                            'fingerprint': 'unknown',
+                        }}
+                    }
+                }
+            } else {
+                import_status = { 'imports':
+                    { 0 : {
+                        'new_key': false,
+                        'fingerprint': 'unknown',
+                    }}
+                }
+            }
+            console.log(import_status);
+            response = {
+                'import_status': import_status
+            };
         }
         if (request.msg == 'sendtoiframe') {
 //            console.log("sending message to frame or content script", request, sender.tab.id);
@@ -163,6 +204,10 @@ var webpgBackground = {
         }
         if (request.msg == "getNamedKey") {
             response = plugin.getNamedKey(request.key_id);
+        }
+        if (request.msg == "log") {
+            response = null;
+            console.log("Remote log request recieved; ", request.data);
         }
         // Return the response and let the connection be cleaned up.
         sendResponse({'result': response});

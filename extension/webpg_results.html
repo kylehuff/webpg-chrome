@@ -108,91 +108,98 @@ $(function(){
                             fpsi.keys_imported = [];
                             var import_status = response.result.import_status;
                             for (imported in import_status.imports) {
-                                key_id = import_status.imports[imported].fingerprint;
-                                chrome.extension.sendRequest({
-                                    msg: "getNamedKey",
-                                    "key_id": key_id},
-                                    function(get_key_response) {
-                                        key = get_key_response.result;
-                                        fpsi.keys_found[fpsi.keys_found.length] = key;
-                                        if (import_status.imports[imported].new_key){
-                                            fpsi.keys_imported[fpsi.keys_imported.length] = key;
-                                            chrome.extension.sendRequest({
-                                                msg: 'deleteKey',
-                                                key_type: "public_key",
-                                                key_id: key_id }
-                                            );
-                                        }
-                                        for (key in fpsi.keys_found[0]) {
-                                            keyobj = fpsi.keys_found[0][key];
-                                            new_public_key = (fpsi.keys_imported.length && key in fpsi.keys_imported[0]);
-                                            $('#signature_text')[0].innerHTML = "<span class=\"uid_line\">" + keyobj.name + " &lt;<a href=\"mailto:" + keyobj.email + "\">" + keyobj.email + "</a>&gt;</span><br/\>";
-                                            key_algo = {}
-                                            key_algo.abbr = "?"
-                                            key_algo.name = keyobj.subkeys[0].algorithm_name;
-                                            if (key_algo.name in key_algorithm_types) {
-                                                key_algo.abbr = key_algorithm_types[key_algo.name];
-                                            }
-                                            $('#header')[0].innerHTML += " (" + keyobj.subkeys[0].size + key_algo.abbr + "/" + keyobj.fingerprint.substr(-8) + ")<br/\>";
-                                            created = new Date();
-                                            created.setTime(keyobj.subkeys[0].created*1000);
-                                            expires = new Date();
-                                            expires.setTime(keyobj.subkeys[0].expires*1000);
-                                            $('#signature_text')[0].innerHTML += "Created: " + created.toUTCString() + "<br/\>";
-                                            $('#signature_text')[0].innerHTML += "Expires: " + expires.toUTCString() + "<br/\>";
-                                            $('#footer').addClass("public_key");
-                                            if (new_public_key) {
-                                                $('#footer')[0].innerHTML = "THIS KEY IS NOT IN YOUR KEYRING<br/\><br/\>";
-                                            } else {
-                                                $('#footer')[0].innerHTML = "THIS KEY IS ALREADY IN YOUR KEYRING<br/\><br/\>";
-                                            }
-                                            $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ";
-                                            if (new_public_key) {
-                                                // This is a key we don't already have, make import available
-                                                $('#footer')[0].innerHTML += "<a class=\"import_key_link\" href=\"javascript:void(0);\">IMPORT THIS KEY</a>";
-                                            } else {
-                                                // This is a key we already have, make delete available
-                                                $('#footer')[0].innerHTML += "<a class=\"delete_key_link\" href=\"javascript:void(0);\" id=\"" + keyobj.fingerprint + "\">DELETE THIS KEY</a>";
-                                            }
-                                            $('#original_text').hide();
-                                            doResize(qs.id, document);
-                                            $('.original_text_link').click(function(){
-                                                if (this.innerHTML == "DISPLAY ORIGINAL"){
-                                                    $('#signature_text').hide();
-                                                    $('#original_text').show();
-                                                    doResize(qs.id, document);
-                                                    this.innerHTML = "HIDE ORIGINAL";
-                                                } else {
-                                                    this.innerHTML = "DISPLAY ORIGINAL";
-                                                    $('#signature_text').show();
-                                                    $('#original_text').hide();
-                                                    doResize(qs.id, document);
-                                                }
-                                            });
-                                            $('.import_key_link').click(function(){
-                                                chrome.extension.sendRequest({
-                                                    msg: 'doKeyImport',
-                                                    data: request.request.original_text },
-                                                    function(response) {
-                                                        console.log("imported; ", response);
-                                                        window.location.reload();
-                                                    }
-                                                );
-                                            })
-                                            $('.delete_key_link').click(function(){
+                                if (import_status.imports[imported].fingerprint != "unknown" &&
+                                    import_status.imports[imported].result == "Success") {
+                                    key_id = import_status.imports[imported].fingerprint;
+                                    chrome.extension.sendRequest({
+                                        msg: "getNamedKey",
+                                        "key_id": key_id},
+                                        function(get_key_response) {
+                                            key = get_key_response.result;
+                                            fpsi.keys_found[fpsi.keys_found.length] = key;
+                                            if (import_status.imports[imported].new_key){
+                                                fpsi.keys_imported[fpsi.keys_imported.length] = key;
                                                 chrome.extension.sendRequest({
                                                     msg: 'deleteKey',
                                                     key_type: "public_key",
-                                                    key_id: this.id },
-                                                    function(response) {
-                                                        console.log("deleted key response ", response);
-                                                        window.location.reload();
-                                                    }
+                                                    key_id: key_id }
                                                 );
-                                            })
+                                            }
+                                            for (key in fpsi.keys_found[0]) {
+                                                keyobj = fpsi.keys_found[0][key];
+                                                new_public_key = (fpsi.keys_imported.length && key in fpsi.keys_imported[0]);
+                                                $('#signature_text')[0].innerHTML = "<span class=\"uid_line\">" + keyobj.name + " &lt;<a href=\"mailto:" + keyobj.email + "\">" + keyobj.email + "</a>&gt;</span><br/\>";
+                                                key_algo = {}
+                                                key_algo.abbr = "?"
+                                                key_algo.name = keyobj.subkeys[0].algorithm_name;
+                                                if (key_algo.name in key_algorithm_types) {
+                                                    key_algo.abbr = key_algorithm_types[key_algo.name];
+                                                }
+                                                $('#header')[0].innerHTML += " (" + keyobj.subkeys[0].size + key_algo.abbr + "/" + keyobj.fingerprint.substr(-8) + ")<br/\>";
+                                                created = new Date();
+                                                created.setTime(keyobj.subkeys[0].created*1000);
+                                                expires = new Date();
+                                                expires.setTime(keyobj.subkeys[0].expires*1000);
+                                                $('#signature_text')[0].innerHTML += "Created: " + created.toUTCString() + "<br/\>";
+                                                $('#signature_text')[0].innerHTML += "Expires: " + expires.toUTCString() + "<br/\>";
+                                                $('#footer').addClass("public_key");
+                                                if (new_public_key) {
+                                                    $('#footer')[0].innerHTML = "THIS KEY IS NOT IN YOUR KEYRING<br/\><br/\>";
+                                                } else {
+                                                    $('#footer')[0].innerHTML = "THIS KEY IS ALREADY IN YOUR KEYRING<br/\><br/\>";
+                                                }
+                                                $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ";
+                                                if (new_public_key) {
+                                                    // This is a key we don't already have, make import available
+                                                    $('#footer')[0].innerHTML += "<a class=\"import_key_link\" href=\"javascript:void(0);\">IMPORT THIS KEY</a>";
+                                                } else {
+                                                    // This is a key we already have, make delete available
+                                                    $('#footer')[0].innerHTML += "<a class=\"delete_key_link\" href=\"javascript:void(0);\" id=\"" + keyobj.fingerprint + "\">DELETE THIS KEY</a>";
+                                                }
+
+                                                $('.delete_key_link').click(function(){
+                                                    chrome.extension.sendRequest({
+                                                        msg: 'deleteKey',
+                                                        key_type: "public_key",
+                                                        key_id: this.id },
+                                                        function(response) {
+                                                            console.log("deleted key response ", response);
+                                                            window.location.reload();
+                                                        }
+                                                    );
+                                                })
+                                            }
                                         }
+                                    )
+                                } else {
+                                    $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ";
+                                    $('#footer')[0].innerHTML += "<a class=\"import_key_link\" href=\"javascript:void(0);\">IMPORT THIS KEY</a>";
+                                }
+                                $('#original_text').hide();
+                                doResize(qs.id, document);
+                                $('.original_text_link').click(function(){
+                                    if (this.innerHTML == "DISPLAY ORIGINAL"){
+                                        $('#signature_text').hide();
+                                        $('#original_text').show();
+                                        doResize(qs.id, document);
+                                        this.innerHTML = "HIDE ORIGINAL";
+                                    } else {
+                                        this.innerHTML = "DISPLAY ORIGINAL";
+                                        $('#signature_text').show();
+                                        $('#original_text').hide();
+                                        doResize(qs.id, document);
                                     }
-                                )
+                                });
+                                $('.import_key_link').click(function(){
+                                    chrome.extension.sendRequest({
+                                        msg: 'doKeyImport',
+                                        data: request.request.original_text },
+                                        function(response) {
+                                            console.log("imported; ", response);
+                                            window.location.reload();
+                                        }
+                                    );
+                                })
                             }
                         }
                     );
@@ -203,6 +210,13 @@ $(function(){
             }
         }
     });
+
+    function remote_log(data) {
+        chrome.extension.sendRequest({
+            msg: "log",
+            data: data,
+        });
+    }
 
 });
 /* ]]> */
