@@ -9,6 +9,7 @@
 /* <![CDATA[ */
 
 var ext = chrome.extension.getBackgroundPage();
+
 $(function(){
 
     key_algorithm_types = {
@@ -16,6 +17,7 @@ $(function(){
         "DSA": "D",
         "ELG-E": "g",
     }
+
 
     function isValidEmailAddress(emailAddress) {
         var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
@@ -59,6 +61,7 @@ $(function(){
     // Begin public keylist generation
     function buildKeylist(keyList, type, openKey, openSubkey, openUID){
         console.log(keyList, type, openKey, openSubkey, openUID);
+        
         if (type == 'public') {
             keylist_element = document.getElementById('public_keylist');
         } else {
@@ -411,19 +414,32 @@ $(function(){
                 "<span class='uid-options' style='font-size:12px;'><input class='" + 
                             type + "-key-option-button' id='delete-" + type + "-" + key + 
                                 "' type='button' value='Delete this Key'/\></span>";
-                if (type == "private") {
-                    uidlist_innerHTML += "<span class='uid-options' style='font-size:12px;'><input class='" + 
-                            type + "-key-option-button' id='revoke-" + type + "-" + key + 
-                                "' type='button' value='Revoke this Key'/\></span>";
-                }
-                uidlist_innerHTML += "<span class='uid-options' style='font-size:12px;'><input class='" + 
-                            type + "-key-option-button' id='export-" + type + "-" + key + 
-                                "' type='button' value='Export this Key'/\></span><br/\>" +
+<!--            if (type == "private") {-->
+<!--                uidlist_innerHTML += "<span class='uid-options' style='font-size:12px;'><input class='" + -->
+<!--                    type + "-key-option-button' id='revoke-" + type + "-" + key + "-0" +-->
+<!--                    "' type='button' value='Revoke this Key'/\></span>";-->
+<!--            }-->
+            uidlist_innerHTML += "<span class='uid-options' style='font-size:12px;'><input class='" + 
+                type + "-key-option-button' id='export-" + type + "-" + key + 
+                    "' type='button' value='Export this Key'/\></span><br/\>" +
                 "</div>";
             uidlist.innerHTML = uidlist_innerHTML;
             subkey_info = "<span class='dh'>Subkeys</span><hr/\>";
             for (subkey in keylist[key].subkeys) {
                 skey = keylist[key].subkeys[subkey];
+                skey_status = "Valid";
+                if (skey.disabled) {
+                    skey_status = "Disabled";
+                }
+                if (skey.expired) {
+                    skey_status = "Expired";
+                }
+                if (skey.invalid) {
+                    skey_status = "Invalid";
+                }
+                if (skey.revoked) {
+                    skey_status = "Revoked";
+                }
                 expiry = (skey.expires == 0) ? 'Never' : new Date(skey.expires * 1000).toJSON();
                 if (skey.expires > 0) {
                     expiry = (Math.round(new Date().getTime()/1000.0) > skey.expires) ? "Expired" : expiry.substring(0, 10);
@@ -433,16 +449,19 @@ $(function(){
                 } else {
                     extraClass = "";
                 }
+                if (skey.revoked) {
+                    extraClass += " invalid-key";
+                }
                 subkey_info += "<div class=\"subkey" + extraClass + "\" id=\"" + 
                     key + '-s' + subkey + "\"><h4 class='subkeylist'><a href='#'>" +
                     "<span style='margin:0; width: 50%'>" + skey.size + 
                     key_algorithm_types[skey.algorithm_name] + "/" + skey.subkey.substr(-8) + 
                     "</span></a></h4><div class=\"subkey-info\">" +
                     "<div class='keydetails'><span class='dh'>Subkey Details</span><hr/\>" +
-                    "<span><h4>KeyID:</h4> 0x" + key.substr(-8) + "</span><span><h4>Key Created:</h4> " + 
+                    "<span><h4>KeyID:</h4> 0x" + skey.subkey.substr(-8) + "</span><span><h4>Key Created:</h4> " + 
                     created_date + "</span><span><h4>Expires:</h4> " + expiry + "</span>" +
                     "<br/\><h4>Fingerpint:</h4> " + skey.subkey + "<br/\>" +
-                    "<span><h4>Status:</h4> " + status + "</span><span><h4>Key Algorithm:</h4> " +
+                    "<span><h4>Status:</h4> " + skey_status + "</span><span><h4>Key Algorithm:</h4> " +
                     skey.algorithm_name + "</span>";
                 if (type == "private") {
                     subkey_info += "<br/\>" +
@@ -477,31 +496,92 @@ $(function(){
                 signed = 0;
                 nd_trust = false;
                 uidobjbody = document.createElement('div');
-                if (type == "private" && uid != 0) {
-                    primary_button = "<span class='uid-options'><input class='uid-option-button' id='primary-" +
-                        type + "-" + key + "-" + uid + "' type='button' value='Make primary'/\></span>";
-                } else {
-                    primary_button = "";
+                primary_button = "";
+                revoke_button = "";
+
+                if (type == "private") {
+                    if (uid != 0) {
+                        primary_button = "<span class=\"uid-options\"><input class='uid-option-button uid-option-button-primary' id='primary-" +
+                            type + "-" + key + "-" + uid + "' type='button' value='Make primary'/\></span>";
+                    }
+                    if (!keylist[key].uids[uid].revoked){
+                        revoke_button = "<span class=\"uid-options\"><input class='uid-option-button uid-option-button-revoke' id='revoke-" +
+                            type + "-" + key + "-" + uid + "' type='button' value='Revoke UID'/\></span>";
+                    }
                 }
+
                 uidobjbody.innerHTML = "<div class=\"uid-options\"><span class='uid-options'><input class='uid-option-button-sign' id='sign-" + type + "-" + key + "-" + uid + "' type='button' value='Sign this UID'/\></span>" +
-                    "<span class='uid-options'><input class='uid-option-button' id='delete-" + type + "-" + key + "-" + uid +
-                    "' type='button' value='Delete this UID'/\></span>" + primary_button + "</div>";
+                    "<span class='uid-options'>" + primary_button + revoke_button + "<input class='uid-option-button' id='delete-" + type + "-" + key + "-" + uid +
+                    "' type='button' value='Delete this UID'/\></span></div>";
                 uidobjbody.innerHTML += "<br/\>";
-                if (keylist[key].uids[uid].revoked)
+                if (keylist[key].uids[uid].revoked) {
                     $(uidobjbody).find('.uid-option-button-sign').addClass('uid-revoked');
+                    $(uidobjbody).find('.uid-option-button-primary').addClass('uid-revoked');
+                }
                 if (keylist[key].expired)
                     $(uidobjbody).find('.uid-option-button-sign').addClass('key-expired');
+                // Not all signatures are included in the step-iteration of a signature revocation, 
+                //  therefor we need to keep track of the index of revocable keys.
+                rev_index = -1;
+                // For each signature that is revoked, there  are 2 signatures,
+                //  the signature to be revoked and the revocation signature.
+                //  We need to keep a list of revocation signature ID's so we can
+                //  exclude the revoked signatures from being displayed.
+                revocation_sig_ids = {}
                 for (sig in keylist[key].uids[uid].signatures) {
                     sig_keyid = keylist[key].uids[uid].signatures[sig].keyid
+                    status = "";
+                    if (keylist[key].uids[uid].signatures[sig].revoked) {
+                        revocation_sig_ids[sig_keyid] = 'revoked';
+                        status = " [REVOKED]";
+                    } else if (sig_keyid in revocation_sig_ids) {
+                        continue;
+                    }
                     if (sig_keyid in keylist || nd_trust) {
                         if (sig_keyid in pkeylist) {
                             signed = 1;
+                            if (!keylist[key].uids[uid].signatures[sig].revoked) {
+                                rev_index += 1;
+                            }
                         }
-                        email = (keylist[sig_keyid].uids[0].email.length > 1) ? "&lt;" + keylist[sig_keyid].uids[0].email + "&gt;" : "(no email address provided)"
-                        uidobjbody.innerHTML += "<div id='sig-" + sig_keyid + "-" + sig + "' class='signature-box'>" +
-                            "<img src='images/badges/stock_signature.png'><span class='signature-uid'>" + 
-                            keylist[sig_keyid].name + "</span><br/\><span class='signature-email'>" + 
-                            email + "</span><br/\><span class='signature-keyid'>" + sig_keyid + "</span><br/\><input type='button' class='delsig-button' id='delsig-" + type + "-" + key + "-" + uid + "-" + sig + "' value='Delete'/\></div>";
+                        email = (keylist[sig_keyid].uids[0].email.length > 1) ? "&lt;" +
+                            keylist[sig_keyid].uids[0].email + 
+                            "&gt;" : "(no email address provided)"
+                        if (keylist[key].uids[uid].signatures[sig].revoked) {
+                            sig_class = " sig-revoked";
+                            sig_image = "stock_signature-bad.png";
+                        } else {
+                            sig_class = "";
+                            sig_image = "stock_signature.png";
+                        }
+                        sig_box = "<div id='sig-" + sig_keyid + "-" + sig + "' class='signature-box " + sig_class + "'>" +
+                            "<img src='images/badges/" + sig_image + "'><span class='signature-uid'>" + 
+                            keylist[sig_keyid].name + status + "</span><br/\><span class='signature-email'>" + 
+                            email + "</span><br/\><span class='signature-keyid'>" + sig_keyid + "</span><br/\>";
+                        date_created = new Date(keylist[key].uids[uid].signatures[sig].created * 1000).toJSON();
+                        date_expires = (keylist[key].uids[uid].signatures[sig].expires == 0) ? 
+                            'Never' : new Date(keylist[key].uids[uid].signatures[sig].expires * 1000).toJSON().substring(0, 10);
+                        sig_box += "<span class='signature-keyid'>Created: " + date_created.substring(0, 10) + "</span><br/\>";
+                        sig_box += "<span class='signature-keyid'>Expires: " + date_expires + "</span><br/\>"
+
+                        sig_box += "<span class='signature-keyid'>";
+                        if (sig_keyid == key) {
+                            sig_box += "[self-signature]";
+                        } else if (!keylist[key].uids[uid].signatures[sig].exportable) {
+                            sig_box += "[local, non-exportable]";
+                        } else {
+                            sig_box += "[other signature]";
+                        }
+                        sig_box += "</span><br/\>";
+
+                        if (signed && keylist[key].uids[uid].signatures[sig].exportable && key != sig_keyid
+                            && !keylist[key].uids[uid].signatures[sig].revoked) {
+                            sig_box += "<input type='button' class='revsig-button' id='revsig-" + type + "-" + 
+                                key + "-" + uid + "-" + rev_index + "' value='Revoke'/\>";
+                        }
+                        sig_box += "<input type='button' class='delsig-button' id='delsig-" + type + "-" + key +
+                            "-" + uid + "-" + sig + "' value='Delete'/\></div>";
+                        uidobjbody.innerHTML += sig_box;
                     }
                 }
                 uidobj.appendChild(uidobjbody);
@@ -574,10 +654,12 @@ $(function(){
                     window.ext.plugin.gpgDisableKey(params[2]);
                     refresh = true;
                     break;
+
                 case "enable":
                     window.ext.plugin.gpgEnableKey(params[2]);
                     refresh = true;
                     break;
+
                 case "expire":
                     $( "#keyexp-dialog" ).dialog({
 			            resizable: true,
@@ -661,6 +743,7 @@ $(function(){
 		            });
                     console.log("we should set the expiration here...", params);
                     break;
+
                 case "delete":
                     console.log(params);
                     $( "#delete-key-dialog-confirm" ).dialog({
@@ -677,15 +760,20 @@ $(function(){
                                     result = window.ext.plugin.gpgDeletePrivateKey(params[2]);
                                 }
                                 if (params[1] == "subkey") {
-                                    alert("You attempted to activate " + params[0] +
-                                        ", but this is not yet implemented...");
-                                    result = null
+                                    result = window.ext.plugin.gpgDeletePrivateSubKey(params[2],
+                                        parseInt(params[3]));
                                 }
 					            $( this ).dialog( "close" );
-                                // Remove the Key-ID from the params array, since it
-                                //  no longer exists
+
                                 if (result && !result.error) {
-                                    params[2] = null;
+                                    if (params[1] == "subkey") {
+                                        // Override the keylist type param
+                                        params[1] = "private";
+                                    } else {
+                                        // Remove the Key-ID from the params array, since it
+                                        //  no longer exists
+                                        params[2] = null;
+                                    }
                                     buildKeylist(null, params[1], params[2], null, null);
                                 }
 				            },
@@ -695,6 +783,7 @@ $(function(){
 			            }
 		            });
 		            break;
+
 		        case "adduid":
                     $("#adduid-dialog").dialog({
 			            resizable: true,
@@ -752,6 +841,70 @@ $(function(){
                         },
                     });
                     break;
+
+                case "export":
+                    export_result = window.ext.plugin.gpgExportPublicKey(params[2]).result;
+                    $("#export-dialog-text")[0].innerHTML = export_result;
+                    $("#export-dialog-copytext")[0].innerHTML = export_result;
+                    $("#export-dialog").dialog({
+			            resizable: true,
+			            height: 230,
+			            width: 426,
+			            modal: true,
+                        "buttons": {
+                            "Copy": function() {
+                                $("#export-dialog-copytext")[0].select();
+                                if (document.execCommand("Copy")) {
+                                    $("#export-dialog-msg")[0].innerHTML = "Copied!";
+                                } else {
+                                    $("#export-dialog-msg")[0].innerHTML = "There may have been a problem placing the data into the clipboard";
+                                }
+                                $("#export-dialog-msg")[0].style.display="block"
+                            },
+                            "Close": function() {
+                                $("#export-dialog").dialog("destroy");
+                                $("#export-dialog-msg")[0].style.display="none"
+                            }
+                        }
+                    })
+                    break;
+
+                case "revoke":
+                    options = "Please specify the revocation details -<br/\><br/\>" +
+                        "<label for='revkey-reason'>Reason:</label>" +
+                        "<select name='revkey-reason' id='revkey-reason' class='ui-add-hover ui-corner-all ui-widget ui-state-default'>" +
+                        "<option value='0' class='ui-state-default'>No reason specified</option>" +
+                        "<option value='1' class='ui-state-default'>Key has been compromised</option>" +
+                        "<option value='2' class='ui-state-default'>Key is superseded</option>" +
+                        "<option value='2' class='ui-state-default'>Key is no longer used</option>" +
+                        "</select><br/\>" +
+                        "<label for='revkey-desc'>Description:</label>" +
+                        "<input type='text' name='revkey-desc' id='revkey-desc' class='ui-corner-all ui-widget ui-state-default'/\>";
+                    $("#revkey-confirm").find('#revkey-text')[0].innerHTML = options
+                    $("#revkey-confirm").dialog({
+                        resizable: false,
+                        height:250,
+                        width: 350,
+                        modal: true,
+                        autoOpen: false,
+                        "buttons": {
+                            "Revoke": function() {
+                                reason = $('#revkey-reason')[0].value;
+                                desc = $('#revkey-desc')[0].value;
+                                console.log(params[2], params[3], reason, desc);
+                                revkey_result = window.ext.plugin.gpgRevokeKey(params[2],
+                                    parseInt(params[3]), parseInt(reason), desc);
+                                buildKeylist(null, "private", params[2], params[3], null);
+                                $("#revkey-confirm").dialog("close");
+                            },
+                            "Cancel": function() {
+                                $("#revkey-confirm").dialog("close");
+                            }
+                        }
+                    });
+                    $("#revkey-confirm").dialog('open');
+                    break;
+
                 default:
                     console.log("we don't know what to do with ourselves...");
                     alert("You attempted to activate " + params[0] +
@@ -760,6 +913,8 @@ $(function(){
             }
             console.log(".*-key-option-button pressed..", params);
             if (refresh) {
+                if (params[1] == "subkey")
+                    params[1] = "private";
                 buildKeylist(null, params[1], params[2], null, null);
             }
         });
@@ -792,11 +947,48 @@ $(function(){
 			            }
 		            });
                     break;
+
                 case "primary":
                     refresh = true;
                     uid_idx = parseInt(params[3]) + 1;
                     result = window.ext.plugin.gpgSetPrimaryUID(params[2], uid_idx);
                     params[3] = 0;
+                    break;
+
+                case "revoke":
+                    options = "Please specify the revocation details -<br/\><br/\>" +
+                        "<label for='revuid-reason'>Reason:</label>" +
+                        "<select name='revuid-reason' id='revuid-reason' class='ui-add-hover ui-corner-all ui-widget ui-state-default'>" +
+                        "<option value='0' class='ui-state-default'>No reason specified</option>" +
+                        "<option value='4' class='ui-state-default'>User ID is no longer valid</option>" +
+                        "</select><br/\>" +
+                        "<label for='revuid-desc'>Description:</label>" +
+                        "<input type='text' name='revuid-desc' id='revuid-desc' class='ui-corner-all ui-widget ui-state-default'/\>";
+                    $("#revuid-confirm").find('#revuid-text')[0].innerHTML = options
+                    $("#revuid-confirm").dialog({
+                        resizable: false,
+                        height:250,
+                        width: 350,
+                        modal: true,
+                        autoOpen: false,
+                        "buttons": {
+                            "Revoke": function() {
+                                reason = $('#revuid-reason')[0].value;
+                                desc = $('#revuid-desc')[0].value;
+                                console.log(params[2], params[3], params[4], reason, desc);
+                                revuid_result = window.ext.plugin.gpgRevokeUID(params[2],
+                                    parseInt(params[3]) + 1, parseInt(reason), desc);
+                                buildKeylist(null, params[1], params[2], null, params[3]);
+                                $("#revuid-confirm").dialog("close");
+                            },
+                            "Cancel": function() {
+                                $("#revuid-confirm").dialog("close");
+                            }
+                        }
+                    });
+                    $("#revuid-confirm").dialog('open');
+                    break;
+
                 default:
                     console.log("we don't know what to do with ourselves...");
                     alert("You attempted to activate " + params[0] +
@@ -894,8 +1086,57 @@ $(function(){
         if (!window.ext.plugin.gpg_status.gpgconf_detected) {
             $('.uid-option-button-sign').button({disabled: true, label: "Cannot create signatures without gpgconf utility installed"});
         }
-        $('.uid-revoked').button({disabled: true, label: "Cannot sign a revoked UID"});
-        $('.key-expired').button({disabled: true, label: "Cannot sign an expired key"});
+        $('.uid-option-button-sign.uid-revoked').button({disabled: true, label: "Cannot sign a revoked UID"});
+        $('.uid-option-button-primary.uid-revoked').button({disabled: true, label: "Cannot make a revoked UID primary"});
+        $('.uid-option-button-sign.key-expired').button({disabled: true, label: "Cannot sign an expired key"});
+        $('.revsig-button').button().click(function(e){
+            params = this.id.split('-');
+            calling_button = this;
+            sig_details = $(calling_button).parent()[0].id.split('-');
+            options = "Please specify the revocation details -<br/\><br/\>" +
+                "<label for='revsig-reason'>Reason:</label>" +
+                "<select name='revsig-reason' id='revsig-reason' class='ui-add-hover ui-corner-all ui-widget ui-state-default'>" +
+                "<option value='0' class='ui-state-default'>No reason specified</option>" +
+                "<option value='4' class='ui-state-default'>User ID is no longer valid</option>" +
+                "</select><br/\>" +
+                "<label for='revsig-desc'>Description:</label>" +
+                "<input type='text' name='revsig-desc' id='revsig-desc' class='ui-corner-all ui-widget ui-state-default'/\>";
+            $("#revsig-confirm").find('#revsig-text')[0].innerHTML = options
+            $("#revsig-confirm").dialog("option",
+                "buttons", {
+                    "Revoke": function() {
+                        reason = $('#revsig-reason')[0].value;
+                        desc = $('#revsig-desc')[0].value;
+                        console.log(params[2], params[3], params[4], reason, desc);
+                        revsig_result = window.ext.plugin.gpgRevokeSignature(params[2],
+                            parseInt(params[3]), parseInt(params[4]), parseInt(reason), desc);
+                        //console.log('delete', delsig_result, params[2], parseInt(params[3]) + 1, parseInt(params[4]) + 1)
+                        buildKeylist(null, params[1], params[2], null, params[3]);
+                        $("#revsig-confirm").dialog("close");
+                    },
+                    "Cancel": function() {
+                        $("#revsig-confirm").dialog("close");
+                    }
+                }
+            );
+            $("#revsig-confirm").dialog('open');
+        });
+        $("#revsig-confirm").dialog({
+            resizable: false,
+            height:250,
+            width: 350,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                'Revoke this Signature?': function() {
+                    $(this).dialog('close');
+                },
+                Cancel: function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
         $('.delsig-button').button().click(function(e){
             params = this.id.split('-');
             calling_button = this;
@@ -1082,19 +1323,15 @@ body{
 #tabs {
     margin: auto;
 }
-
 #header-image {
     height: 48px;
     display: none;
     width: 48px;
     padding-right: 6px;
 }
-
 #tabs-1 {
     font-size: 14px;
 }
-
-
 #trust-header {
     font-size: 16px;
     text-align: left;
@@ -1105,31 +1342,25 @@ body{
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
 }
-
 #trust-list .selected {
   color:black !important;
   font-weight:bold;
 }
-
 #trust-list {
 
 }
-
 #trust-list .level {
     padding:5px;
     color:gray;
 }
-
 #trust-list .level:hover {
     font-weight:bold;
 }
-
 #trust-level-desc {
     color: #000;
     text-align: left;
     display: none;
 }
-
 .trust-level-desc {
     min-height: 30px;
     border:1px solid #ddd;
@@ -1142,30 +1373,24 @@ body{
     background: #0078a3  url('images/menumask.png') repeat-x;
     width: 600px;
 }
-
 .trust-level-desc:hover {
     background-color: #1C1;
 }
-
 #trust-level-desc .selected {
     background-color: #F58400;
 }
-
 #trust-level-desc .selected .trust-level {
     color:#000;
     text-shadow:#FFE 1px 1px 1px;
 }
-
 .trust-level {
     font-size:32px;
     padding-right: 6px;
     float:left;
 }
-
 .trust-desc {
     clear:right;
 }
-
 .invalid-key .ui-accordion-header, .disabled .ui-accordion-header {
     text-decoration: line-through;
     color: #E31;
@@ -1203,13 +1428,7 @@ div.uid-options {
     color: #ffffff;
     overflow-x: hidden;
 }
-
-<!--.key-option-button {-->
-<!--    font-size: 12px;-->
-<!--    font-weight: normal;-->
-<!--}-->
-
-.invalid-key .keydetails, .disabled .keydetails {
+.invalid-key .keydetails, .disabled .keydetails, .sig-revoked {
     background-color: #F31;
     border: solid 1px #F11;
 }
@@ -1298,7 +1517,7 @@ span.trust .ui-button-text {
     width: 250px;
 }
 
-#genkey-status, #adduid-status {
+#genkey-status, #adduid-status, #export-dialog-msg {
     padding: 2px 0 2px 12px;
     display:none;
     width: 98.2%;
@@ -1379,6 +1598,15 @@ ul.expand ul
     <div id="window_functions" style="width:100%; text-align:right; clear:left;">
         <br/><br/><input type='button' id='close' value='Finished'>
     </div>
+</div>
+<div id="revkey-confirm" style="display: none;" title="Revoke this Key?">
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revkey-text'>Are you sure you wish to revoke this Key?</span></p>
+</div>
+<div id="revuid-confirm" style="display: none;" title="Revoke this UID?">
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revuid-text'>Are you sure you wish to revoke this UID?</span></p>
+</div>
+<div id="revsig-confirm" style="display: none;" title="Revoke this Signature?">
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revsig-text'>Are you sure you wish to revoke this signature?</span></p>
 </div>
 <div id="delsig-confirm" style="display: none;" title="Delete this Signature?">
     <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='delsig-text'>Are you sure you wish to delete this signature?</span></p>
@@ -1467,10 +1695,16 @@ ul.expand ul
         </form>
     </p>
 </div>
+<div id="export-dialog" style="display:none;" title="Export Public Key" style="font-size: 14px;">
+    <p>
+        <span style="margin-top: -18px; margin-left: -8px; width: 100%;" id="export-dialog-msg"></span>
+        <textarea id="export-dialog-copytext" style="margin-top: -35px; margin-left: -500px;"></textarea>
+        <pre id="export-dialog-text"></pre>
+    </p>
+</div>
 <div id="adduid-dialog" style="display:none;" title="Add UID" style="font-size: 14px;">
     <p>
-        <span id='adduid-text'>
-        </span>
+        <span id='adduid-text'></span>
         <form id="adduid-form" style="width: 100%;">
             <label for='uid_0_name' style='display:inline-block;width:128px;'>Your Name:</label>
             <input type='text' id='uid_0_name' name='uid_0_name' onclick="$(this).removeClass('input-error');"/><span class='help-text'>i.e.: John Smith</span><br/>
