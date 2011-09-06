@@ -23,7 +23,7 @@ ggPK/j/L0mAu8LguDalYpaHYCYKrewMTWcp0rGwwpUjjea/Uybl1L3GCP1239Q8U
 cwYMNDox35bMQr0W9IRuSlM=
 =l2va
 -----END PGP MESSAGE-----
-</pre>
+    </pre>
     <h3>A clear-signed message</h3>
     <pre id="clearsigned_message">
 -----BEGIN PGP SIGNED MESSAGE-----
@@ -82,5 +82,73 @@ hdXAYDFH6ZbP6G5bTUdn6kdkPw==
 =O6t+
 -----END PGP PUBLIC KEY BLOCK-----
     </div>
+    <h3>An Encrypted Message</h3>
+    <div id="encrypted-message">
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+hQEMA8WZcR9egruTAQgAsdIKcvPPIaIzRQaq3LOIyWYPtcAQo1fKvce31KoLwKJr
+4grueW34e+NXNICyVIK2w1uqZuBo2FrTbzT723DIMdQ4anrc4k1e4D+DPAut2nso
+O32EjhWR+QuDD710vU9QzGMdYYVDYzeEd8RODPCSujr/noLoGyHJiqkt1fQIo03S
+NRugewH/0cW2IkCcQmaGiOfV05z/hLliMZZg9hE0lslT5SUzw6mg/SZkDBukXOUn
+W0vH5UMU2ocsRsyKInISXg8ZDr6bDoBxcHLAoACKK4qiwo22bsUC/fEUgrUHHJ2x
+9oKZAUcUNBBI5huXWrN24wUgEm1Tkp3zjRDq8c8cv9JeAUoLelAfr+VqIzpWdQCV
+rrWotAVkjXZ1lknPZ5bi23IYopeJuzGHmu7JRsa6pNB28jGGmj1qUTApWHNTQKNu
+c2qVfrtKlQ1L9IQ2YEdNT7zEsPVLrgjoauaj/zUXVg==
+=GPvh
+-----END PGP MESSAGE-----
+    </div>
+    <h3>A clear-signed message with an invalid signature</h3>
+    <pre id="clearsigned_message">
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+This is a sample of text that has been clear-signed...
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJ0LuJlAAoJEMWZcR9egruTAo0H/iWSfkgU/6AqIfzHtAmBLKxO
+01D1uu2OYVhbypw7fD0xdYs8bokvrDceOC3ep8T9LKRRm6uBORo3Z8NtxX0HY4LT
+ZahSbdl1RwKKF88XzBmNmBun/Ya3CFpD9oEBb7W8+jisXfrdqVsuYWjtkc6OMiu5
+z49vllZj7VCEozC11fqDdNZSPgZfYfvQprD3ajrt/vJBPst5/yWpz7Gve45UHv3+
+vpbXXJJxaNoXvq/nMt9ZoOM2AD5cVDMo44FXKSg8IPUuI5fcZESiRI2sI8QioBJZ
+PxStTenjz1Xdfflf9Gez4S5nWCBJvLBxTvZhvNI+VL2OygA5NrdfIaRTclPKvX4=
+=tImB
+-----END PGP SIGNATURE-----
+    </pre>
+    <h3>A clear-signed message with tampered data</h3>
+    <pre id="clearsigned_message">
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+This is a sample of text that has been clear-signed, and then tampered with...
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJOLuJlAAoJEMWZcR9egruTAo0H/iWSfkgU/6AqIfzHtAmBLKxO
+01D1uu2OYVhbypw7fD0xdYs8bokvrDceOC3ep8T9LKRRm6uBORo3Z8NtxX0HY4LT
+ZahSbdl1RwKKF88XzBmNmBun/Ya3CFpD9oEBb7W8+jisXfrdqVsuYWjtkc6OMiu5
+z49vllZj7VCEozC11fqDdNZSPgZfYfvQprD3ajrt/vJBPst5/yWpz7Gve45UHv3+
+vpbXXJJxaNoXvq/nMt9ZoOM2AD5cVDMo44FXKSg8IPUuI5fcZESiRI2sI8QioBJZ
+PxStTenjz1Xdfflf9Gez4S5nWCBJvLBxTvZhvNI+VL2OygA5NrdfIaRTclPKvX4=
+=tImB
+-----END PGP SIGNATURE-----
+    </pre>
+    <h3>A signed message that has been tampered with:</h3>
+    <pre id="signed_message">
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+OwEBWgGl/pANAwACAcWZcR9egruTAcsqYgBOLuKeVGhpcyBpcyBhIHNhbXBsZWQg
+c2lnbmVkIG1lc3NhZ2UuLi4KiQEcBAABAgAGBQJOLuKeAAoJEMWZcR9egruTOg4H
+/2BZZvv8HQDhSE1R8FYuDGmHBOJDmONmn3Q9sz93vTYL0WLkaAnvu0mg4zi2aE2y
+iV5Jie5rMPuCmQcL65LxwKD6H6r5XuSuAzyuQaDAlTclj9k+WJe+DavbJ8Oqf80T
+P2qAknRZb3FmwluRDt0ituN74h16mVTiLGYWrw6zomz+KyauM4JdK4RPeypfQZZI
+jWMhpLSDzkUBJx8d2iGcxcA+Ahd4REsRimOkVwmp92erROeSdakx+ka0fTw1ue0E
+ggPK/j/L0mAu8LguDalYpaHYCYKrewMTWcp0rGwwpUjjea/Uybl1L3GCP1239Q8U
+cwYMNDox35bMQr0W9IRuSlM=
+=l2va
+-----END PGP MESSAGE-----
+    </pre>
 </body>
 </html>
