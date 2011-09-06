@@ -135,10 +135,25 @@ var webpgBackground = {
         }
         if (request.msg == 'decrypt') {
             console.log("gpgDecrypt requested");
-//            console.log(request.data);
             response = plugin.gpgDecrypt(request.data);
+            for (sig in response.signatures) {
+                sig_fp = response.signatures[sig].fingerprint;
+                key_request = plugin.getNamedKey(sig_fp);
+                response.signatures[sig].public_key = key_request;
+            }
+            console.log(response);
             response.original_text = request.data;
-//            console.log(response);
+        }
+        if (request.msg == 'verify') {
+            console.log("gpgVerify requested", request);
+            response = plugin.gpgVerify(request.data);
+            for (sig in response.signatures) {
+                sig_fp = response.signatures[sig].fingerprint;
+                key_request = plugin.getNamedKey(sig_fp);
+                response.signatures[sig].public_key = key_request;
+            }
+            console.log(response);
+            response.original_text = request.data;
         }
         if (request.msg == 'async-gpgGenKey') {
             console.log("async-gpgGenKey requested");

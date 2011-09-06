@@ -61,7 +61,7 @@ $(function(){
     // Begin public keylist generation
     function buildKeylist(keyList, type, openKey, openSubkey, openUID){
         console.log(keyList, type, openKey, openSubkey, openUID);
-        
+
         if (type == 'public') {
             keylist_element = document.getElementById('public_keylist');
         } else {
@@ -1242,12 +1242,20 @@ $(function(){
     }
 
     selected_tab = query_string.tab ? query_string.tab : 0;
-    $('#tabs').tabs({ selected: selected_tab });
     openKey = (query_string.openkey)? query_string.openkey : null;
+    if (selected_tab < 1 && openKey) {
+        if (openKey in ext.secret_keys){
+            selected_tab = 1;
+        } else {
+            selected_tab = 2;
+        }
+    }
+    openSubkey = (query_string.opensubkey)? query_string.opensubkey : null;
+    $('#tabs').tabs({ selected: selected_tab });
     if (selected_tab == 1)
-        buildKeylist(null, 'private', openKey);
+        buildKeylist(null, 'private', openKey, openSubkey);
     if (selected_tab == 2)
-        buildKeylist(null, 'public', openKey);
+        buildKeylist(null, 'public', openKey, openSubkey);
     if (query_string.strip) {
         $("#header").remove();
         $(document.getElementsByTagName("ul")[0]).remove();
