@@ -1,6 +1,6 @@
 {
   "name": "WebPG - GnuPG browser interface",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "An extension which provides GnuPG related functions to the browser",
   "background_page": "background.html",
   "icons": {
@@ -28,8 +28,8 @@
     "default_popup": "browser_action_menu.html"
   },
   "plugins": [
-      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.3.5.plugin", "public": false },
-      { "path": "plugins/Linux_x86-gcc3/npwebpgPlugin-v0.3.5.so", "public": false },
-      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.3.5.dll", "public": false }
+      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.3.6.plugin", "public": false },
+      { "path": "plugins/Linux_x86-gcc3/npwebpgPlugin-v0.3.6.so", "public": false },
+      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.3.6.dll", "public": false }
   ]
 }

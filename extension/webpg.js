@@ -21,11 +21,12 @@ var webpg = {
             // Check if the iframe has a parent, if so, resize the iframe to fit within
             //  the parent element; otherwise, fit it to the document
             $('.webpg-result-frame').each(function(){
-                if ($(this).parent()) {
-                    this.style.width = $(this).parent()[0].offsetWidth + "px";
-                } else if (this.offsetWidth > document.body.offsetWidth) {
-                    this.style.width = document.body.offsetWidth + "px";
-                }
+                this.style.width = document.body.offsetWidth - 200 + "px";
+//                if ($(this).parent()) {
+//                    this.style.width = $(this).parent()[0].offsetWidth - 200 + "px";
+//                } else if (this.offsetWidth > document.body.offsetWidth) {
+//                    this.style.width = document.body.offsetWidth - 200 + "px";
+//                }
             });
         }
 
@@ -163,6 +164,7 @@ var webpg = {
             pretext_str = textContent.substr(0, startIndex);
             endIndex = pretext_str.length + PGP_DATA[block].length;
             posttext_str = textContent.substr(endIndex, textContent.length);
+
             switch(block_type) {
                 case webpg.PGPTags.PGP_KEY_BEGIN:
                     console.log("we found a public key");
@@ -177,9 +179,11 @@ var webpg = {
                         );
                     };
                     break;
+
                 case webpg.PGPTags.PGP_PKEY_BEGIN:
                     console.log("we found a private key, which is scary when you think about it... exiting");
                     break;
+
                 case webpg.PGPTags.PGP_SIGNED_MSG_BEGIN:
                     // check for the required PGP BLOCKS
                     if (PGP_DATA[block].indexOf(webpg.PGPTags.PGP_DATA_BEGIN) != -1 &&
@@ -193,10 +197,10 @@ var webpg = {
                     var results_frame = webpg.addResultsFrame(element, pretext_str, posttext_str);
                     cipher = PGP_DATA[block];
                     chrome.extension.sendRequest({
-                        msg: 'decrypt',
+                        msg: 'verify',
                         data: cipher},
                         function(response) {
-                            if (!response.result.error) {
+                            if (response.result.gpg_error_code == "58" || !response.result.error) {
                                 chrome.extension.sendRequest({
                                     msg: "sendtoiframe",
                                     block_type: "signed_message",
@@ -212,29 +216,37 @@ var webpg = {
                         }
                     );
                     break;
+
                 case webpg.PGPTags.PGP_SIGNATURE_BEGIN:
                     // This should never be reached, because our REGEX would
                     //  normally catch both the text, and the detached sig'
                     console.log("we found a detached signature, but we don't have the file - exiting");
                     break;
+
                 case webpg.PGPTags.PGP_ENCRYPTED_BEGIN:
                     console.log("we found an encrypted or signed message");
                     var results_frame = webpg.addResultsFrame(element, pretext_str, posttext_str);
                     cipher = PGP_DATA[block];
                     chrome.extension.sendRequest({
-                        msg: 'decrypt',
+                        // We found a PGP MESSAGE, but it could be a signature. Lets gpgVerify first
+                        msg: 'verify',
                         data: cipher,
                         target_id: results_frame.id },
                         function(response) {
+                            if (response.result.signatures && response.result.data)
+                                type = "signed_message";
+                            else
+                                type = "encrypted_message";
                             chrome.extension.sendRequest({
-                                msg: 'sendtoiframe',
-                                block_type: "signed_message",
+                                msg: "sendtoiframe",
+                                block_type: type,
                                 target_id: results_frame.id,
                                 verify_result: response.result}
-                            );
+                             );
                         }
                     );
                     break;
+
             }
         }
     },
@@ -259,12 +271,13 @@ var webpg = {
         iframe.style.borderRadius = "6px";
         iframe.style.boxShadow = "2px 2px 2px #000";
         iframe.style.width = "100%";
+        iframe.style.marginLeft = "85px";
         iframe.style.top = "0";
         iframe.style.backgroundColor = "#efefef";
         original_text = document.createElement("div");
         original_text.className = "original";
         original_text.style.display = "none";
-        original_text.innerHTML = element.innerHTML;
+        original_text.innerText = element.innerText;
         pretext = document.createElement("div");
         pretext.innerHTML = pretext_str
         pretext.className = "pretext";
