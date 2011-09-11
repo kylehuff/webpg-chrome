@@ -6,6 +6,20 @@
         $(document).ready(function(){
         });
     </script>
+    <style>
+        body {
+            border:1px solid #ddd;
+            font-family:sans-serif;
+            padding:10px;
+            text-shadow:#000 1px 1px 1px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            -moz-box-shadow:#666 2px 2px 2px;
+            -webkit-box-shadow:#666 2px 2px 2px;
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <h3>A signed message:</h3>
@@ -43,7 +57,7 @@ PxStTenjz1Xdfflf9Gez4S5nWCBJvLBxTvZhvNI+VL2OygA5NrdfIaRTclPKvX4=
 -----END PGP SIGNATURE-----
     </pre>
     <h3>Public Key:</h3>
-    <div id="public-keylist">
+    <pre id="public-keylist">
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
@@ -81,9 +95,10 @@ VWkIpxfPrmD8UX+eZs/MjgkedACD2J+0YsoFEB2m0KHn2iuFcTPaKBBuNsZSKlFZ
 hdXAYDFH6ZbP6G5bTUdn6kdkPw==
 =O6t+
 -----END PGP PUBLIC KEY BLOCK-----
-    </div>
+    </pre>
+
     <h3>An Encrypted Message</h3>
-    <div id="encrypted-message">
+    <pre id="encrypted-message">
 -----BEGIN PGP MESSAGE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
@@ -97,7 +112,87 @@ rrWotAVkjXZ1lknPZ5bi23IYopeJuzGHmu7JRsa6pNB28jGGmj1qUTApWHNTQKNu
 c2qVfrtKlQ1L9IQ2YEdNT7zEsPVLrgjoauaj/zUXVg==
 =GPvh
 -----END PGP MESSAGE-----
-    </div>
+    </pre>
+    <h3>Another Public Key:</h3>
+    <pre>
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+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
+=G4II
+-----END PGP PUBLIC KEY BLOCK-----
+    </pre>
+    <h3>A Signed and Encrypted Message</h3>
+    <pre>
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+hQEMA8WZcR9egruTAQf6A6BvyS+UqOfGmb8nSZuB/3s0gLJmHkVy9fa6AG/Rl/dR
+fInqjlMJt68IzuB8KR8SNK5ujvYYenklTN5yGGmr/22uAPC99hyX8Ro5hp+PAW+P
+nAPPK2xbZ9hfNFVrLD+lzv1LdW+MscpplXfM1L8eKWW7BUc7yUxwBqQ4oQEuf/4b
+rbai6rR66k3oKv7s5t+0QhqNBFCKJ0Svi04HDr2dlyNmnlj4GrRU6qUyjDtYUM0g
+3wphp0WbfgPHMQdWhPCDqa4a3MbdS8877TPKU2CoZXfewEmipaNi2Mesc7T74ROC
+eWVPKYON3SADQ7YvHPcZeL5rjTmaMKMFqv8Ib2AfW9LpAXxS8OrM/UtCZk98W0IK
+OK7Iv6JtB8vEH38mAQECR6bcsZw/WPiPKKYkHK9PzC0vUwDl4S6zJ7wCjt9mNn4F
+aPEDVL1DMY3D8XVr7blFOG+rhXxzvKB+KqArm84kRS/Y6Nsv0QPKNOCFtq+helxA
+6qqAP316Qv+VSZbuqWXcJn2Y/RuJJqIbfj4x+Wk+5nRnd23IQFLSVSD0koffG8Za
+DvwvSvq3gTfkbkx1qooFGjzNTULbQUE0eqS4WDer7w5zI17ceY0r784zkJNQOfz7
+fIo3xf9TgSVfW48Fy9tdGx8+CzrHwctugibPNWEbrUWgLsrmpktdgMZN2/a6tDEo
+/u6YjvV0Ik4xSfnM/S4EvcAPSy5xZFJp3JBWUzEYm6Hi65eRlh6OQ+WmVYNXJpZT
+pgyNqJnZUA0kZw2qnEUzjALOrq5IH1NqnSQ4akgxqJdAImgn5Dd+eQ/DlxaGIvuO
+6ukUjB1+JjHHjJZ/L3rV1FMyqc78VZi1yFOm53InpG1kJBJqWImePdffxiDejew/
+l+g/Y6GokELBn2eV1EdOcaaTk/C46Kcj0K356iq6P3Ah+A+++CvAd+MBgE7NgcqZ
+q6cm46aE9xOwmtmodPj2spFAKHablfsW75o/XFinY0LWVTZHm/H/CEF2QuWVN0tx
+9Lh4rA+S/FekiZCV0gki85OU2bGs7rUgqsSNwgB9xJo1GfVVsxgO2FKEz6pS+WbP
+bOrmuq7yTjNzheagU3IMM1/gaaI+pWZw4+NL6K8hl1ropdg3MRMbi/IgSgdG2xOO
+tNrQRSBNPzRL/GUV25PitfqT8hjCfaLerdL20yI6gGFjLsCofCQNFZdhxMz+GCKN
+eE/KggeusUEfRCKq5acaR4vVwxmWyA==
+=kMxV
+-----END PGP MESSAGE-----
+    </pre>
     <h3>A clear-signed message with an invalid signature</h3>
     <pre id="clearsigned_message">
 -----BEGIN PGP SIGNED MESSAGE-----

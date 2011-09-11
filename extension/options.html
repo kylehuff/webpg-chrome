@@ -27,8 +27,8 @@ $(function(){
     $('#enable-decorate-inline-check')[0].checked = 
         (window.ext.webpg_prefs.decorate_inline.get() == 'true');
 
-    $('#enable-auto-import-info-check')[0].checked = 
-        (window.ext.webpg_prefs.auto_import_info.get() == 'true');
+<!--    $('#enable-auto-import-info-check')[0].checked = -->
+<!--        (window.ext.webpg_prefs.auto_import_info.get() == 'true');-->
 
     $('#setup_link')[0].href = chrome.extension.getURL('druid.html');
 
@@ -220,17 +220,31 @@ $(function(){
                 $("#genkey-form")[0].reset();
                 $('.key-algo').each(function(){
                     $(this)[0].options.selectedIndex = $(this)[0].options.length - 1;
-                    }).change(function(){
-                        if ($(this)[0].options.selectedIndex == 0){
-                            $(this).parent().next().find('.key-size')[0].options.selectedIndex = 0;
-                            $(this).parent().next().find('.key-size')[0].children(1).disabled = true;
-                            $(this).parent().next().find('.key-size')[0].children(2).disabled = true;
-                        } else {
-                            $(this).parent().next().find('.key-size')[0].children(1).disabled = false;
-                            $(this).parent().next().find('.key-size')[0].children(2).disabled = false;
-                            $(this).parent().next().find('.key-size')[0].options.selectedIndex = 1;
-                        }
-                    });
+                    if ($(this).parent().next().find('.key-size').length) {
+                        $(this).parent().next().find('.key-size')[0].children(0).disabled = true;
+                        $($(this).parent().next().find('.key-size')[0].children(0)).hide();
+                    }
+                }).change(function(){
+                    if ($(this)[0].options.selectedIndex == 0){
+                        $(this).parent().next().find('.key-size')[0].children(0).disabled = false;
+                        $($(this).parent().next().find('.key-size')[0].children(0)).show();
+                        $(this).parent().next().find('.key-size')[0].children(4).disabled = true;
+                        $($(this).parent().next().find('.key-size')[0].children(4)).hide();
+                        $(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
+                    } else if($(this)[0].options.selectedIndex == 1){
+                        $(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
+                        $(this).parent().next().find('.key-size')[0].children(0).disabled = false;
+                        $($(this).parent().next().find('.key-size')[0].children(0)).show();
+                        $(this).parent().next().find('.key-size')[0].children(4).disabled = false;
+                        $($(this).parent().next().find('.key-size')[0].children(4)).show();
+                    } else {
+                        $(this).parent().next().find('.key-size')[0].children(0).disabled = true;
+                        $($(this).parent().next().find('.key-size')[0].children(0)).hide();
+                        $(this).parent().next().find('.key-size')[0].children(4).disabled = false;
+                        $($(this).parent().next().find('.key-size')[0].children(4)).show();
+                        $(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
+                    }
+                });
                 $("#genkey-dialog").dialog('open');
                 $("#genkey-form").find(".open").trigger("click");
             });
@@ -333,6 +347,12 @@ $(function(){
                 }
                 options_list[options_list.length] = option;
                 option = {
+                    "command" : "passphrase",
+                    "text" : "Change Passphrase",
+                    "input_type" : "button"
+                }
+                options_list[options_list.length] = option;
+                option = {
                     "command" : "adduid",
                     "text" : "Add UID",
                     "input_type" : "dialog"
@@ -414,11 +434,6 @@ $(function(){
                 "<span class='uid-options' style='font-size:12px;'><input class='" + 
                             type + "-key-option-button' id='delete-" + type + "-" + key + 
                                 "' type='button' value='Delete this Key'/\></span>";
-<!--            if (type == "private") {-->
-<!--                uidlist_innerHTML += "<span class='uid-options' style='font-size:12px;'><input class='" + -->
-<!--                    type + "-key-option-button' id='revoke-" + type + "-" + key + "-0" +-->
-<!--                    "' type='button' value='Revoke this Key'/\></span>";-->
-<!--            }-->
             uidlist_innerHTML += "<span class='uid-options' style='font-size:12px;'><input class='" + 
                 type + "-key-option-button' id='export-" + type + "-" + key + 
                     "' type='button' value='Export this Key'/\></span><br/\>" +
@@ -440,6 +455,7 @@ $(function(){
                 if (skey.revoked) {
                     skey_status = "Revoked";
                 }
+                created_date = new Date(skey.created * 1000).toJSON().substring(0, 10);
                 expiry = (skey.expires == 0) ? 'Never' : new Date(skey.expires * 1000).toJSON();
                 if (skey.expires > 0) {
                     expiry = (Math.round(new Date().getTime()/1000.0) > skey.expires) ? "Expired" : expiry.substring(0, 10);
@@ -452,6 +468,10 @@ $(function(){
                 if (skey.revoked) {
                     extraClass += " invalid-key";
                 }
+                flags = []
+                sign_flag = (skey.can_sign) ? flags.push("Sign") : "";
+                enc_flag = (skey.can_encrypt) ? flags.push("Encrypt") : "";
+                auth_flag = (skey.can_authenticate) ? flags.push("Authenticate") : "";
                 subkey_info += "<div class=\"subkey" + extraClass + "\" id=\"" + 
                     key + '-s' + subkey + "\"><h4 class='subkeylist'><a href='#'>" +
                     "<span style='margin:0; width: 50%'>" + skey.size + 
@@ -462,7 +482,7 @@ $(function(){
                     created_date + "</span><span><h4>Expires:</h4> " + expiry + "</span>" +
                     "<br/\><h4>Fingerpint:</h4> " + skey.subkey + "<br/\>" +
                     "<span><h4>Status:</h4> " + skey_status + "</span><span><h4>Key Algorithm:</h4> " +
-                    skey.algorithm_name + "</span>";
+                    skey.algorithm_name + "</span><span><h4>Flags:</h4> " + flags.toString() + "</span>";
                 if (type == "private") {
                     subkey_info += "<br/\>" +
                         "<span class='dh'>Key Options</span><hr/\>" +
@@ -550,12 +570,15 @@ $(function(){
                         if (keylist[key].uids[uid].signatures[sig].revoked) {
                             sig_class = " sig-revoked";
                             sig_image = "stock_signature-bad.png";
+                        } else if (!keylist[key].uids[uid].signatures[sig].expired && !keylist[key].uids[uid].signatures[sig].invalid) {
+                            sig_class = " sig-good";
+                            sig_image = "stock_signature-ok.png";
                         } else {
                             sig_class = "";
                             sig_image = "stock_signature.png";
                         }
                         sig_box = "<div id='sig-" + sig_keyid + "-" + sig + "' class='signature-box " + sig_class + "'>" +
-                            "<img src='images/badges/" + sig_image + "'><span class='signature-uid'>" + 
+                            "<img src='images/badges/" + sig_image + "'><div style='float:left; clear:right;width:80%;'><span class='signature-uid'>" + 
                             keylist[sig_keyid].name + status + "</span><br/\><span class='signature-email'>" + 
                             email + "</span><br/\><span class='signature-keyid'>" + sig_keyid + "</span><br/\>";
                         date_created = new Date(keylist[key].uids[uid].signatures[sig].created * 1000).toJSON();
@@ -572,7 +595,7 @@ $(function(){
                         } else {
                             sig_box += "[other signature]";
                         }
-                        sig_box += "</span><br/\>";
+                        sig_box += "</span></div><br/\>";
 
                         if (signed && keylist[key].uids[uid].signatures[sig].exportable && key != sig_keyid
                             && !keylist[key].uids[uid].signatures[sig].revoked) {
@@ -744,6 +767,11 @@ $(function(){
                     console.log("we should set the expiration here...", params);
                     break;
 
+                case "passphrase":
+                    console.log(window.ext.plugin.gpgChangePassphrase(params[2]));
+                    refresh = false;
+                    break;
+
                 case "delete":
                     console.log(params);
                     $( "#delete-key-dialog-confirm" ).dialog({
@@ -840,6 +868,150 @@ $(function(){
                             }
                         },
                     });
+                    break;
+
+                case "addsubkey":
+                    window.genkey_refresh = false;
+                    $("#gensubkey-dialog").dialog({
+                        resizable: true,
+                        minHeight: 300,
+                        width: 300,
+                        modal: true,
+                        autoOpen: false,
+                        "buttons": { 
+                            "Create": function() {
+                                form = $(this).find("#gensubkey-form")[0];
+                                form.key_id.value = params[2];
+                                $(form).parent().before("<div id=\"gensubkey-status\"> </div>");
+                                error = "";
+                                window.genkey_waiting = true;
+                                chrome.extension.onConnect.addListener(function(port) {
+                                    port.onMessage.addListener(function(msg) {
+                                        if (msg.type == "progress") {
+                                            console.log(msg.data);
+                                            data = msg.data;
+                                            if (!isNaN(data))
+                                                data = String.fromCharCode(data);
+                                            data += " ";
+                                            if($("#gensubkey_progress"))
+                                                $("#gensubkey_progress")[0].innerHTML += data;
+                                            if(data == "complete" || data == "complete ") {
+                                                window.genkey_refresh = true;
+                                                window.genkey_waiting = false;
+                                                new_pkeylist = window.ext.plugin.getPrivateKeyList();
+                                                generated_key = null;
+                                                for (key in new_pkeylist) {
+                                                    if (key in window.pkeylist == false) {
+                                                        generated_key = key;
+                                                        break;
+                                                    }
+                                                }
+                                                subkey_index = 0;
+                                                if (ext.secret_keys.hasOwnProperty(params[2])) {
+                                                    for (subkey in ext.secret_keys[params[2]].subkeys) {
+                                                        subkey_index = parseInt(subkey) + 1;
+                                                    }
+                                                }
+                                                buildKeylist(null, "private", params[2], subkey_index, null);
+                                                $("#gensubkey-status_detail").remove()
+                                                $("#gensubkey-status").remove();
+                                                $("#gensubkey-form")[0].reset();
+                                                $("#gensubkey-form")[0].style.display="inline-block";
+                                                $("#gensubkey-dialog").dialog("close");
+                                            }
+                                        }
+                                    });
+                                });
+                                $("#gensubkey-form").find(".open").trigger("click");
+                                console.log("going to create a subkey with the following details:" + '\n' +
+                                    "Key ID:", form.key_id.value, " Sub Key:", form.subKey_algo.value + 
+                                      ' (' + form.subKey_size.value + ')\n' + " sign_flag: " + form.sign.checked +
+                                      " enc_flag: " + form.enc.checked + " auth_flag: " + form.auth.checked + "\n" +
+                                    "expiration: Key will expire in " + form.key_expire.value + ' days');
+                                $("#gensubkey-dialog").dialog("option", "minHeight", 300);
+                                $("#gensubkey-status").html(error)[0].style.display="block";
+                                $("#gensubkey-status").html("Building key, please wait..");
+                                $("#gensubkey-status").after("<div id='gensubkey-status_detail' style=\"font-size: 12px; color:#fff;padding: 20px;\">This may take a long time (5 minutes or more) to complete depending on the selected options. Please be patient while the key is created. It is safe to close this window, key generation will continue in the background.<br><br><div id='gensubkey_progress' style='height:auto;display:block;'></div></div>");
+                                $(form)[0].style.display = 'none';
+                                $("#gensubkey-dialog")[0].style.height = "20";
+                                $("#gensubkey-dialog")[0].style.display = "none";
+                                chrome.extension.sendRequest({msg: 'async-gpgGenSubKey',
+                                    data: {
+                                        'key_id' : form.key_id.value,
+                                        'subKey_algo' : form.subKey_algo.value,
+                                        'subKey_size' : form.subKey_size.value, 
+                                        'key_expire' : form.key_expire.value,
+                                        'sign_flag' : (form.sign.checked) ? 1 : 0,
+                                        'enc_flag' : (form.enc.checked) ? 1 : 0,
+                                        'auth_flag' : (form.auth.checked) ? 1 : 0
+                                     }
+                                }, function(response) { 
+                                    if (response.result == "queued") {
+                                        $("#gensubkey-dialog").dialog("option", "buttons", { 
+                                            "Close": function() {
+                                                $("#gensubkey-dialog").dialog("close");
+                                            }
+                                        });
+                                    }
+                                });
+                            },
+                            Cancel: function() {
+                                $("#gensubkey-dialog").dialog("close");
+                                if (window.gensubkey_refresh)
+                                    buildKeylist(null, 'private');
+                            }
+                        },
+                    });
+                    $("#subKey_flags").buttonset();
+                    $("#gensubkey-form").children('input').removeClass('input-error');
+                    $("#gensubkey-form")[0].reset();
+                    $('#gensubkey-form .subkey-algo').each(function(){
+                        $(this)[0].options.selectedIndex = $(this)[0].options.length - 1;
+                        $(this).parent().find('.key-size')[0].children(0).disabled = true;
+                        $($(this).parent().find('.key-size')[0].children(0)).hide();
+                    }).change(function(){
+                        selectedIndex = $(this)[0].options.selectedIndex;
+                        if (selectedIndex == 0 || selectedIndex == 4) {
+                            // DSA Selected
+                            $(this).parent().find('.key-size')[0].children(0).disabled = false;
+                            $($(this).parent().find('.key-size')[0].children(0)).show();
+                            $(this).parent().find('.key-size')[0].children(4).disabled = true;
+                            $($(this).parent().find('.key-size')[0].children(4)).hide();
+                        } else if (selectedIndex == 1 || selectedIndex == 3 || selectedIndex == 5) {
+                            // RSA Selected
+                            $(this).parent().find('.key-size')[0].children(0).disabled = true;
+                            $($(this).parent().find('.key-size')[0].children(0)).hide();
+                            $(this).parent().find('.key-size')[0].children(4).disabled = false;
+                            $($(this).parent().find('.key-size')[0].children(4)).show();
+                        } else if (selectedIndex == 2) {
+                            // ElGamal Selected
+                            $(this).parent().find('.key-size')[0].children(0).disabled = false;
+                            $($(this).parent().find('.key-size')[0].children(0)).show();
+                            $(this).parent().find('.key-size')[0].children(4).disabled = false;
+                            $($(this).parent().find('.key-size')[0].children(4)).show();
+                        }
+                        if (selectedIndex < 4) {
+                            $("#subKey_flags").hide();
+                            $("#gensubkey-dialog").dialog("option", "height", 240);
+                        } else {
+                            if (selectedIndex == 4) {
+                                $("#subKey_flags").find('#sign')[0].checked = true;
+                                $("#subKey_flags").find('#enc')[0].checked = false;
+                                $("#subKey_flags").find('#auth')[0].checked = false;
+                                $("#subKey_flags").find('#enc')[0].disabled = true;
+                            } else {
+                                $("#subKey_flags").find('#sign')[0].checked = true;
+                                $("#subKey_flags").find('#enc')[0].checked = true;
+                                $("#subKey_flags").find('#auth')[0].checked = false;
+                                $("#subKey_flags").find('#enc')[0].disabled = false;
+                            }
+                            $("#subKey_flags").show();
+                            $("#gensubkey-dialog").dialog("option", "height", 300);
+                        }
+                        $("#subKey_flags").buttonset("refresh");
+                    });
+                    $("#gensubkey-dialog").dialog('open');
+                    $("#gensubkey-form").find(".open").trigger("click");
                     break;
 
                 case "export":
@@ -1016,6 +1188,7 @@ $(function(){
             for (sig in current_signatures) {
                 cursig.push(current_signatures[sig]);
             }
+            console.log(cursig)
             if (!window.ext.webpg_prefs.enabled_keys.length()) {
                 $('#createsig-form')[0].innerHTML += "You have not enabled any keys for use with webpg; <a href='" + chrome.extension.getURL('options.html') + "?tab=1&helper=enable'>please click here</a> and select 1 or more keys for use with webpg.";
             }
@@ -1030,7 +1203,7 @@ $(function(){
                     status += "<input style='display: none;' type='checkbox' id='sign_" + key + "' name='" + key + "' disabled/\>";
                 else
                     status += "<input type='checkbox' id='sign_" + key + "' name='" + key + "'/\>";
-                console.log(key);
+<!--                console.log(key);-->
                 $('#createsig-form')[0].innerHTML += status + "<label for='sign_" + key + "' id='lbl-sign_" + key + "' class='help-text'>" + pkeylist[key].name + " (" + key + ")</label><div id='lbl-sign-err_" + key + "' style='display: none;'></div><br/\>";
                 if (window.ext.webpg_prefs.enabled_keys.length() == 1 && signed) {
                     $($("button", $("#createsig-dialog").parent()).children()[1]).hide();
@@ -1223,15 +1396,16 @@ $(function(){
             $(this).button('refresh');
         });
 
-    $('#enable-auto-import-info-check').button({
-        'label': (window.ext.webpg_prefs.auto_import_info.get() == 'true') ? 'Enabled' : 'Disabled'
-        }).click(function(e) {
-            (window.ext.webpg_prefs.auto_import_info.get() == 'true') ? window.ext.webpg_prefs.auto_import_info.set(false) : ext.webpg_prefs.auto_import_info.set(true);
-            status = (window.ext.webpg_prefs.auto_import_info.get() == 'true') ? 'Enabled' : 'Disabled'
-            $(this).button('option', 'label', status);
-            this.checked = (window.ext.webpg_prefs.auto_import_info.get() == 'true');
-            $(this).button('refresh');
-        });
+        // Auto-import no longer imports into the user keyring, so since this is no longer dangerious, we don't need a toggle/preference.
+<!--    $('#enable-auto-import-info-check').button({-->
+<!--        'label': (window.ext.webpg_prefs.auto_import_info.get() == 'true') ? 'Enabled' : 'Disabled'-->
+<!--        }).click(function(e) {-->
+<!--            (window.ext.webpg_prefs.auto_import_info.get() == 'true') ? window.ext.webpg_prefs.auto_import_info.set(false) : ext.webpg_prefs.auto_import_info.set(true);-->
+<!--            status = (window.ext.webpg_prefs.auto_import_info.get() == 'true') ? 'Enabled' : 'Disabled'-->
+<!--            $(this).button('option', 'label', status);-->
+<!--            this.checked = (window.ext.webpg_prefs.auto_import_info.get() == 'true');-->
+<!--            $(this).button('refresh');-->
+<!--        });-->
 
     if (window.location.search.substring) {
         var query_string = {};
@@ -1515,28 +1689,23 @@ span.trust .ui-button-text {
 .signature-keyid {
 
 }
-
 .help-text {
     padding: 0 0 0 12px;
     font-size: 12px;
 }
-
 #genkey-form input[type=text], input[type=password] {
     width: 250px;
 }
-
-#genkey-status, #adduid-status, #export-dialog-msg {
+#genkey-status, #gensubkey-status, #adduid-status, #export-dialog-msg {
     padding: 2px 0 2px 12px;
     display:none;
     width: 98.2%;
     background-color: #FFAF0F;
     color: #000;
 }
-
 .input-error {
     border: 2px solid #f20;
 }
-
 ul.expand { padding:0; margin:0; list-style:none; }
 ul.expand li { padding:0; margin:0; }
 ul.expand li.trigger.top { margin-top:0; }
@@ -1590,7 +1759,7 @@ ul.expand ul
     </ul>
     <div id="tabs-1">
         <span id='enable-decorate-inline'><span style="text-shadow:#CCC 1px 1px 1px;">Enable Inline formatting of PGP Data, Signatures and Keys: </span><input type='checkbox' id='enable-decorate-inline-check'/><label for='enable-decorate-inline-check'></label></span><br/><br/>
-        <span id='enable-auto-import-info'><span style="text-shadow:#CCC 1px 1px 1px;">Allow temporary importation of Public Keys to display key details: </span><input type='checkbox' id='enable-auto-import-info-check'/><label for='enable-auto-import-info-check'></label></span><br/><br/>
+<!--        <span id='enable-auto-import-info'><span style="text-shadow:#CCC 1px 1px 1px;">Allow temporary importation of Public Keys to display key details: </span><input type='checkbox' id='enable-auto-import-info-check'/><label for='enable-auto-import-info-check'></label></span><br/><br/>-->
     </div>
     <div id="tabs-2">
         <div id="private_keylist">
@@ -1665,9 +1834,11 @@ ul.expand ul
                         <li class='option'>
                             <label for='publicKey_size'>Public Key Size</label>
                             <select id='publicKey_size' class="key-size ui-add-hover ui-corner-all ui-widget ui-state-default">
+                                <option valud="512" class="ui-state-default">512</option>
                                 <option value="1024" class="ui-state-default">1024</option>
                                 <option value="2048" class="ui-state-default" selected>2048</option>
-                                <option value="4096" class="ui-state-default">4096</option>  
+                                <option value="3072" class="ui-state-default">3072</option>
+                                <option value="4096" class="ui-state-default">4096</option>
                             </select>
                         </li>
                         <hr>
@@ -1682,8 +1853,10 @@ ul.expand ul
                         <li class='option'>
                             <label for='subKey_size'>Private Key Size</label>
                             <select id='subKey_size' class="key-size ui-add-hover ui-button ui-corner-all ui-widget ui-state-default">
+                                <option value="512" class="ui-state-default">512</option>
                                 <option value="1024" class="ui-state-default">1024</option>
                                 <option value="2048" class="ui-state-default" selected>2048</option>
+                                <option value="3072" class="ui-state-default">3072</option>
                                 <option value="4096" class="ui-state-default">4096</option>
                             </select>
                         </li>
@@ -1700,6 +1873,51 @@ ul.expand ul
                     </ul>
                 </li>
             </ul>
+        </form>
+    </p>
+</div>
+<div id="gensubkey-dialog" style="display:none;" title="Key Details" style="font-size: 14px;">
+    <p>
+        <span id='gensubkey-text'>
+        </span>
+        <form id="gensubkey-form" style="width: 100%; height: 100px;">
+            <h4><strong>Subkey Options</strong></h4>
+
+            <input type="hidden" name="key_id" id="key_id" class="hidden"/>
+            <label for='subKey_algo'>Private Key Algorithm</label>
+            <div>
+            <select id='subKey_algo' class="subkey-algo ui-add-hover ui-corner-all ui-widget ui-state-default">
+                <option value="3" class="ui-state-default">DSA (sign only)</option>
+                <option value="4" class="ui-state-default">RSA (sign only)</option>
+                <option value="5" class="ui-state-default">Elgamal (encrypt only)</option>
+                <option value="6" class="ui-state-default">RSA (encrypt only)</option>
+                <option value="7" class="ui-state-default">DSA (set your own capabilities)</option>
+                <option value="8" class="ui-state-default" selected>RSA (set your own capabilities)</option>
+            </select>
+            <div>
+            <div id='subKey_flags'>
+                <br/>
+                <input type="checkbox" id="sign" name="sign" checked/><label for="sign">Sign</label>
+                <input type="checkbox" id="enc" name="enc" checked/><label for="enc">Encrypt</label>
+                <input type="checkbox" id="auth" name="auth" checked/><label for="auth">Authenticate</label>
+                <br/><br/>
+            </div>
+            <label for='subKey_size'>Private Key Size</label>
+            <select id='subKey_size' class="key-size ui-add-hover ui-button ui-corner-all ui-widget ui-state-default">
+                <option value="512" class="ui-state-default">512</option>
+                <option value="1024" class="ui-state-default">1024</option>
+                <option value="2048" class="ui-state-default" selected>2048</option>
+                <option value="3072" class="ui-state-default">3072</option>
+                <option value="4096" class="ui-state-default">4096</option>
+            </select>
+            <br/>
+            <label for='expire'>Expire in </label>
+            <select id='key_expire' class="key-expire ui-add-hover ui-corner-all ui-widget ui-state-default">
+                <option value="0" class="ui-state-default" selected>Never</option>
+                <option value="30" class="ui-state-default">30 Days</option>
+                <option value="90" class="ui-state-default">90 days</option>
+                <option value="365" class="ui-state-default">1 year</option>
+            </select>
         </form>
     </p>
 </div>

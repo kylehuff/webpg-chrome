@@ -22,11 +22,6 @@ var webpg = {
             //  the parent element; otherwise, fit it to the document
             $('.webpg-result-frame').each(function(){
                 this.style.width = document.body.offsetWidth - 200 + "px";
-//                if ($(this).parent()) {
-//                    this.style.width = $(this).parent()[0].offsetWidth - 200 + "px";
-//                } else if (this.offsetWidth > document.body.offsetWidth) {
-//                    this.style.width = document.body.offsetWidth - 200 + "px";
-//                }
             });
         }
 
@@ -35,7 +30,7 @@ var webpg = {
             if (request.request.msg == "sendtoiframe"){
                 if (request.request.cmd == "resizeiframe") {
                     iframe_id = request.request.iframe_id;
-                    width = request.request.width;
+                    width = document.body.offsetWidth - 200;
                     height = request.request.height;
                     iframe = $('#' + iframe_id)[0]
                     iframe.style.width = width + "px";
@@ -78,7 +73,7 @@ var webpg = {
         none
 */
     PGPDataSearch: function() {
-        $("*:contains('-----BEGIN PGP')", "body:contains('-----BEGIN PGP')")
+        $("*:contains('-----BEGIN PGP')" ) //, "body:contains('-----BEGIN PGP')")
             .andSelf()
             .contents()
             .filter(function(){
@@ -93,6 +88,8 @@ var webpg = {
                     if (this.textContent) {
                         if (this.textContent.indexOf(webpg.PGPTags.PGP_DATA_BEGIN) != -1) {
                             item = webpg.PGPDataElementCheck($(this), webpg.PGPTags.PGP_DATA_BEGIN);
+                            if (item.length > 1)
+                                return true;
                             webpg.PGPDataParse(item[0]);
                         }
                     }
@@ -131,7 +128,6 @@ var webpg = {
     Parameters:
         element - The HTML Element that contains the PGP data
 */
-
     PGPDataParse: function(element) {
         // Build a regex to locate all of the PGP Data chunks for parsing
         BLOCK_REGEX = /^\s*?(-----BEGIN PGP[\s\S]*?-----END PGP(.*?)-----)/gim
@@ -140,10 +136,12 @@ var webpg = {
         PGP_DATA = []
         innerText = element.innerText;
         textContent = element.textContent;
+
         if (element.hasOwnProperty("nodeName") && element.nodeName == "TEXTAREA") {
             PGP_DATA = element.value.match(BLOCK_REGEX);
         } else {
             reg_results = BLOCK_REGEX.exec(textContent);
+            //console.log(reg_results);
             if (reg_results) {
                 PGP_DATA = [reg_results[1].replace(" \n", "\n")];
             }
@@ -158,6 +156,7 @@ var webpg = {
                 }
             }
         }
+
         for (block in PGP_DATA) {
             block_type = PGP_DATA[block].match(BLOCK_START_REGEX)[0];
             startIndex = textContent.indexOf(webpg.PGPTags.PGP_DATA_BEGIN);
@@ -169,13 +168,13 @@ var webpg = {
                 case webpg.PGPTags.PGP_KEY_BEGIN:
                     console.log("we found a public key");
                     results_frame = webpg.addResultsFrame(element, pretext_str, posttext_str);
-                    block_text = PGP_DATA[block];
-                    results_frame.onload = function(){
+                    results_frame.original_text = PGP_DATA[block];
+                    results_frame.onload = function(block_text){
                         chrome.extension.sendRequest({
                             msg: "sendtoiframe",
                             block_type: "public_key",
                             target_id: results_frame.id,
-                            original_text: block_text}
+                            original_text: results_frame.original_text}
                         );
                     };
                     break;
@@ -247,6 +246,9 @@ var webpg = {
                     );
                     break;
 
+            }
+            if (posttext_str.indexOf(webpg.PGPTags.PGP_DATA_BEGIN) != -1){
+                webpg.PGPDataSearch();
             }
         }
     },

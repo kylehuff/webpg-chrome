@@ -23,12 +23,15 @@ var webpg_prefs = {
             window.localStorage.setItem('decorate_inline', value);
         },
     },
-    auto_import_info: {
+    gnupghome: {
         get: function() {
-            return window.localStorage.getItem('auto_import_info')
+            return window.localStorage.getItem('gnupghome')
         },
         set: function(value) {
-            window.localStorage.setItem('auto_import_info', value);
+            window.localStorage.setItem('gnupghome', value);
+        },
+        clear: function(){
+            window.localStorage.setItem('gnupghome', '');
         },
     },
     enabled_keys: {
@@ -90,6 +93,8 @@ var webpg_prefs = {
 };
 /* end prefs setup */
 
+var gnupghome = "";
+
 var webpgBackground = {
 
     init: function() {
@@ -98,27 +103,35 @@ var webpgBackground = {
             //chrome.tabs.create({url: chrome.extension.getURL('druid.html')});
         }
 
+        gnupghome = (webpg_prefs.gnupghome.get()) ? webpg_prefs.gnupghome.get() : "";
+
         // information and source code for the plugin can be found here:
         //      TBD
-
         plugin = document.createElement('embed');
         plugin.id = 'plugin';
         plugin.type = 'application/x-webpg';
         document.body.appendChild(plugin);
-        plugin.addEventListener("keygenprogress", webpgBackground.gpgGenKeyProgress, false);
-        plugin.addEventListener("keygencomplete", webpgBackground.gpgGenKeyComplete, false);
-        var result = plugin.valid;
-        console.log("my plugin returned: " + result);
-        /* Check to make sure all of the enabled_keys are private keys 
-            this would occur if the key was enabled and then the secret key was deleted. */
-        secret_keys = plugin.getPrivateKeyList();
-        enabled_keys = webpg_prefs.enabled_keys.get();
-        for (key in enabled_keys){
-            if (enabled_keys[key] in secret_keys == false){
-                webpg_prefs.enabled_keys.remove(enabled_keys[key]);
+        console.log("my plugin returned: " + plugin.valid);
+
+
+
+        if (plugin.valid) {
+            plugin.addEventListener("keygenprogress", webpgBackground.gpgGenKeyProgress, false);
+            plugin.addEventListener("keygencomplete", webpgBackground.gpgGenKeyComplete, false);
+
+            /* Check to make sure all of the enabled_keys are private keys 
+                this would occur if the key was enabled and then the secret key was deleted. */
+            secret_keys = plugin.getPrivateKeyList();
+            enabled_keys = webpg_prefs.enabled_keys.get();
+            for (key in enabled_keys){
+                if (enabled_keys[key] in secret_keys == false){
+                    webpg_prefs.enabled_keys.remove(enabled_keys[key]);
+                }
             }
+            console.log("background initted");
         }
-        console.log("background initted");
+
+
     },
 
 
@@ -133,30 +146,34 @@ var webpgBackground = {
         if (request.msg == 'decorate_inline') {
             response = {'decorate_inline': webpg_prefs.decorate_inline.get() };
         }
+        if (request.msg == 'newtab') {
+            response = chrome.tabs.create({
+                'url': request.url,
+                'index': sender.tab.index + 1,
+            });
+        }
         if (request.msg == 'decrypt') {
-            console.log("gpgDecrypt requested");
+            //console.log("gpgDecrypt requested");
             response = plugin.gpgDecrypt(request.data);
             for (sig in response.signatures) {
                 sig_fp = response.signatures[sig].fingerprint;
                 key_request = plugin.getNamedKey(sig_fp);
                 response.signatures[sig].public_key = key_request;
             }
-            console.log(response);
             response.original_text = request.data;
         }
         if (request.msg == 'verify') {
-            console.log("gpgVerify requested", request);
+            //console.log("gpgVerify requested", request);
             response = plugin.gpgVerify(request.data);
             for (sig in response.signatures) {
                 sig_fp = response.signatures[sig].fingerprint;
                 key_request = plugin.getNamedKey(sig_fp);
                 response.signatures[sig].public_key = key_request;
             }
-            console.log(response);
             response.original_text = request.data;
         }
         if (request.msg == 'async-gpgGenKey') {
-            console.log("async-gpgGenKey requested");
+            //console.log("async-gpgGenKey requested");
             var result = plugin.gpgGenKey(
                     request.data['publicKey_algo'],
                     request.data['publicKey_size'],
@@ -170,29 +187,29 @@ var webpgBackground = {
                 );
             response = "queued";
         }
-        if (request.msg == 'complete' || request.msg == 'stage2') {
-            if (webpgBackground.pulses[sender.tab.id] != null) {
-                clearInterval(webpgBackground.pulses[sender.tab.id]['timer']);
-            }
-            chrome.pageAction.setIcon({
-                tabId: sender.tab.id,
-                path: 'images/badges/authenticated.png'
-            });
-            chrome.pageAction.setPopup({tabId: sender.tab.id, popup: "dialogs/success.html"});
+        if (request.msg == 'async-gpgGenSubKey') {
+            //console.log("async-gpgGenKey requested");
+            var result = plugin.gpgGenSubKey(
+                request.data['key_id'],
+                request.data['subKey_algo'],
+                request.data['subKey_size'],
+                request.data['key_expire'],
+                request.data['sign_flag'],
+                request.data['enc_flag'],
+                request.data['auth_flag']
+            );
+            response = "queued";
         }
         if (request.msg == 'doKeyImport') {
-            if (webpg_prefs.auto_import_info.get() == "true") {
-                import_status = plugin.gpgImportKey(request.data);
-                if (!import_status.imports.hasOwnProperty(0)) {
-                    console.log("NO IMPORT; Something failed");
-                    import_status = { 'imports':
-                        { 0 : {
-                            'new_key': false,
-                            'fingerprint': 'unknown',
-                        }}
-                    }
-                }
-            } else {
+            if (request.temp_context) {
+                temp_path = plugin.getTemporaryPath();
+                if (!temp_path)
+                    temp_path = "/tmp/.gnupg";
+                plugin.gpgSetHomeDir(temp_path);
+            }
+            import_status = plugin.gpgImportKey(request.data);
+            if (!import_status.imports.hasOwnProperty(0)) {
+                console.log("NO IMPORT; Something failed", request.data, import_status);
                 import_status = { 'imports':
                     { 0 : {
                         'new_key': false,
@@ -200,25 +217,54 @@ var webpgBackground = {
                     }}
                 }
             }
-            console.log(import_status);
+            if (request.temp_context) {
+                plugin.gpgSetHomeDir(gnupghome);
+            }
             response = {
                 'import_status': import_status
             };
         }
         if (request.msg == 'sendtoiframe') {
-//            console.log("sending message to frame or content script", request, sender.tab.id);
             //we need to send a message the action badge
             chrome.tabs.sendRequest(sender.tab.id, {request: request});
         }
         if (request.msg == 'deleteKey'){
+            if (request.temp_context) {
+                temp_path = plugin.getTemporaryPath();
+                if (!temp_path)
+                    temp_path = "/tmp/.gnupg";
+                plugin.gpgSetHomeDir(temp_path);
+            }
             if (request.key_type == 'public_key'){
                 response = plugin.gpgDeletePublicKey(request.key_id);
             } else if (request.key_type == 'private_key'){
                 response = plugin.gpgDeletePrivateKey(request.key_id);
             }
+            if (request.temp_context) {
+                plugin.gpgSetHomeDir(gnupghome);
+            }
         }
         if (request.msg == "getNamedKey") {
+            if (request.temp_context) {
+                temp_path = plugin.getTemporaryPath();
+                if (!temp_path)
+                    temp_path = "/tmp/.gnupg";
+                plugin.gpgSetHomeDir(temp_path);
+            }
             response = plugin.getNamedKey(request.key_id);
+            if (request.temp_context) {
+                plugin.gpgSetHomeDir(gnupghome);
+                real_keyring_items = plugin.getNamedKey(request.key_id);
+                for (real_keyring_item in real_keyring_items) {
+                    for (subkey in real_keyring_items[real_keyring_item].subkeys) {
+                        subkey_id = real_keyring_items[real_keyring_item].subkeys[subkey].subkey;
+                        if (subkey_id == request.key_id) {
+                            response[real_keyring_item].in_real_keyring = true;
+                            response[real_keyring_item].real_keyring_item = real_keyring_items[real_keyring_item];
+                        }
+                    }
+                }
+            }
         }
         if (request.msg == "log") {
             response = null;
@@ -268,7 +314,7 @@ chrome.extension.onRequest.addListener(webpgBackground.onRequest);
 </script>
 </head>
 <body>
-
+    <script src="analytics.js"></script>
 </body>
 <script>
     webpgBackground.init();
