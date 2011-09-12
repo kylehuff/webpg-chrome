@@ -10,6 +10,7 @@
       "64": "images/webpg-64.png"
    },
   "permissions": [
+       "<all_urls>",
        "tabs",
        "notifications",
        "contextMenus"
