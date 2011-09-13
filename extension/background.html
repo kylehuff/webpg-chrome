@@ -23,6 +23,20 @@ var webpg_prefs = {
             window.localStorage.setItem('decorate_inline', value);
         },
     },
+    encrypt_to_self: {
+        get: function() {
+            return window.localStorage.getItem('encrypt_to_self')
+        },
+        set: function(value) {
+            // if this setting is disabled, remove the value for 'encrypt-to'
+            if (!value) {
+                // webpg-npapi versions below 0.3.10 require the argument value
+                //  "blank" to clear GPGOption values
+                plugin.gpgSetPreference('encrypt-to', 'blank');
+            }
+            window.localStorage.setItem('encrypt_to_self', value);
+        },
+    },
     gnupghome: {
         get: function() {
             return window.localStorage.getItem('gnupghome')
@@ -84,6 +98,10 @@ var webpg_prefs = {
             return window.localStorage.getItem('default_key');
         },
         set: function(keyid) {
+            plugin.gpgSetPreference("default-key", keyid);
+            if (webpg_prefs.encrypt_to_self.get() == 'true') {
+                plugin.gpgSetPreference("encrypt-to", keyid);
+            }
             return window.localStorage.setItem('default_key', keyid);
         },
         clear: function(keyid) {

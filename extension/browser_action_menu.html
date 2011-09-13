@@ -28,7 +28,7 @@ var MenuActions = {
 
     key_manager: function(){
         console.log("key mangager was selected");
-        url = chrome.extension.getURL('options.html') + "?tab=1";
+        url = chrome.extension.getURL('key_manager.html') + "?tab=0";
         chrome.tabs.create({ 'url': url });
         return false;
     }

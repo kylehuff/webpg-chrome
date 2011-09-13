@@ -65,7 +65,7 @@ $(function(){
             }
             email = (key.uids[0].email.length > 1) ? "&lt;" + key.uids[0].email + 
                 "&gt;" : "(no email address provided)";
-            sigkey_url = chrome.extension.getURL("options.html") +
+            sigkey_url = chrome.extension.getURL("key_manager.html") +
                 "?tab=-1&openkey=" + pubkey + "&opensubkey=" + subkey_index;
             key_name = key.name;
         }
@@ -200,7 +200,7 @@ $(function(){
                                 for (pubkey in public_keys) {
                                     for (pubkey_subkey in public_keys[pubkey].subkeys) {
                                         if (sig_fp == public_keys[pubkey].subkeys[pubkey_subkey].subkey) {
-                                            sigkey_url = chrome.extension.getURL("options.html") +
+                                            sigkey_url = chrome.extension.getURL("key_manager.html") +
                                                 "?tab=-1&openkey=" + pubkey + "&opensubkey=" +
                                                 pubkey_subkey;
                                             sigkey_link = "<a href='javascript:void(0);' id='" + sigkey_url + "' class='webpg-link'>" +
@@ -306,10 +306,11 @@ $(function(){
                                                 $('#signature_text')[0].innerHTML += "<ul>";
                                                 for (uid in keyobj.uids) {
                                                     uid_email = (keyobj.uids[uid].email.length > 1) ? "<a href=\"mailto:" + 
-                                                        keyobj.uids[uid].email + "\">" + keyobj.uids[uid].uid +
-                                                        "</a>" : keyobj.uids[uid].uid;
+                                                        keyobj.uids[uid].email + "\">" + keyobj.uids[uid].email +
+                                                        "</a>" : "";
                                                     sig_class = "sig_class_normal";
-                                                    $('#signature_text')[0].innerHTML += "<li>" + uid_email + "</li>";
+                                                    $('#signature_text')[0].innerHTML += "<li>" + keyobj.uids[uid].uid + 
+                                                        " &lt;" + uid_email + "&gt;</li>";
                                                 }
                                                 $('#signature_text')[0].innerHTML += "</ul>";
                                                 $('#signature_text')[0].innerHTML += "<br/\>";
@@ -330,11 +331,11 @@ $(function(){
                                                 if (new_public_key) {
                                                     $('#footer')[0].innerHTML += "THIS KEY IS NOT IN YOUR KEYRING<br/\>";
                                                 } else {
-                                                    key_url = chrome.extension.getURL("options.html") +
+                                                    key_url = chrome.extension.getURL("key_manager.html") +
                                                         "?tab=-1&openkey=" + keyobj.fingerprint.substr(-16);
                                                     key_link = "(<a href='javascript:void(0);' id='" + key_url +
                                                         "' class='webpg-link'>" + keyobj.fingerprint.substr(-8) + "</a>)";
-                                                    $('#footer')[0].innerHTML += "THIS KEY " + key_link + " IS ALREADY IN YOUR KEYRING<br/\>";
+                                                    $('#footer')[0].innerHTML += "THIS KEY " + key_link + " IS IN YOUR KEYRING<br/\>";
                                                 }
                                                 $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ";
                                                 if (new_public_key) {

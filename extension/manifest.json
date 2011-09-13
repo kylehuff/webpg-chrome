@@ -1,13 +1,15 @@
 {
   "name": "WebPG - GnuPG browser interface",
-  "version": "0.3.11",
+  "version": "0.4.1",
   "description": "An extension which provides GnuPG related functions to the browser",
   "background_page": "background.html",
   "icons": {
       "16": "images/webpg-16.png",
       "32": "images/webpg-32.png",
       "48": "images/webpg-48.png",
-      "64": "images/webpg-64.png"
+      "64": "images/webpg-64.png",
+      "96": "images/webpg-96.png",
+      "128": "images/webpg-128.png"
    },
   "permissions": [
        "<all_urls>",
@@ -17,7 +19,7 @@
   ],
   "content_scripts": [
     {
-      "matches": [ "<all_urls>" ],
+      "matches": ["<all_urls>"],
       "js": ["jquery/js/jquery-1.5.1.min.js", "webpg.js"],
       "run_at": "document_end"
     }
