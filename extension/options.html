@@ -12,11 +12,16 @@ var ext = chrome.extension.getBackgroundPage();
 
 $(function(){
 
-    $('#enable-decorate-inline-check')[0].checked = 
-        (window.ext.webpg_prefs.decorate_inline.get() == 'true');
+    // Only display the inline check if this is not the app version of webpg-chrome
+    if (chrome.app.getDetails().hasOwnProperty("content_scripts")){
+        $('#enable-decorate-inline-check')[0].checked = 
+            (window.ext.webpg_prefs.decorate_inline.get() == 'true');
+    } else {
+        $('#enable-decorate-inline').hide();
+    }
 
     $('#enable-encrypt-to-self-check')[0].checked = 
-        (window.ext.webpg_prefs.encrypt_to_self.get() == 'true');
+        (window.ext.webpg_prefs.encrypt_to_self.get());
 
     $('#setup_link')[0].href = chrome.extension.getURL('druid.html');
 
@@ -32,13 +37,18 @@ $(function(){
     );
 
     $('#enable-encrypt-to-self-check').button({
-        'label': (window.ext.webpg_prefs.encrypt_to_self.get() == 'true') ? 'Enabled' : 'Disabled'
+        'label': (window.ext.webpg_prefs.encrypt_to_self.get()) ? 'Enabled' : 'Disabled'
         }).click(function(e) {
-            (window.ext.webpg_prefs.encrypt_to_self.get() == 'true') ? 
-                window.ext.webpg_prefs.encrypt_to_self.set(false) : ext.webpg_prefs.encrypt_to_self.set(true);
-            status = (window.ext.webpg_prefs.encrypt_to_self.get() == 'true') ? 'Enabled' : 'Disabled'
+            if (window.ext.webpg_prefs.encrypt_to_self.get()) {
+                window.ext.webpg_prefs.encrypt_to_self.set(false)
+                this.checked = false;
+                status = 'Disabled';
+            } else {
+                ext.webpg_prefs.encrypt_to_self.set(true);
+                this.checked = true;
+                status = 'Enabled';
+            }
             $(this).button('option', 'label', status);
-            this.checked = (window.ext.webpg_prefs.encrypt_to_self.get() == 'true');
             $(this).button('refresh');
         }
     );

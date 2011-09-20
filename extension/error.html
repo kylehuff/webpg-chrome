@@ -1,0 +1,118 @@
+<html>
+<head>
+<title>WebPG for Chrome Error Page</title>
+<link type="text/css" href="jquery/css/dot-luv/jquery-ui-1.8.14.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="jquery/js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="jquery/js/jquery-ui-1.8.14.custom.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+
+var ext = chrome.extension.getBackgroundPage();
+
+$(function(){
+    error_map = ext.plugin.gpg_status;
+
+    if (error_map["error"]) {
+        error_html = "<p>Error (" + error_map["gpg_error_code"] + "): " + error_map["error_string"] + "</p>";
+        error_html += "<h3>Suggestions:</h3>"
+        error_html += "<ul>";
+        if (error_map["gpg_error_code"] == -1) {
+            error_html += "<li>There might be a problem with the libgpgme installation;</li>";
+        }
+        if (error_map["gpg_error_code"] == "150") {
+            error_html += "<li>This might be a problem with the gpg installation;";
+            if (window.navigator.platform.toLowerCase().indexOf("win") !== -1)
+                error_html += " consider reinstalling gpg4win (<a href='http://gpg4win.org/'>gpg4win.org</a>)</li>";
+            else
+                error_html += "</li>";
+        }
+        error_html += "</ul>";
+
+        $("#system-info-list")[0].innerHTML += "<h1>Error Details</h1>";
+        $("#system-info-list")[0].innerHTML += "Error in Method: " + error_map["method"] + "<br/\>";
+        $("#system-info-list")[0].innerHTML += "Error Code: " + error_map["gpg_error_code"] + "<br/\>";
+        $("#system-info-list")[0].innerHTML += "Error String: " + error_map["error_string"] + "<br/\>";
+        file = error_map["file"];
+        if (window.navigator.platform.toLowerCase().indexOf("win") !== -1) {
+            file = file.substr(error_map["file"].lastIndexOf("\\") + 1);
+        } else {
+            file = file.substr(error_map["file"].lastIndexOf("/") + 1);
+        }
+        $("#system-info-list")[0].innerHTML += "File: " + file + "<br/\>";
+        $("#system-info-list")[0].innerHTML += "Line: " + error_map["line"] + "<br/\>";
+    } else {
+        error_html = "<p>Unknown Error</p>";
+    }
+    $("#error-text")[0].innerHTML += error_html;
+
+    $("#system-info-list")[0].innerHTML += "<h1>System Information</h1>";
+    $("#system-info-list")[0].innerHTML += "Platform: " + window.navigator.platform + "<br/\>";
+    $("#system-info-list")[0].innerHTML += "App Version: " + window.navigator.appVersion + "<br/\>";
+    $("#system-info-list")[0].innerHTML += "User Agent: " + window.navigator.userAgent + "<br/\>";
+    $("#system-info-list")[0].innerHTML += "Product: " + window.navigator.product + "<br/\>";
+    $("#system-info-list")[0].innerHTML += "productSub: " + window.navigator.productSub + "<br/\>";
+    $("#system-info-list")[0].innerHTML += "Vendor: " + window.navigator.vendor + "<br/\>";
+    $("#system-info-list")[0].innerHTML += "Language: " + window.navigator.language + "<br/\>";
+
+    $('#refresh').button().click(function(e) {
+        ext.location.reload();
+        console.log(ext.plugin.gpg_status);
+        window.close();
+    });
+
+    $('#close').button().click(function(e) { window.close(); });
+
+});
+/* ]]> */
+</script>
+<style>
+body{
+    font: 62.5% "Trebuchet MS", sans-serif;
+    min-width: 640px;
+    margin: 4px 40px 4px 40px;
+}
+#tabs {
+    margin: auto;
+    padding: 12px;
+    background-color: #000;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+.error {
+    color: #fff;
+}
+.header {
+    text-shadow:#000 1px 1px 1px;
+}
+.error-text {
+    font-size: 16px;
+}
+#system-info {
+    margin: auto;
+    padding: 0 0 16px 8px;
+    background-color: #fff;
+    border: 1px dashed #888;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+#system-info span {
+    font-size: 12px;
+}
+</style>
+</head>
+<body>
+<div id="tabs">
+    <h1 class="error header ui-state-error">Error loading WebPG</h1>
+    <span id="error-text" class="error error-text">
+        <p>We encountered a problem while attempting to load WebPG</p>
+    </span>
+    <br/>
+    <div id="system-info">
+        <span id="system-info-list" class="system-info"></span>
+    </div>
+    <div id="window_functions" style="width:100%; text-align:right; clear:left;">
+        <br/><br/><input type="button" id="refresh" value="Try Again"/><input type="button" id="close" value="Finished"/>
+    </div>
+</div>
+</body>
+</html>

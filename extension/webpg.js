@@ -1,5 +1,6 @@
 /* Constants */
 VERSION = "0.4.1"
+PARSED_COUNT = 0;
 
 /*
    Class: webpg
@@ -17,6 +18,8 @@ var webpg = {
 */
     onLoad: function() {
 
+        window.insert_target = null;
+
         window.onresize = function(){
             // Check if the iframe has a parent, if so, resize the iframe to fit within
             //  the parent element; otherwise, fit it to the document
@@ -27,15 +30,23 @@ var webpg = {
 
         // Setup a listener for making changes to the page
         chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-            if (request.request.msg == "sendtoiframe"){
-                if (request.request.cmd == "resizeiframe") {
-                    iframe_id = request.request.iframe_id;
+            if (request.msg == "sendtoiframe"){
+                if (request.cmd == "resizeiframe") {
+                    iframe_id = request.iframe_id;
                     width = document.body.offsetWidth - 200;
-                    height = request.request.height;
+                    height = request.height;
                     iframe = $('#' + iframe_id)[0]
                     iframe.style.width = width + "px";
                     iframe.style.height = height + "px";
                     response = "resized to: " + height + " x " + width + "; thanks..";
+                }
+            } else if (request.msg == "insertPublicKey") {
+                if (window.insert_target != null) {
+                    window.insert_target.value = request.data;
+                }
+            } else if (request.msg == "insertSignedData") {
+                if (window.insert_target != null) {
+                    window.insert_target.value = request.data;
                 }
             }
         });
@@ -50,6 +61,27 @@ var webpg = {
                 }
             }
         );
+
+        document.addEventListener("mousedown", function(event){
+            context_menuitems = {};
+            if (event.target.nodeName == "TEXTAREA" || event.target.nodeName == "INPUT") {
+                selection = window.getSelection().toString();
+                if (!selection.length > 0)
+                    selection = event.target.value;
+                block_type = selection.match(/^\s*?(-----BEGIN PGP.*)/gi);
+                if (selection.length > 0 && block_type && block_type[0] == webpg.PGPTags.PGP_KEY_BEGIN) {
+                    context_menuitems['import'] = {'data': selection};
+                } else if (selection.length > 0) {
+                    // text to sign
+                    context_menuitems['sign'] = {'data': selection};
+                } else if (!selection.length > 0) {
+                    context_menuitems['paste'] = true;
+                }
+                window.insert_target = event.target;
+            }
+            chrome.extension.sendRequest({msg: "create_menu", "context_menuitems" : context_menuitems});
+        }, true);
+
     },
 
     PGPTags: {
@@ -80,9 +112,12 @@ var webpg = {
                 return this.nodeType == 1;
             })
             .filter(function(){
+                // Do not process more than 10 inline elements.
+                if (PARSED_COUNT > 10)
+                    return true;
                 if (this.hasOwnProperty("nodeName") && this.nodeName == "TEXTAREA") {
                     if (this.value.indexOf(webpg.PGPTags.PGP_DATA_BEGIN) != -1) {
-                        return true
+                        return true;
                     }
                 } else {
                     if (this.textContent) {
@@ -91,6 +126,7 @@ var webpg = {
                             if (item.length > 1)
                                 return true;
                             webpg.PGPDataParse(item[0]);
+                            PARSED_COUNT++;
                         }
                     }
                 }
@@ -190,7 +226,11 @@ var webpg = {
                         PGP_DATA[block].indexOf("\n" + webpg.PGPTags.PGP_SIGNATURE_END) != -1 ) {
                         console.log("we found a signed message", element.nodeName);
                     } else {
-                        console.log("we found an incomplete signed message");
+                        if (PGP_DATA[block].indexOf(" " + webpg.PGPTags.PGP_SIGNATURE_END) != -1) {
+                            console.log("we found a signed message with bad formatting");
+                        } else {
+                            console.log("we found an incomplete signed message");
+                        }
                         return
                     }
                     var results_frame = webpg.addResultsFrame(element, pretext_str, posttext_str);

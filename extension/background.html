@@ -25,16 +25,18 @@ var webpg_prefs = {
     },
     encrypt_to_self: {
         get: function() {
-            return window.localStorage.getItem('encrypt_to_self')
+            encrypt_to = plugin.gpgGetPreference('encrypt-to').value
+            default_key = plugin.gpgGetPreference('default-key').value
+            return (encrypt_to == default_key) ? true : false;
         },
         set: function(value) {
             // if this setting is disabled, remove the value for 'encrypt-to'
             if (!value) {
-                // webpg-npapi versions below 0.3.10 require the argument value
-                //  "blank" to clear GPGOption values
-                plugin.gpgSetPreference('encrypt-to', 'blank');
+                plugin.gpgSetPreference('encrypt-to', '');
+            } else {
+                default_key = plugin.gpgGetPreference('default-key').value
+                plugin.gpgSetPreference('encrypt-to', default_key);
             }
-            window.localStorage.setItem('encrypt_to_self', value);
         },
     },
     gnupghome: {
@@ -95,17 +97,16 @@ var webpg_prefs = {
     },
     default_key: {
         get: function() {
-            return window.localStorage.getItem('default_key');
+            return plugin.gpgGetPreference('default-key').value
         },
         set: function(keyid) {
-            plugin.gpgSetPreference("default-key", keyid);
             if (webpg_prefs.encrypt_to_self.get() == 'true') {
                 plugin.gpgSetPreference("encrypt-to", keyid);
             }
-            return window.localStorage.setItem('default_key', keyid);
+            plugin.gpgSetPreference("default-key", keyid);
         },
         clear: function(keyid) {
-            return window.localStorage.clear('default_key');
+            plugin.gpgSetPreference('default-key', '');
         },
     },
 };
@@ -123,6 +124,10 @@ var webpgBackground = {
 
         gnupghome = (webpg_prefs.gnupghome.get()) ? webpg_prefs.gnupghome.get() : "";
 
+        if (document.getElementById("plugin")) {
+            document.body.removeChild(document.getElementById("plugin"));
+            plugin = null;
+        }
         // information and source code for the plugin can be found here:
         //      TBD
         plugin = document.createElement('embed');
@@ -131,9 +136,7 @@ var webpgBackground = {
         document.body.appendChild(plugin);
         console.log("my plugin returned: " + plugin.valid);
 
-
-
-        if (plugin.valid) {
+        if (plugin.valid && !plugin.gpg_status["error"]) {
             plugin.addEventListener("keygenprogress", webpgBackground.gpgGenKeyProgress, false);
             plugin.addEventListener("keygencomplete", webpgBackground.gpgGenKeyComplete, false);
 
@@ -147,6 +150,17 @@ var webpgBackground = {
                 }
             }
             console.log("background initted");
+        } else {
+            if (plugin.valid == undefined) {
+                plugin.gpg_status = {
+                    "error": true,
+                    "gpg_error_code": -1,
+                    "error_string": "libgpgme not found",
+                    "file": "webpgPluginAPI.cpp",
+                    "line": -1,
+                }
+            }
+            chrome.tabs.create({url: chrome.extension.getURL('error.html')});
         }
 
 
@@ -244,7 +258,7 @@ var webpgBackground = {
         }
         if (request.msg == 'sendtoiframe') {
             //we need to send a message the action badge
-            chrome.tabs.sendRequest(sender.tab.id, {request: request});
+            chrome.tabs.sendRequest(sender.tab.id, request);
         }
         if (request.msg == 'deleteKey'){
             if (request.temp_context) {
@@ -288,6 +302,91 @@ var webpgBackground = {
             response = null;
             console.log("Remote log request recieved; ", request.data);
         }
+        if(request.msg == "create_menu") {
+            chrome.contextMenus.removeAll(function() {
+                chrome.contextMenus.create({
+                    "type" : "separator",
+                    "contexts" : ["editable"]
+                });
+                if ("paste" in request.context_menuitems) {
+                    enabled_keys = webpg_prefs.enabled_keys.get()
+                    if (enabled_keys.length > 1) {
+                        callout = chrome.contextMenus.create({
+                            "title" : "Paste Public Key",
+                            "contexts" : ["editable"],
+                        });
+                        for (keyid in enabled_keys) {
+                            chrome.contextMenus.create({
+                                "title" : enabled_keys[keyid],
+                                "contexts" : ["editable"],
+                                "type" : "normal",
+                                "parentId" : callout,
+                                "onclick" : function(info, tab) {
+                                    pubkey = plugin.gpgExportPublicKey(keyid).result;
+                                    chrome.tabs.sendRequest(sender.tab.id, {'msg': 'insertPublicKey', 'data': pubkey});
+                                }
+                            });
+                        }
+                    } else {
+                        chrome.contextMenus.create({
+                            "title" : "Paste Public Key [" + enabled_keys[0] + "]",
+                            "contexts" : ["editable"],
+                            "type" : "normal",
+                            "onclick" : function(info, tab) {
+                                pubkey = plugin.gpgExportPublicKey(enabled_keys[0]).result;
+                                chrome.tabs.sendRequest(sender.tab.id, {'msg': 'insertPublicKey', 'data': pubkey});
+                            }
+                        });
+                    }
+                }
+                if ("sign" in request.context_menuitems) {
+                    chrome.contextMenus.create({
+                        "title" : "Clear-sign this text with your default key",
+                        "contexts" : ["editable"],
+                        "type" : "normal",
+                        "onclick" : function(info, tab) {
+                            signing_key = webpg_prefs.default_key.get()
+                            data = request.context_menuitems["sign"].data
+                            sign_status = plugin.gpgSignText([signing_key], data, 2);
+                            if (!sign_status.error && sign_status.data.length > 0) {
+                                chrome.tabs.sendRequest(sender.tab.id, {'msg': 'insertSignedData',
+                                    'data': sign_status.data});
+                            }
+                        }
+                    });
+                }
+                if ("import" in request.context_menuitems) {
+                    chrome.contextMenus.create({
+                        "title" : "Import this Key",
+                        "contexts" : ["editable"],
+                        "type" : "normal",
+                        "onclick" : function(info, tab) {
+                            import_status = plugin.gpgImportKey(request.data);
+                        }
+                    });
+                }
+                chrome.contextMenus.create({
+                    "title" : "Options",
+                    "type" : "normal",
+                    "contexts" : ["all"],
+                    "onclick" : function(info, tab) {
+                        chrome.tabs.create({'url': chrome.extension.getURL('options.html'),
+                            'index': sender.tab.index + 1});
+                    },
+                });
+                chrome.contextMenus.create({
+                    "title" : "Key Manager",
+                    "type" : "normal",
+                    "contexts" : ["all"],
+                    "onclick" : function() {
+                        chrome.tabs.create({'url': chrome.extension.getURL('key_manager.html'),
+                            'index': sender.tab.index + 1});
+                    },
+                });
+            });
+        } else if(request.msg == "delete_menu") {
+            chrome.contextMenus.removeAll();
+        }
         // Return the response and let the connection be cleaned up.
         sendResponse({'result': response});
     },
@@ -329,6 +428,7 @@ var webpgBackground = {
 
 // Listen for the content script to send a message to the background page.
 chrome.extension.onRequest.addListener(webpgBackground.onRequest);
+
 </script>
 </head>
 <body>
