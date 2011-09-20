@@ -1,8 +1,9 @@
 {
   "name": "WebPG",
   "version": "0.4.1",
-  "description": "An extension which provides GnuPG related functions to the browser",
+  "description": "An extension which provides GnuPG/GPG/PGP related functions to Chrome",
   "background_page": "background.html",
+  "options_page": "options.html",
   "icons": {
       "16": "images/webpg-16.png",
       "32": "images/webpg-32.png",
@@ -24,7 +25,6 @@
       "run_at": "document_end"
     }
   ],
-  "options_page": "options.html",
   "browser_action": {
     "default_icon": "images/webpg-32.png",
     "default_title": "WebPG",
