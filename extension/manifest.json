@@ -1,7 +1,7 @@
 {
-  "name": "WebPG",
+  "name": "WebPG (App version)",
   "version": "0.4.1",
-  "description": "An extension which provides GnuPG/GPG/PGP related functions to Chrome",
+  "description": "A GnuPG/GPG/PGP Key Manager App for Chrome",
   "background_page": "background.html",
   "options_page": "options.html",
   "icons": {
@@ -12,23 +12,10 @@
       "96": "images/webpg-96.png",
       "128": "images/webpg-128.png"
    },
-  "permissions": [
-       "<all_urls>",
-       "tabs",
-       "notifications",
-       "contextMenus"
-  ],
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["jquery/js/jquery-1.5.1.min.js", "webpg.js"],
-      "run_at": "document_end"
+  "app": {
+    "launch": {
+      "local_path": "key_manager.html"
     }
-  ],
-  "browser_action": {
-    "default_icon": "images/webpg-32.png",
-    "default_title": "WebPG",
-    "default_popup": "browser_action_menu.html"
   },
   "plugins": [
       { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.3.9.plugin", "public": false },
