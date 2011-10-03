@@ -33,6 +33,7 @@
   "plugins": [
       { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.3.9.plugin", "public": false },
       { "path": "plugins/Linux_x86-gcc3/npwebpgPlugin-v0.3.9.so", "public": false },
+      { "path": "plugins/Linux_x86_64-gcc/npwebpgPlugin-v0.3.9.so", "public": false },
       { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.3.9.dll", "public": false }
   ]
 }
