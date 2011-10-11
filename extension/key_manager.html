@@ -62,10 +62,12 @@ $(function(){
         }
 
         if (!keyList) {
-            var keylist = window.ext.plugin.getPublicKeyList();
-            if (!keylist) {
-                // if the parsing failed, create an empty keylist
-                keylist = {};
+            if (type == 'public') {
+                var keylist = window.ext.plugin.getPublicKeyList();
+                if (!keylist) {
+                    // if the parsing failed, create an empty keylist
+                    keylist = {};
+                }
             }
             var pkeylist = window.ext.plugin.getPrivateKeyList();
 
@@ -262,13 +264,13 @@ $(function(){
                 }
             } else {
                 keyobj = document.createElement('div');
-                if (keylist[key].disabled)
+                if (current_keylist[key].disabled)
                     keyobj.className = 'disabled';
-                if (keylist[key].expired)
+                if (current_keylist[key].expired)
                     keyobj.className = 'invalid-key';
-                if (keylist[key].invalid)
+                if (current_keylist[key].invalid)
                     keyobj.className = 'invalid-key';
-                if (keylist[key].revoked)
+                if (current_keylist[key].revoked)
                     $(keyobj).addClass('invalid-key');
                 keyobj.className += ' primary_key';
                 enabled = (enabled_keys.indexOf(key) != -1) ? 'checked' : '';
@@ -277,19 +279,19 @@ $(function(){
             }
             status = "Valid";
             keyobj = document.createElement('div');
-            if (keylist[key].disabled) {
+            if (current_keylist[key].disabled) {
                 $(keyobj).addClass('disabled');
                 status = "Disabled";
             }
-            if (keylist[key].expired) {
+            if (current_keylist[key].expired) {
                 $(keyobj).addClass('invalid-key');
                 status = "Expired";
             }
-            if (keylist[key].invalid) {
+            if (current_keylist[key].invalid) {
                 $(keyobj).addClass('invalid-key');
                 status = "Invalid";
             }
-            if (keylist[key].revoked) {
+            if (current_keylist[key].revoked) {
                 $(keyobj).addClass('invalid-key');
                 status = "Revoked";
             }
@@ -299,9 +301,9 @@ $(function(){
                 keyobj.setAttribute('id', 'open_key');
             }
             if (type == "public") {
-                keyobj.innerHTML = "<h3 class='public_keylist'><a href='#'><span style='margin: 0;width: 50%'>" + keylist[key].name + "</span><span class='trust'></span></a></h3>";
+                keyobj.innerHTML = "<h3 class='public_keylist'><a href='#'><span style='margin: 0;width: 50%'>" + current_keylist[key].name + "</span><span class='trust'></span></a></h3>";
             } else {
-                keyobj.innerHTML = "<h3 class='private_keylist' style='height: 24px;'><a href='#'><span style='margin: 0;width: 50%;'>" + keylist[key].name + 
+                keyobj.innerHTML = "<h3 class='private_keylist' style='height: 24px;'><a href='#'><span style='margin: 0;width: 50%;'>" + current_keylist[key].name + 
                     "&nbsp;&nbsp;-&nbsp;&nbsp;[0x" + key.substr(-8) + "]</span></a><span class='trust' style='z-index:1000; left: 12px; top:-28px;height:22px;'>" +
                     "<span class='keyoption-help-text' style=\"margin-right: 14px;\"></span>" +
                     "<input class='enable-check' id='check-" + key +"' type='checkbox' " + enabled + " onclick=\"if ('" + key + "' == window.ext.webpg_prefs.default_key.get()){" +
@@ -311,17 +313,17 @@ $(function(){
                     " id='default-" + key + "' " + default_key + "/\><label class='default-check' style='z-index: 0; margin-left: 0px;' for='default-" + key + "'>Set as default</label></span></h3>";
             }
             keylist_element.appendChild(keyobj);
-            keylist[key].nuids = 0;
-            for (uid in keylist[key].uids) {
-                keylist[key].nuids += 1;
+            current_keylist[key].nuids = 0;
+            for (uid in current_keylist[key].uids) {
+                current_keylist[key].nuids += 1;
             }
             uidlist = document.createElement('div');
             uidlist.setAttribute('class', 'uidlist');
             uidlist.setAttribute('id', key);
-            created_date = new Date(keylist[key].subkeys[0].created * 1000).toJSON().substring(0, 10);
-            expiry = (keylist[key].subkeys[0].expires == 0) ? 'Never' : new Date(keylist[key].subkeys[0].expires * 1000).toJSON();
-            if (keylist[key].subkeys[0].expires > 0) {
-                expiry = (Math.round(new Date().getTime()/1000.0) > keylist[key].subkeys[0].expires) ? "Expired [" + expiry.substring(0, 10) + "]" : expiry.substring(0, 10);
+            created_date = new Date(current_keylist[key].subkeys[0].created * 1000).toJSON().substring(0, 10);
+            expiry = (current_keylist[key].subkeys[0].expires == 0) ? 'Never' : new Date(current_keylist[key].subkeys[0].expires * 1000).toJSON();
+            if (current_keylist[key].subkeys[0].expires > 0) {
+                expiry = (Math.round(new Date().getTime()/1000.0) > current_keylist[key].subkeys[0].expires) ? "Expired [" + expiry.substring(0, 10) + "]" : expiry.substring(0, 10);
             }
             options_list = [];
             if (type == "private") {
@@ -391,7 +393,7 @@ $(function(){
                             type + "-key-option-list ui-button ui-corner-all ui-button ui-widget ui-state-default' id='" + 
                             option.command + "-" + type + "-" + key + "' style=\"margin-right: 10px;\">"
                         for (listitem in option.list_values) {
-                            owner_trust = keylist[key].owner_trust;
+                            owner_trust = current_keylist[key].owner_trust;
                             if (option.list_values[listitem].toLowerCase() == owner_trust) {
                                 selected = "selected";
                             } else {
@@ -405,19 +407,19 @@ $(function(){
                         break;
                 }
             }
-            keystatus = (keylist[key].disabled)? 'enable':'disable';
-            keystatus_text = (keylist[key].disabled)? 'Enable this Key':'Disable this Key';
+            keystatus = (current_keylist[key].disabled)? 'enable':'disable';
+            keystatus_text = (current_keylist[key].disabled)? 'Enable this Key':'Disable this Key';
             key_option_button = "<span class='uid-options' style='font-size:12px;'><input class='" + 
                     type + "-key-option-button' id='" + keystatus + "-" + type + "-" + key + 
                         "' type='button' value='" + keystatus_text + "'/\></span>";
             uidlist_innerHTML = "<div class='keydetails'><span class='dh'>Key Details</span><hr/\>" +
                 "<span><h4>KeyID:</h4> 0x" + key.substr(-8) + "</span><span><h4>Key Created:</h4> " + 
                     created_date + "</span><span><h4>Expires:</h4> " + expiry +
-                        "</span><span><h4>UIDs:</h4> " + keylist[key].nuids + "</span><br/\>" +
-                "<h4>Fingerpint:</h4> " + keylist[key].fingerprint + "<br/\>" +
+                        "</span><span><h4>UIDs:</h4> " + current_keylist[key].nuids + "</span><br/\>" +
+                "<h4>Fingerpint:</h4> " + current_keylist[key].fingerprint + "<br/\>" +
                 "<span><h4>Status:</h4> " + status + "</span><span><h4>Key Algorithm:</h4> " +
-                        keylist[key].subkeys[0].algorithm_name + "</span>" +
-                "<span><h4>Validity:</h4> " + keylist[key].uids[0].validity + "</span>" +
+                        current_keylist[key].subkeys[0].algorithm_name + "</span>" +
+                "<span><h4>Validity:</h4> " + current_keylist[key].uids[0].validity + "</span>" +
                 "<br/\>" +
                 "<span class='dh'>Key Options</span><hr/\>" +
                 compiled_option_list + "<br/\>" + 
@@ -432,8 +434,8 @@ $(function(){
                 "</div>";
             uidlist.innerHTML = uidlist_innerHTML;
             subkey_info = "<span class='dh'>Subkeys</span><hr/\>";
-            for (subkey in keylist[key].subkeys) {
-                skey = keylist[key].subkeys[subkey];
+            for (subkey in current_keylist[key].subkeys) {
+                skey = current_keylist[key].subkeys[subkey];
                 skey_status = "Valid";
                 if (skey.disabled) {
                     skey_status = "Disabled";
@@ -494,17 +496,17 @@ $(function(){
             }
             $(uidlist).append(subkey_info);
             $(uidlist).append("<br/\><span class='dh'>User IDs</span><hr/\>");
-            for (uid in keylist[key].uids) {
+            for (uid in current_keylist[key].uids) {
                 uidobj = document.createElement('div');
                 uidobj.setAttribute('class', 'uid');
                 uidobj.setAttribute('id', key + '-' + uid);
                 if (key == openKey && uid == openUID)
                     $(uidobj).addClass('open_uid');
-                if (keylist[key].expired || keylist[key].uids[uid].revoked)
+                if (current_keylist[key].expired || current_keylist[key].uids[uid].revoked)
                     uidobj.className += ' invalid-key';
-                email = (keylist[key].uids[uid].email.length > 1) ? "  -  &lt;" + keylist[key].uids[uid].email + "&gt;" :
+                email = (current_keylist[key].uids[uid].email.length > 1) ? "  -  &lt;" + current_keylist[key].uids[uid].email + "&gt;" :
                     "  - (no email address provided)";
-                uidobj.innerHTML += "<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%'>" + keylist[key].uids[uid].uid + email + "</span><span class='trust' style='text-decoration: none;'></span></a></h4>";
+                uidobj.innerHTML += "<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%'>" + current_keylist[key].uids[uid].uid + email + "</span><span class='trust' style='text-decoration: none;'></span></a></h4>";
                 signed = 0;
                 nd_trust = false;
                 uidobjbody = document.createElement('div');
@@ -516,7 +518,7 @@ $(function(){
                         primary_button = "<span class=\"uid-options\"><input class='uid-option-button uid-option-button-primary' id='primary-" +
                             type + "-" + key + "-" + uid + "' type='button' value='Make primary'/\></span>";
                     }
-                    if (!keylist[key].uids[uid].revoked){
+                    if (!current_keylist[key].uids[uid].revoked){
                         revoke_button = "<span class=\"uid-options\"><input class='uid-option-button uid-option-button-revoke' id='revoke-" +
                             type + "-" + key + "-" + uid + "' type='button' value='Revoke UID'/\></span>";
                     }
@@ -526,11 +528,11 @@ $(function(){
                     "<span class='uid-options'>" + primary_button + revoke_button + "<input class='uid-option-button' id='delete-" + type + "-" + key + "-" + uid +
                     "' type='button' value='Delete this UID'/\></span></div>";
                 uidobjbody.innerHTML += "<br/\>";
-                if (keylist[key].uids[uid].revoked) {
+                if (current_keylist[key].uids[uid].revoked) {
                     $(uidobjbody).find('.uid-option-button-sign').addClass('uid-revoked');
                     $(uidobjbody).find('.uid-option-button-primary').addClass('uid-revoked');
                 }
-                if (keylist[key].expired)
+                if (current_keylist[key].expired)
                     $(uidobjbody).find('.uid-option-button-sign').addClass('key-expired');
                 // Not all signatures are included in the step-iteration of a signature revocation, 
                 //  therefor we need to keep track of the index of revocable keys.
@@ -540,29 +542,29 @@ $(function(){
                 //  We need to keep a list of revocation signature ID's so we can
                 //  exclude the revoked signatures from being displayed.
                 revocation_sig_ids = {}
-                for (sig in keylist[key].uids[uid].signatures) {
-                    sig_keyid = keylist[key].uids[uid].signatures[sig].keyid
+                for (sig in current_keylist[key].uids[uid].signatures) {
+                    sig_keyid = current_keylist[key].uids[uid].signatures[sig].keyid
                     status = "";
-                    if (keylist[key].uids[uid].signatures[sig].revoked) {
+                    if (current_keylist[key].uids[uid].signatures[sig].revoked) {
                         revocation_sig_ids[sig_keyid] = 'revoked';
                         status = " [REVOKED]";
                     } else if (sig_keyid in revocation_sig_ids) {
                         continue;
                     }
-                    if (sig_keyid in keylist || nd_trust) {
+                    if (sig_keyid in current_keylist || nd_trust) {
                         if (sig_keyid in pkeylist) {
                             signed = 1;
-                            if (!keylist[key].uids[uid].signatures[sig].revoked) {
+                            if (!current_keylist[key].uids[uid].signatures[sig].revoked) {
                                 rev_index += 1;
                             }
                         }
-                        email = (keylist[sig_keyid].uids[0].email.length > 1) ? "&lt;" +
-                            keylist[sig_keyid].uids[0].email + 
+                        email = (current_keylist[sig_keyid].uids[0].email.length > 1) ? "&lt;" +
+                            current_keylist[sig_keyid].uids[0].email + 
                             "&gt;" : "(no email address provided)"
-                        if (keylist[key].uids[uid].signatures[sig].revoked) {
+                        if (current_keylist[key].uids[uid].signatures[sig].revoked) {
                             sig_class = " sig-revoked";
                             sig_image = "stock_signature-bad.png";
-                        } else if (!keylist[key].uids[uid].signatures[sig].expired && !keylist[key].uids[uid].signatures[sig].invalid) {
+                        } else if (!current_keylist[key].uids[uid].signatures[sig].expired && !current_keylist[key].uids[uid].signatures[sig].invalid) {
                             sig_class = " sig-good";
                             sig_image = "stock_signature-ok.png";
                         } else {
@@ -572,26 +574,26 @@ $(function(){
                         sig_box = "<div id='sig-" + sig_keyid + "-" + sig + "' class='signature-box " + sig_class + "'>" +
                             "<img src='images/badges/" + sig_image + "'>" + 
                             "<div style='float:left; clear:right;width:80%;'><span class='signature-uid'>" + 
-                            keylist[sig_keyid].name + status + "</span><br/\><span class='signature-email'>" + 
+                            current_keylist[sig_keyid].name + status + "</span><br/\><span class='signature-email'>" + 
                             email + "</span><br/\><span class='signature-keyid'>" + sig_keyid + "</span><br/\>";
-                        date_created = new Date(keylist[key].uids[uid].signatures[sig].created * 1000).toJSON();
-                        date_expires = (keylist[key].uids[uid].signatures[sig].expires == 0) ? 
-                            'Never' : new Date(keylist[key].uids[uid].signatures[sig].expires * 1000).toJSON().substring(0, 10);
+                        date_created = new Date(current_keylist[key].uids[uid].signatures[sig].created * 1000).toJSON();
+                        date_expires = (current_keylist[key].uids[uid].signatures[sig].expires == 0) ? 
+                            'Never' : new Date(current_keylist[key].uids[uid].signatures[sig].expires * 1000).toJSON().substring(0, 10);
                         sig_box += "<span class='signature-keyid'>Created: " + date_created.substring(0, 10) + "</span><br/\>";
                         sig_box += "<span class='signature-keyid'>Expires: " + date_expires + "</span><br/\>"
 
                         sig_box += "<span class='signature-keyid'>";
                         if (sig_keyid == key) {
                             sig_box += "[self-signature]";
-                        } else if (!keylist[key].uids[uid].signatures[sig].exportable) {
+                        } else if (!current_keylist[key].uids[uid].signatures[sig].exportable) {
                             sig_box += "[local, non-exportable]";
                         } else {
                             sig_box += "[other signature]";
                         }
                         sig_box += "</span></div><br/\>";
 
-                        if (signed && keylist[key].uids[uid].signatures[sig].exportable && key != sig_keyid
-                            && !keylist[key].uids[uid].signatures[sig].revoked) {
+                        if (signed && current_keylist[key].uids[uid].signatures[sig].exportable && key != sig_keyid
+                            && !current_keylist[key].uids[uid].signatures[sig].revoked) {
                             sig_box += "<input type='button' class='revsig-button' id='revsig-" + type + "-" + 
                                 key + "-" + uid + "-" + rev_index + "' value='Revoke'/\>";
                         }
