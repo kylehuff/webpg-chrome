@@ -136,7 +136,7 @@ var webpgBackground = {
         document.body.appendChild(plugin);
         console.log("my plugin returned: " + plugin.valid);
 
-        if (plugin.valid && !plugin.gpg_status["error"]) {
+        if (plugin.valid && !plugin.webpg_status["error"]) {
             plugin.addEventListener("keygenprogress", webpgBackground.gpgGenKeyProgress, false);
             plugin.addEventListener("keygencomplete", webpgBackground.gpgGenKeyComplete, false);
 
@@ -152,7 +152,7 @@ var webpgBackground = {
             console.log("background initted");
         } else {
             if (plugin.valid == undefined) {
-                plugin.gpg_status = {
+                plugin.webpg_status = {
                     "error": true,
                     "gpg_error_code": -1,
                     "error_string": "libgpgme not found",
@@ -432,7 +432,6 @@ chrome.extension.onRequest.addListener(webpgBackground.onRequest);
 </script>
 </head>
 <body>
-    <script src="analytics.js"></script>
 </body>
 <script>
     webpgBackground.init();

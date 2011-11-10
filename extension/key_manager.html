@@ -1247,7 +1247,7 @@ $(function(){
             }
             $("#createsig-dialog").dialog('open');
         });
-        if (!window.ext.plugin.gpg_status.gpgconf_detected) {
+        if (!window.ext.plugin.webpg_status.gpgconf_detected) {
             $('.uid-option-button-sign').button({disabled: true, label: "Cannot create signatures without gpgconf utility installed"});
         }
         $('.uid-option-button-sign.uid-revoked').button({disabled: true, label: "Cannot sign a revoked UID"});
@@ -1902,6 +1902,5 @@ ul.expand ul
 <div id="dialog-modal" title="">
     <div id="dialog-msg"></div>
 </div>
-<script src="analytics.js"></script>
 </body>
 </html>
