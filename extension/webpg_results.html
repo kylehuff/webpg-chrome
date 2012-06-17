@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>WebPG secure iframe</title>
-<script type="text/javascript" src="jquery/js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="jquery/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript">
 /* <![CDATA[ */
 $(function(){
@@ -110,7 +110,7 @@ $(function(){
                 case "encrypted_message":
                     icon.src = "/images/badges/stock_encrypted.png";
                     $(icon).addClass('footer_icon');
-                    $('#footer')[0].innerHTML = icon.outerHTML;
+                    
                     gpg_error_code = request.verify_result.gpg_error_code;
                     if (gpg_error_code == "58") {
                         $('#header')[0].innerHTML = "<a name=\"" + qs.id + "\">PGP ENCRYPTED OR SIGNED MESSAGE</a>";
@@ -124,17 +124,43 @@ $(function(){
                     } else {
                         $('#signature_text')[0].innerText = request.verify_result.data;
                     }
+                    if (request.message_event == "manual" && request.verify_result.original_text.substr(0,5) == "-----") {
+                        if (request.verify_result.signatures && request.verify_result.signatures.hasOwnProperty(0)) {
+                            $('#header')[0].innerHTML = "<a name=\"" + qs.id + "\">PGP ENCRYPTED AND SIGNED MESSAGE</a>";
+                            icon.src = "/images/badges/stock_decrypted-signature.png";
+                            sig_ok = true;
+                            sig_boxes = "<div class='signature-container'>";
+                            for (sig in request.verify_result.signatures) {
+                                if (request.verify_result.signatures[sig].status != "GOOD") {
+                                    sig_ok = false;
+                                }
+                                sig_boxes += createSignatureBox(request.verify_result.signatures[sig], sig);
+                            }
+                            sig_boxes += "</div>";
+                            $('#signature_text')[0].innerHTML += sig_boxes;
+                            if (sig_ok) {
+                                $('#footer').addClass("signature_good");
+                                icon.src = "/images/badges/stock_decrypted-signature-ok.png";
+                            }
+                        } else {
+                            icon.src = "/images/badges/stock_decrypted.png";
+                        }
+                    }
+                    $('#footer')[0].innerHTML = icon.outerHTML;
                     $('#original_text')[0].innerText = request.verify_result.original_text;
                     $('#clipboard_input')[0].value = request.verify_result.original_text;
                     $('#original_text').hide();
                     if (gpg_error_code == "11" || gpg_error_code == "152") {
                         $('#footer').addClass("signature_no_pubkey");
                         if (gpg_error_code == "152") {
-                            $('#footer')[0].innerHTML = "UNABLE TO DECRYPT THIS MESSAGE; NO SECRET KEY<br/\>";
+                            $('#footer')[0].innerHTML = "DECRYPTION FAILED; NO SECRET KEY<br/\>";
                         }
                         if (gpg_error_code == "11") {
                             if (request.message_type == "encrypted_message" && request.message_event == "manual") {
-                                $('#footer')[0].innerHTML = "UNABLE TO DECRYPT THIS MESSAGE; BAD PASSPHRASE | ";
+                                $('#footer')[0].innerHTML = "DECRYPTION FAILED; BAD PASSPHRASE <br/\>";
+                                if (request.noninline) {
+                                    $('#footer')[0].innerHTML += "<a class=\"decrypt_message\" href=\"#" + qs.id + "\"\">DECRYPT THIS MESSAGE</a> |";
+                                }
                             } else {
                                 $('#footer')[0].innerHTML += "<a class=\"decrypt_message\" href=\"#" + qs.id + "\"\">DECRYPT THIS MESSAGE</a> | ";
                             }
@@ -142,8 +168,10 @@ $(function(){
                     } else if (!request.verify_result.error) {
                         $('#footer').addClass("signature_good");
                     }
+                    if (!request.verify_result.error && request.verify_result.original_text.length >0) {
+                         $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ";
+                    }
                     $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"javascript:void(0);\">COPY TO CLIPBOARD</a>";
-
                     doResize(qs.id, document);
                     $('.original_text_link').click(function(){
                         if (this.innerHTML == "DISPLAY ORIGINAL"){
@@ -468,7 +496,7 @@ $(function(){
                             }
                         } else {
                             $('#signature_text')[0].innerText = response.result.data;
-                            if (response.result.signatures.hasOwnProperty(0)) {
+                            if (request.verify_result.signatures && response.result.signatures.hasOwnProperty(0)) {
                                 $('#header')[0].innerHTML = "<a name=\"" + qs.id + "\">PGP ENCRYPTED AND SIGNED MESSAGE</a>";
                                 icon.src = "/images/badges/stock_decrypted-signature.png";
                                 sig_ok = true;

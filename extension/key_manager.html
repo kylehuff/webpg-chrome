@@ -2,7 +2,7 @@
 <head>
 <title>WebPG Key Manager</title>
 <link type="text/css" href="jquery/css/dot-luv/jquery-ui-1.8.14.custom.css" rel="stylesheet" />
-<script type="text/javascript" src="jquery/js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="jquery/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="jquery/js/jquery-ui-1.8.14.custom.min.js"></script>
 <script type="text/javascript" src="jquery/js/jquery.passwordStrength.js"></script>
 <script type="text/javascript">
@@ -76,6 +76,8 @@ $(function(){
                 pkeylist = {};
             }
             window.pkeylist = pkeylist;
+        } else {
+            keylist = keyList;
         }
 
         keylist_element.innerHTML = "<div class='ui-accordion-left'></div>";
@@ -214,8 +216,8 @@ $(function(){
                 $('.key-algo').each(function(){
                     $(this)[0].options.selectedIndex = $(this)[0].options.length - 1;
                     if ($(this).parent().next().find('.key-size').length) {
-                        $(this).parent().next().find('.key-size')[0].children(0).disabled = true;
-                        $($(this).parent().next().find('.key-size')[0].children(0)).hide();
+                        $(this).parent().next().find('.key-size')[0].children[0].disabled = true;
+                        $($(this).parent().next().find('.key-size')[0].children[0]).hide();
                     }
                 }).change(function(){
                     if ($(this)[0].options.selectedIndex == 0){
@@ -462,6 +464,8 @@ $(function(){
                 if (skey.revoked) {
                     extraClass += " invalid-key";
                 }
+                if (skey_status == "Expired")
+                    extraClass += " invalid-key";
                 flags = []
                 sign_flag = (skey.can_sign) ? flags.push("Sign") : "";
                 enc_flag = (skey.can_encrypt) ? flags.push("Encrypt") : "";
@@ -1012,7 +1016,7 @@ $(function(){
                     $("#export-dialog").dialog({
 			            resizable: true,
 			            height: 230,
-			            width: 426,
+			            width: 536,
 			            modal: true,
                         "buttons": {
                             "Copy": function() {
@@ -1174,12 +1178,13 @@ $(function(){
             params = this.id.split('-');
             enabled_keys = window.ext.webpg_prefs.enabled_keys.get();
             $('#createsig-form')[0].innerHTML = "<p class='help-text'>Please select which of your keys to create the signature with:</p>";
+            if (type == "private")
+                keylist = pkeylist;
             current_signatures = keylist[params[2]].uids[params[3]].signatures;
             cursig = [];
             for (sig in current_signatures) {
-                cursig.push(current_signatures[sig]);
+                cursig.push(current_signatures[sig].keyid);
             }
-            console.log(cursig)
             if (!window.ext.webpg_prefs.enabled_keys.length()) {
                 $('#createsig-form')[0].innerHTML += "You have not enabled any keys for use with webpg; <a href='" + chrome.extension.getURL('key_manager.html') + "?tab=0&helper=enable'>please click here</a> and select 1 or more keys for use with webpg.";
             }

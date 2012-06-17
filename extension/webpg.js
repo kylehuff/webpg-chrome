@@ -1,5 +1,5 @@
 /* Constants */
-VERSION = "0.4.1"
+VERSION = "0.6.0"
 PARSED_COUNT = 0;
 
 /*
@@ -40,14 +40,113 @@ var webpg = {
                     iframe.style.height = height + "px";
                     response = "resized to: " + height + " x " + width + "; thanks..";
                 }
+            } else if (request.msg == "insertEncryptedData") {
+                if (window.insert_target != null) {
+                    window.insert_target.value = request.data;
+                }
             } else if (request.msg == "insertPublicKey") {
                 if (window.insert_target != null) {
                     window.insert_target.value = request.data;
                 }
             } else if (request.msg == "insertSignedData") {
                 if (window.insert_target != null) {
+                    if (request.pre)
+                        request.data = request.pre + "\n" + request.data
+                    if (request.post)
+                        request.data += "\n" + request.post
                     window.insert_target.value = request.data;
                 }
+            } else if (request.msg == "insertDecryptedData") {
+                if (window.insert_target != null) {
+                    results_frame = webpg.addResultsReplacementFrame(window.insert_target);
+                    if (request.decrypt_status.error)
+                        request.decrypt_status.original_text = request.original_text;
+                    request.decrypt_status.original_text = request.original_text;
+                    results_frame.onload = function(block_text){
+                        chrome.extension.sendRequest({
+                            'msg': "sendtoiframe",
+                            'block_type': "encrypted_message",
+                            'target_id': results_frame.id,
+                            'verify_result': request.decrypt_status,
+                            'message_event': "manual",
+                            'message_type': "encrypted_message",
+                            'noninline': true}
+                        );
+                    };
+                }
+            } else if (request.msg == "openKeySelectionDialog") {
+                console.log(request);
+                window.block_target = true;
+                modal_element = document.createElement('div');
+                modal_element.style.top = "50%";
+                modal_element.style.left = "50%";
+                modal_element.style.position = "absolute";
+                modal_element.style.backgroundColor = "transparent";
+                dialog_element = document.createElement('div');
+                dialog_element.id = "ddialog";
+                dialog_element.style.position = "relative";
+                dialog_element.style.width = "600px";
+                dialog_element.style.height = "300px";
+                dialog_element.style.marginLeft = "-300px";
+                dialog_element.style.marginTop = "-150px";
+                dialog_element.style.borderRadius = "12px";
+                dialog_element.style.backgroundColor = "#222";
+                dialog_element.style.paddingLeft = "4px";
+                dialog_element.style.zIndex = "9999";
+                dialog_element.style.color = "#fff";
+                dialog_element.style.paddingLeft = "0px"
+			    keylist = request.keylist;
+			    dialog_element.innerHTML = "<div style='font-size: 18px; text-shadow: #555 1px 1px 1px; padding: 4px; margin: 0px; border-radius: 8px 8px 0 0; color: #fff; background-color: #f81; position: relative; width: 592px;'>Select key(s) for Encryption</div>";
+			    keylist_div = document.createElement('div');
+			    keylist_div.style.overflowY = "auto";
+			    keylist_div.style.backgroundColor = "#000";
+			    keylist_div.style.height = "80%";
+			    keylist_div.style.borderBottom = "#f81 1px solid";
+			    formHTML = "<form name='encrypt_to_form' style='padding: 0px; margin: 0px;'><ul style='padding: 0px; margin: 0px;'>";
+                for (idx in keylist) {
+                    key = keylist[idx];
+                    if (key.invalid || key.disabled || key.expired || key.revoked)
+                        continue;
+                    formHTML += "<li style='list-style-type: none;'> \
+                        <input type='checkbox' id='encrypt_to_" + idx + "' name='encrypt_to_list'/\><label for='encrypt_to_" + idx + "' id='lbl-encrypt_to_" + idx + "' class='help-text'>" + key.name + " (" + idx + ")</label></li>";
+                }
+                keylist_div.innerHTML = formHTML + "</ul></form>";
+                dialog_element.appendChild(keylist_div);
+                modal_element.addEventListener("encryptData", function(e) {
+                    chrome.extension.sendRequest({
+                        msg: 'encrypt',
+                        data: e.detail.data,
+                        recipients: e.detail.recipients },
+                        function(response) {
+                            if (!response.result.error && (window.insert_target.type == "textarea" ||
+                            window.insert_target.type == "text"))
+                                window.insert_target.value = response.result.data;
+                            else
+                                console.log(response.result);
+                            window.block_target = false;
+                        }
+                    );
+                })
+
+                dialog_element.innerHTML += "<div style='float:right; padding-top: 2px;'><input type='button' value='Encrypt' style='border-radius: 12px;' name='encrypt_to_submit' onclick=\"encrypt_to_list = []; \
+                for (i=0; i<document.forms.encrypt_to_form.encrypt_to_list.length; i++){ \
+                    if (document.forms.encrypt_to_form.encrypt_to_list[i].checked == true) { \
+                        encrypt_to_list[encrypt_to_list.length] = document.forms.encrypt_to_form.encrypt_to_list[i].id.split('_')[2]; \
+                    } \
+                }; \
+                modal_element = this.parentElement.parentElement.parentElement; \
+                var encryptEvent = new CustomEvent('encryptData', { \
+	                detail: { \
+		                data: '" + escape(request.data) + "', \
+		                recipients: encrypt_to_list \
+	                } \
+                });\
+                modal_element.dispatchEvent(encryptEvent); \
+                modal_element.style.display = 'none'; document.body.removeChild(modal_element); \
+                \"/> \
+                <input type='button' value='Cancel' style='border-radius: 12px;' onclick=\"modal = this.parentElement.parentElement.parentElement; modal.style.display = 'none'; document.body.removeChild(modal);\"/></div>";
+                modal_element.appendChild(dialog_element);
+                document.body.appendChild(modal_element);
             }
         });
 
@@ -64,20 +163,36 @@ var webpg = {
 
         document.addEventListener("mousedown", function(event){
             context_menuitems = {};
-            if (event.target.nodeName == "TEXTAREA" || event.target.nodeName == "INPUT") {
+            if (event.target.type == "textarea" || event.target.type == "text") {
                 selection = window.getSelection().toString();
-                if (!selection.length > 0)
+                selectionObject = window.getSelection();
+                if (!selection.length > 0) {
                     selection = event.target.value;
+                    pre_selection = null;
+                    post_selection = null;
+                } else {
+                    pre_selection = event.target.value.substr(0, event.target.selectionStart);
+                    post_selection = event.target.value.substr(event.target.selectionEnd, event.target.value.length);
+                }
                 block_type = selection.match(/^\s*?(-----BEGIN PGP.*)/gi);
                 if (selection.length > 0 && block_type && block_type[0] == webpg.PGPTags.PGP_KEY_BEGIN) {
                     context_menuitems['import'] = {'data': selection};
+                } else if (selection.length > 0 && block_type && block_type[0] == webpg.PGPTags.PGP_ENCRYPTED_BEGIN) {
+                    context_menuitems['decrypt'] = {'data': selection};
+                } else if (selection.length > 0 && (block_type && block_type[0] == webpg.PGPTags.PGP_SIGNED_MSG_BEGIN) ||
+                    event.target.value.substr(event.target.selectionStart, webpg.PGPTags.PGP_SIGNED_MSG_BEGIN.length) == webpg.PGPTags.PGP_SIGNED_MSG_BEGIN) {
+                    context_menuitems['verify'] = {'data': selection};
                 } else if (selection.length > 0) {
-                    // text to sign
-                    context_menuitems['sign'] = {'data': selection};
+                    // text to sign or encrypt
+                    if (event.target.value.substr(0, 5) != "-----") {
+                        context_menuitems['sign'] = {'data': selection, 'pre': pre_selection, 'post': post_selection};
+                        context_menuitems['encrypt'] = {'data': selection, 'pre': pre_selection, 'post': post_selection};
+                    }
                 } else if (!selection.length > 0) {
                     context_menuitems['paste'] = true;
                 }
-                window.insert_target = event.target;
+                if (!window.block_target)
+                    window.insert_target = event.target;
             }
             chrome.extension.sendRequest({msg: "create_menu", "context_menuitems" : context_menuitems});
         }, true);
@@ -334,6 +449,41 @@ var webpg = {
         element.appendChild(posttext);
         return iframe;
     },
+
+/*
+    Function: addResultsReplacementFrame
+        Creates a results iframe that replaces the element that contained
+        the original PGP data
+
+    Parameters:
+        element - The HTML element that contains the PGP Data
+*/
+
+    addResultsReplacementFrame: function(element){
+        var iframe = document.createElement("iframe");
+        var id = (new Date()).getTime();
+        iframe.id = id;
+        iframe.className = "webpg-result-frame"
+        iframe.scrolling = "no";
+        iframe.frameBorder = "none";
+        iframe.style.position = "relative";
+        iframe.style.borderRadius = "6px";
+        iframe.style.boxShadow = "2px 2px 2px #000";
+        //iframe.style.width = "100%";
+        //iframe.style.marginLeft = "85px";
+        iframe.style.top = "0";
+        iframe.style.backgroundColor = "#efefef";
+        original_text = document.createElement("div");
+        original_text.className = "original";
+        original_text.style.display = "none";
+        original_text.innerText = element.innerText;
+        iframe.src = chrome.extension.getURL("webpg_results.html") + "?id=" + id;
+        //console.log($(element).parent());
+        $(element).parent()[0].appendChild(iframe);
+        $(element).hide();
+        return iframe;
+    },
+
 
 /*
     Function: listenerUnload

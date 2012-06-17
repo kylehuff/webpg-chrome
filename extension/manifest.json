@@ -1,6 +1,6 @@
 {
   "name": "WebPG",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "An extension which provides GnuPG/GPG/PGP related functions to Chrome",
   "background_page": "background.html",
   "options_page": "options.html",
@@ -21,7 +21,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["jquery/js/jquery-1.5.1.min.js", "webpg.js"],
+      "js": ["jquery/js/jquery-1.7.2.min.js", "webpg.js"],
       "run_at": "document_end"
     }
   ],
@@ -31,9 +31,9 @@
     "default_popup": "browser_action_menu.html"
   },
   "plugins": [
-      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.3.10.plugin", "public": false },
-      { "path": "plugins/Linux_x86_64-gcc/npwebpgPlugin-v0.3.10.so", "public": false },
-      { "path": "plugins/Linux_x86-gcc/npwebpgPlugin-v0.3.10.so", "public": false },
-      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.3.10.dll", "public": false }
+      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.4.12.plugin", "public": false },
+      { "path": "plugins/Linux_x86_64-gcc/npwebpgPlugin-v0.4.12.so", "public": false },
+      { "path": "plugins/Linux_x86-gcc/npwebpgPlugin-v0.4.12.so", "public": false },
+      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.4.12.dll", "public": false }
   ]
 }
