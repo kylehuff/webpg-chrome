@@ -1,6 +1,6 @@
 {
   "name": "WebPG",
-  "version": "0.6.0",
+  "version": "0.6.4",
   "description": "An extension which provides GnuPG/GPG/PGP related functions to Chrome",
   "background_page": "background.html",
   "options_page": "options.html",
