@@ -1,6 +1,6 @@
 {
   "name": "WebPG (App version)",
-  "version": "0.4.2",
+  "version": "0.6.4",
   "description": "A GnuPG/GPG/PGP Key Manager App for Chrome",
   "background_page": "background.html",
   "options_page": "options.html",
@@ -18,9 +18,9 @@
     }
   },
   "plugins": [
-      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.3.9.plugin", "public": false },
-      { "path": "plugins/Linux_x86-gcc3/npwebpgPlugin-v0.3.9.so", "public": false },
-      { "path": "plugins/Linux_x86_64-gcc/npwebpgPlugin-v0.3.9.so", "public": false },
-      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.3.9.dll", "public": false }
+      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.4.12.plugin", "public": false },
+      { "path": "plugins/Linux_x86_64-gcc/npwebpgPlugin-v0.4.12.so", "public": false },
+      { "path": "plugins/Linux_x86-gcc/npwebpgPlugin-v0.4.12.so", "public": false },
+      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.4.12.dll", "public": false }
   ]
 }

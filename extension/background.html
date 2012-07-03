@@ -127,16 +127,17 @@ var webpgBackground = {
         if (document.getElementById("plugin")) {
             document.body.removeChild(document.getElementById("plugin"));
             plugin = null;
+        } else {
+            // information and source code for the plugin can be found here:
+            //      https://github.com/kylehuff/webpg-npapi
+            plugin = document.createElement('embed');
+            plugin.id = 'plugin';
+            plugin.type = 'application/x-webpg';
+            document.body.appendChild(plugin);
         }
-        // information and source code for the plugin can be found here:
-        //      TBD
-        plugin = document.createElement('embed');
-        plugin.id = 'plugin';
-        plugin.type = 'application/x-webpg';
-        document.body.appendChild(plugin);
         console.log("my plugin returned: " + plugin.valid);
 
-        if (plugin.valid && !plugin.gpg_status["error"]) {
+        if (plugin.valid && !plugin.webpg_status["error"]) {
             plugin.addEventListener("keygenprogress", webpgBackground.gpgGenKeyProgress, false);
             plugin.addEventListener("keygencomplete", webpgBackground.gpgGenKeyComplete, false);
 
@@ -152,7 +153,7 @@ var webpgBackground = {
             console.log("background initted");
         } else {
             if (plugin.valid == undefined) {
-                plugin.gpg_status = {
+                plugin.webpg_status = {
                     "error": true,
                     "gpg_error_code": -1,
                     "error_string": "libgpgme not found",
@@ -256,6 +257,9 @@ var webpgBackground = {
                 'import_status': import_status
             };
         }
+        if (request.msg == 'encrypt') {
+            response = plugin.gpgEncrypt(request.data, request.recipients, "", "");
+        }
         if (request.msg == 'sendtoiframe') {
             //we need to send a message the action badge
             chrome.tabs.sendRequest(sender.tab.id, request);
@@ -341,7 +345,7 @@ var webpgBackground = {
                 }
                 if ("sign" in request.context_menuitems) {
                     chrome.contextMenus.create({
-                        "title" : "Clear-sign this text with your default key",
+                        "title" : "Clear-sign this text",
                         "contexts" : ["editable"],
                         "type" : "normal",
                         "onclick" : function(info, tab) {
@@ -350,7 +354,9 @@ var webpgBackground = {
                             sign_status = plugin.gpgSignText([signing_key], data, 2);
                             if (!sign_status.error && sign_status.data.length > 0) {
                                 chrome.tabs.sendRequest(sender.tab.id, {'msg': 'insertSignedData',
-                                    'data': sign_status.data});
+                                    'data': sign_status.data,
+                                    'pre' : request.context_menuitems["sign"].pre,
+                                    'post' : request.context_menuitems["sign"].post});
                             }
                         }
                     });
@@ -362,6 +368,58 @@ var webpgBackground = {
                         "type" : "normal",
                         "onclick" : function(info, tab) {
                             import_status = plugin.gpgImportKey(request.data);
+                        }
+                    });
+                }
+                if ("encrypt" in request.context_menuitems) {
+                    callout = chrome.contextMenus.create({
+                        "title" : "Encrypt to",
+                        "contexts" : ["editable"],
+                        "type" : "normal",
+                        "onclick" : function(info, tab) {
+                                keylist = plugin.getPublicKeyList();
+                                chrome.tabs.sendRequest(sender.tab.id, {'msg': 'openKeySelectionDialog',
+                                    'keylist': keylist,
+                                    'data': request.context_menuitems["encrypt"].data
+                                }
+                            );
+                        }
+                    });
+                }
+                if ("decrypt" in request.context_menuitems) {
+                    chrome.contextMenus.create({
+                        "title" : "Decrypt this text",
+                        "contexts" : ["editable"],
+                        "type" : "normal",
+                        "onclick" : function(info, tab) {
+                            console.log(request.context_menuitems['decrypt'].data)
+                            decrypt_status = plugin.gpgDecrypt(request.context_menuitems['decrypt'].data);
+                            for (sig in decrypt_status.signatures) {
+                                sig_fp = decrypt_status.signatures[sig].fingerprint;
+                                key_request = plugin.getNamedKey(sig_fp);
+                                decrypt_status.signatures[sig].public_key = key_request;
+                            }
+                            //if (!decrypt_status.error && decrypt_status.data.length > 0) {
+                                chrome.tabs.sendRequest(sender.tab.id, {'msg': 'insertDecryptedData',
+                                    'decrypt_status': decrypt_status, 'original_text':
+                                        request.context_menuitems['decrypt'].data});
+                            //}
+                        }
+                     });
+                }
+                if ("verify" in request.context_menuitems) {
+                    chrome.contextMenus.create({
+                        "title" : "Verify this text",
+                        "contexts" : ["editable"],
+                        "type" : "normal",
+                        "onclick" : function(info, tab) {
+                            data = request.context_menuitems["verify"].data
+                            verify_status = plugin.gpgVerify(data);
+                            console.log(verify_status);
+                            if (!verify_status.error && verify_status.data.length > 0) {
+                                chrome.tabs.sendRequest(sender.tab.id, {'msg': 'insertSignedData',
+                                    'data': verify_status.data});
+                            }
                         }
                     });
                 }
@@ -432,7 +490,6 @@ chrome.extension.onRequest.addListener(webpgBackground.onRequest);
 </script>
 </head>
 <body>
-    <script src="analytics.js"></script>
 </body>
 <script>
     webpgBackground.init();
