@@ -2,12 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BuildMachineOSBuild</key>
+	<string>10K549</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>webpgPlugin</string>
 	<key>CFBundleGetInfoString</key>
-	<string>webpgPlugin 0.2.23, Copyright 2011 CURE|THE|ITCH</string>
+	<string>webpgPlugin 0.4.12, Copyright 2012 CURE|THE|ITCH</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.webpgPluginLib.webpg-plugin</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -15,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BRPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>webpgPlugin 0.2.23</string>
+	<string>webpgPlugin 0.4.12</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.2.23</string>
+	<string>0.4.12</string>
 	<key>CFPlugInDynamicRegisterFunction</key>
 	<string></string>
 	<key>CFPlugInDynamicRegistration</key>
@@ -38,6 +40,20 @@
 	</dict>
 	<key>CFPlugInUnloadFunction</key>
 	<string></string>
+	<key>DTCompiler</key>
+	<string></string>
+	<key>DTPlatformBuild</key>
+	<string>4C199</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>10K549</string>
+	<key>DTSDKName</key>
+	<string>macosx10.6</string>
+	<key>DTXcode</key>
+	<string>0420</string>
+	<key>DTXcodeBuild</key>
+	<string>4C199</string>
 	<key>WebPluginDescription</key>
 	<string>A browser agnostic NPAPI interface to GnuPG</string>
 	<key>WebPluginMIMETypes</key>
