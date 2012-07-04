@@ -1,5 +1,5 @@
 /* Constants */
-VERSION = "0.6.4"
+VERSION = "0.6.8"
 PARSED_COUNT = 0;
 
 /*

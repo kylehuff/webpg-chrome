@@ -2,40 +2,7 @@
 <head>
 <title>WebPG for Chrome Menu</title>
 <script type="text/javascript" src="jquery/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript">
-/* <![CDATA[ */
-
-var ext = chrome.extension.getBackgroundPage();
-
-$(document).ready(function() {
-    $('.menu-option').hover(
-        function(){ 
-            $(this).addClass("menu-option-over");
-        },
-        function(){
-            $(this).removeClass("menu-option-over");
-        }
-    );
-});
-
-var MenuActions = {
-    options: function(){
-        console.log("options was selected");
-        url = chrome.extension.getURL('options.html') + "?tab=0";
-        chrome.tabs.create({ 'url': url });
-        return false;
-    },
-
-    key_manager: function(){
-        console.log("key mangager was selected");
-        url = chrome.extension.getURL('key_manager.html') + "?tab=0";
-        chrome.tabs.create({ 'url': url });
-        return false;
-    }
-}
-
-/* ]]> */
-</script>
+<script type="text/javascript" src="browser_action_menu.js"></script>
 <style>
 body {
     font: 62.5% "Trebuchet MS", sans-serif;
@@ -73,8 +40,8 @@ body {
 </head>
 <body>
 <div>
-    <div class="menu-option" onclick="MenuActions.options();">Options</div>
-    <div class="menu-option" onclick="MenuActions.key_manager();">Key Manager</div>
+    <div id="options-button" class="menu-option">Options</div>
+    <div id="key-manager-button" class="menu-option">Key Manager</div>
 </div>
 </body>
 </html>

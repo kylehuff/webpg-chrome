@@ -1,7 +1,3 @@
-<html>
-<head>
-<script type="text/javascript">
-
 /* setup the preferences object
     this is probably overkill for chrome/chromium, but added as generic object
         for use in extensions for other browsers.
@@ -124,17 +120,7 @@ var webpgBackground = {
 
         gnupghome = (webpg_prefs.gnupghome.get()) ? webpg_prefs.gnupghome.get() : "";
 
-        if (document.getElementById("plugin")) {
-            document.body.removeChild(document.getElementById("plugin"));
-            plugin = null;
-        } else {
-            // information and source code for the plugin can be found here:
-            //      https://github.com/kylehuff/webpg-npapi
-            plugin = document.createElement('embed');
-            plugin.id = 'plugin';
-            plugin.type = 'application/x-webpg';
-            document.body.appendChild(plugin);
-        }
+        plugin = document.getElementById("plugin");
         console.log("my plugin returned: " + plugin.valid);
 
         if (plugin.valid && !plugin.webpg_status["error"]) {
@@ -483,15 +469,21 @@ var webpgBackground = {
 
 }
 
+// Listen for the creation of the plugin, and then init webpgBackground
+document.addEventListener('DOMContentLoaded', function () {
+    if (document.getElementById("plugin")) {
+        document.body.removeChild(document.getElementById("plugin"));
+        plugin = null;
+    } else {
+        // information and source code for the plugin can be found here:
+        //      https://github.com/kylehuff/webpg-npapi
+        plugin = document.createElement('embed');
+        plugin.id = 'plugin';
+        plugin.type = 'application/x-webpg';
+        document.body.appendChild(plugin);
+    }
+    webpgBackground.init();
+});
 
 // Listen for the content script to send a message to the background page.
 chrome.extension.onRequest.addListener(webpgBackground.onRequest);
-
-</script>
-</head>
-<body>
-</body>
-<script>
-    webpgBackground.init();
-</script>
-</html>
