@@ -48,8 +48,7 @@ $(function(){
     $("#system-info-list")[0].innerHTML += "Language: " + window.navigator.language + "<br/\>";
 
     $('#refresh').button().click(function(e) {
-        ext.location.reload();
-        console.log(ext.plugin.webpg_status);
+        ext.webpgBackground.init();
         window.close();
     });
 

@@ -120,6 +120,16 @@ var webpgBackground = {
 
         gnupghome = (webpg_prefs.gnupghome.get()) ? webpg_prefs.gnupghome.get() : "";
 
+        // if the plugin is already present, remove it from the DOM
+        if (document.getElementById("plugin")) {
+            document.body.removeChild(document.getElementById("plugin"));
+        }
+
+        // information and source code for the plugin can be found here:
+        //      https://github.com/kylehuff/webpg-npapi
+        embed = "<embed id='plugin' type='application/x-webpg'/>"
+        document.body.innerHTML += embed;
+
         plugin = document.getElementById("plugin");
         console.log("my plugin returned: " + plugin.valid);
 
@@ -471,17 +481,6 @@ var webpgBackground = {
 
 // Listen for the creation of the plugin, and then init webpgBackground
 document.addEventListener('DOMContentLoaded', function () {
-    if (document.getElementById("plugin")) {
-        document.body.removeChild(document.getElementById("plugin"));
-        plugin = null;
-    } else {
-        // information and source code for the plugin can be found here:
-        //      https://github.com/kylehuff/webpg-npapi
-        plugin = document.createElement('embed');
-        plugin.id = 'plugin';
-        plugin.type = 'application/x-webpg';
-        document.body.appendChild(plugin);
-    }
     webpgBackground.init();
 });
 
