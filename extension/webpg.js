@@ -1,5 +1,5 @@
 /* Constants */
-VERSION = "0.6.8"
+VERSION = "0.7.2"
 PARSED_COUNT = 0;
 
 /*
@@ -33,7 +33,13 @@ var webpg = {
             if (request.msg == "sendtoiframe"){
                 if (request.cmd == "resizeiframe") {
                     iframe_id = request.iframe_id;
-                    width = document.body.offsetWidth - 200;
+                    if (request.element_width == undefined) {
+                        width = document.body.offsetWidth - 200;
+                    } else {
+                        width = request.element_width;
+                    }
+                    if (width < 735)
+                        width = 736;
                     height = request.height;
                     iframe = $('#' + iframe_id)[0]
                     iframe.style.width = width + "px";
@@ -67,6 +73,7 @@ var webpg = {
                             'msg': "sendtoiframe",
                             'block_type': "encrypted_message",
                             'target_id': results_frame.id,
+                            'element_width': element.offsetWidth,
                             'verify_result': request.decrypt_status,
                             'message_event': "manual",
                             'message_type': "encrypted_message",
@@ -322,10 +329,11 @@ var webpg = {
                     results_frame.original_text = PGP_DATA[block];
                     results_frame.onload = function(block_text){
                         chrome.extension.sendRequest({
-                            msg: "sendtoiframe",
-                            block_type: "public_key",
-                            target_id: results_frame.id,
-                            original_text: results_frame.original_text}
+                            'msg': "sendtoiframe",
+                            'block_type': "public_key",
+                            'element_width': element.offsetWidth,
+                            'target_id': results_frame.id,
+                            'original_text': results_frame.original_text}
                         );
                     };
                     break;
@@ -356,10 +364,11 @@ var webpg = {
                         function(response) {
                             if (response.result.gpg_error_code == "58" || !response.result.error) {
                                 chrome.extension.sendRequest({
-                                    msg: "sendtoiframe",
-                                    block_type: "signed_message",
-                                    target_id: results_frame.id,
-                                    verify_result: response.result}
+                                    'msg': "sendtoiframe",
+                                    'block_type': "signed_message",
+                                    'element_width': element.offsetWidth,
+                                    'target_id': results_frame.id,
+                                    'verify_result': response.result}
                                  );
                             } else {
                                 $(results_frame).hide();
@@ -392,10 +401,11 @@ var webpg = {
                             else
                                 type = "encrypted_message";
                             chrome.extension.sendRequest({
-                                msg: "sendtoiframe",
-                                block_type: type,
-                                target_id: results_frame.id,
-                                verify_result: response.result}
+                                'msg': "sendtoiframe",
+                                'block_type': type,
+                                'element_width': element.offsetWidth,
+                                'target_id': results_frame.id,
+                                'verify_result': response.result}
                              );
                         }
                     );
@@ -427,11 +437,11 @@ var webpg = {
         iframe.style.position = "relative";
         iframe.style.borderRadius = "6px";
         iframe.style.boxShadow = "2px 2px 2px #000";
-        iframe.style.width = "100%";
-        iframe.style.marginLeft = "85px";
+        iframe.style.width = element.offsetWidth + "px";
+        iframe.style.marginLeft = "5px";
         iframe.style.top = "0";
         iframe.style.backgroundColor = "#efefef";
-        original_text = document.createElement("div");
+        original_text = document.createElement("pre");
         original_text.className = "original";
         original_text.style.display = "none";
         original_text.innerText = element.innerText;
@@ -473,7 +483,7 @@ var webpg = {
         //iframe.style.marginLeft = "85px";
         iframe.style.top = "0";
         iframe.style.backgroundColor = "#efefef";
-        original_text = document.createElement("div");
+        original_text = document.createElement("pre");
         original_text.className = "original";
         original_text.style.display = "none";
         original_text.innerText = element.innerText;

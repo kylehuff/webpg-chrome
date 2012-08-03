@@ -12,7 +12,7 @@ $(function(){
         "ELG-E": "g",
     }
 
-    function doResize(id, document) {
+    function doResize(id, document, element_width) {
         height = document.body.scrollHeight
         block_size = $('.pgp_block_container')[0].offsetHeight + 60;
         if (block_size < height) {
@@ -21,13 +21,18 @@ $(function(){
         if (height < 150) {
             height = 150;
         }
-        width = document.body.scrollWidth;
+        if (element_width == undefined) {
+            width = document.body.scrollWidth;
+        } else {
+            width = element_width;
+        }
         chrome.extension.sendRequest({
-            msg: 'sendtoiframe',
-            cmd: 'resizeiframe',
-            iframe_id: qs.id,
-            width: width,
-            height: height }
+            'msg': 'sendtoiframe',
+            'cmd': 'resizeiframe',
+            'iframe_id': qs.id,
+            'element_width': element_width,
+            'width': width,
+            'height': height }
         );
     }
 
@@ -167,18 +172,18 @@ $(function(){
                          $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ";
                     }
                     $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>";
-                    doResize(qs.id, document);
+                    doResize(qs.id, document, request.element_width);
                     $('.original_text_link').click(function(){
                         if (this.innerHTML == "DISPLAY ORIGINAL"){
                             $('#signature_text').hide();
                             $('#original_text').show();
-                            doResize(qs.id, document);
+                            doResize(qs.id, document, request.element_width);
                             this.innerHTML = "HIDE ORIGINAL";
                         } else {
                             this.innerHTML = "DISPLAY ORIGINAL";
                             $('#signature_text').show();
                             $('#original_text').hide();
-                            doResize(qs.id, document);
+                            doResize(qs.id, document, request.element_width);
                         }
                     });
                     break;
@@ -259,7 +264,7 @@ $(function(){
                             $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>";
                         }
                     }
-                    doResize(qs.id, document);
+                    doResize(qs.id, document, request.element_width);
                     $('.webpg-link').click(function() {
                         chrome.extension.sendRequest({
                             'msg': "newtab",
@@ -271,13 +276,13 @@ $(function(){
                         if (this.innerHTML == "DISPLAY ORIGINAL"){
                             $('#signature_text').hide();
                             $('#original_text').show();
-                            doResize(qs.id, document);
+                            doResize(qs.id, document, request.element_width);
                             this.innerHTML = "HIDE ORIGINAL";
                         } else {
                             this.innerHTML = "DISPLAY ORIGINAL";
                             $('#signature_text').show();
                             $('#original_text').hide();
-                            doResize(qs.id, document);
+                            doResize(qs.id, document, request.element_width);
                         }
                     });
                     break;
@@ -399,13 +404,13 @@ $(function(){
                                                     if (this.innerHTML == "DISPLAY ORIGINAL"){
                                                         $('#signature_text').hide();
                                                         $('#original_text').show();
-                                                        doResize(qs.id, document);
+                                                        doResize(qs.id, document, request.element_width);
                                                         this.innerHTML = "HIDE ORIGINAL";
                                                     } else {
                                                         this.innerHTML = "DISPLAY ORIGINAL";
                                                         $('#signature_text').show();
                                                         $('#original_text').hide();
-                                                        doResize(qs.id, document);
+                                                        doResize(qs.id, document, request.element_width);
                                                     }
                                                 });
                                                 $('.import_key_link').click(function(){
@@ -419,7 +424,7 @@ $(function(){
                                                     );
                                                 })
                                                 if ($('.original_text_link')[0].innerHTML == "DISPLAY ORIGINAL")
-                                                    doResize(qs.id, document);
+                                                    doResize(qs.id, document, request.element_width);
                                             }
                                         }
                                     )
@@ -429,19 +434,19 @@ $(function(){
                                     $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>";
                                 }
                                 $('#original_text').hide();
-                                doResize(qs.id, document);
+                                doResize(qs.id, document, request.element_width);
                                 $('.original_text_link').click(function(){
                                     remote_log("display original link clicked...");
                                     if (this.innerHTML == "DISPLAY ORIGINAL"){
                                         $('#signature_text').hide();
                                         $('#original_text').show();
-                                        doResize(qs.id, document);
+                                        doResize(qs.id, document, request.element_width);
                                         this.innerHTML = "HIDE ORIGINAL";
                                     } else {
                                         this.innerHTML = "DISPLAY ORIGINAL";
                                         $('#signature_text').show();
                                         $('#original_text').hide();
-                                        doResize(qs.id, document);
+                                        doResize(qs.id, document, request.element_width);
                                     }
                                 });
                                 $('.import_key_link').click(function(){
@@ -520,13 +525,13 @@ $(function(){
                                 if (this.innerHTML == "DISPLAY ORIGINAL"){
                                     $('#signature_text').hide();
                                     $('#original_text').show();
-                                    doResize(qs.id, document);
+                                    doResize(qs.id, document, request.element_width);
                                     this.innerHTML = "HIDE ORIGINAL";
                                 } else {
                                     this.innerHTML = "DISPLAY ORIGINAL";
                                     $('#signature_text').show();
                                     $('#original_text').hide();
-                                    doResize(qs.id, document);
+                                    doResize(qs.id, document, request.element_width);
                                 }
                             });
                             $('.copy_to_clipboard').click(function(){
@@ -544,11 +549,11 @@ $(function(){
                                     }
                                 );
                             });
-                            doResize(qs.id, document);
+                            doResize(qs.id, document, request.element_width);
                         }
                     }
                 );
-                doResize(qs.id, document);
+                doResize(qs.id, document, request.element_width);
             })
         }
     });
