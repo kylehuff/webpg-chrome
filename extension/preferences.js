@@ -132,7 +132,7 @@ webpg.preferences = {
         */
         get: function() {
             var value = webpg.localStorage.getItem('enabled_keys');
-            return (value != -1) ? value.split(",") : [];
+            return (value && value != -1) ? value.split(",") : [];
         },
 
         add: function(keyid) {
