@@ -1,86 +1,92 @@
 /* <![CDATA[ */
-$(function(){
+if (typeof(webpg)=='undefined') { webpg = {}; }
 
-    block_type_actions = [
-        "public_key",
-        "other_type"
-    ]
+/*
+   Class: webpg.inline_results
+    This class implements the inline results iframe
+*/
+webpg.inline_results = {
 
-    key_algorithm_types = {
-        "RSA": "R",
-        "DSA": "D",
-        "ELG-E": "g",
-    }
+    init: function() {
+        var loc = (window.location.search.substring()) ?
+            window.location.search.substring() :
+            window.parent.location.search.substring();
 
-    function doResize(id, document, element_width) {
-        height = document.body.scrollHeight
-        block_size = $('.pgp_block_container')[0].offsetHeight + 60;
-        if (block_size < height) {
-            height = block_size;
-        }
-        if (height < 150) {
-            height = 150;
-        }
-        if (element_width == undefined) {
-            width = document.body.scrollWidth;
-        } else {
-            width = element_width;
-        }
-        chrome.extension.sendRequest({
-            'msg': 'sendtoiframe',
-            'cmd': 'resizeiframe',
-            'iframe_id': qs.id,
-            'element_width': element_width,
-            'width': width,
-            'height': height }
+        qs = {};
+
+        loc.replace(
+            new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+            function($0, $1, $2, $3) { qs[$1] = $3; }
         );
-    }
 
-    var qs = {};
-    (function () {
-        var e,
-            a = /\+/g,  // Regex for replacing addition symbol with a space
-            r = /([^&=]+)=?([^&]*)/g,
-            d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
-            q = window.location.search.substring(1);
+        webpg.utils.onRequest.addListener(this.processRequest);
+        window.addEventListener("message", this.receiveMessage, false);
+    },
 
-        while (e = r.exec(q))
-           qs[d(e[1])] = d(e[2]);
-    })();
+    /*
+        Function: doResize
+            Resizes the parent iframe by sending a request to the listener of
+            the webpg.background object
 
-    function createSignatureBox(signature_obj, sig_index) {
-        sig_keyid = signature_obj.fingerprint.substr(-8);
-        subkey_index = 0;
-        key_name = sig_keyid;
-        sigkey_url = null;
-        email = null;
-        if (signature_obj.status != "NO_PUBKEY") {
-            for (pubkey in signature_obj.public_key) {
-                key = signature_obj.public_key[pubkey];
+        Parameters:
+            scrollTop - <bool> Indicates if the parent window should scroll to the top of the frame
+    */
+    doResize: function(scrollTop) {
+        var block_height = $(".pgp_block_container")[0].scrollHeight;
+        var body_height = document.body.scrollHeight;
+        var height = $(".pgp_block_container")[0].scrollHeight + $("#footer")[0].scrollHeight + 40;
+        height = (height < body_height) ? height : body_height;
+
+        webpg.utils.sendRequest({
+            'msg': 'sendtoiframe',
+            'iframe_id': qs.id,
+            'width': null,
+            'height': height,
+            'scrollTop': scrollTop
+        });
+    },
+
+    /*
+        Function: createSignatureBox
+            Creates an HTML element with information concerning a signature
+
+        Parameters:
+            sigObj - <obj> An object with information about a signature
+            sigIdx - <int> The index of the signature within the keyring
+    */
+    createSignatureBox: function(sigObj, sigIdx) {
+        var sig_keyid = sigObj.fingerprint.substr(-8);
+        var subkey_index = 0;
+        var key_name = sig_keyid;
+        var sigkey_url = null;
+        var email = null;
+        if (sigObj.status != "NO_PUBKEY") {
+            for (pubkey in sigObj.public_key) {
+                var key = sigObj.public_key[pubkey];
                 for (subkey in key.subkeys) {
-                    if (key.subkeys[subkey].subkey == signature_obj.fingerprint) {
+                    if (key.subkeys[subkey].subkey == sigObj.fingerprint) {
                         subkey_index = subkey;
                     }
                 }
             }
             email = (key.uids[0].email.length > 1) ? "&lt;" + key.uids[0].email + 
                 "&gt;" : "(no email address provided)";
-            sigkey_url = chrome.extension.getURL("key_manager.html") +
-                "?tab=-1&openkey=" + pubkey + "&opensubkey=" + subkey_index;
+            sigkey_url = webpg.utils.resourcePath + "key_manager.html" +
+                "?auto_init=true&tab=-1&openkey=" + pubkey + "&opensubkey=" + subkey_index;
             key_name = key.name;
         }
-        sig_class = "";
-        sig_image = "stock_signature.png";
-        if (signature_obj.status == "GOOD") {
+        var sig_class = "";
+        var sig_image = "stock_signature.png";
+        if (sigObj.status == "GOOD") {
             sig_image = "stock_signature-ok.png";
             sig_class = "sign-good"
         }
-        if (signature_obj.status == "BAD_SIG") {
+        if (sigObj.status == "BAD_SIG") {
             sig_image = "stock_signature-bad.png";
             sig_class = "sign-revoked";
         }
-        sig_box = "<div id='sig-" + sig_keyid + "-" + sig_index + "' class='signature-box " + sig_class + "'>" +
-            "<img src='images/badges/" + sig_image + "'><div style='float:left;'><span class='signature-uid'>" +
+        var sig_box = "<div id='sig-" + sig_keyid + "-" + sigIdx + "' class='signature-box " + sig_class + "'>" +
+            "<img src='skin/images/badges/" + sig_image + "'><div style='float:left;'><span class='signature-uid'>" +
             key_name + "</span>";
 
         if (sigkey_url)
@@ -92,25 +98,28 @@ $(function(){
         if (email)
             sig_box += "<span class='signature-email'>" + email + "</span><br/\>";
 
-        date_created = new Date(signature_obj.timestamp * 1000).toJSON();
-        date_expires = (signature_obj.expiration == 0) ? 
-            'Never' : new Date(signature_obj.expiration * 1000).toJSON().substring(0, 10);
+        var date_created = new Date(sigObj.timestamp * 1000).toJSON();
+        var date_expires = (sigObj.expiration == 0) ? 
+            'Never' : new Date(sigObj.expiration * 1000).toJSON().substring(0, 10);
         sig_box += "<span class='signature-keyid'>Created: " + date_created.substring(0, 10) + "</span><br/\>";
         sig_box += "<span class='signature-keyid'>Expires: " + date_expires + "</span><br/\>" +
-            "<span class='signature-keyid'>Status: " + signature_obj.validity + "</span><br/\>" +
-            "<span class='signature-keyid'>Validity: " + signature_obj.status + "</span></div></div>";
+            "<span class='signature-keyid'>Status: " + sigObj.validity + "</span><br/\>" +
+            "<span class='signature-keyid'>Validity: " + sigObj.status + "</span></div></div>";
         return sig_box;
-    }
+    },
 
-    chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+    receiveMessage: function(event) {
+        webpg.inline_results.processRequest(event.data);
+    },
+
+    processRequest: function(request, sender, sendResponse) {
         if (request.target_id == qs.id) {
             icon = document.createElement("img");
             switch(request.block_type) {
-
-                case "encrypted_message":
-                    icon.src = "/images/badges/stock_encrypted.png";
+                case webpg.constants.PGPBlocks.PGP_ENCRYPTED:
+                    icon.src = "skin/images/badges/stock_encrypted.png";
                     $(icon).addClass('footer_icon');
-                    
+
                     gpg_error_code = request.verify_result.gpg_error_code;
                     if (gpg_error_code == "58") {
                         $('#header')[0].innerHTML = "<a name=\"" + qs.id + "\">PGP ENCRYPTED OR SIGNED MESSAGE</a>";
@@ -120,34 +129,36 @@ $(function(){
                         $('#header')[0].innerHTML += "<a name=\"" + qs.id + "\">PGP ENCRYPTED MESSAGE</a>";
                     }
                     if (request.verify_result.error) {
-                        $('#signature_text')[0].innerText = request.verify_result.original_text;
+                        $('#signature_text')[0].innerHTML = request.verify_result.original_text;
                     } else {
-                        $('#signature_text')[0].innerText = request.verify_result.data;
+                        $('#signature_text')[0].innerHTML = request.verify_result.data;
                     }
                     if (request.message_event == "manual" && request.verify_result.original_text.substr(0,5) == "-----") {
                         if (request.verify_result.signatures && request.verify_result.signatures.hasOwnProperty(0)) {
                             $('#header')[0].innerHTML = "<a name=\"" + qs.id + "\">PGP ENCRYPTED AND SIGNED MESSAGE</a>";
-                            icon.src = "/images/badges/stock_decrypted-signature.png";
+                            icon.src = "skin/images/badges/stock_decrypted-signature.png";
                             sig_ok = true;
                             sig_boxes = "<div class='signature-container'>";
                             for (sig in request.verify_result.signatures) {
                                 if (request.verify_result.signatures[sig].status != "GOOD") {
                                     sig_ok = false;
                                 }
-                                sig_boxes += createSignatureBox(request.verify_result.signatures[sig], sig);
+                                sig_boxes += webpg.inline_results.
+                                    createSignatureBox(request.verify_result.
+                                        signatures[sig], sig);
                             }
                             sig_boxes += "</div>";
                             $('#signature_text')[0].innerHTML += sig_boxes;
                             if (sig_ok) {
                                 $('#footer').addClass("signature_good");
-                                icon.src = "/images/badges/stock_decrypted-signature-ok.png";
+                                icon.src = "skin/images/badges/stock_decrypted-signature-ok.png";
                             }
                         } else {
-                            icon.src = "/images/badges/stock_decrypted.png";
+                            icon.src = "skin/images/badges/stock_decrypted.png";
                         }
                     }
-                    $('#footer')[0].innerHTML = icon.outerHTML;
-                    $('#original_text')[0].innerText = request.verify_result.original_text;
+                    $('#footer')[0].innerHTML += icon.outerHTML;
+                    $('#original_text').text(request.verify_result.original_text);
                     $('#clipboard_input')[0].value = request.verify_result.original_text;
                     $('#original_text').hide();
                     if (gpg_error_code == "11" || gpg_error_code == "152") {
@@ -172,51 +183,42 @@ $(function(){
                          $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ";
                     }
                     $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>";
-                    doResize(qs.id, document, request.element_width);
-                    $('.original_text_link').click(function(){
-                        if (this.innerHTML == "DISPLAY ORIGINAL"){
-                            $('#signature_text').hide();
-                            $('#original_text').show();
-                            doResize(qs.id, document, request.element_width);
-                            this.innerHTML = "HIDE ORIGINAL";
-                        } else {
-                            this.innerHTML = "DISPLAY ORIGINAL";
-                            $('#signature_text').show();
-                            $('#original_text').hide();
-                            doResize(qs.id, document, request.element_width);
-                        }
-                    });
+                    webpg.inline_results.doResize();
                     break;
 
-                case "signed_message":
+                case webpg.constants.PGPBlocks.PGP_SIGNED_MSG:
                     $('#header')[0].innerHTML = "<a name=\"" + qs.id + "\">PGP SIGNED MESSAGE</a>";
                     if (request.verify_result.error) {
-                        $('#signature_text')[0].innerText = request.verify_result.original_text;
+                        $('#signature_text')[0].innerHTML = request.verify_result.original_text;
                     } else {
-                        $('#signature_text')[0].innerText = request.verify_result.data;
+                        $('#signature_text')[0].innerHTML = request.verify_result.data;
                     }
                     $('#clipboard_input')[0].value = request.verify_result.original_text;
 
                     gpg_error_code = request.verify_result.gpg_error_code;
                     if (gpg_error_code == "58") {
                         $('#footer').addClass("signature_bad_sig");
-                        icon.src = "/images/badges/stock_signature-bad.png";
+                        icon.src = "skin/images/badges/stock_signature-bad.png";
                         $(icon).addClass('footer_icon');
                         $('#footer')[0].innerHTML = icon.outerHTML;
                         $('#footer')[0].innerHTML += "THE SIGNATURE ON THIS MESSAGE IS INVALID; THE SIGNATURE MIGHT BE TAMPERED WITH<br/\>";
                         $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>";
+                    } else {
+                        $('#footer').addClass("signature_bad_sig");
                     }
-                    $('#original_text')[0].innerText = request.verify_result.original_text;
+                    $('#original_text').text(request.verify_result.original_text);
                     $('#original_text').hide();
                     for (sig in request.verify_result.signatures) {
                         sig_boxes = "<div class='signature-container'>";
                         for (sig in request.verify_result.signatures) {
-                            sig_boxes += createSignatureBox(request.verify_result.signatures[sig], sig);
+                            sig_boxes += webpg.inline_results.
+                                createSignatureBox(request.verify_result.
+                                    signatures[sig], sig);
                         }
                         sig_boxes += "</div>";
                         $('#signature_text')[0].innerHTML += sig_boxes;
                         if (request.verify_result.signatures[sig].status == "GOOD") {
-                            icon.src = "/images/badges/stock_signature-ok.png";
+                            icon.src = "skin/images/badges/stock_signature-ok.png";
                             $(icon).addClass('footer_icon');
                             $('#footer').addClass("signature_good");
                             $('#footer')[0].innerHTML = icon.outerHTML;
@@ -228,11 +230,11 @@ $(function(){
                                 for (pubkey in public_keys) {
                                     for (pubkey_subkey in public_keys[pubkey].subkeys) {
                                         if (sig_fp == public_keys[pubkey].subkeys[pubkey_subkey].subkey) {
-                                            sigkey_url = chrome.extension.getURL("key_manager.html") +
-                                                "?tab=-1&openkey=" + pubkey + "&opensubkey=" +
+                                            sigkey_url = webpg.utils.resourcePath + "key_manager.html" +
+                                                "?auto_init=true&tab=-1&openkey=" + pubkey + "&opensubkey=" +
                                                 pubkey_subkey;
                                             sigkey_link = "<a href='#;' id='" + sigkey_url + "' class='webpg-link'>" +
-                                                key_id + "</a>";
+                                                pubkey + "</a>";
                                         }
                                     }
                                 }
@@ -256,7 +258,7 @@ $(function(){
                         }
                         if (request.verify_result.signatures[sig].status == "BAD_SIG") {
                             $('#footer').addClass("signature_bad_sig");
-                            icon.src = "/images/badges/stock_signature-bad.png";
+                            icon.src = "skin/images/badges/stock_signature-bad.png";
                             $(icon).addClass('footer_icon');
                             $('#footer')[0].innerHTML = icon.outerHTML;
                             $('#footer')[0].innerHTML += "THE SIGNATURE ON THIS MESSAGE FAILED; THE MESSAGE MAY BE TAMPERED WITH<br/\>";
@@ -264,39 +266,26 @@ $(function(){
                             $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>";
                         }
                     }
-                    doResize(qs.id, document, request.element_width);
+                    webpg.inline_results.doResize();
                     $('.webpg-link').click(function() {
-                        chrome.extension.sendRequest({
+                        webpg.utils.sendRequest({
                             'msg': "newtab",
                             'url': this.id,
                             }
                         );
                     });
-                    $('.original_text_link').click(function(){
-                        if (this.innerHTML == "DISPLAY ORIGINAL"){
-                            $('#signature_text').hide();
-                            $('#original_text').show();
-                            doResize(qs.id, document, request.element_width);
-                            this.innerHTML = "HIDE ORIGINAL";
-                        } else {
-                            this.innerHTML = "DISPLAY ORIGINAL";
-                            $('#signature_text').show();
-                            $('#original_text').hide();
-                            doResize(qs.id, document, request.element_width);
-                        }
-                    });
                     break;
 
-                case "public_key":
+                case webpg.constants.PGPBlocks.PGP_KEY:
                     $('#header')[0].innerHTML = "<a name=\"" + qs.id + "\">PGP PUBLIC KEY</a>";
-                    $('#original_text')[0].innerText = request.original_text;
+                    $('#original_text').text(request.original_text);
                     $('#clipboard_input')[0].value = request.original_text;
-                    icon.src = "/images/badges/stock_keypair.png";
+                    icon.src = "skin/images/badges/stock_keypair.png";
                     $(icon).addClass('footer_icon');
                     $('#footer')[0].innerHTML = icon.outerHTML;
                     var get_key_response = null;
                     import_status = null;
-                    chrome.extension.sendRequest({
+                    webpg.utils.sendRequest({
                         msg: 'doKeyImport',
                         data: request.original_text,
                         temp_context: true,
@@ -310,7 +299,7 @@ $(function(){
                                 if (import_status.imports[imported].fingerprint != "unknown" &&
                                     import_status.imports[imported].result == "Success") {
                                     key_id = import_status.imports[imported].fingerprint;
-                                    chrome.extension.sendRequest({
+                                    webpg.utils.sendRequest({
                                         msg: "getNamedKey",
                                         "key_id": key_id,
                                         temp_context: true},
@@ -319,7 +308,7 @@ $(function(){
                                             fpsi.keys_found[fpsi.keys_found.length] = key;
                                             if (import_status.imports[imported].new_key){
                                                 fpsi.keys_imported[fpsi.keys_imported.length] = key;
-                                                chrome.extension.sendRequest({
+                                                webpg.utils.sendRequest({
                                                     msg: 'deleteKey',
                                                     key_type: "public_key",
                                                     key_id: key_id,
@@ -329,7 +318,7 @@ $(function(){
                                             for (key in fpsi.keys_found[0]) {
                                                 keyobj = fpsi.keys_found[0][key];
                                                 if (keyobj.in_real_keyring) {
-                                                    new_public_key = false; //(fpsi.keys_imported.length && key in fpsi.keys_imported[0]);
+                                                    new_public_key = false;
                                                     keyobj = keyobj.real_keyring_item;
                                                 } else {
                                                     new_public_key = true;
@@ -352,8 +341,8 @@ $(function(){
                                                 key_algo = {}
                                                 key_algo.abbr = "?"
                                                 key_algo.name = keyobj.subkeys[0].algorithm_name;
-                                                if (key_algo.name in key_algorithm_types) {
-                                                    key_algo.abbr = key_algorithm_types[key_algo.name];
+                                                if (key_algo.name in webpg.constants.algoTypes) {
+                                                    key_algo.abbr = webpg.constants.algoTypes[key_algo.name];
                                                 }
                                                 $('#header')[0].innerHTML += " (" + keyobj.subkeys[0].size + key_algo.abbr + "/" + keyobj.fingerprint.substr(-8) + ")<br/\>";
                                                 created = new Date();
@@ -366,8 +355,8 @@ $(function(){
                                                 if (new_public_key) {
                                                     $('#footer')[0].innerHTML += "THIS KEY IS NOT IN YOUR KEYRING<br/\>";
                                                 } else {
-                                                    key_url = chrome.extension.getURL("key_manager.html") +
-                                                        "?tab=-1&openkey=" + keyobj.fingerprint.substr(-16);
+                                                    key_url = webpg.utils.resourcePath + "key_manager.html" +
+                                                        "?auto_init=true&tab=-1&openkey=" + keyobj.fingerprint.substr(-16);
                                                     key_link = "(<a href='#' id='" + key_url +
                                                         "' class='webpg-link'>" + keyobj.fingerprint.substr(-8) + "</a>)";
                                                     $('#footer')[0].innerHTML += "THIS KEY " + key_link + " IS IN YOUR KEYRING<br/\>";
@@ -383,7 +372,7 @@ $(function(){
                                                 $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>";
 
                                                 $('.delete_key_link').click(function(){
-                                                    chrome.extension.sendRequest({
+                                                    webpg.utils.sendRequest({
                                                         msg: 'deleteKey',
                                                         key_type: "public_key",
                                                         key_id: this.id },
@@ -393,29 +382,29 @@ $(function(){
                                                     );
                                                 })
                                                 $('.webpg-link').click(function() {
-                                                    chrome.extension.sendRequest({
+                                                    webpg.utils.sendRequest({
                                                         'msg': "newtab",
                                                         'url': this.id,
                                                         }
                                                     );
                                                 });
+                                                $('.original_text_link').off('click');
                                                 $('.original_text_link').click(function(){
-                                                    remote_log("display original link clicked...");
                                                     if (this.innerHTML == "DISPLAY ORIGINAL"){
                                                         $('#signature_text').hide();
                                                         $('#original_text').show();
-                                                        doResize(qs.id, document, request.element_width);
                                                         this.innerHTML = "HIDE ORIGINAL";
+                                                        webpg.inline_results.doResize();
                                                     } else {
                                                         this.innerHTML = "DISPLAY ORIGINAL";
                                                         $('#signature_text').show();
                                                         $('#original_text').hide();
-                                                        doResize(qs.id, document, request.element_width);
+                                                        webpg.inline_results.doResize(true)
                                                     }
                                                 });
                                                 $('.import_key_link').click(function(){
-                                                    remote_log("import link clicked...");
-                                                    chrome.extension.sendRequest({
+                                                    console.log("import link clicked...");
+                                                    webpg.utils.sendRequest({
                                                         msg: 'doKeyImport',
                                                         data: request.original_text },
                                                         function(response) {
@@ -423,8 +412,12 @@ $(function(){
                                                         }
                                                     );
                                                 })
+                                                $('.copy_to_clipboard').click(function(){
+                                                    $('#clipboard_input')[0].select();
+                                                    console.log(webpg.utils.copyToClipboard(window, document));
+                                                })
                                                 if ($('.original_text_link')[0].innerHTML == "DISPLAY ORIGINAL")
-                                                    doResize(qs.id, document, request.element_width);
+                                                    webpg.inline_results.doResize();
                                             }
                                         }
                                     )
@@ -434,24 +427,10 @@ $(function(){
                                     $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>";
                                 }
                                 $('#original_text').hide();
-                                doResize(qs.id, document, request.element_width);
-                                $('.original_text_link').click(function(){
-                                    remote_log("display original link clicked...");
-                                    if (this.innerHTML == "DISPLAY ORIGINAL"){
-                                        $('#signature_text').hide();
-                                        $('#original_text').show();
-                                        doResize(qs.id, document, request.element_width);
-                                        this.innerHTML = "HIDE ORIGINAL";
-                                    } else {
-                                        this.innerHTML = "DISPLAY ORIGINAL";
-                                        $('#signature_text').show();
-                                        $('#original_text').hide();
-                                        doResize(qs.id, document, request.element_width);
-                                    }
-                                });
+                                webpg.inline_results.doResize();
                                 $('.import_key_link').click(function(){
-                                    remote_log("import link clicked...");
-                                    chrome.extension.sendRequest({
+                                    console.log("import link clicked...");
+                                    webpg.utils.sendRequest({
                                         msg: 'doKeyImport',
                                         data: request.original_text },
                                         function(response) {
@@ -460,34 +439,40 @@ $(function(){
                                     );
                                 })
                                 $('.copy_to_clipboard').click(function(){
-                                    $('#clipboard_input')[0].select();
-                                    if (document.execCommand("Copy")) {
-                                        console.log("Text copied to clipboard!");
-                                    } else {
-                                        console.log("There may have been a problem copying the text to the clipboard...");
-                                    }
+                                    $('#clipboard_input')[0].select(); 
+                                    console.log(webpg.utils.copyToClipboard(window, document));
                                 })
                             }
                         }
                     );
                     break;
 
-            }
+            } /* end switch */
             if (sendResponse) {
                 sendResponse({'result': "done"});
             }
+            $('.original_text_link').off('click');
+            $('.original_text_link').click(function(){
+                if (this.innerHTML == "DISPLAY ORIGINAL"){
+                    $('#signature_text').hide();
+                    $('#original_text').show();
+                    this.innerHTML = "HIDE ORIGINAL";
+                    webpg.inline_results.doResize()
+                } else {
+                    this.innerHTML = "DISPLAY ORIGINAL";
+                    $('#signature_text').show();
+                    $('#original_text').hide();
+                    webpg.inline_results.doResize(true)
+                }
+            });
             $('.copy_to_clipboard').click(function(){
                 $('#clipboard_input')[0].select();
-                if (document.execCommand("Copy")) {
-                    console.log("Text copied to clipboard!");
-                } else {
-                    console.log("There may have been a problem copying the text to the clipboard...");
-                }
+                console.log(webpg.utils.copyToClipboard(window, document));
             })
             $('.decrypt_message').click(function(){
-                chrome.extension.sendRequest({
+                webpg.utils.sendRequest({
                     msg: 'decrypt',
-                    data: $('#clipboard_input')[0].value },
+                    data: $('#clipboard_input')[0].value},
                     function(response) {
                         $('.decrypt_status').remove();
                         if (response.result.error) {
@@ -495,75 +480,67 @@ $(function(){
                                 $("<span class='decrypt_status'>DECRYPTION FAILED; BAD PASSPHRASE<br/\></span>").insertBefore($($('#footer')[0].firstChild));
                             }
                         } else {
-                            $('#signature_text')[0].innerText = response.result.data;
+                            $('#signature_text')[0].innerHTML = response.result.data;
                             if (request.verify_result.signatures && response.result.signatures.hasOwnProperty(0)) {
                                 $('#header')[0].innerHTML = "<a name=\"" + qs.id + "\">PGP ENCRYPTED AND SIGNED MESSAGE</a>";
-                                icon.src = "/images/badges/stock_decrypted-signature.png";
+                                icon.src = "skin/images/badges/stock_decrypted-signature.png";
                                 sig_ok = true;
                                 sig_boxes = "<div class='signature-container'>";
                                 for (sig in response.result.signatures) {
                                     if (response.result.signatures[sig].status != "GOOD") {
                                         sig_ok = false;
                                     }
-                                    sig_boxes += createSignatureBox(response.result.signatures[sig], sig);
+                                    sig_boxes += webpg.inline_results.
+                                        createSignatureBox(response.result.
+                                            signatures[sig], sig);
                                 }
                                 sig_boxes += "</div>";
                                 $('#signature_text')[0].innerHTML += sig_boxes;
                                 if (sig_ok) {
                                     $('#footer').addClass("signature_good");
-                                    icon.src = "/images/badges/stock_decrypted-signature-ok.png";
+                                    icon.src = "skin/images/badges/stock_decrypted-signature-ok.png";
                                 }
                             } else {
-                                icon.src = "/images/badges/stock_decrypted.png";
+                                icon.src = "skin/images/badges/stock_decrypted.png";
                             }
                             $(icon).addClass('footer_icon');
                             $('#footer')[0].innerHTML = icon.outerHTML;
                             $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ";
                             $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>";
+                            $('.original_text_link').off('click');
                             $('.original_text_link').click(function(){
-                                remote_log("display original link clicked...");
                                 if (this.innerHTML == "DISPLAY ORIGINAL"){
                                     $('#signature_text').hide();
                                     $('#original_text').show();
-                                    doResize(qs.id, document, request.element_width);
                                     this.innerHTML = "HIDE ORIGINAL";
+                                    webpg.inline_results.doResize()
                                 } else {
                                     this.innerHTML = "DISPLAY ORIGINAL";
                                     $('#signature_text').show();
                                     $('#original_text').hide();
-                                    doResize(qs.id, document, request.element_width);
+                                    webpg.inline_results.doResize(true)
                                 }
                             });
                             $('.copy_to_clipboard').click(function(){
                                 $('#clipboard_input')[0].select();
-                                if (document.execCommand("Copy")) {
-                                    console.log("Text copied to clipboard!");
-                                } else {
-                                    console.log("There may have been a problem copying the text to the clipboard...");
-                                }
+                                console.log(webpg.utils.copyToClipboard(window, document));
                             })
                             $('.webpg-link').click(function() {
-                                chrome.extension.sendRequest({
+                                webpg.utils.sendRequest({
                                     'msg': "newtab",
                                     'url': this.id,
                                     }
                                 );
                             });
-                            doResize(qs.id, document, request.element_width);
+                            webpg.inline_results.doResize();
                         }
                     }
                 );
-                doResize(qs.id, document, request.element_width);
+                webpg.inline_results.doResize();
             })
         }
-    });
+    },
+}
 
-    function remote_log(data) {
-        chrome.extension.sendRequest({
-            msg: "log",
-            data: data,
-        });
-    }
-
-});
+webpg.inline_results.init();
 /* ]]> */

@@ -1,48 +1,52 @@
 <html>
 <head>
 <title>WebPG Key Manager</title>
-<link type="text/css" href="jquery/css/dot-luv/jquery-ui-1.8.14.custom.css" rel="stylesheet" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="jquery/css/dot-luv/jquery-ui-1.8.22.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="jquery/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="jquery/js/jquery-ui-1.8.14.custom.min.js"></script>
-<script type="text/javascript" src="jquery/js/jquery.passwordStrength.js"></script>
+<script type="text/javascript" src="jquery/js/jquery-ui-1.8.22.custom.min.js"></script>
+<script type="text/javascript" src="utils.js"></script>
+<script type="text/javascript" src="constants.js"></script>
+<script type="text/javascript" src="preferences.js"></script>
 <script type="text/javascript" src="key_manager.js"></script>
+<script type="text/javascript" src="jquery/js/jquery.passwordStrength.js"></script>
 <style>
 body{
-    font: 62.5% "Trebuchet MS", sans-serif;
-    min-width: 640px;
-    margin: 0;
+    font:62.5% "Trebuchet MS", sans-serif;
+    min-width:640px;
+    margin:0;
+    padding:0;
+    background-color:#000;
 }
 .ui-tabs .ui-tabs-hide {
-     display: none;
+     display:none;
 }
 .ui-datepicker {
- z-index: 9999 !important;
+ z-index:9999 !important;
 }
 #tabs {
-    margin: none;
+    margin:none;
 }
 #header-image {
-    height: 48px;
-    display: none;
-    width: 48px;
-    padding-right: 6px;
+    height:48px;
+    display:none;
+    width:48px;
+    padding-right:6px;
 }
 #trust-header {
-    font-size: 16px;
-    text-align: left;
+    font-size:16px;
+    text-align:left;
     float:left;
-    clear: right;
+    clear:right;
     color:black;
     text-shadow:#999 1px 1px 1px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
+    border-radius:8px;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
 }
 #trust-list .selected {
   color:black !important;
   font-weight:bold;
-}
-#trust-list {
-
 }
 #trust-list .level {
     padding:5px;
@@ -52,27 +56,28 @@ body{
     font-weight:bold;
 }
 #trust-level-desc {
-    color: #000;
-    text-align: left;
-    display: none;
+    color:#000;
+    text-align:left;
+    display:none;
 }
 .trust-level-desc {
-    min-height: 30px;
+    min-height:30px;
     border:1px solid #ddd;
     font-family:sans-serif;
     color:white;
     padding:10px;
     text-shadow:#999 1px 1px 1px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    background: #0078a3  url('images/menumask.png') repeat-x;
-    width: 600px;
+    border-radius:8px;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    background:#0078a3  url('skin/images/menumask.png') repeat-x;
+    width:600px;
 }
 .trust-level-desc:hover {
-    background-color: #1C1;
+    background-color:#1C1;
 }
 #trust-level-desc .selected {
-    background-color: #F58400;
+    background-color:#F58400;
 }
 #trust-level-desc .selected .trust-level {
     color:#000;
@@ -80,151 +85,166 @@ body{
 }
 .trust-level {
     font-size:32px;
-    padding-right: 6px;
+    padding-right:6px;
     float:left;
 }
 .trust-desc {
     clear:right;
 }
-.invalid-key .ui-accordion-header, .disabled .ui-accordion-header {
-    text-decoration: line-through;
-    color: #E31;
+.invalid-key .ui-accordion-header a span, .disabled .ui-accordion-header a span {
+    text-decoration:line-through;
+    color:#E31;
+}
+
+.keyoption-help-text {
+    text-decoration:none;
 }
 .uidlist, .subkeylist {
-    padding-right: 20px;
+    padding-right:10px;
+}
+.ui-accordion .ui-accordion-content {
+    overflow:visible;
 }
 .uid, .subkey {
-    width: 100%;
+    width:100%;
 }
 div.uid-options {
-    background-color: #eee;
-    border-radius: 6px 6px 0 0;
-    box-shadow: 1px 1px 10px #888;
+    background-color:#eee;
+    border-radius:6px 6px 0 0;
+    -moz-border-radius:6px 6px 0 0;
+    -webkit-border-radius:6px 6px 0 0;
+    box-shadow:1px 1px 10px #888;
+    -moz-box-shadow:1px 1px 10px #888;
+    -webkit-box-shadow:1px 1px 10px #888;
 }
 .private-key-option-list, .public-key-option-list {
-    padding: 2px;
+    padding:2px;
 }
 .trust {
-    right: 0;
-    float: right;
-    position: relative;
-    text-decoration: none;
-    clear: right;
+    right:0;
+    float:right;
+    position:relative;
+    text-decoration:none;
+    clear:right;
 }
 .keydetails {
-    font-size: 14px;
-    font-weight: bold;
-    width: 100%;
-    border: solid 1px #181;
-    padding: 4px 0 4px 8px;
-    margin: 2px 2px 12px -2px;
-    background: #0078a3  url('images/menumask.png') repeat-x;
-    text-align: left;
-    color: #ffffff;
-    overflow-x: hidden;
+    font-size:14px;
+    font-weight:bold;
+    width:100%;
+    border:solid 1px #181;
+    padding:4px 0 4px 8px;
+    margin:2px 2px 12px -2px;
+    background:#0078a3  url('skin/images/menumask.png') repeat-x;
+    text-align:left;
+    color:#ffffff;
+    overflow-x:hidden;
 }
 .invalid-key .keydetails, .disabled .keydetails, .sig-revoked {
-    background-color: #F31;
-    border: solid 1px #F11;
+    background-color:#F31;
+    border:solid 1px #F11;
 }
 .keydetails .dh {
-    color: #000;
-    font-size: 14px;
+    color:#000;
+    font-size:14px;
 }
 .keydetails hr {
-    margin: 0;
-    right: 0;
-    margin-left: 100px;
+    margin:0;
+    right:0;
+    margin-left:100px;
     position:relative;
     top:-10px;
     padding:0;
 }
 .keydetails h4 {
-    color: #fff;
-    margin: 0;
-    display: inline;
-    text-shadow: #000 1px 1px 1px;
+    color:#fff;
+    margin:0;
+    display:inline;
+    text-shadow:#000 1px 1px 1px;
 }
 .keydetails span {
-    margin-right: 16px;
-    padding-right: 8px;
+    margin-right:16px;
+    padding-right:8px;
 }
 .keydetails span.ui-button-text {
-    font-size: 12px;
-    text-align: center;
-    margin-right: 0;
+    font-size:12px;
+    text-align:center;
+    margin-right:0;
 }
 span.trust .ui-button-text {
-    padding: 4px;
-    text-align: left;
-    margin: 0;
-    width: 50px;
-    font-size: 12px;
-    z-index: 800;
+    padding:4px;
+    text-align:left;
+    margin:0;
+    font-size:12px;
+    z-index:800;
+}
+.enable-check-text span {
+    min-width: 50px;
 }
 .default-check .ui-button-icon-primary{
-    margin-left: 0;
+    margin-left:0;
 
 }
 .signature-box {
-    color: #000;
+    color:#000;
     font-family:sans-serif;
-    margin-top: 5px;
-    background: #fff;
-    min-width: 240px;
-    font-size: 10px;
+    margin-top:5px;
+    background:#fff;
+    min-width:240px;
+    font-size:10px;
     display:inline-block;
     padding:8px;
-    margin-right: 20px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
+    margin-right:20px;
+    border-radius:4px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    box-shadow:#666 2px 2px 2px;
     -moz-box-shadow:#666 2px 2px 2px;
     -webkit-box-shadow:#666 2px 2px 2px;
 }
 .sign-revoked {
-    background: #f8f;
+    background:#f8f;
 }
 .signature-box img {
-    margin-top: 20px;
+    margin-top:20px;
     float:left;
-    height: 32px;
+    height:32px;
 }
 .signature-box input {
-    float: right;
-    position: relative;
-    bottom: 0;
+    float:right;
+    position:relative;
+    bottom:0;
 }
 .signature-uid, .signature-email, .signature-keyid {
-    font-size: 120%;
-    margin-left: 10px;
-    clear: both;
+    font-size:120%;
+    margin-left:10px;
+    clear:both;
 }
 .signature-keyid {
 
 }
 .help-text {
-    padding: 0 0 0 12px;
-    font-size: 12px;
+    padding:0 0 0 12px;
+    font-size:12px;
 }
 #genkey-form input[type=text], input[type=password] {
-    width: 250px;
+    width:250px;
 }
 #genkey-status, #gensubkey-status, #adduid-status, #export-dialog-msg {
-    padding: 2px 0 2px 12px;
+    padding:2px 0 2px 12px;
     display:none;
-    width: 98.2%;
-    background-color: #FFAF0F;
-    color: #000;
+    width:98.2%;
+    background-color:#FFAF0F;
+    color:#000;
 }
 .input-error {
-    border: 2px solid #f20;
+    border:2px solid #f20;
 }
 ul.expand { padding:0; margin:0; list-style:none; }
 ul.expand li { padding:0; margin:0; }
 ul.expand li.trigger.top { margin-top:0; }
 ul.expand li.trigger
 {
-    background:url(images/expand-collapse.gif) 0 3px no-repeat;
+    background:url(skin/images/expand-collapse.gif) 0 3px no-repeat;
     cursor:pointer;
     padding:0 0 0 15px;
     margin:7px 0 0 0;
@@ -248,14 +268,14 @@ ul.expand ul
     padding:0 0 6px 10px;
 }
 .option ul {
-    padding: 0;
-    list-style: none;
+    padding:0;
+    list-style:none;
 }
 .ui-add-hover, .ui-add-hover option {
     cursor:pointer;
 }
 .ui-datepicker-calendar th {
-    color: #fff;
+    color:#fff;
 }
 </style>
 </head>
@@ -280,42 +300,42 @@ ul.expand ul
         <br/><br/><input type='button' id='close' value='Finished'>
     </div>
 </div>
-<div id="revkey-confirm" style="display: none;" title="Revoke this Key?">
+<div id="revkey-confirm" style="display:none;" title="Revoke this Key?">
     <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revkey-text'>Are you sure you wish to revoke this Key?</span></p>
 </div>
-<div id="revuid-confirm" style="display: none;" title="Revoke this UID?">
+<div id="revuid-confirm" style="display:none;" title="Revoke this UID?">
     <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revuid-text'>Are you sure you wish to revoke this UID?</span></p>
 </div>
-<div id="revsig-confirm" style="display: none;" title="Revoke this Signature?">
+<div id="revsig-confirm" style="display:none;" title="Revoke this Signature?">
     <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revsig-text'>Are you sure you wish to revoke this signature?</span></p>
 </div>
-<div id="delsig-confirm" style="display: none;" title="Delete this Signature?">
+<div id="delsig-confirm" style="display:none;" title="Delete this Signature?">
     <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='delsig-text'>Are you sure you wish to delete this signature?</span></p>
 </div>
-<div id="deluid-confirm" style="display: none;" title="Delete this UID?">
+<div id="deluid-confirm" style="display:none;" title="Delete this UID?">
     <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='deluid-text'>Are you sure you want to permenantly delete this UID?</span></p>
 </div>
-<div id="keyexp-dialog" style="display: none;" title="Change Key Expiration">
+<div id="keyexp-dialog" style="display:none;" title="Change Key Expiration">
     <p><span class="ui-icon ui-icon-calendar" style="float:left; margin:0 7px 20px 0;"></span><span id='keyexp-text'>New Expiration date:</span>
-    <div id="keyexp-buttonset" style="margin-bottom: 8px;">
+    <div id="keyexp-buttonset" style="margin-bottom:8px;">
         <input type="radio" name="keyexp-type-radio" id="keyexp-never"/><label for="keyexp-never">Never Expire</label>
         <input type="radio" name="keyexp-type-radio" id="keyexp-ondate"/><label for="keyexp-ondate">Expiration Date</label>
     </div>
-    <div style="margin: 0 24px;"><div id="keyexp-date-input"></div></div></p>
+    <div style="margin:0 24px;"><div id="keyexp-date-input"></div></div></p>
 </div>
-<div id="delete-key-dialog-confirm" style="display: none;" title="Delete this key?">
+<div id="delete-key-dialog-confirm" style="display:none;" title="Delete this key?">
 	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>This key will be permanently deleted and cannot be undone. Are you sure?</p>
 </div>
-<div id="createsig-dialog" style="display: none;" title="Sign this UID">
-    <form id="createsig-form" style="width: 100%; height: 100px;">
+<div id="createsig-dialog" style="display:none;" title="Sign this UID">
+    <form id="createsig-form" style="width:100%; height:100px;">
 
     </form>
 </div>
-<div id="genkey-dialog" style="display:none;" title="Key Details" style="font-size: 14px;">
+<div id="genkey-dialog" style="display:none;" title="Key Details" style="font-size:14px;">
     <p>
         <span id='genkey-text'>
         </span>
-        <form id="genkey-form" style="width: 100%; height: 100px;">
+        <form id="genkey-form" style="width:100%; height:100px;">
             <label for='uid_0_name' style='display:inline-block;width:128px;'>Your Name:</label>
              <input type='text' class="ui-corner-all ui-widget ui-state-default" id='uid_0_name' name='uid_0_name' onclick="$(this).removeClass('input-error');"/><span class='help-text'>i.e.: John Smith</span><br/>
             <label for='uid_0_email' style='display:inline-block;width:128px;'>Your Email:</label>
@@ -380,11 +400,11 @@ ul.expand ul
         </form>
     </p>
 </div>
-<div id="gensubkey-dialog" style="display:none;" title="Key Details" style="font-size: 14px;">
+<div id="gensubkey-dialog" style="display:none;" title="Key Details" style="font-size:14px;">
     <p>
         <span id='gensubkey-text'>
         </span>
-        <form id="gensubkey-form" style="width: 100%; height: 100px;">
+        <form id="gensubkey-form" style="width:100%; height:100px;">
             <h4><strong>Subkey Options</strong></h4>
 
             <input type="hidden" name="key_id" id="key_id" class="hidden"/>
@@ -425,17 +445,17 @@ ul.expand ul
         </form>
     </p>
 </div>
-<div id="export-dialog" style="display:none;" title="Export Public Key" style="font-size: 14px;">
+<div id="export-dialog" style="display:none;" title="Export Public Key" style="font-size:14px;">
     <p>
-        <span style="margin-top: -18px; margin-left: -8px; width: 100%;" id="export-dialog-msg"></span>
-        <textarea id="export-dialog-copytext" style="margin-top: -35px; margin-left: -500px;"></textarea>
+        <span style="margin-top:-18px; margin-left:-8px; width:100%;" id="export-dialog-msg"></span>
+        <textarea id="export-dialog-copytext" style="margin-top:-35px; margin-left:-500px;"></textarea>
         <pre id="export-dialog-text"></pre>
     </p>
 </div>
-<div id="adduid-dialog" style="display:none;" title="Add UID" style="font-size: 14px;">
+<div id="adduid-dialog" style="display:none;" title="Add UID" style="font-size:14px;">
     <p>
         <span id='adduid-text'></span>
-        <form id="adduid-form" style="width: 100%;">
+        <form id="adduid-form" style="width:100%;">
             <label for='uid_0_name' style='display:inline-block;width:128px;'>Your Name:</label>
             <input type='text' id='uid_0_name' name='uid_0_name' onclick="$(this).removeClass('input-error');"/><span class='help-text'>i.e.: John Smith</span><br/>
             <label for='uid_0_email' style='display:inline-block;width:128px;'>Your Email:</label>

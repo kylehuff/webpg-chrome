@@ -117,7 +117,7 @@ jQuery.fn.passwordStrength = function(options) {
                 if (pass != rpass) {
                     $(pass_repeat).next().html("Passphrases do not match");
                 } else {
-                    $(pass_repeat).next().html("<img style=\"display:inline;float: left; top: 4px; position: relative; height:18px;\" src=\"images/check.png\"/>");
+                    $(pass_repeat).next().html("<img style=\"display:inline;float: left; top: 4px; position: relative; height:18px;\" src=\"skin/images/check.png\"/>");
                 }
             }
         });

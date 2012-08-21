@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>WebPG Options</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="jquery/css/dot-luv/jquery-ui-1.8.22.custom.css" rel="stylesheet"/>
+<script type="text/javascript" src="jquery/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="jquery/js/jquery-ui-1.8.22.custom.min.js"></script>
+<script type="text/javascript" src="constants.js"></script>
+<script type="text/javascript" src="about.js"></script>
+<style>
+body{
+    font:62.5% "Trebuchet MS", sans-serif;
+    background-color:#000;
+    text-shadow:#000 1px 1px 1px;
+    margin:0;
+    padding:0;
+}
+.webpg-info-box {
+    margin:auto;
+    padding:12px;
+    border-radius:4px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#fff;
+}
+.webpg-info-img {
+    float:left;
+    top:-1px;
+    position:relative;
+    margin:0 8px 0px 4px;
+    padding-right:4px;
+    border-radius:4px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    height:30px;
+}
+.webpg-info-title {
+    font-size:24px;
+}
+.webpg-info-version {
+    font-size:12px;
+    padding:6px 10px 0 0;
+    float:right;
+    margin-left:2px;
+}
+.webpg-info-text {
+    text-shadow:#666 1px 1px 1px;
+    font-size:16px;
+}
+</style>
+</head>
+<body>
+    <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <img class="webpg-info-img" src="skin/images/webpg-64.png"/>
+            <span class="webpg-info-title">WebPG for <span id="webpg-info-browser"></span>
+            <span class="webpg-info-version">Version: <span id="webpg-info-version-string"></span>
+            </span><br/>
+        </div>
+        <div class="webpg-info-box">
+            <span class="webpg-info-text">
+                Author:
+                <ul>
+                    <li>Kyle L. Huff</li>
+                </ul><br/>
+                Contributors:
+                <ul>
+                    <li>Aaron C. de Bruyn</li>
+                </ul>
+            </span>
+            <div id="window_functions" style="width:100%; text-align:right; clear:left;">
+                <br/><br/><input type='button' id='close' value='Finished'>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

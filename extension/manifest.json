@@ -1,25 +1,32 @@
 {
   "name": "WebPG",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "An extension which provides GnuPG/GPG/PGP related functions to Chrome",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self'; object-src 'self'",
   "web_accessible_resources": [
       "webpg_results.html",
       "webpg_results.js",
-      "images/webpg-48.png"
+      "dialog.html",
+      "dialog.js",
+      "skin/images/webpg-48.png"
   ],
   "background": {
-      "scripts": ["background.js"]
+      "scripts": [
+        "constants.js",
+        "utils.js",
+        "preferences.js",
+        "background.js"
+      ]
   },
-  "options_page": "options.html",
+  "options_page": "options.html?auto_init=true",
   "icons": {
-      "16": "images/webpg-16.png",
-      "32": "images/webpg-32.png",
-      "48": "images/webpg-48.png",
-      "64": "images/webpg-64.png",
-      "96": "images/webpg-96.png",
-      "128": "images/webpg-128.png"
+      "16": "skin/images/webpg-16.png",
+      "32": "skin/images/webpg-32.png",
+      "48": "skin/images/webpg-48.png",
+      "64": "skin/images/webpg-64.png",
+      "96": "skin/images/webpg-96.png",
+      "128": "skin/images/webpg-128.png"
    },
   "permissions": [
        "<all_urls>",
@@ -30,19 +37,26 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["jquery/js/jquery-1.7.2.min.js", "webpg.js"],
-      "run_at": "document_end"
+      "js": [
+        "jquery/js/jquery-1.7.2.min.js",
+        "constants.js",
+        "utils.js",
+        "inline.js",
+        "webpg_overlay.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": true
     }
   ],
   "browser_action": {
-    "default_icon": "images/webpg-32.png",
+    "default_icon": "skin/images/webpg-32.png",
     "default_title": "WebPG",
     "default_popup": "browser_action_menu.html"
   },
   "plugins": [
-      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.5.8.plugin", "public": false },
-      { "path": "plugins/Linux_x86_64-gcc/npwebpgPlugin-v0.5.8.so", "public": false },
-      { "path": "plugins/Linux_x86-gcc/npwebpgPlugin-v0.5.8.so", "public": false },
-      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.5.8.dll", "public": false }
+      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.5.9.plugin", "public": false },
+      { "path": "plugins/Linux_x86_64-gcc/npwebpgPlugin-v0.5.9.so", "public": false },
+      { "path": "plugins/Linux_x86-gcc/npwebpgPlugin-v0.5.9.so", "public": false },
+      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.5.9.dll", "public": false }
   ]
 }

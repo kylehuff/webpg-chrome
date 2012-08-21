@@ -1,7 +1,4 @@
 /* <![CDATA[ */
-
-var ext = chrome.extension.getBackgroundPage();
-
 $(document).ready(function() {
     $('.menu-option').hover(
         function(){ 
@@ -13,17 +10,24 @@ $(document).ready(function() {
     );
 });
 
-var MenuActions = {
+var menuActions = {
     options: function(){
         console.log("options was selected");
-        url = chrome.extension.getURL('options.html') + "?tab=0";
+        url = chrome.extension.getURL('options.html') + "?auto_init=true&tab=0";
         chrome.tabs.create({ 'url': url });
         return false;
     },
 
     key_manager: function(){
         console.log("key mangager was selected");
-        url = chrome.extension.getURL('key_manager.html') + "?tab=0";
+        url = chrome.extension.getURL('key_manager.html') + "?auto_init=true&tab=0";
+        chrome.tabs.create({ 'url': url });
+        return false;
+    },
+
+    about: function(){
+        console.log("about was selected");
+        url = chrome.extension.getURL('about.html');
         chrome.tabs.create({ 'url': url });
         return false;
     }
@@ -31,8 +35,9 @@ var MenuActions = {
 
 // Listen for the creation of the buttons and assign their methods
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById("options-button").addEventListener('click', MenuActions.options);
-    document.getElementById("key-manager-button").addEventListener('click', MenuActions.key_manager);
+    document.getElementById("options-button").addEventListener('click', menuActions.options);
+    document.getElementById("key-manager-button").addEventListener('click', menuActions.key_manager);
+    document.getElementById("about-button").addEventListener('click', menuActions.about);
 });
 
 

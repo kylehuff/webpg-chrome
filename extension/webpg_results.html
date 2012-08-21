@@ -1,14 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
 <title>WebPG secure iframe</title>
 <script type="text/javascript" src="jquery/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="constants.js"></script>
+<script type="text/javascript" src="utils.js"></script>
 <script type="text/javascript" src="webpg_results.js"></script>
 <style>
     body {
         padding: 6px;
         margin: 0;
-        border: 1px dotted #686868;
-        background: transparent url('images/menumask.png') repeat-x;
+        border: 0;
+        background: transparent url('skin/images/menumask.png') repeat-x;
+    }
+    .pgp_block_container {
+        display:block;
     }
     .signed_text_header {
         border-bottom: 1px dotted;
@@ -21,6 +27,7 @@
         display: block;
         margin-bottom: 45px;
         padding-left: 6px;
+        white-space: pre-wrap;
     }
     .signed_text ul {
         margin: 0;
@@ -40,7 +47,7 @@
         left: 9%;
         border-radius: 6px 6px 0 0;
         box-shadow: 1px 1px 10px #000;
-        background: #1c1 url('images/menumask.png') repeat-x;
+        background: #1c1 url('skin/images/menumask.png') repeat-x;
     }
     .footer_icon {
         display: inline-block;
@@ -80,11 +87,13 @@
         padding:8px;
         border: 1px solid #000;
         margin-right: 20px;
+        border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;
+        box-shadow:#666 2px 2px 2px;
         -moz-box-shadow:#666 2px 2px 2px;
         -webkit-box-shadow:#666 2px 2px 2px;
-        background: transparent url('images/menumask.png') repeat-x;
+        background: transparent url('skin/images/menumask.png') repeat-x;
     }
     .sign-good {
         background-color: #1c1;
