@@ -2,7 +2,7 @@
 if (typeof(webpg)=='undefined') { webpg = {}; }
 
 /*
-    This file is loaded with each new page request and handles setting up 
+    This file is loaded with each new page request and handles setting up
     the required structure(s) for parsing/modifying page content.
 */
 
@@ -164,7 +164,7 @@ webpg.overlay = {
             iframe.addEventListener("sendResult", function(e) {
                 if (request.dialog_type == "encrypt") {
                     response = webpg.background.plugin.gpgEncrypt(e.detail.data,
-                        e.detail.recipients, "", "");
+                        e.detail.recipients, 0);
                     if (!response.error && (target.type == "textarea" || target.type == "text"))
                         target.value = response.data;
                     else
@@ -196,16 +196,17 @@ webpg.overlay = {
         block_type = selection.match(/^\s*?(-----BEGIN PGP.*)/gi);
         if (selection.length > 0 && block_type && block_type[0] ==
             webpg.constants.PGPTags.PGP_KEY_BEGIN) {
-            context_menuitems['import'] = true;
+                context_menuitems['import'] = true;
         } else if (selection.length > 0 && block_type && block_type[0] ==
             webpg.constants.PGPTags.PGP_ENCRYPTED_BEGIN) {
-            context_menuitems['decrypt'] = true;
+                context_menuitems['decrypt'] = true;
         } else if (selection.length > 0 && (block_type && block_type[0] ==
             webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN) ||
-            (event.target.value && event.target.value.substr(event.target.selectionStart,
-            webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN.length) == 
+            (event.target.value && event.target.value.substr(event.target
+            .selectionStart,
+            webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN.length) ==
             webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN)) {
-            context_menuitems['verify'] = true;
+                context_menuitems['verify'] = true;
         } else if (selection.length > 0) {
             // text to sign or encrypt
             if (event.target.value.substr(0, 5) != "-----") {
@@ -286,7 +287,7 @@ webpg.overlay = {
 
 		    case webpg.constants.overlayActions.IMPORT:
                 var import_status = webpg.background.plugin.gpgImportKey(selection.selectionText);
-                alert(import_status.toSource());
+                console.log(import_status);
                 break;
 
 		    case webpg.constants.overlayActions.EXPORT:

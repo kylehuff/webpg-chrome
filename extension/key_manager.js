@@ -11,12 +11,12 @@ webpg.keymanager = {
     /*
        Function: init
             Sets up the reference to the webpg.background class and related objects
-        
+
         Parameters:
             browserWindow - <window> A reference to the main browser window/object
     */
     init: function(browserWindow) {
-        if (webpg.utils.detectedBrowser == "firefox") {
+        if (webpg.utils.detectedBrowser == "firefox" || webpg.utils.detectedBrowser == "thunderbird") {
             webpg.background = browserWindow;
             webpg.secret_keys = browserWindow.secret_keys;
         } else if (webpg.utils.detectedBrowser == "chrome") {
@@ -110,7 +110,7 @@ webpg.keymanager = {
        Function: buildKeylistProxy
             Calls the buildKeyList method if the desired keylist is not already
             built (unless forced), after setting the wait dialog
-        
+
         Parameters:
             keyList - <JSON obj> A JSON object containing the keys and their associated data
             type - <str> The type of keylist being generated ("public"/"private")
@@ -187,7 +187,7 @@ webpg.keymanager = {
     },
 
     progressMsg: function(evt) {
-        var msg = (webpg.utils.detectedBrowser == "firefox") ? evt.detail : evt;
+        var msg = (webpg.utils.detectedBrowser == "firefox" || webpg.utils.detectedBrowser == "thunderbird") ? evt.detail : evt;
         var dialog = ($("#genkey-dialog").dialog("isOpen") == true) ?
             "#genkey" : ($("#gensubkey-dialog").dialog("isOpen") == true) ?
             "#gensubkey" : null;
@@ -255,7 +255,7 @@ webpg.keymanager = {
             Generates the formatted, interactive keylist and populates the DOM.
             This function is a mess and needs some serious attention; it is
             ugly, but works quickly for what all it does.
-        
+
         Parameters:
             keyList - <JSON obj> A JSON object containing the keys and their associated data
             type - <str> The type of keylist being generated ("public"/"private")
@@ -1134,41 +1134,6 @@ webpg.keymanager = {
                                         port.onMessage.addListener(webpg.keymanager.progressMsg);
                                     });
                                 }
-//                                        if (msg.type == "progress") {
-//                                            console.log(msg.data);
-//                                            var data = msg.data;
-//                                            if (!isNaN(data))
-//                                                data = String.fromCharCode(data);
-//                                            data += " ";
-//                                            if($("#gensubkey_progress"))
-//                                                $("#gensubkey_progress")[0].innerHTML += data;
-//                                            if(data == "complete" || data == "complete ") {
-//                                                window.genkey_refresh = true;
-//                                                window.genkey_waiting = false;
-//                                                var new_pkeylist = webpg.background.plugin.getPrivateKeyList();
-//                                                var generated_key = null;
-//                                                for (key in new_pkeylist) {
-//                                                    if (key in window.pkeylist == false) {
-//                                                        generated_key = key;
-//                                                        break;
-//                                                    }
-//                                                }
-//                                                var subkey_index = 0;
-//                                                if (webpg.secret_keys.hasOwnProperty(params[2])) {
-//                                                    for (subkey in webpg.secret_keys[params[2]].subkeys) {
-//                                                        subkey_index = parseInt(subkey) + 1;
-//                                                    }
-//                                                }
-//                                                webpg.keymanager.buildKeylistProxy(null, "private", params[2], subkey_index, null);
-//                                                $("#gensubkey-status_detail").remove()
-//                                                $("#gensubkey-status").remove();
-//                                                $("#gensubkey-form")[0].reset();
-//                                                $("#gensubkey-form")[0].style.display="inline-block";
-//                                                $("#gensubkey-dialog").dialog("close");
-//                                            }
-//                                        }
-//                                    });
-//                                });
                                 $("#gensubkey-form").find(".open").trigger("click");
                                 console.log("going to create a subkey with the following details:" + '\n' +
                                     "Key ID:", form.key_id.value, " Sub Key:", form.subKey_algo.value + 

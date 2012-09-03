@@ -83,6 +83,12 @@ webpg.background = {
                 };
                 break;
 
+            case 'gmail_integration':
+                response = {'gmail_integration':
+                    webpg.preferences.gmail_integration.get()
+                };
+                break;
+
             case 'enabled_keys':
                 response = webpg.preferences.enabled_keys.get();
                 break;
@@ -97,8 +103,14 @@ webpg.background = {
 
             case 'newtab':
                 var index = null;
-                if (sender.tab)
-                    index = sender.tab.index + 1;
+                if (typeof(sender)!='undefined' && sender.tab) {
+                    index = sender.tab.index;
+                } else {
+                    chrome.tabs.getSelected(null, function(tab) { 
+                        webpg.utils.openNewTab(request.url, tab.index);
+                    });
+                    break;
+                }
                 response = webpg.utils.openNewTab(request.url, index);
                 break;
 
@@ -117,11 +129,14 @@ webpg.background = {
                 var signing_key = webpg.preferences.default_key.get()
                 var sign_status = plugin.gpgSignText([signing_key],
                     request.selectionData.selectionText, 2);
+                response = sign_status;
                 if (!sign_status.error && sign_status.data.length > 0) {
-                    webpg.utils.tabs.sendRequest(sender.tab, {'msg': 'insertSignedData',
-                        'data': sign_status.data,
-                        'pre' : request.selectionData.pre_selection,
-                        'post' : request.selectionData.post_selection});
+                    if (typeof(request.message_event)=='undefined' || !request.message_event == "gmail") {
+                        webpg.utils.tabs.sendRequest(sender.tab, {'msg': 'insertSignedData',
+                            'data': sign_status.data,
+                            'pre' : request.selectionData.pre_selection,
+                            'post' : request.selectionData.post_selection});
+                    }
                 }
                 break;
 
@@ -154,7 +169,7 @@ webpg.background = {
 
 
             case 'async-gpgGenKey':
-                console.log("async-gpgGenKey requested");
+                //console.log("async-gpgGenKey requested");
                 var result = plugin.gpgGenKey(
                         request.data['publicKey_algo'],
                         request.data['publicKey_size'],
@@ -193,12 +208,12 @@ webpg.background = {
                 }
                 import_status = plugin.gpgImportKey(request.data);
                 if (!import_status.imports.hasOwnProperty(0)) {
-                    console.log("NO IMPORT; Something failed", request.data, import_status);
-                    import_status = { 'imports':
+                    //console.log("NO IMPORT; Something failed", request, import_status);
+                    import_status['imports'] =
                         { 0 : {
                             'new_key': false,
                             'fingerprint': 'unknown',
-                        }}
+                        }
                     }
                 }
                 if (request.temp_context) {
@@ -213,14 +228,45 @@ webpg.background = {
                 //console.log("encrypt requested");
                 if (request.keyid) {
                     response = plugin.gpgEncrypt(request.data,
-                        request.keyid, "", "");
+                        request.keyid, 0);
                 } else if (request.recipients) {
+                    //console.log(request.data, request.recipients);
                     response = plugin.gpgEncrypt(request.data,
-                        request.recipients, "", "");
+                        request.recipients, 0);
                 } else {
                     response = "";
                 }
-                if (response && !response.error)
+                //console.log(response);
+                if (typeof(request.message_event)=='undefined' || !request.message_event == "gmail")
+                    webpg.utils.tabs.sendRequest(sender.tab, {
+                        "msg": "insertEncryptedData", "data": response.data,
+                        "iframe_id": request.iframe_id});
+                break;
+
+            case 'encryptSign':
+                //console.log("encrypt requested");
+                if (request.keyid) {
+                    response = plugin.gpgEncrypt(request.data,
+                        request.keyid, 1);
+                } else if (request.recipients) {
+                    response = plugin.gpgEncrypt(request.data,
+                        request.recipients, 1);
+                } else {
+                    response = "";
+                }
+                if (typeof(request.message_event)=='undefined' ||
+                !request.message_event == "gmail" && 
+                response && !response.error)
+                    webpg.utils.tabs.sendRequest(sender.tab, {
+                        "msg": "insertEncryptedData", "data": response.data,
+                        "iframe_id": request.iframe_id});
+                break;
+
+            case 'symmetricEncrypt':
+                //console.log("symmetric encryption requested");
+                response = plugin.gpgSymmetricEncrypt(request.data, 0);
+                if (typeof(request.message_event)=='undefined' ||
+                !request.message_event == "gmail")
                     webpg.utils.tabs.sendRequest(sender.tab, {
                         "msg": "insertEncryptedData", "data": response.data,
                         "iframe_id": request.iframe_id});
@@ -274,6 +320,15 @@ webpg.background = {
                         }
                     }
                 }
+                break;
+
+            case 'getNamedKeys':
+                var keyResults = {};
+                var users = request.users;
+                for (var u in users) {
+                    keyResults[users[u]] = plugin.getNamedKey(users[u]);
+                }
+                response = {'keys': keyResults};
                 break;
 
             case 'export':

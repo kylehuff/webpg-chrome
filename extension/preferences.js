@@ -3,14 +3,15 @@ if (typeof(webpg)=='undefined') { webpg = {}; }
 
 /*
     Class: webpg.preferences
-        Provides a unified getter/setter methods for storing the user/global
+        Provides unified getter/setter methods for storing the user/global
         preference items
 */
 webpg.preferences = {
 
     /*
         Function: init
-            Ensures the definition of webpg.background
+            Ensures the definition of webpg.background is available to the
+            webpg.preferences class
     */
     init: function(browserWindow) {
         if (typeof(webpg.background)=='undefined')
@@ -18,7 +19,7 @@ webpg.preferences = {
     },
 
     /*
-        Object: webpg_enabled
+        Class: webpg.preferences.webpg_enabled
             Provides methods to get/set the "enabled" preference
     */
     webpg_enabled: {
@@ -33,6 +34,9 @@ webpg.preferences = {
         /*
             Function: set
                 Provides method to set the preference item
+
+            Parameters:
+                value - <bool> The boolean value to set
         */
         set: function(value) {
             webpg.localStorage.setItem('enabled', value);
@@ -40,7 +44,7 @@ webpg.preferences = {
     },
 
     /*
-        Object: decorate_inline
+        Class: webpg.preferences.decorate_inline
             Provides methods to get/set the "decorate_inline" preference
     */
     decorate_inline: {
@@ -55,6 +59,9 @@ webpg.preferences = {
         /*
             Function: set
                 Provides method to set the preference item
+
+            Parameters:
+                value - <bool> The boolean value to set
         */
         set: function(value) {
             webpg.localStorage.setItem('decorate_inline', value);
@@ -62,7 +69,32 @@ webpg.preferences = {
     },
 
     /*
-        Object: encrypt_to_self
+        Class: webpg.preferences.gmail_integrate
+            Provides methods to get/set the "gmail_integrate" preference
+    */
+    gmail_integration: {
+        /*
+            Function: get
+                Provides methods to get the preference item
+        */
+        get: function() {
+            return webpg.localStorage.getItem('gmail_integration')
+        },
+
+        /*
+            Function: set
+                Provides method to set the preference item
+
+            Parameters:
+                value - <bool> The boolean value to set
+        */
+        set: function(value) {
+            webpg.localStorage.setItem('gmail_integration', value);
+        },
+    },
+
+    /*
+        Class: webpg.preferences.encrypt_to_self
             Provides methods to get/set the "encrypt_to_self" preference
     */
     encrypt_to_self: {
@@ -79,6 +111,9 @@ webpg.preferences = {
         /*
             Function: set
                 Provides method to set the preference item
+
+            Parameters:
+                value - <str> The KeyID to set as the default key
         */
         set: function(value) {
             // if this setting is disabled, remove the value for 'encrypt-to'
@@ -92,7 +127,7 @@ webpg.preferences = {
     },
 
     /*
-        Object: gnupghome
+        Class: webpg.preferences.gnupghome
             Provides methods to get/set the "gnupghome" preference
     */
     gnupghome: {
@@ -107,6 +142,9 @@ webpg.preferences = {
         /*
             Function: set
                 Provides method to set the preference item
+
+            Parameters:
+                value - <str> The string value for GNUPGHOME
         */
         set: function(value) {
             webpg.localStorage.setItem('gnupghome', value);
@@ -122,7 +160,7 @@ webpg.preferences = {
     },
 
     /*
-        Object: enabled_keys
+        Class: webpg.preferences.enabled_keys
             Provides methods to get/set the "enabled_keys" preference
     */
     enabled_keys: {
@@ -135,12 +173,26 @@ webpg.preferences = {
             return (value && value != -1) ? value.split(",") : [];
         },
 
+        /*
+            Function: add
+                Provides method to add the preference item
+
+            Parameters:
+                keyid - <str> The KeyID to add to the list
+        */
         add: function(keyid) {
             var keys_arr = this.get();
             keys_arr.push(keyid);
             webpg.localStorage.setItem('enabled_keys', keys_arr);
         },
 
+        /*
+            Function: remove
+                Provides method to remove the key from the preference item
+
+            Parameters:
+                keyid - <str> The KeyID to remove from the list
+        */
         remove: function(keyid) {
             var keys_tmp = this.get();
             var keys_arr = [];
@@ -186,7 +238,7 @@ webpg.preferences = {
     },
 
     /*
-        Object: default_key
+        Class: webpg.preferences.default_key
             Provides methods to get/set the "default_key" preference
     */
     default_key: {
@@ -232,11 +284,13 @@ if (webpg.utils.detectedBrowser == "chrome") {
     }
     webpg.localStorage = window.localStorage;
 // If this is Firefox, set up required objects
-} else if (webpg.utils.detectedBrowser == "firefox") {
+} else if (webpg.utils.detectedBrowser == "firefox" || webpg.utils.detectedBrowser == "thunderbird") {
     var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
            .getService(Components.interfaces.nsIWindowMediator);
-    var browserWindow = wm.getMostRecentWindow("navigator:browser");
-    // We are a Firefox extension, we need to set the localStorage object to
+    var winType = (webpg.utils.detectedBrowser == "firefox") ?
+        "navigator:browser" : "mail:3pane";
+    var browserWindow = wm.getMostRecentWindow(winType);
+    // We are running on Mozilla, we need to set our localStorage object to
     //  use the 'mozilla.org/preference-service'
     webpg.localStorage = {
         getItem: function(item) {

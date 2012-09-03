@@ -4,9 +4,9 @@ if (typeof(webpg)=='undefined') { webpg = {}; }
 webpg.options = {
 
     init: function(browserWindow) {
-        if (navigator.userAgent.toLowerCase().search("firefox") > -1)
+        if (webpg.utils.detectedBrowser == "firefox" || webpg.utils.detectedBrowser == "thunderbird")
             webpg.plugin = browserWindow.plugin;
-        else if (navigator.userAgent.toLowerCase().search("chrome") > -1)
+        else if (webpg.utils.detectedBrowser == "chrome")
             webpg.plugin = chrome.extension.getBackgroundPage().plugin;
 
         $('#step-1').ready(function(){
@@ -14,7 +14,7 @@ webpg.options = {
         });
         
         function doSystemCheck() {
-            if (navigator.userAgent.toLowerCase().search("chrome") > -1)
+            if (webpg.utils.detectedBrowser == "chrome")
                 pf = window.clientInformation.platform.substr(0,3);
             else
                 pf = navigator.oscpu.substr(0,3);
@@ -95,7 +95,7 @@ webpg.options = {
                 $('#valid-options').hide();
             } else {
                 // Only display the inline check if this is not the app version of webpg-chrome
-                if ((navigator.userAgent.toLowerCase().search("chrome") > -1) &&
+                if ((webpg.utils.detectedBrowser == "chrome") &&
                     !chrome.app.getDetails().hasOwnProperty("content_scripts")){
                         $('#enable-decorate-inline').hide();
                 } else {
@@ -105,6 +105,9 @@ webpg.options = {
 
                 $('#enable-encrypt-to-self-check')[0].checked = 
                     (webpg.preferences.encrypt_to_self.get());
+
+                $('#enable-gmail-integration-check')[0].checked = 
+                    (webpg.preferences.gmail_integration.get() == 'true');
 
                 $('#enable-decorate-inline-check').button({
                     'label': (webpg.preferences.decorate_inline.get() == 'true') ? 'Enabled' : 'Disabled'
@@ -130,6 +133,23 @@ webpg.options = {
                             status = 'Enabled';
                         }
                         $(this).button('option', 'label', status);
+                        $(this).button('refresh');
+                    }
+                );
+
+                $('#enable-gmail-integration-check').button({
+                    'label': (webpg.preferences.gmail_integration.get() == 'true') ? 'Enabled' : 'Disabled'
+                    }).click(function(e) {
+                        if (webpg.preferences.gmail_integration.get() == 'false') {
+                            alert("WebPG GMAIL integration is *VERY EXPERIMENTAL*;\nuse at own risk")
+                        }
+
+                        (webpg.preferences.gmail_integration.get() == 'true') ?
+                            webpg.preferences.gmail_integration.set(false)
+                            : webpg.preferences.gmail_integration.set(true);
+                        status = (webpg.preferences.gmail_integration.get() == 'true') ? 'Enabled' : 'Disabled'
+                        $(this).button('option', 'label', status);
+                        this.checked = (webpg.preferences.gmail_integration.get() == 'true');
                         $(this).button('refresh');
                     }
                 );

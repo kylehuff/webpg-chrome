@@ -187,7 +187,11 @@ webpg.inline_results = {
                     break;
 
                 case webpg.constants.PGPBlocks.PGP_SIGNED_MSG:
-                    $('#header')[0].innerHTML = "<a name=\"" + qs.id + "\">PGP SIGNED MESSAGE</a>";
+                    if (request.verify_result.message_type == "detached_signature")
+                        var title = "<a name=\"" + qs.id + "\">DETACHED PGP SIGNATURE</a>";
+                    else
+                        var title = "<a name=\"" + qs.id + "\">PGP SIGNED MESSAGE</a>";
+                    $('#header')[0].innerHTML = title
                     if (request.verify_result.error) {
                         $('#signature_text')[0].innerHTML = request.verify_result.original_text;
                     } else {
@@ -247,14 +251,14 @@ webpg.inline_results = {
                             $('#footer')[0].innerHTML = "THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY<br/\>";
                             $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ";
                             $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a> | ";
-                            $('#footer')[0].innerHTML += "<a href=\"#\">TRY TO FETCH RENEWED KEY</a>";
+//                            $('#footer')[0].innerHTML += "<a href=\"#\">TRY TO FETCH RENEWED KEY</a>";
                         }
                         if (request.verify_result.signatures[sig].status == "NO_PUBKEY") {
                             $('#footer').addClass("signature_no_pubkey");
                             $('#footer')[0].innerHTML = "THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING<br/\>";
                             $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ";
                             $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a> | ";
-                            $('#footer')[0].innerHTML += "<a href=\"#\">TRY TO FETCH MISSING KEY</a>";
+//                            $('#footer')[0].innerHTML += "<a href=\"#\">TRY TO FETCH MISSING KEY</a>";
                         }
                         if (request.verify_result.signatures[sig].status == "BAD_SIG") {
                             $('#footer').addClass("signature_bad_sig");
@@ -422,7 +426,11 @@ webpg.inline_results = {
                                         }
                                     )
                                 } else {
-                                    $('#footer')[0].innerHTML += "<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ";
+                                    $('#original_text')[0].innerHTML = request.original_text;
+                                    $('#signature_text')[0].innerHTML = request.original_text;
+                                    $('#footer').addClass("signature_no_pubkey");
+                                    if (import_status.no_user_id > 0)
+                                        $("<span class='decrypt_status'>UNUSABLE KEY; NO USER ID<br/\></span>").insertBefore($($('#footer')[0].firstChild));
                                     $('#footer')[0].innerHTML += "<a class=\"import_key_link\" href=\"#\">IMPORT THIS KEY</a> | ";
                                     $('#footer')[0].innerHTML += "<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>";
                                 }
@@ -476,12 +484,13 @@ webpg.inline_results = {
                     function(response) {
                         $('.decrypt_status').remove();
                         if (response.result.error) {
-                            if (response.result.gpg_error_code == "11") {
+                            if (response.result.gpg_error_code == "11" || response.result.gpg_error_code == "152") {
                                 $("<span class='decrypt_status'>DECRYPTION FAILED; BAD PASSPHRASE<br/\></span>").insertBefore($($('#footer')[0].firstChild));
                             }
                         } else {
                             $('#signature_text')[0].innerHTML = response.result.data;
-                            if (request.verify_result.signatures && response.result.signatures.hasOwnProperty(0)) {
+                            if ((request.verify_result.signatures && response.result.signatures.hasOwnProperty(0)) ||
+                            (response.result.signatures && response.result.signatures.hasOwnProperty(0))) {
                                 $('#header')[0].innerHTML = "<a name=\"" + qs.id + "\">PGP ENCRYPTED AND SIGNED MESSAGE</a>";
                                 icon.src = "skin/images/badges/stock_decrypted-signature.png";
                                 sig_ok = true;

@@ -12,7 +12,7 @@ webpg.utils = {
             Initializes the webpg.utils object and setups up required overrides.
     */
     init: function() {
-        if (navigator.userAgent.toLowerCase().search("firefox") > -1) {
+        if (this.detectedBrowser == "firefox" || this.detectedBrowser == "thunderbird") {
             // We are using Firefox, so make `console.log` an alias to
             //  something that provides more information than the standard
             //  console logging utility.
@@ -75,6 +75,8 @@ webpg.utils = {
             return "firefox";
         else if (navigator.userAgent.toLowerCase().search("chrome") > -1)
             return "chrome";
+        else if (navigator.userAgent.toLowerCase().search("thunderbird") > -1)
+            return "thunderbird";
         else
             return "unknown";
     })(),
@@ -84,14 +86,15 @@ webpg.utils = {
             Determines the base path for extension resources. This is a self
             executing method.
     */
-    resourcePath: (function() {
-        if (navigator.userAgent.toLowerCase().search("firefox") > -1)
+    resourcePath: function() {
+        if (navigator.userAgent.toLowerCase().search("firefox") > -1 ||
+        navigator.userAgent.toLowerCase().search("thunderbird") > -1)
             return "chrome://webpg-firefox/content/";   
         else if (navigator.userAgent.toLowerCase().search("chrome") > -1)
             return chrome.extension.getURL("");
         else
             return "/";
-    })(),
+    }(),
 
     /*
         Function: getParameterByName
@@ -156,7 +159,8 @@ webpg.utils = {
     */
     onRequest: {
         addListener: function(callback) { // analogue of chrome.extension.onRequest.addListener
-            if (navigator.userAgent.toLowerCase().search("firefox") > -1) {
+            if (webpg.utils.detectedBrowser == "firefox" ||
+            webpg.utils.detectedBrowser == "thunderbird") {
                 return document.addEventListener("listener-query", function(event) {
                     var node = event.target, doc = node.ownerDocument;
 
@@ -172,7 +176,7 @@ webpg.utils = {
                         return node.dispatchEvent(listener);
                     });
                 }, false, true);
-            } else {
+            } else if (webpg.utils.detectedBrowser == "chrome") {
                 chrome.extension.onRequest.addListener(callback);
             }
         },
@@ -188,7 +192,7 @@ webpg.utils = {
             doc - <document> The document to add the listener to 
     */
     sendRequest: function(data, callback, doc) { // analogue of chrome.extension.sendRequest
-        if (navigator.userAgent.toLowerCase().search("firefox") > -1) {
+        if (this.detectedBrowser == "firefox" || this.detectedBrowser == "thunderbird") {
             var request = document.createTextNode("");
             request.setUserData("data", data, null);
             if (callback) {
@@ -330,7 +334,13 @@ webpg.utils = {
                 break;
 
             case "chrome":
-                chrome.tabs.create({'url': url, 'index': tabIndex})
+                if (tabIndex) {
+                    chrome.tabs.create({'url': url, 'index': tabIndex})
+                } else {
+                    chrome.tabs.getSelected(null, function(tab) { 
+                        chrome.tabs.create({'url': url, 'index': tab.index});
+                    });
+                }
                 break;
         }
     },
@@ -363,7 +373,7 @@ webpg.utils = {
             var selectionText = selectionObject.toString();
         }
 
-        if (!selectionText.length > 0 && selectionTarget) {
+        if ((!selectionText || !selectionText.length > 0) && selectionTarget) {
             selectionText = selectionTarget.value;
             var preSelection = null;
             var postSelection = null;

@@ -1,4 +1,7 @@
 build/
+plugins
+webpg-*-*.zip
+changelog-*.txt
 *.swp
 *.patch
 *~
