@@ -199,7 +199,7 @@ webpg.gmail = {
                                 contents().find('form'),
                                 response.result.data
                             );
-                            //webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
+                            webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
                         } else {
                             var result = response.result;
                             webpg.gmail.handleFailure(result, recipKeys);
@@ -224,7 +224,7 @@ webpg.gmail = {
                                 contents().find('form'),
                                 response.result.data
                             );
-                            //webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
+                            webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
                         } else {
                             console.log(response);
                         }
@@ -244,13 +244,13 @@ webpg.gmail = {
                             'data': message,
                             'recipients': users
                     }, function(response) {
-                        console.log(response);
+                        //console.log(response);
                         if (!response.result.error && response.result.data) {
                             webpg.gmail.setContents(webpg.gmail.getCanvasFrame().
                                 contents().find('form'),
                                 response.result.data
                             );
-                            //webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
+                            webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
                         } else {
                             var result = response.result;
                             webpg.gmail.handleFailure(result, recipKeys);
