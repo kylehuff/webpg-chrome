@@ -518,7 +518,7 @@ webpg.gmail = {
     '</li>' +
 '</ul>';
 
-        esBtn[0].innerHTML = action_menu;
+        esBtn.html(action_menu);
 
         esBtn.click(function(e) {
             var list = $(this).find('.webpg-action-list');
@@ -531,9 +531,9 @@ webpg.gmail = {
         esBtn.find(".webpg-action-btn").click(function(e) {
             var newIcon = $(this).find("img")[0];
             var newText = $(this).find("a").text();
-            $(this).parent().parent().parent().find("#webpg-current-action")[0]
-                .innerHTML = "<img src='" + newIcon.src + "' height=17 " +
-                "width=17 style='padding:0;margin:0;'/>" + newText;
+            $(this).parent().parent().parent().find("#webpg-current-action")
+                .html("<img src='" + newIcon.src + "' height=17 " +
+                "width=17 style='padding:0;margin:0;'/>" + newText);
 
             var action = this.id.split("-")[1];
 

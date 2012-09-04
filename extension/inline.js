@@ -214,7 +214,7 @@ webpg.inline = {
                 node.parentNode.textContent;
 
         var h = document.createElement("pre");
-        h.innerHTML = scontent;
+        $(h).html(scontent);
         var phtml = h.innerHTML;
 
         if (scontent == phtml) {

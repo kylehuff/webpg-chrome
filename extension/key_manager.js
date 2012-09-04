@@ -120,9 +120,9 @@ webpg.keymanager = {
             changedTab - <bool> Passed if we are just changing tabs
     */
     buildKeylistProxy: function(keyList, type, openKey, openSubkey, openUID, changedTab) {
-        if (changedTab && type == "public" && window.public_built)
+        if (changedTab && type == "public" && webpg.keymanager.public_built)
             return;
-        if (changedTab && type == "private" && window.private_built)
+        if (changedTab && type == "private" && webpg.keymanager.private_built)
             return;
 
         $("#dialog-modal").dialog({
@@ -147,29 +147,29 @@ webpg.keymanager = {
                             effect("bounce", {times: 1, direction: 'up', distance: 8 }, 1200, function(){ if (perpetual) { bounce(elem_class, left, top, perpetual) } } )
                     }
                     var helper_arrow = document.createElement('div');
-                    helper_arrow.innerHTML = '' +
+                    $(helper_arrow).html('' +
                         '<div id="error_help" style="text-align: center; display: inline; text-shadow: #000 1px 1px 1px; color: #fff; font-size: 12px;">' +
                         '<div id="help_text" style="display: block; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; z-index: 10; padding: 8px 5px 8px 5px; margin-right: -5px; background-color: #ff6600; min-width: 130px;"></div>' +
                         '<span style="margin-left: 94px;"><img width="30px" src="skin/images/help_arrow.png"></span>' +
-                        '</div>';
+                        '</div>');
                     helper_arrow.style.position = 'absolute';
                     helper_arrow.style.zIndex = 1000;
                     $(helper_arrow).css("max-width", "75%");
                     switch(qs.helper){
                         case 'enable':
-                            $(helper_arrow).find('#help_text')[0].innerHTML = "Click to enable key";
+                            $(helper_arrow).find('#help_text').html("Click to enable key");
                             document.body.appendChild(helper_arrow);
                             $('.enable-check').click(function() { $(helper_arrow).stop(true, true).stop(true, true).hide(); });
                             bounce('.enable-check', 75, 45, true);
                             break;
                         case 'default':
-                            $(helper_arrow).find('#help_text')[0].innerHTML = "Click to set default key";
+                            $(helper_arrow).find('#help_text').html("Click to set default key");
                             $('.default-check').click(function() { $(helper_arrow).stop(true, true).stop(true, true).hide(); });
                             document.body.appendChild(helper_arrow);
                             bounce('.default-check', 40, 45, true);
                             break;
                         case 'signuids':
-                            $(helper_arrow).find('#help_text')[0].innerHTML = "Below is a list of key IDs that represent the domains that this server key is valid for; please sign the domain IDs that you want to use with webpg.";
+                            $(helper_arrow).find('#help_text').html("Below is a list of key IDs that represent the domains that this server key is valid for; please sign the domain IDs that you want to use with webpg.");
                             document.body.appendChild(helper_arrow);
                             bounce('#disable-public-' + openKey, 15, 15, false);
                             break;
@@ -179,10 +179,10 @@ webpg.keymanager = {
         })
 
         if (type == "public")
-            window.public_built = true;
+            webpg.keymanager.public_built = true;
 
         if (type == "private")
-            window.private_built = true;
+            webpg.keymanager.private_built = true;
 
     },
 
@@ -196,12 +196,12 @@ webpg.keymanager = {
             if (!isNaN(data))
                 data = String.fromCharCode(data);
             data += " ";
-            $(dialog + "_progress")[0].innerHTML += data;
+            $(dialog + "_progress").append(data);
             var waitMsg = (msg.data == 43) ? "Generating Key..." : "Waiting for entropy...";
             $(dialog + "-status").html("Building key, please wait.. [" + waitMsg + "]");
             if (data == "complete" || data == "complete ") {
-                window.genkey_refresh = true;
-                window.genkey_waiting = false;
+                webpg.keymanager.genkey_refresh = true;
+                webpg.keymanager.genkey_waiting = false;
                 var gen_dialog = dialog + "-dialog";
                 var new_pkeylist = webpg.background.plugin.getPrivateKeyList();
                 var generated_key = (dialog == "#gensubkey") ?
@@ -209,7 +209,7 @@ webpg.keymanager = {
                         : null;
                 if (dialog == "#genkey") {
                     for (var key in new_pkeylist) {
-                        if (key in window.pkeylist == false) {
+                        if (key in webpg.keymanager.pkeylist == false) {
                             generated_key = key;
                             break;
                         }
@@ -231,13 +231,13 @@ webpg.keymanager = {
                 $(dialog + "-form")[0].style.display="inline-block";
                 $(dialog + "-dialog").dialog("close");
             } else if (data.search("failed") > -1) {
-                window.genkey_waiting = false;
+                webpg.keymanager.genkey_waiting = false;
                 $(dialog + "-status").html("Generation " + data);
                 $(dialog + "-dialog").dialog("option", "buttons", { 
                     "Close": function() {
                         if (dialog == "#gensubkey")
                              $(dialog + "-dialog").dialog("option", "height", 320);
-                        $(dialog + "_progress")[0].innerHTML = "";
+                        $(dialog + "_progress").html("");
                         $(dialog + "-status_detail").remove()
                         $(dialog + "-status").remove();
                         $(dialog + "-form")[0].reset();
@@ -287,12 +287,12 @@ webpg.keymanager = {
                 // if the parsing failed, create an empty keylist
                 pkeylist = {};
             }
-            window.pkeylist = pkeylist;
+            webpg.keymanager.pkeylist = pkeylist;
         } else {
             keylist = keyList;
         }
 
-        keylist_element.innerHTML = "<div class='ui-accordion-left'></div>";
+        $(keylist_element).html("<div class='ui-accordion-left'></div>");
 
         if (type == 'private') {
             // Create the key-generate button and dialog
@@ -302,7 +302,7 @@ webpg.keymanager = {
             genkey_button.setAttribute('value', 'Generate New Key');
             genkey_button.setAttribute('type', 'button');
             $(genkey_button).button().click(function(e){
-                window.genkey_refresh = false;
+                webpg.keymanager.genkey_refresh = false;
                 $("#genkey-dialog").dialog({
                     "position": "top",
                     "buttons": {
@@ -350,7 +350,7 @@ webpg.keymanager = {
                                 $("#genkey-dialog").dialog("option", "minHeight", 350);
                                 return false;
                             }
-                            window.genkey_waiting = true;
+                            webpg.keymanager.genkey_waiting = true;
                             if (webpg.utils.detectedBrowser == "chrome") {
                                 chrome.extension.onConnect.addListener(function(port) {
                                     port.onMessage.addListener(webpg.keymanager.progressMsg);
@@ -394,7 +394,7 @@ webpg.keymanager = {
                         },
                         Cancel: function() {
                             $("#genkey-dialog").dialog("close");
-                            if (window.genkey_refresh)
+                            if (webpg.keymanager.genkey_refresh)
                                 webpg.keymanager.buildKeylistProxy(null, 'private');
                         }
                     },
@@ -449,7 +449,7 @@ webpg.keymanager = {
             genkey_div.appendChild(genkey_button);
             document.getElementById('private_keylist').appendChild(genkey_div);
             // End key generation dialog
-            window.private_built = true;
+            webpg.keymanager.private_built = true;
         }
 
         var prev_key = null;
@@ -498,13 +498,13 @@ webpg.keymanager = {
                 keyobj.setAttribute('id', 'open_key');
             }
             if (type == "public") {
-                keyobj.innerHTML = "<h3 class='public_keylist'><a href='#' name='" + key + "'><span style='margin: 0;width: 50%'>" + current_keylist[key].name + "</span><span class='trust'></span></a></h3>";
+                $(keyobj).html("<h3 class='public_keylist'><a href='#' name='" + key + "'><span style='margin: 0;width: 50%'>" + current_keylist[key].name + "</span><span class='trust'></span></a></h3>");
             } else {
-                keyobj.innerHTML = "<h3 class='private_keylist' style='height: 24px;'><a href='#' name='" + key + "'><span style='margin: 0;width: 50%;'>" + current_keylist[key].name + 
+                $(keyobj).html("<h3 class='private_keylist' style='height: 24px;'><a href='#' name='" + key + "'><span style='margin: 0;width: 50%;'>" + current_keylist[key].name + 
                     "&nbsp;&nbsp;-&nbsp;&nbsp;[0x" + key.substr(-8) + "]</span></a><span class='trust' style='z-index:1000; left: 4px; top:-30px;height:22px;'>" +
                     "<span class='keyoption-help-text' style=\"margin-right: 14px;\">&nbsp;</span>" +
                     "<input class='enable-check' id='check-" + key +"' type='checkbox' " + enabled + "/\><label class='enable-check-text' for='check-" + key + "' style='z-index:100;'>" + status_text + "</label><input class='default-check' type='radio' name='default_key' " +
-                    " id='default-" + key + "' " + default_key + "/\><label class='default-check' style='z-index: 0; margin-left: 0px;' for='default-" + key + "'>Set as default</label></span></h3>";
+                    " id='default-" + key + "' " + default_key + "/\><label class='default-check' style='z-index: 0; margin-left: 0px;' for='default-" + key + "'>Set as default</label></span></h3>");
             }
             keylist_element.appendChild(keyobj);
             $(keyobj).find('.enable-check').click(function(e){
@@ -526,7 +526,7 @@ webpg.keymanager = {
             $(keyobj).find('.default-check').click(function(e){
                 var clicked_id = this.id.split("-")[1];
                 if (clicked_id == webpg.preferences.default_key.get()) {
-                    $(this).parent().children('.keyoption-help-text')[0].innerHTML = "<span style=\"color:f6f;\">Cannot unset your default key</span>";
+                    $(this).parent().children('.keyoption-help-text').html("<span style=\"color:f6f;\">Cannot unset your default key</span>");
                 }
             });
             current_keylist[key].nuids = 0;
@@ -648,7 +648,7 @@ webpg.keymanager = {
                 type + "-key-option-button' id='export-" + type + "-" + key + 
                     "' type='button' value='Export this Key'/\></span><br/\>" +
                 "</div>";
-            uidlist.innerHTML = uidlist_innerHTML;
+            $(uidlist).html(uidlist_innerHTML);
             subkey_info = "<span class='dh'>Subkeys</span><hr/\>";
             for (subkey in current_keylist[key].subkeys) {
                 skey = current_keylist[key].subkeys[subkey];
@@ -724,7 +724,7 @@ webpg.keymanager = {
                     uidobj.className += ' invalid-key';
                 email = (current_keylist[key].uids[uid].email.length > 1) ? "  -  &lt;" + current_keylist[key].uids[uid].email + "&gt;" :
                     "  - (no email address provided)";
-                uidobj.innerHTML += "<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%'>" + current_keylist[key].uids[uid].uid + email + "</span><span class='trust' style='text-decoration: none;'></span></a></h4>";
+                $(uidobj).append("<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%'>" + current_keylist[key].uids[uid].uid + email + "</span><span class='trust' style='text-decoration: none;'></span></a></h4>");
                 signed = 0;
                 nd_trust = false;
                 uidobjbody = document.createElement('div');
@@ -742,10 +742,10 @@ webpg.keymanager = {
                     }
                 }
 
-                uidobjbody.innerHTML = "<div class=\"uid-options\"><span class='uid-options'><input class='uid-option-button-sign' id='sign-" + type + "-" + key + "-" + uid + "' type='button' value='Sign this UID'/\></span>" +
+                $(uidobjbody).html("<div class=\"uid-options\"><span class='uid-options'><input class='uid-option-button-sign' id='sign-" + type + "-" + key + "-" + uid + "' type='button' value='Sign this UID'/\></span>" +
                     "<span class='uid-options'>" + primary_button + revoke_button + "<input class='uid-option-button' id='delete-" + type + "-" + key + "-" + uid +
-                    "' type='button' value='Delete this UID'/\></span></div>";
-                uidobjbody.innerHTML += "<br/\>";
+                    "' type='button' value='Delete this UID'/\></span></div>");
+                $(uidobjbody).append("<br/\>");
                 if (current_keylist[key].uids[uid].revoked) {
                     $(uidobjbody).find('.uid-option-button-sign').addClass('uid-revoked');
                     $(uidobjbody).find('.uid-option-button-primary').addClass('uid-revoked');
@@ -817,7 +817,7 @@ webpg.keymanager = {
                         }
                         sig_box += "<input type='button' class='delsig-button' id='delsig-" + type + "-" + key +
                             "-" + uid + "-" + sig + "' value='Delete'/\></div>";
-                        uidobjbody.innerHTML += sig_box;
+                        $(uidobjbody).append(sig_box);
                     }
                 }
                 uidobj.appendChild(uidobjbody);
@@ -1087,7 +1087,7 @@ webpg.keymanager = {
                                     $("#adduid-status").html(error)[0].style.display="block";
                                     return false;
                                 }
-                                window.adduid_waiting = true;
+                                webpg.keymanager.adduid_waiting = true;
                                 $("#adduid-dialog").dialog("option", "minHeight", 250);
                                 $("#adduid-status").html(error)[0].style.display="block";
                                 var result = webpg.background.plugin.gpgAddUID(params[2], form.uid_0_name.value,
@@ -1114,7 +1114,7 @@ webpg.keymanager = {
                     break;
 
                 case "addsubkey":
-                    window.genkey_refresh = false;
+                    webpg.keymanager.genkey_refresh = false;
                     $("#gensubkey-dialog").dialog({
                         resizable: true,
                         minHeight: 300,
@@ -1128,7 +1128,7 @@ webpg.keymanager = {
                                 form.key_id.value = params[2];
                                 $(form).parent().before("<div id=\"gensubkey-status\"> </div>");
                                 var error = "";
-                                window.genkey_waiting = true;
+                                webpg.keymanager.genkey_waiting = true;
                                 if (webpg.utils.detectedBrowser == "chrome") {
                                     chrome.extension.onConnect.addListener(function(port) {
                                         port.onMessage.addListener(webpg.keymanager.progressMsg);
@@ -1227,8 +1227,8 @@ webpg.keymanager = {
 
                 case "export":
                     var export_result = webpg.background.plugin.gpgExportPublicKey(params[2]).result;
-                    $("#export-dialog-text")[0].innerHTML = export_result;
-                    $("#export-dialog-copytext")[0].innerHTML = export_result;
+                    $("#export-dialog-text").html(export_result);
+                    $("#export-dialog-copytext").html(export_result);
                     $("#export-dialog").dialog({
 		                resizable: true,
 		                height: 230,
@@ -1238,8 +1238,9 @@ webpg.keymanager = {
                         "buttons": {
                             "Copy": function() {
                                 $("#export-dialog-copytext")[0].select();
-                                $("#export-dialog-msg")[0].innerHTML = 
-                                    webpg.utils.copyToClipboard(window, document);
+                                $("#export-dialog-msg").html(
+                                    webpg.utils.copyToClipboard(window, document)
+                                );
                                 $("#export-dialog-msg")[0].style.display="block"
                             },
                             "Close": function() {
@@ -1264,7 +1265,7 @@ webpg.keymanager = {
                         "</select><br/\>" +
                         "<label for='revkey-desc'>Description:</label>" +
                         "<input type='text' name='revkey-desc' id='revkey-desc' class='ui-corner-all ui-widget ui-state-default'/\>";
-                    $("#revkey-confirm").find('#revkey-text')[0].innerHTML = options
+                    $("#revkey-confirm").find('#revkey-text').html(options);
                     $("#revkey-confirm").dialog({
                         resizable: true,
                         height:250,
@@ -1367,7 +1368,7 @@ webpg.keymanager = {
                         "</select><br/\>" +
                         "<label for='revuid-desc'>Description:</label>" +
                         "<input type='text' name='revuid-desc' id='revuid-desc' class='ui-corner-all ui-widget ui-state-default'/\>";
-                    $("#revuid-confirm").find('#revuid-text')[0].innerHTML = options
+                    $("#revuid-confirm").find('#revuid-text').html(options);
                     $("#revuid-confirm").dialog({
                         resizable: true,
                         height:250,
@@ -1424,16 +1425,16 @@ webpg.keymanager = {
                 });
             var params = this.id.split('-');
             var enabled_keys = webpg.preferences.enabled_keys.get();
-            $('#createsig-form')[0].innerHTML = "<p class='help-text'>Please select which of your keys to create the signature with:</p>";
+            $('#createsig-form').html("<p class='help-text'>Please select which of your keys to create the signature with:</p>");
             if (type == "private")
-                var keylist = pkeylist;
+                keylist = pkeylist;
             var current_signatures = keylist[params[2]].uids[params[3]].signatures;
             var cursig = [];
             for (sig in current_signatures) {
                 cursig.push(current_signatures[sig].keyid);
             }
             if (!webpg.preferences.enabled_keys.length()) {
-                $('#createsig-form')[0].innerHTML += "You have not enabled any keys for use with webpg; <a href='" + webpg.utils.resourcePath + "key_manager.html?tab=0&helper=enable'>please click here</a> and select 1 or more keys for use with webpg.";
+                $('#createsig-form').append("You have not enabled any keys for use with webpg; <a href='" + webpg.utils.resourcePath + "key_manager.html?tab=0&helper=enable'>please click here</a> and select 1 or more keys for use with webpg.");
             }
             for (idx in enabled_keys) {
                 var key = enabled_keys[idx];
@@ -1446,7 +1447,7 @@ webpg.keymanager = {
                     status += "<input style='display: none;' type='checkbox' id='sign_" + key + "' name='" + key + "' disabled/\>";
                 else
                     status += "<input type='checkbox' id='sign_" + key + "' name='" + key + "'/\>";
-                $('#createsig-form')[0].innerHTML += status + "<label for='sign_" + key + "' id='lbl-sign_" + key + "' class='help-text'>" + pkeylist[key].name + " (" + key + ")</label><div id='lbl-sign-err_" + key + "' style='display: none;'></div><br/\>";
+                $('#createsig-form').append(status + "<label for='sign_" + key + "' id='lbl-sign_" + key + "' class='help-text'>" + pkeylist[key].name + " (" + key + ")</label><div id='lbl-sign-err_" + key + "' style='display: none;'></div><br/\>");
                 if (webpg.preferences.enabled_keys.length() == 1 && signed) {
                     $($("button", $("#createsig-dialog").parent()).children()[1]).hide();
                 }
@@ -1470,7 +1471,7 @@ webpg.keymanager = {
                                     lbl_sign_error.style.display = "inline";
                                     lbl_sign_error.style.color = "#f40";
                                     lbl_sign_error.style.margin = "0 0 0 20px";
-                                    lbl_sign_error.innerHTML = sign_result['error_string'];
+                                    $(lbl_sign_error).html(sign_result['error_string']);
                                     $($("button", $("#createsig-dialog").parent()).children()[0]).text("Close")
                                     $($("button", $("#createsig-dialog").parent()).children()[1]).text("Try again")
                                 } else {
@@ -1519,7 +1520,7 @@ webpg.keymanager = {
                 "</select><br/\>" +
                 "<label for='revsig-desc'>Description:</label>" +
                 "<input type='text' name='revsig-desc' id='revsig-desc' class='ui-corner-all ui-widget ui-state-default'/\>";
-            $("#revsig-confirm").find('#revsig-text')[0].innerHTML = options
+            $("#revsig-confirm").find('#revsig-text').html(options);
             $("#revsig-confirm").dialog("option",
                 "buttons", {
                     "Revoke": function() {
@@ -1567,10 +1568,10 @@ webpg.keymanager = {
             var params = this.id.split('-');
             var calling_button = this;
             var sig_details = $(calling_button).parent()[0].id.split('-');
-            $("#delsig-confirm").find('#delsig-text')[0].innerHTML = "Are you certain you would like to delete signature " +
-                sig_details[1] + " from this User id?";
+            $("#delsig-confirm").find('#delsig-text').html("Are you certain you would like to delete signature " +
+                sig_details[1] + " from this User id?");
             if (sig_details[1] in pkeylist < 1) {
-                $("#delsig-confirm").find('#delsig-text')[0].innerHTML += "<br><br><span class='ui-icon ui-icon-alert' style='float:left; margin:0 7px 20px 0;'></span>This signature was made with a key that does not belong to you; This action cannot be undone without refreshing the keylist from a remote source.";
+                $("#delsig-confirm").find('#delsig-text').append("<br><br><span class='ui-icon ui-icon-alert' style='float:left; margin:0 7px 20px 0;'></span>This signature was made with a key that does not belong to you; This action cannot be undone without refreshing the keylist from a remote source.");
                 $("#delsig-confirm").dialog("option", "height", "240");
                 $("#delsig-confirm").dialog("option", "width", "400");
             }
@@ -1622,29 +1623,29 @@ webpg.keymanager = {
             if (enabled_keys.indexOf(keyid) == -1) {
                 webpg.preferences.enabled_keys.add(keyid);
                 $(enable_element).trigger('click');
-                $(enable_element).next()[0].innerHTML = $(enable_element).next()[0].innerHTML.replace('Disabled', 'Enabled');
+                $(enable_element).next().html($(enable_element).next()[0].innerHTML.replace('Disabled', 'Enabled'));
             }
         }).parent().buttonset();
 
         $('.enable-check').next().hover(
             function(e){
-                $(this).parent().children('.keyoption-help-text')[0].innerHTML = "Enable this key for signing";
+                $(this).parent().children('.keyoption-help-text').html("Enable this key for signing");
             },
             function(e){
-                $(this).parent().children('.keyoption-help-text')[0].innerHTML = "&nbsp;";
+                $(this).parent().children('.keyoption-help-text').html("&nbsp;");
             }
         );
         $('input.default-check').next().hover(
             function(e){
                 var input = $(this).prev()[0];
                 if (input && input.checked) {
-                    $(this).parent().children('.keyoption-help-text')[0].innerHTML = "This is your default key";
+                    $(this).parent().children('.keyoption-help-text').html("This is your default key");
                 } else {
-                    $(this).parent().children('.keyoption-help-text')[0].innerHTML = "Make this the default key for encryption operations";
+                    $(this).parent().children('.keyoption-help-text').html("Make this the default key for encryption operations");
                 }
             },
             function(e){
-                $(this).parent().children('.keyoption-help-text')[0].innerHTML = "&nbsp;";
+                $(this).parent().children('.keyoption-help-text').html("&nbsp;");
             }
         );
 
