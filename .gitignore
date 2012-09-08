@@ -5,3 +5,4 @@ changelog-*.txt
 *.swp
 *.patch
 *~
+gh-pages/
