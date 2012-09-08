@@ -129,16 +129,16 @@ webpg.keymanager = {
             height: 140,
             modal: true,
             autoOpen: true,
-            title: "Building Keylist"
+            title: "Building Key list"
         }).animate({"top": window.scrollY}, 1, function() {
-            $('#dialog-msg').text("Please wait while we build the keylist.");
+            $('#dialog-msg').text("Please wait while we build the key list.");
             $(this).animate({"top": window.scrollY + $(this).innerHeight() + 100}, 1,
             function() {
                 webpg.keymanager.buildKeylist(
                     keyList, type, openKey,
                     openSubkey, openUID
                 );
-                $(this).dialog('close');
+                $("#dialog-modal").dialog('close');
                 if (qs.helper) {
                     function bounce(elem_class, left, top, perpetual) {
                         var nleft = $($(elem_class)[0]).parent().offset().left - left;
@@ -264,41 +264,54 @@ webpg.keymanager = {
             openUID - <int> The index number for the UID to render in the open (viewing) status 
     */
     buildKeylist: function(keyList, type, openKey, openSubkey, openUID){
-        console.log(keyList, type, openKey, openSubkey, openUID);
+        //console.log(keyList, type, openKey, openSubkey, openUID);
 
         if (type == 'public') {
-            keylist_element = document.getElementById('public_keylist');
+            var keylist_element = document.getElementById('public_keylist');
         } else {
-            keylist_element = document.getElementById('private_keylist');
-            enabled_keys = webpg.preferences.enabled_keys.get();
+            var keylist_element = document.getElementById('private_keylist');
+            var enabled_keys = webpg.preferences.enabled_keys.get();
         }
 
         if (!keyList) {
             if (type == 'public') {
-                var keylist = webpg.background.plugin.getPublicKeyList();
+                var find = $("#pubkey-search")[0].value;
+                if (find.length > 0) {
+                    if (find.search(":") > -1) {
+                        var keylist = webpg.background.plugin.getPublicKeyList();
+                        $("#pubkey-search")[0].value = '';
+                    } else {
+                        var keylist = webpg.background.plugin.getNamedKey(find);
+                    }
+                } else {
+                    var keylist = webpg.background.plugin.getPublicKeyList();
+                }
+
                 if (!keylist) {
                     // if the parsing failed, create an empty keylist
-                    keylist = {};
+                    var keylist = {};
                 }
             }
             var pkeylist = webpg.background.plugin.getPrivateKeyList();
 
             if (!pkeylist) {
                 // if the parsing failed, create an empty keylist
-                pkeylist = {};
+                var pkeylist = {};
             }
             webpg.keymanager.pkeylist = pkeylist;
+            webpg.keymanager.pubkeylist = keylist;
         } else {
-            keylist = keyList;
+            var keylist = keyList;
+            var pkeylist = {};
         }
 
         $(keylist_element).html("<div class='ui-accordion-left'></div>");
 
         if (type == 'private') {
             // Create the key-generate button and dialog
-            genkey_div = document.createElement('div');
+            var genkey_div = document.createElement('div');
             genkey_div.style.padding = "8px 0 20px 0";
-            genkey_button = document.createElement('input');
+            var genkey_button = document.createElement('input');
             genkey_button.setAttribute('value', 'Generate New Key');
             genkey_button.setAttribute('type', 'button');
             $(genkey_button).button().click(function(e){
@@ -307,9 +320,9 @@ webpg.keymanager = {
                     "position": "top",
                     "buttons": {
                         "Create": function() {
-                            form = $(this).find("#genkey-form")[0];
+                            var form = $(this).find("#genkey-form")[0];
                             $(form).parent().before("<div id=\"genkey-status\"> </div>");
-                            error = "";
+                            var error = "";
                             if (!form.uid_0_name.value){
                                 error += "Name Required<br>";
                                 $(form.uid_0_name).addClass("ui-state-error");
@@ -406,29 +419,35 @@ webpg.keymanager = {
                 $("#genkey-form").children('input').removeClass('input-error');
                 $("#genkey-form")[0].reset();
                 $('.key-algo').each(function(){
-                    $(this)[0].options.selectedIndex = $(this)[0].options.length - 1;
+                    //$(this)[0].options.selectedIndex = $(this)[0].options.length - 1;
                     if ($(this).parent().next().find('.key-size').length) {
                         $(this).parent().next().find('.key-size')[0].children[0].disabled = true;
                         $($(this).parent().next().find('.key-size')[0].children[0]).hide();
                     }
                 }).change(function(){
                     if ($(this)[0].options.selectedIndex == 0){
-                        $(this).parent().next().find('.key-size')[0].children(0).disabled = false;
-                        $($(this).parent().next().find('.key-size')[0].children(0)).show();
-                        $(this).parent().next().find('.key-size')[0].children(4).disabled = true;
-                        $($(this).parent().next().find('.key-size')[0].children(4)).hide();
+                        // DSA Selected
+                        console.log("DSA");
+                        $(this).parent().next().find('.key-size')[0].children[0].disabled = false;
+                        $($(this).parent().next().find('.key-size')[0].children[0]).show();
+                        $(this).parent().next().find('.key-size')[0].children[4].disabled = true;
+                        $($(this).parent().next().find('.key-size')[0].children[4]).hide();
                         $(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
                     } else if($(this)[0].options.selectedIndex == 1){
+                        // RSA Selected
+                        console.log("RSA");
+                        $(this).parent().next().find('.key-size')[0].children[0].disabled = true;
+                        $($(this).parent().next().find('.key-size')[0].children[0]).hide();
+                        $(this).parent().next().find('.key-size')[0].children[4].disabled = false;
+                        $($(this).parent().next().find('.key-size')[0].children[4]).show();
                         $(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
-                        $(this).parent().next().find('.key-size')[0].children(0).disabled = false;
-                        $($(this).parent().next().find('.key-size')[0].children(0)).show();
-                        $(this).parent().next().find('.key-size')[0].children(4).disabled = false;
-                        $($(this).parent().next().find('.key-size')[0].children(4)).show();
                     } else {
-                        $(this).parent().next().find('.key-size')[0].children(0).disabled = true;
-                        $($(this).parent().next().find('.key-size')[0].children(0)).hide();
-                        $(this).parent().next().find('.key-size')[0].children(4).disabled = false;
-                        $($(this).parent().next().find('.key-size')[0].children(4)).show();
+                        // Elgamal Selected
+                        console.log("Elgamal");
+                        $(this).parent().next().find('.key-size')[0].children[0].disabled = false;
+                        $($(this).parent().next().find('.key-size')[0].children[0]).show();
+                        $(this).parent().next().find('.key-size')[0].children[4].disabled = false;
+                        $($(this).parent().next().find('.key-size')[0].children[4]).show();
                         $(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
                     }
                 });
@@ -453,14 +472,14 @@ webpg.keymanager = {
         }
 
         var prev_key = null;
-        current_keylist = (type == 'public')? keylist : pkeylist;
-        for (key in current_keylist){
+        var current_keylist = (type == 'public')? keylist : pkeylist;
+        for (var key in current_keylist){
             if (type == 'public') {
                 if (key in pkeylist) {
                     continue;
                 }
             } else {
-                keyobj = document.createElement('div');
+                var keyobj = document.createElement('div');
                 if (current_keylist[key].disabled)
                     keyobj.className = 'disabled';
                 if (current_keylist[key].expired)
@@ -470,12 +489,12 @@ webpg.keymanager = {
                 if (current_keylist[key].revoked)
                     $(keyobj).addClass('invalid-key');
                 keyobj.className += ' primary_key';
-                enabled = (enabled_keys.indexOf(key) != -1) ? 'checked' : '';
-                status_text = (enabled) ? "Enabled" : "Disabled";
-                default_key = (key == webpg.preferences.default_key.get()) ? 'checked' : '';
+                var enabled = (enabled_keys.indexOf(key) != -1) ? 'checked' : '';
+                var status_text = (enabled) ? "Enabled" : "Disabled";
+                var default_key = (key == webpg.preferences.default_key.get()) ? 'checked' : '';
             }
-            status = "Valid";
-            keyobj = document.createElement('div');
+            var status = "Valid";
+            var keyobj = document.createElement('div');
             if (current_keylist[key].disabled) {
                 $(keyobj).addClass('disabled');
                 status = "Disabled";
@@ -530,18 +549,19 @@ webpg.keymanager = {
                 }
             });
             current_keylist[key].nuids = 0;
-            for (uid in current_keylist[key].uids) {
+            for (var uid in current_keylist[key].uids) {
                 current_keylist[key].nuids += 1;
             }
-            uidlist = document.createElement('div');
+            var uidlist = document.createElement('div');
             uidlist.setAttribute('class', 'uidlist');
             uidlist.setAttribute('id', key);
-            created_date = new Date(current_keylist[key].subkeys[0].created * 1000).toJSON().substring(0, 10);
-            expiry = (current_keylist[key].subkeys[0].expires == 0) ? 'Never' : new Date(current_keylist[key].subkeys[0].expires * 1000).toJSON();
+            var created_date = new Date(current_keylist[key].subkeys[0].created * 1000).toJSON().substring(0, 10);
+            var expiry = (current_keylist[key].subkeys[0].expires == 0) ? 'Never' : new Date(current_keylist[key].subkeys[0].expires * 1000).toJSON();
             if (current_keylist[key].subkeys[0].expires > 0) {
                 expiry = (Math.round(new Date().getTime()/1000.0) > current_keylist[key].subkeys[0].expires) ? "Expired [" + expiry.substring(0, 10) + "]" : expiry.substring(0, 10);
             }
-            options_list = [];
+            var options_list = [];
+            var option = {};
             if (type == "private") {
                 option = {
                     "command" : "trust",
@@ -583,8 +603,8 @@ webpg.keymanager = {
                 }
                 options_list[options_list.length] = option;
             }
-            compiled_option_list = "";
-            for (option_i in options_list){
+            var compiled_option_list = "";
+            for (var option_i in options_list){
                 option = options_list[option_i];
                 switch(option.input_type) {
                     case "button":
@@ -608,12 +628,12 @@ webpg.keymanager = {
                             "' style=\"display:block; clear:right; margin-top: -10px;\">" + option.text + "</label><select class='" + 
                             type + "-key-option-list ui-button ui-corner-all ui-button ui-widget ui-state-default' id='" + 
                             option.command + "-" + type + "-" + key + "' style=\"margin-right: 10px;\">"
-                        for (listitem in option.list_values) {
-                            owner_trust = current_keylist[key].owner_trust;
+                        for (var listitem in option.list_values) {
+                            var owner_trust = current_keylist[key].owner_trust;
                             if (option.list_values[listitem].toLowerCase() == owner_trust) {
-                                selected = "selected";
+                                var selected = "selected";
                             } else {
-                                selected = "";
+                                var selected = "";
                             }
                             compiled_option_list += "<option class=\"ui-state-default\" value=\"" + 
                                 option.list_values[listitem].toLowerCase() + "\" " + 
@@ -623,12 +643,12 @@ webpg.keymanager = {
                         break;
                 }
             }
-            keystatus = (current_keylist[key].disabled)? 'enable':'disable';
-            keystatus_text = (current_keylist[key].disabled)? 'Enable this Key':'Disable this Key';
-            key_option_button = "<span class='uid-options' style='font-size:12px;'><input class='" + 
+            var keystatus = (current_keylist[key].disabled)? 'enable':'disable';
+            var keystatus_text = (current_keylist[key].disabled)? 'Enable this Key':'Disable this Key';
+            var key_option_button = "<span class='uid-options' style='font-size:12px;'><input class='" + 
                     type + "-key-option-button' id='" + keystatus + "-" + type + "-" + key + 
                         "' type='button' value='" + keystatus_text + "'/\></span>";
-            uidlist_innerHTML = "<div class='keydetails'><span class='dh'>Key Details</span><hr/\>" +
+            var uidlist_innerHTML = "<div class='keydetails'><span class='dh'>Key Details</span><hr/\>" +
                 "<span><h4>KeyID:</h4> 0x" + key.substr(-8) + "</span><span><h4>Key Created:</h4> " + 
                     created_date + "</span><span><h4>Expires:</h4> " + expiry +
                         "</span><span><h4>UIDs:</h4> " + current_keylist[key].nuids + "</span><br/\>" +
@@ -649,10 +669,10 @@ webpg.keymanager = {
                     "' type='button' value='Export this Key'/\></span><br/\>" +
                 "</div>";
             $(uidlist).html(uidlist_innerHTML);
-            subkey_info = "<span class='dh'>Subkeys</span><hr/\>";
-            for (subkey in current_keylist[key].subkeys) {
-                skey = current_keylist[key].subkeys[subkey];
-                skey_status = "Valid";
+            var subkey_info = "<span class='dh'>Subkeys</span><hr/\>";
+            for (var subkey in current_keylist[key].subkeys) {
+                var skey = current_keylist[key].subkeys[subkey];
+                var skey_status = "Valid";
                 if (skey.disabled) {
                     skey_status = "Disabled";
                 }
@@ -665,25 +685,24 @@ webpg.keymanager = {
                 if (skey.revoked) {
                     skey_status = "Revoked";
                 }
-                created_date = new Date(skey.created * 1000).toJSON().substring(0, 10);
-                expiry = (skey.expires == 0) ? 'Never' : new Date(skey.expires * 1000).toJSON();
+                var created_date = new Date(skey.created * 1000).toJSON().substring(0, 10);
+                var expiry = (skey.expires == 0) ? 'Never' : new Date(skey.expires * 1000).toJSON();
                 if (skey.expires > 0) {
                     expiry = (Math.round(new Date().getTime()/1000.0) > skey.expires) ? "Expired" : expiry.substring(0, 10);
                 }
+                var extraClass = "";
                 if (key == openKey && subkey == openSubkey) {
                     extraClass = " open_subkey";
-                } else {
-                    extraClass = "";
                 }
                 if (skey.revoked) {
                     extraClass += " invalid-key";
                 }
                 if (skey_status == "Expired")
                     extraClass += " invalid-key";
-                flags = []
-                sign_flag = (skey.can_sign) ? flags.push("Sign") : "";
-                enc_flag = (skey.can_encrypt) ? flags.push("Encrypt") : "";
-                auth_flag = (skey.can_authenticate) ? flags.push("Authenticate") : "";
+                var flags = []
+                var sign_flag = (skey.can_sign) ? flags.push("Sign") : "";
+                var enc_flag = (skey.can_encrypt) ? flags.push("Encrypt") : "";
+                var auth_flag = (skey.can_authenticate) ? flags.push("Authenticate") : "";
                 subkey_info += "<div class=\"subkey" + extraClass + "\" id=\"" + 
                     key + '-s' + subkey + "\"><h4 class='subkeylist'><a href='#'>" +
                     "<span style='margin:0; width: 50%'>" + skey.size + 
@@ -714,22 +733,21 @@ webpg.keymanager = {
             }
             $(uidlist).append(subkey_info);
             $(uidlist).append("<br/\><span class='dh'>User IDs</span><hr/\>");
-            for (uid in current_keylist[key].uids) {
-                uidobj = document.createElement('div');
+            for (var uid in current_keylist[key].uids) {
+                var uidobj = document.createElement('div');
                 uidobj.setAttribute('class', 'uid');
                 uidobj.setAttribute('id', key + '-' + uid);
                 if (key == openKey && uid == openUID)
                     $(uidobj).addClass('open_uid');
                 if (current_keylist[key].expired || current_keylist[key].uids[uid].revoked)
                     uidobj.className += ' invalid-key';
-                email = (current_keylist[key].uids[uid].email.length > 1) ? "  -  &lt;" + current_keylist[key].uids[uid].email + "&gt;" :
+                var email = (current_keylist[key].uids[uid].email.length > 1) ? "  -  &lt;" + current_keylist[key].uids[uid].email + "&gt;" :
                     "  - (no email address provided)";
                 $(uidobj).append("<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%'>" + current_keylist[key].uids[uid].uid + email + "</span><span class='trust' style='text-decoration: none;'></span></a></h4>");
-                signed = 0;
-                nd_trust = false;
-                uidobjbody = document.createElement('div');
-                primary_button = "";
-                revoke_button = "";
+                var signed = 0;
+                var uidobjbody = document.createElement('div');
+                var primary_button = "";
+                var revoke_button = "";
 
                 if (type == "private") {
                     if (uid != 0) {
@@ -742,7 +760,7 @@ webpg.keymanager = {
                     }
                 }
 
-                $(uidobjbody).html("<div class=\"uid-options\"><span class='uid-options'><input class='uid-option-button-sign' id='sign-" + type + "-" + key + "-" + uid + "' type='button' value='Sign this UID'/\></span>" +
+                $(uidobjbody).html("<div class=\"uid-options uid-options-line\"><span class='uid-options'><input class='uid-option-button-sign' id='sign-" + type + "-" + key + "-" + uid + "' type='button' value='Sign this UID'/\></span>" +
                     "<span class='uid-options'>" + primary_button + revoke_button + "<input class='uid-option-button' id='delete-" + type + "-" + key + "-" + uid +
                     "' type='button' value='Delete this UID'/\></span></div>");
                 $(uidobjbody).append("<br/\>");
@@ -754,22 +772,23 @@ webpg.keymanager = {
                     $(uidobjbody).find('.uid-option-button-sign').addClass('key-expired');
                 // Not all signatures are included in the step-iteration of a signature revocation, 
                 //  therefor we need to keep track of the index of revocable keys.
-                rev_index = -1;
+                var rev_index = -1;
                 // For each signature that is revoked, there  are 2 signatures,
                 //  the signature to be revoked and the revocation signature.
                 //  We need to keep a list of revocation signature ID's so we can
                 //  exclude the revoked signatures from being displayed.
-                revocation_sig_ids = {}
-                for (sig in current_keylist[key].uids[uid].signatures) {
-                    sig_keyid = current_keylist[key].uids[uid].signatures[sig].keyid
-                    status = "";
+                var revocation_sig_ids = {};
+                var sigs_not_in_keyring = {};
+                for (var sig in current_keylist[key].uids[uid].signatures) {
+                    var sig_keyid = current_keylist[key].uids[uid].signatures[sig].keyid
+                    var status = "";
                     if (current_keylist[key].uids[uid].signatures[sig].revoked) {
                         revocation_sig_ids[sig_keyid] = 'revoked';
                         status = " [REVOKED]";
                     } else if (sig_keyid in revocation_sig_ids) {
                         continue;
                     }
-                    if (sig_keyid in current_keylist || nd_trust) {
+                    if (sig_keyid in current_keylist) {
                         if (sig_keyid in pkeylist) {
                             signed = 1;
                             if (!current_keylist[key].uids[uid].signatures[sig].revoked) {
@@ -779,6 +798,8 @@ webpg.keymanager = {
                         email = (current_keylist[sig_keyid].uids[0].email.length > 1) ? "&lt;" +
                             current_keylist[sig_keyid].uids[0].email + 
                             "&gt;" : "(no email address provided)"
+                        var sig_class;
+                        var sig_image;
                         if (current_keylist[key].uids[uid].signatures[sig].revoked) {
                             sig_class = " sig-revoked";
                             sig_image = "stock_signature-bad.png";
@@ -789,13 +810,13 @@ webpg.keymanager = {
                             sig_class = "";
                             sig_image = "stock_signature.png";
                         }
-                        sig_box = "<div id='sig-" + sig_keyid + "-" + sig + "' class='signature-box " + sig_class + "'>" +
+                        var sig_box = "<div id='sig-" + sig_keyid + "-" + sig + "' class='signature-box " + sig_class + "'>" +
                             "<img src='skin/images/badges/" + sig_image + "'>" + 
                             "<div style='float:left; clear:right;width:80%;'><span class='signature-uid'>" + 
                             current_keylist[sig_keyid].name + status + "</span><br/\><span class='signature-email'>" + 
                             email + "</span><br/\><span class='signature-keyid'>" + sig_keyid + "</span><br/\>";
-                        date_created = new Date(current_keylist[key].uids[uid].signatures[sig].created * 1000).toJSON();
-                        date_expires = (current_keylist[key].uids[uid].signatures[sig].expires == 0) ? 
+                        var date_created = new Date(current_keylist[key].uids[uid].signatures[sig].created * 1000).toJSON();
+                        var date_expires = (current_keylist[key].uids[uid].signatures[sig].expires == 0) ? 
                             'Never' : new Date(current_keylist[key].uids[uid].signatures[sig].expires * 1000).toJSON().substring(0, 10);
                         sig_box += "<span class='signature-keyid'>Created: " + date_created.substring(0, 10) + "</span><br/\>";
                         sig_box += "<span class='signature-keyid'>Expires: " + date_expires + "</span><br/\>"
@@ -818,9 +839,17 @@ webpg.keymanager = {
                         sig_box += "<input type='button' class='delsig-button' id='delsig-" + type + "-" + key +
                             "-" + uid + "-" + sig + "' value='Delete'/\></div>";
                         $(uidobjbody).append(sig_box);
+                    } else {
+                        sigs_not_in_keyring[sig] = current_keylist[key].uids[uid].signatures[sig];
                     }
                 }
                 uidobj.appendChild(uidobjbody);
+                if (sigs_not_in_keyring.hasOwnProperty(0)) {
+                    $(uidobjbody).find(".uid-options-line").append(
+                        "<span style='position:absolute;right:60px;color:#F11;margin-top:8px;'>*Signatures made with keys that are not in your keyring are not displated.</span>"
+                    );
+//                    console.log(sigs_not_in_keyring, key);
+                }
                 uidlist.appendChild(uidobj);
             }
             keyobj.appendChild(uidlist);
@@ -1665,9 +1694,110 @@ webpg.keymanager = {
 
         if (openItem) {
             var element = $(openItem);
-            var pos = element.offset().top - pos_offset;
-            $('html,body').animate({scrollTop: pos}, 1);
+            if (element.length > 0) {
+                var pos = element.offset().top - pos_offset;
+                $('html,body').animate({scrollTop: pos}, 1);
+            }
         }
+
+        if (type == 'public') {
+            // Setup the search input
+            $("#pubkey-search").unbind("change").bind("change", function(e) {
+                // Sometimes the event is a duplicate, so check the
+                //  data object for "original_value"
+                if ($(this).data("original_value") == this.value)
+                    return
+                // This is an original event, so set the data object
+                //  "original_value"
+                $(this).data('original_value', this.value);
+                // Set our keylist object to the current pubkeylist
+                var keylist = webpg.keymanager.pubkeylist;
+                // Retrieve the value of the serach field
+                var val = e.target.value;
+                // Create an empty object that will hold the keys matching
+                //  the search string
+                var searchResults = {}
+                // Determine if this is a compound search
+                var compound = (val.search("&&") > -1)
+                if (compound)
+                    var searchStrs = val.split(" && ");
+                else
+                    var searchStrs = val.split(" & ");
+                // Iterate through the keys in the keylist to preform
+                //  our search
+                for (var key in keylist) {
+                    // The instance of the current key object
+                    var keyobj = keylist[key];
+                    // Convert the key object to a string
+                    var keyobjStr = JSON.stringify(keyobj);
+                    // Check if this is a compound search
+                    if (compound) {
+                        // Set a flag to determine if all of the search words
+                        //  were located
+                        var allfound = true;
+                        // Iterate through each of the search words.
+                        for (var searchStr in searchStrs) {
+                            // Determine if this search word is a
+                            //  property:value item
+                            if (searchStrs[searchStr].search(":") > -1) {
+                                // Format the property:value search item
+                                //  to a compatible format
+                                searchStrM = webpg.utils.formatSearchParameter(
+                                    searchStrs[searchStr]
+                                );
+                            } else {
+                                searchStrM = false;
+                            }
+                            var locate = (searchStrM) ? searchStrM
+                                : searchStrs[searchStr];
+                            if (keyobjStr.search(locate) == -1) {
+                                allfound = false;
+                            }
+                        }
+                        if (allfound)
+                            searchResults[key] = keyobj;
+                    } else {
+                        for (var searchStr in searchStrs) {
+                            if (searchStrs[searchStr].search(":") > -1) {
+                                // Format the property:value search item
+                                //  to a compatible format
+                                searchStrM = webpg.utils.formatSearchParameter(
+                                    searchStrs[searchStr]
+                                );
+                            } else {
+                                searchStrM = false;
+                            }
+                            var locate = (searchStrM) ? searchStrM
+                                : searchStrs[searchStr];
+                            if (keyobjStr.search(locate) > -1) {
+                                searchResults[key] = keyobj;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                var nkeylist = (val.length > 0) ? searchResults : null;
+                    
+                $("#dialog-modal").dialog('option', 'modal', false)
+                .dialog('open').animate({"top": window.scrollY}, 1,
+                    function() {
+                        $('#dialog-msg').text(
+                            (val.length > 0) ? "Searching for \"" + val
+                            + "\"" : "Please wait while we build the key list."
+                        );
+                        $(this).animate({"top": window.scrollY +
+                            $(this).innerHeight() + 100}, 1,
+                        function() {
+                            webpg.keymanager.buildKeylist(
+                                nkeylist, 'public');
+                            $("#dialog-modal").dialog('close');
+                        }
+                    )
+                });
+            })
+        }
+
     },
     /* end buildKeylist */
 }

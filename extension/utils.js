@@ -133,6 +133,24 @@ webpg.utils = {
         }
     },
 
+    formatSearchParameter: function(item) {
+        var pParam = item.split(":")[0];
+        var pValue = item.split(":")[1];
+
+        if (pValue != "true" && pValue != "false"
+        && isNaN(pValue)) {
+            return item.replace(
+                    new RegExp("(.*?):(.*)", "g"
+                ),
+                "\"$1\":\"$2\"");
+        } else {
+            return item.replace(
+                    new RegExp("(.*?):(.*)", "g"
+                ),
+                "\"$1\":$2");
+        }
+    },
+
     /*
         Function: isValidEmailAddress
             Parses a given string to ensure it is a valid email address;

@@ -41,7 +41,6 @@ webpg.overlay = {
             function(response) {
                 if (response.result.decorate_inline == "true") {
                     if (webpg.utils.detectedBrowser == "firefox") {
-                        console.log("firefox browser detected");
                         // Begin parsing the document for PGP Data
                         gBrowser.addEventListener("DOMContentLoaded",
                             function(aEvent) { webpg.inline.init(doc) }, false);
