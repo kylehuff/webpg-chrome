@@ -71,7 +71,7 @@ webpg.overlay = {
                     var pos = iframe.offsetTop - 10;
                     var body = (webpg.utils.detectedBrowser == "firefox") ?
                         content.document.body : "html,body";
-                    $(body).animate({scrollTop: pos}, 1);
+                    jQuery(body).animate({scrollTop: pos}, 1);
                 }
             }
         } else if (request.msg == "removeiframe"){
@@ -157,6 +157,19 @@ webpg.overlay = {
                 iframe.contentWindow.location.href = theURL;
             else if (webpg.utils.detectedBrowser == "chrome")
                 iframe.src = theURL;
+
+            iframe.style.marginTop = "";
+            iframe.style.marginLeft = "";
+            var scrollY = (webpg.utils.detectedBrowser == "firefox") ?
+                content.window.scrollY : window.scrollY;
+            var posY = scrollY + (jQuery(iframe).innerHeight()
+                    / 3);
+            var posX = (window.outerWidth
+                    / 3) - 100;
+            jQuery(iframe).animate({"top": window.scrollY}, 1, function() {
+                jQuery(iframe).animate({"top": posY}, 1);
+                jQuery(iframe).animate({"left": posX}, 1);
+            });
 
             // the sendResult event is for communicating with the iframe
             //  from firefox; Google Chrome/Chromium uses the
@@ -264,7 +277,7 @@ webpg.overlay = {
 
 		    case webpg.constants.overlayActions.DECRYPT:
 		        webpg.utils.sendRequest({
-                    // We found a PGP MESSAGE, but it could be a signed. Lets gpgVerify first
+                    // WebPG found a PGP MESSAGE, but it could be a signed. Lets gpgVerify first
                     'msg': 'verify',
                     'data': selection.selectionText,
                     'message_event': 'context'},

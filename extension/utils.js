@@ -31,7 +31,7 @@ webpg.utils = {
             // Proxy the newly set console.log method to make it more like the
             //  chrome console logger, i.e. accept multiple arguments, output
             //  objects as strings and display line numbers (stack trace)
-            (function( $, oldLogMethod){
+            (function(jQuery, oldLogMethod){
                 console.log = function(){
                     // Iterate through the passed arguments (if any)
                     for (var i=0; i<arguments.length; i++) {
@@ -167,6 +167,21 @@ webpg.utils = {
         return pattern.test(emailAddress);
     },
 
+    escape: function(str) {
+        var map = {
+            "&" : "amp",
+            "'": "#39",
+            '"': "quot",
+            "<": "lt",
+            ">": "gt"
+
+        };
+
+        return str.replace( /[&'"<>]/g, function(m) {
+            return "&" + map[m] + ";";
+        });
+    },
+
     /*
         Function: onRequest.addListener
             This function creates a listener object for interaction between
@@ -280,7 +295,7 @@ webpg.utils = {
                     return iframes[i];
             }
         } else {
-            var iframe = $("#" + id);
+            var iframe = jQuery("#" + id);
             if (iframe)
                 return iframe[0];
         }
@@ -412,7 +427,7 @@ webpg.utils = {
         */
         removeAll: function(callback) {
             if (webpg.utils.detectedBrowser == "firefox") {
-                $(".context-menu-item").each(function(iter, element) {
+                jQuery(".context-menu-item").each(function(iter, element) {
                     element.hidden = true;
                 });
                 callback();
@@ -432,7 +447,7 @@ webpg.utils = {
             switch (action) {
                 case webpg.constants.overlayActions.EXPORT:
                     if (webpg.utils.detectedBrowser == "firefox") {
-                        $(".webpg-menu-export")[0].hidden = false;
+                        jQuery(".webpg-menu-export")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser == "chrome") {
                         var id = "webpg-context-insert-pubkey";
                         chrome.contextMenus.create({
@@ -452,7 +467,7 @@ webpg.utils = {
                 
                 case webpg.constants.overlayActions.PSIGN:
                     if (webpg.utils.detectedBrowser == "firefox") {
-                        $(".webpg-menu-sign")[0].hidden = false;
+                        jQuery(".webpg-menu-sign")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser == "chrome") {
                         var id = "webpg-context-clearsign";
                         chrome.contextMenus.create({
@@ -472,7 +487,7 @@ webpg.utils = {
 
                 case webpg.constants.overlayActions.IMPORT:
                     if (webpg.utils.detectedBrowser == "firefox") {
-                        $(".webpg-menu-import")[0].hidden = false;
+                        jQuery(".webpg-menu-import")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser == "chrome") {
                         var id = "webpg-context-import";
                         chrome.contextMenus.create({
@@ -492,7 +507,7 @@ webpg.utils = {
 
                 case webpg.constants.overlayActions.CRYPT:
                     if (webpg.utils.detectedBrowser == "firefox") {
-                        $(".webpg-menu-crypt")[0].hidden = false;
+                        jQuery(".webpg-menu-crypt")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser == "chrome") {
                         var id = "webpg-context-encrypt";
                         chrome.contextMenus.create({
@@ -512,7 +527,7 @@ webpg.utils = {
 
                 case webpg.constants.overlayActions.DECRYPT:
                     if (webpg.utils.detectedBrowser == "firefox") {
-                        $(".webpg-menu-decrypt")[0].hidden = false;
+                        jQuery(".webpg-menu-decrypt")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser == "chrome") {
                         var id = "webpg-context-decrypt";
                         chrome.contextMenus.create({
@@ -532,7 +547,7 @@ webpg.utils = {
 
                 case webpg.constants.overlayActions.VERIF:
                     if (webpg.utils.detectedBrowser == "firefox") {
-                        $(".webpg-menu-verif")[0].hidden = false;
+                        jQuery(".webpg-menu-verif")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser == "chrome") {
                         var id = "webpg-context-verify";
                         chrome.contextMenus.create({
@@ -552,7 +567,7 @@ webpg.utils = {
 
                 case webpg.constants.overlayActions.OPTS:
                     if (webpg.utils.detectedBrowser == "firefox") {
-                        $(".webpg-menu-options")[0].hidden = false;
+                        jQuery(".webpg-menu-options")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser == "chrome") {
                         var id = "webpg-context-separator";
                         chrome.contextMenus.create({
@@ -584,7 +599,7 @@ webpg.utils = {
                     
                 case webpg.constants.overlayActions.MANAGER:
                     if (webpg.utils.detectedBrowser == "firefox") {
-                        $(".webpg-menu-manager")[0].hidden = false;
+                        jQuery(".webpg-menu-manager")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser == "chrome") {
                         var id = "webpg-context-manager";
                         chrome.contextMenus.create({

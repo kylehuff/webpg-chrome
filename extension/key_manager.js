@@ -47,14 +47,14 @@ webpg.keymanager = {
         );
 
         // Build the Private keylist on tab selection 
-        $('#tab-2-btn').click(function(){
+        jQuery('#tab-2-btn').click(function(){
             webpg.keymanager.buildKeylistProxy(
                 null, 'private', null, null, null, true
             );
         });
 
         // Build the Public keylist on tab selection
-        $('#tab-3-btn').click(function(){
+        jQuery('#tab-3-btn').click(function(){
             webpg.keymanager.buildKeylistProxy(
                 null, 'public', null, null, null, true
             );
@@ -71,7 +71,7 @@ webpg.keymanager = {
         }
         var openSubkey = (qs.opensubkey)? qs.opensubkey : null;
         var openUID = (qs.openuid)? qs.openuid : null;
-        $('#tabs').tabs({ selected: selected_tab });
+        jQuery('#tabs').tabs({ selected: selected_tab });
 
         if (selected_tab == 0)
             webpg.keymanager.buildKeylistProxy(
@@ -82,23 +82,23 @@ webpg.keymanager = {
                 null, 'public', openKey, openSubkey, openUID, true
             );
         if (qs.strip) {
-            $("#header").remove();
-            $(document.getElementsByTagName("ul")[0]).remove();
+            jQuery("#header").remove();
+            jQuery(document.getElementsByTagName("ul")[0]).remove();
         }
-        $('#close').button().click(function(e) { window.top.close(); });
+        jQuery('#close').button().click(function(e) { window.top.close(); });
 
-        $('ul.expand').each(function(){
-            $('li.trigger', this).filter(':first').addClass('top').end().filter(':not(.open)').next().hide();
-            $('li.trigger', this).click(function(){
-                var height = ($("#genkey-status").length > 0) ? $("#genkey-status").height() : 0;
-                if($(this).hasClass('open')) {
-                    $(this).removeClass('open').next().slideUp();
-                    $("#genkey-dialog").dialog("option", "minHeight", 300 + height);
+        jQuery('ul.expand').each(function(){
+            jQuery('li.trigger', this).filter(':first').addClass('top').end().filter(':not(.open)').next().hide();
+            jQuery('li.trigger', this).click(function(){
+                var height = (jQuery("#genkey-status").length > 0) ? jQuery("#genkey-status").height() : 0;
+                if(jQuery(this).hasClass('open')) {
+                    jQuery(this).removeClass('open').next().slideUp();
+                    jQuery("#genkey-dialog").dialog("option", "minHeight", 300 + height);
                 } else {
-                    $(this).parent().find('li.trigger').removeClass('open').next().filter(':visible').slideUp();
-                    $(this).addClass('open').next().slideDown(300, function() {
-                        $("#genkey-dialog").dialog("option", "minHeight",
-                            $("#genkey-dialog")[0].scrollHeight + $('li.trigger').parent().parent().innerHeight()
+                    jQuery(this).parent().find('li.trigger').removeClass('open').next().filter(':visible').slideUp();
+                    jQuery(this).addClass('open').next().slideDown(300, function() {
+                        jQuery("#genkey-dialog").dialog("option", "minHeight",
+                            jQuery("#genkey-dialog")[0].scrollHeight + jQuery('li.trigger').parent().parent().innerHeight()
                         )
                     });
                 }
@@ -125,51 +125,57 @@ webpg.keymanager = {
         if (changedTab && type == "private" && webpg.keymanager.private_built)
             return;
 
-        $("#dialog-modal").dialog({
+        jQuery("#dialog-modal").dialog({
             height: 140,
             modal: true,
             autoOpen: true,
             title: "Building Key list"
         }).animate({"top": window.scrollY}, 1, function() {
-            $('#dialog-msg').text("Please wait while we build the key list.");
-            $(this).animate({"top": window.scrollY + $(this).innerHeight() + 100}, 1,
+            jQuery('#dialog-msg').text("Please wait while we build the key list.");
+            jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight() + 100}, 1,
             function() {
                 webpg.keymanager.buildKeylist(
                     keyList, type, openKey,
                     openSubkey, openUID
                 );
-                $("#dialog-modal").dialog('close');
+                jQuery("#dialog-modal").dialog('close');
                 if (qs.helper) {
                     function bounce(elem_class, left, top, perpetual) {
-                        var nleft = $($(elem_class)[0]).parent().offset().left - left;
-                        var ntop = $($(elem_class)[0]).parent().offset().top - top;
-                        $("#error_help").parent().css('left', nleft).css('top', ntop).
+                        var nleft = jQuery(jQuery(elem_class)[0]).parent().offset().left - left;
+                        var ntop = jQuery(jQuery(elem_class)[0]).parent().offset().top - top;
+                        jQuery("#error_help").parent().css('left', nleft).css('top', ntop).
                             effect("bounce", {times: 1, direction: 'up', distance: 8 }, 1200, function(){ if (perpetual) { bounce(elem_class, left, top, perpetual) } } )
                     }
                     var helper_arrow = document.createElement('div');
-                    $(helper_arrow).html('' +
+                    jQuery(helper_arrow).html('' +
                         '<div id="error_help" style="text-align: center; display: inline; text-shadow: #000 1px 1px 1px; color: #fff; font-size: 12px;">' +
                         '<div id="help_text" style="display: block; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; z-index: 10; padding: 8px 5px 8px 5px; margin-right: -5px; background-color: #ff6600; min-width: 130px;"></div>' +
                         '<span style="margin-left: 94px;"><img width="30px" src="skin/images/help_arrow.png"></span>' +
                         '</div>');
                     helper_arrow.style.position = 'absolute';
                     helper_arrow.style.zIndex = 1000;
-                    $(helper_arrow).css("max-width", "75%");
+                    jQuery(helper_arrow).css("max-width", "75%");
                     switch(qs.helper){
                         case 'enable':
-                            $(helper_arrow).find('#help_text').html("Click to enable key");
+                            jQuery(helper_arrow).find('#help_text').html("Click to enable key");
                             document.body.appendChild(helper_arrow);
-                            $('.enable-check').click(function() { $(helper_arrow).stop(true, true).stop(true, true).hide(); });
+                            jQuery('.enable-check').click(function() {
+                                jQuery(helper_arrow).stop(true, true).stop(true, true).remove();
+                                qs.helper = "";
+                            });
                             bounce('.enable-check', 75, 45, true);
                             break;
                         case 'default':
-                            $(helper_arrow).find('#help_text').html("Click to set default key");
-                            $('.default-check').click(function() { $(helper_arrow).stop(true, true).stop(true, true).hide(); });
+                            jQuery(helper_arrow).find('#help_text').html("Click to set default key");
+                            jQuery('.default-check').click(function() {
+                                jQuery(helper_arrow).stop(true, true).stop(true, true).remove();
+                                qs.helper = "";
+                            });
                             document.body.appendChild(helper_arrow);
                             bounce('.default-check', 40, 45, true);
                             break;
                         case 'signuids':
-                            $(helper_arrow).find('#help_text').html("Below is a list of key IDs that represent the domains that this server key is valid for; please sign the domain IDs that you want to use with webpg.");
+                            jQuery(helper_arrow).find('#help_text').html("Below is a list of key IDs that represent the domains that this server key is valid for; please sign the domain IDs that you want to use with webpg.");
                             document.body.appendChild(helper_arrow);
                             bounce('#disable-public-' + openKey, 15, 15, false);
                             break;
@@ -188,24 +194,24 @@ webpg.keymanager = {
 
     progressMsg: function(evt) {
         var msg = (webpg.utils.detectedBrowser == "firefox" || webpg.utils.detectedBrowser == "thunderbird") ? evt.detail : evt;
-        var dialog = ($("#genkey-dialog").dialog("isOpen") == true) ?
-            "#genkey" : ($("#gensubkey-dialog").dialog("isOpen") == true) ?
+        var dialog = (jQuery("#genkey-dialog").dialog("isOpen") == true) ?
+            "#genkey" : (jQuery("#gensubkey-dialog").dialog("isOpen") == true) ?
             "#gensubkey" : null;
         if (dialog && msg.type == "progress") {
             var data = msg.data;
             if (!isNaN(data))
                 data = String.fromCharCode(data);
             data += " ";
-            $(dialog + "_progress").append(data);
+            jQuery(dialog + "_progress").append(data);
             var waitMsg = (msg.data == 43) ? "Generating Key..." : "Waiting for entropy...";
-            $(dialog + "-status").html("Building key, please wait.. [" + waitMsg + "]");
+            jQuery(dialog + "-status").html("Building key, please wait.. [" + waitMsg + "]");
             if (data == "complete" || data == "complete ") {
                 webpg.keymanager.genkey_refresh = true;
                 webpg.keymanager.genkey_waiting = false;
                 var gen_dialog = dialog + "-dialog";
                 var new_pkeylist = webpg.background.plugin.getPrivateKeyList();
                 var generated_key = (dialog == "#gensubkey") ?
-                    $(gen_dialog).find("#gensubkey-form")[0].key_id.value
+                    jQuery(gen_dialog).find("#gensubkey-form")[0].key_id.value
                         : null;
                 if (dialog == "#genkey") {
                     for (var key in new_pkeylist) {
@@ -225,24 +231,25 @@ webpg.keymanager = {
                 }
                 webpg.keymanager.buildKeylistProxy(null, "private",
                     generated_key, subkey_index, null);
-                $(dialog + "-status_detail").remove()
-                $(dialog + "-status").remove();
-                $(dialog + "-form")[0].reset();
-                $(dialog + "-form")[0].style.display="inline-block";
-                $(dialog + "-dialog").dialog("close");
+                jQuery(dialog + "-status_detail").remove()
+                jQuery(dialog + "-status").remove();
+                jQuery(dialog + "-form")[0].reset();
+                jQuery(dialog + "-form")[0].style.display="inline-block";
+                jQuery(dialog + "-dialog").dialog("close");
             } else if (data.search("failed") > -1) {
                 webpg.keymanager.genkey_waiting = false;
-                $(dialog + "-status").html("Generation " + data);
-                $(dialog + "-dialog").dialog("option", "buttons", { 
+                jQuery(dialog + "-status").html("Generation " +
+                    webpg.utils.escape(data));
+                jQuery(dialog + "-dialog").dialog("option", "buttons", { 
                     "Close": function() {
                         if (dialog == "#gensubkey")
-                             $(dialog + "-dialog").dialog("option", "height", 320);
-                        $(dialog + "_progress").html("");
-                        $(dialog + "-status_detail").remove()
-                        $(dialog + "-status").remove();
-                        $(dialog + "-form")[0].reset();
-                        $(dialog + "-form")[0].style.display="inline-block";
-                        $(dialog + "-dialog").dialog("close");
+                             jQuery(dialog + "-dialog").dialog("option", "height", 320);
+                        jQuery(dialog + "_progress").html("");
+                        jQuery(dialog + "-status_detail").remove()
+                        jQuery(dialog + "-status").remove();
+                        jQuery(dialog + "-form")[0].reset();
+                        jQuery(dialog + "-form")[0].style.display="inline-block";
+                        jQuery(dialog + "-dialog").dialog("close");
                     }
                 });
 
@@ -275,11 +282,11 @@ webpg.keymanager = {
 
         if (!keyList) {
             if (type == 'public') {
-                var find = $("#pubkey-search")[0].value;
+                var find = jQuery("#pubkey-search")[0].value;
                 if (find.length > 0) {
                     if (find.search(":") > -1) {
                         var keylist = webpg.background.plugin.getPublicKeyList();
-                        $("#pubkey-search")[0].value = '';
+                        jQuery("#pubkey-search")[0].value = '';
                     } else {
                         var keylist = webpg.background.plugin.getNamedKey(find);
                     }
@@ -305,7 +312,7 @@ webpg.keymanager = {
             var pkeylist = {};
         }
 
-        $(keylist_element).html("<div class='ui-accordion-left'></div>");
+        jQuery(keylist_element).html("<div class='ui-accordion-left'></div>");
 
         if (type == 'private') {
             // Create the key-generate button and dialog
@@ -314,53 +321,53 @@ webpg.keymanager = {
             var genkey_button = document.createElement('input');
             genkey_button.setAttribute('value', 'Generate New Key');
             genkey_button.setAttribute('type', 'button');
-            $(genkey_button).button().click(function(e){
+            jQuery(genkey_button).button().click(function(e){
                 webpg.keymanager.genkey_refresh = false;
-                $("#genkey-dialog").dialog({
+                jQuery("#genkey-dialog").dialog({
                     "position": "top",
                     "buttons": {
                         "Create": function() {
-                            var form = $(this).find("#genkey-form")[0];
-                            $(form).parent().before("<div id=\"genkey-status\"> </div>");
+                            var form = jQuery(this).find("#genkey-form")[0];
+                            jQuery(form).parent().before("<div id=\"genkey-status\"> </div>");
                             var error = "";
                             if (!form.uid_0_name.value){
                                 error += "Name Required<br>";
-                                $(form.uid_0_name).addClass("ui-state-error");
+                                jQuery(form.uid_0_name).addClass("ui-state-error");
                             }
                             if (form.uid_0_name.value.length < 5){
                                 error += "UID Names must be at least 5 characters<br>";
-                                $(form.uid_0_name).addClass("ui-state-error");
+                                jQuery(form.uid_0_name).addClass("ui-state-error");
                             } else {
-                                $(form.uid_0_name).removeClass("ui-state-error");
+                                jQuery(form.uid_0_name).removeClass("ui-state-error");
                             }
                             if (!isNaN(form.uid_0_name.value[0])){
                                 error += "UID Names cannot begin with a number<br>";
-                                $(form.uid_0_name).addClass("ui-state-error");
+                                jQuery(form.uid_0_name).addClass("ui-state-error");
                             } else {
-                                $(form.uid_0_name).removeClass("ui-state-error");
+                                jQuery(form.uid_0_name).removeClass("ui-state-error");
                             }
                             if (form.uid_0_email.value && !webpg.utils.
                                 isValidEmailAddress(form.uid_0_email.value)){
                                 error += "Not a valid email address<br>";
-                                $(form.uid_0_email).addClass("ui-state-error");
+                                jQuery(form.uid_0_email).addClass("ui-state-error");
                             } else {
-                                $(form.uid_0_email).removeClass("ui-state-error");
+                                jQuery(form.uid_0_email).removeClass("ui-state-error");
                             }
                             if (form.passphrase.value != form.pass_repeat.value){
-                                $(form.passphrase).addClass("ui-state-error");
-                                $(form.pass_repeat).addClass("ui-state-error");
-                                $(form.passphrase).next()
+                                jQuery(form.passphrase).addClass("ui-state-error");
+                                jQuery(form.pass_repeat).addClass("ui-state-error");
+                                jQuery(form.passphrase).next()
                                     .find("#passwordStrength-text")
                                     .html("Passphrases do not match")
                                     .css({"color": "#f00"});
                                 error += "Passphrases do not match<br>";
                             } else {
-                                $(form.passphrase).removeClass("ui-state-error");
-                                $(form.pass_repeat).removeClass("ui-state-error");
+                                jQuery(form.passphrase).removeClass("ui-state-error");
+                                jQuery(form.pass_repeat).removeClass("ui-state-error");
                             }
                             if (error.length) {
-                                $("#genkey-status").html(error)[0].style.display="block";
-                                $("#genkey-dialog").dialog("option", "minHeight", 350);
+                                jQuery("#genkey-status").html(error)[0].style.display="block";
+                                jQuery("#genkey-dialog").dialog("option", "minHeight", 350);
                                 return false;
                             }
                             webpg.keymanager.genkey_waiting = true;
@@ -369,7 +376,7 @@ webpg.keymanager = {
                                     port.onMessage.addListener(webpg.keymanager.progressMsg);
                                 });
                             }
-                            $("#genkey-form").find(".open").trigger("click");
+                            jQuery("#genkey-form").find(".open").trigger("click");
                             console.log("going to create a key with the following details:" + '\n' +
                                 "Primary Key:", form.publicKey_algo.value + 
                                   ' (' + form.publicKey_size.value + ')\n' +
@@ -380,13 +387,13 @@ webpg.keymanager = {
                                 "email:", form.uid_0_email.value + '\n' +
                                 "passphrase:", form.passphrase.value +  '\n' +
                                 "expiration:", "Key will expire in " + form.key_expire.value + ' days');
-                            $("#genkey-dialog").dialog("option", "minHeight", 300);
-                            $("#genkey-status").html(error)[0].style.display="block";
-                            $("#genkey-status").html("Building key, please wait..");
-                            $("#genkey-status").after("<div id='genkey-status_detail' style=\"font-size: 12px; color:#fff;padding: 20px;\">This may take a long time (5 minutes or more) to complete depending on the selected options. Please be patient while the key is created. It is safe to close this window, key generation will continue in the background.<br><br><div id='genkey_progress' style='height:auto;display:block;'></div></div>");
-                            $(form)[0].style.display = "none";
-                            $("#genkey-dialog")[0].style.height = "20";
-                            $("#genkey-dialog")[0].style.display = "none";
+                            jQuery("#genkey-dialog").dialog("option", "minHeight", 300);
+                            jQuery("#genkey-status").html(error)[0].style.display="block";
+                            jQuery("#genkey-status").html("Building key, please wait..");
+                            jQuery("#genkey-status").after("<div id='genkey-status_detail' style=\"font-size: 12px; color:#fff;padding: 20px;\">This may take a long time (5 minutes or more) to complete depending on the selected options. Please be patient while the key is created. It is safe to close this window, key generation will continue in the background.<br><br><div id='genkey_progress' style='height:auto;display:block;'></div></div>");
+                            jQuery(form)[0].style.display = "none";
+                            jQuery("#genkey-dialog")[0].style.height = "20";
+                            jQuery("#genkey-dialog")[0].style.display = "none";
                             response = webpg.background.plugin.gpgGenKey(form.publicKey_algo.value,
                                 form.publicKey_size.value,
                                 form.subKey_algo.value,
@@ -398,73 +405,73 @@ webpg.keymanager = {
                                 form.passphrase.value
                             );
                             if (response == "queued") {
-                                $("#genkey-dialog").dialog("option", "buttons", { 
+                                jQuery("#genkey-dialog").dialog("option", "buttons", { 
                                     "Close": function() {
-                                        $("#genkey-dialog").dialog("close");
+                                        jQuery("#genkey-dialog").dialog("close");
                                     }
                                 });
                             }
                         },
                         Cancel: function() {
-                            $("#genkey-dialog").dialog("close");
+                            jQuery("#genkey-dialog").dialog("close");
                             if (webpg.keymanager.genkey_refresh)
                                 webpg.keymanager.buildKeylistProxy(null, 'private');
                         }
                     },
                 }).parent().animate({"top": window.scrollY}, 1, function() {
-                    $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                    jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                         / 3}, 1);
                 });
 
-                $("#genkey-form").children('input').removeClass('input-error');
-                $("#genkey-form")[0].reset();
-                $('.key-algo').each(function(){
-                    //$(this)[0].options.selectedIndex = $(this)[0].options.length - 1;
-                    if ($(this).parent().next().find('.key-size').length) {
-                        $(this).parent().next().find('.key-size')[0].children[0].disabled = true;
-                        $($(this).parent().next().find('.key-size')[0].children[0]).hide();
+                jQuery("#genkey-form").children('input').removeClass('input-error');
+                jQuery("#genkey-form")[0].reset();
+                jQuery('.key-algo').each(function(){
+                    //jQuery(this)[0].options.selectedIndex = jQuery(this)[0].options.length - 1;
+                    if (jQuery(this).parent().next().find('.key-size').length) {
+                        jQuery(this).parent().next().find('.key-size')[0].children[0].disabled = true;
+                        jQuery(jQuery(this).parent().next().find('.key-size')[0].children[0]).hide();
                     }
                 }).change(function(){
-                    if ($(this)[0].options.selectedIndex == 0){
+                    if (jQuery(this)[0].options.selectedIndex == 0){
                         // DSA Selected
                         console.log("DSA");
-                        $(this).parent().next().find('.key-size')[0].children[0].disabled = false;
-                        $($(this).parent().next().find('.key-size')[0].children[0]).show();
-                        $(this).parent().next().find('.key-size')[0].children[4].disabled = true;
-                        $($(this).parent().next().find('.key-size')[0].children[4]).hide();
-                        $(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
-                    } else if($(this)[0].options.selectedIndex == 1){
+                        jQuery(this).parent().next().find('.key-size')[0].children[0].disabled = false;
+                        jQuery(jQuery(this).parent().next().find('.key-size')[0].children[0]).show();
+                        jQuery(this).parent().next().find('.key-size')[0].children[4].disabled = true;
+                        jQuery(jQuery(this).parent().next().find('.key-size')[0].children[4]).hide();
+                        jQuery(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
+                    } else if(jQuery(this)[0].options.selectedIndex == 1){
                         // RSA Selected
                         console.log("RSA");
-                        $(this).parent().next().find('.key-size')[0].children[0].disabled = true;
-                        $($(this).parent().next().find('.key-size')[0].children[0]).hide();
-                        $(this).parent().next().find('.key-size')[0].children[4].disabled = false;
-                        $($(this).parent().next().find('.key-size')[0].children[4]).show();
-                        $(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
+                        jQuery(this).parent().next().find('.key-size')[0].children[0].disabled = true;
+                        jQuery(jQuery(this).parent().next().find('.key-size')[0].children[0]).hide();
+                        jQuery(this).parent().next().find('.key-size')[0].children[4].disabled = false;
+                        jQuery(jQuery(this).parent().next().find('.key-size')[0].children[4]).show();
+                        jQuery(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
                     } else {
                         // Elgamal Selected
                         console.log("Elgamal");
-                        $(this).parent().next().find('.key-size')[0].children[0].disabled = false;
-                        $($(this).parent().next().find('.key-size')[0].children[0]).show();
-                        $(this).parent().next().find('.key-size')[0].children[4].disabled = false;
-                        $($(this).parent().next().find('.key-size')[0].children[4]).show();
-                        $(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
+                        jQuery(this).parent().next().find('.key-size')[0].children[0].disabled = false;
+                        jQuery(jQuery(this).parent().next().find('.key-size')[0].children[0]).show();
+                        jQuery(this).parent().next().find('.key-size')[0].children[4].disabled = false;
+                        jQuery(jQuery(this).parent().next().find('.key-size')[0].children[4]).show();
+                        jQuery(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
                     }
                 });
-                $("#genkey-dialog").dialog('open');
-                $("#genkey-form").find(".open").trigger("click");
+                jQuery("#genkey-dialog").dialog('open');
+                jQuery("#genkey-form").find(".open").trigger("click");
             });
-            $("#genkey-dialog").dialog({
+            jQuery("#genkey-dialog").dialog({
                 resizable: true,
                 minHeight: 300,
                 width: 630,
                 modal: true,
                 autoOpen: false
             }).parent().animate({"top": window.scrollY}, 1, function() {
-                $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                     / 3}, 1);
             });
-            $('.passphrase').passwordStrength("#pass_repeat");
+            jQuery('.passphrase').passwordStrength("#pass_repeat");
             genkey_div.appendChild(genkey_button);
             document.getElementById('private_keylist').appendChild(genkey_div);
             // End key generation dialog
@@ -487,7 +494,7 @@ webpg.keymanager = {
                 if (current_keylist[key].invalid)
                     keyobj.className = 'invalid-key';
                 if (current_keylist[key].revoked)
-                    $(keyobj).addClass('invalid-key');
+                    jQuery(keyobj).addClass('invalid-key');
                 keyobj.className += ' primary_key';
                 var enabled = (enabled_keys.indexOf(key) != -1) ? 'checked' : '';
                 var status_text = (enabled) ? "Enabled" : "Disabled";
@@ -496,56 +503,56 @@ webpg.keymanager = {
             var status = "Valid";
             var keyobj = document.createElement('div');
             if (current_keylist[key].disabled) {
-                $(keyobj).addClass('disabled');
+                jQuery(keyobj).addClass('disabled');
                 status = "Disabled";
             }
             if (current_keylist[key].expired) {
-                $(keyobj).addClass('invalid-key');
+                jQuery(keyobj).addClass('invalid-key');
                 status = "Expired";
             }
             if (current_keylist[key].invalid) {
-                $(keyobj).addClass('invalid-key');
+                jQuery(keyobj).addClass('invalid-key');
                 status = "Invalid";
             }
             if (current_keylist[key].revoked) {
-                $(keyobj).addClass('invalid-key');
+                jQuery(keyobj).addClass('invalid-key');
                 status = "Revoked";
             }
-            $(keyobj).addClass('primary_key');
+            jQuery(keyobj).addClass('primary_key');
             if (key == openKey) {
-                $(keyobj).addClass('open_key');
+                jQuery(keyobj).addClass('open_key');
                 keyobj.setAttribute('id', 'open_key');
             }
             if (type == "public") {
-                $(keyobj).html("<h3 class='public_keylist'><a href='#' name='" + key + "'><span style='margin: 0;width: 50%'>" + current_keylist[key].name + "</span><span class='trust'></span></a></h3>");
+                jQuery(keyobj).html("<h3 class='public_keylist'><a href='#' name='" + key + "'><span style='margin: 0;width: 50%'>" + current_keylist[key].name + "</span><span class='trust'></span></a></h3>");
             } else {
-                $(keyobj).html("<h3 class='private_keylist' style='height: 24px;'><a href='#' name='" + key + "'><span style='margin: 0;width: 50%;'>" + current_keylist[key].name + 
+                jQuery(keyobj).html("<h3 class='private_keylist' style='height: 24px;'><a href='#' name='" + key + "'><span style='margin: 0;width: 50%;'>" + current_keylist[key].name + 
                     "&nbsp;&nbsp;-&nbsp;&nbsp;[0x" + key.substr(-8) + "]</span></a><span class='trust' style='z-index:1000; left: 4px; top:-30px;height:22px;'>" +
                     "<span class='keyoption-help-text' style=\"margin-right: 14px;\">&nbsp;</span>" +
                     "<input class='enable-check' id='check-" + key +"' type='checkbox' " + enabled + "/\><label class='enable-check-text' for='check-" + key + "' style='z-index:100;'>" + status_text + "</label><input class='default-check' type='radio' name='default_key' " +
                     " id='default-" + key + "' " + default_key + "/\><label class='default-check' style='z-index: 0; margin-left: 0px;' for='default-" + key + "'>Set as default</label></span></h3>");
             }
             keylist_element.appendChild(keyobj);
-            $(keyobj).find('.enable-check').click(function(e){
+            jQuery(keyobj).find('.enable-check').click(function(e){
                 var checked_id = this.id.split("-")[1];
                 if (webpg.preferences.enabled_keys.has(checked_id) && 
                     checked_id == webpg.preferences.default_key.get()){
-                    $(this).next().addClass('ui-state-active');
+                    jQuery(this).next().addClass('ui-state-active');
                     return false
                 }
                 if (this.checked && !webpg.preferences.default_key.get()) {
-                    $(this).next().next().click();
-                    $(this).next().next().next().addClass('ui-state-active');
+                    jQuery(this).next().next().click();
+                    jQuery(this).next().next().next().addClass('ui-state-active');
                 }
                 (this.checked) ? webpg.preferences.enabled_keys.add(this.id.split("-")[1]) :
                     webpg.preferences.enabled_keys.remove(this.id.split("-")[1]);
-                (this.checked) ? $(this).button('option', 'label', 'Enabled') :
-                    $(this).button('option', 'label', 'Disabled');
+                (this.checked) ? jQuery(this).button('option', 'label', 'Enabled') :
+                    jQuery(this).button('option', 'label', 'Disabled');
             });
-            $(keyobj).find('.default-check').click(function(e){
+            jQuery(keyobj).find('.default-check').click(function(e){
                 var clicked_id = this.id.split("-")[1];
                 if (clicked_id == webpg.preferences.default_key.get()) {
-                    $(this).parent().children('.keyoption-help-text').html("<span style=\"color:f6f;\">Cannot unset your default key</span>");
+                    jQuery(this).parent().children('.keyoption-help-text').html("<span style=\"color:f6f;\">Cannot unset your default key</span>");
                 }
             });
             current_keylist[key].nuids = 0;
@@ -668,7 +675,7 @@ webpg.keymanager = {
                 type + "-key-option-button' id='export-" + type + "-" + key + 
                     "' type='button' value='Export this Key'/\></span><br/\>" +
                 "</div>";
-            $(uidlist).html(uidlist_innerHTML);
+            jQuery(uidlist).html(uidlist_innerHTML);
             var subkey_info = "<span class='dh'>Subkeys</span><hr/\>";
             for (var subkey in current_keylist[key].subkeys) {
                 var skey = current_keylist[key].subkeys[subkey];
@@ -731,19 +738,19 @@ webpg.keymanager = {
                 }
                 subkey_info += "</div></div></div>";
             }
-            $(uidlist).append(subkey_info);
-            $(uidlist).append("<br/\><span class='dh'>User IDs</span><hr/\>");
+            jQuery(uidlist).append(subkey_info);
+            jQuery(uidlist).append("<br/\><span class='dh'>User IDs</span><hr/\>");
             for (var uid in current_keylist[key].uids) {
                 var uidobj = document.createElement('div');
                 uidobj.setAttribute('class', 'uid');
                 uidobj.setAttribute('id', key + '-' + uid);
                 if (key == openKey && uid == openUID)
-                    $(uidobj).addClass('open_uid');
+                    jQuery(uidobj).addClass('open_uid');
                 if (current_keylist[key].expired || current_keylist[key].uids[uid].revoked)
                     uidobj.className += ' invalid-key';
                 var email = (current_keylist[key].uids[uid].email.length > 1) ? "  -  &lt;" + current_keylist[key].uids[uid].email + "&gt;" :
                     "  - (no email address provided)";
-                $(uidobj).append("<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%'>" + current_keylist[key].uids[uid].uid + email + "</span><span class='trust' style='text-decoration: none;'></span></a></h4>");
+                jQuery(uidobj).append("<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%'>" + current_keylist[key].uids[uid].uid + email + "</span><span class='trust' style='text-decoration: none;'></span></a></h4>");
                 var signed = 0;
                 var uidobjbody = document.createElement('div');
                 var primary_button = "";
@@ -760,16 +767,16 @@ webpg.keymanager = {
                     }
                 }
 
-                $(uidobjbody).html("<div class=\"uid-options uid-options-line\"><span class='uid-options'><input class='uid-option-button-sign' id='sign-" + type + "-" + key + "-" + uid + "' type='button' value='Sign this UID'/\></span>" +
+                jQuery(uidobjbody).html("<div class=\"uid-options uid-options-line\"><span class='uid-options'><input class='uid-option-button-sign' id='sign-" + type + "-" + key + "-" + uid + "' type='button' value='Sign this UID'/\></span>" +
                     "<span class='uid-options'>" + primary_button + revoke_button + "<input class='uid-option-button' id='delete-" + type + "-" + key + "-" + uid +
                     "' type='button' value='Delete this UID'/\></span></div>");
-                $(uidobjbody).append("<br/\>");
+                jQuery(uidobjbody).append("<br/\>");
                 if (current_keylist[key].uids[uid].revoked) {
-                    $(uidobjbody).find('.uid-option-button-sign').addClass('uid-revoked');
-                    $(uidobjbody).find('.uid-option-button-primary').addClass('uid-revoked');
+                    jQuery(uidobjbody).find('.uid-option-button-sign').addClass('uid-revoked');
+                    jQuery(uidobjbody).find('.uid-option-button-primary').addClass('uid-revoked');
                 }
                 if (current_keylist[key].expired)
-                    $(uidobjbody).find('.uid-option-button-sign').addClass('key-expired');
+                    jQuery(uidobjbody).find('.uid-option-button-sign').addClass('key-expired');
                 // Not all signatures are included in the step-iteration of a signature revocation, 
                 //  therefor we need to keep track of the index of revocable keys.
                 var rev_index = -1;
@@ -838,15 +845,15 @@ webpg.keymanager = {
                         }
                         sig_box += "<input type='button' class='delsig-button' id='delsig-" + type + "-" + key +
                             "-" + uid + "-" + sig + "' value='Delete'/\></div>";
-                        $(uidobjbody).append(sig_box);
+                        jQuery(uidobjbody).append(sig_box);
                     } else {
                         sigs_not_in_keyring[sig] = current_keylist[key].uids[uid].signatures[sig];
                     }
                 }
                 uidobj.appendChild(uidobjbody);
                 if (sigs_not_in_keyring.hasOwnProperty(0)) {
-                    $(uidobjbody).find(".uid-options-line").append(
-                        "<span style='position:absolute;right:60px;color:#F11;margin-top:8px;'>*Signatures made with keys that are not in your keyring are not displated.</span>"
+                    jQuery(uidobjbody).find(".uid-options-line").append(
+                        "<span style='position:absolute;right:60px;color:#F11;margin-top:0px;'>*Signatures made with keys not found in<br/> your keyring are not displayed.</span>"
                     );
 //                    console.log(sigs_not_in_keyring, key);
                 }
@@ -856,7 +863,7 @@ webpg.keymanager = {
         }
 
         // This allows us to toggle the "Enable" and "Default" buttons without activating the accordion
-        $('.trust').click(function(e){
+        jQuery('.trust').click(function(e){
             e.stopPropagation();
         });
         var pKeyAcOptions = {
@@ -865,7 +872,7 @@ webpg.keymanager = {
                                 active: '.ui-accordion-left',
                                 collapsible: true
                             }
-        $('#' + type + '_keylist').children('.primary_key').
+        jQuery('#' + type + '_keylist').children('.primary_key').
             accordion(pKeyAcOptions).children();
 
         var subKeyAcOptions = {
@@ -875,7 +882,7 @@ webpg.keymanager = {
                                 collapsible: true
                               }
 
-        $(".uidlist").find('.subkey').accordion(subKeyAcOptions);
+        jQuery(".uidlist").find('.subkey').accordion(subKeyAcOptions);
 
         var uidAcOptions = {
                                 header: 'h4.uidlist', alwaysOpen: false,
@@ -884,28 +891,28 @@ webpg.keymanager = {
                                 collapsible: true
                             }
 
-        $(".uidlist").children('.uid').accordion(uidAcOptions);
+        jQuery(".uidlist").children('.uid').accordion(uidAcOptions);
 
-        $('#' + type + '_keylist').children('.open_key').
+        jQuery('#' + type + '_keylist').children('.open_key').
             accordion("activate", 0)
-        $('.open_uid').accordion('destroy').accordion().
+        jQuery('.open_uid').accordion('destroy').accordion().
             accordion("activate", 0).accordion("option", {collapsible: true});
-        $('.open_subkey').accordion('destroy').accordion().
+        jQuery('.open_subkey').accordion('destroy').accordion().
             accordion("activate", 0).accordion("option", {collapsible: true});
-        $('.ui-add-hover').hover(
+        jQuery('.ui-add-hover').hover(
             function(){
-                $(this).addClass("ui-state-hover");
+                jQuery(this).addClass("ui-state-hover");
             },
             function(){
-                $(this).removeClass("ui-state-hover");
+                jQuery(this).removeClass("ui-state-hover");
             }
         );
-        $('.private-key-option-list, .public-key-option-list').hover(
+        jQuery('.private-key-option-list, .public-key-option-list').hover(
             function(){
-                $(this).addClass("ui-state-hover");
+                jQuery(this).addClass("ui-state-hover");
             },
             function(){
-                $(this).removeClass("ui-state-hover");
+                jQuery(this).removeClass("ui-state-hover");
             }
         ).change(function(){
             params = this.id.split('-');
@@ -928,7 +935,7 @@ webpg.keymanager = {
             console.log(".*-key-option-list changed..", params, trust_value, result);
             webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
         });
-        $('.private-key-option-button, .public-key-option-button, .sub-key-option-button').button().click(function(e){
+        jQuery('.private-key-option-button, .public-key-option-button, .sub-key-option-button').button().click(function(e){
             var params = this.id.split('-');
             var refresh = false;
 
@@ -944,14 +951,14 @@ webpg.keymanager = {
                     break;
 
                 case "expire":
-                    $("#keyexp-dialog").dialog({
+                    jQuery("#keyexp-dialog").dialog({
 		                resizable: true,
 		                height: 180,
 		                modal: true,
 		                position: "top",
                         open: function(event, ui) {
                             var key = webpg.background.plugin.getNamedKey(params[2])
-                            $("#keyexp-date-input").datepicker({
+                            jQuery("#keyexp-date-input").datepicker({
                                 showButtonPanel: true,
                                 minDate: "+1D",
                                 maxDate: "+4096D",
@@ -964,31 +971,31 @@ webpg.keymanager = {
                                 subkey_idx = 0;
                             }
                             if (key[params[2]].subkeys[subkey_idx].expires == 0) {
-                                $("#keyexp-never")[0].checked = true;
-                                $("#keyexp-date-input").hide();
+                                jQuery("#keyexp-never")[0].checked = true;
+                                jQuery("#keyexp-date-input").hide();
                             } else {
-                                $("#keyexp-ondate")[0].checked = true;
-                                $("#keyexp-date-input").show();
-                                $('#keyexp-buttonset').children().blur();
-                                $("#keyexp-dialog").dialog({ height: 390 })
+                                jQuery("#keyexp-ondate")[0].checked = true;
+                                jQuery("#keyexp-date-input").show();
+                                jQuery('#keyexp-buttonset').children().blur();
+                                jQuery("#keyexp-dialog").dialog({ height: 390 })
                             }
-                            $("#keyexp-buttonset").buttonset();
-                            $("#keyexp-ondate").change(function(){
-                                $("#keyexp-date-input").show();
-                                $("#keyexp-dialog").dialog({ height: 390 })
+                            jQuery("#keyexp-buttonset").buttonset();
+                            jQuery("#keyexp-ondate").change(function(){
+                                jQuery("#keyexp-date-input").show();
+                                jQuery("#keyexp-dialog").dialog({ height: 390 })
                             })
-                            $("#keyexp-never").change(function(){
-                                $("#keyexp-date-input").hide();
-                                $("#keyexp-dialog").dialog({ height: 190 })
+                            jQuery("#keyexp-never").change(function(){
+                                jQuery("#keyexp-date-input").hide();
+                                jQuery("#keyexp-dialog").dialog({ height: 190 })
                             })
 
                         },
 		                buttons: {
 			                    "Save": function() {
-                                    if ($("#keyexp-never")[0].checked) {
+                                    if (jQuery("#keyexp-never")[0].checked) {
                                         var new_expire = 0;
                                     } else {
-                                        var expire = $("#keyexp-date-input").datepicker("getDate");
+                                        var expire = jQuery("#keyexp-date-input").datepicker("getDate");
                                         var expiration = new Date();
                                         expiration.setTime(expire);
                                         var today = new Date();
@@ -1009,21 +1016,21 @@ webpg.keymanager = {
                                     } else {
                                         webpg.background.plugin.gpgSetPubkeyExpire(params[2], new_expire);
                                     }
-                                    $(this).dialog("close");
+                                    jQuery(this).dialog("close");
                                     if (params[1] == "subkey") {
                                         params[1] = "private";
                                     }
-                                    $(this).dialog("close");
+                                    jQuery(this).dialog("close");
                                     webpg.keymanager.buildKeylistProxy(null, params[1], params[2], params[3], null);
 			                    },
 		                        "Cancel":function(event,ui) {
                                     console.log("destroyed...");
-                                    $("#keyexp-date-input").datepicker('destroy');
-                                    $(this).dialog('destroy');
+                                    jQuery("#keyexp-date-input").datepicker('destroy');
+                                    jQuery(this).dialog('destroy');
                                 },
 			                },
 	                }).parent().animate({"top": window.scrollY}, 1, function() {
-                        $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                        jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                             / 3}, 1);
                     });
                     break;
@@ -1035,13 +1042,13 @@ webpg.keymanager = {
 
                 case "delete":
                     console.log(params);
-                    $("#delete-key-dialog-confirm").dialog({
+                    jQuery("#delete-key-dialog-confirm").dialog({
 		                resizable: true,
 		                height:160,
 		                modal: true,
 		                position: "top",
 		                close: function() {
-                            $("#delete-key-dialog-confirm").dialog("destroy");
+                            jQuery("#delete-key-dialog-confirm").dialog("destroy");
                         },
 		                buttons: {
 			                "Delete this key": function() {
@@ -1056,7 +1063,7 @@ webpg.keymanager = {
                                     result = webpg.background.plugin.gpgDeletePrivateSubKey(params[2],
                                         parseInt(params[3]));
                                 }
-				                $(this).dialog("close");
+				                jQuery(this).dialog("close");
 
                                 if (result && !result.error) {
                                     if (params[1] == "subkey") {
@@ -1071,16 +1078,16 @@ webpg.keymanager = {
                                 }
 			                },
 			                Cancel: function() {
-				                $(this).dialog("close");
+				                jQuery(this).dialog("close");
 			                }
 		                }
 	                }).parent().animate({"top": window.scrollY}, 1, function() {
-                            $(this).animate({"top": window.scrollY + $(this).innerHeight()}, 1);
+                            jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()}, 1);
                         });
 	                break;
 
 	            case "adduid":
-                    $("#adduid-dialog").dialog({
+                    jQuery("#adduid-dialog").dialog({
 		                resizable: true,
 		                height: 230,
 		                width: 550,
@@ -1088,63 +1095,63 @@ webpg.keymanager = {
 		                position: "top",
                         "buttons": { 
                             "Create": function() {
-                                var form = $(this).find("#adduid-form")[0];
-                                if (!$("#adduid-status").length) {
-                                    $(form).parent().before("<div id=\"adduid-status\"> </div>");
+                                var form = jQuery(this).find("#adduid-form")[0];
+                                if (!jQuery("#adduid-status").length) {
+                                    jQuery(form).parent().before("<div id=\"adduid-status\"> </div>");
                                 }
                                 var error = "";
                                 if (!form.uid_0_name.value){
                                     error += "Name Required<br>";
-                                    $(form.uid_0_name).addClass("ui-state-error");
+                                    jQuery(form.uid_0_name).addClass("ui-state-error");
                                 }
                                 if (form.uid_0_name.value.length < 5){
                                     error += "UID Names must be at least 5 characters long<br>";
-                                    $(form.uid_0_name).addClass("ui-state-error");
+                                    jQuery(form.uid_0_name).addClass("ui-state-error");
                                 }
                                 if (!isNaN(form.uid_0_name.value[0])){
                                     error += "UID Names cannot begin with a number<br>";
-                                    $(form.uid_0_name).addClass("ui-state-error");
+                                    jQuery(form.uid_0_name).addClass("ui-state-error");
                                 }
                                 if (form.uid_0_email.value && !webpg.utils.
                                     isValidEmailAddress(form.uid_0_email.value)){
                                     error += "Not a valid email address<br>";
-                                    $(form.uid_0_email).addClass("ui-state-error");
+                                    jQuery(form.uid_0_email).addClass("ui-state-error");
                                 } else {
-                                    $(form.uid_0_email).removeClass("ui-state-error");
+                                    jQuery(form.uid_0_email).removeClass("ui-state-error");
                                 }
                                 if (error.length) {
-                                    $("#adduid-status").html(error)[0].style.display="block";
+                                    jQuery("#adduid-status").html(error)[0].style.display="block";
                                     return false;
                                 }
                                 webpg.keymanager.adduid_waiting = true;
-                                $("#adduid-dialog").dialog("option", "minHeight", 250);
-                                $("#adduid-status").html(error)[0].style.display="block";
+                                jQuery("#adduid-dialog").dialog("option", "minHeight", 250);
+                                jQuery("#adduid-status").html(error)[0].style.display="block";
                                 var result = webpg.background.plugin.gpgAddUID(params[2], form.uid_0_name.value,
                                         form.uid_0_email.value, form.uid_0_comment.value);
                                 if (result.error) {
                                     console.log(result);
                                     return
                                 }
-                                $(this).dialog("close");
-                                $("#adduid-form")[0].reset();
-                                $("#adduid-dialog").dialog("destroy");
+                                jQuery(this).dialog("close");
+                                jQuery("#adduid-form")[0].reset();
+                                jQuery("#adduid-dialog").dialog("destroy");
                                 webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
                             },
                             Cancel: function() {
-                                $("#adduid-dialog").dialog("close");
-                                $("#adduid-form")[0].reset();
-                                $("#adduid-dialog").dialog("destroy");
+                                jQuery("#adduid-dialog").dialog("close");
+                                jQuery("#adduid-form")[0].reset();
+                                jQuery("#adduid-dialog").dialog("destroy");
                             }
                         },
                     }).parent().animate({"top": window.scrollY}, 1, function() {
-                            $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                            jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                                 / 2}, 1);
                         });
                     break;
 
                 case "addsubkey":
                     webpg.keymanager.genkey_refresh = false;
-                    $("#gensubkey-dialog").dialog({
+                    jQuery("#gensubkey-dialog").dialog({
                         resizable: true,
                         minHeight: 300,
                         width: 300,
@@ -1153,9 +1160,9 @@ webpg.keymanager = {
                         position: "top",
                         "buttons": { 
                             "Create": function() {
-                                var form = $(this).find("#gensubkey-form")[0];
+                                var form = jQuery(this).find("#gensubkey-form")[0];
                                 form.key_id.value = params[2];
-                                $(form).parent().before("<div id=\"gensubkey-status\"> </div>");
+                                jQuery(form).parent().before("<div id=\"gensubkey-status\"> </div>");
                                 var error = "";
                                 webpg.keymanager.genkey_waiting = true;
                                 if (webpg.utils.detectedBrowser == "chrome") {
@@ -1163,19 +1170,19 @@ webpg.keymanager = {
                                         port.onMessage.addListener(webpg.keymanager.progressMsg);
                                     });
                                 }
-                                $("#gensubkey-form").find(".open").trigger("click");
+                                jQuery("#gensubkey-form").find(".open").trigger("click");
                                 console.log("going to create a subkey with the following details:" + '\n' +
                                     "Key ID:", form.key_id.value, " Sub Key:", form.subKey_algo.value + 
                                       ' (' + form.subKey_size.value + ')\n' + " sign_flag: " + form.sign.checked +
                                       " enc_flag: " + form.enc.checked + " auth_flag: " + form.auth.checked + "\n" +
                                     "expiration: Key will expire in " + form.key_expire.value + ' days');
-                                $("#gensubkey-dialog").dialog("option", "minHeight", 300);
-                                $("#gensubkey-status").html(error)[0].style.display="block";
-                                $("#gensubkey-status").html("Building key, please wait..");
-                                $("#gensubkey-status").after("<div id='gensubkey-status_detail' style=\"font-size: 12px; color:#fff;padding: 20px;\">This may take a long time (5 minutes or more) to complete depending on the selected options. Please be patient while the key is created. It is safe to close this window, key generation will continue in the background.<br><br><div id='gensubkey_progress' style='height:auto;display:block;'></div></div>");
-                                $(form)[0].style.display = "none";
-                                $("#gensubkey-dialog")[0].style.height = "20";
-                                $("#gensubkey-dialog")[0].style.display = "none";
+                                jQuery("#gensubkey-dialog").dialog("option", "minHeight", 300);
+                                jQuery("#gensubkey-status").html(error)[0].style.display="block";
+                                jQuery("#gensubkey-status").html("Building key, please wait..");
+                                jQuery("#gensubkey-status").after("<div id='gensubkey-status_detail' style=\"font-size: 12px; color:#fff;padding: 20px;\">This may take a long time (5 minutes or more) to complete depending on the selected options. Please be patient while the key is created. It is safe to close this window, key generation will continue in the background.<br><br><div id='gensubkey_progress' style='height:auto;display:block;'></div></div>");
+                                jQuery(form)[0].style.display = "none";
+                                jQuery("#gensubkey-dialog")[0].style.height = "20";
+                                jQuery("#gensubkey-dialog")[0].style.display = "none";
                                 var response = webpg.background.plugin.gpgGenSubKey(form.key_id.value,
                                     form.subKey_algo.value,
                                     form.subKey_size.value,
@@ -1185,80 +1192,80 @@ webpg.keymanager = {
                                     (form.auth.checked) ? 1 : 0
                                 );
                                 if (response == "queued") {
-                                    $("#gensubkey-dialog").dialog("option", "buttons", { 
+                                    jQuery("#gensubkey-dialog").dialog("option", "buttons", { 
                                         "Close": function() {
-                                            $("#gensubkey-dialog").dialog("close");
+                                            jQuery("#gensubkey-dialog").dialog("close");
                                         }
                                     });
                                 }
                             },
                             Cancel: function() {
-                                $("#gensubkey-dialog").dialog("close");
+                                jQuery("#gensubkey-dialog").dialog("close");
                                 if (window.gensubkey_refresh)
                                     webpg.keymanager.buildKeylistProxy(null, 'private');
                             }
                         },
                     }).parent().animate({"top": window.scrollY}, 1, function() {
-                            $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                            jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                                 / 3}, 1);
                         });
-                    $("#subKey_flags").buttonset();
-                    $("#gensubkey-form").children('input').removeClass('input-error');
-                    $("#gensubkey-form")[0].reset();
-                    $('#gensubkey-form .subkey-algo').each(function(){
-                        $(this)[0].options.selectedIndex = $(this)[0].options.length - 1;
-                        $(this).parent().find('.key-size')[0].children[0].disabled = true;
-                        $($(this).parent().find('.key-size')[0].children[0]).hide();
+                    jQuery("#subKey_flags").buttonset();
+                    jQuery("#gensubkey-form").children('input').removeClass('input-error');
+                    jQuery("#gensubkey-form")[0].reset();
+                    jQuery('#gensubkey-form .subkey-algo').each(function(){
+                        jQuery(this)[0].options.selectedIndex = jQuery(this)[0].options.length - 1;
+                        jQuery(this).parent().find('.key-size')[0].children[0].disabled = true;
+                        jQuery(jQuery(this).parent().find('.key-size')[0].children[0]).hide();
                     }).change(function(){
-                        selectedIndex = $(this)[0].options.selectedIndex;
+                        selectedIndex = jQuery(this)[0].options.selectedIndex;
                         if (selectedIndex == 0 || selectedIndex == 4) {
                             // DSA Selected
-                            $(this).parent().find('.key-size')[0].children[0].disabled = false;
-                            $($(this).parent().find('.key-size')[0].children[0]).show();
-                            $(this).parent().find('.key-size')[0].children[4].disabled = true;
-                            $($(this).parent().find('.key-size')[0].children[4]).hide();
+                            jQuery(this).parent().find('.key-size')[0].children[0].disabled = false;
+                            jQuery(jQuery(this).parent().find('.key-size')[0].children[0]).show();
+                            jQuery(this).parent().find('.key-size')[0].children[4].disabled = true;
+                            jQuery(jQuery(this).parent().find('.key-size')[0].children[4]).hide();
                         } else if (selectedIndex == 1 || selectedIndex == 3 || selectedIndex == 5) {
                             // RSA Selected
-                            $(this).parent().find('.key-size')[0].children[0].disabled = true;
-                            $($(this).parent().find('.key-size')[0].children[0]).hide();
-                            $(this).parent().find('.key-size')[0].children[4].disabled = false;
-                            $($(this).parent().find('.key-size')[0].children[4]).show();
+                            jQuery(this).parent().find('.key-size')[0].children[0].disabled = true;
+                            jQuery(jQuery(this).parent().find('.key-size')[0].children[0]).hide();
+                            jQuery(this).parent().find('.key-size')[0].children[4].disabled = false;
+                            jQuery(jQuery(this).parent().find('.key-size')[0].children[4]).show();
                         } else if (selectedIndex == 2) {
                             // ElGamal Selected
-                            $(this).parent().find('.key-size')[0].children[0].disabled = false;
-                            $($(this).parent().find('.key-size')[0].children[0]).show();
-                            $(this).parent().find('.key-size')[0].children[4].disabled = false;
-                            $($(this).parent().find('.key-size')[0].children[4]).show();
+                            jQuery(this).parent().find('.key-size')[0].children[0].disabled = false;
+                            jQuery(jQuery(this).parent().find('.key-size')[0].children[0]).show();
+                            jQuery(this).parent().find('.key-size')[0].children[4].disabled = false;
+                            jQuery(jQuery(this).parent().find('.key-size')[0].children[4]).show();
                         }
                         if (selectedIndex < 4) {
-                            $("#subKey_flags").hide();
-                            $("#gensubkey-dialog").dialog("option", "height", 240);
+                            jQuery("#subKey_flags").hide();
+                            jQuery("#gensubkey-dialog").dialog("option", "height", 240);
                         } else {
                             if (selectedIndex == 4) {
-                                $("#subKey_flags").find('#sign')[0].checked = true;
-                                $("#subKey_flags").find('#enc')[0].checked = false;
-                                $("#subKey_flags").find('#auth')[0].checked = false;
-                                $("#subKey_flags").find('#enc')[0].disabled = true;
+                                jQuery("#subKey_flags").find('#sign')[0].checked = true;
+                                jQuery("#subKey_flags").find('#enc')[0].checked = false;
+                                jQuery("#subKey_flags").find('#auth')[0].checked = false;
+                                jQuery("#subKey_flags").find('#enc')[0].disabled = true;
                             } else {
-                                $("#subKey_flags").find('#sign')[0].checked = true;
-                                $("#subKey_flags").find('#enc')[0].checked = true;
-                                $("#subKey_flags").find('#auth')[0].checked = false;
-                                $("#subKey_flags").find('#enc')[0].disabled = false;
+                                jQuery("#subKey_flags").find('#sign')[0].checked = true;
+                                jQuery("#subKey_flags").find('#enc')[0].checked = true;
+                                jQuery("#subKey_flags").find('#auth')[0].checked = false;
+                                jQuery("#subKey_flags").find('#enc')[0].disabled = false;
                             }
-                            $("#subKey_flags").show();
-                            $("#gensubkey-dialog").dialog("option", "height", 300);
+                            jQuery("#subKey_flags").show();
+                            jQuery("#gensubkey-dialog").dialog("option", "height", 300);
                         }
-                        $("#subKey_flags").buttonset("refresh");
+                        jQuery("#subKey_flags").buttonset("refresh");
                     });
-                    $("#gensubkey-dialog").dialog('open');
-                    $("#gensubkey-form").find(".open").trigger("click");
+                    jQuery("#gensubkey-dialog").dialog('open');
+                    jQuery("#gensubkey-form").find(".open").trigger("click");
                     break;
 
                 case "export":
                     var export_result = webpg.background.plugin.gpgExportPublicKey(params[2]).result;
-                    $("#export-dialog-text").html(export_result);
-                    $("#export-dialog-copytext").html(export_result);
-                    $("#export-dialog").dialog({
+                    jQuery("#export-dialog-text").html(webpg.utils.escape(export_result));
+                    jQuery("#export-dialog-copytext").html(webpg.utils.escape(export_result));
+                    jQuery("#export-dialog").dialog({
 		                resizable: true,
 		                height: 230,
 		                width: 536,
@@ -1266,25 +1273,25 @@ webpg.keymanager = {
 		                position: "top",
                         "buttons": {
                             "Copy": function() {
-                                $("#export-dialog-copytext")[0].select();
-                                $("#export-dialog-msg").html(
+                                jQuery("#export-dialog-copytext")[0].select();
+                                jQuery("#export-dialog-msg").html(
                                     webpg.utils.copyToClipboard(window, document)
                                 );
-                                $("#export-dialog-msg")[0].style.display="block"
+                                jQuery("#export-dialog-msg")[0].style.display="block"
                             },
                             "Close": function() {
-                                $("#export-dialog").dialog("destroy");
-                                $("#export-dialog-msg")[0].style.display="none"
+                                jQuery("#export-dialog").dialog("destroy");
+                                jQuery("#export-dialog-msg")[0].style.display="none"
                             }
                         }
                     }).parent().animate({"top": window.scrollY}, 1, function() {
-                            $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                            jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                                 / 2}, 1);
                         });
                     break;
 
                 case "revoke":
-                    options = "Please specify the revocation details -<br/\><br/\>" +
+                    jQuery("#revkey-confirm").find('#revkey-text').html("Please specify the revocation details -<br/\><br/\>" +
                         "<label for='revkey-reason'>Reason:</label>" +
                         "<select name='revkey-reason' id='revkey-reason' class='ui-add-hover ui-corner-all ui-widget ui-state-default'>" +
                         "<option value='0' class='ui-state-default'>No reason specified</option>" +
@@ -1293,9 +1300,8 @@ webpg.keymanager = {
                         "<option value='2' class='ui-state-default'>Key is no longer used</option>" +
                         "</select><br/\>" +
                         "<label for='revkey-desc'>Description:</label>" +
-                        "<input type='text' name='revkey-desc' id='revkey-desc' class='ui-corner-all ui-widget ui-state-default'/\>";
-                    $("#revkey-confirm").find('#revkey-text').html(options);
-                    $("#revkey-confirm").dialog({
+                        "<input type='text' name='revkey-desc' id='revkey-desc' class='ui-corner-all ui-widget ui-state-default'/\>");
+                    jQuery("#revkey-confirm").dialog({
                         resizable: true,
                         height:250,
                         width: 350,
@@ -1303,27 +1309,27 @@ webpg.keymanager = {
                         autoOpen: false,
                         position: "top",
                         close: function() {
-                            $("#revkey-confirm").dialog("destroy");
+                            jQuery("#revkey-confirm").dialog("destroy");
                         },
                         "buttons": {
                             "Revoke": function() {
-                                var reason = $('#revkey-reason')[0].value;
-                                var desc = $('#revkey-desc')[0].value;
+                                var reason = jQuery('#revkey-reason')[0].value;
+                                var desc = jQuery('#revkey-desc')[0].value;
                                 console.log(params[2], params[3], reason, desc);
                                 var revkey_result = webpg.background.plugin.gpgRevokeKey(params[2],
                                     parseInt(params[3]), parseInt(reason), desc);
                                 webpg.keymanager.buildKeylistProxy(null, "private", params[2], params[3], null);
-                                $("#revkey-confirm").dialog("close");
+                                jQuery("#revkey-confirm").dialog("close");
                             },
                             "Cancel": function() {
-                                $("#revkey-confirm").dialog("close");
+                                jQuery("#revkey-confirm").dialog("close");
                             }
                         }
                     }).parent().animate({"top": window.scrollY}, 1, function() {
-                            $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                            jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                                 / 2}, 1);
                         });
-                    $("#revkey-confirm").dialog('open');
+                    jQuery("#revkey-confirm").dialog('open');
                     break;
 
                 default:
@@ -1340,21 +1346,21 @@ webpg.keymanager = {
             }
         }).parent().find('.ui-dialog-buttonpane').
             find(".ui-button-text").each(function(iter, src) {
-                $(src).text($(src).parent()[0].getAttribute("text"))
+                jQuery(src).text(jQuery(src).parent()[0].getAttribute("text"))
             }
         );
-        $('.uid-option-button').button().click(function(e){
+        jQuery('.uid-option-button').button().click(function(e){
             var params = this.id.split('-');
             var refresh = false;
             switch(params[0]) {
                 case "delete":
-                    $( "#deluid-confirm" ).dialog({
+                    jQuery( "#deluid-confirm" ).dialog({
 		                resizable: true,
 		                height:180,
 		                modal: true,
 		                position: "top",
                         close: function() {
-                            $("#deluid-confirm").dialog("destroy");
+                            jQuery("#deluid-confirm").dialog("destroy");
                         },
 		                buttons: {
 			                "Delete this UID": function() {
@@ -1362,7 +1368,7 @@ webpg.keymanager = {
                                 var uid_idx = parseInt(params[3]) + 1;
                                 var result = webpg.background.plugin.gpgDeleteUID(params[2], uid_idx);
                                 console.log(result, params[2], uid_idx);
-				                $(this).dialog("close");
+				                jQuery(this).dialog("close");
                                 // Remove the Key-ID from the params array, since it
                                 //  no longer exists
                                 if (!result.error) {
@@ -1371,12 +1377,12 @@ webpg.keymanager = {
                                 }
 			                },
 			                Cancel: function() {
-				                $(this).dialog("close");
+				                jQuery(this).dialog("close");
 			                }
 		                }
 	                }).parent().animate({"top": window.scrollY}, 1,
 	                    function() {
-                            $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                            jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                                 / 2}, 1);
                         });
                     break;
@@ -1389,16 +1395,15 @@ webpg.keymanager = {
                     break;
 
                 case "revoke":
-                    options = "Please specify the revocation details -<br/\><br/\>" +
+                    jQuery("#revuid-confirm").find('#revuid-text').html("Please specify the revocation details -<br/\><br/\>" +
                         "<label for='revuid-reason'>Reason:</label>" +
                         "<select name='revuid-reason' id='revuid-reason' class='ui-add-hover ui-corner-all ui-widget ui-state-default'>" +
                         "<option value='0' class='ui-state-default'>No reason specified</option>" +
                         "<option value='4' class='ui-state-default'>User ID is no longer valid</option>" +
                         "</select><br/\>" +
                         "<label for='revuid-desc'>Description:</label>" +
-                        "<input type='text' name='revuid-desc' id='revuid-desc' class='ui-corner-all ui-widget ui-state-default'/\>";
-                    $("#revuid-confirm").find('#revuid-text').html(options);
-                    $("#revuid-confirm").dialog({
+                        "<input type='text' name='revuid-desc' id='revuid-desc' class='ui-corner-all ui-widget ui-state-default'/\>");
+                    jQuery("#revuid-confirm").dialog({
                         resizable: true,
                         height:250,
                         width: 350,
@@ -1406,27 +1411,27 @@ webpg.keymanager = {
                         autoOpen: false,
                         position: top,
                         close: function() {
-                            $("#revuid-confirm").dialog("destroy");
+                            jQuery("#revuid-confirm").dialog("destroy");
                         },
                         "buttons": {
                             "Revoke": function() {
-                                var reason = $('#revuid-reason')[0].value;
-                                var desc = $('#revuid-desc')[0].value;
+                                var reason = jQuery('#revuid-reason')[0].value;
+                                var desc = jQuery('#revuid-desc')[0].value;
                                 console.log(params[2], params[3], params[4], reason, desc);
                                 var revuid_result = webpg.background.plugin.gpgRevokeUID(params[2],
                                     parseInt(params[3]) + 1, parseInt(reason), desc);
                                 webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
-                                $("#revuid-confirm").dialog("close");
+                                jQuery("#revuid-confirm").dialog("close");
                             },
                             "Cancel": function() {
-                                $("#revuid-confirm").dialog("close");
+                                jQuery("#revuid-confirm").dialog("close");
                             }
                         }
                     }).parent().animate({"top": window.scrollY}, 1, function() {
-                            $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                            jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                                 / 2}, 1);
                         });
-                    $("#revuid-confirm").dialog('open');
+                    jQuery("#revuid-confirm").dialog('open');
                     break;
 
                 default:
@@ -1440,8 +1445,8 @@ webpg.keymanager = {
                 webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
             }
         });
-        $('.uid-option-button-sign').button().click(function(e){
-            $("#createsig-dialog").dialog({
+        jQuery('.uid-option-button-sign').button().click(function(e){
+            jQuery("#createsig-dialog").dialog({
                 resizable: true,
                 minHeight: 250,
                 width: 630,
@@ -1449,12 +1454,12 @@ webpg.keymanager = {
                 autoOpen: false,
                 position: "top"
             }).parent().animate({"top": window.scrollY}, 1, function() {
-                    $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                    jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                         / 3}, 1);
                 });
             var params = this.id.split('-');
             var enabled_keys = webpg.preferences.enabled_keys.get();
-            $('#createsig-form').html("<p class='help-text'>Please select which of your keys to create the signature with:</p>");
+            jQuery('#createsig-form').html("<p class='help-text'>Please select which of your keys to create the signature with:</p>");
             if (type == "private")
                 keylist = pkeylist;
             var current_signatures = keylist[params[2]].uids[params[3]].signatures;
@@ -1463,7 +1468,7 @@ webpg.keymanager = {
                 cursig.push(current_signatures[sig].keyid);
             }
             if (!webpg.preferences.enabled_keys.length()) {
-                $('#createsig-form').append("You have not enabled any keys for use with webpg; <a href='" + webpg.utils.resourcePath + "key_manager.html?tab=0&helper=enable'>please click here</a> and select 1 or more keys for use with webpg.");
+                jQuery('#createsig-form').append("You have not enabled any keys for use with webpg; <a href='" + webpg.utils.resourcePath + "key_manager.html?tab=0&helper=enable'>please click here</a> and select 1 or more keys for use with webpg.");
             }
             for (idx in enabled_keys) {
                 var key = enabled_keys[idx];
@@ -1476,17 +1481,17 @@ webpg.keymanager = {
                     status += "<input style='display: none;' type='checkbox' id='sign_" + key + "' name='" + key + "' disabled/\>";
                 else
                     status += "<input type='checkbox' id='sign_" + key + "' name='" + key + "'/\>";
-                $('#createsig-form').append(status + "<label for='sign_" + key + "' id='lbl-sign_" + key + "' class='help-text'>" + pkeylist[key].name + " (" + key + ")</label><div id='lbl-sign-err_" + key + "' style='display: none;'></div><br/\>");
+                jQuery('#createsig-form').append(status + "<label for='sign_" + key + "' id='lbl-sign_" + key + "' class='help-text'>" + pkeylist[key].name + " (" + key + ")</label><div id='lbl-sign-err_" + key + "' style='display: none;'></div><br/\>");
                 if (webpg.preferences.enabled_keys.length() == 1 && signed) {
-                    $($("button", $("#createsig-dialog").parent()).children()[1]).hide();
+                    jQuery(jQuery("button", jQuery("#createsig-dialog").parent()).children()[1]).hide();
                 }
             }
             var refresh = false;
-            $("#createsig-dialog").dialog({
+            jQuery("#createsig-dialog").dialog({
                 position: "top",
                 "buttons": {
                     " Sign ": function() {
-                        var checked = $("#createsig-form").children("input:checked");
+                        var checked = jQuery("#createsig-form").children("input:checked");
                         var error = false;
                         for (item in checked) {
                             if (checked[item].type == "checkbox") {
@@ -1495,133 +1500,132 @@ webpg.keymanager = {
                                     checked[item].name, 1, 1, 1);
                                 error = (error || (sign_result['error'] && sign_result['gpg_error_code'] != 65)); // if this is true, there were errors, leave the dialog open
                                 if (sign_result['error'] && sign_result['gpg_error_code'] != 65) {
-                                    $('#img_' + checked[item].name)[0].src = "skin/images/cancel.png"
-                                    lbl_sign_error = $('#lbl-sign-err_' + checked[item].name)[0];
+                                    jQuery('#img_' + checked[item].name)[0].src = "skin/images/cancel.png"
+                                    lbl_sign_error = jQuery('#lbl-sign-err_' + checked[item].name)[0];
                                     lbl_sign_error.style.display = "inline";
                                     lbl_sign_error.style.color = "#f40";
                                     lbl_sign_error.style.margin = "0 0 0 20px";
-                                    $(lbl_sign_error).html(sign_result['error_string']);
-                                    $($("button", $("#createsig-dialog").parent()).children()[0]).text("Close")
-                                    $($("button", $("#createsig-dialog").parent()).children()[1]).text("Try again")
+                                    jQuery(lbl_sign_error).html(sign_result['error_string']);
+                                    jQuery(jQuery("button", jQuery("#createsig-dialog").parent()).children()[0]).text("Close")
+                                    jQuery(jQuery("button", jQuery("#createsig-dialog").parent()).children()[1]).text("Try again")
                                 } else {
                                     refresh = true; // the keys have changed, we should refresh on dialog close;
-                                    $('#img_' + checked[item].name)[0].src = "skin/images/check.png"
+                                    jQuery('#img_' + checked[item].name)[0].src = "skin/images/check.png"
                                 }
-                                $('#img_' + checked[item].name).show().next().hide();
+                                jQuery('#img_' + checked[item].name).show().next().hide();
                             }
                         }
                         console.log("should we refresh?", refresh? "yes":"no");
                         if (!error && refresh) {
-                            $("#createsig-dialog").dialog("destroy");
+                            jQuery("#createsig-dialog").dialog("destroy");
                             webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
                         }
                     },
                     "Cancel": function() {
-                        $("#createsig-dialog").dialog("destroy");
+                        jQuery("#createsig-dialog").dialog("destroy");
                         if (refresh) {
                             webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
                         }
                     },
                 }
             }).parent().animate({"top": window.scrollY}, 1, function() {
-                    $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                    jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                 / 2}, 1)});
             if (webpg.preferences.enabled_keys.length() == 1 && cursig.indexOf(enabled_keys[0]) != -1) {
-                $($("button", $("#createsig-dialog").parent()).children()[1]).hide();
+                jQuery(jQuery("button", jQuery("#createsig-dialog").parent()).children()[1]).hide();
             }
-            $("#createsig-dialog").dialog('open');
+            jQuery("#createsig-dialog").dialog('open');
         });
         if (!webpg.background.plugin.webpg_status.gpgconf_detected) {
-            $('.uid-option-button-sign').button({disabled: true, label: "Cannot create signatures without gpgconf utility installed"});
+            jQuery('.uid-option-button-sign').button({disabled: true, label: "Cannot create signatures without gpgconf utility installed"});
         }
-        $('.uid-option-button-sign.uid-revoked').button({disabled: true, label: "Cannot sign a revoked UID"});
-        $('.uid-option-button-primary.uid-revoked').button({disabled: true, label: "Cannot make a revoked UID primary"});
-        $('.uid-option-button-sign.key-expired').button({disabled: true, label: "Cannot sign an expired key"});
-        $('.revsig-button').button().click(function(e){
+        jQuery('.uid-option-button-sign.uid-revoked').button({disabled: true, label: "Cannot sign a revoked UID"});
+        jQuery('.uid-option-button-primary.uid-revoked').button({disabled: true, label: "Cannot make a revoked UID primary"});
+        jQuery('.uid-option-button-sign.key-expired').button({disabled: true, label: "Cannot sign an expired key"});
+        jQuery('.revsig-button').button().click(function(e){
             var params = this.id.split('-');
             var calling_button = this;
-            var sig_details = $(calling_button).parent()[0].id.split('-');
-            var options = "Please specify the revocation details -<br/\><br/\>" +
+            var sig_details = jQuery(calling_button).parent()[0].id.split('-');
+            jQuery("#revsig-confirm").find('#revsig-text').html("Please specify the revocation details -<br/\><br/\>" +
                 "<label for='revsig-reason'>Reason:</label>" +
                 "<select name='revsig-reason' id='revsig-reason' class='ui-add-hover ui-corner-all ui-widget ui-state-default'>" +
                 "<option value='0' class='ui-state-default'>No reason specified</option>" +
                 "<option value='4' class='ui-state-default'>User ID is no longer valid</option>" +
                 "</select><br/\>" +
                 "<label for='revsig-desc'>Description:</label>" +
-                "<input type='text' name='revsig-desc' id='revsig-desc' class='ui-corner-all ui-widget ui-state-default'/\>";
-            $("#revsig-confirm").find('#revsig-text').html(options);
-            $("#revsig-confirm").dialog("option",
+                "<input type='text' name='revsig-desc' id='revsig-desc' class='ui-corner-all ui-widget ui-state-default'/\>");
+            jQuery("#revsig-confirm").dialog("option",
                 "buttons", {
                     "Revoke": function() {
-                        var reason = $('#revsig-reason')[0].value;
-                        var desc = $('#revsig-desc')[0].value;
+                        var reason = jQuery('#revsig-reason')[0].value;
+                        var desc = jQuery('#revsig-desc')[0].value;
                         console.log(params[2], params[3], params[4], reason, desc);
                         var revsig_result = webpg.background.plugin.gpgRevokeSignature(params[2],
                             parseInt(params[3]), parseInt(params[4]), parseInt(reason), desc);
                         //console.log('delete', delsig_result, params[2], parseInt(params[3]) + 1, parseInt(params[4]) + 1)
                         webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
-                        $("#revsig-confirm").dialog("close");
+                        jQuery("#revsig-confirm").dialog("close");
                     },
                     "Cancel": function() {
-                        $("#revsig-confirm").dialog("close");
+                        jQuery("#revsig-confirm").dialog("close");
                     }
                 }
             ).parent().animate({"top": window.scrollY}, 1, function() {
-                $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                 / 3}, 1)});
-            $("#revsig-confirm").dialog('open');
+            jQuery("#revsig-confirm").dialog('open');
         });
-        $("#revsig-confirm").dialog({
+        jQuery("#revsig-confirm").dialog({
             resizable: true,
             height:250,
             width: 350,
             modal: true,
             autoOpen: false,
             close: function() {
-                $("#revsig-confirm").dialog("destroy");
+                jQuery("#revsig-confirm").dialog("destroy");
             },
             buttons: {
                 'Revoke this Signature?': function() {
-                    $(this).dialog('close');
+                    jQuery(this).dialog('close');
                 },
                 Cancel: function() {
-                    $(this).dialog('close');
+                    jQuery(this).dialog('close');
                 }
             }
         }).parent().animate({"top": window.scrollY}, 1, function() {
-            $(this).animate({"top": window.scrollY + $(this).innerHeight()
+            jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                 / 2}, 1);
         });
 
-        $('.delsig-button').button().click(function(e){
+        jQuery('.delsig-button').button().click(function(e){
             var params = this.id.split('-');
             var calling_button = this;
-            var sig_details = $(calling_button).parent()[0].id.split('-');
-            $("#delsig-confirm").find('#delsig-text').html("Are you certain you would like to delete signature " +
+            var sig_details = jQuery(calling_button).parent()[0].id.split('-');
+            jQuery("#delsig-confirm").find('#delsig-text').html("Are you certain you would like to delete signature " +
                 sig_details[1] + " from this User id?");
             if (sig_details[1] in pkeylist < 1) {
-                $("#delsig-confirm").find('#delsig-text').append("<br><br><span class='ui-icon ui-icon-alert' style='float:left; margin:0 7px 20px 0;'></span>This signature was made with a key that does not belong to you; This action cannot be undone without refreshing the keylist from a remote source.");
-                $("#delsig-confirm").dialog("option", "height", "240");
-                $("#delsig-confirm").dialog("option", "width", "400");
+                jQuery("#delsig-confirm").find('#delsig-text').append("<br><br><span class='ui-icon ui-icon-alert' style='float:left; margin:0 7px 20px 0;'></span>This signature was made with a key that does not belong to you; This action cannot be undone without refreshing the keylist from a remote source.");
+                jQuery("#delsig-confirm").dialog("option", "height", "240");
+                jQuery("#delsig-confirm").dialog("option", "width", "400");
             }
-            $("#delsig-confirm").dialog("option", "buttons", { "Delete":
+            jQuery("#delsig-confirm").dialog("option", "buttons", { "Delete":
                 function() {
                     var delsig_result = webpg.background.plugin.
                         gpgDeleteUIDSign(params[2], parseInt(params[3]) + 1,
                         parseInt(params[4]) + 1);
                     webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
-                    $("#delsig-confirm").dialog("close");
+                    jQuery("#delsig-confirm").dialog("close");
                 },
                 Cancel: function() {
-                    $("#delsig-confirm").dialog("close");
+                    jQuery("#delsig-confirm").dialog("close");
                 }
             }).parent().animate({"top": window.scrollY}, 1, function() {
-                $(this).animate({"top": window.scrollY + $(this).innerHeight()
+                jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                     / 2}, 1);
             });
-            $("#delsig-confirm").dialog('open');
+            jQuery("#delsig-confirm").dialog('open');
         });
-        $("#delsig-confirm").dialog({
+        jQuery("#delsig-confirm").dialog({
             resizable: true,
             height:200,
             modal: true,
@@ -1629,17 +1633,17 @@ webpg.keymanager = {
             position: "top",
             buttons: {
                 'Delete this Signature?': function() {
-                    $(this).dialog('close');
+                    jQuery(this).dialog('close');
                 },
                 Cancel: function() {
-                    $(this).dialog('close');
+                    jQuery(this).dialog('close');
                 }
             }
         }).parent().animate({"top": window.scrollY}, 1, function() {
-            $(this).animate({"top": window.scrollY + $(this).innerHeight()}, 1);
+            jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()}, 1);
         });
 
-        $('.enable-check').button().next().next().button({
+        jQuery('.enable-check').button().next().next().button({
             text: false,
             icons: {
                 primary: 'ui-icon-check'
@@ -1647,34 +1651,34 @@ webpg.keymanager = {
         }).click(function(e) {
             var keyid = this.id.substr(-16);
             webpg.preferences.default_key.set(keyid);
-            var enable_element = $('#check-' + this.id.substr(-16))[0];
+            var enable_element = jQuery('#check-' + this.id.substr(-16))[0];
             var enabled_keys = webpg.preferences.enabled_keys.get();
             if (enabled_keys.indexOf(keyid) == -1) {
                 webpg.preferences.enabled_keys.add(keyid);
-                $(enable_element).trigger('click');
-                $(enable_element).next().html($(enable_element).next()[0].innerHTML.replace('Disabled', 'Enabled'));
+                jQuery(enable_element).trigger('click');
+                jQuery(enable_element).next().html(jQuery(enable_element).next()[0].innerHTML.replace('Disabled', 'Enabled'));
             }
         }).parent().buttonset();
 
-        $('.enable-check').next().hover(
+        jQuery('.enable-check').next().hover(
             function(e){
-                $(this).parent().children('.keyoption-help-text').html("Enable this key for signing");
+                jQuery(this).parent().children('.keyoption-help-text').html("Enable this key for signing");
             },
             function(e){
-                $(this).parent().children('.keyoption-help-text').html("&nbsp;");
+                jQuery(this).parent().children('.keyoption-help-text').html("&nbsp;");
             }
         );
-        $('input.default-check').next().hover(
+        jQuery('input.default-check').next().hover(
             function(e){
-                var input = $(this).prev()[0];
+                var input = jQuery(this).prev()[0];
                 if (input && input.checked) {
-                    $(this).parent().children('.keyoption-help-text').html("This is your default key");
+                    jQuery(this).parent().children('.keyoption-help-text').html("This is your default key");
                 } else {
-                    $(this).parent().children('.keyoption-help-text').html("Make this the default key for encryption operations");
+                    jQuery(this).parent().children('.keyoption-help-text').html("Make this the default key for encryption operations");
                 }
             },
             function(e){
-                $(this).parent().children('.keyoption-help-text').html("&nbsp;");
+                jQuery(this).parent().children('.keyoption-help-text').html("&nbsp;");
             }
         );
 
@@ -1693,23 +1697,23 @@ webpg.keymanager = {
         }
 
         if (openItem) {
-            var element = $(openItem);
+            var element = jQuery(openItem);
             if (element.length > 0) {
                 var pos = element.offset().top - pos_offset;
-                $('html,body').animate({scrollTop: pos}, 1);
+                jQuery('html,body').animate({scrollTop: pos}, 1);
             }
         }
 
         if (type == 'public') {
             // Setup the search input
-            $("#pubkey-search").unbind("change").bind("change", function(e) {
+            jQuery("#pubkey-search").unbind("change").bind("change", function(e) {
                 // Sometimes the event is a duplicate, so check the
                 //  data object for "original_value"
-                if ($(this).data("original_value") == this.value)
+                if (jQuery(this).data("original_value") == this.value)
                     return
                 // This is an original event, so set the data object
                 //  "original_value"
-                $(this).data('original_value', this.value);
+                jQuery(this).data('original_value', this.value);
                 // Set our keylist object to the current pubkeylist
                 var keylist = webpg.keymanager.pubkeylist;
                 // Retrieve the value of the serach field
@@ -1779,19 +1783,19 @@ webpg.keymanager = {
 
                 var nkeylist = (val.length > 0) ? searchResults : null;
                     
-                $("#dialog-modal").dialog('option', 'modal', false)
+                jQuery("#dialog-modal").dialog('option', 'modal', false)
                 .dialog('open').animate({"top": window.scrollY}, 1,
                     function() {
-                        $('#dialog-msg').text(
+                        jQuery('#dialog-msg').text(
                             (val.length > 0) ? "Searching for \"" + val
                             + "\"" : "Please wait while we build the key list."
                         );
-                        $(this).animate({"top": window.scrollY +
-                            $(this).innerHeight() + 100}, 1,
+                        jQuery(this).animate({"top": window.scrollY +
+                            jQuery(this).innerHeight() + 100}, 1,
                         function() {
                             webpg.keymanager.buildKeylist(
                                 nkeylist, 'public');
-                            $("#dialog-modal").dialog('close');
+                            jQuery("#dialog-modal").dialog('close');
                         }
                     )
                 });
@@ -1802,7 +1806,7 @@ webpg.keymanager = {
     /* end buildKeylist */
 }
 
-$(function(){
+jQuery(function(){
     if (webpg.utils.getParameterByName("auto_init") == "true")
         webpg.keymanager.init();
 });

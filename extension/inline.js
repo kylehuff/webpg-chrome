@@ -213,8 +213,10 @@ webpg.inline = {
                 node.parentElement.innerText :
                 node.parentNode.textContent;
 
+        // The html contents posted to element is the textContent or innerText
+        //  of the element with detected PGP Blocks
         var h = document.createElement("pre");
-        $(h).html(scontent);
+        jQuery(h).html(scontent);
         var phtml = h.innerHTML;
 
         if (scontent == phtml) {
@@ -235,7 +237,7 @@ webpg.inline = {
 
         switch(blockType) {
             case webpg.constants.PGPBlocks.PGP_KEY:
-                console.log("we found a public key");
+                console.log("WebPG found a public key");
                 if (webpg.utils.detectedBrowser == "firefox") {
                     webpg.utils.sendRequest({
                         'msg': "sendtoiframe",
@@ -256,20 +258,20 @@ webpg.inline = {
                 break;
 
             case webpg.constants.PGPBlocks.PGP_PKEY:
-                console.log("we found a private key, which is scary when you think about it... exiting");
+                console.log("WebPG found a private key, which is scary when you think about it... exiting");
                 break;
 
             case webpg.constants.PGPBlocks.PGP_SIGNED_MSG:
                 // check for the required PGP BLOCKS
-                console.log("we found a signed message");
+                console.log("WebPG found a signed message");
                 if (scontent.indexOf(webpg.constants.PGPTags.PGP_DATA_BEGIN) != -1 &&
                     scontent.indexOf("\n" + webpg.constants.PGPTags.PGP_SIGNATURE_BEGIN) != -1 &&
                     scontent.indexOf("\n" + webpg.constants.PGPTags.PGP_SIGNATURE_END) != -1 ) {
                 } else {
                     if (scontent.indexOf(" " + webpg.constants.PGPTags.PGP_SIGNATURE_END) != -1) {
-                        console.log("we found a signed message with bad formatting");
+                        console.log("WebPG found a signed message with bad formatting");
                     } else {
-                        console.log("we found an incomplete signed message");
+                        console.log("WebPG found an incomplete signed message");
                     }
                     return
                 }
@@ -285,9 +287,9 @@ webpg.inline = {
                                 'verify_result': response.result}
                             );
                         } else {
-                            $(results_frame).hide();
-                            $(element).children(".original").show();
-                            $(element).children(".pretext, .postext").hide();
+                            jQuery(results_frame).hide();
+                            jQuery(element).children(".original").show();
+                            jQuery(element).children(".pretext, .postext").hide();
                             console.log("error processing signed message", response.result);
                         }
                     }
@@ -297,13 +299,13 @@ webpg.inline = {
             case webpg.constants.PGPBlocks.PGP_SIGNATURE:
                 // This should never be reached, because our parser should
                 //  normally catch both the text, and the detached sig
-                console.log("we found a detached signature, but we don't have the file - exiting");
+                console.log("WebPG found a detached signature, but we don't have the file - exiting");
                 break;
 
             case webpg.constants.PGPBlocks.PGP_ENCRYPTED:
-                console.log("we found an encrypted or signed message");
+                console.log("WebPG found an encrypted or signed message");
                 webpg.utils.sendRequest({
-                    // We found a PGP MESSAGE, but it could be a signed. Lets gpgVerify first
+                    // WebPG found a PGP MESSAGE, but it could be a signed. Lets gpgVerify first
                     msg: 'verify',
                     data: scontent,
                     target_id: results_frame.id },
@@ -370,8 +372,8 @@ webpg.inline = {
     */
     addResultsReplacementFrame: function(element){
         var iframe = this.addResultsFrame();
-        $(iframe).insertAfter($(element)); //.insertAfter($(element), );
-        $(element).hide();
+        jQuery(iframe).insertAfter(jQuery(element));
+        jQuery(element).hide();
         var theURL = webpg.utils.resourcePath + "webpg_results.html?id=" + iframe.id;
         if (webpg.utils.detectedBrowser == "firefox")
             iframe.contentWindow.location.href = theURL;

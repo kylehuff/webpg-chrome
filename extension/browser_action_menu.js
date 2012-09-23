@@ -1,11 +1,11 @@
 /* <![CDATA[ */
-$(document).ready(function() {
-    $('.menu-option').hover(
+jQuery(document).ready(function() {
+    jQuery('.menu-option').hover(
         function(){ 
-            $(this).addClass("menu-option-over");
+            jQuery(this).addClass("menu-option-over");
         },
         function(){
-            $(this).removeClass("menu-option-over");
+            jQuery(this).removeClass("menu-option-over");
         }
     );
 });

@@ -24,8 +24,10 @@ webpg.background = {
             // if the plugin is already present, remove it from the DOM
             if (document.getElementById("webpgPlugin"))
                 document.body.removeChild(document.getElementById("webpgPlugin"));
-            embed = "<embed id='webpgPlugin' type='application/x-webpg'/>"
-            document.body.innerHTML += embed;
+            embed = document.createElement("embed");
+            embed.id = "webpgPlugin";
+            embed.type = "application/x-webpg";
+            document.body.appendChild(embed);
         }
 
         plugin = document.getElementById("webpgPlugin");
@@ -51,7 +53,7 @@ webpg.background = {
                 plugin.webpg_status = {
                     "error": true,
                     "gpg_error_code": -1,
-                    "error_string": "libgpgme not found",
+                    "error_string": "WebPG Plugin failed to load",
                     "file": "webpgPluginAPI.cpp",
                     "line": -1,
                 }

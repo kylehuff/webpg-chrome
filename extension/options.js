@@ -9,7 +9,7 @@ webpg.options = {
         else if (webpg.utils.detectedBrowser == "chrome")
             webpg.plugin = chrome.extension.getBackgroundPage().plugin;
 
-        $('#step-1').ready(function(){
+        jQuery('#step-1').ready(function(){
             doSystemCheck();
         });
         
@@ -77,50 +77,55 @@ webpg.options = {
                 }
                 extra_class = (errors[error]['error'] && error != 'gpgconf') ? ' error' : '';
                 extra_class = (errors[error]['error'] && error == 'gpgconf') ? ' warning' : extra_class;
-                item_result = "<div class=\"trust-level-desc" + extra_class + "\">" +
-                        "<span class=\"system-check\" style=\"margin-right:8px;\"><img src='skin/images/";
-                if (errors[error]['error']) {
-                    item_result += 'cancel.png';
-                } else {
-                    item_result += 'check.png';
-                }
-                item_result += "'></span>" +
-                        "<span class=\"trust-desc\">" + errors[error]['detail'];
-                if (errors[error]['error'] && errors[error]['link']) item_result += " - <a href=\"" + errors[error]['link'] + platform + "/\" target=\"new\">click here for help resolving this issue</a>";
-                item_result += "</span>";
-                document.getElementById('status_result').innerHTML += item_result;
+                item_result = jQuery("<div></div>", {
+                    'class': "trust-level-desc" + extra_class
+                }).append(jQuery("<span></span>", {
+                        'class': "system-check",
+                        'style': "margin-right: 8px"
+                    }).append(jQuery("<img/>", {
+                            'src': (errors[error]['error']) ?
+                                "skin/images/cancel.png" : "skin/images/check.png"
+                        })
+                    )
+                ).append(jQuery("<span></span>", {
+                        'class': "trust-desc",
+                        'html': (errors[error]['error'] && errors[error]['link']) ? 
+                            errors[error]['detail'] + " - <a href=\"" + errors[error]['link'] + platform + "/\" target=\"new\">click here for help resolving this issue</a>" : errors[error]['detail']
+                    })
+                );
+                jQuery('#status_result').append(item_result);
             }
             if (errors_found && (error == 'libgpgme' || error == 'NPAPI')) {
                 // Hide the options for valid installations
-                $('#valid-options').hide();
+                jQuery('#valid-options').hide();
             } else {
                 // Only display the inline check if this is not the app version of webpg-chrome
                 if ((webpg.utils.detectedBrowser == "chrome") &&
                     !chrome.app.getDetails().hasOwnProperty("content_scripts")){
-                        $('#enable-decorate-inline').hide();
+                        jQuery('#enable-decorate-inline').hide();
                 } else {
-                    $('#enable-decorate-inline-check')[0].checked = 
+                    jQuery('#enable-decorate-inline-check')[0].checked = 
                         (webpg.preferences.decorate_inline.get() == 'true');
                 }
 
-                $('#enable-encrypt-to-self-check')[0].checked = 
+                jQuery('#enable-encrypt-to-self-check')[0].checked = 
                     (webpg.preferences.encrypt_to_self.get());
 
-                $('#enable-gmail-integration-check')[0].checked = 
+                jQuery('#enable-gmail-integration-check')[0].checked = 
                     (webpg.preferences.gmail_integration.get() == 'true');
 
-                $('#enable-decorate-inline-check').button({
+                jQuery('#enable-decorate-inline-check').button({
                     'label': (webpg.preferences.decorate_inline.get() == 'true') ? 'Enabled' : 'Disabled'
                     }).click(function(e) {
                         (webpg.preferences.decorate_inline.get() == 'true') ? webpg.preferences.decorate_inline.set(false) : webpg.preferences.decorate_inline.set(true);
                         status = (webpg.preferences.decorate_inline.get() == 'true') ? 'Enabled' : 'Disabled'
-                        $(this).button('option', 'label', status);
+                        jQuery(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.decorate_inline.get() == 'true');
-                        $(this).button('refresh');
+                        jQuery(this).button('refresh');
                     }
                 );
 
-                $('#enable-encrypt-to-self-check').button({
+                jQuery('#enable-encrypt-to-self-check').button({
                     'label': (webpg.preferences.encrypt_to_self.get()) ? 'Enabled' : 'Disabled'
                     }).click(function(e) {
                         if (webpg.preferences.encrypt_to_self.get()) {
@@ -132,12 +137,12 @@ webpg.options = {
                             this.checked = true;
                             status = 'Enabled';
                         }
-                        $(this).button('option', 'label', status);
-                        $(this).button('refresh');
+                        jQuery(this).button('option', 'label', status);
+                        jQuery(this).button('refresh');
                     }
                 );
 
-                $('#enable-gmail-integration-check').button({
+                jQuery('#enable-gmail-integration-check').button({
                     'label': (webpg.preferences.gmail_integration.get() == 'true') ? 'Enabled' : 'Disabled'
                     }).click(function(e) {
                         if (webpg.preferences.gmail_integration.get() == 'false') {
@@ -148,19 +153,19 @@ webpg.options = {
                             webpg.preferences.gmail_integration.set(false)
                             : webpg.preferences.gmail_integration.set(true);
                         status = (webpg.preferences.gmail_integration.get() == 'true') ? 'Enabled' : 'Disabled'
-                        $(this).button('option', 'label', status);
+                        jQuery(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.gmail_integration.get() == 'true');
-                        $(this).button('refresh');
+                        jQuery(this).button('refresh');
                     }
                 );
             }
         }
         
-        $('#close').button().click(function(e) { window.top.close(); });
+        jQuery('#close').button().click(function(e) { window.top.close(); });
     }
 }
 
-$(function(){
+jQuery(function(){
     if (webpg.utils.getParameterByName("auto_init") == "true")
         webpg.options.init();
 });

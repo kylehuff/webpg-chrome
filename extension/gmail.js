@@ -84,9 +84,9 @@ webpg.gmail = {
 
             var canvasFrame = (webpg.gmail.getCanvasFrame().length) ?
                 webpg.gmail.getCanvasFrame().contents() :
-                ($(window.document).contents().length > 1) ?
-                $($(window.document).contents()[1]) :
-                $(window.document).contents();
+                (jQuery(window.document).contents().length > 1) ?
+                jQuery(jQuery(window.document).contents()[1]) :
+                jQuery(window.document).contents();
 
             // Watch for when the mouse exits the TO, CC and BCC fields so we
             //  can check the recipients listed therein
@@ -106,9 +106,9 @@ webpg.gmail = {
     */
     getCanvasFrame: function() {
         if (webpg.utils.detectedBrowser == "firefox")
-            return $(content.document.getElementById("canvas_frame"));
+            return jQuery(content.document.getElementById("canvas_frame"));
         else
-            return $('#canvas_frame');
+            return jQuery('#canvas_frame');
     },
 
     /*
@@ -120,7 +120,7 @@ webpg.gmail = {
             return content.document.getElementById("canvas_frame").
                 contentDocument;
         else
-            return $('#canvas_frame')[0].contentDocument;
+            return jQuery('#canvas_frame')[0].contentDocument;
     },
 
     /*
@@ -334,15 +334,15 @@ webpg.gmail = {
     displayStatusLine: function(message) {
         var canvasFrame = (webpg.gmail.getCanvasFrame().length) ?
             webpg.gmail.getCanvasFrame().contents() :
-            ($(window.document).contents().length > 1) ?
-            $($(window.document).contents()[1]) : $(window.document).contents();
+            (jQuery(window.document).contents().length > 1) ?
+            jQuery(jQuery(window.document).contents()[1]) : jQuery(window.document).contents();
         var status_line = canvasFrame.find(".fN");
         canvasFrame.find(".webpg-status-line").remove();
         var status_msg = webpg.gmail.getCanvasFrameDocument()
             .createElement("span");
         status_msg.setAttribute("class", "webpg-status-line");
-        $(status_msg).html("WebPG: " + message);
-        $(status_msg).insertBefore(status_line.children(0));
+        jQuery(status_msg).html("WebPG: " + message);
+        jQuery(status_msg).insertBefore(status_line.children(0));
         canvasFrame.find('.keylink').click(function() {
             webpg.utils.sendRequest({
                 'msg': "newtab",
@@ -359,8 +359,8 @@ webpg.gmail = {
     removeStatusLine: function() {
         var canvasFrame = (webpg.gmail.getCanvasFrame().length) ?
             webpg.gmail.getCanvasFrame().contents() :
-            ($(window.document).contents().length > 1) ?
-            $($(window.document).contents()[1]) : $(window.document).contents();
+            (jQuery(window.document).contents().length > 1) ?
+            jQuery(jQuery(window.document).contents()[1]) : jQuery(window.document).contents();
         var status_line = canvasFrame.find(".fN");
         canvasFrame.find(".webpg-status-line").remove();
     },
@@ -431,8 +431,8 @@ webpg.gmail = {
     getRecipients: function() {
         var canvasFrame = (webpg.gmail.getCanvasFrame().length) ?
             webpg.gmail.getCanvasFrame().contents() :
-            ($(window.document).contents().length > 1) ?
-            $($(window.document).contents()[1]) : $(window.document).contents();
+            (jQuery(window.document).contents().length > 1) ?
+            jQuery(jQuery(window.document).contents()[1]) : jQuery(window.document).contents();
         var emails = canvasFrame.find('textarea[name="to"]').val()
             .replace(', ', ',').split(',');
         if (canvasFrame.find('textarea[name="cc"]').val().length)
@@ -521,17 +521,17 @@ webpg.gmail = {
         esBtn.html(action_menu);
 
         esBtn.click(function(e) {
-            var list = $(this).find('.webpg-action-list');
+            var list = jQuery(this).find('.webpg-action-list');
             list[0].style.display = (list[0].style.display == "inline") ? "none" : "inline";
         }).bind('mouseleave', function() {
-            if ($(this).find('.webpg-action-list')[0].style.display == "inline")
-                $(this).click();
+            if (jQuery(this).find('.webpg-action-list')[0].style.display == "inline")
+                jQuery(this).click();
         });
 
         esBtn.find(".webpg-action-btn").click(function(e) {
-            var newIcon = $(this).find("img")[0];
-            var newText = $(this).find("a").text();
-            $(this).parent().parent().parent().find("#webpg-current-action")
+            var newIcon = jQuery(this).find("img")[0];
+            var newText = jQuery(this).find("a").text();
+            jQuery(this).parent().parent().parent().find("#webpg-current-action")
                 .html("<img src='" + newIcon.src + "' height=17 " +
                 "width=17 style='padding:0;margin:0;'/>" + newText);
 
@@ -576,9 +576,9 @@ webpg.gmail = {
             editor - <editor> The editor instance to use as the context
     */
     getContents: function(editor) {
-        var textarea = $('textarea[name!=to]', editor).
+        var textarea = jQuery('textarea[name!=to]', editor).
             filter("[name!=bcc]").filter("[name!=cc]");
-        var iframe = $('iframe', editor).contents().find('body');
+        var iframe = jQuery('iframe', editor).contents().find('body');
         if (iframe.length > 0) {
             var message = iframe.html();
         } else {
@@ -596,9 +596,9 @@ webpg.gmail = {
             message - <str/html> The content to place in the gmail UI message editor
     */
     setContents: function(editor, message){
-        var textarea = $('textarea[name!=to]', editor).
+        var textarea = jQuery('textarea[name!=to]', editor).
             filter("[name!=bcc]").filter("[name!=cc]");
-        var iframe = $('iframe', editor).contents().find('body');
+        var iframe = jQuery('iframe', editor).contents().find('body');
 
         if (iframe.length > 0) {
             var reg = new RegExp("\n\n", "g");
@@ -669,24 +669,24 @@ if (webpg.utils.detectedBrowser == "firefox") {
 */
 function gmailChanges(e) {
     // An additional compose window has been opened
-    if (typeof($(e.target).attr("class"))!="undefined" && $(e.target).attr("class").search("L3") > -1) {
-        if ($(e.target).contents(':contains("Discard")').length > 0) {
-            var navDiv = $(e.target.ownerDocument).contents().find(
+    if (typeof(jQuery(e.target).attr("class"))!="undefined" && jQuery(e.target).attr("class").search("L3") > -1) {
+        if (jQuery(e.target).contents(':contains("Discard")').length > 0) {
+            var navDiv = jQuery(e.target.ownerDocument).contents().find(
             'div[class="dW E"] > div > div'
             ).contents(':contains("Send")').parent().parent();
             if (navDiv.length > 1)
-                webpg.gmail.init($(navDiv[1]));
+                webpg.gmail.init(jQuery(navDiv[1]));
         }
     // A reply/forward has been initiated
-    } else if (typeof($(e.target).parent().attr("class"))!="undefined" && $(e.target).parent().attr("class").search("dW E") > -1) {
-        if ($(e.target).attr("class").search("eH") > -1) {
-            var navDiv = $(e.target.ownerDocument).contents().find(
+    } else if (typeof(jQuery(e.target).parent().attr("class"))!="undefined" && jQuery(e.target).parent().attr("class").search("dW E") > -1) {
+        if (jQuery(e.target).attr("class").search("eH") > -1) {
+            var navDiv = jQuery(e.target.ownerDocument).contents().find(
                 'div[class="dW E"] > div > div'
             ).contents(':contains("Send")').parent().parent().each(function() {
                 var navDiv = this;
                 setTimeout(function() {
                     if (!window.document.getElementById("webpg-action-menu")) {
-                        webpg.gmail.init($(navDiv));
+                        webpg.gmail.init(jQuery(navDiv));
                     }
                 }, 100);
             });
@@ -696,7 +696,7 @@ function gmailChanges(e) {
         webpg.gmail.getCanvasFrame().contents().find(
             'div[class="dW E"] > div'
         ).each(function() {
-            var navDiv = $(this).contents(':contains("Discard")').parent();
+            var navDiv = jQuery(this).contents(':contains("Discard")').parent();
             if (navDiv.length > 0)
                 webpg.gmail.init(navDiv);
         });

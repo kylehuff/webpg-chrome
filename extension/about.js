@@ -3,12 +3,14 @@ webpg.about = {
     init: function(extensionManager) {
         if (navigator.userAgent.toLowerCase().search("firefox") > -1) {
             document.getElementById("webpg-info-browser").innerHTML += "Firefox";
-            document.getElementById("webpg-info-version-string").innerHTML += webpg.about.version;
+            document.getElementById("webpg-info-version-string").innerHTML +=
+                webpg.utils.clean(webpg.about.version);
         } else if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
             document.getElementById("webpg-info-browser").innerHTML += "Chrome";
-            document.getElementById("webpg-info-version-string").innerText += chrome.app.getDetails().version;
+            document.getElementById("webpg-info-version-string").innerText +=
+                chrome.app.getDetails().version;
         }
-        $('#close').button().click(function(e) { window.top.close(); });
+        jQuery('#close').button().click(function(e) { window.top.close(); });
    }
 }
 

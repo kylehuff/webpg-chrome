@@ -1,4 +1,4 @@
-$(function(){
+jQuery(function(){
     /*
         Global Variable: qs
         Stores the items found in the query string
@@ -21,7 +21,7 @@ $(function(){
         function($0, $1, $2, $3) { qs[$1] = $3; }
     );
 
-    $("#ddialog").dialog({
+    jQuery("#ddialog").dialog({
         resizable: false,
         draggable: false,
         minHeight: 300,
@@ -43,16 +43,16 @@ $(function(){
         open: function(event, ui) {
             switch(qs.dialog_type) {
                 case "encrypt":
-                    $('.ui-button-text').each(function(idx, element) {
-                        var el = $(element);
+                    jQuery('.ui-button-text').each(function(idx, element) {
+                        var el = jQuery(element);
                         if (el.text() == "Export")
                             el.parent().hide();
                     });
                     break;
 
                 case "export":
-                    $('.ui-button-text').each(function(idx, element) {
-                        var el = $(element);
+                    jQuery('.ui-button-text').each(function(idx, element) {
+                        var el = jQuery(element);
                         if (el.text() == "Encrypt")
                             el.parent().hide();
                     });
@@ -112,24 +112,35 @@ $(function(){
                 }
             },
             "Cancel" : function() {
-                $("#ddialog").dialog("close");
+                jQuery("#ddialog").dialog("close");
             },
         }
     });
 
     function populateKeylist(keylist) {
-        formHTML = "<ul style='padding: 0px; margin: 0px;'>";
+        var ul = jQuery("<ul></ul>", {
+            'style': "padding:0px; margin:0px;"
+        });
         for (idx in keylist) {
-            key = keylist[idx];
+            var key = keylist[idx];
             if (key.invalid || key.disabled || key.expired || key.revoked)
                 continue;
-            formHTML += "<li style='list-style-type: none;'>" +
-                "<input type='checkbox' id='key_" + idx +
-                "' name='keylist_sel_list'><label for='key_"
-                + idx + "' id='lbl-key_" + idx +
-                "' class='help-text'>" + key.name + " (" + idx +
-                ")</label></li>";
+            jQuery(ul).append(jQuery("<li></li>", {
+                    'style': "list-style-type: none"
+                }).append(jQuery("<input></input>", {
+                        'id': "key_" + idx,
+                        'type': "checkbox",
+                        'name': "keylist_sel_list"
+                    })
+                ).append(jQuery("<label></label>", {
+                        'id': "lbl-key_" + idx,
+                        'for': "key_" + idx,
+                        'class': "help-text",
+                        'html': webpg.utils.escape(key.name + " (" + idx + ")")
+                    })
+                )
+            );
         }
-        $("#keylist_form")[0].innerHTML = formHTML + "</ul>";
+        jQuery("#keylist_form").append(ul);
     }
 });
