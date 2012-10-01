@@ -1,7 +1,6 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
 
-//gnupghome = "";
 /*
     Class: webpg.background
         The background page runs within the context of the browser and handles
@@ -87,7 +86,8 @@ webpg.background = {
 
             case 'gmail_integration':
                 response = {'gmail_integration':
-                    webpg.preferences.gmail_integration.get()
+                    webpg.preferences.gmail_integration.get(),
+                    'sign_gmail': webpg.preferences.sign_gmail.get()
                 };
                 break;
 

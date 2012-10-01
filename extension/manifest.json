@@ -1,6 +1,6 @@
 {
   "name": "WebPG",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "description": "An extension which provides GnuPG/GPG/PGP related functions to Chrome",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self'; object-src 'self'",

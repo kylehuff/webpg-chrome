@@ -69,8 +69,8 @@ webpg.preferences = {
     },
 
     /*
-        Class: webpg.preferences.gmail_integrate
-            Provides methods to get/set the "gmail_integrate" preference
+        Class: webpg.preferences.gmail_integration
+            Provides methods to get/set the "gmail_integration" preference
     */
     gmail_integration: {
         /*
@@ -90,6 +90,38 @@ webpg.preferences = {
         */
         set: function(value) {
             webpg.localStorage.setItem('gmail_integration', value);
+        },
+    },
+
+    /*
+        Class: webpg.preferences.gmail_action
+            Provides methods to get/set the "gmail_action" preference
+            
+        0: Do not use WebPG by default for gmail messages
+        1: Encrypt by default for gmail messages
+        2: Sign by default for gmail messages
+        3: Sign & Encrypt by default for gmail messages
+        4: Symmetric Encryption by default for gmail messages
+        
+    */
+    sign_gmail: {
+        /*
+            Function: get
+                Provides methods to get the preference item
+        */
+        get: function() {
+            return webpg.localStorage.getItem('sign_gmail')
+        },
+
+        /*
+            Function: set
+                Provides method to set the preference item
+
+            Parameters:
+                value - <bool> The boolean value to set
+        */
+        set: function(value) {
+            webpg.localStorage.setItem('sign_gmail', value);
         },
     },
 

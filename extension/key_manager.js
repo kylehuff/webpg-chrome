@@ -1481,7 +1481,7 @@ webpg.keymanager = {
                     status += "<input style='display: none;' type='checkbox' id='sign_" + key + "' name='" + key + "' disabled/\>";
                 else
                     status += "<input type='checkbox' id='sign_" + key + "' name='" + key + "'/\>";
-                jQuery('#createsig-form').append(status + "<label for='sign_" + key + "' id='lbl-sign_" + key + "' class='help-text'>" + pkeylist[key].name + " (" + key + ")</label><div id='lbl-sign-err_" + key + "' style='display: none;'></div><br/\>");
+                jQuery('#createsig-form').append(status + "<label for='sign_" + key + "' id='lbl-sign_" + key + "' class='help-text'>" + webpg.keymanager.pkeylist[key].name + " (" + key + ")</label><div id='lbl-sign-err_" + key + "' style='display: none;'></div><br/\>");
                 if (webpg.preferences.enabled_keys.length() == 1 && signed) {
                     jQuery(jQuery("button", jQuery("#createsig-dialog").parent()).children()[1]).hide();
                 }
@@ -1603,7 +1603,7 @@ webpg.keymanager = {
             var sig_details = jQuery(calling_button).parent()[0].id.split('-');
             jQuery("#delsig-confirm").find('#delsig-text').html("Are you certain you would like to delete signature " +
                 sig_details[1] + " from this User id?");
-            if (sig_details[1] in pkeylist < 1) {
+            if (sig_details[1] in webpg.keymanager.pkeylist < 1) {
                 jQuery("#delsig-confirm").find('#delsig-text').append("<br><br><span class='ui-icon ui-icon-alert' style='float:left; margin:0 7px 20px 0;'></span>This signature was made with a key that does not belong to you; This action cannot be undone without refreshing the keylist from a remote source.");
                 jQuery("#delsig-confirm").dialog("option", "height", "240");
                 jQuery("#delsig-confirm").dialog("option", "width", "400");
