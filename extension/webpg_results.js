@@ -19,7 +19,7 @@ webpg.inline_results = {
             function($0, $1, $2, $3) { qs[$1] = $3; }
         );
 
-        webpg.utils.onRequest.addListener(this.processRequest);
+        webpg.utils._onRequest.addListener(this.processRequest);
         window.addEventListener("message", this.receiveMessage, false);
     },
 

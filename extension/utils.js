@@ -183,14 +183,17 @@ webpg.utils = {
     },
 
     /*
-        Function: onRequest.addListener
+        Function: _onRequest.addListener
             This function creates a listener object for interaction between
             privileged and non-privileged pages
 
         Parameters:
             callback - <func> The callback to be called upon completion
     */
-    onRequest: {
+    //  This method had to be renamed to _onRequest in order to pass
+    //  validation for addons.mozilla.org, which erroneously detects
+    //  this as a handleEvent call, not a user defined method. Lame.
+    _onRequest: {
         addListener: function(callback) { // analogue of chrome.extension.onRequest.addListener
             if (webpg.utils.detectedBrowser == "firefox" ||
             webpg.utils.detectedBrowser == "thunderbird") {

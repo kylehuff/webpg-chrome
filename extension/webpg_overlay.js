@@ -32,7 +32,7 @@ webpg.overlay = {
         document.addEventListener("contextmenu", webpg.overlay.contextHandler, true);
 
         // Setup a listener for making changes to the page
-        webpg.utils.onRequest.addListener(webpg.overlay.onRequest);
+        webpg.utils._onRequest.addListener(webpg.overlay._onRequest);
 
         // Check if inline formatting is enabled and setup
         //  required parsers
@@ -52,7 +52,7 @@ webpg.overlay = {
         );
     },
 
-    onRequest: function(request, sender, sendResponse) {
+    _onRequest: function(request, sender, sendResponse) {
         var response = null;
         if (request.msg == "log") {
             console.log("Remote log request recieved; ", request.data);
@@ -87,7 +87,7 @@ webpg.overlay = {
                 webpg.overlay.insert_target.value = request.data;
             }
             if (request.iframe_id) {
-                webpg.overlay.onRequest({"msg": "removeiframe",
+                webpg.overlay._onRequest({"msg": "removeiframe",
                     "iframe_id": request.iframe_id});
             }
         } else if (request.msg == "insertPublicKey") {
@@ -95,7 +95,7 @@ webpg.overlay = {
                 webpg.overlay.insert_target.value = request.data;
             }
             if (request.iframe_id) {
-                webpg.overlay.onRequest({"msg": "removeiframe",
+                webpg.overlay._onRequest({"msg": "removeiframe",
                     "iframe_id": request.iframe_id});
             }
         } else if (request.msg == "insertSignedData") {
@@ -258,7 +258,7 @@ webpg.overlay = {
                         else
                             blockType = webpg.constants.PGPBlocks.PGP_ENCRYPTED;
                         response.result.original_text = selection.selectionText;
-                        webpg.overlay.onRequest({
+                        webpg.overlay._onRequest({
                             'msg': "insertDecryptedData",
                             'block_type': blockType,
                             'decrypt_status': response.result,
@@ -269,7 +269,7 @@ webpg.overlay = {
         		break;
 
 		    case webpg.constants.overlayActions.CRYPT:
-                webpg.overlay.onRequest({'msg': 'openKeySelectionDialog',
+                webpg.overlay._onRequest({'msg': 'openKeySelectionDialog',
                     'data': selection.selectionText,
                     'dialog_type': 'encrypt'
                 });
@@ -287,7 +287,7 @@ webpg.overlay = {
                         else
                             blockType = webpg.constants.PGPBlocks.PGP_ENCRYPTED;
                         response.result.original_text = selection.selectionText;
-                        webpg.overlay.onRequest({
+                        webpg.overlay._onRequest({
                             'msg': "insertDecryptedData",
                             'block_type': blockType,
                             'decrypt_status': response.result,
@@ -307,13 +307,13 @@ webpg.overlay = {
 		        webpg.utils.sendRequest({"msg": "enabled_keys"}, function(response) {
 		            var enabled_keys = response.result;
 		            if (enabled_keys.length > 1) {
-                        webpg.overlay.onRequest({'msg': 'openKeySelectionDialog',
+                        webpg.overlay._onRequest({'msg': 'openKeySelectionDialog',
                             'dialog_type': 'export'
                         });
 		            } else {
 		                webpg.utils.sendRequest({"msg": "export", "keyid": enabled_keys[0]},
 		                function(pubkey) {
-                            webpg.overlay.onRequest({msg: 'insertPublicKey', 'data': pubkey.result});
+                            webpg.overlay._onRequest({msg: 'insertPublicKey', 'data': pubkey.result});
                         });
                     }
                 });

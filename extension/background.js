@@ -1,7 +1,6 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
 
-//gnupghome = "";
 /*
     Class: webpg.background
         The background page runs within the context of the browser and handles
@@ -64,7 +63,7 @@ webpg.background = {
 
 
     // Called when a message is passed.
-    onRequest: function(request, sender, sendResponse) {
+    _onRequest: function(request, sender, sendResponse) {
         // set the default response to null
         var response = null;
 
@@ -87,7 +86,8 @@ webpg.background = {
 
             case 'gmail_integration':
                 response = {'gmail_integration':
-                    webpg.preferences.gmail_integration.get()
+                    webpg.preferences.gmail_integration.get(),
+                    'sign_gmail': webpg.preferences.sign_gmail.get()
                 };
                 break;
 
@@ -490,5 +490,5 @@ window.addEventListener("load", function load(event) {
 }, false);
 
 // Listen for the content script to send messages to the background page.
-webpg.utils.onRequest.addListener(webpg.background.onRequest);
+webpg.utils._onRequest.addListener(webpg.background._onRequest);
 /* ]]> */

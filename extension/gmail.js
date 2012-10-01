@@ -8,27 +8,6 @@ if (typeof(webpg)=='undefined') { webpg = {}; }
 webpg.gmail = {
 
     /*
-        Function: init
-            Activates the gmail integration if enabled
-
-        Parameters:
-            navDiv - <obj> The navigation div from the gmail interface we will be working with
-    */
-    init: function(navDiv) {
-
-        // Check if the gmail interface modifier provided by
-        //  webpg is enabled.
-        webpg.utils.sendRequest({
-            msg: "gmail_integration" },
-            function(response) {
-                if (response.result.gmail_integration == "true") {
-                    webpg.gmail.setup(navDiv);
-                }
-            }
-        );
-    },
-
-    /*
         Function: setup
             Sets up the required observers and creates instances to reusable objects
 
@@ -36,9 +15,6 @@ webpg.gmail = {
             navDiv - <obj> The navigation div from the gmail interface we will be working with
     */
     setup: function(navDiv) {
-        // Set the default action
-        webpg.gmail.action = 0;
-
         if (navDiv.find("#webpg-action-menu").length < 1) {
             // If we are running firefox, inject the CSS file
             if (webpg.utils.detectedBrowser == "firefox") {
@@ -59,7 +35,8 @@ webpg.gmail = {
                 .contents(':contains("Save")');
 
             // Create a persistant reference to the Gmail "Discard" button
-            this.oDisBtn = navDiv.find('div').contents(':contains("Discard")').first();
+            this.oDisBtn = navDiv.find('div').contents(':contains("Discard")')
+                .first();
 
             // Replace the "Send" button with our own
             this.oSendBtn.parent().clone().insertBefore(this.oSendBtn.parent())
@@ -106,9 +83,12 @@ webpg.gmail = {
     */
     getCanvasFrame: function() {
         if (webpg.utils.detectedBrowser == "firefox")
-            return jQuery(content.document.getElementById("canvas_frame"));
+            return jQuery(content.document.getElementById("canvas_frame"))
+                .length > 0 ? jQuery(content.document.getElementById("canvas_frame")) :
+                jQuery(content.document);
         else
-            return jQuery('#canvas_frame');
+            return jQuery('#canvas_frame').length > 0 ?
+                jQuery('#canvas_frame').contents() : jQuery(document);
     },
 
     /*
@@ -116,11 +96,11 @@ webpg.gmail = {
             Retrieves the gmail UI message editor document
     */
     getCanvasFrameDocument: function() {
-        if (webpg.utils.detectedBrowser == "firefox")
-            return content.document.getElementById("canvas_frame").
-                contentDocument;
-        else
-            return jQuery('#canvas_frame')[0].contentDocument;
+        var cd =  webpg.gmail.getCanvasFrame()[0].contentDocument;
+        
+        return typeof(cd)!='undefined' ? cd :
+            (webpg.utils.detectedBrowser == "firefox") ? content.document
+                : document;
     },
 
     /*
@@ -171,6 +151,8 @@ webpg.gmail = {
             contents().find('form'));
 
         webpg.gmail.removeStatusLine();
+        
+        console.log(webpg.gmail.action);
 
         // Cycle through the available actions until we find the selected
         //  action
@@ -280,6 +262,13 @@ webpg.gmail = {
                     }
                    });
                 }
+                break;
+
+            default:
+                // No webpg action was selected by the user, simply send
+                //  the email without modifications
+                webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
+                break;
 
         }
     },
@@ -460,6 +449,9 @@ webpg.gmail = {
     */
     addSendOptionBtn: function(navDiv) {
 
+        // Set the default action according to the user preference
+        webpg.gmail.action = (webpg.gmail.sign_gmail=='true') ? 2 : 0;
+
         if (navDiv.find('#webpg-send-btn').length > 1)
             navDiv.find('#webpg-send-btn').remove();
         if (navDiv.find('#webpg-save-btn').length > 1)
@@ -474,6 +466,8 @@ webpg.gmail = {
 
         var esBtn = disBtn.parent().clone().insertBefore(saveBtn.first().
             parent()).attr('id', 'webpg-action-menu').show();
+
+        var sign_gmail = (webpg.preferences.sign_gmail.get() == 'true');
 
         var action_menu = '' +
 '<span id="webpg-current-action">' +
@@ -605,7 +599,6 @@ webpg.gmail = {
             message = message.replace(reg, "<div><br></div>");
             var reg = new RegExp("\n", "g");
             message = message.replace(reg, "<br>");
-            console.log(message);
             iframe.html(message);
         } else {
             textarea.val(message);
@@ -645,20 +638,24 @@ webpg.gmail = {
     },
 }
 
-// Retrieve a reference to the appropriate window object
-if (webpg.utils.detectedBrowser == "firefox") {
-    var appcontent = document.getElementById("appcontent");
-    appcontent.addEventListener("DOMContentLoaded", function(aEvent) {
-        if (aEvent)
-            doc = aEvent.originalTarget;
-        else
-            doc = document;
-
-        content.addEventListener("DOMSubtreeModified", gmailChanges, true);
-    }, true);
-} else {
-    window.addEventListener("DOMSubtreeModified", gmailChanges, true);
-}
+// Check if gmail_integration is enabled and set appropriate listeners.
+webpg.utils.sendRequest({
+    msg: "gmail_integration" },
+    function(response) {
+        if (response.result.gmail_integration == "true") {
+            webpg.gmail.sign_gmail = response.result.sign_gmail;
+            // Retrieve a reference to the appropriate window object
+            if (webpg.utils.detectedBrowser == "firefox") {
+                var appcontent = document.getElementById("appcontent");
+                appcontent.addEventListener("DOMContentLoaded", function(aEvent) {
+                    content.addEventListener("DOMSubtreeModified", gmailChanges, false);
+                }, true);
+            } else {
+                window.addEventListener("DOMSubtreeModified", gmailChanges, true);
+            }
+        }
+    }
+);
 
 /*
     Function: gmailChanges
@@ -675,7 +672,7 @@ function gmailChanges(e) {
             'div[class="dW E"] > div > div'
             ).contents(':contains("Send")').parent().parent();
             if (navDiv.length > 1)
-                webpg.gmail.init(jQuery(navDiv[1]));
+                webpg.gmail.setup(jQuery(navDiv[1]));
         }
     // A reply/forward has been initiated
     } else if (typeof(jQuery(e.target).parent().attr("class"))!="undefined" && jQuery(e.target).parent().attr("class").search("dW E") > -1) {
@@ -686,20 +683,22 @@ function gmailChanges(e) {
                 var navDiv = this;
                 setTimeout(function() {
                     if (!window.document.getElementById("webpg-action-menu")) {
-                        webpg.gmail.init(jQuery(navDiv));
+                        webpg.gmail.setup(jQuery(navDiv));
                     }
                 }, 100);
             });
         }
     // A normal document load
     } else {
-        webpg.gmail.getCanvasFrame().contents().find(
-            'div[class="dW E"] > div'
-        ).each(function() {
-            var navDiv = jQuery(this).contents(':contains("Discard")').parent();
-            if (navDiv.length > 0)
-                webpg.gmail.init(navDiv);
-        });
+        var dW = webpg.gmail.getCanvasFrame()
+            .find('div[class="dW E"] > div').filter("[class~=J-Jw]").not(':has("#webpg-send-btn")');
+        if (dW.length > 0) {
+            dW.each(function() {
+                var navDiv = jQuery(this).contents(':contains("Discard")').parent();
+                if (navDiv.length > 0)
+                    webpg.gmail.setup(navDiv);
+            });
+       }
     }
 };
 

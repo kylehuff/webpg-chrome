@@ -31,3 +31,6 @@
 .webpg-menu-about {
     list-style-image: url("chrome://webpg-firefox/skin/images/about-48.png");
 }
+#webpg-msg-btn, [place="palette"] > #webpg-msg-btn {
+  list-style-image: url("chrome://webpg-firefox/skin/images/webpg-16.png") !important;
+}

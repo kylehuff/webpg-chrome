@@ -114,6 +114,9 @@ webpg.options = {
                 jQuery('#enable-gmail-integration-check')[0].checked = 
                     (webpg.preferences.gmail_integration.get() == 'true');
 
+                jQuery('#gmail-action-sign-check')[0].checked = 
+                    (webpg.preferences.sign_gmail.get() == 'true');
+
                 jQuery('#enable-decorate-inline-check').button({
                     'label': (webpg.preferences.decorate_inline.get() == 'true') ? 'Enabled' : 'Disabled'
                     }).click(function(e) {
@@ -155,6 +158,19 @@ webpg.options = {
                         status = (webpg.preferences.gmail_integration.get() == 'true') ? 'Enabled' : 'Disabled'
                         jQuery(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.gmail_integration.get() == 'true');
+                        jQuery(this).button('refresh');
+                    }
+                );
+
+                jQuery('#gmail-action-sign-check').button({
+                    'label': (webpg.preferences.sign_gmail.get() == 'true') ? 'Enabled' : 'Disabled'
+                    }).click(function(e) {
+                        (webpg.preferences.sign_gmail.get() == 'true') ?
+                            webpg.preferences.sign_gmail.set(false)
+                            : webpg.preferences.sign_gmail.set(true);
+                        status = (webpg.preferences.sign_gmail.get() == 'true') ? 'Enabled' : 'Disabled'
+                        jQuery(this).button('option', 'label', status);
+                        this.checked = (webpg.preferences.sign_gmail.get() == 'true');
                         jQuery(this).button('refresh');
                     }
                 );
