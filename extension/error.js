@@ -6,7 +6,7 @@ jQuery(function(){
     error_map = ext.plugin.webpg_status;
 
     if (error_map["error"]) {
-        error_html = "<p>Error (" + error_map["gpg_error_code"] + "): " + error_map["error_string"] + "</p>";
+        error_html = "<p>Error (" + webpg.utils.escape(error_map["gpg_error_code"]) + "): " + error_map["error_string"] + "</p>";
         error_html += "<h3>Suggestions:</h3>";
         error_html += "<ul>";
         if (error_map["gpg_error_code"] == -1) {
@@ -22,17 +22,17 @@ jQuery(function(){
         error_html += "</ul>";
 
         var systemInfoHTML = "<h1>Error Details</h1>";
-        systemInfoHTML += "Error in Method: " + error_map["method"] + "<br/\>";
-        systemInfoHTML += "Error Code: " + error_map["gpg_error_code"] + "<br/\>";
-        systemInfoHTML += "Error String: " + error_map["error_string"] + "<br/\>";
+        systemInfoHTML += "Error in Method: " + webpg.utils.escape(error_map["method"]) + "<br/\>";
+        systemInfoHTML += "Error Code: " + webpg.utils.escape(error_map["gpg_error_code"]) + "<br/\>";
+        systemInfoHTML += "Error String: " + webpg.utils.escape(error_map["error_string"]) + "<br/\>";
         file = error_map["file"];
         if (window.navigator.platform.toLowerCase().indexOf("win") !== -1) {
             file = file.substr(error_map["file"].lastIndexOf("\\") + 1);
         } else {
             file = file.substr(error_map["file"].lastIndexOf("/") + 1);
         }
-        systemInfoHTML += "File: " + file + "<br/\>";
-        systemInfoHTML += "Line: " + error_map["line"] + "<br/\>";
+        systemInfoHTML += "File: " + webpg.utils.escape(file) + "<br/\>";
+        systemInfoHTML += "Line: " + webpg.utils.escape(error_map["line"]) + "<br/\>";
     } else {
         error_html = "<p>Unknown Error</p>";
     }

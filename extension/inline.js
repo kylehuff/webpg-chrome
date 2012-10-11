@@ -23,10 +23,11 @@ webpg.inline = {
         this.doc = doc;
 
         // Determine if inline decration has been disabled for this page
+        // TODO: Implement this
         //if (!webpg.inline.enabledForPage(doc.location))
         //    return;
 
-        if (webpg.utils.detectedBrowser == "firefox") {
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
             if(typeof(doc.nodeName)!='undefined' && doc.nodeName != "#document")
                 return;
 
@@ -209,7 +210,7 @@ webpg.inline = {
             html = html.substring(0, html.lastIndexOf("\n"));
         }
 
-        var scontent = (webpg.utils.detectedBrowser == "chrome") ?
+        var scontent = (webpg.utils.detectedBrowser['product'] == "chrome") ?
                 node.parentElement.innerText :
                 node.parentNode.textContent;
 
@@ -220,7 +221,7 @@ webpg.inline = {
         var phtml = h.innerHTML;
 
         if (scontent == phtml) {
-            if (webpg.utils.detectedBrowser == "chrome") {
+            if (webpg.utils.detectedBrowser['product'] == "chrome") {
                 scontent = html;
             } else {
                 reg = new RegExp("(&(.){1,4};)", "g")
@@ -238,7 +239,7 @@ webpg.inline = {
         switch(blockType) {
             case webpg.constants.PGPBlocks.PGP_KEY:
                 console.log("WebPG found a public key");
-                if (webpg.utils.detectedBrowser == "firefox") {
+                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                     webpg.utils.sendRequest({
                         'msg': "sendtoiframe",
                         'block_type': blockType,
@@ -354,7 +355,7 @@ webpg.inline = {
         if (range) {
             range.insertNode(iframe);
             var theURL = webpg.utils.resourcePath + "webpg_results.html?id=" + id;
-            if (webpg.utils.detectedBrowser == "firefox")
+            if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
                 iframe.contentWindow.location.href = theURL;
             else
                 iframe.src = theURL;
@@ -375,7 +376,7 @@ webpg.inline = {
         jQuery(iframe).insertAfter(jQuery(element));
         jQuery(element).hide();
         var theURL = webpg.utils.resourcePath + "webpg_results.html?id=" + iframe.id;
-        if (webpg.utils.detectedBrowser == "firefox")
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
             iframe.contentWindow.location.href = theURL;
         else
             iframe.src = theURL;

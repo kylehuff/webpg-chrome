@@ -251,6 +251,7 @@ webpg.inline_results = {
                             jQuery('#footer').html("THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY<br/\>");
                             jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ");
                             jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>");
+                            // TODO: Implement key-server search and fetch
 //                            jQuery('#footer').append("<a href=\"#\">TRY TO FETCH RENEWED KEY</a>");
                         }
                         if (request.verify_result.signatures[sig].status == "NO_PUBKEY") {
@@ -258,6 +259,7 @@ webpg.inline_results = {
                             jQuery('#footer').html("THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING<br/\>");
                             jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ");
                             jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>");
+                            // TODO: Implement key-server search and fetch
 //                            jQuery('#footer').append("<a href=\"#\">TRY TO FETCH MISSING KEY</a>");
                         }
                         if (request.verify_result.signatures[sig].status == "BAD_SIG") {
@@ -337,7 +339,7 @@ webpg.inline_results = {
                                                         keyobj.uids[uid].email + "\">" + keyobj.uids[uid].email +
                                                         "</a>" : "";
                                                     sig_class = "sig_class_normal";
-                                                    jQuery('#signature_text').append("<li>" + keyobj.uids[uid].uid + 
+                                                    jQuery('#signature_text').append("<li>" + webpg.utils.escape(keyobj.uids[uid].uid) + 
                                                         " &lt;" + uid_email + "&gt;</li>");
                                                 }
                                                 jQuery('#signature_text').append("</ul>");

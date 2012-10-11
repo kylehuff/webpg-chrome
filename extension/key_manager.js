@@ -16,10 +16,10 @@ webpg.keymanager = {
             browserWindow - <window> A reference to the main browser window/object
     */
     init: function(browserWindow) {
-        if (webpg.utils.detectedBrowser == "firefox" || webpg.utils.detectedBrowser == "thunderbird") {
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
             webpg.background = browserWindow;
             webpg.secret_keys = browserWindow.secret_keys;
-        } else if (webpg.utils.detectedBrowser == "chrome") {
+        } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
             webpg.background.plugin = chrome.extension.getBackgroundPage().plugin;
             webpg.secret_keys = webpg.background.secret_keys;
         }
@@ -193,7 +193,7 @@ webpg.keymanager = {
     },
 
     progressMsg: function(evt) {
-        var msg = (webpg.utils.detectedBrowser == "firefox" || webpg.utils.detectedBrowser == "thunderbird") ? evt.detail : evt;
+        var msg = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ? evt.detail : evt;
         var dialog = (jQuery("#genkey-dialog").dialog("isOpen") == true) ?
             "#genkey" : (jQuery("#gensubkey-dialog").dialog("isOpen") == true) ?
             "#gensubkey" : null;
@@ -371,7 +371,7 @@ webpg.keymanager = {
                                 return false;
                             }
                             webpg.keymanager.genkey_waiting = true;
-                            if (webpg.utils.detectedBrowser == "chrome") {
+                            if (webpg.utils.detectedBrowser['product'] == "chrome") {
                                 chrome.extension.onConnect.addListener(function(port) {
                                     port.onMessage.addListener(webpg.keymanager.progressMsg);
                                 });
@@ -748,7 +748,7 @@ webpg.keymanager = {
                     jQuery(uidobj).addClass('open_uid');
                 if (current_keylist[key].expired || current_keylist[key].uids[uid].revoked)
                     uidobj.className += ' invalid-key';
-                var email = (current_keylist[key].uids[uid].email.length > 1) ? "  -  &lt;" + current_keylist[key].uids[uid].email + "&gt;" :
+                var email = (current_keylist[key].uids[uid].email.length > 1) ? "  -  &lt;" + webpg.utils.escape(current_keylist[key].uids[uid].email) + "&gt;" :
                     "  - (no email address provided)";
                 jQuery(uidobj).append("<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%'>" + current_keylist[key].uids[uid].uid + email + "</span><span class='trust' style='text-decoration: none;'></span></a></h4>");
                 var signed = 0;
@@ -1165,7 +1165,7 @@ webpg.keymanager = {
                                 jQuery(form).parent().before("<div id=\"gensubkey-status\"> </div>");
                                 var error = "";
                                 webpg.keymanager.genkey_waiting = true;
-                                if (webpg.utils.detectedBrowser == "chrome") {
+                                if (webpg.utils.detectedBrowser['product'] == "chrome") {
                                     chrome.extension.onConnect.addListener(function(port) {
                                         port.onMessage.addListener(webpg.keymanager.progressMsg);
                                     });

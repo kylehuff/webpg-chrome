@@ -1,21 +1,35 @@
 /* <![CDATA[ */
+/*
+    Class: webpg.about
+        Proivides the class to handle the "about" page
+*/
 webpg.about = {
-    init: function(extensionManager) {
-        if (navigator.userAgent.toLowerCase().search("firefox") > -1) {
-            document.getElementById("webpg-info-browser").innerHTML += "Firefox";
+    /*
+        Function: init
+            Sets up the page to reflect the correct host application
+    */
+    init: function() {
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+            if (webpg.utils.detectedBrowser['product'] == "firefox")
+                var browserString = "Firefox";
+            else if (webpg.utils.detectedBrowser['product'] == "thunderbird")
+                var browserString = "Thunderbird";
+            else if (webpg.utils.detectedBrowser['product'] == "seamonkey")
+                var browserString = "SeaMonkey";
+            document.getElementById("webpg-info-browser").innerHTML += browserString;
             document.getElementById("webpg-info-version-string").innerHTML +=
-                webpg.utils.clean(webpg.about.version);
+                webpg.utils.escape(webpg.about.version);
         } else if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
             document.getElementById("webpg-info-browser").innerHTML += "Chrome";
             document.getElementById("webpg-info-version-string").innerText +=
-                chrome.app.getDetails().version;
+                webpg.utils.escape(chrome.app.getDetails().version);
         }
         jQuery('#close').button().click(function(e) { window.top.close(); });
    }
 }
 
 window.addEventListener("DOMContentLoaded", function() {
-    if (navigator.userAgent.toLowerCase().search("firefox") > -1) {
+    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
         try {
             // Firefox 4 and later; Mozilla 2 and later
             Components.utils.import("resource://gre/modules/AddonManager.jsm");

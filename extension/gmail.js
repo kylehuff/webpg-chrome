@@ -16,8 +16,8 @@ webpg.gmail = {
     */
     setup: function(navDiv) {
         if (navDiv.find("#webpg-action-menu").length < 1) {
-            // If we are running firefox, inject the CSS file
-            if (webpg.utils.detectedBrowser == "firefox") {
+            // If we are running Mozilla, inject the CSS file
+            if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                 var sss = Components.classes["@mozilla.org/content/style-sheet-service;1"]
                     .getService(Components.interfaces.nsIStyleSheetService);
                 var ios = Components.classes["@mozilla.org/network/io-service;1"]
@@ -82,7 +82,7 @@ webpg.gmail = {
             Retrieves the gmail UI message editor iframe
     */
     getCanvasFrame: function() {
-        if (webpg.utils.detectedBrowser == "firefox")
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
             return jQuery(content.document.getElementById("canvas_frame"))
                 .length > 0 ? jQuery(content.document.getElementById("canvas_frame")) :
                 jQuery(content.document);
@@ -99,7 +99,7 @@ webpg.gmail = {
         var cd =  webpg.gmail.getCanvasFrame()[0].contentDocument;
         
         return typeof(cd)!='undefined' ? cd :
-            (webpg.utils.detectedBrowser == "firefox") ? content.document
+            (webpg.utils.detectedBrowser['vendor'] == "mozilla") ? content.document
                 : document;
     },
 
@@ -111,7 +111,7 @@ webpg.gmail = {
             e - <event> The HTML Event dispatched
     */
     refreshText: function(e) {
-        if (webpg.utils.detectedBrowser == "firefox")
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
             e.srcElement = e.target;
         if (e.srcElement.getAttribute && e.srcElement.getAttribute("role") == "button") {
             if (e.srcElement.textContent && e.srcElement.textContent.length > 0) {
@@ -330,7 +330,7 @@ webpg.gmail = {
         var status_msg = webpg.gmail.getCanvasFrameDocument()
             .createElement("span");
         status_msg.setAttribute("class", "webpg-status-line");
-        jQuery(status_msg).html("WebPG: " + message);
+        jQuery(status_msg).html("WebPG: " + webpg.utils.escape(message));
         jQuery(status_msg).insertBefore(status_line.children(0));
         canvasFrame.find('.keylink').click(function() {
             webpg.utils.sendRequest({
@@ -471,7 +471,7 @@ webpg.gmail = {
 
         var action_menu = '' +
 '<span id="webpg-current-action">' +
-    '<img src="' + webpg.utils.resourcePath + "skin/images/webpg-48.png" + '" width=16 height=16/>' +
+    '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + "skin/images/webpg-48.png" + '" width=16 height=16/>' +
     'WebPG' +
 '</span>' +
 '&nbsp;' +
@@ -482,31 +482,31 @@ webpg.gmail = {
 '<ul class="webpg-action-list">' +
     '<li class="webpg-action-btn" id="webpg-crypt-btn">' +
         '<a href="#">' +
-            '<img src="' + webpg.utils.resourcePath + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
+            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
             'Encrypt' +
         '</a>' +
     '</li>' +
     '<li class="webpg-action-btn" id="webpg-sign-btn">' +
         '<a href="#">' +
-            '<img src="' + webpg.utils.resourcePath + 'skin/images/badges/stock_signature-ok.png" class="webpg-li-icon"/>' +
+            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_signature-ok.png" class="webpg-li-icon"/>' +
             'Sign only' +
         '</a>' +
     '</li>' +
     '<li class="webpg-action-btn" id="webpg-scrypt-btn">' +
         '<a href="#">' +
-            '<img src="' + webpg.utils.resourcePath + 'skin/images/badges/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
+            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
             'Sign and Encrypt' +
         '</a>' +
     '</li>' +
     '<li class="webpg-action-btn" id="webpg-symmetric-btn">' +
         '<a href="#">' +
-            '<img src="' + webpg.utils.resourcePath + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
+            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
             'Symmetric Encryption' +
         '</a>' +
     '</li>' +
     '<li class="webpg-action-btn" id="webpg-none-btn">' +
         '<a href="#">' +
-            '<img src="' + webpg.utils.resourcePath + 'skin/images/badges/stock_decrypted-signature-bad.png" class="webpg-li-icon"/>' +
+            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_decrypted-signature-bad.png" class="webpg-li-icon"/>' +
             'Do not use WebPG for this message' +
         '</a>' +
     '</li>' +
@@ -645,7 +645,7 @@ webpg.utils.sendRequest({
         if (response.result.gmail_integration == "true") {
             webpg.gmail.sign_gmail = response.result.sign_gmail;
             // Retrieve a reference to the appropriate window object
-            if (webpg.utils.detectedBrowser == "firefox") {
+            if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                 var appcontent = document.getElementById("appcontent");
                 appcontent.addEventListener("DOMContentLoaded", function(aEvent) {
                     content.addEventListener("DOMSubtreeModified", gmailChanges, false);

@@ -8,7 +8,9 @@ if (typeof(webpg)=='undefined') { webpg = {}; }
 
 /*
    Class: webpg.overlay
-    This class implements the overlay/content-script for the extension
+    This class implements the overlay/content-script for the extension.
+    It is loaded with each new page request and handles setting up
+    the required structure(s) for parsing/modifying page content.
 */
 webpg.overlay = {
 
@@ -40,11 +42,11 @@ webpg.overlay = {
             msg: "decorate_inline" },
             function(response) {
                 if (response.result.decorate_inline == "true") {
-                    if (webpg.utils.detectedBrowser == "firefox") {
+                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         // Begin parsing the document for PGP Data
                         gBrowser.addEventListener("DOMContentLoaded",
                             function(aEvent) { webpg.inline.init(doc) }, false);
-                    } else if (webpg.utils.detectedBrowser == "chrome") {
+                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         webpg.inline.init(document);
                     }
                 }
@@ -52,6 +54,17 @@ webpg.overlay = {
         );
     },
 
+
+    /*
+        Function: _onRequest
+            Provides the document listeners for receiving events
+
+        Parameters:
+            request - <obj> The request object
+            sender  - <obj> The sender (tab/page) of the request
+            sendResponse - <func> The function to execute with the
+                response as the parameter
+    */
     _onRequest: function(request, sender, sendResponse) {
         var response = null;
         if (request.msg == "log") {
@@ -69,7 +82,7 @@ webpg.overlay = {
             if (request.scrollTop) {
                 if (iframe) {
                     var pos = iframe.offsetTop - 10;
-                    var body = (webpg.utils.detectedBrowser == "firefox") ?
+                    var body = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
                         content.document.body : "html,body";
                     jQuery(body).animate({scrollTop: pos}, 1);
                 }
@@ -77,9 +90,9 @@ webpg.overlay = {
         } else if (request.msg == "removeiframe"){
             if (request.iframe_id) {
                 var iframe = document.getElementById(request.iframe_id);
-                if (webpg.utils.detectedBrowser == "firefox")
+                if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
                     content.document.body.removeChild(iframe);
-                else if (webpg.utils.detectedBrowser == "chrome")
+                else if (webpg.utils.detectedBrowser['product'] == "chrome")
                     document.body.removeChild(iframe);
             }
         } else if (request.msg == "insertEncryptedData") {
@@ -131,7 +144,7 @@ webpg.overlay = {
                     'message_type': "encrypted_message",
                     'noninline': true
                 }
-                if (webpg.utils.detectedBrowser == "firefox")
+                if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
                     webpg.utils.sendRequest(params);
                 else
                     results_frame.onload = function() {
@@ -143,9 +156,9 @@ webpg.overlay = {
             var target = webpg.overlay.insert_target;
             var iframe = webpg.inline.addDialogFrame();
 
-            if (webpg.utils.detectedBrowser == "firefox")
+            if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
                 content.document.body.appendChild(iframe);
-            else if (webpg.utils.detectedBrowser == "chrome")
+            else if (webpg.utils.detectedBrowser['product'] == "chrome")
                 document.body.appendChild(iframe);
 
             var theURL = webpg.utils.resourcePath + "dialog.html?dialog_type="
@@ -153,14 +166,14 @@ webpg.overlay = {
             if (request.dialog_type == "encrypt")
                 theURL += "&encrypt_data=" + escape(request.data);
 
-            if (webpg.utils.detectedBrowser == "firefox")
+            if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
                 iframe.contentWindow.location.href = theURL;
-            else if (webpg.utils.detectedBrowser == "chrome")
+            else if (webpg.utils.detectedBrowser['product'] == "chrome")
                 iframe.src = theURL;
 
             iframe.style.marginTop = "";
             iframe.style.marginLeft = "";
-            var scrollY = (webpg.utils.detectedBrowser == "firefox") ?
+            var scrollY = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
                 content.window.scrollY : window.scrollY;
             var posY = scrollY + (jQuery(iframe).innerHeight()
                     / 3);
@@ -200,6 +213,13 @@ webpg.overlay = {
         }
     },
 
+    /*
+        Function: contextHandler
+            The receiver for all context events
+
+        Parameters:
+            event - <evt> The context event
+    */
     contextHandler: function(event) {
         context_menuitems = {};
         if (!webpg.overlay.block_target)
@@ -240,8 +260,8 @@ webpg.overlay = {
         Parameters:
             event - <event> The original event
             action - <str> The action to perform
+            sender  - <obj> The sender (tab/page) of the request
     */
-
 	onContextCommand: function(event, action, sender) {
 	    selection = webpg.utils.getSelectedText();
 	    switch (action) {
@@ -320,37 +340,31 @@ webpg.overlay = {
                 break;
 
 		    case webpg.constants.overlayActions.MANAGER:
-		        if (webpg.utils.detectedBrowser == "firefox") {
+		        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
                         "XULContent/options.xul?options_tab=1");
-			    } else if (webpg.utils.detectedBrowser == "chrome") {
-                    var url = "options.html";
-                    if (webpg.utils.detectedBrowser == "chrome")
-                        url += "?auto_init=true"
+			    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                    var url = "options.html?auto_init=true"
                     webpg.utils.openNewTab(webpg.utils.resourcePath + url, sender.tab.index + 1);
                 }
 			    break;
 
             case webpg.constants.overlayActions.OPTS:
-		        if (webpg.utils.detectedBrowser == "firefox") {
+		        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
                         "XULContent/options.xul?options_tab=0");
-			    } else if (webpg.utils.detectedBrowser == "chrome") {
-                    var url = "key_manager.html";
-                    if (webpg.utils.detectedBrowser == "chrome")
-                        url += "?auto_init=true"
+			    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                    var url = "key_manager.html?auto_init=true";
                     webpg.utils.openNewTab(webpg.utils.resourcePath + url, sender.tab.index + 1);
                 }
 			    break;
 
             case webpg.constants.overlayActions.ABOUT:
-		        if (webpg.utils.detectedBrowser == "firefox") {
+		        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
                         "XULContent/options.xul?options_tab=2");
-			    } else if (webpg.utils.detectedBrowser == "chrome") {
-                    var url = "about.html";
-                    if (webpg.utils.detectedBrowser == "chrome")
-                        url += "?auto_init=true"
+			    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                    var url = "about.html?auto_init=true";
                     webpg.utils.openNewTab(webpg.utils.resourcePath + url, sender.tab.index + 1);
                 }
 			    break;
@@ -371,7 +385,7 @@ webpg.overlay = {
 
 };
 
-if (webpg.utils.detectedBrowser == "firefox") {
+if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
     var appcontent = document.getElementById("appcontent");
     appcontent.addEventListener("DOMContentLoaded", webpg.overlay.init, true);
 } else {

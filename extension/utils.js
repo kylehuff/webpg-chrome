@@ -2,7 +2,7 @@
 if (typeof(webpg)=='undefined') { webpg = {}; }
 
 /*
-    Class: webpg.utils
+    Class:   webpg.utils
         Provides reusable, generic methods for browser specific tasks.
 */
 webpg.utils = {
@@ -12,11 +12,13 @@ webpg.utils = {
             Initializes the webpg.utils object and setups up required overrides.
     */
     init: function() {
-        if (this.detectedBrowser == "firefox" || this.detectedBrowser == "thunderbird") {
-            // We are using Firefox, so make `console.log` an alias to
+        if (this.detectedBrowser['vendor'] == "mozilla") {
+            // We are using Mozilla, so make `console.log` an alias to
             //  something that provides more information than the standard
             //  console logging utility.
-
+            
+            // TODO: This is ugly and buggy; we should consider replacing
+            //  with something a little more elegant and reliable. 
  
             // Set the console.log method to use the factory console
             if (typeof(Application.console.log)!='undefined') {
@@ -67,16 +69,18 @@ webpg.utils = {
 
     /*
         Function: detectedBrowser
-            Determines current running browser and returns the a string
-            containing the friendly name.
+            Determines the current running browser and returns an object
+            containing the vendor and the product name.
     */
     detectedBrowser: (function() {
-        if (navigator.userAgent.toLowerCase().search("firefox") > -1)
-            return "firefox";
+        if (navigator.userAgent.toLowerCase().search("seamonkey") > -1)
+            return { "vendor": "mozilla", "product": "seamonkey" };
         else if (navigator.userAgent.toLowerCase().search("chrome") > -1)
-            return "chrome";
+            return { "vendor": "google", "product": "chrome" };
         else if (navigator.userAgent.toLowerCase().search("thunderbird") > -1)
-            return "thunderbird";
+            return { "vendor": "mozilla", "product": "thunderbird" };
+        else if (navigator.userAgent.toLowerCase().search("firefox") > -1)
+            return { "vendor": "mozilla", "product": "firefox" };
         else
             return "unknown";
     })(),
@@ -87,10 +91,11 @@ webpg.utils = {
             executing method.
     */
     resourcePath: function() {
-        if (navigator.userAgent.toLowerCase().search("firefox") > -1 ||
-        navigator.userAgent.toLowerCase().search("thunderbird") > -1)
+        var userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.search("firefox") > -1 ||
+          userAgent.search("thunderbird") > -1 || userAgent.search("seamonkey") > -1)
             return "chrome://webpg-firefox/content/";   
-        else if (navigator.userAgent.toLowerCase().search("chrome") > -1)
+        else if (userAgent.search("chrome") > -1)
             return chrome.extension.getURL("");
         else
             return "/";
@@ -101,7 +106,7 @@ webpg.utils = {
             Searches the location.search query string for a named parameter
 
         Parameters:
-            parameterName - <str> The name of the parameter to return
+            parameterName - The name of the parameter to return
     */
     getParameterByName: function(parameterName) {
         var match = RegExp('[?&]' + parameterName + '=([^&]*)')
@@ -183,107 +188,6 @@ webpg.utils = {
     },
 
     /*
-        Function: _onRequest.addListener
-            This function creates a listener object for interaction between
-            privileged and non-privileged pages
-
-        Parameters:
-            callback - <func> The callback to be called upon completion
-    */
-    //  This method had to be renamed to _onRequest in order to pass
-    //  validation for addons.mozilla.org, which erroneously detects
-    //  this as a handleEvent call, not a user defined method. Lame.
-    _onRequest: {
-        addListener: function(callback) { // analogue of chrome.extension.onRequest.addListener
-            if (webpg.utils.detectedBrowser == "firefox" ||
-            webpg.utils.detectedBrowser == "thunderbird") {
-                return document.addEventListener("listener-query", function(event) {
-                    var node = event.target, doc = node.ownerDocument;
-
-                    return callback(node.getUserData("data"), doc, function(data) {
-                        if (!node.getUserData("callback")) {
-                            return doc.documentElement.removeChild(node);
-                        }
-
-                        node.setUserData("response", data, null);
-
-                        var listener = doc.createEvent("HTMLEvents");
-                        listener.initEvent("listener-response", true, false);
-                        return node.dispatchEvent(listener);
-                    });
-                }, false, true);
-            } else if (webpg.utils.detectedBrowser == "chrome") {
-                chrome.extension.onRequest.addListener(callback);
-            }
-        },
-    },
-
-    /*
-        Function: sendRequest
-            Sends a request event to the background page or content script
-
-        Parameters:
-            data - <json obj> A JSON object with parameters and data to pass
-            callback - <func> The callback to be called upon completion
-            doc - <document> The document to add the listener to 
-    */
-    sendRequest: function(data, callback, doc) { // analogue of chrome.extension.sendRequest
-        if (this.detectedBrowser == "firefox" || this.detectedBrowser == "thunderbird") {
-            var request = document.createTextNode("");
-            request.setUserData("data", data, null);
-            if (callback) {
-                request.setUserData("callback", callback, null);
-
-                document.addEventListener("listener-response", function(event) {
-                    var node = event.target, callback = node.getUserData("callback"), response = node.getUserData("response");
-                    document.documentElement.removeChild(node);
-                    document.removeEventListener("listener-response", arguments.callee, false);
-                    return callback(response);
-                }, false);
-            }
-            document.documentElement.appendChild(request);
-
-            var sender = document.createEvent("HTMLEvents");
-            sender.initEvent("listener-query", true, false);
-            return request.dispatchEvent(sender);
-        } else {
-            // Check if the callback is null, otherwise the chrome bindings will freak out.
-            if (callback == null)
-                chrome.extension.sendRequest(data);
-            else
-                chrome.extension.sendRequest(data, callback);
-        }
-    },
-
-    /*
-        Function: tabs.sendRequest
-            Sends a request to a given tab/frame
-
-        Parameters:
-            target - <obj> An object that contains at minimum, the id for target
-            request - <json obj> A JSON object with parameters and data to send
-    */
-    tabs: {
-        sendRequest: function(target, request) {
-            if (webpg.utils.detectedBrowser == "firefox") {
-                if (!request.target_id) {
-                    webpg.utils.sendRequest(request);
-                } else {
-                    var iframe = webpg.utils.getFrameById(request.target_id);
-                    if (iframe) {
-                        iframe.onload = function(aEvent) {
-                            var tw = aEvent.originalTarget;
-                            tw.contentWindow.postMessage(request, "*");
-                        }
-                    }
-                }
-            } else if (webpg.utils.detectedBrowser == "chrome") {
-                chrome.tabs.sendRequest(target.id, request);
-            }
-        },
-    },
-
-    /*
         Function: getFrameById
             Iterates through the windows to find a frame matching the given ID
 
@@ -291,7 +195,7 @@ webpg.utils = {
             id - <str> The unique ID of the frame to locate
     */
     getFrameById: function(id) {
-        if (webpg.utils.detectedBrowser == "firefox") {
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
             var iframes = gBrowser.contentDocument.getElementsByTagName("iframe");
             for (var i=0; i < iframes.length; i++) {
                 if (iframes[i].id == id)
@@ -350,8 +254,10 @@ webpg.utils = {
             tabIndex - <int> The desired index number (position) for the tab
     */
     openNewTab: function(url, tabIndex) {
-        switch (webpg.utils.detectedBrowser) {
+        switch (webpg.utils.detectedBrowser['product']) {
             case "firefox":
+            case "thunderbird":
+            case "seamonkey":
                 if (url.search("options.html") > -1)
                     url = url.replace("options.html", "XULContent/options.xul")
                         .replace("?", "?options_tab=0&");
@@ -393,7 +299,7 @@ webpg.utils = {
         var selectionText;
         var preSelection;
         var postSelection;
-        if (this.detectedBrowser == "firefox") {
+        if (this.detectedBrowser['vendor'] == "mozilla") {
             var selectionObject = getBrowser().contentWindow.getSelection();
             var selectionTarget = document.commandDispatcher.focusedElement;
             var selectionText = selectionObject.toString();
@@ -403,7 +309,7 @@ webpg.utils = {
                 != selectionTarget.selectionEnd))
                 selectionText = selectionTarget.value.substr(selectionTarget.selectionStart,
                     selectionTarget.selectionEnd - selectionTarget.selectionStart);
-        } else if (this.detectedBrowser == "chrome") {
+        } else if (this.detectedBrowser['product'] == "chrome") {
             var selectionObject = window.getSelection();
             var selectionTarget = document.activeElement;
             var selectionText = selectionObject.toString();
@@ -420,27 +326,141 @@ webpg.utils = {
         return {'selectionText': selectionText, 'pre_selection': preSelection, 'post_selection': postSelection};
     },
 
+    /*
+        Function: sendRequest
+            Sends a request event to the background page or content script
+
+        Parameters:
+            data - <json obj> A JSON object with parameters and data to pass
+            callback - <func> The callback to be called upon completion
+            doc - <document> The document to add the listener to 
+    */
+    sendRequest: function(data, callback, doc) { // analogue of chrome.extension.sendRequest
+        if (this.detectedBrowser['vendor'] == "mozilla") {
+            var request = document.createTextNode("");
+            request.setUserData("data", data, null);
+            if (callback) {
+                request.setUserData("callback", callback, null);
+
+                document.addEventListener("listener-response", function(event) {
+                    var node = event.target, callback = node.getUserData("callback"), response = node.getUserData("response");
+                    document.documentElement.removeChild(node);
+                    document.removeEventListener("listener-response", arguments.callee, false);
+                    return callback(response);
+                }, false);
+            }
+            document.documentElement.appendChild(request);
+
+            var sender = document.createEvent("HTMLEvents");
+            sender.initEvent("listener-query", true, false);
+            return request.dispatchEvent(sender);
+        } else {
+            // Check if the callback is null, otherwise the chrome bindings will freak out.
+            if (callback == null)
+                chrome.extension.sendRequest(data);
+            else
+                chrome.extension.sendRequest(data, callback);
+        }
+    },
+
+    /*
+        Class:  webpg.utils._onRequest
+            Provides the document listeners for receiving events
+    */
+    //  This class had to be renamed to _onRequest in order to pass
+    //  validation for addons.mozilla.org, which erroneously detects
+    //  this as a handleEvent call, not a user defined method. Lame.
+    _onRequest: {
+        /*
+            Function: addListener
+                This function creates a listener object for interaction between
+                privileged and non-privileged pages
+
+            Parameters:
+                callback - <func> The callback to be called upon completion
+        */
+        addListener: function(callback) { // analogue of chrome.extension.onRequest.addListener
+            if (webpg.utils.detectedBrowser['vendor'] == "mozilla" &&
+              webpg.utils.detectedBrowser['product'] != "thunderbird") {
+                return document.addEventListener("listener-query", function(event) {
+                    var node = event.target, doc = node.ownerDocument;
+
+                    return callback(node.getUserData("data"), doc, function(data) {
+                        if (!node.getUserData("callback")) {
+                            return doc.documentElement.removeChild(node);
+                        }
+
+                        node.setUserData("response", data, null);
+
+                        var listener = doc.createEvent("HTMLEvents");
+                        listener.initEvent("listener-response", true, false);
+                        return node.dispatchEvent(listener);
+                    });
+                }, false, true);
+            } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                chrome.extension.onRequest.addListener(callback);
+            }
+        },
+    },
+
+
+    /*
+        Class: webpg.utils.tabs
+            Creates a unified class for managing tabs in various browsers
+    */
+    tabs: {
+        /*
+            Function: sendRequest
+                Sends a request to a given tab/frame
+
+            Parameters:
+                target - <obj> An object that contains at minimum, the id for target
+                request - <json obj> A JSON object with parameters and data to send
+        */
+        sendRequest: function(target, request) {
+            if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                if (!request.target_id) {
+                    webpg.utils.sendRequest(request);
+                } else {
+                    var iframe = webpg.utils.getFrameById(request.target_id);
+                    if (iframe) {
+                        iframe.onload = function(aEvent) {
+                            var tw = aEvent.originalTarget;
+                            tw.contentWindow.postMessage(request, "*");
+                        }
+                    }
+                }
+            } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                chrome.tabs.sendRequest(target.id, request);
+            }
+        },
+    },
+
+    /*
+        Class: webpg.utils.contextMenus
+            Creates a unified class for managing contextMenus in various browsers
+    */
     contextMenus: {
         /*
-            Function: contextMenus.removeAll
+            Function: removeAll
                 Removes or hides all items in the context menu.
 
             Parameters:
                 callback - <func> A function to execute when completed.
         */
         removeAll: function(callback) {
-            if (webpg.utils.detectedBrowser == "firefox") {
+            if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                 jQuery(".context-menu-item").each(function(iter, element) {
                     element.hidden = true;
                 });
                 callback();
-            } else if (webpg.utils.detectedBrowser == "chrome") {
+            } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                 chrome.contextMenus.removeAll(callback);
             }
         },
 
         /*
-            Function: contextMenus.add
+            Function: add
                 Adds items to the context menu
 
             Parameters:
@@ -449,9 +469,9 @@ webpg.utils = {
         add: function(action) {
             switch (action) {
                 case webpg.constants.overlayActions.EXPORT:
-                    if (webpg.utils.detectedBrowser == "firefox") {
+                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         jQuery(".webpg-menu-export")[0].hidden = false;
-                    } else if (webpg.utils.detectedBrowser == "chrome") {
+                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-insert-pubkey";
                         chrome.contextMenus.create({
                             "title" : "Paste Public Key",
@@ -469,9 +489,9 @@ webpg.utils = {
                     break;
                 
                 case webpg.constants.overlayActions.PSIGN:
-                    if (webpg.utils.detectedBrowser == "firefox") {
+                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         jQuery(".webpg-menu-sign")[0].hidden = false;
-                    } else if (webpg.utils.detectedBrowser == "chrome") {
+                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-clearsign";
                         chrome.contextMenus.create({
                             "title" : "Clear-sign this text",
@@ -489,9 +509,9 @@ webpg.utils = {
                     break;
 
                 case webpg.constants.overlayActions.IMPORT:
-                    if (webpg.utils.detectedBrowser == "firefox") {
+                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         jQuery(".webpg-menu-import")[0].hidden = false;
-                    } else if (webpg.utils.detectedBrowser == "chrome") {
+                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-import";
                         chrome.contextMenus.create({
                             "title" : "Import this Key",
@@ -509,9 +529,9 @@ webpg.utils = {
                     break;
 
                 case webpg.constants.overlayActions.CRYPT:
-                    if (webpg.utils.detectedBrowser == "firefox") {
+                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         jQuery(".webpg-menu-crypt")[0].hidden = false;
-                    } else if (webpg.utils.detectedBrowser == "chrome") {
+                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-encrypt";
                         chrome.contextMenus.create({
                             "title" : "Encrypt this text",
@@ -529,9 +549,9 @@ webpg.utils = {
                     break;
 
                 case webpg.constants.overlayActions.DECRYPT:
-                    if (webpg.utils.detectedBrowser == "firefox") {
+                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         jQuery(".webpg-menu-decrypt")[0].hidden = false;
-                    } else if (webpg.utils.detectedBrowser == "chrome") {
+                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-decrypt";
                         chrome.contextMenus.create({
                             "title" : "Decrypt this text",
@@ -549,9 +569,9 @@ webpg.utils = {
                     break;
 
                 case webpg.constants.overlayActions.VERIF:
-                    if (webpg.utils.detectedBrowser == "firefox") {
+                    if (webpg.utils.detectedBrowser['product'] == "mozilla") {
                         jQuery(".webpg-menu-verif")[0].hidden = false;
-                    } else if (webpg.utils.detectedBrowser == "chrome") {
+                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-verify";
                         chrome.contextMenus.create({
                             "title" : "Verify this text",
@@ -569,9 +589,9 @@ webpg.utils = {
                     break;
 
                 case webpg.constants.overlayActions.OPTS:
-                    if (webpg.utils.detectedBrowser == "firefox") {
+                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         jQuery(".webpg-menu-options")[0].hidden = false;
-                    } else if (webpg.utils.detectedBrowser == "chrome") {
+                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-separator";
                         chrome.contextMenus.create({
                             "type" : "separator",
@@ -592,7 +612,7 @@ webpg.utils = {
                             "id": id,
                             "onclick" : function(info, tab) {
                                 var url = "options.html";
-                                if (webpg.utils.detectedBrowser == "chrome")
+                                if (webpg.utils.detectedBrowser['product'] == "chrome")
                                     url += "?auto_init=true"
                                 webpg.utils.openNewTab(webpg.utils.resourcePath + url);
                             },
@@ -601,9 +621,9 @@ webpg.utils = {
                     break;
                     
                 case webpg.constants.overlayActions.MANAGER:
-                    if (webpg.utils.detectedBrowser == "firefox") {
+                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         jQuery(".webpg-menu-manager")[0].hidden = false;
-                    } else if (webpg.utils.detectedBrowser == "chrome") {
+                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-manager";
                         chrome.contextMenus.create({
                             "title" : "Key Manager",
@@ -612,7 +632,7 @@ webpg.utils = {
                             "id": id,
                             "onclick" : function() {
                                 var url = "key_manager.html";
-                                if (webpg.utils.detectedBrowser == "chrome")
+                                if (webpg.utils.detectedBrowser['product'] == "chrome")
                                     url += "?auto_init=true"
                                 webpg.utils.openNewTab(webpg.utils.resourcePath + url);
                             },

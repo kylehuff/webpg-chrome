@@ -61,7 +61,10 @@ webpg.background = {
         }
     },
 
-
+    /*
+        Function: _onRequest
+            Called when a message is passed to the page
+    */
     // Called when a message is passed.
     _onRequest: function(request, sender, sendResponse) {
         // set the default response to null
@@ -393,8 +396,15 @@ webpg.background = {
         sendResponse({'result': response});
     },
 
+    /*
+        Function: gpgGenKeyProgress
+            Called by webpg-npapi to update the current status of the key generation operation
+
+        Parameters:
+            data - <str> The ASCII representation of the current operation status
+    */
     gpgGenKeyProgress: function(data) {
-        if (webpg.utils.detectedBrowser == "firefox") {
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
             var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                        .getService(Components.interfaces.nsIWindowMediator);
             var enumerator = wm.getEnumerator(null);
@@ -426,13 +436,20 @@ webpg.background = {
                     doc.body.dispatchEvent(evtObj);
                 }
             }
-        } else if (webpg.utils.detectedBrowser == "chrome") {
+        } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
             var port = chrome.extension.connect({name: "gpgGenKeyProgress"});
             port.postMessage({"type": "progress", "data": data});
             port.disconnect()
         }
     },
 
+    /*
+        Function: gpgGenKeyComplete
+            Called by webpg-npapi when a given key generation option has completed
+
+        Parameters:
+            data - <str> The ASCII representation of the current operation status
+    */
     gpgGenKeyComplete: function(data) {
         // Send the data to the GenKeyProgress method
         webpg.background.gpgGenKeyProgress(data);
@@ -441,7 +458,7 @@ webpg.background = {
             true : false;
 
         // Notify the user
-        if (webpg.utils.detectedBrowser == "firefox") {
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
             var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                    .getService(Components.interfaces.nsIWindowMediator);
             var browserWindow = wm.getMostRecentWindow("navigator:browser");
@@ -467,7 +484,7 @@ webpg.background = {
             nb.appendNotification(message, 'keygen-complete',
                  'chrome://webpg-firefox/skin/images/webpg-32.png',
                   priority, buttons);
-        } else if (webpg.utils.detectedBrowser == "chrome") {
+        } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
             var title = (valid) ? "WebPG - Key Generation Complete!" :
                 "WebPG Key Generation Failed!";
             var message = (valid) ? "The generation of your new Key is now complete." :

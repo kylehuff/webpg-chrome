@@ -1,12 +1,25 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
 
+/*
+    Class: webpg.options
+        Provides the methods for the options page
+*/
 webpg.options = {
 
+    /*
+        Function: init
+            Sets up the required references to webpg.background,
+            and performs initial plugin tests
+
+        Parameters:
+            browserWindow - <window> The Window object housing firefoxOverlay.xul
+            or thunderbirdOverlay.xul in Mozilla applications - not passed in Google Chrome
+    */
     init: function(browserWindow) {
-        if (webpg.utils.detectedBrowser == "firefox" || webpg.utils.detectedBrowser == "thunderbird")
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
             webpg.plugin = browserWindow.plugin;
-        else if (webpg.utils.detectedBrowser == "chrome")
+        else if (webpg.utils.detectedBrowser['product'] == "chrome")
             webpg.plugin = chrome.extension.getBackgroundPage().plugin;
 
         jQuery('#step-1').ready(function(){
@@ -14,7 +27,7 @@ webpg.options = {
         });
         
         function doSystemCheck() {
-            if (webpg.utils.detectedBrowser == "chrome")
+            if (webpg.utils.detectedBrowser['product'] == "chrome")
                 pf = window.clientInformation.platform.substr(0,3);
             else
                 pf = navigator.oscpu.substr(0,3);
@@ -66,7 +79,7 @@ webpg.options = {
                         'link' : null,
                     }
                 }
-                webpg.utils.log(errors['NPAPI']['detail']);
+                console.log(errors['NPAPI']['detail']);
             }
             errors_found = false;
             for (error in errors) {
@@ -100,7 +113,8 @@ webpg.options = {
                 jQuery('#valid-options').hide();
             } else {
                 // Only display the inline check if this is not the app version of webpg-chrome
-                if ((webpg.utils.detectedBrowser == "chrome") &&
+                // TODO: We probably don't want to show the "display inline" option for Thunderbird 
+                if ((webpg.utils.detectedBrowser['product'] == "chrome") &&
                     !chrome.app.getDetails().hasOwnProperty("content_scripts")){
                         jQuery('#enable-decorate-inline').hide();
                 } else {
