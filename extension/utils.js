@@ -664,10 +664,8 @@ webpg.utils = {
                         try {
                             var res = stringBundle.getString(msgName);
                         } catch (e) {
-                            console.log(msgName);
-                            var res = e;
+                            var res = msgName;
                         }
-                        Application.console.log("Requested: " + msgName + ", sending: " + res);
                         if (!res || res.length == 0)
                             return msg
                         else
