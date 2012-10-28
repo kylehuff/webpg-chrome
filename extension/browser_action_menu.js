@@ -35,9 +35,9 @@ var menuActions = {
 
 // Listen for the creation of the buttons and assign their methods
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById("options-button").addEventListener('click', menuActions.options);
-    document.getElementById("key-manager-button").addEventListener('click', menuActions.key_manager);
-    document.getElementById("about-button").addEventListener('click', menuActions.about);
+    jQuery("#options-button").text(_("Options"))[0].addEventListener('click', menuActions.options);
+    jQuery("#key-manager-button").text(_("Key Manager"))[0].addEventListener('click', menuActions.key_manager);
+    jQuery("#about-button").text(_("About WebPG"))[0].addEventListener('click', menuActions.about);
 });
 
 

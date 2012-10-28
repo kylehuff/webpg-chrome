@@ -173,6 +173,9 @@ webpg.utils = {
     },
 
     escape: function(str) {
+        if (typeof(str)=='number'||typeof(str)=='undefined')
+            return str;
+
         var map = {
             "&" : "amp",
             "'": "#39",
@@ -236,10 +239,10 @@ webpg.utils = {
                 var gClipboardHelper = Components.classes["@mozilla.org/widget/clipboardhelper;1"].
                         getService(Components.interfaces.nsIClipboardHelper);
                 gClipboardHelper.copyString(userSelection);
-                return "Text copied to clipboard";
+                return _("Text copied to clipboard");
             } catch(err) {
                 console.log(err);
-                return "There may have been a problem placing the data into the clipboard; " + err;
+                return _("There may have been a problem placing the data into the clipboard") + "; " + err;
             }
         }
     },
@@ -267,9 +270,9 @@ webpg.utils = {
                 //var tBrowser = top.document.getElementById("content");
                 //var tab = tBrowser.addTab(url);
                 //tBrowser.selectedTab = tab;
-                wTitle = (url.search("options_tab=0") > -1) ? "WebPG Options" :
-                    (url.search("options_tab=1") > -1) ? "WebPG Key Manager" :
-                    (url.search("options_tab=2") > -1) ? "About WebPG" : "";
+                wTitle = (url.search("options_tab=0") > -1) ? _("WebPG Options") :
+                    (url.search("options_tab=1") > -1) ? _("WebPG Key Manager") :
+                    (url.search("options_tab=2") > -1) ? _("About WebPG") : "";
                 var wFlags = "titlebar=no,menubar=no,location=no";
                 wFlags += "scrollbars=yes,status=no,centerscreen=yes";
                 window.open(url, wTitle, wFlags);
@@ -474,7 +477,7 @@ webpg.utils = {
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-insert-pubkey";
                         chrome.contextMenus.create({
-                            "title" : "Paste Public Key",
+                            "title" : _("Paste Public Key"),
                             "contexts" : ["editable"],
                             "id": id,
                             "type" : "normal",
@@ -494,7 +497,7 @@ webpg.utils = {
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-clearsign";
                         chrome.contextMenus.create({
-                            "title" : "Clear-sign this text",
+                            "title" : _("Clear-sign this text"),
                             "contexts" : ["selection", "editable"],
                             "id": id,
                             "type" : "normal",
@@ -514,7 +517,7 @@ webpg.utils = {
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-import";
                         chrome.contextMenus.create({
-                            "title" : "Import this Key",
+                            "title" : _("Import this Key"),
                             "contexts" : ["selection", "editable"],
                             "id": id,
                             "type" : "normal",
@@ -534,7 +537,7 @@ webpg.utils = {
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-encrypt";
                         chrome.contextMenus.create({
-                            "title" : "Encrypt this text",
+                            "title" : _("Encrypt this text"),
                             "contexts" : ["editable"],
                             "id": id,
                             "type" : "normal",
@@ -554,7 +557,7 @@ webpg.utils = {
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-decrypt";
                         chrome.contextMenus.create({
-                            "title" : "Decrypt this text",
+                            "title" : _("Decrypt this text"),
                             "contexts" : ["selection", "editable"],
                             "id": id,
                             "type" : "normal",
@@ -574,7 +577,7 @@ webpg.utils = {
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-verify";
                         chrome.contextMenus.create({
-                            "title" : "Verify this text",
+                            "title" : _("Verify this text"),
                             "contexts" : ["selection", "editable"],
                             "id": id,
                             "type" : "normal",
@@ -606,7 +609,7 @@ webpg.utils = {
                         });
                         var id = "webpg-context-options";
                         chrome.contextMenus.create({
-                            "title" : "Options",
+                            "title" : _("Options"),
                             "type" : "normal",
                             "contexts" : ["all", "page"],
                             "id": id,
@@ -626,7 +629,7 @@ webpg.utils = {
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-manager";
                         chrome.contextMenus.create({
-                            "title" : "Key Manager",
+                            "title" : _("Key Manager"),
                             "type" : "normal",
                             "contexts" : ["all", "page"],
                             "id": id,
@@ -642,7 +645,49 @@ webpg.utils = {
             }
         }, // end webpg.utils.contextMenus.add
     },
+
+    i18n: {
+        gettext: function(msg) {
+            if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                // TODO: Implement this
+                // Get the reference to the browser window
+                var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                           .getService(Components.interfaces.nsIWindowMediator);
+                var enumerator = wm.getEnumerator(null);
+                while(enumerator.hasMoreElements()) {
+                    var win = enumerator.getNext().QueryInterface(
+                        Components.interfaces.nsIDOMChromeWindow
+                    );
+                    if (win.content && win.content.document.getElementById("webpg-strings")) {
+                        msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9|^\.]/g, '_');
+                        var stringBundle = win.content.document.getElementById("webpg-strings");
+                        try {
+                            var res = stringBundle.getString(msgName);
+                        } catch (e) {
+                            console.log(msgName);
+                            var res = e;
+                        }
+                        Application.console.log("Requested: " + msgName + ", sending: " + res);
+                        if (!res || res.length == 0)
+                            return msg
+                        else
+                            return res
+                    }
+                }
+                return msg;
+            } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9]/g, '_');
+                var tmsg = chrome.i18n.getMessage(msgName);
+                if (tmsg.length == 0)
+                    return msg;
+                else
+                    return tmsg;
+            }
+        },
+    },
 }
+
+window._ = webpg.utils.i18n.gettext;
 
 webpg.utils.init();
 /* ]]> */

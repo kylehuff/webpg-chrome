@@ -1,0 +1,869 @@
+# Translations template for webpg-chrome.
+# Copyright (C) 2012 CURETHEITCH
+# This file is distributed under the same license as the webpg-chrome
+# project.
+# Automatically generated, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webpg-chrome 0.8.9\n"
+"Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
+"POT-Creation-Date: 2012-10-28 15:28-0400\n"
+"PO-Revision-Date: 2012-10-21 16:57-0400\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: extension/background.js:55
+msgid "WebPG Plugin failed to load"
+msgstr ""
+
+#: extension/background.js:465 extension/background.js:488
+msgid "Key Generation Complete"
+msgstr ""
+
+#: extension/background.js:466 extension/background.js:491
+msgid "Key Generation"
+msgstr ""
+
+#: extension/background.js:475
+msgid "Open Key Manager"
+msgstr ""
+
+#: extension/background.js:489
+msgid "WebPG Key Generation Failed"
+msgstr ""
+
+#: extension/background.js:490
+msgid "The generation of your new key is now complete"
+msgstr ""
+
+#: extension/browser_action_menu.js:38 extension/utils.js:612
+msgid "Options"
+msgstr ""
+
+#: extension/browser_action_menu.js:39 extension/utils.js:632
+msgid "Key Manager"
+msgstr ""
+
+#: extension/browser_action_menu.js:40 extension/utils.js:275
+msgid "About WebPG"
+msgstr ""
+
+#: extension/dialog.js:30
+msgid "Select Recipient(s)"
+msgstr ""
+
+#: extension/error.js:9
+msgid "Error loading WebPG"
+msgstr ""
+
+#: extension/error.js:10
+msgid "We encountered a problem while attempting to load WebPG"
+msgstr ""
+
+#: extension/error.js:13
+msgid "Error"
+msgstr ""
+
+#: extension/error.js:14
+msgid "Suggestions"
+msgstr ""
+
+#: extension/error.js:17
+msgid "The plugin was unable to load"
+msgstr ""
+
+#: extension/error.js:20
+msgid "There might be a problem with the gpg installation"
+msgstr ""
+
+#: extension/error.js:22
+msgid "consider reinstalling gpg4win"
+msgstr ""
+
+#: extension/error.js:28
+msgid "Error Details"
+msgstr ""
+
+#: extension/error.js:29
+msgid "Error in Method"
+msgstr ""
+
+#: extension/error.js:30
+msgid "Error Code"
+msgstr ""
+
+#: extension/error.js:31
+msgid "Error String"
+msgstr ""
+
+#: extension/error.js:38
+msgid "File"
+msgstr ""
+
+#: extension/error.js:39
+msgid "Line"
+msgstr ""
+
+#: extension/error.js:41
+msgid "Unknown Error"
+msgstr ""
+
+#: extension/error.js:45
+msgid "System Information"
+msgstr ""
+
+#: extension/error.js:46
+msgid "Platform"
+msgstr ""
+
+#: extension/error.js:47
+msgid "App Version"
+msgstr ""
+
+#: extension/error.js:48
+msgid "User Agent"
+msgstr ""
+
+#: extension/error.js:49
+msgid "Product"
+msgstr ""
+
+#: extension/error.js:50
+msgid "Sub-product"
+msgstr ""
+
+#: extension/error.js:51
+msgid "Vendor"
+msgstr ""
+
+#: extension/error.js:52
+msgid "Language"
+msgstr ""
+
+#: extension/gmail.js:305
+msgid "You do not have any keys for"
+msgstr ""
+
+#: extension/gmail.js:307
+msgid "or"
+msgstr ""
+
+#: extension/gmail.js:368
+msgid "You have more than 1 public key matching that address"
+msgstr ""
+
+#: extension/gmail.js:380
+msgid "The Key for"
+msgstr ""
+
+#: extension/gmail.js:381
+msgid "is invalid"
+msgstr ""
+
+#: extension/gmail.js:385
+msgid "Open the Key Manager"
+msgstr ""
+
+#: extension/gmail.js:484 extension/key_manager.js:723
+msgid "Encrypt"
+msgstr ""
+
+#: extension/gmail.js:490
+msgid "Sign only"
+msgstr ""
+
+#: extension/gmail.js:496
+msgid "Sign and Encrypt"
+msgstr ""
+
+#: extension/gmail.js:502
+msgid "Symmetric Encryption"
+msgstr ""
+
+#: extension/gmail.js:508
+msgid "Do not use WebPG for this message"
+msgstr ""
+
+#: extension/key_manager.js:49
+msgid "Private Keys"
+msgstr ""
+
+#: extension/key_manager.js:50
+msgid "Public Keys"
+msgstr ""
+
+#: extension/key_manager.js:51
+msgid "Search/Filter"
+msgstr ""
+
+#: extension/key_manager.js:52
+msgid "Are you sure you wish to revoke this Key"
+msgstr ""
+
+#: extension/key_manager.js:53
+msgid "Are you sure you wish to revoke this UID"
+msgstr ""
+
+#: extension/key_manager.js:54
+msgid "Are you sure you wish to revoke this Signature"
+msgstr ""
+
+#: extension/key_manager.js:55
+msgid "Are you sure you wish to delete this Signature"
+msgstr ""
+
+#: extension/key_manager.js:56
+msgid "Are you sure you want to permanently delete this UID"
+msgstr ""
+
+#: extension/key_manager.js:57
+msgid "New Expiration Date"
+msgstr ""
+
+#: extension/key_manager.js:58
+msgid "Never Expire"
+msgstr ""
+
+#: extension/key_manager.js:59
+msgid "Expiration Date"
+msgstr ""
+
+#: extension/key_manager.js:334
+msgid "Generate New Key"
+msgstr ""
+
+#: extension/key_manager.js:346 extension/key_manager.js:1122
+msgid "Name Required"
+msgstr ""
+
+#: extension/key_manager.js:350 extension/key_manager.js:1126
+msgid "UID Names must be at least 5 characters"
+msgstr ""
+
+#: extension/key_manager.js:356 extension/key_manager.js:1130
+msgid "UID Names cannot begin with a number"
+msgstr ""
+
+#: extension/key_manager.js:363 extension/key_manager.js:1135
+msgid "Not a valid email address"
+msgstr ""
+
+#: extension/key_manager.js:373 extension/key_manager.js:375
+msgid "Passphrases do not match"
+msgstr ""
+
+#: extension/key_manager.js:404
+msgid "Building key, please wait"
+msgstr ""
+
+#: extension/key_manager.js:405
+msgid "This may take a long time (5 minutes or more) to complete"
+msgstr ""
+
+#: extension/key_manager.js:405
+msgid "Please be patient while the key is created"
+msgstr ""
+
+#: extension/key_manager.js:405
+msgid "It is safe to close this window"
+msgstr ""
+
+#: extension/key_manager.js:405
+msgid "key generation will continue in the background"
+msgstr ""
+
+#: extension/key_manager.js:512 extension/key_manager.js:561
+#: extension/key_manager.js:1743 extension/options.js:135
+#: extension/options.js:138 extension/options.js:146 extension/options.js:155
+#: extension/options.js:163 extension/options.js:172 extension/options.js:180
+#: extension/options.js:185
+msgid "Enabled"
+msgstr "Enabled"
+
+#: extension/key_manager.js:512 extension/key_manager.js:519
+#: extension/key_manager.js:562 extension/key_manager.js:696
+#: extension/key_manager.js:1743 extension/options.js:135
+#: extension/options.js:138 extension/options.js:146 extension/options.js:151
+#: extension/options.js:163 extension/options.js:172 extension/options.js:180
+#: extension/options.js:185
+msgid "Disabled"
+msgstr "Disabled"
+
+#: extension/key_manager.js:515 extension/key_manager.js:694
+msgid "Valid"
+msgstr ""
+
+#: extension/key_manager.js:523 extension/key_manager.js:580
+#: extension/key_manager.js:699 extension/key_manager.js:710
+#: extension/key_manager.js:719
+msgid "Expired"
+msgstr ""
+
+#: extension/key_manager.js:527 extension/key_manager.js:702
+msgid "Invalid"
+msgstr ""
+
+#: extension/key_manager.js:531 extension/key_manager.js:705
+msgid "Revoked"
+msgstr ""
+
+#: extension/key_manager.js:567
+msgid "Cannot unset your default key"
+msgstr ""
+
+#: extension/key_manager.js:587 extension/key_manager.js:619
+msgid "Trust Assignment"
+msgstr ""
+
+#: extension/key_manager.js:589 extension/key_manager.js:621
+msgid "Unknown"
+msgstr ""
+
+#: extension/key_manager.js:589 extension/key_manager.js:621
+msgid "Never"
+msgstr ""
+
+#: extension/key_manager.js:589 extension/key_manager.js:621
+msgid "Marginal"
+msgstr ""
+
+#: extension/key_manager.js:589 extension/key_manager.js:621
+msgid "Full"
+msgstr ""
+
+#: extension/key_manager.js:589 extension/key_manager.js:621
+msgid "Ultimate"
+msgstr ""
+
+#: extension/key_manager.js:594 extension/key_manager.js:741
+msgid "Change Expiration"
+msgstr ""
+
+#: extension/key_manager.js:600
+msgid "Change Passphrase"
+msgstr ""
+
+#: extension/key_manager.js:606
+msgid "Add UID"
+msgstr ""
+
+#: extension/key_manager.js:612
+msgid "Add Subkey"
+msgstr ""
+
+#: extension/key_manager.js:666
+msgid "Enable this Key"
+msgstr ""
+
+#: extension/key_manager.js:666
+msgid "Disable this Key"
+msgstr ""
+
+#: extension/key_manager.js:670
+msgid "Key Details"
+msgstr ""
+
+#: extension/key_manager.js:671 extension/key_manager.js:731
+msgid "KeyID"
+msgstr ""
+
+#: extension/key_manager.js:671 extension/key_manager.js:731
+msgid "Key Created"
+msgstr ""
+
+#: extension/key_manager.js:672 extension/key_manager.js:732
+#: extension/webpg_results.js:359
+msgid "Expires"
+msgstr ""
+
+#: extension/key_manager.js:673
+msgid "UIDs"
+msgstr ""
+
+#: extension/key_manager.js:674 extension/key_manager.js:733
+msgid "Fingerprint"
+msgstr ""
+
+#: extension/key_manager.js:675 extension/key_manager.js:734
+msgid "Status"
+msgstr ""
+
+#: extension/key_manager.js:675 extension/key_manager.js:734
+msgid "Key Algorithm"
+msgstr ""
+
+#: extension/key_manager.js:677
+msgid "Validity"
+msgstr ""
+
+#: extension/key_manager.js:679 extension/key_manager.js:738
+msgid "Key Options"
+msgstr ""
+
+#: extension/key_manager.js:681 extension/key_manager.js:743
+msgid "Operations"
+msgstr ""
+
+#: extension/key_manager.js:685
+msgid "Delete this Key"
+msgstr ""
+
+#: extension/key_manager.js:688
+msgid "Export this Key"
+msgstr ""
+
+#: extension/key_manager.js:691
+msgid "Subkeys"
+msgstr ""
+
+#: extension/key_manager.js:722 extension/key_manager.js:1553
+msgid "Sign"
+msgstr ""
+
+#: extension/key_manager.js:724
+msgid "Authenticate"
+msgstr ""
+
+#: extension/key_manager.js:730
+msgid "Subkey Details"
+msgstr ""
+
+#: extension/key_manager.js:735
+msgid "Flags"
+msgstr ""
+
+#: extension/key_manager.js:746
+msgid "Delete this Subkey"
+msgstr ""
+
+#: extension/key_manager.js:749
+msgid "Revoke this Subkey"
+msgstr ""
+
+#: extension/key_manager.js:754
+msgid "User IDs"
+msgstr ""
+
+#: extension/key_manager.js:764 extension/key_manager.js:819
+msgid "no email address provided"
+msgstr ""
+
+#: extension/key_manager.js:774
+msgid "Make primary"
+msgstr ""
+
+#: extension/key_manager.js:778
+msgid "Revoke UID"
+msgstr ""
+
+#: extension/key_manager.js:782
+msgid "Sign this UID"
+msgstr ""
+
+#: extension/key_manager.js:784 extension/key_manager.js:1405
+msgid "Delete this UID"
+msgstr ""
+
+#: extension/key_manager.js:806
+msgid "REVOKED"
+msgstr ""
+
+#: extension/key_manager.js:845
+msgid "self-signature"
+msgstr ""
+
+#: extension/key_manager.js:847
+msgid "local"
+msgstr ""
+
+#: extension/key_manager.js:847
+msgid "non-exportable"
+msgstr ""
+
+#: extension/key_manager.js:849
+msgid "other signature"
+msgstr ""
+
+#: extension/key_manager.js:856 extension/key_manager.js:1346
+#: extension/key_manager.js:1460 extension/key_manager.js:1623
+msgid "Revoke"
+msgstr ""
+
+#: extension/key_manager.js:859 extension/key_manager.js:1683
+msgid "Delete"
+msgstr ""
+
+#: extension/key_manager.js:868
+msgid "Signatures made with keys not in your keyring are omitted"
+msgstr ""
+
+#: extension/key_manager.js:1006
+msgid "Save"
+msgstr ""
+
+#: extension/key_manager.js:1040 extension/key_manager.js:1092
+#: extension/key_manager.js:1160 extension/key_manager.js:1226
+#: extension/key_manager.js:1358 extension/key_manager.js:1421
+#: extension/key_manager.js:1472 extension/key_manager.js:1586
+#: extension/key_manager.js:1636 extension/key_manager.js:1693
+#: extension/key_manager.js:1713
+msgid "Cancel"
+msgstr ""
+
+#: extension/key_manager.js:1063
+msgid "Delete this key"
+msgstr ""
+
+#: extension/key_manager.js:1114 extension/key_manager.js:1183
+msgid "Create"
+msgstr ""
+
+#: extension/key_manager.js:1203
+msgid "Building key, please wait.."
+msgstr ""
+
+#: extension/key_manager.js:1301
+msgid "Copy"
+msgstr ""
+
+#: extension/key_manager.js:1311
+msgid "Close"
+msgstr ""
+
+#: extension/key_manager.js:1334 extension/key_manager.js:1450
+#: extension/key_manager.js:1613
+msgid "Please specify the revocation details"
+msgstr ""
+
+#: extension/key_manager.js:1335 extension/key_manager.js:1451
+#: extension/key_manager.js:1614
+msgid "Reason"
+msgstr ""
+
+#: extension/key_manager.js:1337 extension/key_manager.js:1453
+#: extension/key_manager.js:1616
+msgid "No reason specified"
+msgstr ""
+
+#: extension/key_manager.js:1338
+msgid "Key has been compromised"
+msgstr ""
+
+#: extension/key_manager.js:1339
+msgid "Key is superseded"
+msgstr ""
+
+#: extension/key_manager.js:1340
+msgid "Key is no longer used"
+msgstr ""
+
+#: extension/key_manager.js:1342 extension/key_manager.js:1456
+#: extension/key_manager.js:1619
+msgid "Description"
+msgstr ""
+
+#: extension/key_manager.js:1454 extension/key_manager.js:1617
+msgid "User ID is no longer valid"
+msgstr ""
+
+#: extension/key_manager.js:1521
+msgid "Please select which of your keys to create the signature with"
+msgstr ""
+
+#: extension/key_manager.js:1530
+msgid "You have not enabled any keys for use with webpg"
+msgstr ""
+
+#: extension/key_manager.js:1530
+msgid "please click here"
+msgstr ""
+
+#: extension/key_manager.js:1530
+msgid "and select 1 or more keys for use with webpg"
+msgstr ""
+
+#: extension/key_manager.js:1538
+msgid "Signature added using this key"
+msgstr ""
+
+#: extension/key_manager.js:1604
+msgid "Cannot create signatures without gpgconf utility installed"
+msgstr ""
+
+#: extension/key_manager.js:1606
+msgid "Cannot sign a revoked UID"
+msgstr ""
+
+#: extension/key_manager.js:1607
+msgid "Cannot make a revoked UID primary"
+msgstr ""
+
+#: extension/key_manager.js:1608
+msgid "Cannot sign an expired key"
+msgstr ""
+
+#: extension/key_manager.js:1674
+msgid "Are you certain you would like to delete signature"
+msgstr ""
+
+#: extension/key_manager.js:1675
+msgid "from this User ID"
+msgstr ""
+
+#: extension/key_manager.js:1677
+msgid "This signature was made with a key that does not belong to you"
+msgstr ""
+
+#: extension/key_manager.js:1677
+msgid "This action cannot be undone"
+msgstr ""
+
+#: extension/key_manager.js:1707
+msgid "Delete this Signature"
+msgstr ""
+
+#: extension/key_manager.js:1749
+msgid "Enable this key for signing"
+msgstr ""
+
+#: extension/key_manager.js:1759
+msgid "This is your default key"
+msgstr ""
+
+#: extension/key_manager.js:1761
+msgid "Make this the default key for encryption operations"
+msgstr ""
+
+#: extension/key_manager.js:1874
+msgid "Searching for"
+msgstr ""
+
+#: extension/options.js:44
+msgid "The WebPG NPAPI Plugin is valid"
+msgstr ""
+
+#: extension/options.js:45
+msgid "libgpgme loaded successfully"
+msgstr ""
+
+#: extension/options.js:46
+msgid "It appears you have a key-agent configured"
+msgstr ""
+
+#: extension/options.js:47
+msgid "gpgconf was detected"
+msgstr ""
+
+#: extension/options.js:47
+msgid "you can use the signature methods"
+msgstr ""
+
+#: extension/options.js:53
+msgid "libgpgme was unable to load"
+msgstr ""
+
+#: extension/options.js:53
+msgid "libgpgme is required for operation"
+msgstr ""
+
+#: extension/options.js:61
+msgid "You do not appear to have a key-agent configured"
+msgstr ""
+
+#: extension/options.js:61
+msgid "A working key-agent is required"
+msgstr ""
+
+#: extension/options.js:69
+msgid "gpgconf does not appear to be installed"
+msgstr ""
+
+#: extension/options.js:69
+msgid "You will not be able to create signatures"
+msgstr ""
+
+#: extension/options.js:78
+msgid "There was a problem loading the plugin"
+msgstr ""
+
+#: extension/options.js:78
+msgid "the plugin might be incompatibly compiled for this architechture"
+msgstr ""
+
+#: extension/options.js:106
+msgid "click here for help resolving this issue"
+msgstr ""
+
+#: extension/options.js:166
+msgid "WebPG GMAIL integration is EXPERIMENTAL"
+msgstr ""
+
+#: extension/options.js:166
+msgid "use at your own risk"
+msgstr ""
+
+#: extension/utils.js:242
+msgid "Text copied to clipboard"
+msgstr ""
+
+#: extension/utils.js:245
+msgid "There may have been a problem placing the data into the clipboard"
+msgstr ""
+
+#: extension/utils.js:273
+msgid "WebPG Options"
+msgstr ""
+
+#: extension/utils.js:274
+msgid "WebPG Key Manager"
+msgstr ""
+
+#: extension/utils.js:480
+msgid "Paste Public Key"
+msgstr ""
+
+#: extension/utils.js:500
+msgid "Clear-sign this text"
+msgstr ""
+
+#: extension/utils.js:520
+msgid "Import this Key"
+msgstr ""
+
+#: extension/utils.js:540
+msgid "Encrypt this text"
+msgstr ""
+
+#: extension/utils.js:560
+msgid "Decrypt this text"
+msgstr ""
+
+#: extension/utils.js:580
+msgid "Verify this text"
+msgstr ""
+
+#: extension/webpg_results.js:125
+msgid "PGP ENCRYPTED OR SIGNED MESSAGE"
+msgstr ""
+
+#: extension/webpg_results.js:127
+msgid "UNABLE TO DECRYPT OR VERIFY THIS MESSAGE"
+msgstr ""
+
+#: extension/webpg_results.js:129
+msgid "PGP ENCRYPTED MESSAGE"
+msgstr ""
+
+#: extension/webpg_results.js:138 extension/webpg_results.js:496
+msgid "PGP ENCRYPTED AND SIGNED MESSAGE"
+msgstr ""
+
+#: extension/webpg_results.js:167 extension/webpg_results.js:171
+#: extension/webpg_results.js:490
+msgid "DECRYPTION FAILED"
+msgstr ""
+
+#: extension/webpg_results.js:167
+msgid "NO SECRET KEY"
+msgstr ""
+
+#: extension/webpg_results.js:171 extension/webpg_results.js:490
+msgid "BAD PASSPHRASE"
+msgstr ""
+
+#: extension/webpg_results.js:173 extension/webpg_results.js:176
+msgid "DECRYPT THIS MESSAGE"
+msgstr ""
+
+#: extension/webpg_results.js:183 extension/webpg_results.js:246
+#: extension/webpg_results.js:252 extension/webpg_results.js:271
+#: extension/webpg_results.js:370 extension/webpg_results.js:399
+#: extension/webpg_results.js:405 extension/webpg_results.js:425
+#: extension/webpg_results.js:466 extension/webpg_results.js:472
+#: extension/webpg_results.js:519 extension/webpg_results.js:523
+#: extension/webpg_results.js:529
+msgid "DISPLAY ORIGINAL"
+msgstr ""
+
+#: extension/webpg_results.js:185 extension/webpg_results.js:209
+#: extension/webpg_results.js:247 extension/webpg_results.js:253
+#: extension/webpg_results.js:272 extension/webpg_results.js:378
+#: extension/webpg_results.js:437 extension/webpg_results.js:520
+msgid "COPY TO CLIPBOARD"
+msgstr "COPY TO CLIPBOARD"
+
+#: extension/webpg_results.js:191
+msgid "DETACHED PGP SIGNATURE"
+msgstr ""
+
+#: extension/webpg_results.js:193
+msgid "PGP SIGNED MESSAGE"
+msgstr ""
+
+#: extension/webpg_results.js:208
+msgid "THE SIGNATURE ON THIS MESSAGE IS INVALID"
+msgstr ""
+
+#: extension/webpg_results.js:208
+msgid "THE SIGNATURE MIGHT BE TAMPERED WITH"
+msgstr ""
+
+#: extension/webpg_results.js:246
+msgid "THIS MESSAGE WAS SIGNED WITH KEY"
+msgstr ""
+
+#: extension/webpg_results.js:251
+msgid "THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY"
+msgstr ""
+
+#: extension/webpg_results.js:270
+msgid "THE SIGNATURE ON THIS MESSAGE FAILED"
+msgstr ""
+
+#: extension/webpg_results.js:270
+msgid "THE MESSAGE MAY BE TAMPERED WITH"
+msgstr ""
+
+#: extension/webpg_results.js:286
+msgid "PGP PUBLIC KEY"
+msgstr ""
+
+#: extension/webpg_results.js:335
+msgid "Names/UIDs on Key"
+msgstr ""
+
+#: extension/webpg_results.js:358
+msgid "Created"
+msgstr ""
+
+#: extension/webpg_results.js:362
+msgid "THIS KEY IS NOT IN YOUR KEYRING"
+msgstr ""
+
+#: extension/webpg_results.js:368
+msgid "THIS KEY IS IN YOUR KEYRING"
+msgstr ""
+
+#: extension/webpg_results.js:373 extension/webpg_results.js:436
+msgid "IMPORT THIS KEY"
+msgstr ""
+
+#: extension/webpg_results.js:376
+msgid "DELETE THIS KEY"
+msgstr ""
+
+#: extension/webpg_results.js:402 extension/webpg_results.js:469
+#: extension/webpg_results.js:526
+msgid "HIDE ORIGINAL"
+msgstr ""
+
+#: extension/manifest.json:4
+msgid "extDesc"
+msgstr "An extension which provides GnuPG/GPG/PGP related functions to Chrome"

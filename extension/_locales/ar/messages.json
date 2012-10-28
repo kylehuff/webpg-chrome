@@ -1,0 +1,618 @@
+{
+	"WebPG_Plugin_failed_to_load": {
+		"message": "WebPG فشل تحميل البرنامج المساعد"
+	},
+	"Key_Generation_Complete": {
+		"message": "أكملت إنشاء المفتاح"
+	},
+	"Key_Generation": {
+		"message": "مفتاح الجيل"
+	},
+	"Open_Key_Manager": {
+		"message": "فتح إدارة المفاتيح"
+	},
+	"WebPG_Key_Generation_Failed": {
+		"message": "WebPG الجيل مفتاح فشل"
+	},
+	"The_generation_of_your_new_key_is_now_complete": {
+		"message": "توليد المفتاح الخاص بك هو الآن كاملة"
+	},
+	"Options": {
+		"message": "خيارات"
+	},
+	"Key_Manager": {
+		"message": "مفتاح مدير"
+	},
+	"About_WebPG": {
+		"message": "حول WebPG"
+	},
+	"Select_Recipient_s_": {
+		"message": "حدد المستلمين"
+	},
+	"Error_loading_WebPG": {
+		"message": "خطأ في تحميل WebPG"
+	},
+	"We_encountered_a_problem_while_attempting_to_load_WebPG": {
+		"message": "واجهنا مشكلة أثناء محاولة تحميل WebPG"
+	},
+	"Error": {
+		"message": "خطأ"
+	},
+	"Suggestions": {
+		"message": "اقتراحات"
+	},
+	"The_plugin_was_unable_to_load": {
+		"message": "كان غير قادر على تحميل البرنامج المساعد"
+	},
+	"There_might_be_a_problem_with_the_gpg_installation": {
+		"message": "قد يكون هناك مشكلة في التثبيت GPG"
+	},
+	"consider_reinstalling_gpg4win": {
+		"message": "النظر في إعادة تثبيت gpg4win"
+	},
+	"Error_Details": {
+		"message": "تفاصيل الخطأ"
+	},
+	"Error_in_Method": {
+		"message": "خطأ في الأسلوب"
+	},
+	"Error_Code": {
+		"message": "رمز الخطأ"
+	},
+	"Error_String": {
+		"message": "خطأ سلسلة"
+	},
+	"File": {
+		"message": "ملف"
+	},
+	"Line": {
+		"message": "خط"
+	},
+	"Unknown_Error": {
+		"message": "خطأ غير معروف"
+	},
+	"System_Information": {
+		"message": "نظام المعلومات"
+	},
+	"Platform": {
+		"message": "منصة"
+	},
+	"App_Version": {
+		"message": "التطبيق الإصدار"
+	},
+	"User_Agent": {
+		"message": "وكيل المستخدم"
+	},
+	"Product": {
+		"message": "نتاج"
+	},
+	"Sub_product": {
+		"message": "المنتج الفرعي"
+	},
+	"Vendor": {
+		"message": "بائع"
+	},
+	"Language": {
+		"message": "لغة"
+	},
+	"You_do_not_have_any_keys_for": {
+		"message": "لم يكن لديك أي مفاتيح"
+	},
+	"or": {
+		"message": "أو"
+	},
+	"You_have_more_than_1_public_key_matching_that_address": {
+		"message": "لديك أكثر من 1 المفتاح العمومي مطابقة هذا العنوان"
+	},
+	"The_Key_for": {
+		"message": "مفتاح لل"
+	},
+	"is_invalid": {
+		"message": "غير صالح"
+	},
+	"Open_the_Key_Manager": {
+		"message": "فتح إدارة المفاتيح"
+	},
+	"Encrypt": {
+		"message": "تشفير"
+	},
+	"Sign_only": {
+		"message": "توقيع فقط"
+	},
+	"Sign_and_Encrypt": {
+		"message": "توقيع وتشفير"
+	},
+	"Symmetric_Encryption": {
+		"message": "متماثل التشفير"
+	},
+	"Do_not_use_WebPG_for_this_message": {
+		"message": "لا تستخدم WebPG لهذه الرسالة"
+	},
+	"Private_Keys": {
+		"message": "مفاتيح خاصة"
+	},
+	"Public_Keys": {
+		"message": "مفاتيح العامة"
+	},
+	"Search_Filter": {
+		"message": "بحث / فلتر"
+	},
+	"Are_you_sure_you_wish_to_revoke_this_Key": {
+		"message": "هل أنت متأكد أنك ترغب في الغاء هذا معرف المستخدم"
+	},
+	"Are_you_sure_you_wish_to_revoke_this_UID": {
+		"message": "هل أنت متأكد أنك ترغب في الغاء هذا التحديد المستخدم"
+	},
+	"Are_you_sure_you_wish_to_revoke_this_Signature": {
+		"message": "هل أنت متأكد أنك ترغب في إلغاء هذا التوقيع"
+	},
+	"Are_you_sure_you_wish_to_delete_this_Signature": {
+		"message": "هل أنت متأكد أنك تريد حذف هذا التوقيع"
+	},
+	"Are_you_sure_you_want_to_permanently_delete_this_UID": {
+		"message": "هل أنت متأكد أنك تريد حذف هذا معرف المستخدم بشكل دائم"
+	},
+	"New_Expiration_Date": {
+		"message": "تاريخ انتهاء الصلاحية الجديد"
+	},
+	"Never_Expire": {
+		"message": "أبدا انتهاء"
+	},
+	"Expiration_Date": {
+		"message": "تاريخ انتهاء الصلاحية"
+	},
+	"Generate_New_Key": {
+		"message": "إنشاء مفتاح جديد"
+	},
+	"Name_Required": {
+		"message": "الاسم مطلوب"
+	},
+	"UID_Names_must_be_at_least_5_characters": {
+		"message": "يجب أن تكون هوية المستخدم لا يقل عن 5 أحرف"
+	},
+	"UID_Names_cannot_begin_with_a_number": {
+		"message": "يمكن الأسماء هوية المستخدم لم يبدأ مع عدد"
+	},
+	"Not_a_valid_email_address": {
+		"message": "لا عنوان بريد إلكتروني صالح"
+	},
+	"Passphrases_do_not_match": {
+		"message": "كلمات المرور لا تتطابق"
+	},
+	"Building_key__please_wait": {
+		"message": "إنشاء المفتاح، يرجى الانتظار"
+	},
+	"This_may_take_a_long_time__5_minutes_or_more__to_complete": {
+		"message": "وهذا قد يستغرق وقتا طويلا (5 دقائق أو أكثر) لإكمال"
+	},
+	"Please_be_patient_while_the_key_is_created": {
+		"message": "يرجى أن يكون المريض في حين يتم إنشاء مفتاح"
+	},
+	"It_is_safe_to_close_this_window": {
+		"message": "أنها آمنة لإغلاق هذه النافذة"
+	},
+	"key_generation_will_continue_in_the_background": {
+		"message": "وسوف يستمر إنشاء المفتاح في الخلفية"
+	},
+	"Enabled": {
+		"message": "تمكين"
+	},
+	"Disabled": {
+		"message": "مشلول"
+	},
+	"Valid": {
+		"message": "صالح"
+	},
+	"Expired": {
+		"message": "انقضاء"
+	},
+	"Invalid": {
+		"message": "غير صالح"
+	},
+	"Revoked": {
+		"message": "سحب"
+	},
+	"Cannot_unset_your_default_key": {
+		"message": "هذا هو المفتاح الخاص بك الافتراضي"
+	},
+	"Trust_Assignment": {
+		"message": "تعيين الثقة"
+	},
+	"Unknown": {
+		"message": "غير معروف"
+	},
+	"Never": {
+		"message": "أبدا"
+	},
+	"Marginal": {
+		"message": "هامشي"
+	},
+	"Full": {
+		"message": "تماما"
+	},
+	"Ultimate": {
+		"message": "نهائي"
+	},
+	"Change_Expiration": {
+		"message": "تاريخ انتهاء الصلاحية الجديد"
+	},
+	"Change_Passphrase": {
+		"message": "تغيير عبارة المرور"
+	},
+	"Add_UID": {
+		"message": "إضافة المستخدم معرف"
+	},
+	"Add_Subkey": {
+		"message": "إضافة مفتاح الفرعي"
+	},
+	"Enable_this_Key": {
+		"message": "تمكين هذا المفتاح لتوقيع"
+	},
+	"Disable_this_Key": {
+		"message": "حذف هذا المفتاح"
+	},
+	"Key_Details": {
+		"message": "مفتاح التفاصيل"
+	},
+	"KeyID": {
+		"message": "مفتاح معرف"
+	},
+	"Key_Created": {
+		"message": "تم إنشاؤها على"
+	},
+	"Expires": {
+		"message": "انقضاء"
+	},
+	"UIDs": {
+		"message": "مستخدم المعرفات"
+	},
+	"Fingerprint": {
+		"message": "بصمة"
+	},
+	"Status": {
+		"message": "حالة"
+	},
+	"Key_Algorithm": {
+		"message": "مفتاح خوارزمية"
+	},
+	"Validity": {
+		"message": "صحة"
+	},
+	"Key_Options": {
+		"message": "خيارات"
+	},
+	"Operations": {
+		"message": "خيارات"
+	},
+	"Delete_this_Key": {
+		"message": "حذف هذا المفتاح"
+	},
+	"Export_this_Key": {
+		"message": "استيراد هذا المفتاح"
+	},
+	"Subkeys": {
+		"message": "المفاتيح الفرعية"
+	},
+	"Sign": {
+		"message": "توقيع فقط"
+	},
+	"Authenticate": {
+		"message": "مصادقة"
+	},
+	"Subkey_Details": {
+		"message": "مفتاح الفرعي التفاصيل"
+	},
+	"Flags": {
+		"message": "الأعلام"
+	},
+	"Delete_this_Subkey": {
+		"message": "حذف هذا المفتاح"
+	},
+	"Revoke_this_Subkey": {
+		"message": "حذف هذا المفتاح"
+	},
+	"User_IDs": {
+		"message": "مستخدم المعرفات"
+	},
+	"no_email_address_provided": {
+		"message": "لم يقدم أي عنوان بريد إلكتروني"
+	},
+	"Make_primary": {
+		"message": "جعل الابتدائية"
+	},
+	"Revoke_UID": {
+		"message": "سحب"
+	},
+	"Sign_this_UID": {
+		"message": "حذف هذا معرف المستخدم"
+	},
+	"Delete_this_UID": {
+		"message": "حذف هذا معرف المستخدم"
+	},
+	"REVOKED": {
+		"message": "فاسخ"
+	},
+	"self_signature": {
+		"message": "حذف هذا التوقيع"
+	},
+	"local": {
+		"message": "محلي"
+	},
+	"non_exportable": {
+		"message": "غير القابلة للتصدير"
+	},
+	"other_signature": {
+		"message": "حذف هذا التوقيع"
+	},
+	"Revoke": {
+		"message": "سحب"
+	},
+	"Delete": {
+		"message": "حذف"
+	},
+	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
+		"message": "لا يتم عرض التواقيع التي تم إنشاؤها باستخدام مفاتيح ليس في كيرينغ الخاص"
+	},
+	"Save": {
+		"message": "حفظ"
+	},
+	"Cancel": {
+		"message": "إلغاء"
+	},
+	"Delete_this_key": {
+		"message": "حذف هذا المفتاح"
+	},
+	"Create": {
+		"message": "خلق"
+	},
+	"Building_key__please_wait__": {
+		"message": "إنشاء المفتاح، يرجى الانتظار"
+	},
+	"Copy": {
+		"message": "نسخ"
+	},
+	"Close": {
+		"message": "غلق"
+	},
+	"Please_specify_the_revocation_details": {
+		"message": "يرجى تحديد تفاصيل من إبطال"
+	},
+	"Reason": {
+		"message": "سبب"
+	},
+	"No_reason_specified": {
+		"message": "لا يوجد سبب محدد"
+	},
+	"Key_has_been_compromised": {
+		"message": "تم اختراق المفتاح"
+	},
+	"Key_is_superseded": {
+		"message": "وقد تم استبدال مفتاح"
+	},
+	"Key_is_no_longer_used": {
+		"message": "لم يعد يستخدم مفتاح"
+	},
+	"Description": {
+		"message": "وصف"
+	},
+	"User_ID_is_no_longer_valid": {
+		"message": "هوية المستخدم لم يعد صالحا"
+	},
+	"Please_select_which_of_your_keys_to_create_the_signature_with": {
+		"message": "الرجاء اختيار أي من المفاتيح الخاصة بك لإنشاء التوقيع مع"
+	},
+	"You_have_not_enabled_any_keys_for_use_with_webpg": {
+		"message": "لديك لم يتم تمكين أي مفاتيح للاستخدام مع webpg"
+	},
+	"please_click_here": {
+		"message": "الرجاء الضغط هنا"
+	},
+	"and_select_1_or_more_keys_for_use_with_webpg": {
+		"message": "وحدد 1 أو أكثر مفاتيح للاستخدام مع webpg"
+	},
+	"Signature_added_using_this_key": {
+		"message": "إنشاء التوقيع باستخدام هذا المفتاح"
+	},
+	"Cannot_create_signatures_without_gpgconf_utility_installed": {
+		"message": "لا يمكن إنشاء التواقيع دون تثبيت gpgconf"
+	},
+	"Cannot_sign_a_revoked_UID": {
+		"message": "غير قادر على التوقيع من قبل المستخدم المعرف الذي تم إبطال"
+	},
+	"Cannot_make_a_revoked_UID_primary": {
+		"message": "لا يمكنك تعيين معرف من المستخدم كما الأولية إذا كان المستخدم معرف تم إبطال"
+	},
+	"Cannot_sign_an_expired_key": {
+		"message": "لا يمكن التوقيع على مفتاح منتهية الصلاحية"
+	},
+	"Are_you_certain_you_would_like_to_delete_signature": {
+		"message": "أنت متأكد من أنك تريد حذف التوقيع"
+	},
+	"from_this_User_ID": {
+		"message": "من هذا المعرف المستخدم"
+	},
+	"This_signature_was_made_with_a_key_that_does_not_belong_to_you": {
+		"message": "وجاء هذا التوقيع مع مفتاح لا ينتمي لك"
+	},
+	"This_action_cannot_be_undone": {
+		"message": "لا يمكن التراجع عن هذا الإجراء"
+	},
+	"Delete_this_Signature": {
+		"message": "حذف هذا التوقيع"
+	},
+	"Enable_this_key_for_signing": {
+		"message": "تمكين هذا المفتاح لتوقيع"
+	},
+	"This_is_your_default_key": {
+		"message": "هذا هو المفتاح الخاص بك الافتراضي"
+	},
+	"Make_this_the_default_key_for_encryption_operations": {
+		"message": "جعل هذا المفتاح الافتراضي لعمليات التشفير"
+	},
+	"Searching_for": {
+		"message": "العثور على مفتاح"
+	},
+	"The_WebPG_NPAPI_Plugin_is_valid": {
+		"message": "البرنامج المساعد NPAPI WebPG صالحة"
+	},
+	"libgpgme_loaded_successfully": {
+		"message": "libgpgme تحميل بنجاح"
+	},
+	"It_appears_you_have_a_key_agent_configured": {
+		"message": "يبدو لديك مفتاح وكيل تكوينه"
+	},
+	"gpgconf_was_detected": {
+		"message": "تم الكشف عن gpgconf"
+	},
+	"you_can_use_the_signature_methods": {
+		"message": "يمكنك استخدام أساليب التوقيع"
+	},
+	"libgpgme_was_unable_to_load": {
+		"message": "وكان غير قادر على تهيئة libgpgme"
+	},
+	"libgpgme_is_required_for_operation": {
+		"message": "مطلوب للعمل libgpgme"
+	},
+	"You_do_not_appear_to_have_a_key_agent_configured": {
+		"message": "لا يبدو أن لديك مفتاح وكيل تكوينه"
+	},
+	"A_working_key_agent_is_required": {
+		"message": "يجب على مفتاح صالح وكيل تكون موجودة"
+	},
+	"gpgconf_does_not_appear_to_be_installed": {
+		"message": "gpgconf لا يظهر ليتم تثبيتها"
+	},
+	"You_will_not_be_able_to_create_signatures": {
+		"message": "فلن تكون قادرا على إنشاء التوقيعات"
+	},
+	"There_was_a_problem_loading_the_plugin": {
+		"message": "هناك مشكلة تهيئة البرنامج المساعد"
+	},
+	"the_plugin_might_be_incompatibly_compiled_for_this_architechture": {
+		"message": "قد تجميع البرنامج المساعد لا يكون للهندسة المعمارية الخاصة بك"
+	},
+	"click_here_for_help_resolving_this_issue": {
+		"message": "انقر هنا للحصول على المساعدة لحل هذه المشكلة"
+	},
+	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
+		"message": "جوجل التكامل تجريبية WebPG"
+	},
+	"use_at_your_own_risk": {
+		"message": "استخدام على مسؤوليتك الخاصة"
+	},
+	"Text_copied_to_clipboard": {
+		"message": "تم نسخ النص إلى الحافظة"
+	},
+	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
+		"message": "قد كانت هناك مشكلة وضع البيانات في الحافظة"
+	},
+	"WebPG_Options": {
+		"message": "خيارات WebPG"
+	},
+	"WebPG_Key_Manager": {
+		"message": "مفتاح مدير WebPG"
+	},
+	"Paste_Public_Key": {
+		"message": "لصق المفتاح العمومي"
+	},
+	"Clear_sign_this_text": {
+		"message": "واضحة توقيع هذه الرسالة"
+	},
+	"Import_this_Key": {
+		"message": "استيراد هذا المفتاح"
+	},
+	"Encrypt_this_text": {
+		"message": "تشفير هذه الرسالة"
+	},
+	"Decrypt_this_text": {
+		"message": "فك تشفير هذا النص"
+	},
+	"Verify_this_text": {
+		"message": "التحقق من هذه الرسالة"
+	},
+	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
+		"message": "رسالة مشفرة PGP أو وقعت"
+	},
+	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
+		"message": "غير قادر على فك تشفير هذه الرسالة أو التحقق"
+	},
+	"PGP_ENCRYPTED_MESSAGE": {
+		"message": "رسالة مشفرة PGP"
+	},
+	"PGP_ENCRYPTED_AND_SIGNED_MESSAGE": {
+		"message": "PGP رسالة المشفرة والموقعة"
+	},
+	"DECRYPTION_FAILED": {
+		"message": "فشل فك التشفير"
+	},
+	"NO_SECRET_KEY": {
+		"message": "لا المفتاح السري"
+	},
+	"BAD_PASSPHRASE": {
+		"message": "عبارة المرور خاطئة"
+	},
+	"DECRYPT_THIS_MESSAGE": {
+		"message": "فك تشفير هذه الرسالة"
+	},
+	"DISPLAY_ORIGINAL": {
+		"message": "عرض الأصلية"
+	},
+	"COPY_TO_CLIPBOARD": {
+		"message": "نسخ إلى الحافظة"
+	},
+	"DETACHED_PGP_SIGNATURE": {
+		"message": "التوقيع منفصلة"
+	},
+	"PGP_SIGNED_MESSAGE": {
+		"message": "وقعت رسالة PGP"
+	},
+	"THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID": {
+		"message": "التوقيع غير صالح"
+	},
+	"THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH": {
+		"message": "تم تغيير التوقيع"
+	},
+	"THIS_MESSAGE_WAS_SIGNED_WITH_KEY": {
+		"message": "وقد وقع هذه الرسالة مع المفتاح"
+	},
+	"THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY": {
+		"message": "وقد وقع هذه الرسالة مع المفتاح العمومي الذي انتهت مدة صلاحية"
+	},
+	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
+		"message": "التوقيع على هذه الرسالة غير صالح"
+	},
+	"THE_MESSAGE_MAY_BE_TAMPERED_WITH": {
+		"message": "قد يكون العبث بالرسالة"
+	},
+	"PGP_PUBLIC_KEY": {
+		"message": "PGP مفاتيح العامة"
+	},
+	"Names_UIDs_on_Key": {
+		"message": "أسماء على مفتاح"
+	},
+	"Created": {
+		"message": "تم إنشاؤها على"
+	},
+	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {
+		"message": "هذا المفتاح ليس في كيرينغ الخاص"
+	},
+	"THIS_KEY_IS_IN_YOUR_KEYRING": {
+		"message": "هذا المفتاح هو في كيرينغ الخاص"
+	},
+	"IMPORT_THIS_KEY": {
+		"message": "استيراد هذا المفتاح"
+	},
+	"DELETE_THIS_KEY": {
+		"message": "حذف هذا المفتاح"
+	},
+	"HIDE_ORIGINAL": {
+		"message": "إخفاء الأصلي"
+	},
+	"extDesc": {
+		"message": "امتدادا الذي يوفر GnuPG / GPG / PGP المهام ذات الصلة إلى Chrome"
+	},
+	"empty_end": {
+		"message": "N/A",
+		"description": "Just an empty item to mark our end; No need to translate."
+	}
+}

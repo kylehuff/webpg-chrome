@@ -1,9 +1,10 @@
 {
   "name": "WebPG",
-  "version": "0.8.9",
-  "description": "An extension which provides GnuPG/GPG/PGP related functions to Chrome",
+  "version": "0.8.30",
+  "description": "__MSG_extDesc__",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self'; object-src 'self'",
+  "default_locale": "en",
   "web_accessible_resources": [
       "webpg_results.html",
       "webpg_results.js",

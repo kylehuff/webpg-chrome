@@ -1,0 +1,618 @@
+{
+	"WebPG_Plugin_failed_to_load": {
+		"message": ""
+	},
+	"Key_Generation_Complete": {
+		"message": ""
+	},
+	"Key_Generation": {
+		"message": ""
+	},
+	"Open_Key_Manager": {
+		"message": ""
+	},
+	"WebPG_Key_Generation_Failed": {
+		"message": ""
+	},
+	"The_generation_of_your_new_key_is_now_complete": {
+		"message": ""
+	},
+	"Options": {
+		"message": ""
+	},
+	"Key_Manager": {
+		"message": ""
+	},
+	"About_WebPG": {
+		"message": ""
+	},
+	"Select_Recipient_s_": {
+		"message": ""
+	},
+	"Error_loading_WebPG": {
+		"message": ""
+	},
+	"We_encountered_a_problem_while_attempting_to_load_WebPG": {
+		"message": ""
+	},
+	"Error": {
+		"message": ""
+	},
+	"Suggestions": {
+		"message": ""
+	},
+	"The_plugin_was_unable_to_load": {
+		"message": ""
+	},
+	"There_might_be_a_problem_with_the_gpg_installation": {
+		"message": ""
+	},
+	"consider_reinstalling_gpg4win": {
+		"message": ""
+	},
+	"Error_Details": {
+		"message": ""
+	},
+	"Error_in_Method": {
+		"message": ""
+	},
+	"Error_Code": {
+		"message": ""
+	},
+	"Error_String": {
+		"message": ""
+	},
+	"File": {
+		"message": ""
+	},
+	"Line": {
+		"message": ""
+	},
+	"Unknown_Error": {
+		"message": ""
+	},
+	"System_Information": {
+		"message": ""
+	},
+	"Platform": {
+		"message": ""
+	},
+	"App_Version": {
+		"message": ""
+	},
+	"User_Agent": {
+		"message": ""
+	},
+	"Product": {
+		"message": ""
+	},
+	"Sub_product": {
+		"message": ""
+	},
+	"Vendor": {
+		"message": ""
+	},
+	"Language": {
+		"message": ""
+	},
+	"You_do_not_have_any_keys_for": {
+		"message": ""
+	},
+	"or": {
+		"message": ""
+	},
+	"You_have_more_than_1_public_key_matching_that_address": {
+		"message": ""
+	},
+	"The_Key_for": {
+		"message": ""
+	},
+	"is_invalid": {
+		"message": ""
+	},
+	"Open_the_Key_Manager": {
+		"message": ""
+	},
+	"Encrypt": {
+		"message": ""
+	},
+	"Sign_only": {
+		"message": ""
+	},
+	"Sign_and_Encrypt": {
+		"message": ""
+	},
+	"Symmetric_Encryption": {
+		"message": ""
+	},
+	"Do_not_use_WebPG_for_this_message": {
+		"message": ""
+	},
+	"Private_Keys": {
+		"message": ""
+	},
+	"Public_Keys": {
+		"message": ""
+	},
+	"Search_Filter": {
+		"message": ""
+	},
+	"Are_you_sure_you_wish_to_revoke_this_Key": {
+		"message": ""
+	},
+	"Are_you_sure_you_wish_to_revoke_this_UID": {
+		"message": ""
+	},
+	"Are_you_sure_you_wish_to_revoke_this_Signature": {
+		"message": ""
+	},
+	"Are_you_sure_you_wish_to_delete_this_Signature": {
+		"message": ""
+	},
+	"Are_you_sure_you_want_to_permanently_delete_this_UID": {
+		"message": ""
+	},
+	"New_Expiration_Date": {
+		"message": ""
+	},
+	"Never_Expire": {
+		"message": ""
+	},
+	"Expiration_Date": {
+		"message": ""
+	},
+	"Generate_New_Key": {
+		"message": ""
+	},
+	"Name_Required": {
+		"message": ""
+	},
+	"UID_Names_must_be_at_least_5_characters": {
+		"message": ""
+	},
+	"UID_Names_cannot_begin_with_a_number": {
+		"message": ""
+	},
+	"Not_a_valid_email_address": {
+		"message": ""
+	},
+	"Passphrases_do_not_match": {
+		"message": ""
+	},
+	"Building_key__please_wait": {
+		"message": ""
+	},
+	"This_may_take_a_long_time__5_minutes_or_more__to_complete": {
+		"message": ""
+	},
+	"Please_be_patient_while_the_key_is_created": {
+		"message": ""
+	},
+	"It_is_safe_to_close_this_window": {
+		"message": ""
+	},
+	"key_generation_will_continue_in_the_background": {
+		"message": ""
+	},
+	"Enabled": {
+		"message": ""
+	},
+	"Disabled": {
+		"message": ""
+	},
+	"Valid": {
+		"message": ""
+	},
+	"Expired": {
+		"message": ""
+	},
+	"Invalid": {
+		"message": ""
+	},
+	"Revoked": {
+		"message": ""
+	},
+	"Cannot_unset_your_default_key": {
+		"message": ""
+	},
+	"Trust_Assignment": {
+		"message": ""
+	},
+	"Unknown": {
+		"message": ""
+	},
+	"Never": {
+		"message": ""
+	},
+	"Marginal": {
+		"message": ""
+	},
+	"Full": {
+		"message": ""
+	},
+	"Ultimate": {
+		"message": ""
+	},
+	"Change_Expiration": {
+		"message": ""
+	},
+	"Change_Passphrase": {
+		"message": ""
+	},
+	"Add_UID": {
+		"message": ""
+	},
+	"Add_Subkey": {
+		"message": ""
+	},
+	"Enable_this_Key": {
+		"message": ""
+	},
+	"Disable_this_Key": {
+		"message": ""
+	},
+	"Key_Details": {
+		"message": ""
+	},
+	"KeyID": {
+		"message": ""
+	},
+	"Key_Created": {
+		"message": ""
+	},
+	"Expires": {
+		"message": ""
+	},
+	"UIDs": {
+		"message": ""
+	},
+	"Fingerprint": {
+		"message": ""
+	},
+	"Status": {
+		"message": ""
+	},
+	"Key_Algorithm": {
+		"message": ""
+	},
+	"Validity": {
+		"message": ""
+	},
+	"Key_Options": {
+		"message": ""
+	},
+	"Operations": {
+		"message": ""
+	},
+	"Delete_this_Key": {
+		"message": ""
+	},
+	"Export_this_Key": {
+		"message": ""
+	},
+	"Subkeys": {
+		"message": ""
+	},
+	"Sign": {
+		"message": ""
+	},
+	"Authenticate": {
+		"message": ""
+	},
+	"Subkey_Details": {
+		"message": ""
+	},
+	"Flags": {
+		"message": ""
+	},
+	"Delete_this_Subkey": {
+		"message": ""
+	},
+	"Revoke_this_Subkey": {
+		"message": ""
+	},
+	"User_IDs": {
+		"message": ""
+	},
+	"no_email_address_provided": {
+		"message": ""
+	},
+	"Make_primary": {
+		"message": ""
+	},
+	"Revoke_UID": {
+		"message": ""
+	},
+	"Sign_this_UID": {
+		"message": ""
+	},
+	"Delete_this_UID": {
+		"message": ""
+	},
+	"REVOKED": {
+		"message": ""
+	},
+	"self_signature": {
+		"message": ""
+	},
+	"local": {
+		"message": ""
+	},
+	"non_exportable": {
+		"message": ""
+	},
+	"other_signature": {
+		"message": ""
+	},
+	"Revoke": {
+		"message": ""
+	},
+	"Delete": {
+		"message": ""
+	},
+	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
+		"message": ""
+	},
+	"Save": {
+		"message": ""
+	},
+	"Cancel": {
+		"message": ""
+	},
+	"Delete_this_key": {
+		"message": ""
+	},
+	"Create": {
+		"message": ""
+	},
+	"Building_key__please_wait__": {
+		"message": ""
+	},
+	"Copy": {
+		"message": ""
+	},
+	"Close": {
+		"message": ""
+	},
+	"Please_specify_the_revocation_details": {
+		"message": ""
+	},
+	"Reason": {
+		"message": ""
+	},
+	"No_reason_specified": {
+		"message": ""
+	},
+	"Key_has_been_compromised": {
+		"message": ""
+	},
+	"Key_is_superseded": {
+		"message": ""
+	},
+	"Key_is_no_longer_used": {
+		"message": ""
+	},
+	"Description": {
+		"message": ""
+	},
+	"User_ID_is_no_longer_valid": {
+		"message": ""
+	},
+	"Please_select_which_of_your_keys_to_create_the_signature_with": {
+		"message": ""
+	},
+	"You_have_not_enabled_any_keys_for_use_with_webpg": {
+		"message": ""
+	},
+	"please_click_here": {
+		"message": ""
+	},
+	"and_select_1_or_more_keys_for_use_with_webpg": {
+		"message": ""
+	},
+	"Signature_added_using_this_key": {
+		"message": ""
+	},
+	"Cannot_create_signatures_without_gpgconf_utility_installed": {
+		"message": ""
+	},
+	"Cannot_sign_a_revoked_UID": {
+		"message": ""
+	},
+	"Cannot_make_a_revoked_UID_primary": {
+		"message": ""
+	},
+	"Cannot_sign_an_expired_key": {
+		"message": ""
+	},
+	"Are_you_certain_you_would_like_to_delete_signature": {
+		"message": ""
+	},
+	"from_this_User_ID": {
+		"message": ""
+	},
+	"This_signature_was_made_with_a_key_that_does_not_belong_to_you": {
+		"message": ""
+	},
+	"This_action_cannot_be_undone": {
+		"message": ""
+	},
+	"Delete_this_Signature": {
+		"message": ""
+	},
+	"Enable_this_key_for_signing": {
+		"message": ""
+	},
+	"This_is_your_default_key": {
+		"message": ""
+	},
+	"Make_this_the_default_key_for_encryption_operations": {
+		"message": ""
+	},
+	"Searching_for": {
+		"message": ""
+	},
+	"The_WebPG_NPAPI_Plugin_is_valid": {
+		"message": ""
+	},
+	"libgpgme_loaded_successfully": {
+		"message": ""
+	},
+	"It_appears_you_have_a_key_agent_configured": {
+		"message": ""
+	},
+	"gpgconf_was_detected": {
+		"message": ""
+	},
+	"you_can_use_the_signature_methods": {
+		"message": ""
+	},
+	"libgpgme_was_unable_to_load": {
+		"message": ""
+	},
+	"libgpgme_is_required_for_operation": {
+		"message": ""
+	},
+	"You_do_not_appear_to_have_a_key_agent_configured": {
+		"message": ""
+	},
+	"A_working_key_agent_is_required": {
+		"message": ""
+	},
+	"gpgconf_does_not_appear_to_be_installed": {
+		"message": ""
+	},
+	"You_will_not_be_able_to_create_signatures": {
+		"message": ""
+	},
+	"There_was_a_problem_loading_the_plugin": {
+		"message": ""
+	},
+	"the_plugin_might_be_incompatibly_compiled_for_this_architechture": {
+		"message": ""
+	},
+	"click_here_for_help_resolving_this_issue": {
+		"message": ""
+	},
+	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
+		"message": ""
+	},
+	"use_at_your_own_risk": {
+		"message": ""
+	},
+	"Text_copied_to_clipboard": {
+		"message": ""
+	},
+	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
+		"message": ""
+	},
+	"WebPG_Options": {
+		"message": ""
+	},
+	"WebPG_Key_Manager": {
+		"message": ""
+	},
+	"Paste_Public_Key": {
+		"message": ""
+	},
+	"Clear_sign_this_text": {
+		"message": ""
+	},
+	"Import_this_Key": {
+		"message": ""
+	},
+	"Encrypt_this_text": {
+		"message": ""
+	},
+	"Decrypt_this_text": {
+		"message": ""
+	},
+	"Verify_this_text": {
+		"message": ""
+	},
+	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
+		"message": ""
+	},
+	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
+		"message": ""
+	},
+	"PGP_ENCRYPTED_MESSAGE": {
+		"message": ""
+	},
+	"PGP_ENCRYPTED_AND_SIGNED_MESSAGE": {
+		"message": ""
+	},
+	"DECRYPTION_FAILED": {
+		"message": ""
+	},
+	"NO_SECRET_KEY": {
+		"message": ""
+	},
+	"BAD_PASSPHRASE": {
+		"message": ""
+	},
+	"DECRYPT_THIS_MESSAGE": {
+		"message": ""
+	},
+	"DISPLAY_ORIGINAL": {
+		"message": ""
+	},
+	"COPY_TO_CLIPBOARD": {
+		"message": ""
+	},
+	"DETACHED_PGP_SIGNATURE": {
+		"message": ""
+	},
+	"PGP_SIGNED_MESSAGE": {
+		"message": ""
+	},
+	"THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID": {
+		"message": ""
+	},
+	"THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH": {
+		"message": ""
+	},
+	"THIS_MESSAGE_WAS_SIGNED_WITH_KEY": {
+		"message": ""
+	},
+	"THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY": {
+		"message": ""
+	},
+	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
+		"message": ""
+	},
+	"THE_MESSAGE_MAY_BE_TAMPERED_WITH": {
+		"message": ""
+	},
+	"PGP_PUBLIC_KEY": {
+		"message": ""
+	},
+	"Names_UIDs_on_Key": {
+		"message": ""
+	},
+	"Created": {
+		"message": ""
+	},
+	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {
+		"message": ""
+	},
+	"THIS_KEY_IS_IN_YOUR_KEYRING": {
+		"message": ""
+	},
+	"IMPORT_THIS_KEY": {
+		"message": ""
+	},
+	"DELETE_THIS_KEY": {
+		"message": ""
+	},
+	"HIDE_ORIGINAL": {
+		"message": ""
+	},
+	"extDesc": {
+		"message": ""
+	},
+	"empty_end": {
+		"message": "N/A",
+		"description": "Just an empty item to mark our end; No need to translate."
+	}
+}

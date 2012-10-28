@@ -52,7 +52,7 @@ webpg.background = {
                 plugin.webpg_status = {
                     "error": true,
                     "gpg_error_code": -1,
-                    "error_string": "WebPG Plugin failed to load",
+                    "error_string": _("WebPG Plugin failed to load"),
                     "file": "webpgPluginAPI.cpp",
                     "line": -1,
                 }
@@ -462,8 +462,8 @@ webpg.background = {
             var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                    .getService(Components.interfaces.nsIWindowMediator);
             var browserWindow = wm.getMostRecentWindow("navigator:browser");
-            var message = (valid) ? 'WebPG - Key Generation Complete!' :
-                "WebPG Key Generation " + data;
+            var message = (valid) ? 'WebPG - ' + _("Key Generation Complete") + '!' :
+                "WebPG " + _("Key Generation") + " " + data;
             var nb = browserWindow.getNotificationBox(browserWindow.content);
             var n = nb.getNotificationWithValue('keygen-complete');
             if(n) {
@@ -472,7 +472,7 @@ webpg.background = {
             var buttons = (browserWindow.content.document.location.href
                 .search(webpg.utils.resourcePath + "XULContent/options.xul") == -1) ?
                     [{
-                        label: 'Open Key Manager',
+                        label: _('Open Key Manager'),
                         accessKey: 'O',
                         popup: null,
                         callback: function() {
@@ -485,10 +485,10 @@ webpg.background = {
                  'chrome://webpg-firefox/skin/images/webpg-32.png',
                   priority, buttons);
         } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-            var title = (valid) ? "WebPG - Key Generation Complete!" :
-                "WebPG Key Generation Failed!";
-            var message = (valid) ? "The generation of your new Key is now complete." :
-                "Generation " + data;
+            var title = (valid) ? "WebPG - " + _("Key Generation Complete") + "!" :
+                _("WebPG Key Generation Failed") + "!";
+            var message = (valid) ? _("The generation of your new key is now complete") + "." :
+                _("Key Generation") + " " + data;
             var notification = webkitNotifications.createNotification(
               'skin/images/webpg-48.png',
               title,

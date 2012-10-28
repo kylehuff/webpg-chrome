@@ -46,6 +46,18 @@ webpg.keymanager = {
             function($0, $1, $2, $3) { qs[$1] = $3; }
         );
 
+        jQuery('#tab-2-btn').text(_("Private Keys"));
+        jQuery('#tab-3-btn').text(_("Public Keys"));
+        jQuery('#pubkey-search-lbl').text(_("Search/Filter") + ": ");
+        jQuery('#revkey-text').text(_("Are you sure you wish to revoke this Key") + "?");
+        jQuery('#revuid-text').text(_("Are you sure you wish to revoke this UID") + "?");
+        jQuery('#revsig-text').text(_("Are you sure you wish to revoke this Signature") + "?");
+        jQuery('#delsig-text').text(_("Are you sure you wish to delete this Signature") + "?");
+        jQuery('#deluid-text').text(_("Are you sure you want to permanently delete this UID") + "?");
+        jQuery('#keyexp-text').text(_("New Expiration Date") + ":");
+        jQuery('#keyexp-never').button({"label": _("Never Expire")});
+        jQuery('#keyexp-ondate').button({"label": _("Expiration Date")});
+
         // Build the Private keylist on tab selection 
         jQuery('#tab-2-btn').click(function(){
             webpg.keymanager.buildKeylistProxy(
@@ -319,7 +331,7 @@ webpg.keymanager = {
             var genkey_div = document.createElement('div');
             genkey_div.style.padding = "8px 0 20px 0";
             var genkey_button = document.createElement('input');
-            genkey_button.setAttribute('value', 'Generate New Key');
+            genkey_button.setAttribute('value', _('Generate New Key'));
             genkey_button.setAttribute('type', 'button');
             jQuery(genkey_button).button().click(function(e){
                 webpg.keymanager.genkey_refresh = false;
@@ -331,24 +343,24 @@ webpg.keymanager = {
                             jQuery(form).parent().before("<div id=\"genkey-status\"> </div>");
                             var error = "";
                             if (!form.uid_0_name.value){
-                                error += "Name Required<br>";
+                                error += _("Name Required") + "<br>";
                                 jQuery(form.uid_0_name).addClass("ui-state-error");
                             }
                             if (form.uid_0_name.value.length < 5){
-                                error += "UID Names must be at least 5 characters<br>";
+                                error += _("UID Names must be at least 5 characters") + "<br>";
                                 jQuery(form.uid_0_name).addClass("ui-state-error");
                             } else {
                                 jQuery(form.uid_0_name).removeClass("ui-state-error");
                             }
                             if (!isNaN(form.uid_0_name.value[0])){
-                                error += "UID Names cannot begin with a number<br>";
+                                error += _("UID Names cannot begin with a number") + "<br>";
                                 jQuery(form.uid_0_name).addClass("ui-state-error");
                             } else {
                                 jQuery(form.uid_0_name).removeClass("ui-state-error");
                             }
                             if (form.uid_0_email.value && !webpg.utils.
                                 isValidEmailAddress(form.uid_0_email.value)){
-                                error += "Not a valid email address<br>";
+                                error += _("Not a valid email address") + "<br>";
                                 jQuery(form.uid_0_email).addClass("ui-state-error");
                             } else {
                                 jQuery(form.uid_0_email).removeClass("ui-state-error");
@@ -358,9 +370,9 @@ webpg.keymanager = {
                                 jQuery(form.pass_repeat).addClass("ui-state-error");
                                 jQuery(form.passphrase).next()
                                     .find("#passwordStrength-text")
-                                    .html("Passphrases do not match")
+                                    .html(_("Passphrases do not match"))
                                     .css({"color": "#f00"});
-                                error += "Passphrases do not match<br>";
+                                error += _("Passphrases do not match") + "<br>";
                             } else {
                                 jQuery(form.passphrase).removeClass("ui-state-error");
                                 jQuery(form.pass_repeat).removeClass("ui-state-error");
@@ -389,8 +401,8 @@ webpg.keymanager = {
                                 "expiration:", "Key will expire in " + form.key_expire.value + ' days');
                             jQuery("#genkey-dialog").dialog("option", "minHeight", 300);
                             jQuery("#genkey-status").html(error)[0].style.display="block";
-                            jQuery("#genkey-status").html("Building key, please wait..");
-                            jQuery("#genkey-status").after("<div id='genkey-status_detail' style=\"font-size: 12px; color:#fff;padding: 20px;\">This may take a long time (5 minutes or more) to complete depending on the selected options. Please be patient while the key is created. It is safe to close this window, key generation will continue in the background.<br><br><div id='genkey_progress' style='height:auto;display:block;'></div></div>");
+                            jQuery("#genkey-status").html(_("Building key, please wait"));
+                            jQuery("#genkey-status").after("<div id='genkey-status_detail' style=\"font-size: 12px; color:#fff;padding: 20px;\">" + _("This may take a long time (5 minutes or more) to complete") + ". " + _("Please be patient while the key is created") + ". " + _("It is safe to close this window") + ", " + _("key generation will continue in the background") + ".<br><br><div id='genkey_progress' style='height:auto;display:block;'></div></div>");
                             jQuery(form)[0].style.display = "none";
                             jQuery("#genkey-dialog")[0].style.height = "20";
                             jQuery("#genkey-dialog")[0].style.display = "none";
@@ -497,26 +509,26 @@ webpg.keymanager = {
                     jQuery(keyobj).addClass('invalid-key');
                 keyobj.className += ' primary_key';
                 var enabled = (enabled_keys.indexOf(key) != -1) ? 'checked' : '';
-                var status_text = (enabled) ? "Enabled" : "Disabled";
+                var status_text = (enabled) ? _("Enabled") : _("Disabled");
                 var default_key = (key == webpg.preferences.default_key.get()) ? 'checked' : '';
             }
-            var status = "Valid";
+            var status = _("Valid");
             var keyobj = document.createElement('div');
             if (current_keylist[key].disabled) {
                 jQuery(keyobj).addClass('disabled');
-                status = "Disabled";
+                status = _("Disabled");
             }
             if (current_keylist[key].expired) {
                 jQuery(keyobj).addClass('invalid-key');
-                status = "Expired";
+                status = _("Expired");
             }
             if (current_keylist[key].invalid) {
                 jQuery(keyobj).addClass('invalid-key');
-                status = "Invalid";
+                status = _("Invalid");
             }
             if (current_keylist[key].revoked) {
                 jQuery(keyobj).addClass('invalid-key');
-                status = "Revoked";
+                status = _("Revoked");
             }
             jQuery(keyobj).addClass('primary_key');
             if (key == openKey) {
@@ -546,13 +558,13 @@ webpg.keymanager = {
                 }
                 (this.checked) ? webpg.preferences.enabled_keys.add(this.id.split("-")[1]) :
                     webpg.preferences.enabled_keys.remove(this.id.split("-")[1]);
-                (this.checked) ? jQuery(this).button('option', 'label', 'Enabled') :
-                    jQuery(this).button('option', 'label', 'Disabled');
+                (this.checked) ? jQuery(this).button('option', 'label', _('Enabled')) :
+                    jQuery(this).button('option', 'label', _('Disabled'));
             });
             jQuery(keyobj).find('.default-check').click(function(e){
                 var clicked_id = this.id.split("-")[1];
                 if (clicked_id == webpg.preferences.default_key.get()) {
-                    jQuery(this).parent().children('.keyoption-help-text').html("<span style=\"color:f6f;\">Cannot unset your default key</span>");
+                    jQuery(this).parent().children('.keyoption-help-text').html("<span style=\"color:f6f;\">" + _("Cannot unset your default key") + "</span>");
                 }
             });
             current_keylist[key].nuids = 0;
@@ -565,48 +577,48 @@ webpg.keymanager = {
             var created_date = new Date(current_keylist[key].subkeys[0].created * 1000).toJSON().substring(0, 10);
             var expiry = (current_keylist[key].subkeys[0].expires == 0) ? 'Never' : new Date(current_keylist[key].subkeys[0].expires * 1000).toJSON();
             if (current_keylist[key].subkeys[0].expires > 0) {
-                expiry = (Math.round(new Date().getTime()/1000.0) > current_keylist[key].subkeys[0].expires) ? "Expired [" + expiry.substring(0, 10) + "]" : expiry.substring(0, 10);
+                expiry = (Math.round(new Date().getTime()/1000.0) > current_keylist[key].subkeys[0].expires) ? _("Expired") + " [" + expiry.substring(0, 10) + "]" : expiry.substring(0, 10);
             }
             var options_list = [];
             var option = {};
             if (type == "private") {
                 option = {
                     "command" : "trust",
-                    "text" : "Trust Assignment",
+                    "text" : _("Trust Assignment"),
                     "input_type" : "list",
-                    "list_values" : ["Unknown", "Never", "Marginal", "Full", "Ultimate"]
+                    "list_values" : [_("Unknown"), _("Never"), _("Marginal"), _("Full"), _("Ultimate")]
                 }
                 options_list[options_list.length] = option;
                 option = {
                     "command" : "expire",
-                    "text" : "Change Expiration",
+                    "text" : _("Change Expiration"),
                     "input_type" : "calendar"
                 }
                 options_list[options_list.length] = option;
                 option = {
                     "command" : "passphrase",
-                    "text" : "Change Passphrase",
+                    "text" : _("Change Passphrase"),
                     "input_type" : "button"
                 }
                 options_list[options_list.length] = option;
                 option = {
                     "command" : "adduid",
-                    "text" : "Add UID",
+                    "text" : _("Add UID"),
                     "input_type" : "dialog"
                 }
                 options_list[options_list.length] = option;
                 option = {
                     "command" : "addsubkey",
-                    "text" : "Add Subkey",
+                    "text" : _("Add Subkey"),
                     "input_type" : "dialog"
                 }
                 options_list[options_list.length] = option;
             } else {
                 option = {
                     "command" : "trust",
-                    "text" : "Trust Assignment",
+                    "text" : _("Trust Assignment"),
                     "input_type" : "list",
-                    "list_values" : ["Unknown", "Never", "Marginal", "Full", "Ultimate"]
+                    "list_values" : [_("Unknown"), _("Never"), _("Marginal"), _("Full"), _("Ultimate")]
                 }
                 options_list[options_list.length] = option;
             }
@@ -651,51 +663,51 @@ webpg.keymanager = {
                 }
             }
             var keystatus = (current_keylist[key].disabled)? 'enable':'disable';
-            var keystatus_text = (current_keylist[key].disabled)? 'Enable this Key':'Disable this Key';
+            var keystatus_text = (current_keylist[key].disabled)? _('Enable this Key'):_('Disable this Key');
             var key_option_button = "<span class='uid-options' style='font-size:12px;'><input class='" + 
                     type + "-key-option-button' id='" + keystatus + "-" + type + "-" + key + 
                         "' type='button' value='" + keystatus_text + "'/\></span>";
-            var uidlist_innerHTML = "<div class='keydetails'><span class='dh'>Key Details</span><hr/\>" +
-                "<span><h4>KeyID:</h4> 0x" + key.substr(-8) + "</span><span><h4>Key Created:</h4> " + 
-                    created_date + "</span><span><h4>Expires:</h4> " + expiry +
-                        "</span><span><h4>UIDs:</h4> " + current_keylist[key].nuids + "</span><br/\>" +
-                "<h4>Fingerpint:</h4> " + current_keylist[key].fingerprint + "<br/\>" +
-                "<span><h4>Status:</h4> " + status + "</span><span><h4>Key Algorithm:</h4> " +
+            var uidlist_innerHTML = "<div class='keydetails'><span class='dh'>" + _("Key Details") + "</span><hr/\>" +
+                "<span><h4>" + _("KeyID") + ":</h4> 0x" + key.substr(-8) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
+                    created_date + "</span><span><h4>" + _("Expires") + ":</h4> " + expiry +
+                        "</span><span><h4>" + _("UIDs") + ":</h4> " + current_keylist[key].nuids + "</span><br/\>" +
+                "<h4>" + _("Fingerprint") + ":</h4> " + current_keylist[key].fingerprint + "<br/\>" +
+                "<span><h4>" + _("Status") + ":</h4> " + status + "</span><span><h4>" + _("Key Algorithm") + ":</h4> " +
                         current_keylist[key].subkeys[0].algorithm_name + "</span>" +
-                "<span><h4>Validity:</h4> " + current_keylist[key].uids[0].validity + "</span>" +
+                "<span><h4>" + _("Validity") + ":</h4> " + current_keylist[key].uids[0].validity + "</span>" +
                 "<br/\>" +
-                "<span class='dh'>Key Options</span><hr/\>" +
+                "<span class='dh'>" + _("Key Options") + "</span><hr/\>" +
                 compiled_option_list + "<br/\>" + 
-                "<span class='dh'>Operations</span><hr/\>" +
+                "<span class='dh'>" + _("Operations") + "</span><hr/\>" +
                     key_option_button + 
                 "<span class='uid-options' style='font-size:12px;'><input class='" + 
                             type + "-key-option-button' id='delete-" + type + "-" + key + 
-                                "' type='button' value='Delete this Key'/\></span>";
+                                "' type='button' value='" + _("Delete this Key") + "'/\></span>";
             uidlist_innerHTML += "<span class='uid-options' style='font-size:12px;'><input class='" + 
                 type + "-key-option-button' id='export-" + type + "-" + key + 
-                    "' type='button' value='Export this Key'/\></span><br/\>" +
+                    "' type='button' value='" + _("Export this Key") + "'/\></span><br/\>" +
                 "</div>";
             jQuery(uidlist).html(uidlist_innerHTML);
-            var subkey_info = "<span class='dh'>Subkeys</span><hr/\>";
+            var subkey_info = "<span class='dh'>" + _("Subkeys") + "</span><hr/\>";
             for (var subkey in current_keylist[key].subkeys) {
                 var skey = current_keylist[key].subkeys[subkey];
-                var skey_status = "Valid";
+                var skey_status = _("Valid");
                 if (skey.disabled) {
-                    skey_status = "Disabled";
+                    skey_status = _("Disabled");
                 }
                 if (skey.expired) {
-                    skey_status = "Expired";
+                    skey_status = _("Expired");
                 }
                 if (skey.invalid) {
-                    skey_status = "Invalid";
+                    skey_status = _("Invalid");
                 }
                 if (skey.revoked) {
-                    skey_status = "Revoked";
+                    skey_status = _("Revoked");
                 }
                 var created_date = new Date(skey.created * 1000).toJSON().substring(0, 10);
                 var expiry = (skey.expires == 0) ? 'Never' : new Date(skey.expires * 1000).toJSON();
                 if (skey.expires > 0) {
-                    expiry = (Math.round(new Date().getTime()/1000.0) > skey.expires) ? "Expired" : expiry.substring(0, 10);
+                    expiry = (Math.round(new Date().getTime()/1000.0) > skey.expires) ? _("Expired") : expiry.substring(0, 10);
                 }
                 var extraClass = "";
                 if (key == openKey && subkey == openSubkey) {
@@ -704,42 +716,42 @@ webpg.keymanager = {
                 if (skey.revoked) {
                     extraClass += " invalid-key";
                 }
-                if (skey_status == "Expired")
+                if (skey_status == _("Expired"))
                     extraClass += " invalid-key";
                 var flags = []
-                var sign_flag = (skey.can_sign) ? flags.push("Sign") : "";
-                var enc_flag = (skey.can_encrypt) ? flags.push("Encrypt") : "";
-                var auth_flag = (skey.can_authenticate) ? flags.push("Authenticate") : "";
+                var sign_flag = (skey.can_sign) ? flags.push(_("Sign")) : "";
+                var enc_flag = (skey.can_encrypt) ? flags.push(_("Encrypt")) : "";
+                var auth_flag = (skey.can_authenticate) ? flags.push(_("Authenticate")) : "";
                 subkey_info += "<div class=\"subkey" + extraClass + "\" id=\"" + 
                     key + '-s' + subkey + "\"><h4 class='subkeylist'><a href='#'>" +
                     "<span style='margin:0; width: 50%'>" + skey.size + 
                     webpg.constants.algoTypes[skey.algorithm_name] + "/" + skey.subkey.substr(-8) + 
                     "</span></a></h4><div class=\"subkey-info\">" +
-                    "<div class='keydetails'><span class='dh'>Subkey Details</span><hr/\>" +
-                    "<span><h4>KeyID:</h4> 0x" + skey.subkey.substr(-8) + "</span><span><h4>Key Created:</h4> " + 
-                    created_date + "</span><span><h4>Expires:</h4> " + expiry + "</span>" +
-                    "<br/\><h4>Fingerpint:</h4> " + skey.subkey + "<br/\>" +
-                    "<span><h4>Status:</h4> " + skey_status + "</span><span><h4>Key Algorithm:</h4> " +
-                    skey.algorithm_name + "</span><span><h4>Flags:</h4> " + flags.toString() + "</span>";
+                    "<div class='keydetails'><span class='dh'>" + _("Subkey Details") + "</span><hr/\>" +
+                    "<span><h4>" + _("KeyID") + ":</h4> 0x" + skey.subkey.substr(-8) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
+                    created_date + "</span><span><h4>" + _("Expires") + ":</h4> " + expiry + "</span>" +
+                    "<br/\><h4>" + _("Fingerprint") + ":</h4> " + skey.subkey + "<br/\>" +
+                    "<span><h4>" + _("Status") + ":</h4> " + skey_status + "</span><span><h4>" + _("Key Algorithm") + ":</h4> " +
+                    skey.algorithm_name + "</span><span><h4>" + _("Flags") + ":</h4> " + flags.toString() + "</span>";
                 if (type == "private") {
                     subkey_info += "<br/\>" +
-                        "<span class='dh'>Key Options</span><hr/\>" +
+                        "<span class='dh'>" + _("Key Options") + "</span><hr/\>" +
                         "<span class='uid-options' style='font-size:12px;'><input class='" + 
                         "sub-key-option-button' id='expire-subkey-" + key + "-" + subkey + 
-                        "' type='button' value='Change Expiration'/\></span>" +
+                        "' type='button' value='" + _("Change Expiration") + "'/\></span>" +
                         "<br/\>" +
-                        "<span class='dh'>Operations</span><hr/\>" +
+                        "<span class='dh'>" + _("Operations") + "</span><hr/\>" +
                         "<span class='uid-options' style='font-size:12px;'><input class='" + 
                         "sub-key-option-button' id='delete-subkey-" + key + "-" + subkey + 
-                        "' type='button' value='Delete this Subkey'/\></span>" +
+                        "' type='button' value='" + _("Delete this Subkey") + "'/\></span>" +
                         "<span class='uid-options' style='font-size:12px;'><input class='" + 
                         "sub-key-option-button' id='revoke-subkey-" + key + "-" + subkey + 
-                        "' type='button' value='Revoke this Subkey'/\></span>"
+                        "' type='button' value='" + _("Revoke this Subkey") + "'/\></span>"
                 }
                 subkey_info += "</div></div></div>";
             }
             jQuery(uidlist).append(subkey_info);
-            jQuery(uidlist).append("<br/\><span class='dh'>User IDs</span><hr/\>");
+            jQuery(uidlist).append("<br/\><span class='dh'>" + _("User IDs") + "</span><hr/\>");
             for (var uid in current_keylist[key].uids) {
                 var uidobj = document.createElement('div');
                 uidobj.setAttribute('class', 'uid');
@@ -749,7 +761,7 @@ webpg.keymanager = {
                 if (current_keylist[key].expired || current_keylist[key].uids[uid].revoked)
                     uidobj.className += ' invalid-key';
                 var email = (current_keylist[key].uids[uid].email.length > 1) ? "  -  &lt;" + webpg.utils.escape(current_keylist[key].uids[uid].email) + "&gt;" :
-                    "  - (no email address provided)";
+                    "  - (" + _("no email address provided") + ")";
                 jQuery(uidobj).append("<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%'>" + current_keylist[key].uids[uid].uid + email + "</span><span class='trust' style='text-decoration: none;'></span></a></h4>");
                 var signed = 0;
                 var uidobjbody = document.createElement('div');
@@ -759,17 +771,17 @@ webpg.keymanager = {
                 if (type == "private") {
                     if (uid != 0) {
                         primary_button = "<span class=\"uid-options\"><input class='uid-option-button uid-option-button-primary' id='primary-" +
-                            type + "-" + key + "-" + uid + "' type='button' value='Make primary'/\></span>";
+                            type + "-" + key + "-" + uid + "' type='button' value='" + _("Make primary") + "'/\></span>";
                     }
                     if (!current_keylist[key].uids[uid].revoked){
                         revoke_button = "<span class=\"uid-options\"><input class='uid-option-button uid-option-button-revoke' id='revoke-" +
-                            type + "-" + key + "-" + uid + "' type='button' value='Revoke UID'/\></span>";
+                            type + "-" + key + "-" + uid + "' type='button' value='" + _("Revoke UID") + "'/\></span>";
                     }
                 }
 
-                jQuery(uidobjbody).html("<div class=\"uid-options uid-options-line\"><span class='uid-options'><input class='uid-option-button-sign' id='sign-" + type + "-" + key + "-" + uid + "' type='button' value='Sign this UID'/\></span>" +
+                jQuery(uidobjbody).html("<div class=\"uid-options uid-options-line\"><span class='uid-options'><input class='uid-option-button-sign' id='sign-" + type + "-" + key + "-" + uid + "' type='button' value='" + _("Sign this UID") + "'/\></span>" +
                     "<span class='uid-options'>" + primary_button + revoke_button + "<input class='uid-option-button' id='delete-" + type + "-" + key + "-" + uid +
-                    "' type='button' value='Delete this UID'/\></span></div>");
+                    "' type='button' value='" + _("Delete this UID") + "'/\></span></div>");
                 jQuery(uidobjbody).append("<br/\>");
                 if (current_keylist[key].uids[uid].revoked) {
                     jQuery(uidobjbody).find('.uid-option-button-sign').addClass('uid-revoked');
@@ -791,7 +803,7 @@ webpg.keymanager = {
                     var status = "";
                     if (current_keylist[key].uids[uid].signatures[sig].revoked) {
                         revocation_sig_ids[sig_keyid] = 'revoked';
-                        status = " [REVOKED]";
+                        status = " [" + _("REVOKED") + "]";
                     } else if (sig_keyid in revocation_sig_ids) {
                         continue;
                     }
@@ -804,7 +816,7 @@ webpg.keymanager = {
                         }
                         email = (current_keylist[sig_keyid].uids[0].email.length > 1) ? "&lt;" +
                             current_keylist[sig_keyid].uids[0].email + 
-                            "&gt;" : "(no email address provided)"
+                            "&gt;" : "(" + _("no email address provided") + ")"
                         var sig_class;
                         var sig_image;
                         if (current_keylist[key].uids[uid].signatures[sig].revoked) {
@@ -830,21 +842,21 @@ webpg.keymanager = {
 
                         sig_box += "<span class='signature-keyid'>";
                         if (sig_keyid == key) {
-                            sig_box += "[self-signature]";
+                            sig_box += "[" + _("self-signature") + "]";
                         } else if (!current_keylist[key].uids[uid].signatures[sig].exportable) {
-                            sig_box += "[local, non-exportable]";
+                            sig_box += "[" + _("local") + ", " + _("non-exportable") + "]";
                         } else {
-                            sig_box += "[other signature]";
+                            sig_box += "[" + _("other signature") + "]";
                         }
                         sig_box += "</span></div><br/\>";
 
                         if (signed && current_keylist[key].uids[uid].signatures[sig].exportable && key != sig_keyid
                             && !current_keylist[key].uids[uid].signatures[sig].revoked) {
                             sig_box += "<input type='button' class='revsig-button' id='revsig-" + type + "-" + 
-                                key + "-" + uid + "-" + rev_index + "' value='Revoke'/\>";
+                                key + "-" + uid + "-" + rev_index + "' value='" + _("Revoke") + "'/\>";
                         }
                         sig_box += "<input type='button' class='delsig-button' id='delsig-" + type + "-" + key +
-                            "-" + uid + "-" + sig + "' value='Delete'/\></div>";
+                            "-" + uid + "-" + sig + "' value='" + _("Delete") + "'/\></div>";
                         jQuery(uidobjbody).append(sig_box);
                     } else {
                         sigs_not_in_keyring[sig] = current_keylist[key].uids[uid].signatures[sig];
@@ -853,9 +865,8 @@ webpg.keymanager = {
                 uidobj.appendChild(uidobjbody);
                 if (sigs_not_in_keyring.hasOwnProperty(0)) {
                     jQuery(uidobjbody).find(".uid-options-line").append(
-                        "<span style='position:absolute;right:60px;color:#F11;margin-top:0px;'>*Signatures made with keys not found in<br/> your keyring are not displayed.</span>"
+                        "<span style='position:absolute;right:60px;color:#F11;margin-top:0px;'>*" + _("Signatures made with keys not in your keyring are omitted") + ".</span>"
                     );
-//                    console.log(sigs_not_in_keyring, key);
                 }
                 uidlist.appendChild(uidobj);
             }
@@ -990,8 +1001,10 @@ webpg.keymanager = {
                             })
 
                         },
-		                buttons: {
-			                    "Save": function() {
+		                buttons: [
+		                    {
+		                        text: _("Save"),
+			                    click: function() {
                                     if (jQuery("#keyexp-never")[0].checked) {
                                         var new_expire = 0;
                                     } else {
@@ -1023,12 +1036,15 @@ webpg.keymanager = {
                                     jQuery(this).dialog("close");
                                     webpg.keymanager.buildKeylistProxy(null, params[1], params[2], params[3], null);
 			                    },
-		                        "Cancel":function(event,ui) {
+			                }, {
+			                    text: _("Cancel"),
+		                        click: function(event,ui) {
                                     console.log("destroyed...");
                                     jQuery("#keyexp-date-input").datepicker('destroy');
                                     jQuery(this).dialog('destroy');
                                 },
-			                },
+			                }
+			            ]
 	                }).parent().animate({"top": window.scrollY}, 1, function() {
                         jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                             / 3}, 1);
@@ -1042,6 +1058,42 @@ webpg.keymanager = {
 
                 case "delete":
                     console.log(params);
+                    var buttons = {};
+                    buttons["delete"] = {
+                        text: _("Delete this key"),
+                        click: function() {
+                            // Delete the Public Key
+                            if (params[1] == "public") {
+                                result = webpg.background.plugin.gpgDeletePublicKey(params[2]);
+                            }
+                            if (params[1] == "private") {
+                                result = webpg.background.plugin.gpgDeletePrivateKey(params[2]);
+                            }
+                            if (params[1] == "subkey") {
+                                result = webpg.background.plugin.gpgDeletePrivateSubKey(params[2],
+                                    parseInt(params[3]));
+                            }
+			                jQuery(this).dialog("close");
+
+                            if (result && !result.error) {
+                                if (params[1] == "subkey") {
+                                    // Override the keylist type param
+                                    params[1] = "private";
+                                } else {
+                                    // Remove the Key-ID from the params array, since it
+                                    //  no longer exists
+                                    params[2] = null;
+                                }
+                                webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
+                            }
+		                }
+			        }
+                    buttons["cancel"] = {
+                        text: _("Cancel"),
+		                click: function() {
+			                jQuery(this).dialog("close");
+		                }
+		            }
                     jQuery("#delete-key-dialog-confirm").dialog({
 		                resizable: true,
 		                height:160,
@@ -1050,99 +1102,75 @@ webpg.keymanager = {
 		                close: function() {
                             jQuery("#delete-key-dialog-confirm").dialog("destroy");
                         },
-		                buttons: {
-			                "Delete this key": function() {
-                                // Delete the Public Key
-                                if (params[1] == "public") {
-                                    result = webpg.background.plugin.gpgDeletePublicKey(params[2]);
-                                }
-                                if (params[1] == "private") {
-                                    result = webpg.background.plugin.gpgDeletePrivateKey(params[2]);
-                                }
-                                if (params[1] == "subkey") {
-                                    result = webpg.background.plugin.gpgDeletePrivateSubKey(params[2],
-                                        parseInt(params[3]));
-                                }
-				                jQuery(this).dialog("close");
-
-                                if (result && !result.error) {
-                                    if (params[1] == "subkey") {
-                                        // Override the keylist type param
-                                        params[1] = "private";
-                                    } else {
-                                        // Remove the Key-ID from the params array, since it
-                                        //  no longer exists
-                                        params[2] = null;
-                                    }
-                                    webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
-                                }
-			                },
-			                Cancel: function() {
-				                jQuery(this).dialog("close");
-			                }
-		                }
+		                buttons: buttons
 	                }).parent().animate({"top": window.scrollY}, 1, function() {
                             jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()}, 1);
                         });
 	                break;
 
 	            case "adduid":
+	                var buttons = {};
+	                buttons["create"] = {
+                        text: _("Create"),
+                        click: function() {
+                            var form = jQuery(this).find("#adduid-form")[0];
+                            if (!jQuery("#adduid-status").length) {
+                                jQuery(form).parent().before("<div id=\"adduid-status\"> </div>");
+                            }
+                            var error = "";
+                            if (!form.uid_0_name.value){
+                                error += _("Name Required") + "<br>";
+                                jQuery(form.uid_0_name).addClass("ui-state-error");
+                            }
+                            if (form.uid_0_name.value.length < 5){
+                                error += _("UID Names must be at least 5 characters") + "<br>";
+                                jQuery(form.uid_0_name).addClass("ui-state-error");
+                            }
+                            if (!isNaN(form.uid_0_name.value[0])){
+                                error += _("UID Names cannot begin with a number") + "<br>";
+                                jQuery(form.uid_0_name).addClass("ui-state-error");
+                            }
+                            if (form.uid_0_email.value && !webpg.utils.
+                                isValidEmailAddress(form.uid_0_email.value)){
+                                error += _("Not a valid email address") + "<br>";
+                                jQuery(form.uid_0_email).addClass("ui-state-error");
+                            } else {
+                                jQuery(form.uid_0_email).removeClass("ui-state-error");
+                            }
+                            if (error.length) {
+                                jQuery("#adduid-status").html(error)[0].style.display="block";
+                                return false;
+                            }
+                            webpg.keymanager.adduid_waiting = true;
+                            jQuery("#adduid-dialog").dialog("option", "minHeight", 250);
+                            jQuery("#adduid-status").html(error)[0].style.display="block";
+                            var result = webpg.background.plugin.gpgAddUID(params[2], form.uid_0_name.value,
+                                    form.uid_0_email.value, form.uid_0_comment.value);
+                            if (result.error) {
+                                console.log(result);
+                                return
+                            }
+                            jQuery(this).dialog("close");
+                            jQuery("#adduid-form")[0].reset();
+                            jQuery("#adduid-dialog").dialog("destroy");
+                            webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
+                        }
+                    }
+                    buttons["cancel"] = {
+                        text: _("Cancel"),
+                        click: function() {
+                            jQuery("#adduid-dialog").dialog("close");
+                            jQuery("#adduid-form")[0].reset();
+                            jQuery("#adduid-dialog").dialog("destroy");
+                        }
+                    }
                     jQuery("#adduid-dialog").dialog({
 		                resizable: true,
 		                height: 230,
 		                width: 550,
 		                modal: true,
 		                position: "top",
-                        "buttons": { 
-                            "Create": function() {
-                                var form = jQuery(this).find("#adduid-form")[0];
-                                if (!jQuery("#adduid-status").length) {
-                                    jQuery(form).parent().before("<div id=\"adduid-status\"> </div>");
-                                }
-                                var error = "";
-                                if (!form.uid_0_name.value){
-                                    error += "Name Required<br>";
-                                    jQuery(form.uid_0_name).addClass("ui-state-error");
-                                }
-                                if (form.uid_0_name.value.length < 5){
-                                    error += "UID Names must be at least 5 characters long<br>";
-                                    jQuery(form.uid_0_name).addClass("ui-state-error");
-                                }
-                                if (!isNaN(form.uid_0_name.value[0])){
-                                    error += "UID Names cannot begin with a number<br>";
-                                    jQuery(form.uid_0_name).addClass("ui-state-error");
-                                }
-                                if (form.uid_0_email.value && !webpg.utils.
-                                    isValidEmailAddress(form.uid_0_email.value)){
-                                    error += "Not a valid email address<br>";
-                                    jQuery(form.uid_0_email).addClass("ui-state-error");
-                                } else {
-                                    jQuery(form.uid_0_email).removeClass("ui-state-error");
-                                }
-                                if (error.length) {
-                                    jQuery("#adduid-status").html(error)[0].style.display="block";
-                                    return false;
-                                }
-                                webpg.keymanager.adduid_waiting = true;
-                                jQuery("#adduid-dialog").dialog("option", "minHeight", 250);
-                                jQuery("#adduid-status").html(error)[0].style.display="block";
-                                var result = webpg.background.plugin.gpgAddUID(params[2], form.uid_0_name.value,
-                                        form.uid_0_email.value, form.uid_0_comment.value);
-                                if (result.error) {
-                                    console.log(result);
-                                    return
-                                }
-                                jQuery(this).dialog("close");
-                                jQuery("#adduid-form")[0].reset();
-                                jQuery("#adduid-dialog").dialog("destroy");
-                                webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
-                            },
-                            Cancel: function() {
-                                jQuery("#adduid-dialog").dialog("close");
-                                jQuery("#adduid-form")[0].reset();
-                                jQuery("#adduid-dialog").dialog("destroy");
-                            }
-                        },
+                        "buttons": buttons
                     }).parent().animate({"top": window.scrollY}, 1, function() {
                             jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                                 / 2}, 1);
@@ -1150,6 +1178,58 @@ webpg.keymanager = {
                     break;
 
                 case "addsubkey":
+                    var buttons = {};
+                    buttons["create"] = {
+                        text: _("Create"),
+                        click: function() {
+                            var form = jQuery(this).find("#gensubkey-form")[0];
+                            form.key_id.value = params[2];
+                            jQuery(form).parent().before("<div id=\"gensubkey-status\"> </div>");
+                            var error = "";
+                            webpg.keymanager.genkey_waiting = true;
+                            if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                                chrome.extension.onConnect.addListener(function(port) {
+                                    port.onMessage.addListener(webpg.keymanager.progressMsg);
+                                });
+                            }
+                            jQuery("#gensubkey-form").find(".open").trigger("click");
+                            console.log("going to create a subkey with the following details:" + '\n' +
+                                "Key ID:", form.key_id.value, " Sub Key:", form.subKey_algo.value + 
+                                  ' (' + form.subKey_size.value + ')\n' + " sign_flag: " + form.sign.checked +
+                                  " enc_flag: " + form.enc.checked + " auth_flag: " + form.auth.checked + "\n" +
+                                "expiration: Key will expire in " + form.key_expire.value + ' days');
+                            jQuery("#gensubkey-dialog").dialog("option", "minHeight", 300);
+                            jQuery("#gensubkey-status").html(error)[0].style.display="block";
+                            jQuery("#gensubkey-status").html(_("Building key, please wait.."));
+                            jQuery("#gensubkey-status").after("<div id='gensubkey-status_detail' style=\"font-size: 12px; color:#fff;padding: 20px;\">This may take a long time (5 minutes or more) to complete depending on the selected options. Please be patient while the key is created. It is safe to close this window, key generation will continue in the background.<br><br><div id='gensubkey_progress' style='height:auto;display:block;'></div></div>");
+                            jQuery(form)[0].style.display = "none";
+                            jQuery("#gensubkey-dialog")[0].style.height = "20";
+                            jQuery("#gensubkey-dialog")[0].style.display = "none";
+                            var response = webpg.background.plugin.gpgGenSubKey(form.key_id.value,
+                                form.subKey_algo.value,
+                                form.subKey_size.value,
+                                form.key_expire.value,
+                                (form.sign.checked) ? 1 : 0,
+                                (form.enc.checked) ? 1 : 0,
+                                (form.auth.checked) ? 1 : 0
+                            );
+                            if (response == "queued") {
+                                jQuery("#gensubkey-dialog").dialog("option", "buttons", { 
+                                    "Close": function() {
+                                        jQuery("#gensubkey-dialog").dialog("close");
+                                    }
+                                });
+                            }
+                        }
+                    }
+                    buttons["cancel"] = {
+                        text: _("Cancel"),
+                        click: function() {
+                            jQuery("#gensubkey-dialog").dialog("close");
+                            if (window.gensubkey_refresh)
+                                webpg.keymanager.buildKeylistProxy(null, 'private');
+                        }
+                    }
                     webpg.keymanager.genkey_refresh = false;
                     jQuery("#gensubkey-dialog").dialog({
                         resizable: true,
@@ -1158,53 +1238,7 @@ webpg.keymanager = {
                         modal: true,
                         autoOpen: false,
                         position: "top",
-                        "buttons": { 
-                            "Create": function() {
-                                var form = jQuery(this).find("#gensubkey-form")[0];
-                                form.key_id.value = params[2];
-                                jQuery(form).parent().before("<div id=\"gensubkey-status\"> </div>");
-                                var error = "";
-                                webpg.keymanager.genkey_waiting = true;
-                                if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                                    chrome.extension.onConnect.addListener(function(port) {
-                                        port.onMessage.addListener(webpg.keymanager.progressMsg);
-                                    });
-                                }
-                                jQuery("#gensubkey-form").find(".open").trigger("click");
-                                console.log("going to create a subkey with the following details:" + '\n' +
-                                    "Key ID:", form.key_id.value, " Sub Key:", form.subKey_algo.value + 
-                                      ' (' + form.subKey_size.value + ')\n' + " sign_flag: " + form.sign.checked +
-                                      " enc_flag: " + form.enc.checked + " auth_flag: " + form.auth.checked + "\n" +
-                                    "expiration: Key will expire in " + form.key_expire.value + ' days');
-                                jQuery("#gensubkey-dialog").dialog("option", "minHeight", 300);
-                                jQuery("#gensubkey-status").html(error)[0].style.display="block";
-                                jQuery("#gensubkey-status").html("Building key, please wait..");
-                                jQuery("#gensubkey-status").after("<div id='gensubkey-status_detail' style=\"font-size: 12px; color:#fff;padding: 20px;\">This may take a long time (5 minutes or more) to complete depending on the selected options. Please be patient while the key is created. It is safe to close this window, key generation will continue in the background.<br><br><div id='gensubkey_progress' style='height:auto;display:block;'></div></div>");
-                                jQuery(form)[0].style.display = "none";
-                                jQuery("#gensubkey-dialog")[0].style.height = "20";
-                                jQuery("#gensubkey-dialog")[0].style.display = "none";
-                                var response = webpg.background.plugin.gpgGenSubKey(form.key_id.value,
-                                    form.subKey_algo.value,
-                                    form.subKey_size.value,
-                                    form.key_expire.value,
-                                    (form.sign.checked) ? 1 : 0,
-                                    (form.enc.checked) ? 1 : 0,
-                                    (form.auth.checked) ? 1 : 0
-                                );
-                                if (response == "queued") {
-                                    jQuery("#gensubkey-dialog").dialog("option", "buttons", { 
-                                        "Close": function() {
-                                            jQuery("#gensubkey-dialog").dialog("close");
-                                        }
-                                    });
-                                }
-                            },
-                            Cancel: function() {
-                                jQuery("#gensubkey-dialog").dialog("close");
-                                if (window.gensubkey_refresh)
-                                    webpg.keymanager.buildKeylistProxy(null, 'private');
-                            }
-                        },
+                        buttons: buttons
                     }).parent().animate({"top": window.scrollY}, 1, function() {
                             jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                                 / 3}, 1);
@@ -1262,6 +1296,24 @@ webpg.keymanager = {
                     break;
 
                 case "export":
+                    var buttons = {};
+                    buttons["copy"] = {
+                        text: _("Copy"),
+                        click: function() {
+                            jQuery("#export-dialog-copytext")[0].select();
+                            jQuery("#export-dialog-msg").html(
+                                webpg.utils.copyToClipboard(window, document)
+                            );
+                            jQuery("#export-dialog-msg")[0].style.display="block"
+                        },
+                    };
+                    buttons["close"] = {
+                        text: _("Close"),
+                        click: function() {
+                            jQuery("#export-dialog").dialog("destroy");
+                            jQuery("#export-dialog-msg")[0].style.display="none"
+                        }
+                    };
                     var export_result = webpg.background.plugin.gpgExportPublicKey(params[2]).result;
                     jQuery("#export-dialog-text").html(webpg.utils.escape(export_result));
                     jQuery("#export-dialog-copytext").html(webpg.utils.escape(export_result));
@@ -1271,19 +1323,7 @@ webpg.keymanager = {
 		                width: 536,
 		                modal: true,
 		                position: "top",
-                        "buttons": {
-                            "Copy": function() {
-                                jQuery("#export-dialog-copytext")[0].select();
-                                jQuery("#export-dialog-msg").html(
-                                    webpg.utils.copyToClipboard(window, document)
-                                );
-                                jQuery("#export-dialog-msg")[0].style.display="block"
-                            },
-                            "Close": function() {
-                                jQuery("#export-dialog").dialog("destroy");
-                                jQuery("#export-dialog-msg")[0].style.display="none"
-                            }
-                        }
+                        buttons: buttons
                     }).parent().animate({"top": window.scrollY}, 1, function() {
                             jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                                 / 2}, 1);
@@ -1291,16 +1331,35 @@ webpg.keymanager = {
                     break;
 
                 case "revoke":
-                    jQuery("#revkey-confirm").find('#revkey-text').html("Please specify the revocation details -<br/\><br/\>" +
-                        "<label for='revkey-reason'>Reason:</label>" +
+                    jQuery("#revkey-confirm").find('#revkey-text').html(_("Please specify the revocation details") + " -<br/\><br/\>" +
+                        "<label for='revkey-reason'>" + _("Reason") + ":</label>" +
                         "<select name='revkey-reason' id='revkey-reason' class='ui-add-hover ui-corner-all ui-widget ui-state-default'>" +
-                        "<option value='0' class='ui-state-default'>No reason specified</option>" +
-                        "<option value='1' class='ui-state-default'>Key has been compromised</option>" +
-                        "<option value='2' class='ui-state-default'>Key is superseded</option>" +
-                        "<option value='2' class='ui-state-default'>Key is no longer used</option>" +
+                        "<option value='0' class='ui-state-default'>" + _("No reason specified") + "</option>" +
+                        "<option value='1' class='ui-state-default'>" + _("Key has been compromised") + "</option>" +
+                        "<option value='2' class='ui-state-default'>" + _("Key is superseded") + "</option>" +
+                        "<option value='2' class='ui-state-default'>" + _("Key is no longer used") + "</option>" +
                         "</select><br/\>" +
-                        "<label for='revkey-desc'>Description:</label>" +
+                        "<label for='revkey-desc'>" + _("Description") + ":</label>" +
                         "<input type='text' name='revkey-desc' id='revkey-desc' class='ui-corner-all ui-widget ui-state-default'/\>");
+                    var buttons = {};
+                    buttons["revoke"] = {
+                        text: _("Revoke"),
+                        click: function() {
+                            var reason = jQuery('#revkey-reason')[0].value;
+                            var desc = jQuery('#revkey-desc')[0].value;
+                            console.log(params[2], params[3], reason, desc);
+                            var revkey_result = webpg.background.plugin.gpgRevokeKey(params[2],
+                                parseInt(params[3]), parseInt(reason), desc);
+                            webpg.keymanager.buildKeylistProxy(null, "private", params[2], params[3], null);
+                            jQuery("#revkey-confirm").dialog("close");
+                        }
+                    };
+                    buttons["cancel"] = {
+                        text: _("Cancel"),
+                        click: function() {
+                            jQuery("#revkey-confirm").dialog("close");
+                        }
+                    }
                     jQuery("#revkey-confirm").dialog({
                         resizable: true,
                         height:250,
@@ -1311,20 +1370,7 @@ webpg.keymanager = {
                         close: function() {
                             jQuery("#revkey-confirm").dialog("destroy");
                         },
-                        "buttons": {
-                            "Revoke": function() {
-                                var reason = jQuery('#revkey-reason')[0].value;
-                                var desc = jQuery('#revkey-desc')[0].value;
-                                console.log(params[2], params[3], reason, desc);
-                                var revkey_result = webpg.background.plugin.gpgRevokeKey(params[2],
-                                    parseInt(params[3]), parseInt(reason), desc);
-                                webpg.keymanager.buildKeylistProxy(null, "private", params[2], params[3], null);
-                                jQuery("#revkey-confirm").dialog("close");
-                            },
-                            "Cancel": function() {
-                                jQuery("#revkey-confirm").dialog("close");
-                            }
-                        }
+                        buttons: buttons
                     }).parent().animate({"top": window.scrollY}, 1, function() {
                             jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                                 / 2}, 1);
@@ -1354,6 +1400,29 @@ webpg.keymanager = {
             var refresh = false;
             switch(params[0]) {
                 case "delete":
+                    var buttons = {};
+                    buttons["delete"] = {
+	                    text: _("Delete this UID"),
+	                    click: function() {
+                            // Delete the Public Key
+                            var uid_idx = parseInt(params[3]) + 1;
+                            var result = webpg.background.plugin.gpgDeleteUID(params[2], uid_idx);
+                            console.log(result, params[2], uid_idx);
+		                    jQuery(this).dialog("close");
+                            // Remove the Key-ID from the params array, since it
+                            //  no longer exists
+                            if (!result.error) {
+                                params[3] = null;
+                                webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
+                            }
+	                    }
+	                }
+	                buttons["cancel"] = {
+	                    text: _("Cancel"),
+		                click: function() {
+			                jQuery(this).dialog("close");
+		                }
+	                }
                     jQuery( "#deluid-confirm" ).dialog({
 		                resizable: true,
 		                height:180,
@@ -1362,24 +1431,7 @@ webpg.keymanager = {
                         close: function() {
                             jQuery("#deluid-confirm").dialog("destroy");
                         },
-		                buttons: {
-			                "Delete this UID": function() {
-                                // Delete the Public Key
-                                var uid_idx = parseInt(params[3]) + 1;
-                                var result = webpg.background.plugin.gpgDeleteUID(params[2], uid_idx);
-                                console.log(result, params[2], uid_idx);
-				                jQuery(this).dialog("close");
-                                // Remove the Key-ID from the params array, since it
-                                //  no longer exists
-                                if (!result.error) {
-                                    params[3] = null;
-                                    webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
-                                }
-			                },
-			                Cancel: function() {
-				                jQuery(this).dialog("close");
-			                }
-		                }
+                        buttons: buttons
 	                }).parent().animate({"top": window.scrollY}, 1,
 	                    function() {
                             jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
@@ -1395,14 +1447,34 @@ webpg.keymanager = {
                     break;
 
                 case "revoke":
-                    jQuery("#revuid-confirm").find('#revuid-text').html("Please specify the revocation details -<br/\><br/\>" +
-                        "<label for='revuid-reason'>Reason:</label>" +
+                    jQuery("#revuid-confirm").find('#revuid-text').html(_("Please specify the revocation details") + " -<br/\><br/\>" +
+                        "<label for='revuid-reason'>" + _("Reason") + ":</label>" +
                         "<select name='revuid-reason' id='revuid-reason' class='ui-add-hover ui-corner-all ui-widget ui-state-default'>" +
-                        "<option value='0' class='ui-state-default'>No reason specified</option>" +
-                        "<option value='4' class='ui-state-default'>User ID is no longer valid</option>" +
+                        "<option value='0' class='ui-state-default'>" + _("No reason specified") + "</option>" +
+                        "<option value='4' class='ui-state-default'>" + _("User ID is no longer valid") + "</option>" +
                         "</select><br/\>" +
-                        "<label for='revuid-desc'>Description:</label>" +
+                        "<label for='revuid-desc'>" + _("Description") + ":</label>" +
                         "<input type='text' name='revuid-desc' id='revuid-desc' class='ui-corner-all ui-widget ui-state-default'/\>");
+                    var buttons = {};
+                    buttons["confirm"] = {
+                        text: _("Revoke"),
+                        click: function() {
+                            var reason = jQuery('#revuid-reason')[0].value;
+                            var desc = jQuery('#revuid-desc')[0].value;
+                            console.log(params[2], params[3], params[4], reason, desc);
+                            var revuid_result = webpg.background.plugin.gpgRevokeUID(params[2],
+                                parseInt(params[3]) + 1, parseInt(reason), desc);
+                            webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
+                            jQuery("#revuid-confirm").dialog("close");
+                        }
+                    };
+                    buttons["cancel"] = {
+                        text: _("Cancel"),
+                        click: function() {
+                            jQuery("#revuid-confirm").dialog("close");
+                        }
+                    }
+                    
                     jQuery("#revuid-confirm").dialog({
                         resizable: true,
                         height:250,
@@ -1413,20 +1485,7 @@ webpg.keymanager = {
                         close: function() {
                             jQuery("#revuid-confirm").dialog("destroy");
                         },
-                        "buttons": {
-                            "Revoke": function() {
-                                var reason = jQuery('#revuid-reason')[0].value;
-                                var desc = jQuery('#revuid-desc')[0].value;
-                                console.log(params[2], params[3], params[4], reason, desc);
-                                var revuid_result = webpg.background.plugin.gpgRevokeUID(params[2],
-                                    parseInt(params[3]) + 1, parseInt(reason), desc);
-                                webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
-                                jQuery("#revuid-confirm").dialog("close");
-                            },
-                            "Cancel": function() {
-                                jQuery("#revuid-confirm").dialog("close");
-                            }
-                        }
+                        "buttons": buttons
                     }).parent().animate({"top": window.scrollY}, 1, function() {
                             jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                                 / 2}, 1);
@@ -1459,7 +1518,7 @@ webpg.keymanager = {
                 });
             var params = this.id.split('-');
             var enabled_keys = webpg.preferences.enabled_keys.get();
-            jQuery('#createsig-form').html("<p class='help-text'>Please select which of your keys to create the signature with:</p>");
+            jQuery('#createsig-form').html("<p class='help-text'>" + _("Please select which of your keys to create the signature with") + ":</p>");
             if (type == "private")
                 keylist = pkeylist;
             var current_signatures = keylist[params[2]].uids[params[3]].signatures;
@@ -1468,7 +1527,7 @@ webpg.keymanager = {
                 cursig.push(current_signatures[sig].keyid);
             }
             if (!webpg.preferences.enabled_keys.length()) {
-                jQuery('#createsig-form').append("You have not enabled any keys for use with webpg; <a href='" + webpg.utils.resourcePath + "key_manager.html?tab=0&helper=enable'>please click here</a> and select 1 or more keys for use with webpg.");
+                jQuery('#createsig-form').append(_("You have not enabled any keys for use with webpg") +"; <a href='" + webpg.utils.resourcePath + "key_manager.html?tab=0&helper=enable'>" + _("please click here") + "</a> " + _("and select 1 or more keys for use with webpg"));
             }
             for (idx in enabled_keys) {
                 var key = enabled_keys[idx];
@@ -1476,7 +1535,7 @@ webpg.keymanager = {
                 var status = signed? "<div style='width: 28px; display: inline;text-align:right;'><img style='height: 14px; padding: 2px 2px 0 4px;' id='img_" + key + "' " +
                     "src='skin/images/badges/stock_signature.png' alt='Already signed with this key'/\></div>" :
                     "<div style='width: 28px; display: inline;text-align:right;'><img style='display:none; height: 14px; padding: 2px 2px 0 4px;' id='img_" + key + "' " +
-                    "src='skin/images/check.png' alt='Signature added using this key'/\></div>";
+                    "src='skin/images/check.png' alt='" + _("Signature added using this key") + "'/\></div>";
                 if (signed)
                     status += "<input style='display: none;' type='checkbox' id='sign_" + key + "' name='" + key + "' disabled/\>";
                 else
@@ -1489,45 +1548,50 @@ webpg.keymanager = {
             var refresh = false;
             jQuery("#createsig-dialog").dialog({
                 position: "top",
-                "buttons": {
-                    " Sign ": function() {
-                        var checked = jQuery("#createsig-form").children("input:checked");
-                        var error = false;
-                        for (item in checked) {
-                            if (checked[item].type == "checkbox") {
-                                var sign_result = webpg.background.plugin.gpgSignUID(params[2], 
-                                    parseInt(params[3]) + 1,
-                                    checked[item].name, 1, 1, 1);
-                                error = (error || (sign_result['error'] && sign_result['gpg_error_code'] != 65)); // if this is true, there were errors, leave the dialog open
-                                if (sign_result['error'] && sign_result['gpg_error_code'] != 65) {
-                                    jQuery('#img_' + checked[item].name)[0].src = "skin/images/cancel.png"
-                                    lbl_sign_error = jQuery('#lbl-sign-err_' + checked[item].name)[0];
-                                    lbl_sign_error.style.display = "inline";
-                                    lbl_sign_error.style.color = "#f40";
-                                    lbl_sign_error.style.margin = "0 0 0 20px";
-                                    jQuery(lbl_sign_error).html(sign_result['error_string']);
-                                    jQuery(jQuery("button", jQuery("#createsig-dialog").parent()).children()[0]).text("Close")
-                                    jQuery(jQuery("button", jQuery("#createsig-dialog").parent()).children()[1]).text("Try again")
-                                } else {
-                                    refresh = true; // the keys have changed, we should refresh on dialog close;
-                                    jQuery('#img_' + checked[item].name)[0].src = "skin/images/check.png"
+                "buttons": [
+                    {
+                        text: _("Sign"),
+                        click: function() {
+                            var checked = jQuery("#createsig-form").children("input:checked");
+                            var error = false;
+                            for (item in checked) {
+                                if (checked[item].type == "checkbox") {
+                                    var sign_result = webpg.background.plugin.gpgSignUID(params[2], 
+                                        parseInt(params[3]) + 1,
+                                        checked[item].name, 1, 1, 1);
+                                    error = (error || (sign_result['error'] && sign_result['gpg_error_code'] != 65)); // if this is true, there were errors, leave the dialog open
+                                    if (sign_result['error'] && sign_result['gpg_error_code'] != 65) {
+                                        jQuery('#img_' + checked[item].name)[0].src = "skin/images/cancel.png"
+                                        lbl_sign_error = jQuery('#lbl-sign-err_' + checked[item].name)[0];
+                                        lbl_sign_error.style.display = "inline";
+                                        lbl_sign_error.style.color = "#f40";
+                                        lbl_sign_error.style.margin = "0 0 0 20px";
+                                        jQuery(lbl_sign_error).html(sign_result['error_string']);
+                                        jQuery(jQuery("button", jQuery("#createsig-dialog").parent()).children()[0]).text("Close")
+                                        jQuery(jQuery("button", jQuery("#createsig-dialog").parent()).children()[1]).text("Try again")
+                                    } else {
+                                        refresh = true; // the keys have changed, we should refresh on dialog close;
+                                        jQuery('#img_' + checked[item].name)[0].src = "skin/images/check.png"
+                                    }
+                                    jQuery('#img_' + checked[item].name).show().next().hide();
                                 }
-                                jQuery('#img_' + checked[item].name).show().next().hide();
+                            }
+                            console.log("should we refresh?", refresh? "yes":"no");
+                            if (!error && refresh) {
+                                jQuery("#createsig-dialog").dialog("destroy");
+                                webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
                             }
                         }
-                        console.log("should we refresh?", refresh? "yes":"no");
-                        if (!error && refresh) {
+                    }, {
+                        text: _("Cancel"),
+                        click: function() {
                             jQuery("#createsig-dialog").dialog("destroy");
-                            webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
+                            if (refresh) {
+                                webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
+                            }
                         }
-                    },
-                    "Cancel": function() {
-                        jQuery("#createsig-dialog").dialog("destroy");
-                        if (refresh) {
-                            webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
-                        }
-                    },
-                }
+                    }
+                ]
             }).parent().animate({"top": window.scrollY}, 1, function() {
                     jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                 / 2}, 1)});
@@ -1537,39 +1601,45 @@ webpg.keymanager = {
             jQuery("#createsig-dialog").dialog('open');
         });
         if (!webpg.background.plugin.webpg_status.gpgconf_detected) {
-            jQuery('.uid-option-button-sign').button({disabled: true, label: "Cannot create signatures without gpgconf utility installed"});
+            jQuery('.uid-option-button-sign').button({disabled: true, label: _("Cannot create signatures without gpgconf utility installed")});
         }
-        jQuery('.uid-option-button-sign.uid-revoked').button({disabled: true, label: "Cannot sign a revoked UID"});
-        jQuery('.uid-option-button-primary.uid-revoked').button({disabled: true, label: "Cannot make a revoked UID primary"});
-        jQuery('.uid-option-button-sign.key-expired').button({disabled: true, label: "Cannot sign an expired key"});
+        jQuery('.uid-option-button-sign.uid-revoked').button({disabled: true, label: _("Cannot sign a revoked UID")});
+        jQuery('.uid-option-button-primary.uid-revoked').button({disabled: true, label: _("Cannot make a revoked UID primary")});
+        jQuery('.uid-option-button-sign.key-expired').button({disabled: true, label: _("Cannot sign an expired key")});
         jQuery('.revsig-button').button().click(function(e){
             var params = this.id.split('-');
             var calling_button = this;
             var sig_details = jQuery(calling_button).parent()[0].id.split('-');
-            jQuery("#revsig-confirm").find('#revsig-text').html("Please specify the revocation details -<br/\><br/\>" +
-                "<label for='revsig-reason'>Reason:</label>" +
+            jQuery("#revsig-confirm").find('#revsig-text').html(_("Please specify the revocation details") + " -<br/\><br/\>" +
+                "<label for='revsig-reason'>" + _("Reason") + ":</label>" +
                 "<select name='revsig-reason' id='revsig-reason' class='ui-add-hover ui-corner-all ui-widget ui-state-default'>" +
-                "<option value='0' class='ui-state-default'>No reason specified</option>" +
-                "<option value='4' class='ui-state-default'>User ID is no longer valid</option>" +
+                "<option value='0' class='ui-state-default'>" + _("No reason specified") + "</option>" +
+                "<option value='4' class='ui-state-default'>" + _("User ID is no longer valid") + "</option>" +
                 "</select><br/\>" +
-                "<label for='revsig-desc'>Description:</label>" +
+                "<label for='revsig-desc'>" + _("Description") + ":</label>" +
                 "<input type='text' name='revsig-desc' id='revsig-desc' class='ui-corner-all ui-widget ui-state-default'/\>");
-            jQuery("#revsig-confirm").dialog("option",
-                "buttons", {
-                    "Revoke": function() {
-                        var reason = jQuery('#revsig-reason')[0].value;
-                        var desc = jQuery('#revsig-desc')[0].value;
-                        console.log(params[2], params[3], params[4], reason, desc);
-                        var revsig_result = webpg.background.plugin.gpgRevokeSignature(params[2],
-                            parseInt(params[3]), parseInt(params[4]), parseInt(reason), desc);
-                        //console.log('delete', delsig_result, params[2], parseInt(params[3]) + 1, parseInt(params[4]) + 1)
-                        webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
-                        jQuery("#revsig-confirm").dialog("close");
-                    },
-                    "Cancel": function() {
-                        jQuery("#revsig-confirm").dialog("close");
-                    }
+            var buttons = {};
+            buttons["revoke"] = {
+                text: _("Revoke"),
+                click: function() {
+                    var reason = jQuery('#revsig-reason')[0].value;
+                    var desc = jQuery('#revsig-desc')[0].value;
+                    console.log(params[2], params[3], params[4], reason, desc);
+                    var revsig_result = webpg.background.plugin.gpgRevokeSignature(params[2],
+                        parseInt(params[3]), parseInt(params[4]), parseInt(reason), desc);
+                    //console.log('delete', delsig_result, params[2], parseInt(params[3]) + 1, parseInt(params[4]) + 1)
+                    webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
+                    jQuery("#revsig-confirm").dialog("close");
                 }
+            }
+            buttons["cancel"] = {
+                text: _("Cancel"),
+                click: function() {
+                    jQuery("#revsig-confirm").dialog("close");
+                }
+            }
+            jQuery("#revsig-confirm").dialog("option",
+                "buttons", buttons
             ).parent().animate({"top": window.scrollY}, 1, function() {
                 jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                 / 3}, 1)});
@@ -1601,44 +1671,58 @@ webpg.keymanager = {
             var params = this.id.split('-');
             var calling_button = this;
             var sig_details = jQuery(calling_button).parent()[0].id.split('-');
-            jQuery("#delsig-confirm").find('#delsig-text').html("Are you certain you would like to delete signature " +
-                sig_details[1] + " from this User id?");
+            jQuery("#delsig-confirm").find('#delsig-text').html(_("Are you certain you would like to delete signature") + " " +
+                sig_details[1] + " " + _("from this User ID") + "?");
             if (sig_details[1] in webpg.keymanager.pkeylist < 1) {
-                jQuery("#delsig-confirm").find('#delsig-text').append("<br><br><span class='ui-icon ui-icon-alert' style='float:left; margin:0 7px 20px 0;'></span>This signature was made with a key that does not belong to you; This action cannot be undone without refreshing the keylist from a remote source.");
+                jQuery("#delsig-confirm").find('#delsig-text').append("<br><br><span class='ui-icon ui-icon-alert' style='float:left; margin:0 7px 20px 0;'></span>" + _("This signature was made with a key that does not belong to you") + "; " + _("This action cannot be undone") + ".");
                 jQuery("#delsig-confirm").dialog("option", "height", "240");
                 jQuery("#delsig-confirm").dialog("option", "width", "400");
             }
-            jQuery("#delsig-confirm").dialog("option", "buttons", { "Delete":
-                function() {
+            var buttons = {};
+            buttons["delete"] = {
+                text: _("Delete"),
+                click: function() {
                     var delsig_result = webpg.background.plugin.
                         gpgDeleteUIDSign(params[2], parseInt(params[3]) + 1,
                         parseInt(params[4]) + 1);
                     webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
                     jQuery("#delsig-confirm").dialog("close");
-                },
-                Cancel: function() {
+                }
+            };
+            buttons["cancel"] = {
+                text: _("Cancel"),
+                click: function() {
                     jQuery("#delsig-confirm").dialog("close");
                 }
-            }).parent().animate({"top": window.scrollY}, 1, function() {
+            };
+            jQuery("#delsig-confirm").dialog("option", "buttons", buttons)
+            .parent().animate({"top": window.scrollY}, 1, function() {
                 jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()
                     / 2}, 1);
             });
             jQuery("#delsig-confirm").dialog('open');
         });
+        var buttons = {
+            "delete": {
+                text: _('Delete this Signature') + '?',
+                click: function() {
+                    jQuery(this).dialog('close');
+                },
+            },
+            "cancel": {
+                text: _("Cancel"),
+                click: function() {
+                    jQuery(this).dialog('close');
+                }
+            }
+        };
         jQuery("#delsig-confirm").dialog({
             resizable: true,
             height:200,
             modal: true,
             autoOpen: false,
             position: "top",
-            buttons: {
-                'Delete this Signature?': function() {
-                    jQuery(this).dialog('close');
-                },
-                Cancel: function() {
-                    jQuery(this).dialog('close');
-                }
-            }
+            buttons: buttons
         }).parent().animate({"top": window.scrollY}, 1, function() {
             jQuery(this).animate({"top": window.scrollY + jQuery(this).innerHeight()}, 1);
         });
@@ -1656,13 +1740,13 @@ webpg.keymanager = {
             if (enabled_keys.indexOf(keyid) == -1) {
                 webpg.preferences.enabled_keys.add(keyid);
                 jQuery(enable_element).trigger('click');
-                jQuery(enable_element).next().html(jQuery(enable_element).next()[0].innerHTML.replace('Disabled', 'Enabled'));
+                jQuery(enable_element).next().html(jQuery(enable_element).next()[0].innerHTML.replace(_('Disabled'), _('Enabled')));
             }
         }).parent().buttonset();
 
         jQuery('.enable-check').next().hover(
             function(e){
-                jQuery(this).parent().children('.keyoption-help-text').html("Enable this key for signing");
+                jQuery(this).parent().children('.keyoption-help-text').html(_("Enable this key for signing"));
             },
             function(e){
                 jQuery(this).parent().children('.keyoption-help-text').html("&nbsp;");
@@ -1672,9 +1756,9 @@ webpg.keymanager = {
             function(e){
                 var input = jQuery(this).prev()[0];
                 if (input && input.checked) {
-                    jQuery(this).parent().children('.keyoption-help-text').html("This is your default key");
+                    jQuery(this).parent().children('.keyoption-help-text').html(_("This is your default key"));
                 } else {
-                    jQuery(this).parent().children('.keyoption-help-text').html("Make this the default key for encryption operations");
+                    jQuery(this).parent().children('.keyoption-help-text').html(_("Make this the default key for encryption operations"));
                 }
             },
             function(e){
@@ -1787,8 +1871,8 @@ webpg.keymanager = {
                 .dialog('open').animate({"top": window.scrollY}, 1,
                     function() {
                         jQuery('#dialog-msg').text(
-                            (val.length > 0) ? "Searching for \"" + val
-                            + "\"" : "Please wait while we build the key list."
+                            (val.length > 0) ? _("Searching for") + " \"" + val
+                            + "\"" : ("Please wait while we build the key list")
                         );
                         jQuery(this).animate({"top": window.scrollY +
                             jQuery(this).innerHeight() + 100}, 1,

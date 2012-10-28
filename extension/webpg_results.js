@@ -122,20 +122,20 @@ webpg.inline_results = {
 
                     var gpg_error_code = request.verify_result.gpg_error_code;
                     if (gpg_error_code == "58") {
-                        jQuery('#header').html("<a name=\"" + qs.id + "\">PGP ENCRYPTED OR SIGNED MESSAGE</a>");
+                        jQuery('#header').html("<a name=\"" + qs.id + "\">" + _("PGP ENCRYPTED OR SIGNED MESSAGE") + "</a>");
                         jQuery('#footer').addClass("signature_bad_sig");
-                        jQuery('#footer').html("UNABLE TO DECRYPT OR VERIFY THIS MESSAGE<br/\>");
+                        jQuery('#footer').html(_("UNABLE TO DECRYPT OR VERIFY THIS MESSAGE") + "<br/\>");
                     } else {
-                        jQuery('#header').append("<a name=\"" + qs.id + "\">PGP ENCRYPTED MESSAGE</a>");
+                        jQuery('#header').append("<a name=\"" + qs.id + "\">" + _("PGP ENCRYPTED MESSAGE") + "</a>");
                     }
                     if (request.verify_result.error) {
-                        jQuery('#signature_text').html(request.verify_result.original_text);
+                        jQuery('#signature_text')[0].textContent = request.verify_result.original_text;
                     } else {
-                        jQuery('#signature_text').html(request.verify_result.data);
+                        jQuery('#signature_text')[0].textContent = request.verify_result.data;
                     }
                     if (request.message_event == "manual" && request.verify_result.original_text.substr(0,5) == "-----") {
                         if (request.verify_result.signatures && request.verify_result.signatures.hasOwnProperty(0)) {
-                            jQuery('#header').html("<a name=\"" + qs.id + "\">PGP ENCRYPTED AND SIGNED MESSAGE</a>");
+                            jQuery('#header').html("<a name=\"" + qs.id + "\">" + _("PGP ENCRYPTED AND SIGNED MESSAGE") + "</a>");
                             icon.src = "skin/images/badges/stock_decrypted-signature.png";
                             sig_ok = true;
                             sig_boxes = "<div class='signature-container'>";
@@ -158,46 +158,46 @@ webpg.inline_results = {
                         }
                     }
                     jQuery('#footer').append(icon.outerHTML);
-                    jQuery('#original_text').text(request.verify_result.original_text);
+                    jQuery('#original_text')[0].textContent = request.verify_result.original_text;
                     jQuery('#clipboard_input')[0].value = request.verify_result.original_text;
                     jQuery('#original_text').hide();
                     if (gpg_error_code == "11" || gpg_error_code == "152") {
                         jQuery('#footer').addClass("signature_no_pubkey");
                         if (gpg_error_code == "152") {
-                            jQuery('#footer').html("DECRYPTION FAILED; NO SECRET KEY<br/\>");
+                            jQuery('#footer').html(_("DECRYPTION FAILED") + "; " + _("NO SECRET KEY") + "<br/\>");
                         }
                         if (gpg_error_code == "11") {
                             if (request.message_type == "encrypted_message" && request.message_event == "manual") {
-                                jQuery('#footer').html("DECRYPTION FAILED; BAD PASSPHRASE <br/\>");
+                                jQuery('#footer').html(_("DECRYPTION FAILED") + "; " + _("BAD PASSPHRASE") + "<br/\>");
                                 if (request.noninline) {
-                                    jQuery('#footer').append("<a class=\"decrypt_message\" href=\"#" + qs.id + "\"\">DECRYPT THIS MESSAGE</a> |");
+                                    jQuery('#footer').append("<a class=\"decrypt_message\" href=\"#" + qs.id + "\"\">" + _("DECRYPT THIS MESSAGE") + "</a> |");
                                 }
                             } else {
-                                jQuery('#footer').append("<a class=\"decrypt_message\" href=\"#" + qs.id + "\"\">DECRYPT THIS MESSAGE</a> | ");
+                                jQuery('#footer').append("<a class=\"decrypt_message\" href=\"#" + qs.id + "\"\">" + _("DECRYPT THIS MESSAGE") + "</a> | ");
                             }
                         }
                     } else if (!request.verify_result.error) {
                         jQuery('#footer').addClass("signature_good");
                     }
                     if (!request.verify_result.error && request.verify_result.original_text.length >0) {
-                         jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ");
+                         jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
                     }
-                    jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>");
+                    jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">" + _("COPY TO CLIPBOARD") + "</a>");
                     webpg.inline_results.doResize();
                     break;
 
                 case webpg.constants.PGPBlocks.PGP_SIGNED_MSG:
                     if (request.verify_result.message_type == "detached_signature")
-                        var title = "<a name=\"" + qs.id + "\">DETACHED PGP SIGNATURE</a>";
+                        var title = "<a name=\"" + qs.id + "\">" + _("DETACHED PGP SIGNATURE") + "</a>";
                     else
-                        var title = "<a name=\"" + qs.id + "\">PGP SIGNED MESSAGE</a>";
+                        var title = "<a name=\"" + qs.id + "\">" + _("PGP SIGNED MESSAGE") + "</a>";
                     jQuery('#header').html(title)
                     if (request.verify_result.error) {
-                        jQuery('#signature_text').html(request.verify_result.original_text);
+                        jQuery('#signature_text')[0].textContent = request.verify_result.original_text;
                     } else {
-                        jQuery('#signature_text').html(request.verify_result.data);
+                        jQuery('#signature_text')[0].textContent = request.verify_result.data;
                     }
-                    jQuery('#clipboard_input').html(request.verify_result.original_text);
+                    jQuery('#clipboard_input')[0].textContent = request.verify_result.original_text;
 
                     gpg_error_code = request.verify_result.gpg_error_code;
                     if (gpg_error_code == "58") {
@@ -205,8 +205,8 @@ webpg.inline_results = {
                         icon.src = "skin/images/badges/stock_signature-bad.png";
                         jQuery(icon).addClass('footer_icon');
                         jQuery('#footer').html(icon.outerHTML);
-                        jQuery('#footer').append("THE SIGNATURE ON THIS MESSAGE IS INVALID; THE SIGNATURE MIGHT BE TAMPERED WITH<br/\>");
-                        jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>");
+                        jQuery('#footer').append(_("THE SIGNATURE ON THIS MESSAGE IS INVALID") + "; " + _("THE SIGNATURE MIGHT BE TAMPERED WITH") + "<br/\>");
+                        jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">" + _("COPY TO CLIPBOARD") + "</a>");
                     } else {
                         jQuery('#footer').addClass("signature_bad_sig");
                     }
@@ -243,14 +243,14 @@ webpg.inline_results = {
                                     }
                                 }
                             }
-                            jQuery('#footer').append("THIS MESSAGE WAS SIGNED WITH KEY " + sigkey_link + "<br/\><a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ");
-                            jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>");
+                            jQuery('#footer').append(_("THIS MESSAGE WAS SIGNED WITH KEY") + " " + sigkey_link + "<br/\><a class=\"original_text_link\" href=\"#" + qs.id + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
+                            jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">" + _("COPY TO CLIPBOARD") + "</a>");
                         }
                         if (request.verify_result.signatures[sig].status == "GOOD_EXPKEY") {
                             jQuery('#footer').addClass("signature_no_pubkey");
-                            jQuery('#footer').html("THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY<br/\>");
-                            jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ");
-                            jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>");
+                            jQuery('#footer').html(_("THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY") + "<br/\>");
+                            jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
+                            jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">" + _("COPY TO CLIPBOARD") + "</a>");
                             // TODO: Implement key-server search and fetch
 //                            jQuery('#footer').append("<a href=\"#\">TRY TO FETCH RENEWED KEY</a>");
                         }
@@ -267,9 +267,9 @@ webpg.inline_results = {
                             icon.src = "skin/images/badges/stock_signature-bad.png";
                             jQuery(icon).addClass('footer_icon');
                             jQuery('#footer').html(icon.outerHTML);
-                            jQuery('#footer').append("THE SIGNATURE ON THIS MESSAGE FAILED; THE MESSAGE MAY BE TAMPERED WITH<br/\>");
-                            jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ");
-                            jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>");
+                            jQuery('#footer').append(_("THE SIGNATURE ON THIS MESSAGE FAILED") + "; " + _("THE MESSAGE MAY BE TAMPERED WITH") + "<br/\>");
+                            jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
+                            jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">" + _("COPY TO CLIPBOARD") + "</a>");
                         }
                     }
                     webpg.inline_results.doResize();
@@ -283,7 +283,7 @@ webpg.inline_results = {
                     break;
 
                 case webpg.constants.PGPBlocks.PGP_KEY:
-                    jQuery('#header').html("<a name=\"" + qs.id + "\">PGP PUBLIC KEY</a>");
+                    jQuery('#header').html("<a name=\"" + qs.id + "\">" + _("PGP PUBLIC KEY") + "</a>");
                     jQuery('#original_text').text(request.original_text);
                     jQuery('#clipboard_input')[0].value = request.original_text;
                     icon.src = "skin/images/badges/stock_keypair.png";
@@ -330,9 +330,9 @@ webpg.inline_results = {
                                                     new_public_key = true;
                                                 }
 <!--                                                email = (keyobj.email.length > 1) ? "&lt;<a href=\"mailto:" + keyobj.email + "\">" + keyobj.email +-->
-<!--                                                    "</a>&gt;" : "no email address provided";-->
-<!--                                                jQuery('#signature_text').html("<span class=\"uid_line\">" + keyobj.name + " " + email + "</span>");-->
-                                                jQuery('#signature_text').html("Names/UIDs on Key:");
+<!--                                                    "</a>&gt;" : _("no email address provided");-->
+<!--                                                jQuery('#signature_text').html("<span class=\"uid_line\">" + webpg.utils.escape(keyobj.name) + " " + webpg.utils.escape(email) + "</span>");-->
+                                                jQuery('#signature_text').html(_("Names/UIDs on Key") + ":");
                                                 jQuery('#signature_text').append("<ul>");
                                                 for (uid in keyobj.uids) {
                                                     uid_email = (keyobj.uids[uid].email.length > 1) ? "<a href=\"mailto:" + 
@@ -355,27 +355,27 @@ webpg.inline_results = {
                                                 created.setTime(keyobj.subkeys[0].created*1000);
                                                 expires = new Date();
                                                 expires.setTime(keyobj.subkeys[0].expires*1000);
-                                                jQuery('#signature_text').append("Created: " + created.toUTCString() + "<br/\>");
-                                                jQuery('#signature_text').append("Expires: " + expires.toUTCString() + "<br/\>");
+                                                jQuery('#signature_text').append(_("Created") + ": " + created.toUTCString() + "<br/\>");
+                                                jQuery('#signature_text').append(_("Expires") + ": " + expires.toUTCString() + "<br/\>");
                                                 jQuery('#footer').addClass("public_key");
                                                 if (new_public_key) {
-                                                    jQuery('#footer').append("THIS KEY IS NOT IN YOUR KEYRING<br/\>");
+                                                    jQuery('#footer').append(_("THIS KEY IS NOT IN YOUR KEYRING") + "<br/\>");
                                                 } else {
                                                     key_url = webpg.utils.resourcePath + "key_manager.html" +
                                                         "?auto_init=true&tab=-1&openkey=" + keyobj.fingerprint.substr(-16);
                                                     key_link = "(<a href='#' id='" + key_url +
                                                         "' class='webpg-link'>" + keyobj.fingerprint.substr(-8) + "</a>)";
-                                                    jQuery('#footer').append("THIS KEY " + key_link + " IS IN YOUR KEYRING<br/\>");
+                                                    jQuery('#footer').append(_("THIS KEY IS IN YOUR KEYRING") + " " + key_link + "<br/\>");
                                                 }
-                                                jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ");
+                                                jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
                                                 if (new_public_key) {
                                                     // This is a key we don't already have, make import available
-                                                    jQuery('#footer').append("<a class=\"import_key_link\" href=\"#\">IMPORT THIS KEY</a> | ");
+                                                    jQuery('#footer').append("<a class=\"import_key_link\" href=\"#\">" + _("IMPORT THIS KEY") + "</a> | ");
                                                 } else {
                                                     // This is a key we already have, make delete available
-                                                    jQuery('#footer').append("<a class=\"delete_key_link\" href=\"#\" id=\"" + keyobj.fingerprint + "\">DELETE THIS KEY</a> | ");
+                                                    jQuery('#footer').append("<a class=\"delete_key_link\" href=\"#\" id=\"" + keyobj.fingerprint + "\">" + _("DELETE THIS KEY") + "</a> | ");
                                                 }
-                                                jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>");
+                                                jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">" + _("COPY TO CLIPBOARD") + "</a>");
 
                                                 jQuery('.delete_key_link').click(function(){
                                                     webpg.utils.sendRequest({
@@ -396,13 +396,13 @@ webpg.inline_results = {
                                                 });
                                                 jQuery('.original_text_link').off('click');
                                                 jQuery('.original_text_link').click(function(){
-                                                    if (this.innerHTML == "DISPLAY ORIGINAL"){
+                                                    if (this.innerHTML == _("DISPLAY ORIGINAL")){
                                                         jQuery('#signature_text').hide();
                                                         jQuery('#original_text').show();
-                                                        this.innerHTML = "HIDE ORIGINAL";
+                                                        this.innerHTML = _("HIDE ORIGINAL");
                                                         webpg.inline_results.doResize();
                                                     } else {
-                                                        this.innerHTML = "DISPLAY ORIGINAL";
+                                                        this.innerHTML = _("DISPLAY ORIGINAL");
                                                         jQuery('#signature_text').show();
                                                         jQuery('#original_text').hide();
                                                         webpg.inline_results.doResize(true)
@@ -422,19 +422,19 @@ webpg.inline_results = {
                                                     jQuery('#clipboard_input')[0].select();
                                                     console.log(webpg.utils.copyToClipboard(window, document));
                                                 })
-                                                if (jQuery('.original_text_link')[0].innerHTML == "DISPLAY ORIGINAL")
+                                                if (jQuery('.original_text_link')[0].innerHTML == _("DISPLAY ORIGINAL"))
                                                     webpg.inline_results.doResize();
                                             }
                                         }
                                     )
                                 } else {
-                                    jQuery('#original_text').html(request.original_text);
-                                    jQuery('#signature_text').html(request.original_text);
+                                    jQuery('#original_text')[0].textContent = request.original_text;
+                                    jQuery('#signature_text')[0].textContent = request.original_text;
                                     jQuery('#footer').addClass("signature_no_pubkey");
                                     if (import_status.no_user_id > 0)
                                         jQuery("<span class='decrypt_status'>UNUSABLE KEY; NO USER ID<br/\></span>").insertBefore(jQuery(jQuery('#footer')[0].firstChild));
-                                    jQuery('#footer').append("<a class=\"import_key_link\" href=\"#\">IMPORT THIS KEY</a> | ");
-                                    jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>");
+                                    jQuery('#footer').append("<a class=\"import_key_link\" href=\"#\">" + _("IMPORT THIS KEY") + "</a> | ");
+                                    jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">" + _("COPY TO CLIPBOARD") + "</a>");
                                 }
                                 jQuery('#original_text').hide();
                                 webpg.inline_results.doResize();
@@ -463,13 +463,13 @@ webpg.inline_results = {
             }
             jQuery('.original_text_link').off('click');
             jQuery('.original_text_link').click(function(){
-                if (this.innerHTML == "DISPLAY ORIGINAL"){
+                if (this.innerHTML == _("DISPLAY ORIGINAL")){
                     jQuery('#signature_text').hide();
                     jQuery('#original_text').show();
-                    this.innerHTML = "HIDE ORIGINAL";
+                    this.innerHTML = _("HIDE ORIGINAL");
                     webpg.inline_results.doResize()
                 } else {
-                    this.innerHTML = "DISPLAY ORIGINAL";
+                    this.innerHTML = _("DISPLAY ORIGINAL");
                     jQuery('#signature_text').show();
                     jQuery('#original_text').hide();
                     webpg.inline_results.doResize(true)
@@ -487,13 +487,13 @@ webpg.inline_results = {
                         jQuery('.decrypt_status').remove();
                         if (response.result.error) {
                             if (response.result.gpg_error_code == "11" || response.result.gpg_error_code == "152") {
-                                jQuery("<span class='decrypt_status'>DECRYPTION FAILED; BAD PASSPHRASE<br/\></span>").insertBefore(jQuery(jQuery('#footer')[0].firstChild));
+                                jQuery("<span class='decrypt_status'>" + _("DECRYPTION FAILED") + "; " + _("BAD PASSPHRASE") + "<br/\></span>").insertBefore(jQuery(jQuery('#footer')[0].firstChild));
                             }
                         } else {
-                            jQuery('#signature_text').html(response.result.data);
+                            jQuery('#signature_text')[0].textContent = response.result.data;
                             if ((request.verify_result.signatures && response.result.signatures.hasOwnProperty(0)) ||
                             (response.result.signatures && response.result.signatures.hasOwnProperty(0))) {
-                                jQuery('#header').html("<a name=\"" + qs.id + "\">PGP ENCRYPTED AND SIGNED MESSAGE</a>");
+                                jQuery('#header').html("<a name=\"" + qs.id + "\">" + _("PGP ENCRYPTED AND SIGNED MESSAGE") + "</a>");
                                 icon.src = "skin/images/badges/stock_decrypted-signature.png";
                                 sig_ok = true;
                                 sig_boxes = "<div class='signature-container'>";
@@ -516,17 +516,17 @@ webpg.inline_results = {
                             }
                             jQuery(icon).addClass('footer_icon');
                             jQuery('#footer').html(icon.outerHTML);
-                            jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ");
-                            jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>");
+                            jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
+                            jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">" + _("COPY TO CLIPBOARD") + "</a>");
                             jQuery('.original_text_link').off('click');
                             jQuery('.original_text_link').click(function(){
-                                if (this.innerHTML == "DISPLAY ORIGINAL"){
+                                if (this.innerHTML == _("DISPLAY ORIGINAL")){
                                     jQuery('#signature_text').hide();
                                     jQuery('#original_text').show();
-                                    this.innerHTML = "HIDE ORIGINAL";
+                                    this.innerHTML = _("HIDE ORIGINAL");
                                     webpg.inline_results.doResize()
                                 } else {
-                                    this.innerHTML = "DISPLAY ORIGINAL";
+                                    this.innerHTML = _("DISPLAY ORIGINAL");
                                     jQuery('#signature_text').show();
                                     jQuery('#original_text').hide();
                                     webpg.inline_results.doResize(true)

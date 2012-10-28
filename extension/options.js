@@ -41,16 +41,16 @@ webpg.options = {
             if (webpg.plugin && webpg.plugin.valid) {
                 webpg_status = webpg.plugin.webpg_status;
                 errors = {
-                    'NPAPI' : { 'error' : false, 'detail': "The WebPG NPAPI Plugin is valid; version " + webpg.plugin.version },
-                    'libgpgme' : { 'error' : false, 'detail' : "It appears you have a working version of libgpgme; version " + webpg_status.gpgme_version },
-                    'gpg_agent' : { 'error' : false, 'detail' : "It appears you have a key-agent configured" },
-                    'gpgconf' : { 'error' : false, 'detail' : "gpgconf was detected; you can use the signature methods" },
+                    'NPAPI' : { 'error' : false, 'detail': _("The WebPG NPAPI Plugin is valid") + "; version " + webpg.plugin.version },
+                    'libgpgme' : { 'error' : false, 'detail' : _("libgpgme loaded successfully") + "; version " + webpg_status.gpgme_version },
+                    'gpg_agent' : { 'error' : false, 'detail' : _("It appears you have a key-agent configured") },
+                    'gpgconf' : { 'error' : false, 'detail' : _("gpgconf was detected") + "; " +  _("you can use the signature methods") },
                 };
 
                 if (!webpg_status.gpgme_valid) {
                     errors['libgpgme'] = {
                         'error': true,
-                        'detail': "You do not appear to have libgpgme; libgpgme is required.",
+                        'detail': _("libgpgme was unable to load") + "; " + _("libgpgme is required for operation"),
                         'link' : "http://gpgauth.org/projects/gpgauth-chrome/support-libgpgme",
                     }
                 }
@@ -58,7 +58,7 @@ webpg.options = {
                 if (!webpg_status.gpg_agent_info) {
                     errors['gpg_agent'] = {
                         'error': true,
-                        'detail': "You do not appear to have a key-agent configured. A working key-agent is required",
+                        'detail': _("You do not appear to have a key-agent configured") + " " + _("A working key-agent is required"),
                         'link' : "http://gpgauth.org/projects/gpgauth-chrome/support-libgpgme",
                     }
                 }
@@ -66,7 +66,7 @@ webpg.options = {
                 if (!webpg_status.gpgconf_detected) {
                     errors['gpgconf'] = {
                         'error': true,
-                        'detail': "gpgconf does not appear to be installed; You will not be able to create signatures",
+                        'detail': _("gpgconf does not appear to be installed") + "; " + _("You will not be able to create signatures"),
                         'link' : "http://gpgauth.org/projects/gpgauth-chrome/support-gpgconf",
                     }
                 }
@@ -75,7 +75,7 @@ webpg.options = {
                 errors = {
 	            "NPAPI" : {
                         'error': true,
-                        'detail': "There was a problem loading the plugin; the issue might be caused by the plugin being incompatibly compiled for this architechture.",
+                        'detail': _("There was a problem loading the plugin") + "; " + _("the plugin might be incompatibly compiled for this architechture"),
                         'link' : null,
                     }
                 }
@@ -103,7 +103,7 @@ webpg.options = {
                 ).append(jQuery("<span></span>", {
                         'class': "trust-desc",
                         'html': (errors[error]['error'] && errors[error]['link']) ? 
-                            errors[error]['detail'] + " - <a href=\"" + errors[error]['link'] + platform + "/\" target=\"new\">click here for help resolving this issue</a>" : errors[error]['detail']
+                            errors[error]['detail'] + " - <a href=\"" + errors[error]['link'] + platform + "/\" target=\"new\">" + _("click here for help resolving this issue") + "</a>" : errors[error]['detail']
                     })
                 );
                 jQuery('#status_result').append(item_result);
@@ -132,10 +132,10 @@ webpg.options = {
                     (webpg.preferences.sign_gmail.get() == 'true');
 
                 jQuery('#enable-decorate-inline-check').button({
-                    'label': (webpg.preferences.decorate_inline.get() == 'true') ? 'Enabled' : 'Disabled'
+                    'label': (webpg.preferences.decorate_inline.get() == 'true') ? _('Enabled') : _('Disabled')
                     }).click(function(e) {
                         (webpg.preferences.decorate_inline.get() == 'true') ? webpg.preferences.decorate_inline.set(false) : webpg.preferences.decorate_inline.set(true);
-                        status = (webpg.preferences.decorate_inline.get() == 'true') ? 'Enabled' : 'Disabled'
+                        status = (webpg.preferences.decorate_inline.get() == 'true') ? _('Enabled') : _('Disabled')
                         jQuery(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.decorate_inline.get() == 'true');
                         jQuery(this).button('refresh');
@@ -143,16 +143,16 @@ webpg.options = {
                 );
 
                 jQuery('#enable-encrypt-to-self-check').button({
-                    'label': (webpg.preferences.encrypt_to_self.get()) ? 'Enabled' : 'Disabled'
+                    'label': (webpg.preferences.encrypt_to_self.get()) ? _('Enabled') : _('Disabled')
                     }).click(function(e) {
                         if (webpg.preferences.encrypt_to_self.get()) {
                             webpg.preferences.encrypt_to_self.set(false)
                             this.checked = false;
-                            status = 'Disabled';
+                            status = _('Disabled');
                         } else {
                             webpg.preferences.encrypt_to_self.set(true);
                             this.checked = true;
-                            status = 'Enabled';
+                            status = _('Enabled');
                         }
                         jQuery(this).button('option', 'label', status);
                         jQuery(this).button('refresh');
@@ -160,16 +160,16 @@ webpg.options = {
                 );
 
                 jQuery('#enable-gmail-integration-check').button({
-                    'label': (webpg.preferences.gmail_integration.get() == 'true') ? 'Enabled' : 'Disabled'
+                    'label': (webpg.preferences.gmail_integration.get() == 'true') ? _('Enabled') : _('Disabled')
                     }).click(function(e) {
                         if (webpg.preferences.gmail_integration.get() == 'false') {
-                            alert("WebPG GMAIL integration is *VERY EXPERIMENTAL*;\nuse at own risk")
+                            alert(_("WebPG GMAIL integration is EXPERIMENTAL") + "; " + _("use at your own risk"))
                         }
 
                         (webpg.preferences.gmail_integration.get() == 'true') ?
                             webpg.preferences.gmail_integration.set(false)
                             : webpg.preferences.gmail_integration.set(true);
-                        status = (webpg.preferences.gmail_integration.get() == 'true') ? 'Enabled' : 'Disabled'
+                        status = (webpg.preferences.gmail_integration.get() == 'true') ? _('Enabled') : _('Disabled')
                         jQuery(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.gmail_integration.get() == 'true');
                         jQuery(this).button('refresh');
@@ -177,12 +177,12 @@ webpg.options = {
                 );
 
                 jQuery('#gmail-action-sign-check').button({
-                    'label': (webpg.preferences.sign_gmail.get() == 'true') ? 'Enabled' : 'Disabled'
+                    'label': (webpg.preferences.sign_gmail.get() == 'true') ? _('Enabled') : _('Disabled')
                     }).click(function(e) {
                         (webpg.preferences.sign_gmail.get() == 'true') ?
                             webpg.preferences.sign_gmail.set(false)
                             : webpg.preferences.sign_gmail.set(true);
-                        status = (webpg.preferences.sign_gmail.get() == 'true') ? 'Enabled' : 'Disabled'
+                        status = (webpg.preferences.sign_gmail.get() == 'true') ? _('Enabled') : _('Disabled')
                         jQuery(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.sign_gmail.get() == 'true');
                         jQuery(this).button('refresh');

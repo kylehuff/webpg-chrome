@@ -1,0 +1,618 @@
+{
+	"WebPG_Plugin_failed_to_load": {
+		"message": "WebPG Plugin failed to load"
+	},
+	"Key_Generation_Complete": {
+		"message": "Key Generation Complete"
+	},
+	"Key_Generation": {
+		"message": "Key Generation"
+	},
+	"Open_Key_Manager": {
+		"message": "Open Key Manager"
+	},
+	"WebPG_Key_Generation_Failed": {
+		"message": "WebPG Key Generation Failed"
+	},
+	"The_generation_of_your_new_key_is_now_complete": {
+		"message": "The generation of your new key is now complete"
+	},
+	"Options": {
+		"message": "Options"
+	},
+	"Key_Manager": {
+		"message": "Key Manager"
+	},
+	"About_WebPG": {
+		"message": "About WebPG"
+	},
+	"Select_Recipient_s_": {
+		"message": "Select Recipients(s)"
+	},
+	"Error_loading_WebPG": {
+		"message": "Error loading WebPG"
+	},
+	"We_encountered_a_problem_while_attempting_to_load_WebPG": {
+		"message": "We Encountered a problem while attempting to load WebPG"
+	},
+	"Error": {
+		"message": "Error"
+	},
+	"Suggestions": {
+		"message": "Suggestions"
+	},
+	"The_plugin_was_unable_to_load": {
+		"message": "The plugin was unable to load"
+	},
+	"There_might_be_a_problem_with_the_gpg_installation": {
+		"message": "There might be a problem with the gpg installation"
+	},
+	"consider_reinstalling_gpg4win": {
+		"message": "consider reinstalling gpg4win"
+	},
+	"Error_Details": {
+		"message": "Error Details"
+	},
+	"Error_in_Method": {
+		"message": "Error in Method"
+	},
+	"Error_Code": {
+		"message": "Error Code"
+	},
+	"Error_String": {
+		"message": "Error String"
+	},
+	"File": {
+		"message": "File"
+	},
+	"Line": {
+		"message": "Line"
+	},
+	"Unknown_Error": {
+		"message": "Unknown Error"
+	},
+	"System_Information": {
+		"message": "System Information"
+	},
+	"Platform": {
+		"message": "Platform"
+	},
+	"App_Version": {
+		"message": "App Version"
+	},
+	"User_Agent": {
+		"message": "User Agent"
+	},
+	"Product": {
+		"message": "Product"
+	},
+	"Sub_product": {
+		"message": "Sub-product"
+	},
+	"Vendor": {
+		"message": "Vendor"
+	},
+	"Language": {
+		"message": "Language"
+	},
+	"You_do_not_have_any_keys_for": {
+		"message": "You do not have any keys for"
+	},
+	"or": {
+		"message": "or"
+	},
+	"You_have_more_than_1_public_key_matching_that_address": {
+		"message": "You have more than 1 public key matching that address"
+	},
+	"The_Key_for": {
+		"message": "The Key for"
+	},
+	"is_invalid": {
+		"message": "is invalid"
+	},
+	"Open_the_Key_Manager": {
+		"message": "Open the Key Manager"
+	},
+	"Encrypt": {
+		"message": "Encrypt"
+	},
+	"Sign_only": {
+		"message": "Sign only"
+	},
+	"Sign_and_Encrypt": {
+		"message": "Sign and Encrypt"
+	},
+	"Symmetric_Encryption": {
+		"message": "Symmetric Encryption"
+	},
+	"Do_not_use_WebPG_for_this_message": {
+		"message": "Do not use WebPG for this message"
+	},
+	"Private_Keys": {
+		"message": "Private Keys"
+	},
+	"Public_Keys": {
+		"message": "Public Keys"
+	},
+	"Search_Filter": {
+		"message": "Search/Filter"
+	},
+	"Are_you_sure_you_wish_to_revoke_this_Key": {
+		"message": "Are you sure you wish to revoke this Key?"
+	},
+	"Are_you_sure_you_wish_to_revoke_this_UID": {
+		"message": "Are you sure you wish to revoke this UID?"
+	},
+	"Are_you_sure_you_wish_to_revoke_this_Signature": {
+		"message": "Are you sure you wish to revoke this Signature?"
+	},
+	"Are_you_sure_you_wish_to_delete_this_Signature": {
+		"message": "Are you sure you wish to delete this Signature?"
+	},
+	"Are_you_sure_you_want_to_permanently_delete_this_UID": {
+		"message": "Are you sure you want to permanently delete this UID"
+	},
+	"New_Expiration_Date": {
+		"message": "New Expiration Date"
+	},
+	"Never_Expire": {
+		"message": "Never Expire"
+	},
+	"Expiration_Date": {
+		"message": "Expiration Date"
+	},
+	"Generate_New_Key": {
+		"message": "Generate New Key"
+	},
+	"Name_Required": {
+		"message": "Name Required"
+	},
+	"UID_Names_must_be_at_least_5_characters": {
+		"message": "UID Names must be at least 5 characters"
+	},
+	"UID_Names_cannot_begin_with_a_number": {
+		"message": "UID Names cannot begin with a number"
+	},
+	"Not_a_valid_email_address": {
+		"message": "Not a valid email address"
+	},
+	"Passphrases_do_not_match": {
+		"message": "Passphrases do not match"
+	},
+	"Building_key__please_wait": {
+		"message": "Building key, please wait.."
+	},
+	"This_may_take_a_long_time__5_minutes_or_more__to_complete": {
+		"message": "This may take a long time (5 minutes or more) to complete"
+	},
+	"Please_be_patient_while_the_key_is_created": {
+		"message": "Please be patient while the key is created"
+	},
+	"It_is_safe_to_close_this_window": {
+		"message": "It is safe to close this window"
+	},
+	"key_generation_will_continue_in_the_background": {
+		"message": "key generation will continue in the background"
+	},
+	"Enabled": {
+		"message": "Enabled"
+	},
+	"Disabled": {
+		"message": "Disabled"
+	},
+	"Valid": {
+		"message": "Valid"
+	},
+	"Expired": {
+		"message": "Expired"
+	},
+	"Invalid": {
+		"message": "Invalid"
+	},
+	"Revoked": {
+		"message": "Revoked"
+	},
+	"Cannot_unset_your_default_key": {
+		"message": "Cannot unset your default key"
+	},
+	"Trust_Assignment": {
+		"message": "Trust Assignment"
+	},
+	"Unknown": {
+		"message": "Unknown"
+	},
+	"Never": {
+		"message": "Never"
+	},
+	"Marginal": {
+		"message": "Marginal"
+	},
+	"Full": {
+		"message": "Full"
+	},
+	"Ultimate": {
+		"message": "Ultimate"
+	},
+	"Change_Expiration": {
+		"message": "Change Expiration"
+	},
+	"Change_Passphrase": {
+		"message": "Change Passphrase"
+	},
+	"Add_UID": {
+		"message": "Add UID"
+	},
+	"Add_Subkey": {
+		"message": "Add Subkey"
+	},
+	"Enable_this_Key": {
+		"message": "Enable this Key"
+	},
+	"Disable_this_Key": {
+		"message": "Disable this key"
+	},
+	"Key_Details": {
+		"message": "Key Details"
+	},
+	"KeyID": {
+		"message": "KeyID"
+	},
+	"Key_Created": {
+		"message": "Key Created"
+	},
+	"Expires": {
+		"message": "Expires"
+	},
+	"UIDs": {
+		"message": "UIDs"
+	},
+	"Fingerprint": {
+		"message": "Fingerprint"
+	},
+	"Status": {
+		"message": "Status"
+	},
+	"Key_Algorithm": {
+		"message": "Key Algorithm"
+	},
+	"Validity": {
+		"message": "Validity"
+	},
+	"Key_Options": {
+		"message": "Key Options"
+	},
+	"Operations": {
+		"message": "Operations"
+	},
+	"Delete_this_Key": {
+		"message": "Delete this key"
+	},
+	"Export_this_Key": {
+		"message": "Export this Key"
+	},
+	"Subkeys": {
+		"message": "Subkeys"
+	},
+	"Sign": {
+		"message": "Sign"
+	},
+	"Authenticate": {
+		"message": "Authenticate"
+	},
+	"Subkey_Details": {
+		"message": "Subkey Details"
+	},
+	"Flags": {
+		"message": "Flags"
+	},
+	"Delete_this_Subkey": {
+		"message": "Delete this Subkey"
+	},
+	"Revoke_this_Subkey": {
+		"message": "Revoke this key"
+	},
+	"User_IDs": {
+		"message": "User IDs"
+	},
+	"no_email_address_provided": {
+		"message": "no email address provided"
+	},
+	"Make_primary": {
+		"message": "Make primary"
+	},
+	"Revoke_UID": {
+		"message": "Revoke UID"
+	},
+	"Sign_this_UID": {
+		"message": "Sign this UID"
+	},
+	"Delete_this_UID": {
+		"message": "Delete this UID"
+	},
+	"REVOKED": {
+		"message": "REVOKED"
+	},
+	"self_signature": {
+		"message": "self-signature"
+	},
+	"local": {
+		"message": "local"
+	},
+	"non_exportable": {
+		"message": "non-exportable"
+	},
+	"other_signature": {
+		"message": "other signature"
+	},
+	"Revoke": {
+		"message": "Revoke"
+	},
+	"Delete": {
+		"message": "Delete"
+	},
+	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
+		"message": "Signatures made with keys not in your keyring are omitted"
+	},
+	"Save": {
+		"message": "Save"
+	},
+	"Cancel": {
+		"message": "Cancel"
+	},
+	"Delete_this_key": {
+		"message": "Delete this key"
+	},
+	"Create": {
+		"message": "Create"
+	},
+	"Building_key__please_wait__": {
+		"message": "Building key, please wait.."
+	},
+	"Copy": {
+		"message": "Copy"
+	},
+	"Close": {
+		"message": "Close"
+	},
+	"Please_specify_the_revocation_details": {
+		"message": "Please specify the revocation details"
+	},
+	"Reason": {
+		"message": "Reason"
+	},
+	"No_reason_specified": {
+		"message": "No reason specified"
+	},
+	"Key_has_been_compromised": {
+		"message": "Key has been compromised"
+	},
+	"Key_is_superseded": {
+		"message": "Key is superseded"
+	},
+	"Key_is_no_longer_used": {
+		"message": "Key is no longer used"
+	},
+	"Description": {
+		"message": "Description"
+	},
+	"User_ID_is_no_longer_valid": {
+		"message": "User ID is no longer valid"
+	},
+	"Please_select_which_of_your_keys_to_create_the_signature_with": {
+		"message": "Please select which of your keys to create the signature with"
+	},
+	"You_have_not_enabled_any_keys_for_use_with_webpg": {
+		"message": "You have not enabled any keys for use with webpg"
+	},
+	"please_click_here": {
+		"message": "please click here"
+	},
+	"and_select_1_or_more_keys_for_use_with_webpg": {
+		"message": "and select 1 or more keys for use with webpg"
+	},
+	"Signature_added_using_this_key": {
+		"message": "Signature added using this key"
+	},
+	"Cannot_create_signatures_without_gpgconf_utility_installed": {
+		"message": "Cannot create signatures without gpgconf utility installed"
+	},
+	"Cannot_sign_a_revoked_UID": {
+		"message": "Cannot sign a revoked UID"
+	},
+	"Cannot_make_a_revoked_UID_primary": {
+		"message": "Cannot make a revoked UID primary"
+	},
+	"Cannot_sign_an_expired_key": {
+		"message": "Cannot sign an expired key"
+	},
+	"Are_you_certain_you_would_like_to_delete_signature": {
+		"message": "Are you certain you would like to delete this signature"
+	},
+	"from_this_User_ID": {
+		"message": "from this User ID"
+	},
+	"This_signature_was_made_with_a_key_that_does_not_belong_to_you": {
+		"message": "This signature was made with a key that does not belong to you"
+	},
+	"This_action_cannot_be_undone": {
+		"message": "This action cannot be undone"
+	},
+	"Delete_this_Signature": {
+		"message": "Delete this Signature?"
+	},
+	"Enable_this_key_for_signing": {
+		"message": "Enable this key for signing"
+	},
+	"This_is_your_default_key": {
+		"message": "This is your default key"
+	},
+	"Make_this_the_default_key_for_encryption_operations": {
+		"message": "Make this the default key for encryption operations"
+	},
+	"Searching_for": {
+		"message": "Searching for"
+	},
+	"The_WebPG_NPAPI_Plugin_is_valid": {
+		"message": "The WebPG NPAPI Plugin is valid"
+	},
+	"libgpgme_loaded_successfully": {
+		"message": "libgpgme loaded successfully"
+	},
+	"It_appears_you_have_a_key_agent_configured": {
+		"message": "It appears you have a key-agent configured"
+	},
+	"gpgconf_was_detected": {
+		"message": "gpgconf was detected"
+	},
+	"you_can_use_the_signature_methods": {
+		"message": "you can use the signature methods"
+	},
+	"libgpgme_was_unable_to_load": {
+		"message": "libgpgme was unable to load"
+	},
+	"libgpgme_is_required_for_operation": {
+		"message": "libgpgme is required for operation"
+	},
+	"You_do_not_appear_to_have_a_key_agent_configured": {
+		"message": "You do not appear to have a key-agent configured"
+	},
+	"A_working_key_agent_is_required": {
+		"message": "A working key-agent is required"
+	},
+	"gpgconf_does_not_appear_to_be_installed": {
+		"message": "gpgconf does not appear to be installed"
+	},
+	"You_will_not_be_able_to_create_signatures": {
+		"message": "You will not be able to create signatures"
+	},
+	"There_was_a_problem_loading_the_plugin": {
+		"message": "There was a problem loading the plugin"
+	},
+	"the_plugin_might_be_incompatibly_compiled_for_this_architechture": {
+		"message": "the plugin might be incompatibly compiled for this architechture"
+	},
+	"click_here_for_help_resolving_this_issue": {
+		"message": "click here for help resolving this issue"
+	},
+	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
+		"message": "WebPG GMAIL integration is EXPERIMENTAL"
+	},
+	"use_at_your_own_risk": {
+		"message": "use at your own risk"
+	},
+	"Text_copied_to_clipboard": {
+		"message": "Text copied to clipboard"
+	},
+	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
+		"message": "There may have been a problem placing the data into the clipboard"
+	},
+	"WebPG_Options": {
+		"message": "WebPG Options"
+	},
+	"WebPG_Key_Manager": {
+		"message": "WebPG Key Manager"
+	},
+	"Paste_Public_Key": {
+		"message": "Paste Public Key"
+	},
+	"Clear_sign_this_text": {
+		"message": "Clear-sign this text"
+	},
+	"Import_this_Key": {
+		"message": "Import this Key"
+	},
+	"Encrypt_this_text": {
+		"message": "Encrypt this text"
+	},
+	"Decrypt_this_text": {
+		"message": "Decrypt this text"
+	},
+	"Verify_this_text": {
+		"message": "Verify this text"
+	},
+	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
+		"message": "PGP ENCRYPTED OR SIGNED MESSAGE"
+	},
+	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
+		"message": "UNABLE TO DECRYPT OR VERIFY THIS MESSAGE"
+	},
+	"PGP_ENCRYPTED_MESSAGE": {
+		"message": "PGP ENCRYPTED MESSAGE"
+	},
+	"PGP_ENCRYPTED_AND_SIGNED_MESSAGE": {
+		"message": "PGP ENCRYPTED AND SIGNED MESSAGE"
+	},
+	"DECRYPTION_FAILED": {
+		"message": "DECRYPTION FAILED"
+	},
+	"NO_SECRET_KEY": {
+		"message": "NO SECRET KEY"
+	},
+	"BAD_PASSPHRASE": {
+		"message": "BAD PASSPHRASE"
+	},
+	"DECRYPT_THIS_MESSAGE": {
+		"message": "DECRYPT THIS MESSAGE"
+	},
+	"DISPLAY_ORIGINAL": {
+		"message": "DISPLAY ORIGINAL"
+	},
+	"COPY_TO_CLIPBOARD": {
+		"message": "COPY TO CLIPBOARD"
+	},
+	"DETACHED_PGP_SIGNATURE": {
+		"message": "DETECHED PGP SIGNATURE"
+	},
+	"PGP_SIGNED_MESSAGE": {
+		"message": "PGP SIGNED MESSAGE"
+	},
+	"THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID": {
+		"message": "THE SIGNATURE ON THIS MESSAGE IS INVALID"
+	},
+	"THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH": {
+		"message": "THE SIGNATURE MIGHT BE TAMPERED WITH"
+	},
+	"THIS_MESSAGE_WAS_SIGNED_WITH_KEY": {
+		"message": "THIS MESSAGE WAS SIGNED WITH KEY"
+	},
+	"THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY": {
+		"message": "THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY"
+	},
+	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
+		"message": "THE SIGNATURE ON THIS MESSAGE FAILED"
+	},
+	"THE_MESSAGE_MAY_BE_TAMPERED_WITH": {
+		"message": "THE MESSAGE MAY BE TAMPERED WITH"
+	},
+	"PGP_PUBLIC_KEY": {
+		"message": "PGP PUBLIC KEY"
+	},
+	"Names_UIDs_on_Key": {
+		"message": "Names/UIDs on Key"
+	},
+	"Created": {
+		"message": "Created"
+	},
+	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {
+		"message": "THIS KEY IS NOT IN YOUR KEYRING"
+	},
+	"THIS_KEY_IS_IN_YOUR_KEYRING": {
+		"message": "THIS KEY IS IN YOUR KEYRING"
+	},
+	"IMPORT_THIS_KEY": {
+		"message": "IMPORT THIS KEY"
+	},
+	"DELETE_THIS_KEY": {
+		"message": "DELETE THIS KEY"
+	},
+	"HIDE_ORIGINAL": {
+		"message": "HIDE ORIGINAL"
+	},
+	"extDesc": {
+		"message": "An extension which provides GnuPG/GPG/PGP related functions to Chrome"
+	},
+	"empty_end": {
+		"message": "N/A",
+		"description": "Just an empty item to mark our end; No need to translate."
+	}
+}

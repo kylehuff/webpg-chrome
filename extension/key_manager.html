@@ -282,8 +282,8 @@ ul.expand ul
 <body>
 <div id="tabs">
     <ul>
-        <li><a id="tab-2-btn" href="#tabs-2">Private Keys</a></li>
-        <li><a id="tab-3-btn" href="#tabs-3">Public Keys</a></li>
+        <li><a id="tab-2-btn" href="#tabs-2"></a></li>
+        <li><a id="tab-3-btn" href="#tabs-3"></a></li>
     </ul>
     <div id="tabs-2">
         <div id="private_keylist">
@@ -292,7 +292,7 @@ ul.expand ul
     </div>
     <div id="tabs-3">
         <div style="width: 100%;">
-            <label for="pubkey-search" style="position:absolute;right:328px;margin-top:4px;font-size:1em;font-weight:bold;">Search/Filter:&nbsp;</label>
+            <label id="pubkey-search-lbl" for="pubkey-search" style="position:absolute;right:328px;margin-top:4px;font-size:1em;font-weight:bold;"></label>
             <input style="position:absolute;right:20px;width:300px;" class="ui-corner-all ui-widget ui-state-default" id="pubkey-search"/><br/><br/>
         </div>
         <div id="public_keylist">
@@ -305,25 +305,25 @@ ul.expand ul
     </div>
 </div>
 <div id="revkey-confirm" style="display:none;" title="Revoke this Key?">
-    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revkey-text'>Are you sure you wish to revoke this Key?</span></p>
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revkey-text'></span></p>
 </div>
 <div id="revuid-confirm" style="display:none;" title="Revoke this UID?">
-    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revuid-text'>Are you sure you wish to revoke this UID?</span></p>
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revuid-text'></span></p>
 </div>
 <div id="revsig-confirm" style="display:none;" title="Revoke this Signature?">
-    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revsig-text'>Are you sure you wish to revoke this signature?</span></p>
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revsig-text'></span></p>
 </div>
 <div id="delsig-confirm" style="display:none;" title="Delete this Signature?">
-    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='delsig-text'>Are you sure you wish to delete this signature?</span></p>
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='delsig-text'></span></p>
 </div>
 <div id="deluid-confirm" style="display:none;" title="Delete this UID?">
-    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='deluid-text'>Are you sure you want to permenantly delete this UID?</span></p>
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='deluid-text'></span></p>
 </div>
 <div id="keyexp-dialog" style="display:none;" title="Change Key Expiration">
-    <p><span class="ui-icon ui-icon-calendar" style="float:left; margin:0 7px 20px 0;"></span><span id='keyexp-text'>New Expiration date:</span>
-    <div id="keyexp-buttonset" style="margin-bottom:8px;">
-        <input type="radio" name="keyexp-type-radio" id="keyexp-never"/><label for="keyexp-never">Never Expire</label>
-        <input type="radio" name="keyexp-type-radio" id="keyexp-ondate"/><label for="keyexp-ondate">Expiration Date</label>
+    <p><span class="ui-icon ui-icon-calendar" style="float:left; margin:0 7px 20px 0;"></span><span id='keyexp-text'></span>
+    <div id="keyexp-buttonset" style="margin-bottom:4px;">
+        <input type="radio" name="keyexp-type-radio" id="keyexp-never"/><label id="keyexp-never" for="keyexp-never"></label>
+        <input type="radio" name="keyexp-type-radio" id="keyexp-ondate"/><label id="keyexp-ondate" for="keyexp-ondate"></label>
     </div>
     <div style="margin:0 24px;"><div id="keyexp-date-input"></div></div></p>
 </div>

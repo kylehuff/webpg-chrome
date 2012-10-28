@@ -1,0 +1,12 @@
+# List of source files containing translatable strings.
+
+extension/background.js
+extension/browser_action_menu.js
+extension/dialog.js
+extension/error.js
+extension/gmail.js
+extension/key_manager.js
+extension/manifest.json
+extension/options.js
+extension/utils.js
+extension/webpg_results.js

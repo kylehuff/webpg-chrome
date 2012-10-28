@@ -302,9 +302,9 @@ webpg.gmail = {
                 }
             }
             if (notAllKeys) {
-                var status = "You do not have keys for " +
+                var status = _("You do not have any keys for") + " " +
                     missingKeys.toString().
-                    replace(/((,!$))/g, " or ").replace(",", "");
+                    replace(/((,!$))/g, " " + _("or") + " ").replace(",", "");
                 webpg.gmail.displayStatusLine(status);
             } else {
                 if (callback)
@@ -365,8 +365,7 @@ webpg.gmail = {
     handleFailure: function(result, recipKeys) {
         if (result.gpg_error_code == "107") {
             var status = result.error_string + ": " +
-                result.data + "; You have more than 1"
-                + " public key matching that address.";
+                result.data + "; " + _("You have more than 1 public key matching that address");
             webpg.gmail.displayStatusLine(status);
         } else if (typeof(result.data)!='undefined' && result.data.length > 0) {
             var invKeyFP = result.data;
@@ -378,13 +377,12 @@ webpg.gmail = {
             for (var r in recipKeys) {
                 var fp = recipKeys[r].fingerprint;
                 if (fp == invKeyFP) {
-                    status = "The Key for " + r + " " +
-                    " is invalid [" + result.
+                    status = _("The Key for") + " " + r + " " +
+                    _("is invalid") + " [" + result.
                     error_string + "] " +
                     "&nbsp;&nbsp;(<a href='#' class=" +
                     "'keylink' " + "id='" + url + "'" +
-                    " title='Open " +
-                    "the Key Manager'>" + shortKey +
+                    " title='" + _("Open the Key Manager") + "'>" + shortKey +
                     "</a>)";
                     webpg.gmail.displayStatusLine(status);
                 }
@@ -483,31 +481,31 @@ webpg.gmail = {
     '<li class="webpg-action-btn" id="webpg-crypt-btn">' +
         '<a href="#">' +
             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
-            'Encrypt' +
+            _('Encrypt') +
         '</a>' +
     '</li>' +
     '<li class="webpg-action-btn" id="webpg-sign-btn">' +
         '<a href="#">' +
             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_signature-ok.png" class="webpg-li-icon"/>' +
-            'Sign only' +
+            _('Sign only') +
         '</a>' +
     '</li>' +
     '<li class="webpg-action-btn" id="webpg-scrypt-btn">' +
         '<a href="#">' +
             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
-            'Sign and Encrypt' +
+            _('Sign and Encrypt') +
         '</a>' +
     '</li>' +
     '<li class="webpg-action-btn" id="webpg-symmetric-btn">' +
         '<a href="#">' +
             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
-            'Symmetric Encryption' +
+            _('Symmetric Encryption') +
         '</a>' +
     '</li>' +
     '<li class="webpg-action-btn" id="webpg-none-btn">' +
         '<a href="#">' +
             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_decrypted-signature-bad.png" class="webpg-li-icon"/>' +
-            'Do not use WebPG for this message' +
+            _('Do not use WebPG for this message') +
         '</a>' +
     '</li>' +
 '</ul>';

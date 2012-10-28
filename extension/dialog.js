@@ -27,7 +27,7 @@ jQuery(function(){
         minHeight: 300,
         width: 630,
         modal: true,
-        title: "Select Recipient(s)",
+        title: _("Select Recipient(s)"),
         autoOpen: true,
         close: function(event) {
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
