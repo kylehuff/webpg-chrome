@@ -482,7 +482,7 @@ msgstr "سحب"
 #: extension/key_manager.js:782
 #, fuzzy
 msgid "Sign this UID"
-msgstr "حذف هذا معرف المستخدم"
+msgstr "التوقيع على هذه هوية المستخدم"
 
 #: extension/key_manager.js:784 extension/key_manager.js:1405
 msgid "Delete this UID"
