@@ -649,30 +649,24 @@ webpg.utils = {
     i18n: {
         gettext: function(msg) {
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                // TODO: Implement this
                 // Get the reference to the browser window
-                var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                           .getService(Components.interfaces.nsIWindowMediator);
-                var enumerator = wm.getEnumerator(null);
-                while(enumerator.hasMoreElements()) {
-                    var win = enumerator.getNext().QueryInterface(
-                        Components.interfaces.nsIDOMChromeWindow
-                    );
-                    if (win.content && win.content.document.getElementById("webpg-strings")) {
-                        msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9|^\.]/g, '_');
-                        var stringBundle = win.content.document.getElementById("webpg-strings");
-                        try {
-                            var res = stringBundle.getString(msgName);
-                        } catch (e) {
-                            var res = msgName;
-                        }
-                        if (!res || res.length == 0)
-                            return msg
-                        else
-                            return res
-                    }
+                var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                   .getInterface(Components.interfaces.nsIWebNavigation)
+                   .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+                   .rootTreeItem
+                   .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                   .getInterface(Components.interfaces.nsIDOMWindow);
+                var stringBundle = mainWindow.document.getElementById("webpg-strings");
+                msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9|^\.]/g, '_');
+                try {
+                    var res = stringBundle.getString(msgName);
+                } catch (e) {
+                    var res = msg;
                 }
-                return msg;
+                if (!res || res.length == 0)
+                    return msg
+                else
+                    return res
             } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                 msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9]/g, '_');
                 var tmsg = chrome.i18n.getMessage(msgName);
