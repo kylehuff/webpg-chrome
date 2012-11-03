@@ -57,6 +57,9 @@ webpg.background = {
                     "line": -1,
                 }
             }
+            // Hide the plugin element or it will FUBAR the content window
+            //  on firefox.
+            document.getElementById("webpgPlugin").style.display = "none";
             webpg.utils.openNewTab(webpg.utils.resourcePath + "error.html");
         }
     },

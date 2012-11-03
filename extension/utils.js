@@ -267,15 +267,25 @@ webpg.utils = {
                 if (url.search("key_manager.html") > -1)
                     url = url.replace("key_manager.html", "XULContent/options.xul")
                         .replace("?", "?options_tab=1&");
-                //var tBrowser = top.document.getElementById("content");
-                //var tab = tBrowser.addTab(url);
-                //tBrowser.selectedTab = tab;
                 wTitle = (url.search("options_tab=0") > -1) ? _("WebPG Options") :
                     (url.search("options_tab=1") > -1) ? _("WebPG Key Manager") :
                     (url.search("options_tab=2") > -1) ? _("About WebPG") : "";
                 var wFlags = "titlebar=no,menubar=no,location=no";
                 wFlags += "scrollbars=yes,status=no,centerscreen=yes";
-                window.open(url, wTitle, wFlags);
+                if (url.search("XULContent") > -1) {
+                    window.open(url, wTitle, wFlags);
+                } else {
+                    // Get the reference to the browser window
+                    var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                       .getInterface(Components.interfaces.nsIWebNavigation)
+                       .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+                       .rootTreeItem
+                       .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                       .getInterface(Components.interfaces.nsIDOMWindow);
+                    var gBrowser = mainWindow.gBrowser;
+                    var tab = gBrowser.addTab(url);
+                    gBrowser.selectedTab = tab;
+                }
                 break;
 
             case "chrome":

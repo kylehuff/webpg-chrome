@@ -1,7 +1,15 @@
 /* <![CDATA[ */
 
-if (webpg.utils.detectedBrowser['product'] == "chrome")
+if (webpg.utils.detectedBrowser['product'] == "chrome") {
     var ext = chrome.extension.getBackgroundPage();
+} else {
+    var ext = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+       .getInterface(Components.interfaces.nsIWebNavigation)
+       .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+       .rootTreeItem
+       .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+       .getInterface(Components.interfaces.nsIDOMWindow);
+}
 
 jQuery(function(){
     error_map = ext.plugin.webpg_status;
