@@ -646,7 +646,11 @@ webpg.utils.sendRequest({
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                 var appcontent = document.getElementById("appcontent");
                 appcontent.addEventListener("DOMContentLoaded", function(aEvent) {
-                    content.addEventListener("DOMSubtreeModified", gmailChanges, false);
+                    // We need to filter based on the URL for mozilla, as we do
+                    //  not have the option to set the overlay by URL
+                    if (content.location.host == "mail.google.com") {
+                        content.addEventListener("DOMSubtreeModified", gmailChanges, false);
+                    }
                 }, true);
             } else {
                 window.addEventListener("DOMSubtreeModified", gmailChanges, true);

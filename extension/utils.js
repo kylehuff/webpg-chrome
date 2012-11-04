@@ -204,6 +204,19 @@ webpg.utils = {
                 if (iframes[i].id == id)
                     return iframes[i];
             }
+            // Check for iframes within frame elements
+            var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                   .getService(Components.interfaces.nsIWindowMediator);
+            var browserWindow = wm.getMostRecentWindow("navigator:browser");
+            for (var i = 0; i < browserWindow.content.frames.length; i++) {
+                if (browserWindow.content.frames[i].frameElement.nodeName != "IFRAME") {
+                    var iframes = browserWindow.content.frames[i].frameElement.contentDocument.getElementsByTagName("iframe");
+                    for (var x=0; x < iframes.length; x++) {
+                        if (iframes[x].id == id)
+                            return iframes[x];
+                    }
+                }
+            }
         } else {
             var iframe = jQuery("#" + id);
             if (iframe)
@@ -348,7 +361,7 @@ webpg.utils = {
             callback - <func> The callback to be called upon completion
             doc - <document> The document to add the listener to 
     */
-    sendRequest: function(data, callback, doc) { // analogue of chrome.extension.sendRequest
+    sendRequest: function(data, callback) { // analogue of chrome.extension.sendRequest
         if (this.detectedBrowser['vendor'] == "mozilla") {
             var request = document.createTextNode("");
             request.setUserData("data", data, null);
