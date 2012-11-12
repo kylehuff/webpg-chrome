@@ -2088,7 +2088,9 @@ webpg.keymanager = {
                 });
             })
         }
-
+        if (window.navigator.platform.toLowerCase().indexOf("win") > -1) {
+            jQuery("select").each(function() { this.style.backgroundImage = 'none'; });
+        }
     },
     /* end buildKeylist */
 }
