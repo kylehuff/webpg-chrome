@@ -48,7 +48,7 @@ jQuery(function(){
     } else {
         error_html = "<p>" + _("Unknown Error") + "</p>";
     }
-    jQuery("#error-text")[0].innerHTML += error_html;
+    jQuery("#error-text").append(error_html);
 
     systemInfoHTML += "<h1>" + _("System Information") + "</h1>";
     systemInfoHTML += _("Platform") + ": " + webpg.utils.escape(window.navigator.platform) + "<br/\>";
@@ -59,7 +59,7 @@ jQuery(function(){
     systemInfoHTML += _("Vendor") + ": " + webpg.utils.escape(window.navigator.vendor) + "<br/\>";
     systemInfoHTML += _("Language") + ": " + webpg.utils.escape(window.navigator.language) + "<br/\>";
 
-    jQuery("#system-info-list")[0].innerHTML = systemInfoHTML;
+    jQuery("#system-info-list").html(systemInfoHTML);
 
     if (webpg.utils.detectedBrowser['product'] == "chrome") {
         jQuery('#refresh').button().click(function(e) {

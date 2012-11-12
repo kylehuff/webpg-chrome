@@ -202,7 +202,7 @@ webpg.inline_results = {
                     if (request.verify_result.error) {
                         jQuery('#signature_text')[0].textContent = request.verify_result.original_text;
                     } else {
-                        jQuery('#signature_text')[0].innerHTML = descript(request.verify_result.data);
+                        jQuery('#signature_text').html(descript(request.verify_result.data));
                     }
                     jQuery('#clipboard_input')[0].textContent = request.verify_result.original_text;
 
@@ -403,13 +403,13 @@ webpg.inline_results = {
                                                 });
                                                 jQuery('.original_text_link').off('click');
                                                 jQuery('.original_text_link').click(function(){
-                                                    if (this.innerHTML == _("DISPLAY ORIGINAL")){
+                                                    if (this.textContent == _("DISPLAY ORIGINAL")){
                                                         jQuery('#signature_text').hide();
                                                         jQuery('#original_text').show();
-                                                        this.innerHTML = _("HIDE ORIGINAL");
+                                                        this.textContent = _("HIDE ORIGINAL");
                                                         webpg.inline_results.doResize();
                                                     } else {
-                                                        this.innerHTML = _("DISPLAY ORIGINAL");
+                                                        this.textContent = _("DISPLAY ORIGINAL");
                                                         jQuery('#signature_text').show();
                                                         jQuery('#original_text').hide();
                                                         webpg.inline_results.doResize(true)
@@ -453,7 +453,7 @@ webpg.inline_results = {
                                                     jQuery('#clipboard_input')[0].select();
                                                     console.log(webpg.utils.copyToClipboard(window, document));
                                                 })
-                                                if (jQuery('.original_text_link')[0].innerHTML == _("DISPLAY ORIGINAL"))
+                                                if (jQuery('.original_text_link')[0].textContent == _("DISPLAY ORIGINAL"))
                                                     webpg.inline_results.doResize();
                                             }
                                         }
@@ -494,13 +494,13 @@ webpg.inline_results = {
             }
             jQuery('.original_text_link').off('click');
             jQuery('.original_text_link').click(function(){
-                if (this.innerHTML == _("DISPLAY ORIGINAL")){
+                if (this.textContent == _("DISPLAY ORIGINAL")){
                     jQuery('#signature_text').hide();
                     jQuery('#original_text').show();
-                    this.innerHTML = _("HIDE ORIGINAL");
+                    this.textContent = _("HIDE ORIGINAL");
                     webpg.inline_results.doResize()
                 } else {
-                    this.innerHTML = _("DISPLAY ORIGINAL");
+                    this.textContent = _("DISPLAY ORIGINAL");
                     jQuery('#signature_text').show();
                     jQuery('#original_text').hide();
                     webpg.inline_results.doResize(true)
@@ -521,7 +521,7 @@ webpg.inline_results = {
                                 jQuery("<span class='decrypt_status'>" + _("DECRYPTION FAILED") + "; " + _("BAD PASSPHRASE") + "<br/\></span>").insertBefore(jQuery(jQuery('#footer')[0].firstChild));
                             }
                         } else {
-                            jQuery('#signature_text')[0].innerHTML = descript(response.result.data);
+                            jQuery('#signature_text').html(descript(response.result.data));
                             if ((request.verify_result.signatures && response.result.signatures.hasOwnProperty(0)) ||
                             (response.result.signatures && response.result.signatures.hasOwnProperty(0))) {
                                 jQuery('#header').html("<a name=\"" + qs.id + "\">" + _("PGP ENCRYPTED AND SIGNED MESSAGE") + "</a>");
@@ -551,13 +551,13 @@ webpg.inline_results = {
                             jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">" + _("COPY TO CLIPBOARD") + "</a>");
                             jQuery('.original_text_link').off('click');
                             jQuery('.original_text_link').click(function(){
-                                if (this.innerHTML == _("DISPLAY ORIGINAL")){
+                                if (this.textContent == _("DISPLAY ORIGINAL")){
                                     jQuery('#signature_text').hide();
                                     jQuery('#original_text').show();
-                                    this.innerHTML = _("HIDE ORIGINAL");
+                                    this.textContent = _("HIDE ORIGINAL");
                                     webpg.inline_results.doResize()
                                 } else {
-                                    this.innerHTML = _("DISPLAY ORIGINAL");
+                                    this.textContent = _("DISPLAY ORIGINAL");
                                     jQuery('#signature_text').show();
                                     jQuery('#original_text').hide();
                                     webpg.inline_results.doResize(true)
