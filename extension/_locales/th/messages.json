@@ -1,4 +1,10 @@
 {
+	"About_WebPG": {
+		"message": ""
+	},
+	"Finished": {
+		"message": ""
+	},
 	"WebPG_Plugin_failed_to_load": {
 		"message": ""
 	},
@@ -21,9 +27,6 @@
 		"message": ""
 	},
 	"Key_Manager": {
-		"message": ""
-	},
-	"About_WebPG": {
 		"message": ""
 	},
 	"Select_Recipient_s_": {
@@ -128,6 +131,9 @@
 	"Do_not_use_WebPG_for_this_message": {
 		"message": ""
 	},
+	"WebPG_Key_Manager": {
+		"message": ""
+	},
 	"Private_Keys": {
 		"message": ""
 	},
@@ -135,6 +141,105 @@
 		"message": ""
 	},
 	"Search_Filter": {
+		"message": ""
+	},
+	"Your_Name": {
+		"message": ""
+	},
+	"Your_Email": {
+		"message": ""
+	},
+	"Comment": {
+		"message": ""
+	},
+	"Passphrase": {
+		"message": ""
+	},
+	"Repeat_Passphrase": {
+		"message": ""
+	},
+	"Advanced_Options": {
+		"message": ""
+	},
+	"Public_Key_Algorithm": {
+		"message": ""
+	},
+	"Public_Key_Size": {
+		"message": ""
+	},
+	"Private_Key_Algorithm": {
+		"message": ""
+	},
+	"Private_Key_Size": {
+		"message": ""
+	},
+	"Expire_in": {
+		"message": ""
+	},
+	"Never": {
+		"message": ""
+	},
+	"n30_days": {
+		"message": ""
+	},
+	"n90_days": {
+		"message": ""
+	},
+	"n1_year": {
+		"message": ""
+	},
+	"Subkey_Options": {
+		"message": ""
+	},
+	"encrypt_only": {
+		"message": ""
+	},
+	"set_your_own_capabilities": {
+		"message": ""
+	},
+	"Sign": {
+		"message": ""
+	},
+	"Authenticate": {
+		"message": ""
+	},
+	"Revoke_this_Key": {
+		"message": ""
+	},
+	"Revoke_this_UID": {
+		"message": ""
+	},
+	"Revoke_this_Signature": {
+		"message": ""
+	},
+	"Delete_this_Signature": {
+		"message": ""
+	},
+	"Delete_this_UID": {
+		"message": ""
+	},
+	"Delete_this_Key": {
+		"message": ""
+	},
+	"This_key_will_be_permanently_deleted": {
+		"message": ""
+	},
+	"Are_you_sure": {
+		"message": ""
+	},
+	"Change_Expiration": {
+		"message": ""
+	},
+	"Sign_this_UID": {
+		"message": ""
+	},
+	"Key_Details": {
+		"message": ""
+	},
+	"Export_Public_Key": {
+		"message": ""
+	},
+	"Add_UID": {
 		"message": ""
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Key": {
@@ -161,7 +266,34 @@
 	"Expiration_Date": {
 		"message": ""
 	},
+	"Click_to_generate_a_new_key": {
+		"message": ""
+	},
+	"Click_to_enable_key": {
+		"message": ""
+	},
+	"Click_to_set_default_key": {
+		"message": ""
+	},
+	"Generating_Key": {
+		"message": ""
+	},
+	"Waiting_for_entropy": {
+		"message": ""
+	},
+	"Building_key": {
+		"message": ""
+	},
+	"please_wait": {
+		"message": ""
+	},
+	"trust": {
+		"message": ""
+	},
 	"Generate_New_Key": {
+		"message": ""
+	},
+	"Create": {
 		"message": ""
 	},
 	"Name_Required": {
@@ -194,6 +326,9 @@
 	"key_generation_will_continue_in_the_background": {
 		"message": ""
 	},
+	"Cancel": {
+		"message": ""
+	},
 	"Enabled": {
 		"message": ""
 	},
@@ -221,9 +356,6 @@
 	"Unknown": {
 		"message": ""
 	},
-	"Never": {
-		"message": ""
-	},
 	"Marginal": {
 		"message": ""
 	},
@@ -233,13 +365,7 @@
 	"Ultimate": {
 		"message": ""
 	},
-	"Change_Expiration": {
-		"message": ""
-	},
 	"Change_Passphrase": {
-		"message": ""
-	},
-	"Add_UID": {
 		"message": ""
 	},
 	"Add_Subkey": {
@@ -249,9 +375,6 @@
 		"message": ""
 	},
 	"Disable_this_Key": {
-		"message": ""
-	},
-	"Key_Details": {
 		"message": ""
 	},
 	"KeyID": {
@@ -284,19 +407,10 @@
 	"Operations": {
 		"message": ""
 	},
-	"Delete_this_Key": {
-		"message": ""
-	},
 	"Export_this_Key": {
 		"message": ""
 	},
 	"Subkeys": {
-		"message": ""
-	},
-	"Sign": {
-		"message": ""
-	},
-	"Authenticate": {
 		"message": ""
 	},
 	"Subkey_Details": {
@@ -321,12 +435,6 @@
 		"message": ""
 	},
 	"Revoke_UID": {
-		"message": ""
-	},
-	"Sign_this_UID": {
-		"message": ""
-	},
-	"Delete_this_UID": {
 		"message": ""
 	},
 	"REVOKED": {
@@ -356,22 +464,13 @@
 	"Save": {
 		"message": ""
 	},
-	"Cancel": {
-		"message": ""
-	},
 	"Delete_this_key": {
 		"message": ""
 	},
-	"Create": {
-		"message": ""
-	},
-	"Building_key__please_wait__": {
+	"Close": {
 		"message": ""
 	},
 	"Copy": {
-		"message": ""
-	},
-	"Close": {
 		"message": ""
 	},
 	"Please_specify_the_revocation_details": {
@@ -410,6 +509,15 @@
 	"and_select_1_or_more_keys_for_use_with_webpg": {
 		"message": ""
 	},
+	"You_have_not_generated_any_keys": {
+		"message": ""
+	},
+	"and_generate_a_key_to_use_with_webpg": {
+		"message": ""
+	},
+	"Already_signed_with_this_key": {
+		"message": ""
+	},
 	"Signature_added_using_this_key": {
 		"message": ""
 	},
@@ -437,9 +545,6 @@
 	"This_action_cannot_be_undone": {
 		"message": ""
 	},
-	"Delete_this_Signature": {
-		"message": ""
-	},
 	"Enable_this_key_for_signing": {
 		"message": ""
 	},
@@ -450,6 +555,9 @@
 		"message": ""
 	},
 	"Searching_for": {
+		"message": ""
+	},
+	"WebPG_Options": {
 		"message": ""
 	},
 	"The_WebPG_NPAPI_Plugin_is_valid": {
@@ -494,6 +602,33 @@
 	"click_here_for_help_resolving_this_issue": {
 		"message": ""
 	},
+	"Enable_Inline_formatting_of_PGP_Messages_and_Keys": {
+		"message": ""
+	},
+	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
+		"message": ""
+	},
+	"Enable_WebPG_GMAIL_integration": {
+		"message": ""
+	},
+	"EXPERIMENTAL": {
+		"message": ""
+	},
+	"Sign_outgoing_messages_in_GMAIL": {
+		"message": ""
+	},
+	"GnuPG_home_directory": {
+		"message": ""
+	},
+	"GnuPG_binary": {
+		"message": ""
+	},
+	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
+		"message": ""
+	},
+	"There_is_a_problem_with_your_configuration": {
+		"message": ""
+	},
 	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
 		"message": ""
 	},
@@ -504,12 +639,6 @@
 		"message": ""
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
-		"message": ""
-	},
-	"WebPG_Options": {
-		"message": ""
-	},
-	"WebPG_Key_Manager": {
 		"message": ""
 	},
 	"Paste_Public_Key": {
@@ -578,6 +707,9 @@
 	"THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY": {
 		"message": ""
 	},
+	"THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING": {
+		"message": ""
+	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
 		"message": ""
 	},
@@ -606,6 +738,12 @@
 		"message": ""
 	},
 	"HIDE_ORIGINAL": {
+		"message": ""
+	},
+	"UNUSABLE_KEY": {
+		"message": ""
+	},
+	"NO_USER_ID": {
 		"message": ""
 	},
 	"extDesc": {

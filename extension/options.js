@@ -17,6 +17,8 @@ webpg.options = {
             or thunderbirdOverlay.xul in Mozilla applications - not passed in Google Chrome
     */
     init: function(browserWindow) {
+        document.title = _("WebPG Options");
+        document.dir = (webpg.utils.isRTL() ? 'rtl' : 'ltr');
         if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
             webpg.plugin = browserWindow.plugin;
         else if (webpg.utils.detectedBrowser['product'] == "chrome")
@@ -79,6 +81,7 @@ webpg.options = {
                         'link' : null,
                     }
                 }
+                jQuery('#valid-options').hide();
                 console.log(errors['NPAPI']['detail']);
             }
             errors_found = false;
@@ -106,10 +109,11 @@ webpg.options = {
                             errors[error]['detail'] + " - <a href=\"" + errors[error]['link'] + platform + "/\" target=\"new\">" + _("click here for help resolving this issue") + "</a>" : errors[error]['detail']
                     })
                 );
-                jQuery('#status_result').append(item_result);
+                if (errors_found)
+                    jQuery('#status_result').append(item_result);
             }
             if (errors_found && (error == 'libgpgme' || error == 'NPAPI')) {
-                // Hide the options for valid installations
+                // Hide the options for invalid installations
                 jQuery('#valid-options').hide();
             } else {
                 // Only display the inline check if this is not the app version of webpg-chrome
@@ -121,6 +125,36 @@ webpg.options = {
                     jQuery('#enable-decorate-inline-check')[0].checked = 
                         (webpg.preferences.decorate_inline.get() == 'true');
                 }
+
+                jQuery(".webpg-options-title").first().text(_("WebPG Options"));
+
+                jQuery("#enable-decorate-inline").find(".webpg-options-text").
+                    text(_("Enable Inline formatting of PGP Messages and Keys"));
+
+                jQuery("#enable-encrypt-to-self").find(".webpg-options-text").
+                    text(_("Always encrypt to your default key in addition to the recipient"));
+
+                jQuery("#enable-gmail-integration").find(".webpg-options-text").
+                    text(_("Enable WebPG GMAIL integration") + " [" + _("EXPERIMENTAL") + "]");
+
+                jQuery("#gmail-action-sign").find(".webpg-options-text").
+                    text(_("Sign outgoing messages in GMAIL"));
+
+                jQuery("#advanced-options-link").text(_("Advanced Options"));
+
+                jQuery("#gnupg-path-select").find(".webpg-options-text").
+                    text(_("GnuPG home directory"));
+                    
+                jQuery("#gnupg-path-select").find("input:button").val(_("Save"))
+
+                jQuery("#gnupg-binary-select").find(".webpg-options-text").
+                    text(_("GnuPG binary") + " (i.e. /usr/bin/gpg)");
+                    
+                jQuery("#gnupg-binary-select").find("input:button").val(_("Save"));
+
+                jQuery("#system-good").find(".trust-desc").text(_("Your system appears to be configured correctly for WebPG"));
+
+                jQuery("#system-error").find(".trust-desc").text(_("There is a problem with your configuration"));
 
                 jQuery('#enable-encrypt-to-self-check')[0].checked = 
                     (webpg.preferences.encrypt_to_self.get());
@@ -188,10 +222,69 @@ webpg.options = {
                         jQuery(this).button('refresh');
                     }
                 );
+
+                jQuery("#gnupg-path-save").button().click(function(e){
+                    webpg.preferences.gnupghome.set(jQuery("#gnupg-path-input")[0].value);
+                    jQuery(this).hide();
+                });
+
+                jQuery("#gnupg-path-input").each(function() {
+                    // Save current value of element
+                    jQuery(this).data('oldVal', $(this).val());
+
+                    // Look for changes in the value
+                    jQuery(this).bind("propertychange keyup input paste", function(event){
+                        // If value has changed...
+                        if (jQuery(this).data('oldVal') != jQuery(this).val()) {
+                            // Updated stored value
+                            jQuery(this).data('oldVal', $(this).val());
+
+                            // Show save dialog
+                            if (jQuery(this).val() != webpg.preferences.gnupghome.get())
+                                jQuery("#gnupg-path-save").show();
+                            else
+                                jQuery("#gnupg-path-save").hide();
+                        }
+                    })
+                })[0].value = webpg.preferences.gnupghome.get();
+
+                jQuery("#gnupg-path-input")[0].dir = "ltr";
+
+                jQuery("#gnupg-binary-save").button().click(function(e){
+                    webpg.preferences.gnupgbin.set(jQuery("#gnupg-binary-input")[0].value);
+                    jQuery(this).hide();
+                });
+
+                jQuery("#gnupg-binary-input").each(function() {
+                    // Save current value of element
+                    jQuery(this).data('oldVal', $(this).val());
+
+                    // Look for changes in the value
+                    jQuery(this).bind("propertychange keyup input paste", function(event){
+                        // If value has changed...
+                        if (jQuery(this).data('oldVal') != jQuery(this).val()) {
+                            // Updated stored value
+                            jQuery(this).data('oldVal', $(this).val());
+
+                            // Show save dialog
+                            if (jQuery(this).val() != webpg.preferences.gnupgbin.get())
+                                jQuery("#gnupg-binary-save").show();
+                            else
+                                jQuery("#gnupg-binary-save").hide();
+                        }
+                    })
+                })[0].value = webpg.preferences.gnupgbin.get();
+
+                jQuery("#gnupg-binary-input")[0].dir = "ltr";
+
+                jQuery("#advanced-options-link").click(function(e){
+                    jQuery("#advanced-options").toggle("slide");
+                });                
             }
         }
         
-        jQuery('#close').button().click(function(e) { window.top.close(); });
+        jQuery('#close').button().button("option", "label", _("Finished"))
+            .click(function(e) { window.top.close(); });
     }
 }
 

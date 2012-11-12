@@ -1,4 +1,10 @@
 {
+	"About_WebPG": {
+		"message": "حول WebPG"
+	},
+	"Finished": {
+		"message": ""
+	},
 	"WebPG_Plugin_failed_to_load": {
 		"message": "WebPG فشل تحميل البرنامج المساعد"
 	},
@@ -22,9 +28,6 @@
 	},
 	"Key_Manager": {
 		"message": "مفتاح مدير"
-	},
-	"About_WebPG": {
-		"message": "حول WebPG"
 	},
 	"Select_Recipient_s_": {
 		"message": "حدد المستلمين"
@@ -128,6 +131,9 @@
 	"Do_not_use_WebPG_for_this_message": {
 		"message": "لا تستخدم WebPG لهذه الرسالة"
 	},
+	"WebPG_Key_Manager": {
+		"message": "مفتاح مدير WebPG"
+	},
 	"Private_Keys": {
 		"message": "مفاتيح خاصة"
 	},
@@ -136,6 +142,105 @@
 	},
 	"Search_Filter": {
 		"message": "بحث / فلتر"
+	},
+	"Your_Name": {
+		"message": ""
+	},
+	"Your_Email": {
+		"message": ""
+	},
+	"Comment": {
+		"message": ""
+	},
+	"Passphrase": {
+		"message": "تغيير عبارة المرور"
+	},
+	"Repeat_Passphrase": {
+		"message": "تغيير عبارة المرور"
+	},
+	"Advanced_Options": {
+		"message": "خيارات"
+	},
+	"Public_Key_Algorithm": {
+		"message": "مفتاح خوارزمية"
+	},
+	"Public_Key_Size": {
+		"message": "مفاتيح العامة"
+	},
+	"Private_Key_Algorithm": {
+		"message": "مفتاح خوارزمية"
+	},
+	"Private_Key_Size": {
+		"message": "مفاتيح خاصة"
+	},
+	"Expire_in": {
+		"message": "انقضاء"
+	},
+	"Never": {
+		"message": "أبدا"
+	},
+	"n30_days": {
+		"message": ""
+	},
+	"n90_days": {
+		"message": ""
+	},
+	"n1_year": {
+		"message": ""
+	},
+	"Subkey_Options": {
+		"message": "خيارات"
+	},
+	"encrypt_only": {
+		"message": "تشفير"
+	},
+	"set_your_own_capabilities": {
+		"message": "استخدام على مسؤوليتك الخاصة"
+	},
+	"Sign": {
+		"message": "توقيع فقط"
+	},
+	"Authenticate": {
+		"message": "مصادقة"
+	},
+	"Revoke_this_Key": {
+		"message": "حذف هذا المفتاح"
+	},
+	"Revoke_this_UID": {
+		"message": "سحب"
+	},
+	"Revoke_this_Signature": {
+		"message": "حذف هذا التوقيع"
+	},
+	"Delete_this_Signature": {
+		"message": "حذف هذا التوقيع"
+	},
+	"Delete_this_UID": {
+		"message": "حذف هذا معرف المستخدم"
+	},
+	"Delete_this_Key": {
+		"message": "حذف هذا المفتاح"
+	},
+	"This_key_will_be_permanently_deleted": {
+		"message": ""
+	},
+	"Are_you_sure": {
+		"message": ""
+	},
+	"Change_Expiration": {
+		"message": "تاريخ انتهاء الصلاحية الجديد"
+	},
+	"Sign_this_UID": {
+		"message": "التوقيع على هذه هوية المستخدم"
+	},
+	"Key_Details": {
+		"message": "مفتاح التفاصيل"
+	},
+	"Export_Public_Key": {
+		"message": "استيراد هذا المفتاح"
+	},
+	"Add_UID": {
+		"message": "إضافة المستخدم معرف"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Key": {
 		"message": "هل أنت متأكد أنك ترغب في الغاء هذا معرف المستخدم"
@@ -161,8 +266,35 @@
 	"Expiration_Date": {
 		"message": "تاريخ انتهاء الصلاحية"
 	},
+	"Click_to_generate_a_new_key": {
+		"message": "انقر لإنشاء مفتاح جديد"
+	},
+	"Click_to_enable_key": {
+		"message": ""
+	},
+	"Click_to_set_default_key": {
+		"message": "هذا هو المفتاح الخاص بك الافتراضي"
+	},
+	"Generating_Key": {
+		"message": "إنشاء مفتاح جديد"
+	},
+	"Waiting_for_entropy": {
+		"message": ""
+	},
+	"Building_key": {
+		"message": "إنشاء المفتاح، يرجى الانتظار"
+	},
+	"please_wait": {
+		"message": "إنشاء المفتاح، يرجى الانتظار"
+	},
+	"trust": {
+		"message": ""
+	},
 	"Generate_New_Key": {
 		"message": "إنشاء مفتاح جديد"
+	},
+	"Create": {
+		"message": "خلق"
 	},
 	"Name_Required": {
 		"message": "الاسم مطلوب"
@@ -194,6 +326,9 @@
 	"key_generation_will_continue_in_the_background": {
 		"message": "وسوف يستمر إنشاء المفتاح في الخلفية"
 	},
+	"Cancel": {
+		"message": "إلغاء"
+	},
 	"Enabled": {
 		"message": "تمكين"
 	},
@@ -221,9 +356,6 @@
 	"Unknown": {
 		"message": "غير معروف"
 	},
-	"Never": {
-		"message": "أبدا"
-	},
 	"Marginal": {
 		"message": "هامشي"
 	},
@@ -233,14 +365,8 @@
 	"Ultimate": {
 		"message": "نهائي"
 	},
-	"Change_Expiration": {
-		"message": "تاريخ انتهاء الصلاحية الجديد"
-	},
 	"Change_Passphrase": {
 		"message": "تغيير عبارة المرور"
-	},
-	"Add_UID": {
-		"message": "إضافة المستخدم معرف"
 	},
 	"Add_Subkey": {
 		"message": "إضافة مفتاح الفرعي"
@@ -250,9 +376,6 @@
 	},
 	"Disable_this_Key": {
 		"message": "حذف هذا المفتاح"
-	},
-	"Key_Details": {
-		"message": "مفتاح التفاصيل"
 	},
 	"KeyID": {
 		"message": "مفتاح معرف"
@@ -284,20 +407,11 @@
 	"Operations": {
 		"message": "خيارات"
 	},
-	"Delete_this_Key": {
-		"message": "حذف هذا المفتاح"
-	},
 	"Export_this_Key": {
 		"message": "استيراد هذا المفتاح"
 	},
 	"Subkeys": {
 		"message": "المفاتيح الفرعية"
-	},
-	"Sign": {
-		"message": "توقيع فقط"
-	},
-	"Authenticate": {
-		"message": "مصادقة"
 	},
 	"Subkey_Details": {
 		"message": "مفتاح الفرعي التفاصيل"
@@ -322,12 +436,6 @@
 	},
 	"Revoke_UID": {
 		"message": "سحب"
-	},
-	"Sign_this_UID": {
-		"message": "حذف هذا معرف المستخدم"
-	},
-	"Delete_this_UID": {
-		"message": "حذف هذا معرف المستخدم"
 	},
 	"REVOKED": {
 		"message": "فاسخ"
@@ -356,23 +464,14 @@
 	"Save": {
 		"message": "حفظ"
 	},
-	"Cancel": {
-		"message": "إلغاء"
-	},
 	"Delete_this_key": {
 		"message": "حذف هذا المفتاح"
 	},
-	"Create": {
-		"message": "خلق"
-	},
-	"Building_key__please_wait__": {
-		"message": "إنشاء المفتاح، يرجى الانتظار"
+	"Close": {
+		"message": "غلق"
 	},
 	"Copy": {
 		"message": "نسخ"
-	},
-	"Close": {
-		"message": "غلق"
 	},
 	"Please_specify_the_revocation_details": {
 		"message": "يرجى تحديد تفاصيل من إبطال"
@@ -410,6 +509,15 @@
 	"and_select_1_or_more_keys_for_use_with_webpg": {
 		"message": "وحدد 1 أو أكثر مفاتيح للاستخدام مع webpg"
 	},
+	"You_have_not_generated_any_keys": {
+		"message": "لديك لم يتم تمكين أي مفاتيح للاستخدام مع webpg"
+	},
+	"and_generate_a_key_to_use_with_webpg": {
+		"message": "وحدد 1 أو أكثر مفاتيح للاستخدام مع webpg"
+	},
+	"Already_signed_with_this_key": {
+		"message": ""
+	},
 	"Signature_added_using_this_key": {
 		"message": "إنشاء التوقيع باستخدام هذا المفتاح"
 	},
@@ -437,9 +545,6 @@
 	"This_action_cannot_be_undone": {
 		"message": "لا يمكن التراجع عن هذا الإجراء"
 	},
-	"Delete_this_Signature": {
-		"message": "حذف هذا التوقيع"
-	},
 	"Enable_this_key_for_signing": {
 		"message": "تمكين هذا المفتاح لتوقيع"
 	},
@@ -451,6 +556,9 @@
 	},
 	"Searching_for": {
 		"message": "العثور على مفتاح"
+	},
+	"WebPG_Options": {
+		"message": "خيارات WebPG"
 	},
 	"The_WebPG_NPAPI_Plugin_is_valid": {
 		"message": "البرنامج المساعد NPAPI WebPG صالحة"
@@ -494,6 +602,33 @@
 	"click_here_for_help_resolving_this_issue": {
 		"message": "انقر هنا للحصول على المساعدة لحل هذه المشكلة"
 	},
+	"Enable_Inline_formatting_of_PGP_Messages_and_Keys": {
+		"message": ""
+	},
+	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
+		"message": ""
+	},
+	"Enable_WebPG_GMAIL_integration": {
+		"message": "جوجل التكامل تجريبية WebPG"
+	},
+	"EXPERIMENTAL": {
+		"message": ""
+	},
+	"Sign_outgoing_messages_in_GMAIL": {
+		"message": ""
+	},
+	"GnuPG_home_directory": {
+		"message": ""
+	},
+	"GnuPG_binary": {
+		"message": ""
+	},
+	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
+		"message": ""
+	},
+	"There_is_a_problem_with_your_configuration": {
+		"message": "قد يكون هناك مشكلة في التثبيت GPG"
+	},
 	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
 		"message": "جوجل التكامل تجريبية WebPG"
 	},
@@ -505,12 +640,6 @@
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
 		"message": "قد كانت هناك مشكلة وضع البيانات في الحافظة"
-	},
-	"WebPG_Options": {
-		"message": "خيارات WebPG"
-	},
-	"WebPG_Key_Manager": {
-		"message": "مفتاح مدير WebPG"
 	},
 	"Paste_Public_Key": {
 		"message": "لصق المفتاح العمومي"
@@ -578,6 +707,9 @@
 	"THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY": {
 		"message": "وقد وقع هذه الرسالة مع المفتاح العمومي الذي انتهت مدة صلاحية"
 	},
+	"THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING": {
+		"message": "وقد وقع هذه الرسالة مع المفتاح العمومي الذي انتهت مدة صلاحية"
+	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
 		"message": "التوقيع على هذه الرسالة غير صالح"
 	},
@@ -607,6 +739,12 @@
 	},
 	"HIDE_ORIGINAL": {
 		"message": "إخفاء الأصلي"
+	},
+	"UNUSABLE_KEY": {
+		"message": ""
+	},
+	"NO_USER_ID": {
+		"message": ""
 	},
 	"extDesc": {
 		"message": "امتدادا الذي يوفر GnuPG / GPG / PGP المهام ذات الصلة إلى Chrome"

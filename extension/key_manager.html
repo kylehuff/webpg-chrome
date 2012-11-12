@@ -155,6 +155,10 @@ div.uid-options {
     top:-10px;
     padding:0;
 }
+.keydetails hr.rtl {
+    margin:0;
+    margin-right:100px;
+}
 .keydetails h4 {
     color:#fff;
     margin:0;
@@ -179,10 +183,16 @@ span.trust .ui-button-text {
 }
 .enable-check-text span {
     min-width: 50px;
+    position: relative;
+    top: 2px;
+}
+@-moz-document url-prefix() {
+    .enable-check-text span {
+        top:0;
+    }
 }
 .default-check .ui-button-icon-primary{
     margin-left:0;
-
 }
 .signature-box {
     color:#000;
@@ -277,6 +287,12 @@ ul.expand ul
 .ui-datepicker-calendar th {
     color:#fff;
 }
+.subkey-algo {
+    text-align: center;
+}
+#keyexp-buttonset {
+    text-align: center;
+}
 </style>
 </head>
 <body>
@@ -325,10 +341,10 @@ ul.expand ul
         <input type="radio" name="keyexp-type-radio" id="keyexp-never"/><label id="keyexp-never" for="keyexp-never"></label>
         <input type="radio" name="keyexp-type-radio" id="keyexp-ondate"/><label id="keyexp-ondate" for="keyexp-ondate"></label>
     </div>
-    <div style="margin:0 24px;"><div id="keyexp-date-input"></div></div></p>
+    <div style="margin:0 32px;"><div id="keyexp-date-input"></div></div></p>
 </div>
 <div id="delete-key-dialog-confirm" style="display:none;" title="Delete this key?">
-	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>This key will be permanently deleted and cannot be undone. Are you sure?</p>
+	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><span id="delete-key-confirm-text"></span></p>
 </div>
 <div id="createsig-dialog" style="display:none;" title="Sign this UID">
     <form id="createsig-form" style="width:100%; height:100px;">
@@ -340,27 +356,27 @@ ul.expand ul
         <span id='genkey-text'>
         </span>
         <form id="genkey-form" style="width:100%; height:100px;">
-            <label for='uid_0_name' style='display:inline-block;width:128px;'>Your Name:</label>
+             <label for='uid_0_name' style='display:inline-block;width:128px;'></label>
              <input type='text' class="ui-corner-all ui-widget ui-state-default" id='uid_0_name' name='uid_0_name' onclick="$(this).removeClass('input-error');"/><span class='help-text'>i.e.: John Smith</span><br/>
-            <label for='uid_0_email' style='display:inline-block;width:128px;'>Your Email:</label>
+            <label for='uid_0_email' style='display:inline-block;width:128px;'></label>
             <input type='text' class="ui-corner-all ui-widget ui-state-default" id='uid_0_email' name='uid_0_email' onclick="$(this).removeClass('input-error');"/><span class='help-text'>i.e.: john.smith@example.com</span><br/>
-            <label for='uid_0_comment' style='display:inline-block;width:128px;'>Comment:</label>
+            <label for='uid_0_comment' style='display:inline-block;width:128px;'></label>
             <input type='text' class="ui-corner-all ui-widget ui-state-default" id='uid_0_comment' name='uid_0_comment' onclick="$(this).removeClass('input-error');"/><span class='help-text'>i.e.: for XYZ use only</span><br/>
-            <label for='passphrase'  style='display:inline-block;width:132px;' >Passphrase:</label><input class="passphrase ui-corner-all ui-widget ui-state-default" type=password name="passphrase" id="passphrase" onclick="$(this).removeClass('input-error');"/><br/>
-            <label for='pass_repeat' style='display:inline-block;width:132px;'>Repeat Passphrase:</label><input class="pass_repeat ui-corner-all ui-widget ui-state-default" type=password name="pass_repeat" id="pass_repeat" onclick="$(this).removeClass('input-error');"/>
+            <label for='passphrase'  style='display:inline-block;width:132px;' ></label><input class="passphrase ui-corner-all ui-widget ui-state-default" type=password name="passphrase" id="passphrase"/><br/>
+            <label for='pass_repeat' style='display:inline-block;width:132px;'></label><input class="pass_repeat ui-corner-all ui-widget ui-state-default" type=password name="pass_repeat" id="pass_repeat"/>
             <ul class="expand">
-                <li class="trigger"><h4><strong>Advanced Options</strong></h4></li>
+                <li class="trigger"><h4><strong></strong></h4></li>
                 <li>
                     <ul>
                         <li class='option'>
-                            <label for='publicKey_algo'>Public Key Algorithm</label>
+                            <label for='publicKey_algo'></label>
                             <select id='publicKey_algo' class="key-algo ui-add-hover ui-corner-all ui-widget ui-state-default">
                                 <option value="DSA" class="ui-state-default">DSA</option>
                                 <option value="RSA" class="ui-state-default" selected>RSA</option>
                             </select>
                         </li>
                         <li class='option'>
-                            <label for='publicKey_size'>Public Key Size</label>
+                            <label for='publicKey_size'></label>
                             <select id='publicKey_size' class="key-size ui-add-hover ui-corner-all ui-widget ui-state-default">
                                 <option valud="512" class="ui-state-default">512</option>
                                 <option value="1024" class="ui-state-default">1024</option>
@@ -371,7 +387,7 @@ ul.expand ul
                         </li>
                         <hr>
                         <li class='option'>
-                            <label for='subKey_algo'>Private Key Algorithm</label>
+                            <label for='subKey_algo'></label>
                             <select id='subKey_algo' class="key-algo ui-add-hover ui-corner-all ui-widget ui-state-default">
                                 <option value="DSA" class="ui-state-default">DSA</option>
                                 <option value="RSA" class="ui-state-default" selected>RSA</option>
@@ -379,7 +395,7 @@ ul.expand ul
                             </select>
                         </li>
                         <li class='option'>
-                            <label for='subKey_size'>Private Key Size</label>
+                            <label for='subKey_size'></label>
                             <select id='subKey_size' class="key-size ui-add-hover ui-button ui-corner-all ui-widget ui-state-default">
                                 <option value="512" class="ui-state-default">512</option>
                                 <option value="1024" class="ui-state-default">1024</option>
@@ -390,10 +406,10 @@ ul.expand ul
                         </li>
                         <hr>
                         <li class='option'>
-                            <label for='expire'>Expire in </label>
+                            <label for='key_expire'></label>
                             <select id='key_expire' class="key-expire ui-add-hover ui-corner-all ui-widget ui-state-default">
                                 <option value="0" class="ui-state-default">Never</option>
-                                <option value="30" class="ui-state-default">30 Days</option>
+                                <option value="30" class="ui-state-default">30 days</option>
                                 <option value="90" class="ui-state-default" selected>90 days</option>
                                 <option value="365" class="ui-state-default">1 year</option>
                             </select>
@@ -409,29 +425,29 @@ ul.expand ul
         <span id='gensubkey-text'>
         </span>
         <form id="gensubkey-form" style="width:100%; height:100px;">
-            <h4><strong>Subkey Options</strong></h4>
+            <h4><strong></strong></h4>
 
             <input type="hidden" name="key_id" id="key_id" class="hidden"/>
-            <label for='subKey_algo'>Private Key Algorithm</label>
+            <label for='gs_subKey_algo'></label>
+            <div style="width:100%;text-align:center;">
+                <select id='gs_subKey_algo' class="subkey-algo ui-add-hover ui-corner-all ui-widget ui-state-default">
+                    <option value="3" class="ui-state-default">DSA (sign only)</option>
+                    <option value="4" class="ui-state-default">RSA (sign only)</option>
+                    <option value="5" class="ui-state-default">Elgamal (encrypt only)</option>
+                    <option value="6" class="ui-state-default">RSA (encrypt only)</option>
+                    <option value="7" class="ui-state-default">DSA (set your own capabilities)</option>
+                    <option value="8" class="ui-state-default" selected>RSA (set your own capabilities)</option>
+                </select>
             <div>
-            <select id='subKey_algo' class="subkey-algo ui-add-hover ui-corner-all ui-widget ui-state-default">
-                <option value="3" class="ui-state-default">DSA (sign only)</option>
-                <option value="4" class="ui-state-default">RSA (sign only)</option>
-                <option value="5" class="ui-state-default">Elgamal (encrypt only)</option>
-                <option value="6" class="ui-state-default">RSA (encrypt only)</option>
-                <option value="7" class="ui-state-default">DSA (set your own capabilities)</option>
-                <option value="8" class="ui-state-default" selected>RSA (set your own capabilities)</option>
-            </select>
-            <div>
-            <div id='subKey_flags'>
+            <div id='subKey_flags' style="text-align:center;">
                 <br/>
-                <input type="checkbox" id="sign" name="sign" checked/><label for="sign">Sign</label>
-                <input type="checkbox" id="enc" name="enc" checked/><label for="enc">Encrypt</label>
-                <input type="checkbox" id="auth" name="auth" checked/><label for="auth">Authenticate</label>
+                <input type="checkbox" id="sign" name="sign" checked/><label for="sign"></label>
+                <input type="checkbox" id="enc" name="enc" checked/><label for="enc"></label>
+                <input type="checkbox" id="auth" name="auth" checked/><label for="auth"></label>
                 <br/><br/>
             </div>
-            <label for='subKey_size'>Private Key Size</label>
-            <select id='subKey_size' class="key-size ui-add-hover ui-button ui-corner-all ui-widget ui-state-default">
+            <label for='gs_subKey_size'>Private Key Size</label>
+            <select id='gs_subKey_size' name="subKey_size" class="key-size ui-add-hover ui-button ui-corner-all ui-widget ui-state-default">
                 <option value="512" class="ui-state-default">512</option>
                 <option value="1024" class="ui-state-default">1024</option>
                 <option value="2048" class="ui-state-default" selected>2048</option>
@@ -439,10 +455,10 @@ ul.expand ul
                 <option value="4096" class="ui-state-default">4096</option>
             </select>
             <br/>
-            <label for='expire'>Expire in </label>
-            <select id='key_expire' class="key-expire ui-add-hover ui-corner-all ui-widget ui-state-default">
+            <label for='gs_key_expire'>Expire in </label>
+            <select id='gs_key_expire' name="key_expire" class="key-expire ui-add-hover ui-corner-all ui-widget ui-state-default">
                 <option value="0" class="ui-state-default" selected>Never</option>
-                <option value="30" class="ui-state-default">30 Days</option>
+                <option value="30" class="ui-state-default">30 days</option>
                 <option value="90" class="ui-state-default">90 days</option>
                 <option value="365" class="ui-state-default">1 year</option>
             </select>
@@ -460,12 +476,12 @@ ul.expand ul
     <p>
         <span id='adduid-text'></span>
         <form id="adduid-form" style="width:100%;">
-            <label for='uid_0_name' style='display:inline-block;width:128px;'>Your Name:</label>
-            <input type='text' id='uid_0_name' name='uid_0_name' onclick="$(this).removeClass('input-error');"/><span class='help-text'>i.e.: John Smith</span><br/>
-            <label for='uid_0_email' style='display:inline-block;width:128px;'>Your Email:</label>
-            <input type='text' id='uid_0_email' name='uid_0_email' onclick="$(this).removeClass('input-error');"/><span class='help-text'>i.e.: john.smith@example.com</span><br/>
-            <label for='uid_0_comment' style='display:inline-block;width:128px;'>Comment:</label>
-            <input type='text' id='uid_0_comment' name='uid_0_comment' onclick="$(this).removeClass('input-error');"/><span class='help-text'>i.e.: uid for XYZ only</span><br/>
+            <label for='au-uid_0_name' style='display:inline-block;width:128px;'></label>
+            <input type='text' id='au-uid_0_name' name='uid_0_name'/><span class='help-text'>i.e.: John Smith</span><br/>
+            <label for='au-uid_0_email' style='display:inline-block;width:128px;'></label>
+            <input type='text' id='au-uid_0_email' name='uid_0_email'/><span class='help-text'>i.e.: john.smith@example.com</span><br/>
+            <label for='au-uid_0_comment' style='display:inline-block;width:128px;'></label>
+            <input type='text' id='au-uid_0_comment' name='uid_0_comment'/><span class='help-text'>i.e.: uid for XYZ only</span><br/>
         </form>
     </p>
 </div>

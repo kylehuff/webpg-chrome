@@ -1,5 +1,6 @@
 # List of source files containing translatable strings.
 
+extension/about.js
 extension/background.js
 extension/browser_action_menu.js
 extension/dialog.js

@@ -168,7 +168,8 @@ webpg.preferences = {
                 Provides method to get the preference item
         */
         get: function() {
-            return webpg.localStorage.getItem('gnupghome');
+            var value = webpg.localStorage.getItem('gnupghome');
+            return (value && value != -1) ? value : '';
         },
 
         /*
@@ -180,6 +181,10 @@ webpg.preferences = {
         */
         set: function(value) {
             webpg.localStorage.setItem('gnupghome', value);
+            webpg.background.plugin.gpgSetHomeDir(value);
+            (webpg.background.hasOwnProperty("webpg")) ?
+                webpg.background.webpg.background.init() :
+                webpg.background.init();
         },
 
         /*
@@ -188,6 +193,52 @@ webpg.preferences = {
         */
         clear: function(){
             webpg.localStorage.setItem('gnupghome', '');
+            webpg.background.plugin.gpgSetHomeDir('');
+            (webpg.background.hasOwnProperty("webpg")) ?
+                webpg.background.webpg.background.init() :
+                webpg.background.init();
+        },
+    },
+
+    /*
+        Class: webpg.preferences.gnupgbin
+            Provides methods to get/set the GnuPG binary execututable
+    */
+    gnupgbin: {
+        /*
+            Function: get
+                Provides method to get the preference item
+        */
+        get: function() {
+            var value = webpg.localStorage.getItem('gnupgbin');
+            return (value && value != -1) ? value : '';
+        },
+
+        /*
+            Function: set
+                Provides method to set the preference item
+
+            Parameters:
+                value - <str> The string value for GNUPGHOME
+        */
+        set: function(value) {
+            webpg.localStorage.setItem('gnupgbin', value);
+            webpg.background.plugin.gpgSetBinary(value);
+            (webpg.background.hasOwnProperty("webpg")) ?
+                webpg.background.webpg.background.init() :
+                webpg.background.init();
+        },
+
+        /*
+            Function: clear
+                Provides method to clear the preference item (erase/unset)
+        */
+        clear: function(){
+            webpg.localStorage.setItem('gnupgbin', '');
+            webpg.background.plugin.gpgSetBinary('');
+            (webpg.background.hasOwnProperty("webpg")) ?
+                webpg.background.webpg.background.init() :
+                webpg.background.init();
         },
     },
 

@@ -34,6 +34,7 @@ webpg.background = {
         console.log("my plugin returned: " + plugin.valid + "; version " + plugin.version);
 
         if (plugin.valid && !plugin.webpg_status["error"]) {
+            plugin.gpgSetHomeDir(gnupghome);
             plugin.addEventListener("keygenprogress", webpg.background.gpgGenKeyProgress, false);
             plugin.addEventListener("keygencomplete", webpg.background.gpgGenKeyComplete, false);
 
@@ -70,6 +71,10 @@ webpg.background = {
     */
     // Called when a message is passed.
     _onRequest: function(request, sender, sendResponse) {
+        // refresh the value of gnupghome
+        gnupghome = (webpg.preferences.gnupghome.get() != -1 &&
+            webpg.preferences.gnupghome.get()) ? webpg.preferences.gnupghome.get() : "";
+
         // set the default response to null
         var response = null;
 
@@ -81,7 +86,7 @@ webpg.background = {
             case 'enabled':
                 console.log(webpg.preferences.webpg_enabled.get());
                 response = {'enabled': webpg.preferences.webpg_enabled.get() };
-                console.log(response);
+                //console.log(response);
                 break;
 
             case 'decorate_inline':
@@ -174,7 +179,6 @@ webpg.background = {
                     }
                 }
                 break;
-
 
             case 'async-gpgGenKey':
                 //console.log("async-gpgGenKey requested");

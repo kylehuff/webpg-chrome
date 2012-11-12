@@ -152,7 +152,7 @@ webpg.gmail = {
 
         webpg.gmail.removeStatusLine();
         
-        console.log(webpg.gmail.action);
+//        console.log(webpg.gmail.action);
 
         // Cycle through the available actions until we find the selected
         //  action
@@ -207,8 +207,6 @@ webpg.gmail = {
                                 response.result.data
                             );
                             webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
-                        } else {
-                            console.log(response);
                         }
                     });
                 }
@@ -649,7 +647,8 @@ webpg.utils.sendRequest({
                     // We need to filter based on the URL for mozilla, as we do
                     //  not have the option to set the overlay by URL
                     if (content.location.host == "mail.google.com") {
-                        content.addEventListener("DOMSubtreeModified", gmailChanges, false);
+                        //content.document.addEventListener("DOMSubtreeModified", gmailChanges, false);
+                        webpg.gmail.getCanvasFrameDocument().addEventListener("DOMSubtreeModified", gmailChanges, false);
                     }
                 }, true);
             } else {
@@ -667,6 +666,8 @@ webpg.utils.sendRequest({
         e - <event> The HTML Event dispatched
 */
 function gmailChanges(e) {
+    if (!e.target.nodeName == "DIV")
+        return
     // An additional compose window has been opened
     if (typeof(jQuery(e.target).attr("class"))!="undefined" && jQuery(e.target).attr("class").search("L3") > -1) {
         if (jQuery(e.target).contents(':contains("Discard")').length > 0) {

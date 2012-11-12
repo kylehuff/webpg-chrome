@@ -9,6 +9,7 @@ webpg.about = {
             Sets up the page to reflect the correct host application
     */
     init: function() {
+        document.title = _("About WebPG");
         if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
             if (webpg.utils.detectedBrowser['product'] == "firefox")
                 var browserString = "Firefox";
@@ -24,7 +25,8 @@ webpg.about = {
             document.getElementById("webpg-info-version-string").innerText +=
                 webpg.utils.escape(chrome.app.getDetails().version);
         }
-        jQuery('#close').button().click(function(e) { window.top.close(); });
+        jQuery('#close').button().button("option", "label", _("Finished"))
+            .click(function(e) { window.top.close(); });
    }
 }
 

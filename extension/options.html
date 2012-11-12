@@ -147,12 +147,17 @@ body{
     </div>
     <div class="webpg-options-box">
         <div id="valid-options">
-            <span id='enable-decorate-inline'><span class='webpg-options-text'>Enable Inline formatting of PGP Data, Signatures and Keys:</span>&nbsp;&nbsp;<input type='checkbox' id='enable-decorate-inline-check'/><label for='enable-decorate-inline-check'></label></span><br/><br/>
-            <span id='enable-encrypt-to-self'><span class='webpg-options-text'>Always encrypt to your default key, in addition to the recipient:</span>&nbsp;&nbsp;<input type='checkbox' id='enable-encrypt-to-self-check'/><label for='enable-encrypt-to-self-check'></label></span><br/><br/>
-            <span id='enable-gmail-integration'><span class='webpg-options-text'>Enable WebPG GMAIL&copy; integration [EXPERIMENTAL]:</span>&nbsp;&nbsp;<input type='checkbox' id='enable-gmail-integration-check'/><label for='enable-gmail-integration-check'></label></span><br/><br/>
-            <span id='gmail-action-sign'><span class='webpg-options-text'>Sign outgoing messages in GMAIL:</span>&nbsp;&nbsp;
+            <span id='enable-decorate-inline'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-decorate-inline-check'/><label for='enable-decorate-inline-check'></label></span><br/><br/>
+            <span id='enable-encrypt-to-self'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-encrypt-to-self-check'/><label for='enable-encrypt-to-self-check'></label></span><br/><br/>
+            <span id='enable-gmail-integration'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-gmail-integration-check'/><label for='enable-gmail-integration-check'></label></span><br/><br/>
+            <span id='gmail-action-sign'><span class='webpg-options-text'></span>&nbsp;&nbsp;
                 <input type='checkbox' id='gmail-action-sign-check'/><label for='gmail-action-sign-check'></label>
-            </span>
+            </span><br/><br/>
+            <a href="#advanced-options" id="advanced-options-link"></a>
+            <div id="advanced-options" style="display:none; padding:8px;">
+                <span id='gnupg-path-select'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-path-input' class="ui-state-default ui-widget ui-state-default ui-corner-all" style="width:200px;"/><label for='gnupg-path-input'></label><input type="button" id="gnupg-path-save" value="Save" style="display:none;"/></span><br/><br/>
+                <span id='gnupg-binary-select'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-binary-input' class="ui-state-default ui-widget ui-state-default ui-corner-all"/><label for='gnupg-binary-input'></label><input type="button" id="gnupg-binary-save" value="Save" style="display:none;"/></span>
+            </div>
         </div>
         <div id="step-1" style="text-align:center;">
             <div class="bound-box">
@@ -160,7 +165,7 @@ body{
                     <div id="status_result" class="trust-level-sel" style="min-width:600px; text-align:left; cursor:default;">
                         <div class="trust-level-desc" id='system-good'>
                             <span class="system-check" style="margin-right:8px;"><img src='skin/images/check.png'></span>
-                            <span class="trust-desc" style="font-size:16px;">Your system appears to be configured correctly, you should be able to use WebPG!</span>
+                            <span class="trust-desc">Your system appears to be configured correctly for WebPG</span>
                         </div>
                         <div class="trust-level-desc" id='system-error' style="display:none;">
                             <span class="system-check" style="margin-right:8px;"><img src='skin/images/cancel.png'></span>

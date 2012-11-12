@@ -32,6 +32,13 @@ webpg.inline_results = {
             scrollTop - <bool> Indicates if the parent window should scroll to the top of the frame
     */
     doResize: function(scrollTop) {
+        if (webpg.utils.isRTL()) {
+            jQuery(".signed_text_header").addClass("rtl");
+            jQuery(".signed_text").addClass("rtl");
+            jQuery(".signature-box").addClass("rtl");
+            jQuery(".footer").addClass("rtl");
+            jQuery(".footer_icon").addClass("rtl");
+        }
         var block_height = jQuery(".pgp_block_container")[0].scrollHeight;
         var body_height = document.body.scrollHeight;
         var height = jQuery(".pgp_block_container")[0].scrollHeight + jQuery("#footer")[0].scrollHeight + 40;
@@ -69,7 +76,7 @@ webpg.inline_results = {
                     }
                 }
             }
-            email = (key.uids[0].email.length > 1) ? "&lt;" + key.uids[0].email + 
+            email = (key.uids[0].email.length > 1) ? "&lt;" + scrub(key.uids[0].email) + 
                 "&gt;" : "(no email address provided)";
             sigkey_url = webpg.utils.resourcePath + "key_manager.html" +
                 "?auto_init=true&tab=-1&openkey=" + pubkey + "&opensubkey=" + subkey_index;
@@ -195,7 +202,7 @@ webpg.inline_results = {
                     if (request.verify_result.error) {
                         jQuery('#signature_text')[0].textContent = request.verify_result.original_text;
                     } else {
-                        jQuery('#signature_text')[0].textContent = request.verify_result.data;
+                        jQuery('#signature_text')[0].innerHTML = descript(request.verify_result.data);
                     }
                     jQuery('#clipboard_input')[0].textContent = request.verify_result.original_text;
 
@@ -256,9 +263,9 @@ webpg.inline_results = {
                         }
                         if (request.verify_result.signatures[sig].status == "NO_PUBKEY") {
                             jQuery('#footer').addClass("signature_no_pubkey");
-                            jQuery('#footer').html("THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING<br/\>");
-                            jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">DISPLAY ORIGINAL</a> | ");
-                            jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">COPY TO CLIPBOARD</a>");
+                            jQuery('#footer').html(_("THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING") + "<br/\>");
+                            jQuery('#footer').append("<a class=\"original_text_link\" href=\"#" + qs.id + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
+                            jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">" + _("COPY TO CLIPBOARD") + "</a>");
                             // TODO: Implement key-server search and fetch
 //                            jQuery('#footer').append("<a href=\"#\">TRY TO FETCH MISSING KEY</a>");
                         }
@@ -329,17 +336,17 @@ webpg.inline_results = {
                                                 } else {
                                                     new_public_key = true;
                                                 }
-<!--                                                email = (keyobj.email.length > 1) ? "&lt;<a href=\"mailto:" + keyobj.email + "\">" + keyobj.email +-->
+<!--                                                email = (keyobj.email.length > 1) ? "&lt;<a href=\"mailto:" + scrub(keyobj.email) + "\">" + scrub(keyobj.email) +-->
 <!--                                                    "</a>&gt;" : _("no email address provided");-->
-<!--                                                jQuery('#signature_text').html("<span class=\"uid_line\">" + webpg.utils.escape(keyobj.name) + " " + webpg.utils.escape(email) + "</span>");-->
+<!--                                                jQuery('#signature_text').html("<span class=\"uid_line\">" + scrub(keyobj.name) + " " + scrub(email) + "</span>");-->
                                                 jQuery('#signature_text').html(_("Names/UIDs on Key") + ":");
                                                 jQuery('#signature_text').append("<ul>");
                                                 for (uid in keyobj.uids) {
                                                     uid_email = (keyobj.uids[uid].email.length > 1) ? "<a href=\"mailto:" + 
-                                                        keyobj.uids[uid].email + "\">" + keyobj.uids[uid].email +
+                                                        scrub(keyobj.uids[uid].email) + "\">" + scrub(keyobj.uids[uid].email) +
                                                         "</a>" : "";
                                                     sig_class = "sig_class_normal";
-                                                    jQuery('#signature_text').append("<li>" + webpg.utils.escape(keyobj.uids[uid].uid) + 
+                                                    jQuery('#signature_text').append("<li>" + scrub(keyobj.uids[uid].uid) + 
                                                         " &lt;" + uid_email + "&gt;</li>");
                                                 }
                                                 jQuery('#signature_text').append("</ul>");
@@ -350,7 +357,7 @@ webpg.inline_results = {
                                                 if (key_algo.name in webpg.constants.algoTypes) {
                                                     key_algo.abbr = webpg.constants.algoTypes[key_algo.name];
                                                 }
-                                                jQuery('#header').append(" (" + keyobj.subkeys[0].size + key_algo.abbr + "/" + keyobj.fingerprint.substr(-8) + ")<br/\>");
+                                                jQuery('#header').append(" (" + scrub(keyobj.subkeys[0].size) + scrub(key_algo.abbr) + "/" + keyobj.fingerprint.substr(-8) + ")<br/\>");
                                                 created = new Date();
                                                 created.setTime(keyobj.subkeys[0].created*1000);
                                                 expires = new Date();
@@ -414,6 +421,30 @@ webpg.inline_results = {
                                                         msg: 'doKeyImport',
                                                         data: request.original_text },
                                                         function(response) {
+                                                            //TODO: this fails if the public keyring
+                                                            //  is unwritable (bad path/permissions).
+                                                            //  We should catch such events and act
+                                                            //  accordingly. This is what the return
+                                                            //  object looks like when it fails:
+                                                            //    Object {result: Object}
+                                                            //        result: Object
+                                                            //            import_status: Object
+                                                            //                considered: 0
+                                                            //                imported: 0
+                                                            //                imported_rsa: 0
+                                                            //                imports: Object
+                                                            //                    0: Object
+                                                            //                        fingerprint: "unknown"
+                                                            //                        new_key: false
+                                                            //                new_revocations: 0
+                                                            //                new_signatures: 0
+                                                            //                new_sub_keys: 0
+                                                            //                new_user_ids: 0
+                                                            //                no_user_id: 0
+                                                            //                not_imported: 0
+                                                            //                secret_imported: 0
+                                                            //                secret_read: 0
+                                                            //                secret_unchanged: 0
                                                             window.location.reload();
                                                         }
                                                     );
@@ -432,7 +463,7 @@ webpg.inline_results = {
                                     jQuery('#signature_text')[0].textContent = request.original_text;
                                     jQuery('#footer').addClass("signature_no_pubkey");
                                     if (import_status.no_user_id > 0)
-                                        jQuery("<span class='decrypt_status'>UNUSABLE KEY; NO USER ID<br/\></span>").insertBefore(jQuery(jQuery('#footer')[0].firstChild));
+                                        jQuery("<span class='decrypt_status'>" + _("UNUSABLE KEY") + "; " + _("NO USER ID") + "<br/\></span>").insertBefore(jQuery(jQuery('#footer')[0].firstChild));
                                     jQuery('#footer').append("<a class=\"import_key_link\" href=\"#\">" + _("IMPORT THIS KEY") + "</a> | ");
                                     jQuery('#footer').append("<a class=\"copy_to_clipboard\" href=\"#\">" + _("COPY TO CLIPBOARD") + "</a>");
                                 }
@@ -490,7 +521,7 @@ webpg.inline_results = {
                                 jQuery("<span class='decrypt_status'>" + _("DECRYPTION FAILED") + "; " + _("BAD PASSPHRASE") + "<br/\></span>").insertBefore(jQuery(jQuery('#footer')[0].firstChild));
                             }
                         } else {
-                            jQuery('#signature_text')[0].textContent = response.result.data;
+                            jQuery('#signature_text')[0].innerHTML = descript(response.result.data);
                             if ((request.verify_result.signatures && response.result.signatures.hasOwnProperty(0)) ||
                             (response.result.signatures && response.result.signatures.hasOwnProperty(0))) {
                                 jQuery('#header').html("<a name=\"" + qs.id + "\">" + _("PGP ENCRYPTED AND SIGNED MESSAGE") + "</a>");

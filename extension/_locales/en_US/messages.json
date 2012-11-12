@@ -1,4 +1,10 @@
 {
+	"About_WebPG": {
+		"message": "About WebPG"
+	},
+	"Finished": {
+		"message": "Finished"
+	},
 	"WebPG_Plugin_failed_to_load": {
 		"message": "WebPG Plugin failed to load"
 	},
@@ -23,9 +29,6 @@
 	"Key_Manager": {
 		"message": "Key Manager"
 	},
-	"About_WebPG": {
-		"message": "About WebPG"
-	},
 	"Select_Recipient_s_": {
 		"message": "Select Recipients(s)"
 	},
@@ -33,7 +36,7 @@
 		"message": "Error loading WebPG"
 	},
 	"We_encountered_a_problem_while_attempting_to_load_WebPG": {
-		"message": "We Encountered a problem while attempting to load WebPG"
+		"message": "We encountered a problem while attempting to load WebPG"
 	},
 	"Error": {
 		"message": "Error"
@@ -128,6 +131,9 @@
 	"Do_not_use_WebPG_for_this_message": {
 		"message": "Do not use WebPG for this message"
 	},
+	"WebPG_Key_Manager": {
+		"message": "WebPG Key Manager"
+	},
 	"Private_Keys": {
 		"message": "Private Keys"
 	},
@@ -136,6 +142,105 @@
 	},
 	"Search_Filter": {
 		"message": "Search/Filter"
+	},
+	"Your_Name": {
+		"message": "Your Name"
+	},
+	"Your_Email": {
+		"message": "Your Email"
+	},
+	"Comment": {
+		"message": "Comment"
+	},
+	"Passphrase": {
+		"message": "Passphrase"
+	},
+	"Repeat_Passphrase": {
+		"message": "Repeat Passphrase"
+	},
+	"Advanced_Options": {
+		"message": "Advanced Options"
+	},
+	"Public_Key_Algorithm": {
+		"message": "Public Key Algorithm"
+	},
+	"Public_Key_Size": {
+		"message": "Public Key Size"
+	},
+	"Private_Key_Algorithm": {
+		"message": "Private Key Algorithm"
+	},
+	"Private_Key_Size": {
+		"message": "Private Key Size"
+	},
+	"Expire_in": {
+		"message": "Expire in"
+	},
+	"Never": {
+		"message": "Never"
+	},
+	"n30_days": {
+		"message": "30 days"
+	},
+	"n90_days": {
+		"message": "90 days"
+	},
+	"n1_year": {
+		"message": "1 year"
+	},
+	"Subkey_Options": {
+		"message": "Subkey Options"
+	},
+	"encrypt_only": {
+		"message": "encrypt only"
+	},
+	"set_your_own_capabilities": {
+		"message": "set your own capabilities"
+	},
+	"Sign": {
+		"message": "Sign"
+	},
+	"Authenticate": {
+		"message": "Authenticate"
+	},
+	"Revoke_this_Key": {
+		"message": "Revoke this Key"
+	},
+	"Revoke_this_UID": {
+		"message": "Revoke this UID"
+	},
+	"Revoke_this_Signature": {
+		"message": "Revoke this Signature"
+	},
+	"Delete_this_Signature": {
+		"message": "Delete this Signature"
+	},
+	"Delete_this_UID": {
+		"message": "Delete this UID"
+	},
+	"Delete_this_Key": {
+		"message": "Delete this key"
+	},
+	"This_key_will_be_permanently_deleted": {
+		"message": "This key will be permanently deleted"
+	},
+	"Are_you_sure": {
+		"message": "Are you sure"
+	},
+	"Change_Expiration": {
+		"message": "Change Expiration"
+	},
+	"Sign_this_UID": {
+		"message": "Sign this UID"
+	},
+	"Key_Details": {
+		"message": "Key Details"
+	},
+	"Export_Public_Key": {
+		"message": "Export Public Key"
+	},
+	"Add_UID": {
+		"message": "Add UID"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Key": {
 		"message": "Are you sure you wish to revoke this Key?"
@@ -161,8 +266,35 @@
 	"Expiration_Date": {
 		"message": "Expiration Date"
 	},
+	"Click_to_generate_a_new_key": {
+		"message": "Click to genereate a new key"
+	},
+	"Click_to_enable_key": {
+		"message": "Click to enable key"
+	},
+	"Click_to_set_default_key": {
+		"message": "Click to set default key"
+	},
+	"Generating_Key": {
+		"message": "Generating Key..."
+	},
+	"Waiting_for_entropy": {
+		"message": "Waiting for entropy..."
+	},
+	"Building_key": {
+		"message": "Building key"
+	},
+	"please_wait": {
+		"message": "please wait..."
+	},
+	"trust": {
+		"message": "trust"
+	},
 	"Generate_New_Key": {
 		"message": "Generate New Key"
+	},
+	"Create": {
+		"message": "Create"
 	},
 	"Name_Required": {
 		"message": "Name Required"
@@ -194,6 +326,9 @@
 	"key_generation_will_continue_in_the_background": {
 		"message": "key generation will continue in the background"
 	},
+	"Cancel": {
+		"message": "Cancel"
+	},
 	"Enabled": {
 		"message": "Enabled"
 	},
@@ -221,9 +356,6 @@
 	"Unknown": {
 		"message": "Unknown"
 	},
-	"Never": {
-		"message": "Never"
-	},
 	"Marginal": {
 		"message": "Marginal"
 	},
@@ -233,14 +365,8 @@
 	"Ultimate": {
 		"message": "Ultimate"
 	},
-	"Change_Expiration": {
-		"message": "Change Expiration"
-	},
 	"Change_Passphrase": {
 		"message": "Change Passphrase"
-	},
-	"Add_UID": {
-		"message": "Add UID"
 	},
 	"Add_Subkey": {
 		"message": "Add Subkey"
@@ -250,9 +376,6 @@
 	},
 	"Disable_this_Key": {
 		"message": "Disable this key"
-	},
-	"Key_Details": {
-		"message": "Key Details"
 	},
 	"KeyID": {
 		"message": "KeyID"
@@ -284,20 +407,11 @@
 	"Operations": {
 		"message": "Operations"
 	},
-	"Delete_this_Key": {
-		"message": "Delete this key"
-	},
 	"Export_this_Key": {
 		"message": "Export this Key"
 	},
 	"Subkeys": {
 		"message": "Subkeys"
-	},
-	"Sign": {
-		"message": "Sign"
-	},
-	"Authenticate": {
-		"message": "Authenticate"
 	},
 	"Subkey_Details": {
 		"message": "Subkey Details"
@@ -322,12 +436,6 @@
 	},
 	"Revoke_UID": {
 		"message": "Revoke UID"
-	},
-	"Sign_this_UID": {
-		"message": "Sign this UID"
-	},
-	"Delete_this_UID": {
-		"message": "Delete this UID"
 	},
 	"REVOKED": {
 		"message": "REVOKED"
@@ -356,23 +464,14 @@
 	"Save": {
 		"message": "Save"
 	},
-	"Cancel": {
-		"message": "Cancel"
-	},
 	"Delete_this_key": {
 		"message": "Delete this key"
 	},
-	"Create": {
-		"message": "Create"
-	},
-	"Building_key__please_wait__": {
-		"message": "Building key, please wait.."
+	"Close": {
+		"message": "Close"
 	},
 	"Copy": {
 		"message": "Copy"
-	},
-	"Close": {
-		"message": "Close"
 	},
 	"Please_specify_the_revocation_details": {
 		"message": "Please specify the revocation details"
@@ -410,6 +509,15 @@
 	"and_select_1_or_more_keys_for_use_with_webpg": {
 		"message": "and select 1 or more keys for use with webpg"
 	},
+	"You_have_not_generated_any_keys": {
+		"message": "You have not generated any keys"
+	},
+	"and_generate_a_key_to_use_with_webpg": {
+		"message": "and generate a key to use with webpg"
+	},
+	"Already_signed_with_this_key": {
+		"message": "Already signed with this key"
+	},
 	"Signature_added_using_this_key": {
 		"message": "Signature added using this key"
 	},
@@ -437,9 +545,6 @@
 	"This_action_cannot_be_undone": {
 		"message": "This action cannot be undone"
 	},
-	"Delete_this_Signature": {
-		"message": "Delete this Signature?"
-	},
 	"Enable_this_key_for_signing": {
 		"message": "Enable this key for signing"
 	},
@@ -451,6 +556,9 @@
 	},
 	"Searching_for": {
 		"message": "Searching for"
+	},
+	"WebPG_Options": {
+		"message": "WebPG Options"
 	},
 	"The_WebPG_NPAPI_Plugin_is_valid": {
 		"message": "The WebPG NPAPI Plugin is valid"
@@ -494,6 +602,33 @@
 	"click_here_for_help_resolving_this_issue": {
 		"message": "click here for help resolving this issue"
 	},
+	"Enable_Inline_formatting_of_PGP_Messages_and_Keys": {
+		"message": "Enable Inline formatting of PGP Messages and Keys"
+	},
+	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
+		"message": "Always encrypt to your default key in addition to the recipient"
+	},
+	"Enable_WebPG_GMAIL_integration": {
+		"message": "Enable WebPG GMAIL integration"
+	},
+	"EXPERIMENTAL": {
+		"message": "EXPERIMENTAL"
+	},
+	"Sign_outgoing_messages_in_GMAIL": {
+		"message": "Sign outgoing messages in GMAIL"
+	},
+	"GnuPG_home_directory": {
+		"message": "GnuPG home directory"
+	},
+	"GnuPG_binary": {
+		"message": "GnuPG binary"
+	},
+	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
+		"message": "Your system appears to be configured correctly for WebPG"
+	},
+	"There_is_a_problem_with_your_configuration": {
+		"message": "There is a problem with your configuration"
+	},
 	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
 		"message": "WebPG GMAIL integration is EXPERIMENTAL"
 	},
@@ -505,12 +640,6 @@
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
 		"message": "There may have been a problem placing the data into the clipboard"
-	},
-	"WebPG_Options": {
-		"message": "WebPG Options"
-	},
-	"WebPG_Key_Manager": {
-		"message": "WebPG Key Manager"
 	},
 	"Paste_Public_Key": {
 		"message": "Paste Public Key"
@@ -561,7 +690,7 @@
 		"message": "COPY TO CLIPBOARD"
 	},
 	"DETACHED_PGP_SIGNATURE": {
-		"message": "DETECHED PGP SIGNATURE"
+		"message": "DETACHED PGP SIGNATURE"
 	},
 	"PGP_SIGNED_MESSAGE": {
 		"message": "PGP SIGNED MESSAGE"
@@ -577,6 +706,9 @@
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY": {
 		"message": "THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY"
+	},
+	"THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING": {
+		"message": "THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING"
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
 		"message": "THE SIGNATURE ON THIS MESSAGE FAILED"
@@ -607,6 +739,12 @@
 	},
 	"HIDE_ORIGINAL": {
 		"message": "HIDE ORIGINAL"
+	},
+	"UNUSABLE_KEY": {
+		"message": "UNUSABLE KEY"
+	},
+	"NO_USER_ID": {
+		"message": "NO USER ID"
 	},
 	"extDesc": {
 		"message": "An extension which provides GnuPG/GPG/PGP related functions to Chrome"

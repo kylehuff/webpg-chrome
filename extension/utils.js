@@ -86,6 +86,25 @@ webpg.utils = {
     })(),
 
     /*
+        Function: detectedLocale
+            Returns the first 2 characters of the current locale.
+    */
+    detectedLocale: (function() {
+        return navigator.language.substr(0, 2).toLowerCase();
+    })(),
+
+    /*
+        Function: isRTL
+            Returns true if the detected locale is a right-to-left
+            language.
+            
+    */
+    isRTL: (function() {
+        RTL_locales = ['ar', 'fa', 'he'];
+        return (RTL_locales.indexOf(this.detectedLocale) > -1);
+    }),
+
+    /*
         Function: resourcePath
             Determines the base path for extension resources. This is a self
             executing method.
@@ -686,23 +705,39 @@ webpg.utils = {
                 } catch (e) {
                     var res = msg;
                 }
-                if (!res || res.length == 0)
-                    return msg
-                else
-                    return res
+                if (!res || res.length == 0) {
+                    // msg names that begin with a number, i.e. "90 days", they
+                    //  are stored as "n90 days"; the following detects this
+                    //  conversion and removes the preceeding "n".
+                    var m = /^[n]([0-9].*)/g.exec(msg);
+                    if (m && m.length == 2)
+                        msg = m[1];
+                    return msg;
+                } else {
+                    return res;
+                }
             } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                 msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9]/g, '_');
                 var tmsg = chrome.i18n.getMessage(msgName);
-                if (tmsg.length == 0)
+                if (tmsg.length == 0) {
+                    // msg names that begin with a number, i.e. "90 days", they
+                    //  are stored as "n90 days"; the following detects this
+                    //  conversion and removes the preceeding "n".
+                    var m = /^[n]([0-9].*)/g.exec(msg);
+                    if (m && m.length == 2)
+                        msg = m[1];
                     return msg;
-                else
+                } else {
                     return tmsg;
+                }
             }
         },
     },
 }
 
 window._ = webpg.utils.i18n.gettext;
+window.scrub = webpg.utils.escape;
+window.descript = function(html) { return html.replace(/\<script(.|\n)*?\>(.|\n)*?\<\/script\>/g, "") };
 
 webpg.utils.init();
 /* ]]> */

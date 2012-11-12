@@ -1,5 +1,5 @@
 build/
-plugins
+/plugins
 webpg-*-*.zip
 changelog-*.txt
 *.swp
