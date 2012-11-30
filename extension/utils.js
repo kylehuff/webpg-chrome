@@ -81,6 +81,10 @@ webpg.utils = {
             return { "vendor": "mozilla", "product": "thunderbird" };
         else if (navigator.userAgent.toLowerCase().search("firefox") > -1)
             return { "vendor": "mozilla", "product": "firefox" };
+        else if (navigator.userAgent.toLowerCase().search("opera") > -1)
+            return { "vendor": "opera", "product": "opera" };
+        else if (navigator.userAgent.toLowerCase().search("safari") > -1)
+            return { "vendor": "apple", "product": "safari" };
         else
             return "unknown";
     })(),
@@ -116,6 +120,8 @@ webpg.utils = {
             return "chrome://webpg-firefox/content/";   
         else if (userAgent.search("chrome") > -1)
             return chrome.extension.getURL("");
+        else if (userAgent.search("safari") > -1)
+            return safari.extension.baseURI;
         else
             return "/";
     }(),
@@ -329,6 +335,14 @@ webpg.utils = {
                     });
                 }
                 break;
+
+            case "safari":
+                if (tabIndex) {
+                    safari.application.browserWindow.openTab(tabIndex);
+                } else {
+                    safari.application.browserWindow.openTab(safari.application.browserWindow.activeTab.index);
+                }
+                break;
         }
     },
 
@@ -381,14 +395,26 @@ webpg.utils = {
             doc - <document> The document to add the listener to 
     */
     sendRequest: function(data, callback) { // analogue of chrome.extension.sendRequest
-        if (this.detectedBrowser['vendor'] == "mozilla") {
+        if (this.detectedBrowser['vendor'] == "mozilla" ||
+            this.detectedBrowser['product'] == "safari") {
             var request = document.createTextNode("");
-            request.setUserData("data", data, null);
+
+            if (this.detectedBrowser['vendor'] == "mozilla")
+                request.setUserData("data", data, null);
+            else
+                jQuery(request).data("data", data);
+
             if (callback) {
-                request.setUserData("callback", callback, null);
+                if (this.detectedBrowser['vendor'] == "mozilla")
+                    request.setUserData("callback", callback, null);
+                else
+                    jQuery(request).data("callback", callback);
 
                 document.addEventListener("listener-response", function(event) {
-                    var node = event.target, callback = node.getUserData("callback"), response = node.getUserData("response");
+                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+                        var node = event.target, callback = node.getUserData("callback"), response = node.getUserData("response");
+                    else
+                        var node = event.target, callback = jQuery(node).data("callback"), response = jQurey(node).data("response");
                     document.documentElement.removeChild(node);
                     document.removeEventListener("listener-response", arguments.callee, false);
                     return callback(response);
@@ -399,7 +425,29 @@ webpg.utils = {
             var sender = document.createEvent("HTMLEvents");
             sender.initEvent("listener-query", true, false);
             return request.dispatchEvent(sender);
-        } else {
+        } else if (this.detectedBrowser['vendor'] == "opera") {
+            if (typeof(opera.extension)=='undefined') {
+                if (!typeof(window.frames.extension)!='undefined') {
+                    if (callback == null) {
+                        window.frames.extension.postMessage(data);
+                    } else {
+                        data.callback = callback.toString();
+                        window.frames.extension.postMessage(data);
+                    }
+                } else {
+                    document.dispatchEvent(
+                        new window.CustomEvent('listener-query', {'detail' : {'data': data} })
+                    );
+                }
+            } else {
+                if (callback == null) {
+                    opera.extension.postMessage(data);
+                } else {
+                    data.callback = callback.toString();
+                    opera.extension.postMessage(data);
+                }
+            }
+        } else if (this.detectedBrowser['vendor'] == "google") {
             // Check if the callback is null, otherwise the chrome bindings will freak out.
             if (callback == null)
                 chrome.extension.sendRequest(data);
@@ -425,17 +473,32 @@ webpg.utils = {
                 callback - <func> The callback to be called upon completion
         */
         addListener: function(callback) { // analogue of chrome.extension.onRequest.addListener
-            if (webpg.utils.detectedBrowser['vendor'] == "mozilla" &&
-              webpg.utils.detectedBrowser['product'] != "thunderbird") {
+            if (webpg.utils.detectedBrowser['product'] == "safari" ||
+               (webpg.utils.detectedBrowser['vendor'] == "mozilla" &&
+               webpg.utils.detectedBrowser['product'] != "thunderbird")) {
                 return document.addEventListener("listener-query", function(event) {
                     var node = event.target, doc = node.ownerDocument;
 
-                    return callback(node.getUserData("data"), doc, function(data) {
-                        if (!node.getUserData("callback")) {
+                    var userData = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
+                        node.getUserData("data") : jQuery(node).data("data");
+
+                    var userCallback = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
+                        node.getUserData("callback") : jQuery(node).data("callback");
+                    
+                    if (!userData)
+                        userData = event.detail.data;
+                    if (!userCallback)
+                        userCallback = event.detail.callback;
+
+                    return callback(userData, doc, function(data) {
+                        if (!userCallback) {
                             return doc.documentElement.removeChild(node);
                         }
 
-                        node.setUserData("response", data, null);
+                        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+                            node.setUserData("response", data, null);
+                        else
+                            jQuery(node).data("response", data);
 
                         var listener = doc.createEvent("HTMLEvents");
                         listener.initEvent("listener-response", true, false);
@@ -463,7 +526,8 @@ webpg.utils = {
                 request - <json obj> A JSON object with parameters and data to send
         */
         sendRequest: function(target, request) {
-            if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+            if (webpg.utils.detectedBrowser['vendor'] == "mozilla" ||
+                webpg.utils.detectedBrowser['product'] == "safari") {
                 if (!request.target_id) {
                     webpg.utils.sendRequest(request);
                 } else {
@@ -730,12 +794,21 @@ webpg.utils = {
                 } else {
                     return tmsg;
                 }
+            } else {
+                // msg names that begin with a number, i.e. "90 days", they
+                //  are stored as "n90 days"; the following detects this
+                //  conversion and removes the preceeding "n".
+                var m = /^[n]([0-9].*)/g.exec(msg);
+                if (m && m.length == 2)
+                    msg = m[1];
+                return msg;
             }
         },
     },
 }
 
 window._ = webpg.utils.i18n.gettext;
+_ = window._;
 window.scrub = webpg.utils.escape;
 window.descript = function(html) { return html.replace(/\<script(.|\n)*?\>(.|\n)*?\<\/script\>/g, "") };
 

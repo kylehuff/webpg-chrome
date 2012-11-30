@@ -366,6 +366,10 @@ if (webpg.utils.detectedBrowser['product'] == "chrome") {
         var browserWindow = null;
     }
     webpg.localStorage = window.localStorage;
+} else if (webpg.utils.detectedBrowser['product'] == "safari") {
+    var browserWindow = safari.extension.globalPage.contentWindow;
+    webpg.localStorage = window.localStorage;
+    console.log(browserWindow);
 // If this is Firefox, set up required objects
 } else if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
     var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
@@ -394,6 +398,9 @@ if (webpg.utils.detectedBrowser['product'] == "chrome") {
                    (prefType == 128) ? prefs.setBoolPref(item, value): -1;
         },
     }
+} else if (webpg.utils.detectedBrowser['vendor'] == "opera") {
+    var browserWindow = opera.extension.bgProcess;
+    webpg.localStorage = window.localStorage;
 }
 
 webpg.preferences.init(browserWindow);
