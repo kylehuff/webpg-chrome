@@ -1,5 +1,7 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
+// Enforce jQuery.noConflict if not already performed
+if (typeof(jQuery)!='undefined') { var jq = jQuery.noConflict(true); }
 
 /*
     Class: webpg.inline
@@ -217,7 +219,7 @@ webpg.inline = {
         // The html contents posted to element is the textContent or innerText
         //  of the element with detected PGP Blocks
         var h = document.createElement("pre");
-        jQuery(h).html(scontent);
+        jq(h).html(scontent);
         var phtml = h.innerHTML;
 
         if (scontent == phtml) {
@@ -288,9 +290,9 @@ webpg.inline = {
                                 'verify_result': response.result}
                             );
                         } else {
-                            jQuery(results_frame).hide();
-                            jQuery(element).children(".original").show();
-                            jQuery(element).children(".pretext, .postext").hide();
+                            jq(results_frame).hide();
+                            jq(element).children(".original").show();
+                            jq(element).children(".pretext, .postext").hide();
                             console.log("error processing signed message", response.result);
                         }
                     }
@@ -373,8 +375,8 @@ webpg.inline = {
     */
     addResultsReplacementFrame: function(element){
         var iframe = this.addResultsFrame();
-        jQuery(iframe).insertAfter(jQuery(element));
-        jQuery(element).hide();
+        jq(iframe).insertAfter(jq(element));
+        jq(element).hide();
         var theURL = webpg.utils.resourcePath + "webpg_results.html?id=" + iframe.id;
         if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
             iframe.contentWindow.location.href = theURL;
@@ -383,7 +385,11 @@ webpg.inline = {
         return iframe;
     },
 
-    addDialogFrame: function() {
+    addDialogFrame: function(height, width) {
+        if (!height)
+            height = 310;
+        if (!width)
+            width = 640;
         var doc = (webpg.inline.doc) ? webpg.inline.doc : document;
         var iframe = doc.createElement('iframe');
         var id = (new Date()).getTime();
@@ -394,8 +400,8 @@ webpg.inline = {
         iframe.style.position = "absolute";
         iframe.style.border = "none";
         iframe.style.margin = "auto";
-        iframe.style.width = "640px";
-        iframe.style.height = "310px";
+        iframe.style.width = width + "px";
+        iframe.style.height = height + "px";
         iframe.style.marginLeft = "-50px";
         iframe.style.marginTop = "50px";
         iframe.style.backgroundColor = "transparent";

@@ -1,4 +1,7 @@
 /* <![CDATA[ */
+// Enforce jQuery.noConflict if not already performed
+if (typeof(jQuery)!='undefined') { var jq = jQuery.noConflict(true); }
+
 /*
     Class: webpg.about
         Proivides the class to handle the "about" page
@@ -9,6 +12,7 @@ webpg.about = {
             Sets up the page to reflect the correct host application
     */
     init: function() {
+        var _ = webpg.utils.i18n.gettext;
         document.title = _("About WebPG");
         if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
             if (webpg.utils.detectedBrowser['product'] == "firefox")
@@ -25,7 +29,11 @@ webpg.about = {
             document.getElementById("webpg-info-version-string").innerText +=
                 webpg.utils.escape(chrome.app.getDetails().version);
         }
-        jQuery('#close').button().button("option", "label", _("Finished"))
+
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+            jq('#window_functions').hide();
+
+        jq('#close').button().button("option", "label", _("Finished"))
             .click(function(e) { window.top.close(); });
    }
 }

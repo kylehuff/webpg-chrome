@@ -1,14 +1,19 @@
 /* <![CDATA[ */
-jQuery(document).ready(function() {
-    jQuery('.menu-option').hover(
+// Enforce jQuery.noConflict if not already performed
+if (typeof(jQuery)!='undefined') { var jq = jQuery.noConflict(true); }
+
+jq(document).ready(function() {
+    jq('.menu-option').hover(
         function(){ 
-            jQuery(this).addClass("menu-option-over");
+            jq(this).addClass("menu-option-over");
         },
         function(){
-            jQuery(this).removeClass("menu-option-over");
+            jq(this).removeClass("menu-option-over");
         }
     );
 });
+
+var _ = webpg.utils.i18n.gettext;
 
 var menuActions = {
     options: function(){
@@ -35,9 +40,9 @@ var menuActions = {
 
 // Listen for the creation of the buttons and assign their methods
 document.addEventListener('DOMContentLoaded', function () {
-    jQuery("#options-button").text(_("Options"))[0].addEventListener('click', menuActions.options);
-    jQuery("#key-manager-button").text(_("Key Manager"))[0].addEventListener('click', menuActions.key_manager);
-    jQuery("#about-button").text(_("About WebPG"))[0].addEventListener('click', menuActions.about);
+    jq("#options-button").text(_("Options"))[0].addEventListener('click', menuActions.options);
+    jq("#key-manager-button").text(_("Key Manager"))[0].addEventListener('click', menuActions.key_manager);
+    jq("#about-button").text(_("About WebPG"))[0].addEventListener('click', menuActions.about);
 });
 
 

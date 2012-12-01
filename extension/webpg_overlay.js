@@ -1,5 +1,7 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
+// Enforce jQuery.noConflict if not already performed
+if (typeof(jQuery)!='undefined') { var jq = jQuery.noConflict(true); }
 
 /*
     This file is loaded with each new page request and handles setting up
@@ -23,10 +25,8 @@ webpg.overlay = {
             aEvent - <event> The window event
     */
     init: function(aEvent) {
-        if (aEvent)
-            doc = aEvent.originalTarget;
-        else
-            doc = document;
+        webpg.doc = (aEvent) ?
+            aEvent.originalTarget : document;
 
         webpg.overlay.insert_target = null;
         webpg.overlay.block_target = null;
@@ -45,7 +45,7 @@ webpg.overlay = {
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         // Begin parsing the document for PGP Data
                         gBrowser.addEventListener("DOMContentLoaded",
-                            function(aEvent) { webpg.inline.init(doc) }, false);
+                            function(aEvent) { webpg.inline.init(webpg.doc) }, false);
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         webpg.inline.init(document);
                     }
@@ -84,7 +84,7 @@ webpg.overlay = {
                     var pos = iframe.offsetTop - 10;
                     var body = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
                         content.document.body : "html,body";
-                    jQuery(body).animate({scrollTop: pos}, 1);
+                    jq(body).animate({scrollTop: pos}, 1);
                 }
             }
         } else if (request.msg == "removeiframe"){
@@ -154,7 +154,10 @@ webpg.overlay = {
         } else if (request.msg == "openKeySelectionDialog") {
             webpg.overlay.block_target = true;
             var target = webpg.overlay.insert_target;
-            var iframe = webpg.inline.addDialogFrame();
+            if (request.dialog_type == "import")
+                var iframe = webpg.inline.addDialogFrame(380, 810);
+            else
+                var iframe = webpg.inline.addDialogFrame();
 
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
                 content.document.body.appendChild(iframe);
@@ -165,6 +168,8 @@ webpg.overlay = {
                 + request.dialog_type;
             if (request.dialog_type == "encrypt")
                 theURL += "&encrypt_data=" + escape(request.data);
+            if (request.dialog_type == "import")
+                theURL += "&import_data=" + escape(request.data);
 
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
                 iframe.contentWindow.location.href = theURL;
@@ -175,21 +180,21 @@ webpg.overlay = {
             iframe.style.marginLeft = "";
             var scrollY = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
                 content.window.scrollY : window.scrollY;
-            var posY = scrollY + (jQuery(iframe).innerHeight()
+            var posY = scrollY + (jq(iframe).innerHeight()
                     / 3);
             var posX = (window.outerWidth
                     / 3) - 100;
-            jQuery(iframe).animate({"top": window.scrollY}, 1, function() {
-                jQuery(iframe).animate({"top": posY}, 1);
-                jQuery(iframe).animate({"left": posX}, 1);
+            jq(iframe).animate({"top": window.scrollY}, 1, function() {
+                jq(iframe).animate({"top": posY}, 1);
+                jq(iframe).animate({"left": posX}, 1);
             });
-
+            
             // the sendResult event is for communicating with the iframe
             //  from firefox; Google Chrome/Chromium uses the
             //  chrome.extension.sendRequest method.
             iframe.addEventListener("sendResult", function(e) {
                 if (request.dialog_type == "encrypt") {
-                    response = webpg.background.plugin.gpgEncrypt(e.detail.data,
+                    response = webpg.plugin.gpgEncrypt(e.detail.data,
                         e.detail.recipients, 0);
                     if (!response.error && (target.type == "textarea" || target.type == "text"))
                         target.value = response.data;
@@ -198,12 +203,14 @@ webpg.overlay = {
                 } else if (request.dialog_type == "export") {
                     exported_items = "";
                     for (var idx in e.detail.recipients) {
-                        exported_items += webpg.background.plugin.
+                        exported_items += webpg.plugin.
                             gpgExportPublicKey(e.detail.recipients[idx]).result
                             + "\n";
                     }
                     if (target.type == "textarea" || target.type == "text")
                         target.value = exported_items;
+                } else if (request.dialog_type == "import") {
+                    console.log(e.detail);
                 }
                 webpg.overlay.block_target = false;
                 content.document.body.removeChild(iframe);
@@ -319,8 +326,28 @@ webpg.overlay = {
                 break;
 
 		    case webpg.constants.overlayActions.IMPORT:
-                var import_status = webpg.background.plugin.gpgImportKey(selection.selectionText);
-                console.log(import_status);
+                webpg.overlay._onRequest({'msg': 'openKeySelectionDialog',
+                    'dialog_type': 'import',
+                    'data': selection.selectionText
+                });
+//                webpg.utils.sendRequest({"msg": "doKeyImport",
+//                    "data": selection.selectionText }, function(response) {
+//                        var import_status = response.result.import_status;
+//                        var msg = "Public Keys Considered: " + import_status.considered +
+//                        "\nPublic Keys Imported: " + import_status.imported +
+//                        "\nPublic Keys - \n\n";
+//                        for (var pubkey in import_status.imports) {
+//                            msg += "  Key ID: " + import_status.imports[pubkey].fingerprint.substr(-6) +
+//                                "\n  Status: ";
+//                            var status = (import_status.imports[pubkey].status == "1") ?
+//                                "Imported" : (import_status.imports[pubkey].status == "0") ?
+//                                "Already in Public Keyring" : (import_status.imports[pubkey].status == "6") ?
+//                                "Updated Public Key" : "Unknown";
+//                            msg += status + "\n\n";
+//                        }
+//                        alert(msg);
+//                    }
+//                );
                 break;
 
 		    case webpg.constants.overlayActions.EXPORT:
@@ -386,8 +413,8 @@ webpg.overlay = {
 };
 
 if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-    var appcontent = document.getElementById("appcontent");
-    appcontent.addEventListener("DOMContentLoaded", webpg.overlay.init, true);
+    webpg.appcontent = document.getElementById("appcontent");
+    webpg.appcontent.addEventListener("DOMContentLoaded", webpg.overlay.init, true);
 } else {
     webpg.overlay.init();
 }

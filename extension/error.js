@@ -1,4 +1,6 @@
 /* <![CDATA[ */
+// Enforce jQuery.noConflict if not already performed
+if (typeof(jQuery)!='undefined') { var jq = jQuery.noConflict(true); }
 
 if (webpg.utils.detectedBrowser['product'] == "chrome") {
     var ext = chrome.extension.getBackgroundPage();
@@ -11,11 +13,13 @@ if (webpg.utils.detectedBrowser['product'] == "chrome") {
        .getInterface(Components.interfaces.nsIDOMWindow);
 }
 
-jQuery(function(){
-    error_map = ext.plugin.webpg_status;
+var _ = webpg.utils.i18n.gettext;
+
+jq(function(){
+    error_map = ext.webpg.plugin.webpg_status;
     
-    jQuery("#error-text-h1").text(_("Error loading WebPG"));
-    jQuery("#error-text-p").text(_("We encountered a problem while attempting to load WebPG"));
+    jq("#error-text-h1").text(_("Error loading WebPG"));
+    jq("#error-text-p").text(_("We encountered a problem while attempting to load WebPG"));
 
     if (error_map["error"]) {
         error_html = "<p>" + _("Error") + " (" + webpg.utils.escape(error_map["gpg_error_code"]) + "): " + error_map["error_string"] + "</p>";
@@ -48,7 +52,7 @@ jQuery(function(){
     } else {
         error_html = "<p>" + _("Unknown Error") + "</p>";
     }
-    jQuery("#error-text").append(error_html);
+    jq("#error-text").append(error_html);
 
     systemInfoHTML += "<h1>" + _("System Information") + "</h1>";
     systemInfoHTML += _("Platform") + ": " + webpg.utils.escape(window.navigator.platform) + "<br/\>";
@@ -59,18 +63,18 @@ jQuery(function(){
     systemInfoHTML += _("Vendor") + ": " + webpg.utils.escape(window.navigator.vendor) + "<br/\>";
     systemInfoHTML += _("Language") + ": " + webpg.utils.escape(window.navigator.language) + "<br/\>";
 
-    jQuery("#system-info-list").html(systemInfoHTML);
+    jq("#system-info-list").html(systemInfoHTML);
 
     if (webpg.utils.detectedBrowser['product'] == "chrome") {
-        jQuery('#refresh').button().click(function(e) {
+        jq('#refresh').button().click(function(e) {
             ext.webpg.background.init();
             window.close();
         });
     } else {
-        jQuery('#refresh').hide();
+        jq('#refresh').hide();
     }
 
-    jQuery('#close').button().click(function(e) { window.close(); });
+    jq('#close').button().click(function(e) { window.close(); });
 
 });
 /* ]]> */

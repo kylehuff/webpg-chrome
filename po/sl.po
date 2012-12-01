@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webpg-chrome 0.8.9\n"
 "Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
-"POT-Creation-Date: 2012-11-12 13:31-0500\n"
+"POT-Creation-Date: 2012-12-01 14:44-0500\n"
 "PO-Revision-Date: 2012-10-21 16:57-0400\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,1042 +20,1046 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
 
-#: extension/about.js:12 extension/browser_action_menu.js:40
-#: extension/utils.js:304
+#: extension/about.js:16 extension/browser_action_menu.js:45
+#: extension/utils.js:323
 msgid "About WebPG"
 msgstr ""
 
-#: extension/about.js:28 extension/key_manager.js:197 extension/options.js:286
+#: extension/about.js:36 extension/key_manager.js:206 extension/options.js:293
 msgid "Finished"
 msgstr ""
 
-#: extension/background.js:56
+#: extension/background.js:57
 msgid "WebPG Plugin failed to load"
 msgstr ""
 
-#: extension/background.js:472 extension/background.js:495
+#: extension/background.js:478 extension/background.js:501
 msgid "Key Generation Complete"
 msgstr ""
 
-#: extension/background.js:473 extension/background.js:498
+#: extension/background.js:479 extension/background.js:504
 msgid "Key Generation"
 msgstr ""
 
-#: extension/background.js:482
+#: extension/background.js:488
 msgid "Open Key Manager"
 msgstr ""
 
-#: extension/background.js:496
+#: extension/background.js:502
 msgid "WebPG Key Generation Failed"
 msgstr ""
 
-#: extension/background.js:497
+#: extension/background.js:503
 msgid "The generation of your new key is now complete"
 msgstr ""
 
-#: extension/browser_action_menu.js:38 extension/utils.js:654
+#: extension/browser_action_menu.js:43 extension/utils.js:733
 msgid "Options"
 msgstr ""
 
-#: extension/browser_action_menu.js:39 extension/utils.js:674
+#: extension/browser_action_menu.js:44 extension/utils.js:753
 msgid "Key Manager"
 msgstr ""
 
-#: extension/dialog.js:30
+#: extension/dialog.js:31
+msgid "Import"
+msgstr ""
+
+#: extension/dialog.js:31
 msgid "Select Recipient(s)"
 msgstr ""
 
-#: extension/error.js:17
+#: extension/error.js:21
 msgid "Error loading WebPG"
 msgstr ""
 
-#: extension/error.js:18
+#: extension/error.js:22
 msgid "We encountered a problem while attempting to load WebPG"
 msgstr ""
 
-#: extension/error.js:21
+#: extension/error.js:25
 msgid "Error"
 msgstr ""
 
-#: extension/error.js:22
+#: extension/error.js:26
 msgid "Suggestions"
 msgstr ""
 
-#: extension/error.js:25
+#: extension/error.js:29
 msgid "The plugin was unable to load"
 msgstr ""
 
-#: extension/error.js:28
+#: extension/error.js:32
 msgid "There might be a problem with the gpg installation"
 msgstr ""
 
-#: extension/error.js:30
+#: extension/error.js:34
 msgid "consider reinstalling gpg4win"
 msgstr ""
 
-#: extension/error.js:36
+#: extension/error.js:40
 msgid "Error Details"
 msgstr ""
 
-#: extension/error.js:37
+#: extension/error.js:41
 msgid "Error in Method"
 msgstr ""
 
-#: extension/error.js:38
+#: extension/error.js:42
 msgid "Error Code"
 msgstr ""
 
-#: extension/error.js:39
+#: extension/error.js:43
 msgid "Error String"
 msgstr ""
 
-#: extension/error.js:46
+#: extension/error.js:50
 msgid "File"
 msgstr ""
 
-#: extension/error.js:47
+#: extension/error.js:51
 msgid "Line"
 msgstr ""
 
-#: extension/error.js:49
+#: extension/error.js:53
 msgid "Unknown Error"
 msgstr ""
 
-#: extension/error.js:53
+#: extension/error.js:57
 msgid "System Information"
 msgstr ""
 
-#: extension/error.js:54
+#: extension/error.js:58
 msgid "Platform"
 msgstr ""
 
-#: extension/error.js:55
+#: extension/error.js:59
 msgid "App Version"
 msgstr ""
 
-#: extension/error.js:56
+#: extension/error.js:60
 msgid "User Agent"
 msgstr ""
 
-#: extension/error.js:57
+#: extension/error.js:61
 msgid "Product"
 msgstr ""
 
-#: extension/error.js:58
+#: extension/error.js:62
 msgid "Sub-product"
 msgstr ""
 
-#: extension/error.js:59
+#: extension/error.js:63
 msgid "Vendor"
 msgstr ""
 
-#: extension/error.js:60
+#: extension/error.js:64
 msgid "Language"
 msgstr ""
 
-#: extension/gmail.js:303
+#: extension/gmail.js:306
 msgid "You do not have any keys for"
 msgstr ""
 
-#: extension/gmail.js:305
+#: extension/gmail.js:308
 msgid "or"
 msgstr ""
 
-#: extension/gmail.js:366
+#: extension/gmail.js:370
 msgid "You have more than 1 public key matching that address"
 msgstr ""
 
-#: extension/gmail.js:378
+#: extension/gmail.js:382
 msgid "The Key for"
 msgstr ""
 
-#: extension/gmail.js:379
+#: extension/gmail.js:383
 msgid "is invalid"
 msgstr ""
 
-#: extension/gmail.js:383
+#: extension/gmail.js:387
 msgid "Open the Key Manager"
 msgstr ""
 
-#: extension/gmail.js:482 extension/key_manager.js:114
-#: extension/key_manager.js:872
+#: extension/gmail.js:486 extension/key_manager.js:119
+#: extension/key_manager.js:887
 msgid "Encrypt"
 msgstr ""
 
-#: extension/gmail.js:488 extension/key_manager.js:93
-#: extension/key_manager.js:96
+#: extension/gmail.js:492 extension/key_manager.js:98
+#: extension/key_manager.js:101
 msgid "Sign only"
 msgstr ""
 
-#: extension/gmail.js:494
+#: extension/gmail.js:498
 msgid "Sign and Encrypt"
 msgstr ""
 
-#: extension/gmail.js:500
+#: extension/gmail.js:504
 msgid "Symmetric Encryption"
 msgstr ""
 
-#: extension/gmail.js:506
+#: extension/gmail.js:510
 msgid "Do not use WebPG for this message"
 msgstr ""
 
-#: extension/key_manager.js:19 extension/utils.js:303
+#: extension/key_manager.js:22 extension/utils.js:322
 msgid "WebPG Key Manager"
 msgstr ""
 
-#: extension/key_manager.js:52
+#: extension/key_manager.js:57
 msgid "Private Keys"
 msgstr ""
 
-#: extension/key_manager.js:53
+#: extension/key_manager.js:58
 msgid "Public Keys"
 msgstr ""
 
-#: extension/key_manager.js:54
+#: extension/key_manager.js:59
 msgid "Search/Filter"
 msgstr ""
 
-#: extension/key_manager.js:55 extension/key_manager.js:123
+#: extension/key_manager.js:60 extension/key_manager.js:128
 msgid "Your Name"
 msgstr ""
 
-#: extension/key_manager.js:56 extension/key_manager.js:127
+#: extension/key_manager.js:61 extension/key_manager.js:132
 msgid "Your Email"
 msgstr ""
 
-#: extension/key_manager.js:57 extension/key_manager.js:131
+#: extension/key_manager.js:62 extension/key_manager.js:136
 msgid "Comment"
 msgstr ""
 
-#: extension/key_manager.js:61
+#: extension/key_manager.js:66
 msgid "Passphrase"
 msgstr ""
 
-#: extension/key_manager.js:65
+#: extension/key_manager.js:70
 msgid "Repeat Passphrase"
 msgstr ""
 
-#: extension/key_manager.js:66 extension/options.js:143
+#: extension/key_manager.js:71 extension/options.js:147
 msgid "Advanced Options"
 msgstr ""
 
-#: extension/key_manager.js:67
+#: extension/key_manager.js:72
 msgid "Public Key Algorithm"
 msgstr ""
 
-#: extension/key_manager.js:68
+#: extension/key_manager.js:73
 msgid "Public Key Size"
 msgstr ""
 
-#: extension/key_manager.js:69 extension/key_manager.js:89
+#: extension/key_manager.js:74 extension/key_manager.js:94
 msgid "Private Key Algorithm"
 msgstr ""
 
-#: extension/key_manager.js:70 extension/key_manager.js:118
+#: extension/key_manager.js:75 extension/key_manager.js:123
 msgid "Private Key Size"
 msgstr ""
 
-#: extension/key_manager.js:71 extension/key_manager.js:119
+#: extension/key_manager.js:76 extension/key_manager.js:124
 msgid "Expire in"
 msgstr ""
 
-#: extension/key_manager.js:75 extension/key_manager.js:738
-#: extension/key_manager.js:770
+#: extension/key_manager.js:80 extension/key_manager.js:752
+#: extension/key_manager.js:784
 msgid "Never"
 msgstr ""
 
-#: extension/key_manager.js:78
+#: extension/key_manager.js:83
 msgid "n30 days"
 msgstr ""
 
-#: extension/key_manager.js:81
+#: extension/key_manager.js:86
 msgid "n90 days"
 msgstr ""
 
-#: extension/key_manager.js:84
+#: extension/key_manager.js:89
 msgid "n1 year"
 msgstr ""
 
-#: extension/key_manager.js:88
+#: extension/key_manager.js:93
 msgid "Subkey Options"
 msgstr ""
 
-#: extension/key_manager.js:99 extension/key_manager.js:102
+#: extension/key_manager.js:104 extension/key_manager.js:107
 msgid "encrypt only"
 msgstr ""
 
-#: extension/key_manager.js:105 extension/key_manager.js:108
+#: extension/key_manager.js:110 extension/key_manager.js:113
 msgid "set your own capabilities"
 msgstr ""
 
-#: extension/key_manager.js:113 extension/key_manager.js:871
-#: extension/key_manager.js:1733
+#: extension/key_manager.js:118 extension/key_manager.js:886
+#: extension/key_manager.js:1756
 msgid "Sign"
 msgstr ""
 
-#: extension/key_manager.js:115 extension/key_manager.js:873
+#: extension/key_manager.js:120 extension/key_manager.js:888
 msgid "Authenticate"
 msgstr ""
 
-#: extension/key_manager.js:133
+#: extension/key_manager.js:138
 msgid "Revoke this Key"
 msgstr ""
 
-#: extension/key_manager.js:134
+#: extension/key_manager.js:139
 msgid "Revoke this UID"
 msgstr ""
 
-#: extension/key_manager.js:135
+#: extension/key_manager.js:140
 msgid "Revoke this Signature"
 msgstr ""
 
-#: extension/key_manager.js:136 extension/key_manager.js:1887
+#: extension/key_manager.js:141 extension/key_manager.js:1910
 msgid "Delete this Signature"
 msgstr ""
 
-#: extension/key_manager.js:137 extension/key_manager.js:942
-#: extension/key_manager.js:1577
+#: extension/key_manager.js:142 extension/key_manager.js:965
+#: extension/key_manager.js:1600
 msgid "Delete this UID"
 msgstr ""
 
-#: extension/key_manager.js:138 extension/key_manager.js:834
+#: extension/key_manager.js:143 extension/key_manager.js:848
 msgid "Delete this Key"
 msgstr ""
 
-#: extension/key_manager.js:139
+#: extension/key_manager.js:144
 msgid "This key will be permanently deleted"
 msgstr ""
 
-#: extension/key_manager.js:140
+#: extension/key_manager.js:145
 msgid "Are you sure"
 msgstr ""
 
-#: extension/key_manager.js:141 extension/key_manager.js:743
-#: extension/key_manager.js:890
+#: extension/key_manager.js:146 extension/key_manager.js:757
+#: extension/key_manager.js:910
 msgid "Change Expiration"
 msgstr ""
 
-#: extension/key_manager.js:142 extension/key_manager.js:940
+#: extension/key_manager.js:147 extension/key_manager.js:963
 msgid "Sign this UID"
 msgstr ""
 
-#: extension/key_manager.js:143 extension/key_manager.js:819
+#: extension/key_manager.js:148 extension/key_manager.js:833
 msgid "Key Details"
 msgstr ""
 
-#: extension/key_manager.js:144
+#: extension/key_manager.js:149
 msgid "Export Public Key"
 msgstr ""
 
-#: extension/key_manager.js:145 extension/key_manager.js:755
+#: extension/key_manager.js:150 extension/key_manager.js:769
 msgid "Add UID"
 msgstr ""
 
-#: extension/key_manager.js:149
+#: extension/key_manager.js:154
 msgid "Are you sure you wish to revoke this Key"
 msgstr ""
 
-#: extension/key_manager.js:150
+#: extension/key_manager.js:155
 msgid "Are you sure you wish to revoke this UID"
 msgstr ""
 
-#: extension/key_manager.js:151
+#: extension/key_manager.js:156
 msgid "Are you sure you wish to revoke this Signature"
 msgstr ""
 
-#: extension/key_manager.js:152
+#: extension/key_manager.js:157
 msgid "Are you sure you wish to delete this Signature"
 msgstr ""
 
-#: extension/key_manager.js:153
+#: extension/key_manager.js:158
 msgid "Are you sure you want to permanently delete this UID"
 msgstr ""
 
-#: extension/key_manager.js:154
+#: extension/key_manager.js:159
 msgid "New Expiration Date"
 msgstr ""
 
-#: extension/key_manager.js:155
+#: extension/key_manager.js:160
 msgid "Never Expire"
 msgstr ""
 
-#: extension/key_manager.js:156
+#: extension/key_manager.js:161
 msgid "Expiration Date"
 msgstr ""
 
-#: extension/key_manager.js:270
+#: extension/key_manager.js:281
 msgid "Click to generate a new key"
 msgstr ""
 
-#: extension/key_manager.js:280
+#: extension/key_manager.js:291
 msgid "Click to enable key"
 msgstr ""
 
-#: extension/key_manager.js:290
+#: extension/key_manager.js:301
 msgid "Click to set default key"
 msgstr ""
 
-#: extension/key_manager.js:328
+#: extension/key_manager.js:340
 msgid "Generating Key"
 msgstr ""
 
-#: extension/key_manager.js:328
+#: extension/key_manager.js:340
 msgid "Waiting for entropy"
 msgstr ""
 
-#: extension/key_manager.js:329
+#: extension/key_manager.js:341
 msgid "Building key"
 msgstr ""
 
-#: extension/key_manager.js:329
+#: extension/key_manager.js:341
 msgid "please wait"
 msgstr ""
 
-#: extension/key_manager.js:426
+#: extension/key_manager.js:440
 msgid "trust"
 msgstr ""
 
-#: extension/key_manager.js:477
+#: extension/key_manager.js:491
 msgid "Generate New Key"
 msgstr ""
 
-#: extension/key_manager.js:486 extension/key_manager.js:1285
-#: extension/key_manager.js:1354
+#: extension/key_manager.js:500 extension/key_manager.js:1308
+#: extension/key_manager.js:1377
 msgid "Create"
 msgstr ""
 
-#: extension/key_manager.js:492 extension/key_manager.js:1293
+#: extension/key_manager.js:506 extension/key_manager.js:1316
 msgid "Name Required"
 msgstr ""
 
-#: extension/key_manager.js:496 extension/key_manager.js:1297
+#: extension/key_manager.js:510 extension/key_manager.js:1320
 msgid "UID Names must be at least 5 characters"
 msgstr ""
 
-#: extension/key_manager.js:502 extension/key_manager.js:1301
+#: extension/key_manager.js:516 extension/key_manager.js:1324
 msgid "UID Names cannot begin with a number"
 msgstr ""
 
-#: extension/key_manager.js:509 extension/key_manager.js:1306
+#: extension/key_manager.js:523 extension/key_manager.js:1329
 msgid "Not a valid email address"
 msgstr ""
 
-#: extension/key_manager.js:519 extension/key_manager.js:521
+#: extension/key_manager.js:533 extension/key_manager.js:535
 msgid "Passphrases do not match"
 msgstr ""
 
-#: extension/key_manager.js:550 extension/key_manager.js:1374
+#: extension/key_manager.js:564 extension/key_manager.js:1397
 msgid "Building key, please wait"
 msgstr ""
 
-#: extension/key_manager.js:551
+#: extension/key_manager.js:565
 msgid "This may take a long time (5 minutes or more) to complete"
 msgstr ""
 
-#: extension/key_manager.js:551
+#: extension/key_manager.js:565
 msgid "Please be patient while the key is created"
 msgstr ""
 
-#: extension/key_manager.js:551
+#: extension/key_manager.js:565
 msgid "It is safe to close this window"
 msgstr ""
 
-#: extension/key_manager.js:551
+#: extension/key_manager.js:565
 msgid "key generation will continue in the background"
 msgstr ""
 
-#: extension/key_manager.js:574 extension/key_manager.js:1211
-#: extension/key_manager.js:1263 extension/key_manager.js:1331
-#: extension/key_manager.js:1398 extension/key_manager.js:1530
-#: extension/key_manager.js:1593 extension/key_manager.js:1644
-#: extension/key_manager.js:1766 extension/key_manager.js:1816
-#: extension/key_manager.js:1873 extension/key_manager.js:1893
+#: extension/key_manager.js:588 extension/key_manager.js:1234
+#: extension/key_manager.js:1286 extension/key_manager.js:1354
+#: extension/key_manager.js:1421 extension/key_manager.js:1553
+#: extension/key_manager.js:1616 extension/key_manager.js:1667
+#: extension/key_manager.js:1789 extension/key_manager.js:1839
+#: extension/key_manager.js:1896 extension/key_manager.js:1916
 msgid "Cancel"
 msgstr ""
 
-#: extension/key_manager.js:661 extension/key_manager.js:710
-#: extension/key_manager.js:1937 extension/options.js:169
-#: extension/options.js:172 extension/options.js:180 extension/options.js:189
-#: extension/options.js:197 extension/options.js:206 extension/options.js:214
-#: extension/options.js:219
+#: extension/key_manager.js:675 extension/key_manager.js:724
+#: extension/key_manager.js:1960 extension/options.js:173
+#: extension/options.js:176 extension/options.js:184 extension/options.js:193
+#: extension/options.js:201 extension/options.js:210 extension/options.js:218
+#: extension/options.js:223
 msgid "Enabled"
 msgstr ""
 
-#: extension/key_manager.js:661 extension/key_manager.js:668
-#: extension/key_manager.js:711 extension/key_manager.js:845
-#: extension/key_manager.js:1937 extension/options.js:169
-#: extension/options.js:172 extension/options.js:180 extension/options.js:185
-#: extension/options.js:197 extension/options.js:206 extension/options.js:214
-#: extension/options.js:219
+#: extension/key_manager.js:675 extension/key_manager.js:682
+#: extension/key_manager.js:725 extension/key_manager.js:860
+#: extension/key_manager.js:1960 extension/options.js:173
+#: extension/options.js:176 extension/options.js:184 extension/options.js:189
+#: extension/options.js:201 extension/options.js:210 extension/options.js:218
+#: extension/options.js:223
 msgid "Disabled"
 msgstr ""
 
-#: extension/key_manager.js:664 extension/key_manager.js:843
+#: extension/key_manager.js:678 extension/key_manager.js:858
 msgid "Valid"
 msgstr ""
 
-#: extension/key_manager.js:672 extension/key_manager.js:729
-#: extension/key_manager.js:848 extension/key_manager.js:859
-#: extension/key_manager.js:868
+#: extension/key_manager.js:686 extension/key_manager.js:743
+#: extension/key_manager.js:863 extension/key_manager.js:874
+#: extension/key_manager.js:883
 msgid "Expired"
 msgstr ""
 
-#: extension/key_manager.js:676 extension/key_manager.js:851
+#: extension/key_manager.js:690 extension/key_manager.js:866
 msgid "Invalid"
 msgstr ""
 
-#: extension/key_manager.js:680 extension/key_manager.js:854
+#: extension/key_manager.js:694 extension/key_manager.js:869
 msgid "Revoked"
 msgstr ""
 
-#: extension/key_manager.js:716
+#: extension/key_manager.js:730
 msgid "Cannot unset your default key"
 msgstr ""
 
-#: extension/key_manager.js:736 extension/key_manager.js:768
+#: extension/key_manager.js:750 extension/key_manager.js:782
 msgid "Trust Assignment"
 msgstr ""
 
-#: extension/key_manager.js:738 extension/key_manager.js:770
+#: extension/key_manager.js:752 extension/key_manager.js:784
 msgid "Unknown"
 msgstr ""
 
-#: extension/key_manager.js:738 extension/key_manager.js:770
+#: extension/key_manager.js:752 extension/key_manager.js:784
 msgid "Marginal"
 msgstr ""
 
-#: extension/key_manager.js:738 extension/key_manager.js:770
+#: extension/key_manager.js:752 extension/key_manager.js:784
 msgid "Full"
 msgstr ""
 
-#: extension/key_manager.js:738 extension/key_manager.js:770
+#: extension/key_manager.js:752 extension/key_manager.js:784
 msgid "Ultimate"
 msgstr ""
 
-#: extension/key_manager.js:749
+#: extension/key_manager.js:763
 msgid "Change Passphrase"
 msgstr ""
 
-#: extension/key_manager.js:761
+#: extension/key_manager.js:775
 msgid "Add Subkey"
 msgstr ""
 
-#: extension/key_manager.js:815
+#: extension/key_manager.js:829
 msgid "Enable this Key"
 msgstr ""
 
-#: extension/key_manager.js:815
+#: extension/key_manager.js:829
 msgid "Disable this Key"
 msgstr ""
 
-#: extension/key_manager.js:820 extension/key_manager.js:880
+#: extension/key_manager.js:834 extension/key_manager.js:899
 msgid "KeyID"
 msgstr ""
 
-#: extension/key_manager.js:820 extension/key_manager.js:880
+#: extension/key_manager.js:834 extension/key_manager.js:899
 msgid "Key Created"
 msgstr ""
 
-#: extension/key_manager.js:821 extension/key_manager.js:881
-#: extension/webpg_results.js:366
+#: extension/key_manager.js:835 extension/key_manager.js:900
+#: extension/webpg_results.js:371
 msgid "Expires"
 msgstr ""
 
-#: extension/key_manager.js:822
+#: extension/key_manager.js:836
 msgid "UIDs"
 msgstr ""
 
-#: extension/key_manager.js:823 extension/key_manager.js:882
+#: extension/key_manager.js:837 extension/key_manager.js:901
 msgid "Fingerprint"
 msgstr ""
 
-#: extension/key_manager.js:824 extension/key_manager.js:883
+#: extension/key_manager.js:838 extension/key_manager.js:902
 msgid "Status"
 msgstr ""
 
-#: extension/key_manager.js:824 extension/key_manager.js:883
+#: extension/key_manager.js:838 extension/key_manager.js:902
 msgid "Key Algorithm"
 msgstr ""
 
-#: extension/key_manager.js:826
+#: extension/key_manager.js:840
 msgid "Validity"
 msgstr ""
 
-#: extension/key_manager.js:828 extension/key_manager.js:887
+#: extension/key_manager.js:842 extension/key_manager.js:906
 msgid "Key Options"
 msgstr ""
 
-#: extension/key_manager.js:830 extension/key_manager.js:892
+#: extension/key_manager.js:844 extension/key_manager.js:912
 msgid "Operations"
 msgstr ""
 
-#: extension/key_manager.js:837
+#: extension/key_manager.js:851
 msgid "Export this Key"
 msgstr ""
 
-#: extension/key_manager.js:840
+#: extension/key_manager.js:854
 msgid "Subkeys"
 msgstr ""
 
-#: extension/key_manager.js:879
+#: extension/key_manager.js:896
 msgid "Subkey Details"
 msgstr ""
 
-#: extension/key_manager.js:884
+#: extension/key_manager.js:903
 msgid "Flags"
 msgstr ""
 
-#: extension/key_manager.js:895
+#: extension/key_manager.js:916
 msgid "Delete this Subkey"
 msgstr ""
 
-#: extension/key_manager.js:898
+#: extension/key_manager.js:919
 msgid "Revoke this Subkey"
 msgstr ""
 
-#: extension/key_manager.js:903
+#: extension/key_manager.js:924
 msgid "User IDs"
 msgstr ""
 
-#: extension/key_manager.js:914 extension/key_manager.js:977
+#: extension/key_manager.js:937 extension/key_manager.js:1000
 msgid "no email address provided"
 msgstr ""
 
-#: extension/key_manager.js:932
+#: extension/key_manager.js:955
 msgid "Make primary"
 msgstr ""
 
-#: extension/key_manager.js:936
+#: extension/key_manager.js:959
 msgid "Revoke UID"
 msgstr ""
 
-#: extension/key_manager.js:964
+#: extension/key_manager.js:987
 msgid "REVOKED"
 msgstr ""
 
-#: extension/key_manager.js:1003
+#: extension/key_manager.js:1026
 msgid "self-signature"
 msgstr ""
 
-#: extension/key_manager.js:1005
+#: extension/key_manager.js:1028
 msgid "local"
 msgstr ""
 
-#: extension/key_manager.js:1005
+#: extension/key_manager.js:1028
 msgid "non-exportable"
 msgstr ""
 
-#: extension/key_manager.js:1007
+#: extension/key_manager.js:1030
 msgid "other signature"
 msgstr ""
 
-#: extension/key_manager.js:1014 extension/key_manager.js:1518
-#: extension/key_manager.js:1632 extension/key_manager.js:1803
+#: extension/key_manager.js:1037 extension/key_manager.js:1541
+#: extension/key_manager.js:1655 extension/key_manager.js:1826
 msgid "Revoke"
 msgstr ""
 
-#: extension/key_manager.js:1017 extension/key_manager.js:1863
+#: extension/key_manager.js:1040 extension/key_manager.js:1886
 msgid "Delete"
 msgstr ""
 
-#: extension/key_manager.js:1026
+#: extension/key_manager.js:1049
 msgid "Signatures made with keys not in your keyring are omitted"
 msgstr ""
 
-#: extension/key_manager.js:1177 extension/options.js:148
-#: extension/options.js:153
+#: extension/key_manager.js:1200 extension/options.js:152
+#: extension/options.js:157
 msgid "Save"
 msgstr ""
 
-#: extension/key_manager.js:1234
+#: extension/key_manager.js:1257
 msgid "Delete this key"
 msgstr ""
 
-#: extension/key_manager.js:1389 extension/key_manager.js:1483
+#: extension/key_manager.js:1412 extension/key_manager.js:1506
 msgid "Close"
 msgstr ""
 
-#: extension/key_manager.js:1473
+#: extension/key_manager.js:1496
 msgid "Copy"
 msgstr ""
 
-#: extension/key_manager.js:1506 extension/key_manager.js:1622
-#: extension/key_manager.js:1793
+#: extension/key_manager.js:1529 extension/key_manager.js:1645
+#: extension/key_manager.js:1816
 msgid "Please specify the revocation details"
 msgstr ""
 
-#: extension/key_manager.js:1507 extension/key_manager.js:1623
-#: extension/key_manager.js:1794
+#: extension/key_manager.js:1530 extension/key_manager.js:1646
+#: extension/key_manager.js:1817
 msgid "Reason"
 msgstr ""
 
-#: extension/key_manager.js:1509 extension/key_manager.js:1625
-#: extension/key_manager.js:1796
+#: extension/key_manager.js:1532 extension/key_manager.js:1648
+#: extension/key_manager.js:1819
 msgid "No reason specified"
 msgstr ""
 
-#: extension/key_manager.js:1510
+#: extension/key_manager.js:1533
 msgid "Key has been compromised"
 msgstr ""
 
-#: extension/key_manager.js:1511
+#: extension/key_manager.js:1534
 msgid "Key is superseded"
 msgstr ""
 
-#: extension/key_manager.js:1512
+#: extension/key_manager.js:1535
 msgid "Key is no longer used"
 msgstr ""
 
-#: extension/key_manager.js:1514 extension/key_manager.js:1628
-#: extension/key_manager.js:1799
+#: extension/key_manager.js:1537 extension/key_manager.js:1651
+#: extension/key_manager.js:1822
 msgid "Description"
 msgstr ""
 
-#: extension/key_manager.js:1626 extension/key_manager.js:1797
+#: extension/key_manager.js:1649 extension/key_manager.js:1820
 msgid "User ID is no longer valid"
 msgstr ""
 
-#: extension/key_manager.js:1693
+#: extension/key_manager.js:1716
 msgid "Please select which of your keys to create the signature with"
 msgstr ""
 
-#: extension/key_manager.js:1703
+#: extension/key_manager.js:1726
 msgid "You have not enabled any keys for use with webpg"
 msgstr ""
 
-#: extension/key_manager.js:1705 extension/key_manager.js:1709
+#: extension/key_manager.js:1728 extension/key_manager.js:1732
 msgid "please click here"
 msgstr ""
 
-#: extension/key_manager.js:1705
+#: extension/key_manager.js:1728
 msgid "and select 1 or more keys for use with webpg"
 msgstr ""
 
-#: extension/key_manager.js:1707
+#: extension/key_manager.js:1730
 msgid "You have not generated any keys"
 msgstr ""
 
-#: extension/key_manager.js:1709
+#: extension/key_manager.js:1732
 msgid "and generate a key to use with webpg"
 msgstr ""
 
-#: extension/key_manager.js:1716
+#: extension/key_manager.js:1739
 msgid "Already signed with this key"
 msgstr ""
 
-#: extension/key_manager.js:1718
+#: extension/key_manager.js:1741
 msgid "Signature added using this key"
 msgstr ""
 
-#: extension/key_manager.js:1784
+#: extension/key_manager.js:1807
 msgid "Cannot create signatures without gpgconf utility installed"
 msgstr ""
 
-#: extension/key_manager.js:1786
+#: extension/key_manager.js:1809
 msgid "Cannot sign a revoked UID"
 msgstr ""
 
-#: extension/key_manager.js:1787
+#: extension/key_manager.js:1810
 msgid "Cannot make a revoked UID primary"
 msgstr ""
 
-#: extension/key_manager.js:1788
+#: extension/key_manager.js:1811
 msgid "Cannot sign an expired key"
 msgstr ""
 
-#: extension/key_manager.js:1854
+#: extension/key_manager.js:1877
 msgid "Are you certain you would like to delete signature"
 msgstr ""
 
-#: extension/key_manager.js:1855
+#: extension/key_manager.js:1878
 msgid "from this User ID"
 msgstr ""
 
-#: extension/key_manager.js:1857
+#: extension/key_manager.js:1880
 msgid "This signature was made with a key that does not belong to you"
 msgstr ""
 
-#: extension/key_manager.js:1857
+#: extension/key_manager.js:1880
 msgid "This action cannot be undone"
 msgstr ""
 
-#: extension/key_manager.js:1943
+#: extension/key_manager.js:1966
 msgid "Enable this key for signing"
 msgstr ""
 
-#: extension/key_manager.js:1953
+#: extension/key_manager.js:1976
 msgid "This is your default key"
 msgstr ""
 
-#: extension/key_manager.js:1955
+#: extension/key_manager.js:1978
 msgid "Make this the default key for encryption operations"
 msgstr ""
 
-#: extension/key_manager.js:2068
+#: extension/key_manager.js:2091
 msgid "Searching for"
 msgstr ""
 
-#: extension/options.js:20 extension/options.js:129 extension/utils.js:302
+#: extension/options.js:23 extension/options.js:133 extension/utils.js:321
 msgid "WebPG Options"
 msgstr ""
 
-#: extension/options.js:46
+#: extension/options.js:50
 msgid "The WebPG NPAPI Plugin is valid"
 msgstr ""
 
-#: extension/options.js:47
+#: extension/options.js:51
 msgid "libgpgme loaded successfully"
 msgstr ""
 
-#: extension/options.js:48
+#: extension/options.js:52
 msgid "It appears you have a key-agent configured"
 msgstr ""
 
-#: extension/options.js:49
+#: extension/options.js:53
 msgid "gpgconf was detected"
 msgstr ""
 
-#: extension/options.js:49
+#: extension/options.js:53
 msgid "you can use the signature methods"
 msgstr ""
 
-#: extension/options.js:55
+#: extension/options.js:59
 msgid "libgpgme was unable to load"
 msgstr ""
 
-#: extension/options.js:55
+#: extension/options.js:59
 msgid "libgpgme is required for operation"
 msgstr ""
 
-#: extension/options.js:63
+#: extension/options.js:67
 msgid "You do not appear to have a key-agent configured"
 msgstr ""
 
-#: extension/options.js:63
+#: extension/options.js:67
 msgid "A working key-agent is required"
 msgstr ""
 
-#: extension/options.js:71
+#: extension/options.js:75
 msgid "gpgconf does not appear to be installed"
 msgstr ""
 
-#: extension/options.js:71
+#: extension/options.js:75
 msgid "You will not be able to create signatures"
 msgstr ""
 
-#: extension/options.js:80
+#: extension/options.js:84
 msgid "There was a problem loading the plugin"
 msgstr ""
 
-#: extension/options.js:80
+#: extension/options.js:84
 msgid "the plugin might be incompatibly compiled for this architechture"
 msgstr ""
 
-#: extension/options.js:109
+#: extension/options.js:113
 msgid "click here for help resolving this issue"
 msgstr ""
 
-#: extension/options.js:132
+#: extension/options.js:136
 msgid "Enable Inline formatting of PGP Messages and Keys"
 msgstr ""
 
-#: extension/options.js:135
+#: extension/options.js:139
 msgid "Always encrypt to your default key in addition to the recipient"
 msgstr ""
 
-#: extension/options.js:138
+#: extension/options.js:142
 msgid "Enable WebPG GMAIL integration"
 msgstr ""
 
-#: extension/options.js:138
+#: extension/options.js:142
 msgid "EXPERIMENTAL"
 msgstr ""
 
-#: extension/options.js:141
+#: extension/options.js:145
 msgid "Sign outgoing messages in GMAIL"
 msgstr ""
 
-#: extension/options.js:146
+#: extension/options.js:150
 msgid "GnuPG home directory"
 msgstr ""
 
-#: extension/options.js:151
+#: extension/options.js:155
 msgid "GnuPG binary"
 msgstr ""
 
-#: extension/options.js:155
+#: extension/options.js:159
 msgid "Your system appears to be configured correctly for WebPG"
 msgstr ""
 
-#: extension/options.js:157
+#: extension/options.js:161
 msgid "There is a problem with your configuration"
 msgstr ""
 
-#: extension/options.js:200
+#: extension/options.js:204
 msgid "WebPG GMAIL integration is EXPERIMENTAL"
 msgstr ""
 
-#: extension/options.js:200
+#: extension/options.js:204
 msgid "use at your own risk"
 msgstr ""
 
-#: extension/utils.js:274
+#: extension/utils.js:292
 msgid "Text copied to clipboard"
 msgstr ""
 
-#: extension/utils.js:277
+#: extension/utils.js:295
 msgid "There may have been a problem placing the data into the clipboard"
 msgstr ""
 
-#: extension/utils.js:522
+#: extension/utils.js:601
 msgid "Paste Public Key"
 msgstr ""
 
-#: extension/utils.js:542
+#: extension/utils.js:621
 msgid "Clear-sign this text"
 msgstr ""
 
-#: extension/utils.js:562
+#: extension/utils.js:641
 msgid "Import this Key"
 msgstr ""
 
-#: extension/utils.js:582
+#: extension/utils.js:661
 msgid "Encrypt this text"
 msgstr ""
 
-#: extension/utils.js:602
+#: extension/utils.js:681
 msgid "Decrypt this text"
 msgstr ""
 
-#: extension/utils.js:622
+#: extension/utils.js:701
 msgid "Verify this text"
 msgstr ""
 
-#: extension/webpg_results.js:132
+#: extension/webpg_results.js:137
 msgid "PGP ENCRYPTED OR SIGNED MESSAGE"
 msgstr ""
 
-#: extension/webpg_results.js:134
+#: extension/webpg_results.js:139
 msgid "UNABLE TO DECRYPT OR VERIFY THIS MESSAGE"
 msgstr ""
 
-#: extension/webpg_results.js:136
+#: extension/webpg_results.js:141
 msgid "PGP ENCRYPTED MESSAGE"
 msgstr ""
 
-#: extension/webpg_results.js:145 extension/webpg_results.js:527
+#: extension/webpg_results.js:150 extension/webpg_results.js:532
 msgid "PGP ENCRYPTED AND SIGNED MESSAGE"
 msgstr ""
 
-#: extension/webpg_results.js:174 extension/webpg_results.js:178
-#: extension/webpg_results.js:521
+#: extension/webpg_results.js:179 extension/webpg_results.js:183
+#: extension/webpg_results.js:526
 msgid "DECRYPTION FAILED"
 msgstr ""
 
-#: extension/webpg_results.js:174
+#: extension/webpg_results.js:179
 msgid "NO SECRET KEY"
 msgstr ""
 
-#: extension/webpg_results.js:178 extension/webpg_results.js:521
+#: extension/webpg_results.js:183 extension/webpg_results.js:526
 msgid "BAD PASSPHRASE"
 msgstr ""
 
-#: extension/webpg_results.js:180 extension/webpg_results.js:183
+#: extension/webpg_results.js:185 extension/webpg_results.js:188
 msgid "DECRYPT THIS MESSAGE"
 msgstr ""
 
-#: extension/webpg_results.js:190 extension/webpg_results.js:253
-#: extension/webpg_results.js:259 extension/webpg_results.js:267
-#: extension/webpg_results.js:278 extension/webpg_results.js:377
-#: extension/webpg_results.js:406 extension/webpg_results.js:412
-#: extension/webpg_results.js:456 extension/webpg_results.js:497
-#: extension/webpg_results.js:503 extension/webpg_results.js:550
-#: extension/webpg_results.js:554 extension/webpg_results.js:560
+#: extension/webpg_results.js:195 extension/webpg_results.js:258
+#: extension/webpg_results.js:264 extension/webpg_results.js:272
+#: extension/webpg_results.js:283 extension/webpg_results.js:382
+#: extension/webpg_results.js:411 extension/webpg_results.js:417
+#: extension/webpg_results.js:461 extension/webpg_results.js:502
+#: extension/webpg_results.js:508 extension/webpg_results.js:555
+#: extension/webpg_results.js:559 extension/webpg_results.js:565
 msgid "DISPLAY ORIGINAL"
 msgstr ""
 
-#: extension/webpg_results.js:192 extension/webpg_results.js:216
-#: extension/webpg_results.js:254 extension/webpg_results.js:260
-#: extension/webpg_results.js:268 extension/webpg_results.js:279
-#: extension/webpg_results.js:385 extension/webpg_results.js:468
-#: extension/webpg_results.js:551
+#: extension/webpg_results.js:197 extension/webpg_results.js:221
+#: extension/webpg_results.js:259 extension/webpg_results.js:265
+#: extension/webpg_results.js:273 extension/webpg_results.js:284
+#: extension/webpg_results.js:390 extension/webpg_results.js:473
+#: extension/webpg_results.js:556
 msgid "COPY TO CLIPBOARD"
 msgstr ""
 
-#: extension/webpg_results.js:198
+#: extension/webpg_results.js:203
 msgid "DETACHED PGP SIGNATURE"
 msgstr ""
 
-#: extension/webpg_results.js:200
+#: extension/webpg_results.js:205
 msgid "PGP SIGNED MESSAGE"
 msgstr ""
 
-#: extension/webpg_results.js:215
+#: extension/webpg_results.js:220
 msgid "THE SIGNATURE ON THIS MESSAGE IS INVALID"
 msgstr ""
 
-#: extension/webpg_results.js:215
+#: extension/webpg_results.js:220
 msgid "THE SIGNATURE MIGHT BE TAMPERED WITH"
 msgstr ""
 
-#: extension/webpg_results.js:253
+#: extension/webpg_results.js:258
 msgid "THIS MESSAGE WAS SIGNED WITH KEY"
 msgstr ""
 
-#: extension/webpg_results.js:258
+#: extension/webpg_results.js:263
 msgid "THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY"
 msgstr ""
 
-#: extension/webpg_results.js:266
+#: extension/webpg_results.js:271
 msgid "THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING"
 msgstr ""
 
-#: extension/webpg_results.js:277
+#: extension/webpg_results.js:282
 msgid "THE SIGNATURE ON THIS MESSAGE FAILED"
 msgstr ""
 
-#: extension/webpg_results.js:277
+#: extension/webpg_results.js:282
 msgid "THE MESSAGE MAY BE TAMPERED WITH"
 msgstr ""
 
-#: extension/webpg_results.js:293
+#: extension/webpg_results.js:298
 msgid "PGP PUBLIC KEY"
 msgstr ""
 
-#: extension/webpg_results.js:342
+#: extension/webpg_results.js:347
 msgid "Names/UIDs on Key"
 msgstr ""
 
-#: extension/webpg_results.js:365
+#: extension/webpg_results.js:370
 msgid "Created"
 msgstr ""
 
-#: extension/webpg_results.js:369
+#: extension/webpg_results.js:374
 msgid "THIS KEY IS NOT IN YOUR KEYRING"
 msgstr ""
 
-#: extension/webpg_results.js:375
+#: extension/webpg_results.js:380
 msgid "THIS KEY IS IN YOUR KEYRING"
 msgstr ""
 
-#: extension/webpg_results.js:380 extension/webpg_results.js:467
+#: extension/webpg_results.js:385 extension/webpg_results.js:472
 msgid "IMPORT THIS KEY"
 msgstr ""
 
-#: extension/webpg_results.js:383
+#: extension/webpg_results.js:388
 msgid "DELETE THIS KEY"
 msgstr ""
 
-#: extension/webpg_results.js:409 extension/webpg_results.js:500
-#: extension/webpg_results.js:557
+#: extension/webpg_results.js:414 extension/webpg_results.js:505
+#: extension/webpg_results.js:562
 msgid "HIDE ORIGINAL"
 msgstr ""
 
-#: extension/webpg_results.js:466
+#: extension/webpg_results.js:471
 msgid "UNUSABLE KEY"
 msgstr ""
 
-#: extension/webpg_results.js:466
+#: extension/webpg_results.js:471
 msgid "NO USER ID"
 msgstr ""
 

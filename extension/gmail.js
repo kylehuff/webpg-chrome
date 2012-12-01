@@ -1,5 +1,7 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
+// Enforce jQuery.noConflict if not already performed
+if (typeof(jQuery)!='undefined') { var jq = jQuery.noConflict(true); }
 
 /*
     Class: webpg.gmail
@@ -61,9 +63,9 @@ webpg.gmail = {
 
             var canvasFrame = (webpg.gmail.getCanvasFrame().length) ?
                 webpg.gmail.getCanvasFrame().contents() :
-                (jQuery(window.document).contents().length > 1) ?
-                jQuery(jQuery(window.document).contents()[1]) :
-                jQuery(window.document).contents();
+                (jq(window.document).contents().length > 1) ?
+                jq(jq(window.document).contents()[1]) :
+                jq(window.document).contents();
 
             // Watch for when the mouse exits the TO, CC and BCC fields so we
             //  can check the recipients listed therein
@@ -83,12 +85,12 @@ webpg.gmail = {
     */
     getCanvasFrame: function() {
         if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
-            return jQuery(content.document.getElementById("canvas_frame"))
-                .length > 0 ? jQuery(content.document.getElementById("canvas_frame")) :
-                jQuery(content.document);
+            return jq(content.document.getElementById("canvas_frame"))
+                .length > 0 ? jq(content.document.getElementById("canvas_frame")) :
+                jq(content.document);
         else
-            return jQuery('#canvas_frame').length > 0 ?
-                jQuery('#canvas_frame').contents() : jQuery(document);
+            return jq('#canvas_frame').length > 0 ?
+                jq('#canvas_frame').contents() : jq(document);
     },
 
     /*
@@ -279,6 +281,7 @@ webpg.gmail = {
             callback - <func> The function to execute when completed
     */
     checkRecipients: function(callback) {
+        var _ = webpg.utils.i18n.gettext;
         webpg.gmail.removeStatusLine();
         var users = webpg.gmail.getRecipients();
         webpg.utils.sendRequest({'msg': 'getNamedKeys',
@@ -321,15 +324,15 @@ webpg.gmail = {
     displayStatusLine: function(message) {
         var canvasFrame = (webpg.gmail.getCanvasFrame().length) ?
             webpg.gmail.getCanvasFrame().contents() :
-            (jQuery(window.document).contents().length > 1) ?
-            jQuery(jQuery(window.document).contents()[1]) : jQuery(window.document).contents();
+            (jq(window.document).contents().length > 1) ?
+            jq(jq(window.document).contents()[1]) : jq(window.document).contents();
         var status_line = canvasFrame.find(".fN");
         canvasFrame.find(".webpg-status-line").remove();
         var status_msg = webpg.gmail.getCanvasFrameDocument()
             .createElement("span");
         status_msg.setAttribute("class", "webpg-status-line");
-        jQuery(status_msg).html("WebPG: " + webpg.utils.escape(message));
-        jQuery(status_msg).insertBefore(status_line.children(0));
+        jq(status_msg).html("WebPG: " + webpg.utils.escape(message));
+        jq(status_msg).insertBefore(status_line.children(0));
         canvasFrame.find('.keylink').click(function() {
             webpg.utils.sendRequest({
                 'msg': "newtab",
@@ -346,8 +349,8 @@ webpg.gmail = {
     removeStatusLine: function() {
         var canvasFrame = (webpg.gmail.getCanvasFrame().length) ?
             webpg.gmail.getCanvasFrame().contents() :
-            (jQuery(window.document).contents().length > 1) ?
-            jQuery(jQuery(window.document).contents()[1]) : jQuery(window.document).contents();
+            (jq(window.document).contents().length > 1) ?
+            jq(jq(window.document).contents()[1]) : jq(window.document).contents();
         var status_line = canvasFrame.find(".fN");
         canvasFrame.find(".webpg-status-line").remove();
     },
@@ -361,6 +364,7 @@ webpg.gmail = {
             recipKeys - <obj> The recipient keys found (if any)
     */
     handleFailure: function(result, recipKeys) {
+        var _ = webpg.utils.i18n.gettext;
         if (result.gpg_error_code == "107") {
             var status = result.error_string + ": " +
                 result.data + "; " + _("You have more than 1 public key matching that address");
@@ -416,8 +420,8 @@ webpg.gmail = {
     getRecipients: function() {
         var canvasFrame = (webpg.gmail.getCanvasFrame().length) ?
             webpg.gmail.getCanvasFrame().contents() :
-            (jQuery(window.document).contents().length > 1) ?
-            jQuery(jQuery(window.document).contents()[1]) : jQuery(window.document).contents();
+            (jq(window.document).contents().length > 1) ?
+            jq(jq(window.document).contents()[1]) : jq(window.document).contents();
         var emails = canvasFrame.find('textarea[name="to"]').val()
             .replace(', ', ',').split(',');
         if (canvasFrame.find('textarea[name="cc"]').val().length)
@@ -444,7 +448,7 @@ webpg.gmail = {
             navDiv - <obj> The navigation div from the gmail interface we will be working with
     */
     addSendOptionBtn: function(navDiv) {
-
+        var _ = webpg.utils.i18n.gettext;
         // Set the default action according to the user preference
         webpg.gmail.action = (webpg.gmail.sign_gmail=='true') ? 2 : 0;
 
@@ -511,17 +515,17 @@ webpg.gmail = {
         esBtn.html(action_menu);
 
         esBtn.click(function(e) {
-            var list = jQuery(this).find('.webpg-action-list');
+            var list = jq(this).find('.webpg-action-list');
             list[0].style.display = (list[0].style.display == "inline") ? "none" : "inline";
         }).bind('mouseleave', function() {
-            if (jQuery(this).find('.webpg-action-list')[0].style.display == "inline")
-                jQuery(this).click();
+            if (jq(this).find('.webpg-action-list')[0].style.display == "inline")
+                jq(this).click();
         });
 
         esBtn.find(".webpg-action-btn").click(function(e) {
-            var newIcon = jQuery(this).find("img")[0];
-            var newText = jQuery(this).find("a").text();
-            jQuery(this).parent().parent().parent().find("#webpg-current-action")
+            var newIcon = jq(this).find("img")[0];
+            var newText = jq(this).find("a").text();
+            jq(this).parent().parent().parent().find("#webpg-current-action")
                 .html("<img src='" + newIcon.src + "' height=17 " +
                 "width=17 style='padding:0;margin:0;'/>" + newText);
 
@@ -566,9 +570,9 @@ webpg.gmail = {
             editor - <editor> The editor instance to use as the context
     */
     getContents: function(editor) {
-        var textarea = jQuery('textarea[name!=to]', editor).
+        var textarea = jq('textarea[name!=to]', editor).
             filter("[name!=bcc]").filter("[name!=cc]");
-        var iframe = jQuery('iframe', editor).contents().find('body');
+        var iframe = jq('iframe', editor).contents().find('body');
         if (iframe.length > 0) {
             var message = iframe.html();
         } else {
@@ -586,9 +590,9 @@ webpg.gmail = {
             message - <str/html> The content to place in the gmail UI message editor
     */
     setContents: function(editor, message){
-        var textarea = jQuery('textarea[name!=to]', editor).
+        var textarea = jq('textarea[name!=to]', editor).
             filter("[name!=bcc]").filter("[name!=cc]");
-        var iframe = jQuery('iframe', editor).contents().find('body');
+        var iframe = jq('iframe', editor).contents().find('body');
 
         if (iframe.length > 0) {
             var reg = new RegExp("\n\n", "g");
@@ -632,6 +636,53 @@ webpg.gmail = {
 
         return str;
     },
+
+    /*
+        Function: gmailChanges
+            Called when the DOM changes. Watches for our queue in DOM modifications to add the webpg related controls
+
+        Parameters:
+            e - <event> The HTML Event dispatched
+    */
+    gmailChanges: function(e) {
+        if (!e.target.nodeName == "DIV")
+            return
+        // An additional compose window has been opened
+        if (typeof(jq(e.target).attr("class"))!="undefined" && jq(e.target).attr("class").search("L3") > -1) {
+            if (jq(e.target).contents(':contains("Discard")').length > 0) {
+                var navDiv = jq(e.target.ownerDocument).contents().find(
+                'div[class="dW E"] > div > div'
+                ).contents(':contains("Send")').parent().parent();
+                if (navDiv.length > 1)
+                    webpg.gmail.setup(jq(navDiv[1]));
+            }
+        // A reply/forward has been initiated
+        } else if (typeof(jq(e.target).parent().attr("class"))!="undefined" && jq(e.target).parent().attr("class").search("dW E") > -1) {
+            if (jq(e.target).attr("class").search("eH") > -1) {
+                var navDiv = jq(e.target.ownerDocument).contents().find(
+                    'div[class="dW E"] > div > div'
+                ).contents(':contains("Send")').parent().parent().each(function() {
+                    var navDiv = this;
+                    setTimeout(function() {
+                        if (!window.document.getElementById("webpg-action-menu")) {
+                            webpg.gmail.setup(jq(navDiv));
+                        }
+                    }, 100);
+                });
+            }
+        // A normal document load
+        } else {
+            var dW = webpg.gmail.getCanvasFrame()
+                .find('div[class="dW E"] > div').filter("[class~=J-Jw]").not(':has("#webpg-send-btn")');
+            if (dW.length > 0) {
+                dW.each(function() {
+                    var navDiv = jq(this).contents(':contains("Discard")').parent();
+                    if (navDiv.length > 0)
+                        webpg.gmail.setup(navDiv);
+                });
+           }
+        }
+    }
 }
 
 // Check if gmail_integration is enabled and set appropriate listeners.
@@ -642,67 +693,20 @@ webpg.utils.sendRequest({
             webpg.gmail.sign_gmail = response.result.sign_gmail;
             // Retrieve a reference to the appropriate window object
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                var appcontent = document.getElementById("appcontent");
-                appcontent.addEventListener("DOMContentLoaded", function(aEvent) {
+                webpg.gmail.appcontent = document.getElementById("appcontent");
+                webpg.gmail.appcontent.addEventListener("DOMContentLoaded", function(aEvent) {
                     // We need to filter based on the URL for mozilla, as we do
                     //  not have the option to set the overlay by URL
                     if (content.location.host == "mail.google.com") {
                         //content.document.addEventListener("DOMSubtreeModified", gmailChanges, false);
-                        webpg.gmail.getCanvasFrameDocument().addEventListener("DOMSubtreeModified", gmailChanges, false);
+                        webpg.gmail.getCanvasFrameDocument().addEventListener("DOMSubtreeModified", webpg.gmail.gmailChanges, false);
                     }
                 }, true);
             } else {
-                window.addEventListener("DOMSubtreeModified", gmailChanges, true);
+                window.addEventListener("DOMSubtreeModified", webpg.gmail.gmailChanges, true);
             }
         }
     }
 );
-
-/*
-    Function: gmailChanges
-        Called when the DOM changes. Watches for our queue in DOM modifications to add the webpg related controls
-
-    Parameters:
-        e - <event> The HTML Event dispatched
-*/
-function gmailChanges(e) {
-    if (!e.target.nodeName == "DIV")
-        return
-    // An additional compose window has been opened
-    if (typeof(jQuery(e.target).attr("class"))!="undefined" && jQuery(e.target).attr("class").search("L3") > -1) {
-        if (jQuery(e.target).contents(':contains("Discard")').length > 0) {
-            var navDiv = jQuery(e.target.ownerDocument).contents().find(
-            'div[class="dW E"] > div > div'
-            ).contents(':contains("Send")').parent().parent();
-            if (navDiv.length > 1)
-                webpg.gmail.setup(jQuery(navDiv[1]));
-        }
-    // A reply/forward has been initiated
-    } else if (typeof(jQuery(e.target).parent().attr("class"))!="undefined" && jQuery(e.target).parent().attr("class").search("dW E") > -1) {
-        if (jQuery(e.target).attr("class").search("eH") > -1) {
-            var navDiv = jQuery(e.target.ownerDocument).contents().find(
-                'div[class="dW E"] > div > div'
-            ).contents(':contains("Send")').parent().parent().each(function() {
-                var navDiv = this;
-                setTimeout(function() {
-                    if (!window.document.getElementById("webpg-action-menu")) {
-                        webpg.gmail.setup(jQuery(navDiv));
-                    }
-                }, 100);
-            });
-        }
-    // A normal document load
-    } else {
-        var dW = webpg.gmail.getCanvasFrame()
-            .find('div[class="dW E"] > div').filter("[class~=J-Jw]").not(':has("#webpg-send-btn")');
-        if (dW.length > 0) {
-            dW.each(function() {
-                var navDiv = jQuery(this).contents(':contains("Discard")').parent();
-                if (navDiv.length > 0)
-                    webpg.gmail.setup(navDiv);
-            });
-       }
-    }
-};
 
 /* ]]> */

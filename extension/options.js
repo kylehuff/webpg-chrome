@@ -1,5 +1,7 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
+// Enforce jQuery.noConflict if not already performed
+if (typeof(jQuery)!='undefined') { var jq = jQuery.noConflict(true); }
 
 /*
     Class: webpg.options
@@ -17,18 +19,20 @@ webpg.options = {
             or thunderbirdOverlay.xul in Mozilla applications - not passed in Google Chrome
     */
     init: function(browserWindow) {
+        var _ = webpg.utils.i18n.gettext;
         document.title = _("WebPG Options");
         document.dir = (webpg.utils.isRTL() ? 'rtl' : 'ltr');
         if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
-            webpg.plugin = browserWindow.plugin;
+            webpg.plugin = browserWindow.webpg.plugin;
         else if (webpg.utils.detectedBrowser['product'] == "chrome")
-            webpg.plugin = chrome.extension.getBackgroundPage().plugin;
+            webpg.plugin = chrome.extension.getBackgroundPage().webpg.plugin;
 
-        jQuery('#step-1').ready(function(){
+        jq('#step-1').ready(function(){
             doSystemCheck();
         });
         
         function doSystemCheck() {
+            var _ = webpg.utils.i18n.gettext;
             if (webpg.utils.detectedBrowser['product'] == "chrome")
                 pf = window.clientInformation.platform.substr(0,3);
             else
@@ -81,7 +85,7 @@ webpg.options = {
                         'link' : null,
                     }
                 }
-                jQuery('#valid-options').hide();
+                jq('#valid-options').hide();
                 console.log(errors['NPAPI']['detail']);
             }
             errors_found = false;
@@ -93,90 +97,90 @@ webpg.options = {
                 }
                 extra_class = (errors[error]['error'] && error != 'gpgconf') ? ' error' : '';
                 extra_class = (errors[error]['error'] && error == 'gpgconf') ? ' warning' : extra_class;
-                item_result = jQuery("<div></div>", {
+                item_result = jq("<div></div>", {
                     'class': "trust-level-desc" + extra_class
-                }).append(jQuery("<span></span>", {
+                }).append(jq("<span></span>", {
                         'class': "system-check",
                         'style': "margin-right: 8px"
-                    }).append(jQuery("<img/>", {
+                    }).append(jq("<img/>", {
                             'src': (errors[error]['error']) ?
                                 "skin/images/cancel.png" : "skin/images/check.png"
                         })
                     )
-                ).append(jQuery("<span></span>", {
+                ).append(jq("<span></span>", {
                         'class': "trust-desc",
                         'html': (errors[error]['error'] && errors[error]['link']) ? 
                             errors[error]['detail'] + " - <a href=\"" + errors[error]['link'] + platform + "/\" target=\"new\">" + _("click here for help resolving this issue") + "</a>" : errors[error]['detail']
                     })
                 );
                 if (errors_found)
-                    jQuery('#status_result').append(item_result);
+                    jq('#status_result').append(item_result);
             }
             if (errors_found && (error == 'libgpgme' || error == 'NPAPI')) {
                 // Hide the options for invalid installations
-                jQuery('#valid-options').hide();
+                jq('#valid-options').hide();
             } else {
                 // Only display the inline check if this is not the app version of webpg-chrome
                 // TODO: We probably don't want to show the "display inline" option for Thunderbird 
                 if ((webpg.utils.detectedBrowser['product'] == "chrome") &&
                     !chrome.app.getDetails().hasOwnProperty("content_scripts")){
-                        jQuery('#enable-decorate-inline').hide();
+                        jq('#enable-decorate-inline').hide();
                 } else {
-                    jQuery('#enable-decorate-inline-check')[0].checked = 
+                    jq('#enable-decorate-inline-check')[0].checked = 
                         (webpg.preferences.decorate_inline.get() == 'true');
                 }
 
-                jQuery(".webpg-options-title").first().text(_("WebPG Options"));
+                jq(".webpg-options-title").first().text(_("WebPG Options"));
 
-                jQuery("#enable-decorate-inline").find(".webpg-options-text").
+                jq("#enable-decorate-inline").find(".webpg-options-text").
                     text(_("Enable Inline formatting of PGP Messages and Keys"));
 
-                jQuery("#enable-encrypt-to-self").find(".webpg-options-text").
+                jq("#enable-encrypt-to-self").find(".webpg-options-text").
                     text(_("Always encrypt to your default key in addition to the recipient"));
 
-                jQuery("#enable-gmail-integration").find(".webpg-options-text").
+                jq("#enable-gmail-integration").find(".webpg-options-text").
                     text(_("Enable WebPG GMAIL integration") + " [" + _("EXPERIMENTAL") + "]");
 
-                jQuery("#gmail-action-sign").find(".webpg-options-text").
+                jq("#gmail-action-sign").find(".webpg-options-text").
                     text(_("Sign outgoing messages in GMAIL"));
 
-                jQuery("#advanced-options-link").text(_("Advanced Options"));
+                jq("#advanced-options-link").text(_("Advanced Options"));
 
-                jQuery("#gnupg-path-select").find(".webpg-options-text").
+                jq("#gnupg-path-select").find(".webpg-options-text").
                     text(_("GnuPG home directory"));
                     
-                jQuery("#gnupg-path-select").find("input:button").val(_("Save"))
+                jq("#gnupg-path-select").find("input:button").val(_("Save"))
 
-                jQuery("#gnupg-binary-select").find(".webpg-options-text").
+                jq("#gnupg-binary-select").find(".webpg-options-text").
                     text(_("GnuPG binary") + " (i.e. /usr/bin/gpg)");
                     
-                jQuery("#gnupg-binary-select").find("input:button").val(_("Save"));
+                jq("#gnupg-binary-select").find("input:button").val(_("Save"));
 
-                jQuery("#system-good").find(".trust-desc").text(_("Your system appears to be configured correctly for WebPG"));
+                jq("#system-good").find(".trust-desc").text(_("Your system appears to be configured correctly for WebPG"));
 
-                jQuery("#system-error").find(".trust-desc").text(_("There is a problem with your configuration"));
+                jq("#system-error").find(".trust-desc").text(_("There is a problem with your configuration"));
 
-                jQuery('#enable-encrypt-to-self-check')[0].checked = 
+                jq('#enable-encrypt-to-self-check')[0].checked = 
                     (webpg.preferences.encrypt_to_self.get());
 
-                jQuery('#enable-gmail-integration-check')[0].checked = 
+                jq('#enable-gmail-integration-check')[0].checked = 
                     (webpg.preferences.gmail_integration.get() == 'true');
 
-                jQuery('#gmail-action-sign-check')[0].checked = 
+                jq('#gmail-action-sign-check')[0].checked = 
                     (webpg.preferences.sign_gmail.get() == 'true');
 
-                jQuery('#enable-decorate-inline-check').button({
+                jq('#enable-decorate-inline-check').button({
                     'label': (webpg.preferences.decorate_inline.get() == 'true') ? _('Enabled') : _('Disabled')
                     }).click(function(e) {
                         (webpg.preferences.decorate_inline.get() == 'true') ? webpg.preferences.decorate_inline.set(false) : webpg.preferences.decorate_inline.set(true);
                         status = (webpg.preferences.decorate_inline.get() == 'true') ? _('Enabled') : _('Disabled')
-                        jQuery(this).button('option', 'label', status);
+                        jq(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.decorate_inline.get() == 'true');
-                        jQuery(this).button('refresh');
+                        jq(this).button('refresh');
                     }
                 );
 
-                jQuery('#enable-encrypt-to-self-check').button({
+                jq('#enable-encrypt-to-self-check').button({
                     'label': (webpg.preferences.encrypt_to_self.get()) ? _('Enabled') : _('Disabled')
                     }).click(function(e) {
                         if (webpg.preferences.encrypt_to_self.get()) {
@@ -188,12 +192,12 @@ webpg.options = {
                             this.checked = true;
                             status = _('Enabled');
                         }
-                        jQuery(this).button('option', 'label', status);
-                        jQuery(this).button('refresh');
+                        jq(this).button('option', 'label', status);
+                        jq(this).button('refresh');
                     }
                 );
 
-                jQuery('#enable-gmail-integration-check').button({
+                jq('#enable-gmail-integration-check').button({
                     'label': (webpg.preferences.gmail_integration.get() == 'true') ? _('Enabled') : _('Disabled')
                     }).click(function(e) {
                         if (webpg.preferences.gmail_integration.get() == 'false') {
@@ -204,91 +208,94 @@ webpg.options = {
                             webpg.preferences.gmail_integration.set(false)
                             : webpg.preferences.gmail_integration.set(true);
                         status = (webpg.preferences.gmail_integration.get() == 'true') ? _('Enabled') : _('Disabled')
-                        jQuery(this).button('option', 'label', status);
+                        jq(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.gmail_integration.get() == 'true');
-                        jQuery(this).button('refresh');
+                        jq(this).button('refresh');
                     }
                 );
 
-                jQuery('#gmail-action-sign-check').button({
+                jq('#gmail-action-sign-check').button({
                     'label': (webpg.preferences.sign_gmail.get() == 'true') ? _('Enabled') : _('Disabled')
                     }).click(function(e) {
                         (webpg.preferences.sign_gmail.get() == 'true') ?
                             webpg.preferences.sign_gmail.set(false)
                             : webpg.preferences.sign_gmail.set(true);
                         status = (webpg.preferences.sign_gmail.get() == 'true') ? _('Enabled') : _('Disabled')
-                        jQuery(this).button('option', 'label', status);
+                        jq(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.sign_gmail.get() == 'true');
-                        jQuery(this).button('refresh');
+                        jq(this).button('refresh');
                     }
                 );
 
-                jQuery("#gnupg-path-save").button().click(function(e){
-                    webpg.preferences.gnupghome.set(jQuery("#gnupg-path-input")[0].value);
-                    jQuery(this).hide();
+                jq("#gnupg-path-save").button().click(function(e){
+                    webpg.preferences.gnupghome.set(jq("#gnupg-path-input")[0].value);
+                    jq(this).hide();
                 });
 
-                jQuery("#gnupg-path-input").each(function() {
+                jq("#gnupg-path-input").each(function() {
                     // Save current value of element
-                    jQuery(this).data('oldVal', $(this).val());
+                    jq(this).data('oldVal', jq(this).val());
 
                     // Look for changes in the value
-                    jQuery(this).bind("propertychange keyup input paste", function(event){
+                    jq(this).bind("propertychange keyup input paste", function(event){
                         // If value has changed...
-                        if (jQuery(this).data('oldVal') != jQuery(this).val()) {
+                        if (jq(this).data('oldVal') != jq(this).val()) {
                             // Updated stored value
-                            jQuery(this).data('oldVal', $(this).val());
+                            jq(this).data('oldVal', jq(this).val());
 
                             // Show save dialog
-                            if (jQuery(this).val() != webpg.preferences.gnupghome.get())
-                                jQuery("#gnupg-path-save").show();
+                            if (jq(this).val() != webpg.preferences.gnupghome.get())
+                                jq("#gnupg-path-save").show();
                             else
-                                jQuery("#gnupg-path-save").hide();
+                                jq("#gnupg-path-save").hide();
                         }
                     })
                 })[0].value = webpg.preferences.gnupghome.get();
 
-                jQuery("#gnupg-path-input")[0].dir = "ltr";
+                jq("#gnupg-path-input")[0].dir = "ltr";
 
-                jQuery("#gnupg-binary-save").button().click(function(e){
-                    webpg.preferences.gnupgbin.set(jQuery("#gnupg-binary-input")[0].value);
-                    jQuery(this).hide();
+                jq("#gnupg-binary-save").button().click(function(e){
+                    webpg.preferences.gnupgbin.set(jq("#gnupg-binary-input")[0].value);
+                    jq(this).hide();
                 });
 
-                jQuery("#gnupg-binary-input").each(function() {
+                jq("#gnupg-binary-input").each(function() {
                     // Save current value of element
-                    jQuery(this).data('oldVal', $(this).val());
+                    jq(this).data('oldVal', jq(this).val());
 
                     // Look for changes in the value
-                    jQuery(this).bind("propertychange keyup input paste", function(event){
+                    jq(this).bind("propertychange keyup input paste", function(event){
                         // If value has changed...
-                        if (jQuery(this).data('oldVal') != jQuery(this).val()) {
+                        if (jq(this).data('oldVal') != jq(this).val()) {
                             // Updated stored value
-                            jQuery(this).data('oldVal', $(this).val());
+                            jq(this).data('oldVal', jq(this).val());
 
                             // Show save dialog
-                            if (jQuery(this).val() != webpg.preferences.gnupgbin.get())
-                                jQuery("#gnupg-binary-save").show();
+                            if (jq(this).val() != webpg.preferences.gnupgbin.get())
+                                jq("#gnupg-binary-save").show();
                             else
-                                jQuery("#gnupg-binary-save").hide();
+                                jq("#gnupg-binary-save").hide();
                         }
                     })
                 })[0].value = webpg.preferences.gnupgbin.get();
 
-                jQuery("#gnupg-binary-input")[0].dir = "ltr";
+                jq("#gnupg-binary-input")[0].dir = "ltr";
 
-                jQuery("#advanced-options-link").click(function(e){
-                    jQuery("#advanced-options").toggle("slide");
+                jq("#advanced-options-link").click(function(e){
+                    jq("#advanced-options").toggle("slide");
                 });                
             }
         }
-        
-        jQuery('#close').button().button("option", "label", _("Finished"))
+
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+            jq('#window_functions').hide();
+
+        jq('#close').button().button("option", "label", _("Finished"))
             .click(function(e) { window.top.close(); });
     }
 }
 
-jQuery(function(){
+jq(function(){
     if (webpg.utils.getParameterByName("auto_init") == "true")
         webpg.options.init();
 });

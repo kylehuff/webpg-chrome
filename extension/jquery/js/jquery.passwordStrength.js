@@ -1,7 +1,8 @@
 /*
     Copyright 2010 Kyle L. Huff - CURE|THE|ITCH
 */
-jQuery.fn.passwordStrength = function(options) {
+
+jq.fn.passwordStrength = function(options) {
     var element = this;
     var pass_repeat = options;
 
@@ -24,16 +25,16 @@ jQuery.fn.passwordStrength = function(options) {
         'visibility': 'hidden'
     }
 
-    $(this).after("<span style=\"width: 30%; height: 15px; display: inline-block; padding-left: 0.9em;\"><span id=\"passwordStrength-text\"> </span><span id=\"passwordStrength-meter\"> </span></span>");
+    jq(this).after("<span style=\"width: 30%; height: 15px; display: inline-block; padding-left: 0.9em;\"><span id=\"passwordStrength-text\"> </span><span id=\"passwordStrength-meter\"> </span></span>");
 
     /* Observe Key Up event display password Strength Result */
-    $(this).live('keyup', function() {
-        var pass = $.trim($(this).val());
-        $(this).removeClass('input-error');
+    jq(this).live('keyup', function() {
+        var pass = jq.trim(jq(this).val());
+        jq(this).removeClass('input-error');
         if (pass_repeat) {
-            if ($(pass_repeat).val().length > 0){
-                $(pass_repeat)[0].value = '';
-                $(pass_repeat).next().html("&nbsp;");
+            if (jq(pass_repeat).val().length > 0){
+                jq(pass_repeat)[0].value = '';
+                jq(pass_repeat).next().html("&nbsp;");
             }
         }
         
@@ -62,7 +63,7 @@ jQuery.fn.passwordStrength = function(options) {
             result = "";
             meter_css['width'] = "0px"
             if (pass_repeat) {
-                $(pass_repeat).next().html("&nbsp;");
+                jq(pass_repeat).next().html("&nbsp;");
             }
         }
         else if (score * pass.length < 8) {
@@ -101,23 +102,23 @@ jQuery.fn.passwordStrength = function(options) {
             meter_css['visibility'] = "visible";
         }
 
-        $(this).next().find("#passwordStrength-text").html(result).css(text_css);
-        $(this).next().find("#passwordStrength-meter").html(result).css(meter_css);
+        jq(this).next().find("#passwordStrength-text").html(result).css(text_css);
+        jq(this).next().find("#passwordStrength-meter").html(result).css(meter_css);
     });
 
-    if ($(pass_repeat)) {
-        $(pass_repeat).after("<span style=\"display: inline-block; width: 30%; padding-left: 1em; font-size: 0.8em\"> </span>");
-        $(pass_repeat).live('keyup', function() {
-            var pass = $.trim($(element).val());
-            var rpass = $.trim($(pass_repeat).val());
-            if ($(element).next().find("#passwordStrength-text").html() == "Passphrases do not match") {
-                $(element).trigger('keyup');
+    if (jq(pass_repeat)) {
+        jq(pass_repeat).after("<span style=\"display: inline-block; width: 30%; padding-left: 1em; font-size: 0.8em\"> </span>");
+        jq(pass_repeat).live('keyup', function() {
+            var pass = jq.trim(jq(element).val());
+            var rpass = jq.trim(jq(pass_repeat).val());
+            if (jq(element).next().find("#passwordStrength-text").html() == "Passphrases do not match") {
+                jq(element).trigger('keyup');
             }
             if (pass) {
                 if (pass != rpass) {
-                    $(pass_repeat).next().html("Passphrases do not match");
+                    jq(pass_repeat).next().html("Passphrases do not match");
                 } else {
-                    $(pass_repeat).next().html("<img style=\"display:inline;float: left; top: 4px; position: relative; height:18px;\" src=\"skin/images/check.png\"/>");
+                    jq(pass_repeat).next().html("<img style=\"display:inline;float: left; top: 4px; position: relative; height:18px;\" src=\"skin/images/check.png\"/>");
                 }
             }
         });

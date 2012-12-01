@@ -29,6 +29,9 @@
 	"Key_Manager": {
 		"message": "مفتاح مدير"
 	},
+	"Import": {
+		"message": ""
+	},
 	"Select_Recipient_s_": {
 		"message": "حدد المستلمين"
 	},

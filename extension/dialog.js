@@ -1,4 +1,7 @@
-jQuery(function(){
+// Enforce jQuery.noConflict if not already performed
+if (typeof(jQuery)!='undefined') { var jq = jQuery.noConflict(true); }
+
+jq(function(){
     /*
         Global Variable: qs
         Stores the items found in the query string
@@ -6,6 +9,8 @@ jQuery(function(){
     */
     // Define a global variable to store the location query string
     qs = {};
+    
+    var _ = webpg.utils.i18n.gettext;
 
     // Assign the location.search value for the appropriate
     //  window to a local variable. window.location for normal
@@ -21,13 +26,17 @@ jQuery(function(){
         function($0, $1, $2, $3) { qs[$1] = $3; }
     );
 
-    jQuery("#ddialog").dialog({
+    var width = (qs.dialog_type == "import") ? 800 : 630;
+    var height = (qs.dialog_type == "import") ? 380 : 300;
+    var title = (qs.dialog_type == "import") ? _("Import") : _("Select Recipient(s)");
+
+    jq("#ddialog").dialog({
         resizable: false,
         draggable: false,
-        minHeight: 300,
-        width: 630,
+        minHeight: height,
+        width: width,
         modal: true,
-        title: _("Select Recipient(s)"),
+        title: title,
         autoOpen: true,
         close: function(event) {
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
@@ -43,28 +52,69 @@ jQuery(function(){
         open: function(event, ui) {
             switch(qs.dialog_type) {
                 case "encrypt":
-                    jQuery('.ui-button-text').each(function(idx, element) {
-                        var el = jQuery(element);
+                    jq('.ui-button-text').each(function(idx, element) {
+                        var el = jq(element);
                         if (el.text() == "Export")
                             el.parent().hide();
                     });
                     break;
 
                 case "export":
-                    jQuery('.ui-button-text').each(function(idx, element) {
-                        var el = jQuery(element);
+                    jq('.ui-button-text').each(function(idx, element) {
+                        var el = jq(element);
+                        if (el.text() == "Encrypt")
+                            el.parent().hide();
+                    });
+                    break;
+
+                case "import":
+                    jq('.ui-button-text').each(function(idx, element) {
+                        var el = jq(element);
+                        if (el.text() == "Export")
+                            el.parent().hide();
                         if (el.text() == "Encrypt")
                             el.parent().hide();
                     });
                     break;
             }
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                var keylist = webpg.background.plugin.getPublicKeyList();
+                if (qs.dialog_type == "encrypt") {
+                    var keylist = webpg.background.webpg.plugin.getPublicKeyList();
+                } else if (qs.dialog_type == "export") {
+                    var keylist = webpg.background.webpg.plugin.getPrivateKeyList();
+                } else {
+                    var import_data = unescape(qs.import_data);
+                    var pubkeys = import_data.split("-----END PGP PUBLIC KEY BLOCK-----");
+                    for (var pubkey in pubkeys) {
+                        if (pubkeys[pubkey].length > 1) {
+                            jq("#keylist_form").append("<pre>" + pubkeys[pubkey] +
+                                "-----END PGP PUBLIC KEY BLOCK-----" + "</pre>");
+                        }
+                    }
+                    webpg.inline.PGPDataSearch(document);
+                    return;
+                }
                 populateKeylist(keylist);
             } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                webpg.utils.sendRequest({"msg": "public_keylist"}, function(response) {
-                    populateKeylist(response.result);
-                })
+                if (qs.dialog_type == "encrypt") {
+                    webpg.utils.sendRequest({"msg": "public_keylist"}, function(response) {
+                        populateKeylist(response.result);
+                    })
+                } else if (qs.dialog_type == "export") {
+                    webpg.utils.sendRequest({"msg": "private_keylist"}, function(response) {
+                        populateKeylist(response.result);
+                    })
+                } else if (qs.dialog_type == "import") {
+                    var import_data = unescape(qs.import_data);
+                    var pubkeys = import_data.split("-----END PGP PUBLIC KEY BLOCK-----");
+                    for (var pubkey in pubkeys) {
+                        if (pubkeys[pubkey].length > 1) {
+                            jq("#keylist_form").append("<pre>" + pubkeys[pubkey] +
+                                "-----END PGP PUBLIC KEY BLOCK-----" + "</pre>");
+                        }
+                    }
+                    webpg.inline.PGPDataSearch(document);
+                }
             }
         },
         buttons: {
@@ -76,7 +126,7 @@ jQuery(function(){
                     }
                 };
                 if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                    var ev_element =  window.parent.document.getElementById(window.frameElement.id);
+                    var ev_element = window.parent.document.getElementById(window.frameElement.id);
                     var encryptEvent = new CustomEvent('sendResult', {
                         detail: {
 	                        data: unescape(qs.encrypt_data),
@@ -112,27 +162,27 @@ jQuery(function(){
                 }
             },
             "Cancel" : function() {
-                jQuery("#ddialog").dialog("close");
+                jq("#ddialog").dialog("close");
             },
         }
     });
 
     function populateKeylist(keylist) {
-        var ul = jQuery("<ul></ul>", {
+        var ul = jq("<ul></ul>", {
             'style': "padding:0px; margin:0px;"
         });
         for (idx in keylist) {
             var key = keylist[idx];
             if (key.invalid || key.disabled || key.expired || key.revoked)
                 continue;
-            jQuery(ul).append(jQuery("<li></li>", {
+            jq(ul).append(jq("<li></li>", {
                     'style': "list-style-type: none"
-                }).append(jQuery("<input></input>", {
+                }).append(jq("<input></input>", {
                         'id': "key_" + webpg.utils.escape(idx),
                         'type': "checkbox",
                         'name': "keylist_sel_list"
                     })
-                ).append(jQuery("<label></label>", {
+                ).append(jq("<label></label>", {
                         'id': "lbl-key_" + webpg.utils.escape(idx),
                         'for': "key_" + webpg.utils.escape(idx),
                         'class': "help-text",
@@ -141,6 +191,6 @@ jQuery(function(){
                 )
             );
         }
-        jQuery("#keylist_form").append(ul);
+        jq("#keylist_form").append(ul);
     }
 });

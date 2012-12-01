@@ -1,5 +1,7 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
+// Enforce jQuery.noConflict if not already performed
+if (typeof(jQuery)!='undefined') { var jq = jQuery.noConflict(true); }
 
 /*
     Class:   webpg.utils
@@ -13,57 +15,66 @@ webpg.utils = {
     */
     init: function() {
         if (this.detectedBrowser['vendor'] == "mozilla") {
-            // We are using Mozilla, so make `console.log` an alias to
-            //  something that provides more information than the standard
-            //  console logging utility.
-            
-            // TODO: This is ugly and buggy; we should consider replacing
-            //  with something a little more elegant and reliable. 
- 
-            // Set the console.log method to use the factory console
-            if (typeof(Application.console.log)!='undefined') {
-                console.log = Application.console.log;
-            } else {
-                console = {};
-                ffconsoleService = Components.classes["@mozilla.org/consoleservice;1"]
-                                 .getService(Components.interfaces.nsIConsoleService);
-                console.log = ffconsoleService.logStringMessage;
-            }
+            if (webpg.constants.debug.LOG) {
+                // We are using Mozilla, so make `console.log` an alias to
+                //  something that provides more information than the standard
+                //  console logging utility.
+                
+                // TODO: This is ugly and buggy; we should consider replacing
+                //  with something a little more elegant and reliable. 
+     
+                // Set the console.log method to use the factory console
+                if (typeof(Application.console.log)!='undefined') {
+                    console.log = Application.console.log;
+                } else {
+                    console = {};
+                    ffconsoleService = Components.classes["@mozilla.org/consoleservice;1"]
+                                     .getService(Components.interfaces.nsIConsoleService);
+                    console.log = ffconsoleService.logStringMessage;
+                }
 
-            // Proxy the newly set console.log method to make it more like the
-            //  chrome console logger, i.e. accept multiple arguments, output
-            //  objects as strings and display line numbers (stack trace)
-            (function(jQuery, oldLogMethod){
-                console.log = function(){
-                    // Iterate through the passed arguments (if any)
-                    for (var i=0; i<arguments.length; i++) {
-                        // If the argument passed is an object, convert it
-                        //  to a string
-                        if (typeof(arguments[i])=="undefined")
-                            arguments[i] = "<undefined>";
-                        else if (typeof(arguments[i]) == "object")
-                            arguments[i] = (arguments[i] == null) ? "<null>" :
-                                arguments[i].toSource();
-                        // Append a space between arguments being printed
-                        arguments[i] += " ";
-                    }
-                    // Get the stack trace information so we can display the
-                    //  calling function(s) name and line number(s)
-                    var stack = (new Error).stack.split("\n").slice(1);
-                    for (var i=0; i<stack.length - 1; i++) {
-                        var stack_i = stack[i].split("@");
-                        var func = (stack[i].search("@") > 1) ? stack_i[0] + "@" : "";
-                        var fileAndLine = stack[i].split("/").pop()
-                        dp = (arguments.length > 0) ? arguments.length - 1 : 0;
-                        arguments[dp] += "\n[" + func + fileAndLine + "]";
-                    }
-                    return(
-                        // Execute the original method with the modified
-                        //  arguments and additional information
-	                    oldLogMethod.apply(this, arguments)
-                    );
-                };
-            })(this, console.log);
+                // Proxy the newly set console.log method to make it more like the
+                //  chrome console logger, i.e. accept multiple arguments, output
+                //  objects as strings and display line numbers (stack trace)
+                (function(jq, oldLogMethod){
+                    console.log = function(){
+                        // Iterate through the passed arguments (if any)
+                        for (var i=0; i<arguments.length; i++) {
+                            // If the argument passed is an object, convert it
+                            //  to a string
+                            if (typeof(arguments[i])=="undefined")
+                                arguments[i] = "<undefined>";
+                            else if (typeof(arguments[i]) == "object")
+                                if (arguments[i] == null) {
+                                    arguments[i] = "<null>";
+                                } else {
+                                    try {
+                                        arguments[i] = JSON.stringify(arguments[i]);
+                                    } catch(err) {
+                                        arguments[i] = arguments[i].toSource();
+                                    }
+                                }
+                            // Append a space between arguments being printed
+                            arguments[i] += " ";
+                        }
+                        // Get the stack trace information so we can display the
+                        //  calling function(s) name and line number(s)
+                        var stack = (new Error).stack.split("\n").slice(1);
+                        for (var i=0; i<stack.length - 1; i++) {
+                            var stack_i = stack[i].split("@");
+                            var func = (stack[i].search("@") > 1) ? stack_i[0] + "@" : "";
+                            var fileAndLine = stack[i].split("/").pop()
+                            var dp = (arguments.length > 0) ? arguments.length - 1 : 0;
+                            arguments[dp] += "\n[" + func + fileAndLine + "]";
+                        }
+                        return(
+                            // Execute the original method with the modified
+                            //  arguments and additional information
+	                        oldLogMethod.apply(this, arguments)
+                        );
+                    };
+                })(this, console.log);
+            }
         }
     },
 
@@ -234,16 +245,16 @@ webpg.utils = {
                    .getService(Components.interfaces.nsIWindowMediator);
             var browserWindow = wm.getMostRecentWindow("navigator:browser");
             for (var i = 0; i < browserWindow.content.frames.length; i++) {
-                if (browserWindow.content.frames[i].frameElement.nodeName != "IFRAME") {
+//                if (browserWindow.content.frames[i].frameElement.nodeName != "IFRAME") {
                     var iframes = browserWindow.content.frames[i].frameElement.contentDocument.getElementsByTagName("iframe");
                     for (var x=0; x < iframes.length; x++) {
                         if (iframes[x].id == id)
                             return iframes[x];
                     }
-                }
+//                }
             }
         } else {
-            var iframe = jQuery("#" + id);
+            var iframe = jq("#" + id);
             if (iframe)
                 return iframe[0];
         }
@@ -259,6 +270,7 @@ webpg.utils = {
             doc - <document> The specific documnet of <window> with the element
     */
     copyToClipboard: function(win, doc) {
+        var _ = webpg.utils.i18n.gettext;
         try {
             if (doc.execCommand("Copy"))
                 return "Text copied to clipboard";
@@ -295,6 +307,7 @@ webpg.utils = {
             tabIndex - <int> The desired index number (position) for the tab
     */
     openNewTab: function(url, tabIndex) {
+        var _ = webpg.utils.i18n.gettext;
         switch (webpg.utils.detectedBrowser['product']) {
             case "firefox":
             case "thunderbird":
@@ -402,19 +415,19 @@ webpg.utils = {
             if (this.detectedBrowser['vendor'] == "mozilla")
                 request.setUserData("data", data, null);
             else
-                jQuery(request).data("data", data);
+                jq(request).data("data", data);
 
             if (callback) {
                 if (this.detectedBrowser['vendor'] == "mozilla")
                     request.setUserData("callback", callback, null);
                 else
-                    jQuery(request).data("callback", callback);
+                    jq(request).data("callback", callback);
 
                 document.addEventListener("listener-response", function(event) {
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
                         var node = event.target, callback = node.getUserData("callback"), response = node.getUserData("response");
                     else
-                        var node = event.target, callback = jQuery(node).data("callback"), response = jQurey(node).data("response");
+                        var node = event.target, callback = jq(node).data("callback"), response = jQurey(node).data("response");
                     document.documentElement.removeChild(node);
                     document.removeEventListener("listener-response", arguments.callee, false);
                     return callback(response);
@@ -480,14 +493,15 @@ webpg.utils = {
                     var node = event.target, doc = node.ownerDocument;
 
                     var userData = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
-                        node.getUserData("data") : jQuery(node).data("data");
+                        node.getUserData("data") : jq(node).data("data");
 
                     var userCallback = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
-                        node.getUserData("callback") : jQuery(node).data("callback");
-                    
-                    if (!userData)
+                        node.getUserData("callback") : jq(node).data("callback");
+
+                    if (webpg.utils.detectedBrowser['vendor'] != "mozilla" &&  !userData)
                         userData = event.detail.data;
-                    if (!userCallback)
+
+                    if (webpg.utils.detectedBrowser['vendor'] != "mozilla" && !userCallback)
                         userCallback = event.detail.callback;
 
                     return callback(userData, doc, function(data) {
@@ -498,7 +512,7 @@ webpg.utils = {
                         if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
                             node.setUserData("response", data, null);
                         else
-                            jQuery(node).data("response", data);
+                            jq(node).data("response", data);
 
                         var listener = doc.createEvent("HTMLEvents");
                         listener.initEvent("listener-response", true, false);
@@ -559,7 +573,7 @@ webpg.utils = {
         */
         removeAll: function(callback) {
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                jQuery(".context-menu-item").each(function(iter, element) {
+                jq(".context-menu-item").each(function(iter, element) {
                     element.hidden = true;
                 });
                 callback();
@@ -576,10 +590,11 @@ webpg.utils = {
                 action - <int> The webpg.constants.overlayAction to add
         */
         add: function(action) {
+            var _ = webpg.utils.i18n.gettext;
             switch (action) {
                 case webpg.constants.overlayActions.EXPORT:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        jQuery(".webpg-menu-export")[0].hidden = false;
+                        jq(".webpg-menu-export")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-insert-pubkey";
                         chrome.contextMenus.create({
@@ -599,7 +614,7 @@ webpg.utils = {
                 
                 case webpg.constants.overlayActions.PSIGN:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        jQuery(".webpg-menu-sign")[0].hidden = false;
+                        jq(".webpg-menu-sign")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-clearsign";
                         chrome.contextMenus.create({
@@ -619,7 +634,7 @@ webpg.utils = {
 
                 case webpg.constants.overlayActions.IMPORT:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        jQuery(".webpg-menu-import")[0].hidden = false;
+                        jq(".webpg-menu-import")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-import";
                         chrome.contextMenus.create({
@@ -639,7 +654,7 @@ webpg.utils = {
 
                 case webpg.constants.overlayActions.CRYPT:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        jQuery(".webpg-menu-crypt")[0].hidden = false;
+                        jq(".webpg-menu-crypt")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-encrypt";
                         chrome.contextMenus.create({
@@ -659,7 +674,7 @@ webpg.utils = {
 
                 case webpg.constants.overlayActions.DECRYPT:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        jQuery(".webpg-menu-decrypt")[0].hidden = false;
+                        jq(".webpg-menu-decrypt")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-decrypt";
                         chrome.contextMenus.create({
@@ -678,8 +693,8 @@ webpg.utils = {
                     break;
 
                 case webpg.constants.overlayActions.VERIF:
-                    if (webpg.utils.detectedBrowser['product'] == "mozilla") {
-                        jQuery(".webpg-menu-verif")[0].hidden = false;
+                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                        jq(".webpg-menu-verif")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-verify";
                         chrome.contextMenus.create({
@@ -699,7 +714,7 @@ webpg.utils = {
 
                 case webpg.constants.overlayActions.OPTS:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        jQuery(".webpg-menu-options")[0].hidden = false;
+                        jq(".webpg-menu-options")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-separator";
                         chrome.contextMenus.create({
@@ -731,7 +746,7 @@ webpg.utils = {
                     
                 case webpg.constants.overlayActions.MANAGER:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        jQuery(".webpg-menu-manager")[0].hidden = false;
+                        jq(".webpg-menu-manager")[0].hidden = false;
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         var id = "webpg-context-manager";
                         chrome.contextMenus.create({
@@ -807,10 +822,7 @@ webpg.utils = {
     },
 }
 
-window._ = webpg.utils.i18n.gettext;
-_ = window._;
-window.scrub = webpg.utils.escape;
-window.descript = function(html) { return html.replace(/\<script(.|\n)*?\>(.|\n)*?\<\/script\>/g, "") };
+webpg.descript = function(html) { return html.replace(/\<script(.|\n)*?\>(.|\n)*?\<\/script\>/g, "") };
 
 webpg.utils.init();
 /* ]]> */

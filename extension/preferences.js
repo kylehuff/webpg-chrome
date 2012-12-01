@@ -135,8 +135,8 @@ webpg.preferences = {
                 Provides method to get the preference item
         */
         get: function() {
-            encrypt_to = webpg.background.plugin.gpgGetPreference('encrypt-to').value
-            default_key = webpg.background.plugin.gpgGetPreference('default-key').value
+            encrypt_to = webpg.plugin.gpgGetPreference('encrypt-to').value
+            default_key = webpg.plugin.gpgGetPreference('default-key').value
             return (encrypt_to == default_key) ? true : false;
         },
 
@@ -150,10 +150,10 @@ webpg.preferences = {
         set: function(value) {
             // if this setting is disabled, remove the value for 'encrypt-to'
             if (!value) {
-                webpg.background.plugin.gpgSetPreference('encrypt-to', '');
+                webpg.plugin.gpgSetPreference('encrypt-to', '');
             } else {
-                default_key = webpg.background.plugin.gpgGetPreference('default-key').value
-                webpg.background.plugin.gpgSetPreference('encrypt-to', default_key);
+                default_key = webpg.plugin.gpgGetPreference('default-key').value
+                webpg.plugin.gpgSetPreference('encrypt-to', default_key);
             }
         },
     },
@@ -181,7 +181,7 @@ webpg.preferences = {
         */
         set: function(value) {
             webpg.localStorage.setItem('gnupghome', value);
-            webpg.background.plugin.gpgSetHomeDir(value);
+            webpg.plugin.gpgSetHomeDir(value);
             (webpg.background.hasOwnProperty("webpg")) ?
                 webpg.background.webpg.background.init() :
                 webpg.background.init();
@@ -193,7 +193,7 @@ webpg.preferences = {
         */
         clear: function(){
             webpg.localStorage.setItem('gnupghome', '');
-            webpg.background.plugin.gpgSetHomeDir('');
+            webpg.plugin.gpgSetHomeDir('');
             (webpg.background.hasOwnProperty("webpg")) ?
                 webpg.background.webpg.background.init() :
                 webpg.background.init();
@@ -223,7 +223,7 @@ webpg.preferences = {
         */
         set: function(value) {
             webpg.localStorage.setItem('gnupgbin', value);
-            webpg.background.plugin.gpgSetBinary(value);
+            webpg.plugin.gpgSetBinary(value);
             (webpg.background.hasOwnProperty("webpg")) ?
                 webpg.background.webpg.background.init() :
                 webpg.background.init();
@@ -235,7 +235,7 @@ webpg.preferences = {
         */
         clear: function(){
             webpg.localStorage.setItem('gnupgbin', '');
-            webpg.background.plugin.gpgSetBinary('');
+            webpg.plugin.gpgSetBinary('');
             (webpg.background.hasOwnProperty("webpg")) ?
                 webpg.background.webpg.background.init() :
                 webpg.background.init();
@@ -330,7 +330,7 @@ webpg.preferences = {
                 Provides method to get the preference item
         */
         get: function() {
-            return webpg.background.plugin.gpgGetPreference('default-key').value
+            return webpg.plugin.gpgGetPreference('default-key').value
         },
 
         /*
@@ -342,9 +342,9 @@ webpg.preferences = {
         */
         set: function(keyid) {
             if (webpg.preferences.encrypt_to_self.get() == 'true') {
-                webpg.background.plugin.gpgSetPreference("encrypt-to", keyid);
+                webpg.plugin.gpgSetPreference("encrypt-to", keyid);
             }
-            webpg.background.plugin.gpgSetPreference("default-key", keyid);
+            webpg.plugin.gpgSetPreference("default-key", keyid);
         },
 
         /*
@@ -352,31 +352,30 @@ webpg.preferences = {
                 Provides method to clear the preference item (erase/unset)
         */
         clear: function() {
-            webpg.background.plugin.gpgSetPreference('default-key', '');
+            webpg.plugin.gpgSetPreference('default-key', '');
         },
     },
 };
 
 if (webpg.utils.detectedBrowser['product'] == "chrome") {
     try {
-        var browserWindow = chrome.extension.getBackgroundPage();
+        webpg.browserWindow = chrome.extension.getBackgroundPage();
     } catch (err) {
         // We must be loading from a non-background source, so the method
         //  chrome.extension.getBackgroundPage() is expected to fail.
-        var browserWindow = null;
+        webpg.browserWindow = null;
     }
     webpg.localStorage = window.localStorage;
 } else if (webpg.utils.detectedBrowser['product'] == "safari") {
-    var browserWindow = safari.extension.globalPage.contentWindow;
+    webpg.browserWindow = safari.extension.globalPage.contentWindow;
     webpg.localStorage = window.localStorage;
-    console.log(browserWindow);
 // If this is Firefox, set up required objects
 } else if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+    webpg.wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
            .getService(Components.interfaces.nsIWindowMediator);
-    var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
+    webpg.winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
         "mail:3pane" : "navigator:browser";
-    var browserWindow = wm.getMostRecentWindow(winType);
+    webpg.browserWindow = webpg.wm.getMostRecentWindow(webpg.winType);
     // We are running on Mozilla, we need to set our localStorage object to
     //  use the 'mozilla.org/preference-service'
     webpg.localStorage = {
@@ -399,9 +398,9 @@ if (webpg.utils.detectedBrowser['product'] == "chrome") {
         },
     }
 } else if (webpg.utils.detectedBrowser['vendor'] == "opera") {
-    var browserWindow = opera.extension.bgProcess;
+    webpg.browserWindow = opera.extension.bgProcess;
     webpg.localStorage = window.localStorage;
 }
 
-webpg.preferences.init(browserWindow);
+webpg.preferences.init(webpg.browserWindow);
 /* ]]> */

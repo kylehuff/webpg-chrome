@@ -13,8 +13,8 @@ webpg.background = {
             Sets up the NPAPI plugin and initializes WebPG
     */
     init: function() {
-
-        gnupghome = (webpg.preferences.gnupghome.get() != -1 &&
+        var _ = webpg.utils.i18n.gettext;
+        var gnupghome = (webpg.preferences.gnupghome.get() != -1 &&
             webpg.preferences.gnupghome.get()) ? webpg.preferences.gnupghome.get() : "";
 
         // information and source code for the plugin can be found here:
@@ -29,19 +29,20 @@ webpg.background = {
             document.body.appendChild(embed);
         }
 
-        plugin = document.getElementById("webpgPlugin");
-        this.plugin = plugin;
-        console.log("my plugin returned: " + plugin.valid + "; version " + plugin.version);
+        webpg.plugin = document.getElementById("webpgPlugin");
+        console.log("my plugin returned: " + webpg.plugin.valid + "; version " + webpg.plugin.version);
 
-        if (plugin.valid && !plugin.webpg_status["error"]) {
-            plugin.gpgSetHomeDir(gnupghome);
-            plugin.addEventListener("keygenprogress", webpg.background.gpgGenKeyProgress, false);
-            plugin.addEventListener("keygencomplete", webpg.background.gpgGenKeyComplete, false);
+        if (webpg.plugin.valid && !webpg.plugin.webpg_status["error"]) {
+            webpg.plugin.gpgSetHomeDir(gnupghome);
+            webpg.plugin.addEventListener("keygenprogress", webpg.background.gpgGenKeyProgress, false);
+            webpg.plugin.addEventListener("keygencomplete", webpg.background.gpgGenKeyComplete, false);
 
             /* Check to make sure all of the enabled_keys are private keys 
                 this would occur if the key was enabled and then the secret key was deleted. */
-            secret_keys = plugin.getPrivateKeyList();
-            enabled_keys = webpg.preferences.enabled_keys.get();
+            webpg.secret_keys = webpg.plugin.getPrivateKeyList();
+            webpg.enabled_keys = webpg.preferences.enabled_keys.get();
+            var secret_keys = webpg.secret_keys;
+            var enabled_keys = webpg.enabled_keys;
             for (key in enabled_keys){
                 if (enabled_keys[key] in secret_keys == false){
                     webpg.preferences.enabled_keys.remove(enabled_keys[key]);
@@ -49,8 +50,8 @@ webpg.background = {
             }
             console.log("background initted");
         } else {
-            if (plugin.valid == undefined) {
-                plugin.webpg_status = {
+            if (webpg.plugin.valid == undefined) {
+                webpg.plugin.webpg_status = {
                     "error": true,
                     "gpg_error_code": -1,
                     "error_string": _("WebPG Plugin failed to load"),
@@ -72,7 +73,7 @@ webpg.background = {
     // Called when a message is passed.
     _onRequest: function(request, sender, sendResponse) {
         // refresh the value of gnupghome
-        gnupghome = (webpg.preferences.gnupghome.get() != -1 &&
+        var gnupghome = (webpg.preferences.gnupghome.get() != -1 &&
             webpg.preferences.gnupghome.get()) ? webpg.preferences.gnupghome.get() : "";
 
         // set the default response to null
@@ -111,7 +112,11 @@ webpg.background = {
                 break;
 
             case 'public_keylist':
-                response = plugin.getPublicKeyList();
+                response = webpg.plugin.getPublicKeyList();
+                break;
+
+            case 'private_keylist':
+                response = webpg.secret_keys;
                 break;
 
             case 'newtab':
@@ -129,10 +134,10 @@ webpg.background = {
 
             case 'decrypt':
                 //console.log("gpgDecrypt requested");
-                response = plugin.gpgDecrypt(request.data);
+                response = webpg.plugin.gpgDecrypt(request.data);
                 for (sig in response.signatures) {
                     sig_fp = response.signatures[sig].fingerprint;
-                    key_request = plugin.getNamedKey(sig_fp);
+                    key_request = webpg.plugin.getNamedKey(sig_fp);
                     response.signatures[sig].public_key = key_request;
                 }
                 response.original_text = request.data;
@@ -140,7 +145,7 @@ webpg.background = {
 
             case 'sign':
                 var signing_key = webpg.preferences.default_key.get()
-                var sign_status = plugin.gpgSignText([signing_key],
+                var sign_status = webpg.plugin.gpgSignText([signing_key],
                     request.selectionData.selectionText, 2);
                 response = sign_status;
                 if (!sign_status.error && sign_status.data.length > 0) {
@@ -157,23 +162,23 @@ webpg.background = {
                 if (request.message_event && request.message_event == "context") {
                     var content = (request.data) ? request.data :
                         request.selectionData.selectionText;
-                    response = plugin.gpgVerify(content);
+                    response = webpg.plugin.gpgVerify(content);
                     response.original_text = content;
                 } else {
-                    response = plugin.gpgVerify(request.data);
+                    response = webpg.plugin.gpgVerify(request.data);
                     response.original_text = request.data;
                 }
                 for (sig in response.signatures) {
                     sig_fp = response.signatures[sig].fingerprint;
-                    key_request = plugin.getNamedKey(sig_fp);
+                    key_request = webpg.plugin.getNamedKey(sig_fp);
                     response.signatures[sig].public_key = key_request;
                 }
                 if (request.message_event && request.message_event == "context") {
                     if (response.gpg_error_code == "11") {
-                        response = plugin.gpgDecrypt(content);
+                        response = webpg.plugin.gpgDecrypt(content);
                         for (sig in response.signatures) {
                             sig_fp = response.signatures[sig].fingerprint;
-                            key_request = plugin.getNamedKey(sig_fp);
+                            key_request = webpg.plugin.getNamedKey(sig_fp);
                             response.signatures[sig].public_key = key_request;
                         }
                     }
@@ -182,7 +187,7 @@ webpg.background = {
 
             case 'async-gpgGenKey':
                 //console.log("async-gpgGenKey requested");
-                var result = plugin.gpgGenKey(
+                var result = webpg.plugin.gpgGenKey(
                         request.data['publicKey_algo'],
                         request.data['publicKey_size'],
                         request.data['subKey_algo'],
@@ -198,7 +203,7 @@ webpg.background = {
 
             case 'async-gpgGenSubKey':
                 //console.log("async-gpgGenSubKey requested");
-                var result = plugin.gpgGenSubKey(
+                var result = webpg.plugin.gpgGenSubKey(
                     request.data['key_id'],
                     request.data['subKey_algo'],
                     request.data['subKey_size'],
@@ -213,12 +218,12 @@ webpg.background = {
             case 'doKeyImport':
                 //console.log("doKeyImport requested");
                 if (request.temp_context) {
-                    temp_path = plugin.getTemporaryPath();
+                    temp_path = webpg.plugin.getTemporaryPath();
                     if (!temp_path)
                         temp_path = "/tmp/.gnupg";
-                    plugin.gpgSetHomeDir(temp_path);
+                    webpg.plugin.gpgSetHomeDir(temp_path);
                 }
-                import_status = plugin.gpgImportKey(request.data);
+                import_status = webpg.plugin.gpgImportKey(request.data);
                 if (!import_status.imports.hasOwnProperty(0)) {
                     //console.log("NO IMPORT; Something failed", request, import_status);
                     import_status['imports'] =
@@ -229,7 +234,7 @@ webpg.background = {
                     }
                 }
                 if (request.temp_context) {
-                    plugin.gpgSetHomeDir(gnupghome);
+                    webpg.plugin.gpgSetHomeDir(gnupghome);
                 }
                 response = {
                     'import_status': import_status
@@ -239,11 +244,11 @@ webpg.background = {
             case 'encrypt':
                 //console.log("encrypt requested");
                 if (request.keyid) {
-                    response = plugin.gpgEncrypt(request.data,
+                    response = webpg.plugin.gpgEncrypt(request.data,
                         request.keyid, 0);
                 } else if (request.recipients) {
                     //console.log(request.data, request.recipients);
-                    response = plugin.gpgEncrypt(request.data,
+                    response = webpg.plugin.gpgEncrypt(request.data,
                         request.recipients, 0);
                 } else {
                     response = "";
@@ -258,10 +263,10 @@ webpg.background = {
             case 'encryptSign':
                 //console.log("encrypt requested");
                 if (request.keyid) {
-                    response = plugin.gpgEncrypt(request.data,
+                    response = webpg.plugin.gpgEncrypt(request.data,
                         request.keyid, 1);
                 } else if (request.recipients) {
-                    response = plugin.gpgEncrypt(request.data,
+                    response = webpg.plugin.gpgEncrypt(request.data,
                         request.recipients, 1);
                 } else {
                     response = "";
@@ -276,7 +281,7 @@ webpg.background = {
 
             case 'symmetricEncrypt':
                 //console.log("symmetric encryption requested");
-                response = plugin.gpgSymmetricEncrypt(request.data, 0);
+                response = webpg.plugin.gpgSymmetricEncrypt(request.data, 0);
                 if (typeof(request.message_event)=='undefined' ||
                 !request.message_event == "gmail")
                     webpg.utils.tabs.sendRequest(sender.tab, {
@@ -293,33 +298,33 @@ webpg.background = {
             case 'deleteKey':
                 //console.log("deleteKey requested");
                 if (request.temp_context) {
-                    temp_path = plugin.getTemporaryPath();
+                    temp_path = webpg.plugin.getTemporaryPath();
                     if (!temp_path)
                         temp_path = "/tmp/.gnupg";
-                    plugin.gpgSetHomeDir(temp_path);
+                    webpg.plugin.gpgSetHomeDir(temp_path);
                 }
                 if (request.key_type == 'public_key'){
-                    response = plugin.gpgDeletePublicKey(request.key_id);
+                    response = webpg.plugin.gpgDeletePublicKey(request.key_id);
                 } else if (request.key_type == 'private_key'){
-                    response = plugin.gpgDeletePrivateKey(request.key_id);
+                    response = webpg.plugin.gpgDeletePrivateKey(request.key_id);
                 }
                 if (request.temp_context) {
-                    plugin.gpgSetHomeDir(gnupghome);
+                    webpg.plugin.gpgSetHomeDir(gnupghome);
                 }
                 break;
 
             case 'getNamedKey':
                 //console.log("getNamedKey requested");
                 if (request.temp_context) {
-                    temp_path = plugin.getTemporaryPath();
+                    var temp_path = webpg.plugin.getTemporaryPath();
                     if (!temp_path)
                         temp_path = "/tmp/.gnupg";
-                    plugin.gpgSetHomeDir(temp_path);
+                    webpg.plugin.gpgSetHomeDir(temp_path);
                 }
-                response = plugin.getNamedKey(request.key_id);
+                response = webpg.plugin.getNamedKey(request.key_id);
                 if (request.temp_context) {
-                    plugin.gpgSetHomeDir(gnupghome);
-                    real_keyring_items = plugin.getNamedKey(request.key_id);
+                    webpg.plugin.gpgSetHomeDir(gnupghome);
+                    real_keyring_items = webpg.plugin.getNamedKey(request.key_id);
                     for (real_keyring_item in real_keyring_items) {
                         for (subkey in real_keyring_items[real_keyring_item].subkeys) {
                             subkey_id = real_keyring_items[real_keyring_item].
@@ -338,18 +343,18 @@ webpg.background = {
                 var keyResults = {};
                 var users = request.users;
                 for (var u in users) {
-                    keyResults[users[u]] = plugin.getNamedKey(users[u]);
+                    keyResults[users[u]] = webpg.plugin.getNamedKey(users[u]);
                 }
                 response = {'keys': keyResults};
                 break;
 
             case 'export':
                 if (request.keyid) {
-                    response = plugin.gpgExportPublicKey(request.keyid).result;
+                    response = webpg.plugin.gpgExportPublicKey(request.keyid).result;
                 } else if (request.recipients) {
                     response = "";
                     for (var keyid in request.recipients)
-                        response += plugin.gpgExportPublicKey(
+                        response += webpg.plugin.gpgExportPublicKey(
                             request.recipients[keyid]).result + "\n";
                 } else {
                     response = "";
@@ -458,6 +463,7 @@ webpg.background = {
             data - <str> The ASCII representation of the current operation status
     */
     gpgGenKeyComplete: function(data) {
+        var _ = webpg.utils.i18n.gettext;
         // Send the data to the GenKeyProgress method
         webpg.background.gpgGenKeyProgress(data);
 
