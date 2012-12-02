@@ -25,7 +25,7 @@ msgstr "حول WebPG"
 
 #: extension/about.js:36 extension/key_manager.js:206 extension/options.js:293
 msgid "Finished"
-msgstr ""
+msgstr "منتهي"
 
 #: extension/background.js:57
 msgid "WebPG Plugin failed to load"
@@ -61,7 +61,7 @@ msgstr "مفتاح مدير"
 
 #: extension/dialog.js:31
 msgid "Import"
-msgstr ""
+msgstr "استورد"
 
 #: extension/dialog.js:31
 msgid "Select Recipient(s)"
@@ -219,55 +219,47 @@ msgstr "بحث / فلتر"
 
 #: extension/key_manager.js:60 extension/key_manager.js:128
 msgid "Your Name"
-msgstr ""
+msgstr "اسمك"
 
 #: extension/key_manager.js:61 extension/key_manager.js:132
 msgid "Your Email"
-msgstr ""
+msgstr "البريد الإلكتروني الخاص بك"
 
 #: extension/key_manager.js:62 extension/key_manager.js:136
 msgid "Comment"
-msgstr ""
+msgstr "التعليق"
 
 #: extension/key_manager.js:66
-#, fuzzy
 msgid "Passphrase"
-msgstr "تغيير عبارة المرور"
+msgstr "عبارة المرور"
 
 #: extension/key_manager.js:70
-#, fuzzy
 msgid "Repeat Passphrase"
-msgstr "تغيير عبارة المرور"
+msgstr "تكرار عبارة المرور"
 
 #: extension/key_manager.js:71 extension/options.js:147
-#, fuzzy
 msgid "Advanced Options"
-msgstr "خيارات"
+msgstr "خيارات متقدمة"
 
 #: extension/key_manager.js:72
-#, fuzzy
 msgid "Public Key Algorithm"
-msgstr "مفتاح خوارزمية"
+msgstr "مفتاح خوارزمية العامة"
 
 #: extension/key_manager.js:73
-#, fuzzy
 msgid "Public Key Size"
-msgstr "مفاتيح العامة"
+msgstr "مفتاح الحجم العام"
 
 #: extension/key_manager.js:74 extension/key_manager.js:94
-#, fuzzy
 msgid "Private Key Algorithm"
-msgstr "مفتاح خوارزمية"
+msgstr "مفتاح خوارزمية خاصة"
 
 #: extension/key_manager.js:75 extension/key_manager.js:123
-#, fuzzy
 msgid "Private Key Size"
-msgstr "مفاتيح خاصة"
+msgstr "مفتاح الحجم خاصة"
 
 #: extension/key_manager.js:76 extension/key_manager.js:124
-#, fuzzy
 msgid "Expire in"
-msgstr "انقضاء"
+msgstr "تنتهي في"
 
 #: extension/key_manager.js:80 extension/key_manager.js:752
 #: extension/key_manager.js:784
@@ -276,30 +268,27 @@ msgstr "أبدا"
 
 #: extension/key_manager.js:83
 msgid "n30 days"
-msgstr ""
+msgstr "30 يوما"
 
 #: extension/key_manager.js:86
 msgid "n90 days"
-msgstr ""
+msgstr "90 يوما"
 
 #: extension/key_manager.js:89
 msgid "n1 year"
-msgstr ""
+msgstr "1 سنة"
 
 #: extension/key_manager.js:93
-#, fuzzy
 msgid "Subkey Options"
-msgstr "خيارات"
+msgstr "خيارات للمفتاح الفرعي"
 
 #: extension/key_manager.js:104 extension/key_manager.js:107
-#, fuzzy
 msgid "encrypt only"
-msgstr "تشفير"
+msgstr "التشفير فقط"
 
 #: extension/key_manager.js:110 extension/key_manager.js:113
-#, fuzzy
 msgid "set your own capabilities"
-msgstr "استخدام على مسؤوليتك الخاصة"
+msgstr "تعيين القدرات الخاصة بك"
 
 #: extension/key_manager.js:118 extension/key_manager.js:886
 #: extension/key_manager.js:1756
@@ -311,19 +300,16 @@ msgid "Authenticate"
 msgstr "مصادقة"
 
 #: extension/key_manager.js:138
-#, fuzzy
 msgid "Revoke this Key"
-msgstr "حذف هذا المفتاح"
+msgstr "إلغاء هذا مفتاح"
 
 #: extension/key_manager.js:139
-#, fuzzy
 msgid "Revoke this UID"
-msgstr "سحب"
+msgstr "إلغاء هذا المستخدم معرف"
 
 #: extension/key_manager.js:140
-#, fuzzy
 msgid "Revoke this Signature"
-msgstr "حذف هذا التوقيع"
+msgstr "إلغاء هذا التوقيع"
 
 #: extension/key_manager.js:141 extension/key_manager.js:1910
 msgid "Delete this Signature"
@@ -340,11 +326,11 @@ msgstr "حذف هذا المفتاح"
 
 #: extension/key_manager.js:144
 msgid "This key will be permanently deleted"
-msgstr ""
+msgstr "سيتم حذف هذا المفتاح بشكل دائم"
 
 #: extension/key_manager.js:145
 msgid "Are you sure"
-msgstr ""
+msgstr "هل أنت متأكد"
 
 #: extension/key_manager.js:146 extension/key_manager.js:757
 #: extension/key_manager.js:910
@@ -360,9 +346,8 @@ msgid "Key Details"
 msgstr "مفتاح التفاصيل"
 
 #: extension/key_manager.js:149
-#, fuzzy
 msgid "Export Public Key"
-msgstr "استيراد هذا المفتاح"
+msgstr "تصدير للمفتاح العام"
 
 #: extension/key_manager.js:150 extension/key_manager.js:769
 msgid "Add UID"
@@ -406,35 +391,31 @@ msgstr "انقر لإنشاء مفتاح جديد"
 
 #: extension/key_manager.js:291
 msgid "Click to enable key"
-msgstr ""
+msgstr "انقر فوق لتمكين مفتاح"
 
 #: extension/key_manager.js:301
-#, fuzzy
 msgid "Click to set default key"
-msgstr "هذا هو المفتاح الخاص بك الافتراضي"
+msgstr "انقر لتحديد المفتاح الافتراضي"
 
 #: extension/key_manager.js:340
-#, fuzzy
 msgid "Generating Key"
-msgstr "إنشاء مفتاح جديد"
+msgstr "توليد المفتاح"
 
 #: extension/key_manager.js:340
 msgid "Waiting for entropy"
-msgstr ""
+msgstr "في انتظار بايت أكثر عشوائية"
 
 #: extension/key_manager.js:341
-#, fuzzy
 msgid "Building key"
-msgstr "إنشاء المفتاح، يرجى الانتظار"
+msgstr "توليد المفتاح"
 
 #: extension/key_manager.js:341
-#, fuzzy
 msgid "please wait"
-msgstr "إنشاء المفتاح، يرجى الانتظار"
+msgstr "يرجى الانتظار"
 
 #: extension/key_manager.js:440
 msgid "trust"
-msgstr ""
+msgstr "الثقة"
 
 #: extension/key_manager.js:491
 msgid "Generate New Key"
@@ -754,18 +735,16 @@ msgid "and select 1 or more keys for use with webpg"
 msgstr "وحدد 1 أو أكثر مفاتيح للاستخدام مع webpg"
 
 #: extension/key_manager.js:1730
-#, fuzzy
 msgid "You have not generated any keys"
-msgstr "لديك لم يتم تمكين أي مفاتيح للاستخدام مع webpg"
+msgstr "لديك لم يتم إنشاء أية مفاتيح"
 
 #: extension/key_manager.js:1732
-#, fuzzy
 msgid "and generate a key to use with webpg"
-msgstr "وحدد 1 أو أكثر مفاتيح للاستخدام مع webpg"
+msgstr "وإنشاء مفتاح لاستخدامه مع WebPG"
 
 #: extension/key_manager.js:1739
 msgid "Already signed with this key"
-msgstr ""
+msgstr "وقعت بالفعل مع هذا المفتاح"
 
 #: extension/key_manager.js:1741
 msgid "Signature added using this key"
@@ -882,41 +861,39 @@ msgstr "انقر هنا للحصول على المساعدة لحل هذه ال�
 
 #: extension/options.js:136
 msgid "Enable Inline formatting of PGP Messages and Keys"
-msgstr ""
+msgstr "تمكين التنسيق التلقائي للرسائل ومفاتيح"
 
 #: extension/options.js:139
 msgid "Always encrypt to your default key in addition to the recipient"
-msgstr ""
+msgstr "تشفير المفتاح دائما الافتراضي الخاص بك بالإضافة إلى المستلم"
 
 #: extension/options.js:142
-#, fuzzy
 msgid "Enable WebPG GMAIL integration"
-msgstr "جوجل التكامل تجريبية WebPG"
+msgstr "تمكين GMAIL التكامل"
 
 #: extension/options.js:142
 msgid "EXPERIMENTAL"
-msgstr ""
+msgstr "تجريبي"
 
 #: extension/options.js:145
 msgid "Sign outgoing messages in GMAIL"
-msgstr ""
+msgstr "توقيع الرسائل الصادرة في GMAIL"
 
 #: extension/options.js:150
 msgid "GnuPG home directory"
-msgstr ""
+msgstr "GnuPG الدليل الرئيسي"
 
 #: extension/options.js:155
 msgid "GnuPG binary"
-msgstr ""
+msgstr "GnuPG قابل للتنفيذ"
 
 #: extension/options.js:159
 msgid "Your system appears to be configured correctly for WebPG"
-msgstr ""
+msgstr "النظام الخاص بك ويبدو أن تكوين بشكل صحيح ل WebPG"
 
 #: extension/options.js:161
-#, fuzzy
 msgid "There is a problem with your configuration"
-msgstr "قد يكون هناك مشكلة في التثبيت GPG"
+msgstr "هناك مشكلة مع التكوين الخاص بك"
 
 #: extension/options.js:204
 msgid "WebPG GMAIL integration is EXPERIMENTAL"
@@ -1034,9 +1011,8 @@ msgid "THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY"
 msgstr "وقد وقع هذه الرسالة مع المفتاح العمومي الذي انتهت مدة صلاحية"
 
 #: extension/webpg_results.js:271
-#, fuzzy
 msgid "THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING"
-msgstr "وقد وقع هذه الرسالة مع المفتاح العمومي الذي انتهت مدة صلاحية"
+msgstr "وقد وقع هذه الرسالة مع مفاتيح العامة التي ليست في الدائري مفتاح"
 
 #: extension/webpg_results.js:282
 msgid "THE SIGNATURE ON THIS MESSAGE FAILED"
@@ -1081,11 +1057,11 @@ msgstr "إخفاء الأصلي"
 
 #: extension/webpg_results.js:471
 msgid "UNUSABLE KEY"
-msgstr ""
+msgstr "غير صالحة للاستعمال مفتاح"
 
 #: extension/webpg_results.js:471
 msgid "NO USER ID"
-msgstr ""
+msgstr "مفقود هوية المستخدم"
 
 #: extension/manifest.json:4
 msgid "extDesc"

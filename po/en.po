@@ -62,7 +62,7 @@ msgstr "Key Manager"
 
 #: extension/dialog.js:31
 msgid "Import"
-msgstr ""
+msgstr "Import"
 
 #: extension/dialog.js:31
 msgid "Select Recipient(s)"
@@ -387,9 +387,8 @@ msgid "Expiration Date"
 msgstr "Expiration Date"
 
 #: extension/key_manager.js:281
-#, fuzzy
 msgid "Click to generate a new key"
-msgstr "Click to genereate a new key"
+msgstr "Click to generate a new key"
 
 #: extension/key_manager.js:291
 msgid "Click to enable key"
