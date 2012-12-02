@@ -206,7 +206,8 @@ webpg.inline = {
 
         str = str.replace(xmlnsReg, "");
 
-        var html = node.parentElement.innerHTML;
+        var html = (node.parentElement) ? node.parentElement.innerHTML :
+            node.parentNode.innerHTML;
 
         while (html.lastIndexOf("\n") + 1 == html.length) {
             html = html.substring(0, html.lastIndexOf("\n"));

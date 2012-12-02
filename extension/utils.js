@@ -253,6 +253,24 @@ webpg.utils = {
                     }
 //                }
             }
+            // Check all windows
+            var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                         .getService(Components.interfaces.nsIWindowMediator);
+            for (var found = false, index = 0, tabbrowser = wm.getEnumerator('navigator:browser').getNext().gBrowser;
+               index < tabbrowser.tabContainer.childNodes.length && !found;
+               index++) {
+
+                // Get the next tab
+                var currentTab = tabbrowser.tabContainer.childNodes[index];
+
+                // Check if this tab contains the frame we are looking for
+                var browser = tabbrowser.getBrowserAtIndex(index);
+                var iframes = browser.contentDocument.getElementsByTagName("iframe");
+                for (var x=0; x < iframes.length; x++) {
+                    if (iframes[x].id == id)
+                        return iframes[x];
+                }
+            }
         } else {
             var iframe = jq("#" + id);
             if (iframe)
@@ -547,10 +565,10 @@ webpg.utils = {
                 } else {
                     var iframe = webpg.utils.getFrameById(request.target_id);
                     if (iframe) {
-                        iframe.onload = function(aEvent) {
+                        iframe.addEventListener("load", function(aEvent) {
                             var tw = aEvent.originalTarget;
                             tw.contentWindow.postMessage(request, "*");
-                        }
+                        }, false);
                     }
                 }
             } else if (webpg.utils.detectedBrowser['product'] == "chrome") {

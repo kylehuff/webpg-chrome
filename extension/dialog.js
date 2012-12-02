@@ -127,12 +127,22 @@ jq(function(){
                 };
                 if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                     var ev_element = window.parent.document.getElementById(window.frameElement.id);
-                    var encryptEvent = new CustomEvent('sendResult', {
-                        detail: {
-	                        data: unescape(qs.encrypt_data),
-	                        recipients: encrypt_to_list
-                        }
-                    })
+                    if (webpg.utils.detectedBrowser['product'] == "seamonkey") {
+                        var encryptEvent = document.createEvent('CustomEvent');
+                        encryptEvent.initCustomEvent("sendResult", true, true,
+                            {
+                                data: unescape(qs.encrypt_data),
+                                recipients: encrypt_to_list
+                            }
+                        );
+                    } else {
+                        var encryptEvent = new window.CustomEvent('sendResult', {
+                            detail: {
+	                            data: unescape(qs.encrypt_data),
+	                            recipients: encrypt_to_list
+                            }
+                        })
+                    }
                     ev_element.dispatchEvent(encryptEvent);
                 } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                     webpg.utils.sendRequest({"msg": "encrypt",
@@ -150,11 +160,20 @@ jq(function(){
                 };
                 if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                     var ev_element =  window.parent.document.getElementById(window.frameElement.id);
-                    var exportEvent = new CustomEvent('sendResult', {
-                        detail: {
-	                        recipients: export_list
-                        },
-                    })
+                    if (webpg.utils.detectedBrowser['product'] == "seamonkey") {
+                        var exportEvent = document.createEvent('CustomEvent');
+                        exportEvent.initCustomEvent("sendResult", true, true,
+                            {
+                                recipients: export_list
+                            }
+                        );
+                    } else {
+                        var exportEvent = new CustomEvent('sendResult', {
+                            detail: {
+	                            recipients: export_list
+                            },
+                        })
+                    }
                     ev_element.dispatchEvent(exportEvent);
                 } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                     webpg.utils.sendRequest({"msg": "export", "recipients": export_list,
