@@ -30,7 +30,7 @@
 		"message": "Key Manager"
 	},
 	"Import": {
-		"message": ""
+		"message": "Import"
 	},
 	"Select_Recipient_s_": {
 		"message": "Select Recipients(s)"
@@ -270,7 +270,7 @@
 		"message": "Expiration Date"
 	},
 	"Click_to_generate_a_new_key": {
-		"message": "Click to genereate a new key"
+		"message": "Click to generate a new key"
 	},
 	"Click_to_enable_key": {
 		"message": "Click to enable key"

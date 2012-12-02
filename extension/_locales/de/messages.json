@@ -1,756 +1,756 @@
 {
 	"About_WebPG": {
-		"message": ""
+		"message": "Über WebPG"
 	},
 	"Finished": {
-		"message": ""
+		"message": "Fertig"
 	},
 	"WebPG_Plugin_failed_to_load": {
-		"message": ""
+		"message": "WebPG Plugin konnte nicht geladen werden"
 	},
 	"Key_Generation_Complete": {
-		"message": ""
+		"message": "Schlüsselerzeugung beendet"
 	},
 	"Key_Generation": {
-		"message": ""
+		"message": "Schlüsselerzeugung"
 	},
 	"Open_Key_Manager": {
-		"message": ""
+		"message": "Offene Schlüsselverwaltung"
 	},
 	"WebPG_Key_Generation_Failed": {
-		"message": ""
+		"message": "Erzeugung des WebPG Schlüssels fehlgeschlagen"
 	},
 	"The_generation_of_your_new_key_is_now_complete": {
-		"message": ""
+		"message": "Die Erzeugung Ihres neuen Schlüssels ist nun abgeschlossen"
 	},
 	"Options": {
-		"message": ""
+		"message": "Optionen"
 	},
 	"Key_Manager": {
-		"message": ""
+		"message": "Schlüsselverwaltung"
 	},
 	"Import": {
-		"message": ""
+		"message": "Importieren"
 	},
 	"Select_Recipient_s_": {
-		"message": ""
+		"message": "einen oder mehrere Empfänger auswählen"
 	},
 	"Error_loading_WebPG": {
-		"message": ""
+		"message": "Fehler beim Laden von WebPG"
 	},
 	"We_encountered_a_problem_while_attempting_to_load_WebPG": {
-		"message": ""
+		"message": "Wir sind auf ein Problem gestoßen beim Versuch, WebPG zu laden"
 	},
 	"Error": {
-		"message": ""
+		"message": "Fehler"
 	},
 	"Suggestions": {
-		"message": ""
+		"message": "Vorschläge"
 	},
 	"The_plugin_was_unable_to_load": {
-		"message": ""
+		"message": "Das Plugin konnte nicht geladen werden"
 	},
 	"There_might_be_a_problem_with_the_gpg_installation": {
-		"message": ""
+		"message": "Es könnte an einem Problem mit der gpg-Installation liegen"
 	},
 	"consider_reinstalling_gpg4win": {
-		"message": ""
+		"message": "Erwägen Sie, gpg4win erneut zu installieren"
 	},
 	"Error_Details": {
-		"message": ""
+		"message": "Fehlerdetails"
 	},
 	"Error_in_Method": {
-		"message": ""
+		"message": "Fehler in der Methode"
 	},
 	"Error_Code": {
-		"message": ""
+		"message": "Fehlercode"
 	},
 	"Error_String": {
-		"message": ""
+		"message": "Fehlerbeschreibung"
 	},
 	"File": {
-		"message": ""
+		"message": "Datei"
 	},
 	"Line": {
-		"message": ""
+		"message": "Zeile"
 	},
 	"Unknown_Error": {
-		"message": ""
+		"message": "Unbekannter Fehler"
 	},
 	"System_Information": {
-		"message": ""
+		"message": "Systeminformationen"
 	},
 	"Platform": {
-		"message": ""
+		"message": "Plattform"
 	},
 	"App_Version": {
-		"message": ""
+		"message": "App-Version"
 	},
 	"User_Agent": {
-		"message": ""
+		"message": "User Agent"
 	},
 	"Product": {
-		"message": ""
+		"message": "Produkt"
 	},
 	"Sub_product": {
-		"message": ""
+		"message": "Produkt-Teil"
 	},
 	"Vendor": {
-		"message": ""
+		"message": "Anbieter"
 	},
 	"Language": {
-		"message": ""
+		"message": "Sprache"
 	},
 	"You_do_not_have_any_keys_for": {
-		"message": ""
+		"message": "Sie haben keinen Schlüssel für"
 	},
 	"or": {
-		"message": ""
+		"message": "oder"
 	},
 	"You_have_more_than_1_public_key_matching_that_address": {
-		"message": ""
+		"message": "Sie haben mehr als einen öffentlichen Schlüssel für diese Adresse"
 	},
 	"The_Key_for": {
-		"message": ""
+		"message": "Der Schlüssel für"
 	},
 	"is_invalid": {
-		"message": ""
+		"message": "ist ungültig"
 	},
 	"Open_the_Key_Manager": {
-		"message": ""
+		"message": "Schlüsselverwaltung öffnen"
 	},
 	"Encrypt": {
-		"message": ""
+		"message": "Verschlüsseln"
 	},
 	"Sign_only": {
-		"message": ""
+		"message": "Nur signieren"
 	},
 	"Sign_and_Encrypt": {
-		"message": ""
+		"message": "Signieren und verschlüsseln"
 	},
 	"Symmetric_Encryption": {
-		"message": ""
+		"message": "symmetrische Verschlüsselung"
 	},
 	"Do_not_use_WebPG_for_this_message": {
-		"message": ""
+		"message": "Verwenden Sie WebPG nicht für diese Nachricht"
 	},
 	"WebPG_Key_Manager": {
-		"message": ""
+		"message": "WebPG Schlüsselverwaltung"
 	},
 	"Private_Keys": {
-		"message": ""
+		"message": "Private Schlüssel"
 	},
 	"Public_Keys": {
-		"message": ""
+		"message": "Öffentliche Schlüssel"
 	},
 	"Search_Filter": {
-		"message": ""
+		"message": "Suchfilter"
 	},
 	"Your_Name": {
-		"message": ""
+		"message": "Ihr Name"
 	},
 	"Your_Email": {
-		"message": ""
+		"message": "Ihre E-Mail-Adresse"
 	},
 	"Comment": {
-		"message": ""
+		"message": "Kommentar"
 	},
 	"Passphrase": {
-		"message": ""
+		"message": "Passphrase"
 	},
 	"Repeat_Passphrase": {
-		"message": ""
+		"message": "Wiederholen Sie die Passphrase"
 	},
 	"Advanced_Options": {
-		"message": ""
+		"message": "Erweiterte Optionen"
 	},
 	"Public_Key_Algorithm": {
-		"message": ""
+		"message": "Öffentlicher Schlüsselalgorithmus"
 	},
 	"Public_Key_Size": {
-		"message": ""
+		"message": "Größe des öffentlichen Schlüssels"
 	},
 	"Private_Key_Algorithm": {
-		"message": ""
+		"message": "Privater Schlüsselalgorithmus"
 	},
 	"Private_Key_Size": {
-		"message": ""
+		"message": "Größe des privaten Schlüssels"
 	},
 	"Expire_in": {
-		"message": ""
+		"message": "Läuft ab in"
 	},
 	"Never": {
-		"message": ""
+		"message": "Niemals"
 	},
 	"n30_days": {
-		"message": ""
+		"message": "30 Tagen"
 	},
 	"n90_days": {
-		"message": ""
+		"message": "90 Tagen"
 	},
 	"n1_year": {
-		"message": ""
+		"message": "1 Jahr"
 	},
 	"Subkey_Options": {
-		"message": ""
+		"message": "Optionen für Unterschlüssel"
 	},
 	"encrypt_only": {
-		"message": ""
+		"message": "nur verschlüsseln"
 	},
 	"set_your_own_capabilities": {
-		"message": ""
+		"message": "eigene Einstellungen machen"
 	},
 	"Sign": {
-		"message": ""
+		"message": "Signieren"
 	},
 	"Authenticate": {
-		"message": ""
+		"message": "Authentifizieren"
 	},
 	"Revoke_this_Key": {
-		"message": ""
+		"message": "Diesen Schlüssel widerrufen"
 	},
 	"Revoke_this_UID": {
-		"message": ""
+		"message": "Diese UID widerrufen"
 	},
 	"Revoke_this_Signature": {
-		"message": ""
+		"message": "Diese Unterschrift widerrufen"
 	},
 	"Delete_this_Signature": {
-		"message": ""
+		"message": "Diese Unterschrift löschen"
 	},
 	"Delete_this_UID": {
-		"message": ""
+		"message": "Diese UID löschen"
 	},
 	"Delete_this_Key": {
-		"message": ""
+		"message": "Diesen Schlüssel löschen"
 	},
 	"This_key_will_be_permanently_deleted": {
-		"message": ""
+		"message": "Dieser Schlüssel wird dauerhaft gelöscht"
 	},
 	"Are_you_sure": {
-		"message": ""
+		"message": "Sind Sie sicher?"
 	},
 	"Change_Expiration": {
-		"message": ""
+		"message": "Ablaufdatum ändern"
 	},
 	"Sign_this_UID": {
-		"message": ""
+		"message": "Diese UID unterschreiben"
 	},
 	"Key_Details": {
-		"message": ""
+		"message": "Details zum Schlüssel"
 	},
 	"Export_Public_Key": {
-		"message": ""
+		"message": "Öffentlichen Schlüssel exportieren"
 	},
 	"Add_UID": {
-		"message": ""
+		"message": "UID hinzufügen"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Key": {
-		"message": ""
+		"message": "Sind Sie sicher, dass Sie diesen Schlüssel widerrufen wollen"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_UID": {
-		"message": ""
+		"message": "Sind Sie sicher, dass Sie diese UID widerrufen wollen"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Signature": {
-		"message": ""
+		"message": "Sind Sie sicher, dass Sie diese Unterschrift widerrufen wollen"
 	},
 	"Are_you_sure_you_wish_to_delete_this_Signature": {
-		"message": ""
+		"message": "Sind Sie sicher, dass Sie diese UID löschen wollen"
 	},
 	"Are_you_sure_you_want_to_permanently_delete_this_UID": {
-		"message": ""
+		"message": "Sind Sie sicher, dass Sie diese UID dauerhaft löschen wollen"
 	},
 	"New_Expiration_Date": {
-		"message": ""
+		"message": "Neues Ablaufdatum"
 	},
 	"Never_Expire": {
-		"message": ""
+		"message": "Läuft niemals ab"
 	},
 	"Expiration_Date": {
-		"message": ""
+		"message": "Ablaufdatum"
 	},
 	"Click_to_generate_a_new_key": {
-		"message": ""
+		"message": "Klicken, um neuen Schlüssel zu erzeugen"
 	},
 	"Click_to_enable_key": {
-		"message": ""
+		"message": "Klicken, um Schlüssel zu aktivieren"
 	},
 	"Click_to_set_default_key": {
-		"message": ""
+		"message": "Klicken, um als Standardschlüssel festzulegen"
 	},
 	"Generating_Key": {
-		"message": ""
+		"message": "Neuer Schlüssel wird erstellt ..."
 	},
 	"Waiting_for_entropy": {
-		"message": ""
+		"message": "Warten auf Zufallsdaten"
 	},
 	"Building_key": {
-		"message": ""
+		"message": "Schlüssel bauen"
 	},
 	"please_wait": {
-		"message": ""
+		"message": "bitte warten"
 	},
 	"trust": {
-		"message": ""
+		"message": "Vertrauen"
 	},
 	"Generate_New_Key": {
-		"message": ""
+		"message": "Neuen Schlüssel generieren"
 	},
 	"Create": {
-		"message": ""
+		"message": "Erstellen"
 	},
 	"Name_Required": {
-		"message": ""
+		"message": "Name ist notwendig"
 	},
 	"UID_Names_must_be_at_least_5_characters": {
-		"message": ""
+		"message": "UID-Namen müssen mindestens 5 Zeichen lang sein"
 	},
 	"UID_Names_cannot_begin_with_a_number": {
-		"message": ""
+		"message": "UID-Namen dürfen nicht mit einer Ziffer beginnen"
 	},
 	"Not_a_valid_email_address": {
-		"message": ""
+		"message": "keine gültige E-Mail-Adresse"
 	},
 	"Passphrases_do_not_match": {
-		"message": ""
+		"message": "Passphrasen stimmen nicht überein"
 	},
 	"Building_key__please_wait": {
-		"message": ""
+		"message": "Schlüssel wird erstellt, bitte warten"
 	},
 	"This_may_take_a_long_time__5_minutes_or_more__to_complete": {
-		"message": ""
+		"message": "Dieser Vorgang kann länger dauern (5 Minuten oder mehr)"
 	},
 	"Please_be_patient_while_the_key_is_created": {
-		"message": ""
+		"message": "Bitte haben Sie Gedult, während der Schlüssel erzeugt wird"
 	},
 	"It_is_safe_to_close_this_window": {
-		"message": ""
+		"message": "Sie können dieses Fenster jetzt schließen"
 	},
 	"key_generation_will_continue_in_the_background": {
-		"message": ""
+		"message": "Die Schlüsselerzeugung wird im Hintergrund fortgesetzt"
 	},
 	"Cancel": {
-		"message": ""
+		"message": "Abbrechen"
 	},
 	"Enabled": {
-		"message": ""
+		"message": "Aktiviert"
 	},
 	"Disabled": {
-		"message": ""
+		"message": "Deaktiviert"
 	},
 	"Valid": {
-		"message": ""
+		"message": "Gültig"
 	},
 	"Expired": {
-		"message": ""
+		"message": "Abgelaufen"
 	},
 	"Invalid": {
-		"message": ""
+		"message": "Ungültig"
 	},
 	"Revoked": {
-		"message": ""
+		"message": "Widerrufen"
 	},
 	"Cannot_unset_your_default_key": {
-		"message": ""
+		"message": "Kann Standardschlüssel nicht deaktivieren"
 	},
 	"Trust_Assignment": {
-		"message": ""
+		"message": "Vertrauenszuordnung"
 	},
 	"Unknown": {
-		"message": ""
+		"message": "Unbekannt"
 	},
 	"Marginal": {
-		"message": ""
+		"message": "Geringfügig"
 	},
 	"Full": {
-		"message": ""
+		"message": "Vollständig"
 	},
 	"Ultimate": {
-		"message": ""
+		"message": "Absolut"
 	},
 	"Change_Passphrase": {
-		"message": ""
+		"message": "Passphrase ä_ndern"
 	},
 	"Add_Subkey": {
-		"message": ""
+		"message": "Unterschlüssel hinzufügen"
 	},
 	"Enable_this_Key": {
-		"message": ""
+		"message": "Diesen Schlüssel aktivieren"
 	},
 	"Disable_this_Key": {
-		"message": ""
+		"message": "Diesen Schlüssel deaktivieren"
 	},
 	"KeyID": {
-		"message": ""
+		"message": "Schlüssel-ID"
 	},
 	"Key_Created": {
-		"message": ""
+		"message": "Schlüssel erzeugt"
 	},
 	"Expires": {
-		"message": ""
+		"message": "Läuft ab"
 	},
 	"UIDs": {
-		"message": ""
+		"message": "UIDs"
 	},
 	"Fingerprint": {
-		"message": ""
+		"message": "Fingerabdruck"
 	},
 	"Status": {
-		"message": ""
+		"message": "Status"
 	},
 	"Key_Algorithm": {
-		"message": ""
+		"message": "Schlüssel-Algorithmus"
 	},
 	"Validity": {
-		"message": ""
+		"message": "Gültigkeit"
 	},
 	"Key_Options": {
-		"message": ""
+		"message": "Schlüsseleinstellungen"
 	},
 	"Operations": {
-		"message": ""
+		"message": "Vorgänge"
 	},
 	"Export_this_Key": {
-		"message": ""
+		"message": "Diesen Schlüssel exportieren"
 	},
 	"Subkeys": {
-		"message": ""
+		"message": "Unterschlüssel"
 	},
 	"Subkey_Details": {
-		"message": ""
+		"message": "Unterschlüsseldetails"
 	},
 	"Flags": {
-		"message": ""
+		"message": "Flags"
 	},
 	"Delete_this_Subkey": {
-		"message": ""
+		"message": "Unterschlüssel löschen"
 	},
 	"Revoke_this_Subkey": {
-		"message": ""
+		"message": "Unterschüssel widerrufen"
 	},
 	"User_IDs": {
-		"message": ""
+		"message": "Benutzerkennungen"
 	},
 	"no_email_address_provided": {
-		"message": ""
+		"message": "Keine E-Mail-Adresse angegeben"
 	},
 	"Make_primary": {
-		"message": ""
+		"message": "Als primär kennzeichnen"
 	},
 	"Revoke_UID": {
-		"message": ""
+		"message": "UID zurückziehen"
 	},
 	"REVOKED": {
-		"message": ""
+		"message": "WIDERRUFEN"
 	},
 	"self_signature": {
-		"message": ""
+		"message": "eigene Unterschrift"
 	},
 	"local": {
-		"message": ""
+		"message": "lokal"
 	},
 	"non_exportable": {
-		"message": ""
+		"message": "Nicht exportierbar"
 	},
 	"other_signature": {
-		"message": ""
+		"message": "Andere Signatur"
 	},
 	"Revoke": {
-		"message": ""
+		"message": "Widerrufen"
 	},
 	"Delete": {
-		"message": ""
+		"message": "Löschen"
 	},
 	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
-		"message": ""
+		"message": "befinden, werden nicht angezeigt"
 	},
 	"Save": {
-		"message": ""
+		"message": "Speichern"
 	},
 	"Delete_this_key": {
-		"message": ""
+		"message": "Diesen Schlüssel löschen"
 	},
 	"Close": {
-		"message": ""
+		"message": "Schließen"
 	},
 	"Copy": {
-		"message": ""
+		"message": "Kopieren"
 	},
 	"Please_specify_the_revocation_details": {
-		"message": ""
+		"message": "Bitte geben Sie Einzelheiten an, weshalb derSchlüssel widerrufen werden soll"
 	},
 	"Reason": {
-		"message": ""
+		"message": "Grund"
 	},
 	"No_reason_specified": {
-		"message": ""
+		"message": "Kein Grund angegeben"
 	},
 	"Key_has_been_compromised": {
-		"message": ""
+		"message": "Der Schlüssel ist nicht mehr sicher"
 	},
 	"Key_is_superseded": {
-		"message": ""
+		"message": "Schlüssel ist überholt"
 	},
 	"Key_is_no_longer_used": {
-		"message": ""
+		"message": "Schlüssel wird nicht mehr verwendet"
 	},
 	"Description": {
-		"message": ""
+		"message": "Beschreibung"
 	},
 	"User_ID_is_no_longer_valid": {
-		"message": ""
+		"message": "User-ID ist nicht mehr gültig"
 	},
 	"Please_select_which_of_your_keys_to_create_the_signature_with": {
-		"message": ""
+		"message": "werden soll"
 	},
 	"You_have_not_enabled_any_keys_for_use_with_webpg": {
-		"message": ""
+		"message": "Sie haben keinen Schlüssel für die Benutzung mit WebPG aktiviert"
 	},
 	"please_click_here": {
-		"message": ""
+		"message": "Bitte hier klicken"
 	},
 	"and_select_1_or_more_keys_for_use_with_webpg": {
-		"message": ""
+		"message": "und wählen Sie einen oder mehrere Schlüssel für die Verwendung mit WebPG aus"
 	},
 	"You_have_not_generated_any_keys": {
-		"message": ""
+		"message": "Sie haben keine Schlüssel erzeugt"
 	},
 	"and_generate_a_key_to_use_with_webpg": {
-		"message": ""
+		"message": "und erzeugen Sie einen Schlüssel zur Verwendung mit WebPG"
 	},
 	"Already_signed_with_this_key": {
-		"message": ""
+		"message": "Bereits mit diesem Schlüssel unterzeichnet"
 	},
 	"Signature_added_using_this_key": {
-		"message": ""
+		"message": "Unterschrift hinzugefügt unter Verwendung dieses Schlüssels"
 	},
 	"Cannot_create_signatures_without_gpgconf_utility_installed": {
-		"message": ""
+		"message": "Kann keine Unterschriften erzeugen ohne dass gpgconf installiert ist"
 	},
 	"Cannot_sign_a_revoked_UID": {
-		"message": ""
+		"message": "Kann keine widerrufene UID signieren"
 	},
 	"Cannot_make_a_revoked_UID_primary": {
-		"message": ""
+		"message": "Kann keine widerrufene UID als primär einstellen"
 	},
 	"Cannot_sign_an_expired_key": {
-		"message": ""
+		"message": "Kann keinen abgelaufenen Schlüssel signieren"
 	},
 	"Are_you_certain_you_would_like_to_delete_signature": {
-		"message": ""
+		"message": "Sind Sie sicher, dass Sie die Unterschrift löschen wollen"
 	},
 	"from_this_User_ID": {
-		"message": ""
+		"message": "dieser Benutzer-ID"
 	},
 	"This_signature_was_made_with_a_key_that_does_not_belong_to_you": {
-		"message": ""
+		"message": "gehört"
 	},
 	"This_action_cannot_be_undone": {
-		"message": ""
+		"message": "Diese Aktion kann nicht rückgängig gemacht werden"
 	},
 	"Enable_this_key_for_signing": {
-		"message": ""
+		"message": "Diesen Schlüssel für Unterschriften aktivieren"
 	},
 	"This_is_your_default_key": {
-		"message": ""
+		"message": "Dies ist Ihr Standardschlüssel"
 	},
 	"Make_this_the_default_key_for_encryption_operations": {
-		"message": ""
+		"message": "Diesen zum Standardschlüssel für Verschlüsselungen festlegen"
 	},
 	"Searching_for": {
-		"message": ""
+		"message": "Suchen nach"
 	},
 	"WebPG_Options": {
-		"message": ""
+		"message": "WebPG Optionen"
 	},
 	"The_WebPG_NPAPI_Plugin_is_valid": {
-		"message": ""
+		"message": "Das WebPG-NPAPI-Plugin ist gültig"
 	},
 	"libgpgme_loaded_successfully": {
-		"message": ""
+		"message": "libgpgme erfolgreich geladen"
 	},
 	"It_appears_you_have_a_key_agent_configured": {
-		"message": ""
+		"message": "Es scheint, als hätten Sie einen Schlüsselagenten konfiguriert"
 	},
 	"gpgconf_was_detected": {
-		"message": ""
+		"message": "gpgconf wurde gefunden"
 	},
 	"you_can_use_the_signature_methods": {
-		"message": ""
+		"message": "Sie können die Signaturmethoden anwenden"
 	},
 	"libgpgme_was_unable_to_load": {
-		"message": ""
+		"message": "libgpgme konnte nicht geladen werden"
 	},
 	"libgpgme_is_required_for_operation": {
-		"message": ""
+		"message": "libgpgme ist für diesen Vorgang notwendig"
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
-		"message": ""
+		"message": "Sie scheinen keinen Schlüsselagenten konfiguriert zu haben"
 	},
 	"A_working_key_agent_is_required": {
-		"message": ""
+		"message": "Ein funktionierender Schlüsselagent ist notwendig"
 	},
 	"gpgconf_does_not_appear_to_be_installed": {
-		"message": ""
+		"message": "gpgconf scheint nicht installiert zu sein"
 	},
 	"You_will_not_be_able_to_create_signatures": {
-		"message": ""
+		"message": "Sie werden keine Unterschriften leisten können"
 	},
 	"There_was_a_problem_loading_the_plugin": {
-		"message": ""
+		"message": "Es gab ein Problem beim Laden des Plugins"
 	},
 	"the_plugin_might_be_incompatibly_compiled_for_this_architechture": {
-		"message": ""
+		"message": "compiliert worden sein."
 	},
 	"click_here_for_help_resolving_this_issue": {
-		"message": ""
+		"message": "Klicken Sie hier, um das Problem zu lösen"
 	},
 	"Enable_Inline_formatting_of_PGP_Messages_and_Keys": {
-		"message": ""
+		"message": "Aktivieren Sie die Inline-Formatierung von PGP-Nachrichten und -Schlüsseln"
 	},
 	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
-		"message": ""
+		"message": "verschlüsseln"
 	},
 	"Enable_WebPG_GMAIL_integration": {
-		"message": ""
+		"message": "WebPG-GMAIL-Integration aktivieren"
 	},
 	"EXPERIMENTAL": {
-		"message": ""
+		"message": "EXPERIMENTELL"
 	},
 	"Sign_outgoing_messages_in_GMAIL": {
-		"message": ""
+		"message": "Ausgehende Nachrichten in GMAIL unterschreiben"
 	},
 	"GnuPG_home_directory": {
-		"message": ""
+		"message": "GnuPG Home-Directory"
 	},
 	"GnuPG_binary": {
-		"message": ""
+		"message": "GnuPG-Programm"
 	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
-		"message": ""
+		"message": "Ihr System scheint korrekt für WebPG konfiguriert zu sein"
 	},
 	"There_is_a_problem_with_your_configuration": {
-		"message": ""
+		"message": "Es gibt ein Problem mit Ihrer Konfiguration"
 	},
 	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
-		"message": ""
+		"message": "WebPG-GMAIL-Integration ist EXPERIMENTELL"
 	},
 	"use_at_your_own_risk": {
-		"message": ""
+		"message": "Verwendung auf eigenes Risiko"
 	},
 	"Text_copied_to_clipboard": {
-		"message": ""
+		"message": "Text in Zwischenablage kopiert"
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
-		"message": ""
+		"message": "Zwischenablage"
 	},
 	"Paste_Public_Key": {
-		"message": ""
+		"message": "Öffentlichen Schlüssel einfügen"
 	},
 	"Clear_sign_this_text": {
-		"message": ""
+		"message": "Diesen Text im Klartext unterzeichnen"
 	},
 	"Import_this_Key": {
-		"message": ""
+		"message": "Diesen Schlüssel importieren"
 	},
 	"Encrypt_this_text": {
-		"message": ""
+		"message": "Diesen Text verschlüsseln"
 	},
 	"Decrypt_this_text": {
-		"message": ""
+		"message": "Diesen Text entschlüsseln"
 	},
 	"Verify_this_text": {
-		"message": ""
+		"message": "Diesen Text verifizieren"
 	},
 	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "PGG VERSCHLÜSSELTE ODER SIGNIERTE NACHRICHT"
 	},
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
-		"message": ""
+		"message": "KANN NACHRICHT NICHT ENTSCHLÜSSELN ODER VERIFIZIEREN"
 	},
 	"PGP_ENCRYPTED_MESSAGE": {
-		"message": ""
+		"message": "PGP VERSCHLÜSSELTE NACHRICHT"
 	},
 	"PGP_ENCRYPTED_AND_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "PGP VERSCHLÜSSELTE UND SIGNIERTE NACHRICHT"
 	},
 	"DECRYPTION_FAILED": {
-		"message": ""
+		"message": "ENTSCHLÜSSELUNG FEHLGESCHLAGEN"
 	},
 	"NO_SECRET_KEY": {
-		"message": ""
+		"message": "KEIN GEHEIMER SCHLÜSSEL"
 	},
 	"BAD_PASSPHRASE": {
-		"message": ""
+		"message": "FALSCHE PASSPHRASE"
 	},
 	"DECRYPT_THIS_MESSAGE": {
-		"message": ""
+		"message": "DIESE NACHRICHT ENTSCHLÜSSELN"
 	},
 	"DISPLAY_ORIGINAL": {
-		"message": ""
+		"message": "ORIGINAL ANZEIGEN"
 	},
 	"COPY_TO_CLIPBOARD": {
-		"message": ""
+		"message": "IN ZWISCHENABLAGE KOPIEREN"
 	},
 	"DETACHED_PGP_SIGNATURE": {
-		"message": ""
+		"message": "ABGETRENNTE PGP SIGNATUR"
 	},
 	"PGP_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "PGP SIGNIERTE NACHRICHT"
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID": {
-		"message": ""
+		"message": "DIE SIGNATUR DIESER NACHRICHT IST UNGÜLTIG"
 	},
 	"THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH": {
-		"message": ""
+		"message": "AN DIESER SIGNATUR KÖNNTEN UNBEFUGTE ÄNDERUNGEN VORGENOMMEN WORDEN SEIN"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_KEY": {
-		"message": ""
+		"message": "DIESE NACHRICHT WURDE MIT FOLGENDEM SCHLÜSSEL SIGNIERT"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY": {
-		"message": ""
+		"message": "DIESE NACHRICHT WURDE MIT EINEM ABGELAUFENEN ÖFFENTLICHEN SCHLÜSSEL SIGNIERT"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "ÖFFENTLICHEN SCHLÜSSEL SIGNIERT:"
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
-		"message": ""
+		"message": "DIE SIGNATUR BEI DIESER NACHRICHT IST NICHT IN ORDNUNG"
 	},
 	"THE_MESSAGE_MAY_BE_TAMPERED_WITH": {
-		"message": ""
+		"message": "AN DIESER NACHRICHT WURDEN WOMÖGLICH UNBEFUGTE ÄNDERUNGEN VORGENOMMEN"
 	},
 	"PGP_PUBLIC_KEY": {
-		"message": ""
+		"message": "ÖFFENTLICHER PGP SCHLÜSSEL"
 	},
 	"Names_UIDs_on_Key": {
-		"message": ""
+		"message": "NAMEN/UIDs am Schlüssel"
 	},
 	"Created": {
-		"message": ""
+		"message": "Erzeugt"
 	},
 	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "DIESER SCHLÜSSEL BEFINDET SICH NICHT AN IHREM SCHLÜSSELBUND"
 	},
 	"THIS_KEY_IS_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "DIESER SCHLÜSSEL BEFINDET SICH AN IHREM SCHLÜSSELBUND"
 	},
 	"IMPORT_THIS_KEY": {
-		"message": ""
+		"message": "DIESEN SCHLÜSSEL IMPORTIEREN"
 	},
 	"DELETE_THIS_KEY": {
-		"message": ""
+		"message": "DIESEN SCHLÜSSEL LÖSCHEN"
 	},
 	"HIDE_ORIGINAL": {
-		"message": ""
+		"message": "ORIGINAL VERBERGEN"
 	},
 	"UNUSABLE_KEY": {
-		"message": ""
+		"message": "UNBENUTZBARER SCHLÜSSEL"
 	},
 	"NO_USER_ID": {
-		"message": ""
+		"message": "KEINE BENUTZER-ID"
 	},
 	"extDesc": {
-		"message": ""
+		"message": "Eine Erweiterung, die GnuPG / GPG / PGP-Funktionen bietet, um Chrome"
 	},
 	"empty_end": {
 		"message": "N/A",
