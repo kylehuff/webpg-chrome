@@ -600,7 +600,7 @@ webpg.utils = {
                         chrome.contextMenus.create({
                             "title" : _("Paste Public Key"),
                             "contexts" : ["editable"],
-                            "id": id,
+//                            "id": id,
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -620,7 +620,7 @@ webpg.utils = {
                         chrome.contextMenus.create({
                             "title" : _("Clear-sign this text"),
                             "contexts" : ["selection", "editable"],
-                            "id": id,
+//                            "id": id,
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -640,7 +640,7 @@ webpg.utils = {
                         chrome.contextMenus.create({
                             "title" : _("Import this Key"),
                             "contexts" : ["selection", "editable"],
-                            "id": id,
+//                            "id": id,
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -660,7 +660,7 @@ webpg.utils = {
                         chrome.contextMenus.create({
                             "title" : _("Encrypt this text"),
                             "contexts" : ["editable"],
-                            "id": id,
+//                            "id": id,
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -680,7 +680,7 @@ webpg.utils = {
                         chrome.contextMenus.create({
                             "title" : _("Decrypt this text"),
                             "contexts" : ["selection", "editable"],
-                            "id": id,
+//                            "id": id,
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -700,7 +700,7 @@ webpg.utils = {
                         chrome.contextMenus.create({
                             "title" : _("Verify this text"),
                             "contexts" : ["selection", "editable"],
-                            "id": id,
+//                            "id": id,
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -720,7 +720,7 @@ webpg.utils = {
                         chrome.contextMenus.create({
                             "type" : "separator",
                             "contexts" : ["all", "page"],
-                            "id": id,
+//                            "id": id,
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
@@ -733,7 +733,7 @@ webpg.utils = {
                             "title" : _("Options"),
                             "type" : "normal",
                             "contexts" : ["all", "page"],
-                            "id": id,
+//                            "id": id,
                             "onclick" : function(info, tab) {
                                 var url = "options.html";
                                 if (webpg.utils.detectedBrowser['product'] == "chrome")
@@ -753,7 +753,7 @@ webpg.utils = {
                             "title" : _("Key Manager"),
                             "type" : "normal",
                             "contexts" : ["all", "page"],
-                            "id": id,
+//                            "id": id,
                             "onclick" : function() {
                                 var url = "key_manager.html";
                                 if (webpg.utils.detectedBrowser['product'] == "chrome")
