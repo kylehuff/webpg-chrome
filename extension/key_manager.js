@@ -125,15 +125,15 @@ webpg.keymanager = {
         jq("#au-uid_0_name").click(function(e) {
             jq(this).removeClass('ui-state-error');
         });
-        jq("label[for=au-uid_0_name]", "#genkey-form").text(_("Your Name") + ":");
+        jq("label[for=au-uid_0_name]", "#adduid-form").text(_("Your Name") + ":");
         jq("#au-uid_0_email").click(function(e) {
             jq(this).removeClass('ui-state-error');
         });
-        jq("label[for=au-uid_0_email]", "#genkey-form").text(_("Your Email") + ":");
+        jq("label[for=au-uid_0_email]", "#adduid-form").text(_("Your Email") + ":");
         jq("#au-uid_0_comment").click(function(e) {
             jq(this).removeClass('ui-state-error');
         });
-        jq("label[for=au-uid_0_email]", "#genkey-form").text(_("Comment") + ":");
+        jq("label[for=au-uid_0_email]", "#adduid-form").text(_("Comment") + ":");
 
         jq("#revkey-confirm").attr("title", _("Revoke this Key") + "?");
         jq("#revuid-confirm").attr("title", _("Revoke this UID") + "?");
