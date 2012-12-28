@@ -45,10 +45,10 @@ for locale in "${LOCALES[@]}"
 do
     if [ -f $PODIR/$locale.po ]; then
         echo "Updating locale: $locale"
-        msgmerge --update --backup=off $PODIR/$locale.po $PODIR/$POTFILE
+        msgmerge --update --no-fuzzy-matching --backup=off $PODIR/$locale.po $PODIR/$POTFILE
     else
         echo "Creating new locale: $locale"
-        msginit --no-translator -l $locale -i $PODIR/$POTFILE -o $PODIR/$locale.po
+        msginit --no-fuzzy-matching --no-translator -l $locale -i $PODIR/$POTFILE -o $PODIR/$locale.po
     fi
 done
 
