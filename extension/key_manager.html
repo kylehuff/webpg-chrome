@@ -117,6 +117,18 @@ div.uid-options {
     -moz-box-shadow:1px 1px 10px #888;
     -webkit-box-shadow:1px 1px 10px #888;
 }
+span.uid-options {
+    font-size:12px;
+    display:inline-table;
+    margin-top: 9px;
+}
+.uid-options-line span.uid-options {
+    display:inline;
+}
+span.uid-options label {
+    display: block;
+    margin-left: 2px;
+}
 .private-key-option-list, .public-key-option-list {
     padding:2px;
 }
@@ -146,18 +158,22 @@ div.uid-options {
 .keydetails .dh {
     color:#000;
     font-size:14px;
+    display:inline-table;
+    padding-top: 8px;
+}
+.keydetails .dh:first-child {
+    padding-top: 0;
 }
 .keydetails hr {
     margin:0;
+    margin-top: 10px;
     right:0;
-    margin-left:100px;
     position:relative;
     top:-10px;
     padding:0;
 }
 .keydetails hr.rtl {
     margin:0;
-    margin-right:100px;
 }
 .keydetails h4 {
     color:#fff;
@@ -302,7 +318,7 @@ ul.expand ul
         <li><a id="tab-3-btn" href="#tabs-3"></a></li>
     </ul>
     <div id="tabs-2">
-        <div id="private_keylist">
+        <div id="private_keylist" style="min-height:400px;">
             <div class="ui-accordion-left"></div>
         </div>
     </div>

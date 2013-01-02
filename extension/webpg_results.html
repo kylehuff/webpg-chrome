@@ -44,6 +44,7 @@
         margin-left: 20px;
     }
     .footer {
+        text-transform: uppercase;
         font-size: smaller;
         font-weight: bold;
         position: absolute;
@@ -145,10 +146,20 @@
     .copy_to_clipboard {
         text-transform:uppercase;
     }
+    .results-close-btn img {
+        float:right;
+        width: 20px;
+        margin-right: 2px;
+    }
+    .results-close-btn img:hover {
+        width: 24px;
+        margin-right: 0;
+    }
 </style>
 </head>
 <body>
     <div class="pgp_block_container">
+        <span class="results-close-btn"><a href="#"><img src="skin/images/cancel.png"/></a></span>
         <textarea cols="3" rows="3" id="clipboard_input" style="float:left; margin-left: -500px; margin-top: -50px;"></textarea>
         <div id="header" class="signed_text_header"></div>
         <div id="signature_text" class="signed_text"></div>

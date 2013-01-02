@@ -557,7 +557,7 @@ webpg.keymanager = {
                                 "name:", form.uid_0_name.value + '\n' +
                                 "comment: ", form.uid_0_name.value + '\n' +
                                 "email:", form.uid_0_email.value + '\n' +
-                                "passphrase:", form.passphrase.value +  '\n' +
+                                "passphrase:", '<omitted>' +  '\n' +
                                 "expiration:", "Key will expire in " + form.key_expire.value + ' days');
                             jq("#genkey-dialog").dialog("option", "minHeight", 300);
                             jq("#genkey-status").html(error)[0].style.display="block";
@@ -698,11 +698,14 @@ webpg.keymanager = {
                 jq(keyobj).addClass('open_key');
                 keyobj.setAttribute('id', 'open_key');
             }
+            var email = (current_keylist[key].email.length > 1) ?
+                "&lt;" + scrub(current_keylist[key].email) + "&gt;" :
+                "(" + _("no email address provided") + ")";
             if (type == "public") {
-                jq(keyobj).html("<h3 class='public_keylist'><a href='#' name='" + scrub(key) + "'><span style='margin: 0;width: 50%'>" + current_keylist[key].name + "</span><span class='trust' style='float:" + ((webpg.utils.isRTL()) ? "right" : "left") + "'></span></a></h3>");
+                jq(keyobj).html("<h3 class='public_keylist'><a href='#' name='" + scrub(key) + "'><span style='margin: 0;width: 25%;min-width:200px; display:inline-table;'>" + scrub(current_keylist[key].name) + "</span><span>" + email + "</span><span class='trust' style='float:" + ((webpg.utils.isRTL()) ? "right" : "left") + "'></span></a></h3>");
             } else {
-                jq(keyobj).html("<h3 class='private_keylist' style='height: 29px;'><a href='#' name='" + scrub(key) + "'><span style='margin: 0;width: 50%;'>" + scrub(current_keylist[key].name) + 
-                    "&nbsp;&nbsp;-&nbsp;&nbsp;0x" + key.substr(-8) + "</span></a><span class='trust' style='z-index:1000; left: 4px; top:-30px;height:22px;float:" + ((webpg.utils.isRTL()) ? "left" : "right") + "'>" +
+                jq(keyobj).html("<h3 class='private_keylist' style='height: 29px;'><a href='#' name='" + scrub(key) + "'><span style='margin: 0;width: 25%;min-width:200px; display:inline-table;'>[" + key.substr(-8) + "] " + scrub(current_keylist[key].name) + 
+                    "</span><span>" + email + "</span></a><span class='trust' style='z-index:1000; left: 4px; top:-30px;height:22px;float:" + ((webpg.utils.isRTL()) ? "left" : "right") + "'>" +
                     "<span class='keyoption-help-text' style=\"margin: 0 14px;position:relative;top:2px;\">&nbsp;</span>" +
                     "<input class='enable-check' id='check-" + scrub(key) +"' type='checkbox' " + enabled + "/\><label class='enable-check-text' for='check-" + scrub(key) + "' style='z-index:100;height:29px;'>" + status_text + "</label><input class='default-check' type='radio' name='default_key' " +
                     " id='default-" + scrub(key) + "' " + scrub(default_key) + "/\><label class='default-check' dir='ltr' style='z-index:0;margin-left:0px;height:29px;' for='default-" + scrub(key) + "'>Set as default</label></span></h3>");
@@ -749,7 +752,19 @@ webpg.keymanager = {
                     "command" : "trust",
                     "text" : _("Trust Assignment"),
                     "input_type" : "list",
-                    "list_values" : [_("Unknown"), _("Never"), _("Marginal"), _("Full"), _("Ultimate")]
+                    "list_values" : [_("Unknown"), _("Never"), _("Marginal"), _("Full"), _("Ultimate")],
+                    "type" : "trust"
+                }
+                options_list[options_list.length] = option;
+                var group_list = [_("None"), _("New group")];
+                var existing_groups = webpg.preferences.group.get_group_names();
+                group_list = group_list.concat(existing_groups);
+                option = {
+                    "command" : "group",
+                    "text" : _("Group Assignment"),
+                    "input_type" : "list",
+                    "list_values" : group_list,
+                    "type" : "group"
                 }
                 options_list[options_list.length] = option;
                 option = {
@@ -781,7 +796,19 @@ webpg.keymanager = {
                     "command" : "trust",
                     "text" : _("Trust Assignment"),
                     "input_type" : "list",
-                    "list_values" : [_("Unknown"), _("Never"), _("Marginal"), _("Full"), _("Ultimate")]
+                    "list_values" : [_("Unknown"), _("Never"), _("Marginal"), _("Full"), _("Ultimate")],
+                    "type" : "trust"
+                }
+                options_list[options_list.length] = option;
+                var group_list = [_("None"), _("New group")];
+                var existing_groups = webpg.preferences.group.get_group_names();
+                group_list = group_list.concat(existing_groups);
+                option = {
+                    "command" : "group",
+                    "text" : _("Group Assignment"),
+                    "input_type" : "list",
+                    "list_values" : group_list,
+                    "type" : "group"
                 }
                 options_list[options_list.length] = option;
             }
@@ -790,38 +817,59 @@ webpg.keymanager = {
                 option = options_list[option_i];
                 switch(option.input_type) {
                     case "button":
-                        compiled_option_list += "<span class='uid-options' style='font-size:12px;'><input class='" + 
+                        compiled_option_list += "<span class='uid-options'><input class='" + 
                             type + "-key-option-button' id='" + option.command + "-" + type + "-" + key + 
                                 "' type='button' value='" + option.text + "'/\></span>";
                         break;
+
                     case "dialog":
-                        compiled_option_list += "<span class='uid-options' style='font-size:12px;'><input class='" + 
+                        compiled_option_list += "<span class='uid-options'><input class='" + 
                             type + "-key-option-button' id='" + option.command + "-" + type + "-" + key + 
                                 "' type='button' value='" + option.text + "'/\></span>";
                         break;
+
                     case "calendar":
-                        compiled_option_list += "<span class='uid-options' style='font-size:12px;'><input class='" + 
+                        compiled_option_list += "<span class='uid-options'><input class='" + 
                             type + "-key-option-button' id='" + option.command + "-" + type + "-" + key + 
                                 "' type='button' value='" + option.text + "'/\></span>";
                         break;
+
                     case "list":
-                        compiled_option_list += "<span class='uid-options' style='font-size:12px;'>" +
+                        var style = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
+                            'position: relative; top: -16px;' : 'margin-top:-10px;';
+                        compiled_option_list += "<span class='uid-options' style='" + style + "'>" +
                             "<label for='" + option.command + "-" + type + "-" + key + 
-                            "' style=\"display:block; clear:right; margin-top: -10px; margin-right: 24px;\">" + option.text + "</label><select class='" + 
+                            "' style=\"\">" + option.text + "</label><select class='" + 
                             type + "-key-option-list ui-button ui-corner-all ui-button ui-widget ui-state-default' id='" + 
-                            option.command + "-" + type + "-" + key + "' style=\"margin-right: 10px;\">"
+                            option.command + "-" + type + "-" + key + "' style=\"text-align:left; margin-right: 10px;\">";
                         for (var listitem in option.list_values) {
-                            var owner_trust = current_keylist[key].owner_trust;
-                            if (option.list_values[listitem].toLowerCase() == owner_trust) {
-                                var selected = "selected";
-                            } else {
-                                var selected = "";
+                            if (option.type == "trust") {
+                                var owner_trust = current_keylist[key].owner_trust;
+                                if (option.list_values[listitem].toLowerCase() == owner_trust)
+                                    var selected = "selected";
+                                else
+                                    var selected = "";
+                            } else if (option.type == "group") {
+                                var key_group = webpg.preferences.group.get_groups_for_key(key);
+                                key_group = (key_group.length) ? key_group[0].toLowerCase() : '';
+                                if (option.list_values[listitem].toLowerCase() == key_group)
+                                    var selected = "selected";
+                                else
+                                    var selected = "";
                             }
                             compiled_option_list += "<option class=\"ui-state-default\" value=\"" + 
-                                option.list_values[listitem].toLowerCase() + "\" " + 
+                                option.list_values[listitem] + "\" " + 
                                 selected + ">" + option.list_values[listitem] + "</option>";
                         }
                         compiled_option_list += "</select></span>";
+                        break;
+
+                    case "multilist":
+                        compiled_option_list += "<span class='uid-options' style='margin-top:-10px;'>" +
+                            "<label for='" + option.command + "-" + type + "-" + key + 
+                            "' style=\"display:block; margin-right: 24px;\">" + option.text + "</label><input class='" + 
+                            type + "-key-option-list ui-corner-all ui-widget ui-state-default' id='" + 
+                            option.command + "-" + type + "-" + key + "' style=\"text-align:left;height:25px; margin-right: 10px;\"/></span>";
                         break;
                 }
             }
@@ -831,7 +879,7 @@ webpg.keymanager = {
                     type + "-key-option-button' id='" + keystatus + "-" + scrub(type) + "-" + scrub(key) + 
                         "' type='button' value='" + keystatus_text + "'/\></span>";
             var uidlist_innerHTML = "<div class='keydetails' style='text-align:" + (webpg.utils.isRTL() ? 'right' : 'left') + "'><span class='dh'>" + _("Key Details") + "</span><hr" + (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
-                "<span><h4>" + _("KeyID") + ":</h4> 0x" + key.substr(-8) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
+                "<span><h4>" + _("KeyID") + ":</h4> " + key.substr(-8) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
                     created_date + "</span><span><h4>" + _("Expires") + ":</h4> " + expiry +
                         "</span><span><h4>" + _("UIDs") + ":</h4> " + current_keylist[key].nuids + "</span><br/\>" +
                 "<h4 style='margin-right: 24px;'>" + _("Fingerprint") + ":</h4> " + current_keylist[key].fingerprint + "<br/\>" +
@@ -843,12 +891,20 @@ webpg.keymanager = {
                 compiled_option_list + "<br/\>" + 
                 "<span class='dh'>" + _("Operations") + "</span><hr" + (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
                     key_option_button + 
-                "<span class='uid-options' style='font-size:12px;'><input class='" + 
-                            type + "-key-option-button' id='delete-" + type + "-" + key + 
+                "<span class='uid-options'><input class='" + 
+                            type + "-key-option-button key-operation-button-delete' id='delete-" + type + "-" + key + 
                                 "' type='button' value='" + _("Delete this Key") + "'/\></span>";
-            uidlist_innerHTML += "<span class='uid-options' style='font-size:12px;'><input class='" + 
-                type + "-key-option-button' id='export-" + type + "-" + key + 
-                    "' type='button' value='" + _("Export this Key") + "'/\></span><br/\>" +
+            uidlist_innerHTML += "<span class='uid-options'><input class='" + 
+                type + "-key-option-button key-operation-button-export' id='export-" + type + "-" + key + 
+                    "' type='button' value='" + _("Export this Key") + "'/\></span>";
+            if (type == "private") {
+                uidlist_innerHTML += "<span class='uid-options'><input class='" + 
+                    type + "-key-option-button key-operation-button-publish' id='publish-" + type + "-" + key + 
+                        "' type='button' value='" + _("Publish to Keyserver") + "'/\></span>";
+            }
+            uidlist_innerHTML += "<span class='uid-options'><input class='" + 
+                type + "-key-option-button key-operation-button-refresh' id='refresh-" + type + "-" + key + 
+                    "' type='button' value='" + _("Refresh from Keyserver") + "'/\></span><br/\>" +
                 "</div>";
             jq(uidlist).html(uidlist_innerHTML);
             var subkey_info = "<span class='dh'>" + _("Subkeys") + "</span><hr"
@@ -896,25 +952,25 @@ webpg.keymanager = {
                         "'><span class='dh'>" + _("Subkey Details") +
                         "</span><hr" + (webpg.utils.isRTL() ?
                             ' class=\"rtl\"' : '') + "/\>" +
-                    "<span><h4>" + _("KeyID") + ":</h4> 0x" + skey.subkey.substr(-8) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
+                    "<span><h4>" + _("KeyID") + ":</h4> " + skey.subkey.substr(-8) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
                     created_date + "</span><span><h4>" + _("Expires") + ":</h4> " + scrub(expiry) + "</span>" +
                     "<br/\><h4 style='margin-right: 24px;'>" + _("Fingerprint") + ":</h4> " + scrub(skey.subkey) + "<br/\>" +
                     "<span><h4>" + _("Status") + ":</h4> " + skey_status + "</span><span><h4>" + _("Key Algorithm") + ":</h4> " +
-                    skey.algorithm_name + "</span><span><h4>" + _("Flags") + ":</h4> " + flags.toString() + "</span>";
+                    skey.algorithm_name + "</span><span><h4>" + _("Flags") + ":</h4> " + flags.toString().replace(/\,/g, ", ") + "</span>";
                 if (type == "private") {
                     subkey_info += "<br/\>" +
                         "<span class='dh'>" + _("Key Options") + "</span><hr" +
                         (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
-                        "<span class='uid-options' style='font-size:12px;'><input class='" + 
+                        "<span class='uid-options'><input class='" + 
                         "sub-key-option-button' id='expire-subkey-" + scrub(key) + "-" + scrub(subkey) + 
                         "' type='button' value='" + _("Change Expiration") + "'/\></span>" +
                         "<br/\>" +
                         "<span class='dh'>" + _("Operations") + "</span><hr" +
                         (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
-                        "<span class='uid-options' style='font-size:12px;'><input class='" + 
+                        "<span class='uid-options'><input class='" + 
                         "sub-key-option-button' id='delete-subkey-" + scrub(key) + "-" + scrub(subkey) + 
                         "' type='button' value='" + _("Delete this Subkey") + "'/\></span>" +
-                        "<span class='uid-options' style='font-size:12px;'><input class='" + 
+                        "<span class='uid-options'><input class='" + 
                         "sub-key-option-button' id='revoke-subkey-" + scrub(key) + "-" + scrub(subkey) + 
                         "' type='button' value='" + _("Revoke this Subkey") + "'/\></span>"
                 }
@@ -943,7 +999,10 @@ webpg.keymanager = {
                     var uid_string = (current_keylist[key].uids[uid].email.length > 1) ?
                         scrub(current_keylist[key].uids[uid].uid) + " - &lt;" + scrub(email) + "&gt;" :
                         scrub(current_keylist[key].uids[uid].uid) + " - (" + scrub(email) + ")";
-                jq(uidobj).html("<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%;'>" + uid_string + "</span><span class='trust' style='text-decoration: none;float:" + ((webpg.utils.isRTL()) ? "left" : "right") + "''></span></a></h4>");
+                var comment = (current_keylist[key].uids[uid].comment.length > 1) ?
+                    "[" + scrub(current_keylist[key].uids[uid].comment) + "]" :
+                    "";
+                jq(uidobj).html("<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%;'>" + uid_string + "<span style='margin:0 15px;'>" + comment + "</span></span><span class='trust' style='text-decoration: none;float:" + ((webpg.utils.isRTL()) ? "left" : "right") + "''></span></a></h4>");
                 var signed = 0;
                 var uidobjbody = document.createElement('div');
                 var primary_button = "";
@@ -1112,6 +1171,7 @@ webpg.keymanager = {
                 jq(this).removeClass("ui-state-hover");
             }
         );
+
         jq('.private-key-option-list, .public-key-option-list').hover(
             function(){
                 jq(this).addClass("ui-state-hover");
@@ -1119,27 +1179,79 @@ webpg.keymanager = {
             function(){
                 jq(this).removeClass("ui-state-hover");
             }
-        ).change(function(){
-            params = this.id.split('-');
-            switch(params[0]) {
-                case "trust":
-                    trust_value = this.options.selectedIndex + 1;
-                    console.log(this.options.selectedIndex + 1)
-                    result = webpg.plugin.gpgSetKeyTrust(params[2], trust_value);
-                    if (result.error) {
-                        console.log(result);
-                        return
-                    }
-                    break;
-                default:
-                    console.log("we don't know what to do with ourselves...");
-                    alert("You attempted to activate " + params[0] +
-                        ", but this is not yet implemented...");
-                    break;
-            }
-            console.log(".*-key-option-list changed..", params, trust_value, result);
-            webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
+        ).each(function(i, e){
+            // Assign the previous index value so we know what group
+            //  (if any) to remove the key from before assignment to
+            //  a new group.
+            var previousIndex = e.selectedIndex;
+
+            jq(e).bind("change", function() {
+                params = this.id.split('-');
+                var refresh = false;
+
+                switch(params[0]) {
+                    case "trust":
+                        var trust_value = this.options.selectedIndex + 1;
+                        console.log(trust_value)
+                        var result = webpg.plugin.gpgSetKeyTrust(params[2], trust_value);
+                        if (result.error) {
+                            console.log(result);
+                            return
+                        }
+                        refresh = true;
+                        console.log(".*-key-option-list changed..", params, trust_value, result);
+                        break;
+
+                    case "group":
+                        var selectedIndex = this.options.selectedIndex;
+                        var group = (selectedIndex > 1) ?
+                            this.options[selectedIndex].value :
+                            this.options[previousIndex].value;
+
+                        switch(selectedIndex) {
+                            case 0:
+                                // Remove this key from the group
+                                if (previousIndex > 1) {
+                                    console.log("Removing key " + params[2] + " from group " + group);
+                                    console.log(webpg.preferences.group.remove(group, params[2]));
+                                }
+                                break;
+
+                            case 1:
+                                // Show prompt for new group creation
+                                console.log("Create new group for key " + params[2]);
+                                var group = prompt("Enter the name for your new Group");
+                                if (group == null || group == "")
+                                    break;
+
+                            default:
+                                // Remove the key from the previous group, if assigned
+                                if (previousIndex > 1) {
+                                    console.log("Removing " + params[2] + " from group " + this.options[previousIndex].value);
+                                    console.log(webpg.preferences.group.remove(this.options[previousIndex].value, params[2]));
+                                }
+
+                                // Set the key to the named group
+                                if (group.length > 0) {
+                                    console.log("Assigning key " + params[2] + " to group " + group);
+                                    console.log(webpg.preferences.group.add(group, params[2]));
+                                }
+                                break;
+                        }
+                        break;
+
+                    default:
+                        console.log("we don't know what to do with ourselves...");
+                        alert("You attempted to activate " + params[0] +
+                            ", but this feature is not yet implemented...");
+                        break;
+                }
+                previousIndex = selectedIndex;
+                if (refresh)
+                    webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
+            })
         });
+
         jq('.private-key-option-button, .public-key-option-button, .sub-key-option-button').button().click(function(e){
             var params = this.id.split('-');
             var refresh = false;
@@ -1158,7 +1270,7 @@ webpg.keymanager = {
                 case "expire":
                     jq("#keyexp-dialog").dialog({
 		                resizable: true,
-		                height: 180,
+		                height: 190,
 		                modal: true,
 		                position: "top",
                         open: function(event, ui) {
@@ -1182,16 +1294,17 @@ webpg.keymanager = {
                                 jq("#keyexp-ondate")[0].checked = true;
                                 jq("#keyexp-date-input").show();
                                 jq('#keyexp-buttonset').children().blur();
-                                jq("#keyexp-dialog").dialog({ height: 390 })
+                                jq("#keyexp-dialog").dialog({ height: 410 });
                             }
                             jq("#keyexp-buttonset").buttonset();
                             jq("#keyexp-ondate").change(function(){
                                 jq("#keyexp-date-input").show();
-                                jq("#keyexp-dialog").dialog({ height: 390 })
+                                jq("#keyexp-dialog").dialog({ height: 410 });
+                                jq("#keyexp-dialog").dialog("refresh");
                             })
                             jq("#keyexp-never").change(function(){
                                 jq("#keyexp-date-input").hide();
-                                jq("#keyexp-dialog").dialog({ height: 190 })
+                                jq("#keyexp-dialog").dialog({ height: 190 });
                             })
 
                         },
@@ -1573,6 +1686,77 @@ webpg.keymanager = {
                     jq("#revkey-confirm").dialog('open');
                     break;
 
+                case "publish":
+                    var buttons = {};
+                    buttons["publish"] = {
+                        text: _("Publish"),
+                        id: "export-dialog-button-publish",
+                        click: function() {
+                            jq("#export-dialog-text").text(_("Sending key to Keyserver"));
+                            var res = webpg.plugin.gpgPublishPublicKey(params[2]);
+                            if (typeof(res.result)=='undefined' || res.error == true) {
+                                var errText = _("There was a problem sending this key to the Keyserver");
+
+                                var keyserver = webpg.plugin.gpgGetPreference("keyserver");
+                                if (!keyserver.value) {
+                                    errText += "<br/><br/>" + _("Error") + ":"
+                                        + _("No Keyserver defined");
+                                } else {
+                                    errText += "<br/><br/>" + _("Error") + ":"
+                                        + _("Keyserver") + ":<br/>" +
+                                        scrub(keyserver.value);
+                                    jq("#export-dialog-button-publish").button(
+                                        'option', 'label', _('Try Again')
+                                        ).button("refresh");
+                                }
+                            } else {
+                                var errText = _("Key Published to Keyserver");
+                                jq("#export-dialog-button-publish").button('option', 'label', _('Publish Again')).button("refresh");
+                            }
+                            jq("#export-dialog-text").html(errText);
+                        },
+                    };
+                    buttons["close"] = {
+                        text: _("Close"),
+                        click: function() {
+                            jq("#export-dialog").dialog("destroy");
+                            jq("#export-dialog-msg")[0].style.display="none"
+                        }
+                    };
+                    jq("#export-dialog-copytext").hide();
+                    jq("#export-dialog-text").text(_("Are you sure you want to Publish this key to the Keyserver") + "?");
+                    jq("#export-dialog").dialog({
+		                resizable: true,
+		                height: 230,
+		                width: 536,
+		                modal: true,
+		                position: "top",
+                        buttons: buttons
+                    }).parent().animate({"top": window.scrollY}, 1, function() {
+                            jq(this).animate({"top": window.scrollY + jq(this).innerHeight()
+                                / 2}, 1);
+                        });
+                    jq("#ui-dialog-title-export-dialog").text(_("Publish to Keyserver"));
+                    break;
+
+                case "refresh":
+                    var res = webpg.plugin.gpgImportExternalKey(params[2]);
+                    var modified = false;
+                    if (res.error) {
+                        if (res.gpg_error_code == "16383")
+                            res.error_string = _("Key not found on keyserver");
+                    } else {
+                        modified = res.imported ? true :
+                            res.imported_rsa ? true :
+                            res.new_revocations ? true :
+                            res.new_signatures ? true :
+                            res.new_sub_keys ? true :
+                            res.new_user_ids ? true :
+                            false;
+                    }
+                    refresh = modified;
+                    break;
+
                 default:
                     console.log("we don't know what to do with ourselves...");
                     alert("You attempted to activate " + params[0] +
@@ -1804,7 +1988,10 @@ webpg.keymanager = {
             jq("#createsig-dialog").dialog('open');
         });
         if (!webpg.plugin.webpg_status.gpgconf_detected) {
+            jq(".key-operation-button-publish").button({disabled: true, label: _("Cannot Publish Keys without gpgconf utility installed")});
             jq('.uid-option-button-sign').button({disabled: true, label: _("Cannot create signatures without gpgconf utility installed")});
+        } else if (webpg.plugin.gpgGetPreference("keyserver").value.length < 1) {
+            jq(".key-operation-button-publish").button({disabled: true, label: _("Cannot Publish Keys without Keyserver configured")});
         }
         jq('.uid-option-button-sign.uid-revoked').button({disabled: true, label: _("Cannot sign a revoked UID")});
         jq('.uid-option-button-primary.uid-revoked').button({disabled: true, label: _("Cannot make a revoked UID primary")});
@@ -2089,7 +2276,7 @@ webpg.keymanager = {
                     function() {
                         jq('#dialog-msg').text(
                             (val.length > 0) ? _("Searching for") + " \"" + val
-                            + "\"" : ("Please wait while we build the key list")
+                            + "\"" : _("Please wait while we build the key list")
                         );
                         jq(this).animate({"top": window.scrollY +
                             jq(this).innerHeight() + 100}, 1,

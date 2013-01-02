@@ -35,6 +35,15 @@
 	"Select_Recipient_s_": {
 		"message": "حدد المستلمين"
 	},
+	"Search_Filter": {
+		"message": "بحث / فلتر"
+	},
+	"UIDs": {
+		"message": "مستخدم المعرفات"
+	},
+	"Key_does_not_support_this_operation": {
+		"message": ""
+	},
 	"Error_loading_WebPG": {
 		"message": "خطأ في تحميل WebPG"
 	},
@@ -72,13 +81,13 @@
 		"message": "ملف"
 	},
 	"Line": {
-		"message": "خط"
+		"message": "السطر"
 	},
 	"Unknown_Error": {
-		"message": "خطأ غير معروف"
+		"message": "خطأ مجهول"
 	},
 	"System_Information": {
-		"message": "نظام المعلومات"
+		"message": "معلومات النظام"
 	},
 	"Platform": {
 		"message": "منصة"
@@ -87,19 +96,34 @@
 		"message": "التطبيق الإصدار"
 	},
 	"User_Agent": {
-		"message": "وكيل المستخدم"
+		"message": "عميل المستخدم"
 	},
 	"Product": {
-		"message": "نتاج"
+		"message": "المنتج"
 	},
 	"Sub_product": {
 		"message": "المنتج الفرعي"
 	},
 	"Vendor": {
-		"message": "بائع"
+		"message": "المُنتِج"
 	},
 	"Language": {
-		"message": "لغة"
+		"message": "للغة"
+	},
+	"This_message_already_contains_PGPG_data": {
+		"message": ""
+	},
+	"Would_you_like_to_Encrypt_anyway_": {
+		"message": ""
+	},
+	"This_message_already_contains_PGP_data": {
+		"message": ""
+	},
+	"Would_you_like_to_Sign_anyway_": {
+		"message": ""
+	},
+	"Would_you_like_to_Encrypt_and_Sign_anyway_": {
+		"message": ""
 	},
 	"You_do_not_have_any_keys_for": {
 		"message": "لم يكن لديك أي مفاتيح"
@@ -134,6 +158,12 @@
 	"Do_not_use_WebPG_for_this_message": {
 		"message": "لا تستخدم WebPG لهذه الرسالة"
 	},
+	"Decrypt": {
+		"message": ""
+	},
+	"Verify": {
+		"message": ""
+	},
 	"WebPG_Key_Manager": {
 		"message": "مفتاح مدير WebPG"
 	},
@@ -142,9 +172,6 @@
 	},
 	"Public_Keys": {
 		"message": "مفاتيح العامة"
-	},
-	"Search_Filter": {
-		"message": "بحث / فلتر"
 	},
 	"Your_Name": {
 		"message": "اسمك"
@@ -350,6 +377,9 @@
 	"Revoked": {
 		"message": "سحب"
 	},
+	"no_email_address_provided": {
+		"message": "لم يقدم أي عنوان بريد إلكتروني"
+	},
 	"Cannot_unset_your_default_key": {
 		"message": "هذا هو المفتاح الخاص بك الافتراضي"
 	},
@@ -367,6 +397,15 @@
 	},
 	"Ultimate": {
 		"message": "نهائي"
+	},
+	"None": {
+		"message": ""
+	},
+	"New_group": {
+		"message": ""
+	},
+	"Group_Assignment": {
+		"message": ""
 	},
 	"Change_Passphrase": {
 		"message": "تغيير عبارة المرور"
@@ -389,9 +428,6 @@
 	"Expires": {
 		"message": "انقضاء"
 	},
-	"UIDs": {
-		"message": "مستخدم المعرفات"
-	},
 	"Fingerprint": {
 		"message": "بصمة"
 	},
@@ -413,6 +449,12 @@
 	"Export_this_Key": {
 		"message": "استيراد هذا المفتاح"
 	},
+	"Publish_to_Keyserver": {
+		"message": ""
+	},
+	"Refresh_from_Keyserver": {
+		"message": ""
+	},
 	"Subkeys": {
 		"message": "المفاتيح الفرعية"
 	},
@@ -430,9 +472,6 @@
 	},
 	"User_IDs": {
 		"message": "مستخدم المعرفات"
-	},
-	"no_email_address_provided": {
-		"message": "لم يقدم أي عنوان بريد إلكتروني"
 	},
 	"Make_primary": {
 		"message": "جعل الابتدائية"
@@ -497,6 +536,36 @@
 	"Description": {
 		"message": "وصف"
 	},
+	"Publish": {
+		"message": ""
+	},
+	"Sending_key_to_Keyserver": {
+		"message": ""
+	},
+	"There_was_a_problem_sending_this_key_to_the_Keyserver": {
+		"message": ""
+	},
+	"No_Keyserver_defined": {
+		"message": ""
+	},
+	"Keyserver": {
+		"message": ""
+	},
+	"Try_Again": {
+		"message": ""
+	},
+	"Key_Published_to_Keyserver": {
+		"message": ""
+	},
+	"Publish_Again": {
+		"message": ""
+	},
+	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
+		"message": ""
+	},
+	"Key_not_found_on_keyserver": {
+		"message": ""
+	},
 	"User_ID_is_no_longer_valid": {
 		"message": "هوية المستخدم لم يعد صالحا"
 	},
@@ -524,8 +593,14 @@
 	"Signature_added_using_this_key": {
 		"message": "إنشاء التوقيع باستخدام هذا المفتاح"
 	},
+	"Cannot_Publish_Keys_without_gpgconf_utility_installed": {
+		"message": ""
+	},
 	"Cannot_create_signatures_without_gpgconf_utility_installed": {
 		"message": "لا يمكن إنشاء التواقيع دون تثبيت gpgconf"
+	},
+	"Cannot_Publish_Keys_without_Keyserver_configured": {
+		"message": ""
 	},
 	"Cannot_sign_a_revoked_UID": {
 		"message": "غير قادر على التوقيع من قبل المستخدم المعرف الذي تم إبطال"
@@ -560,6 +635,9 @@
 	"Searching_for": {
 		"message": "العثور على مفتاح"
 	},
+	"Please_wait_while_we_build_the_key_list": {
+		"message": ""
+	},
 	"WebPG_Options": {
 		"message": "خيارات WebPG"
 	},
@@ -577,12 +655,6 @@
 	},
 	"you_can_use_the_signature_methods": {
 		"message": "يمكنك استخدام أساليب التوقيع"
-	},
-	"libgpgme_was_unable_to_load": {
-		"message": "وكان غير قادر على تهيئة libgpgme"
-	},
-	"libgpgme_is_required_for_operation": {
-		"message": "مطلوب للعمل libgpgme"
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
 		"message": "لا يبدو أن لديك مفتاح وكيل تكوينه"
@@ -668,9 +740,6 @@
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
 		"message": "غير قادر على فك تشفير هذه الرسالة أو التحقق"
 	},
-	"PGP_ENCRYPTED_MESSAGE": {
-		"message": "رسالة مشفرة PGP"
-	},
 	"PGP_ENCRYPTED_AND_SIGNED_MESSAGE": {
 		"message": "PGP رسالة المشفرة والموقعة"
 	},
@@ -712,6 +781,9 @@
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING": {
 		"message": "وقد وقع هذه الرسالة مع مفاتيح العامة التي ليست في الدائري مفتاح"
+	},
+	"SEARCH_FOR_KEYS_ON_KEYSERVER": {
+		"message": ""
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
 		"message": "التوقيع على هذه الرسالة غير صالح"

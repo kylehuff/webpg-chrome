@@ -35,6 +35,15 @@
 	"Select_Recipient_s_": {
 		"message": "Select Recipients(s)"
 	},
+	"Search_Filter": {
+		"message": "Search/Filter"
+	},
+	"UIDs": {
+		"message": "UIDs"
+	},
+	"Key_does_not_support_this_operation": {
+		"message": ""
+	},
 	"Error_loading_WebPG": {
 		"message": "Error loading WebPG"
 	},
@@ -101,6 +110,21 @@
 	"Language": {
 		"message": "Language"
 	},
+	"This_message_already_contains_PGPG_data": {
+		"message": ""
+	},
+	"Would_you_like_to_Encrypt_anyway_": {
+		"message": ""
+	},
+	"This_message_already_contains_PGP_data": {
+		"message": ""
+	},
+	"Would_you_like_to_Sign_anyway_": {
+		"message": ""
+	},
+	"Would_you_like_to_Encrypt_and_Sign_anyway_": {
+		"message": ""
+	},
 	"You_do_not_have_any_keys_for": {
 		"message": "You do not have any keys for"
 	},
@@ -134,6 +158,12 @@
 	"Do_not_use_WebPG_for_this_message": {
 		"message": "Do not use WebPG for this message"
 	},
+	"Decrypt": {
+		"message": "Decrypt"
+	},
+	"Verify": {
+		"message": "Verify"
+	},
 	"WebPG_Key_Manager": {
 		"message": "WebPG Key Manager"
 	},
@@ -142,9 +172,6 @@
 	},
 	"Public_Keys": {
 		"message": "Public Keys"
-	},
-	"Search_Filter": {
-		"message": "Search/Filter"
 	},
 	"Your_Name": {
 		"message": "Your Name"
@@ -350,6 +377,9 @@
 	"Revoked": {
 		"message": "Revoked"
 	},
+	"no_email_address_provided": {
+		"message": "no email address provided"
+	},
 	"Cannot_unset_your_default_key": {
 		"message": "Cannot unset your default key"
 	},
@@ -367,6 +397,15 @@
 	},
 	"Ultimate": {
 		"message": "Ultimate"
+	},
+	"None": {
+		"message": "None"
+	},
+	"New_group": {
+		"message": "New group"
+	},
+	"Group_Assignment": {
+		"message": "Group Assignment"
 	},
 	"Change_Passphrase": {
 		"message": "Change Passphrase"
@@ -389,9 +428,6 @@
 	"Expires": {
 		"message": "Expires"
 	},
-	"UIDs": {
-		"message": "UIDs"
-	},
 	"Fingerprint": {
 		"message": "Fingerprint"
 	},
@@ -413,6 +449,12 @@
 	"Export_this_Key": {
 		"message": "Export this Key"
 	},
+	"Publish_to_Keyserver": {
+		"message": "Publish to Keyserver"
+	},
+	"Refresh_from_Keyserver": {
+		"message": "Refresh from Keyserver"
+	},
 	"Subkeys": {
 		"message": "Subkeys"
 	},
@@ -430,9 +472,6 @@
 	},
 	"User_IDs": {
 		"message": "User IDs"
-	},
-	"no_email_address_provided": {
-		"message": "no email address provided"
 	},
 	"Make_primary": {
 		"message": "Make primary"
@@ -497,6 +536,36 @@
 	"Description": {
 		"message": "Description"
 	},
+	"Publish": {
+		"message": "Publish"
+	},
+	"Sending_key_to_Keyserver": {
+		"message": "Sending key to Keyserver"
+	},
+	"There_was_a_problem_sending_this_key_to_the_Keyserver": {
+		"message": "There was a problem sending this key to the Keyserver"
+	},
+	"No_Keyserver_defined": {
+		"message": "No Keyserver defined"
+	},
+	"Keyserver": {
+		"message": "Keyserver"
+	},
+	"Try_Again": {
+		"message": "Try Again"
+	},
+	"Key_Published_to_Keyserver": {
+		"message": "Key Published to Keyserver"
+	},
+	"Publish_Again": {
+		"message": "Publish Again"
+	},
+	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
+		"message": "Are you sure you want to Publish this key to the Keyserver"
+	},
+	"Key_not_found_on_keyserver": {
+		"message": ""
+	},
 	"User_ID_is_no_longer_valid": {
 		"message": "User ID is no longer valid"
 	},
@@ -524,8 +593,14 @@
 	"Signature_added_using_this_key": {
 		"message": "Signature added using this key"
 	},
+	"Cannot_Publish_Keys_without_gpgconf_utility_installed": {
+		"message": "Cannot Publish Keys without gpgconf utility installed"
+	},
 	"Cannot_create_signatures_without_gpgconf_utility_installed": {
 		"message": "Cannot create signatures without gpgconf utility installed"
+	},
+	"Cannot_Publish_Keys_without_Keyserver_configured": {
+		"message": "Cannot Publish Keys without Keyserver configured"
 	},
 	"Cannot_sign_a_revoked_UID": {
 		"message": "Cannot sign a revoked UID"
@@ -560,6 +635,9 @@
 	"Searching_for": {
 		"message": "Searching for"
 	},
+	"Please_wait_while_we_build_the_key_list": {
+		"message": ""
+	},
 	"WebPG_Options": {
 		"message": "WebPG Options"
 	},
@@ -577,12 +655,6 @@
 	},
 	"you_can_use_the_signature_methods": {
 		"message": "you can use the signature methods"
-	},
-	"libgpgme_was_unable_to_load": {
-		"message": "libgpgme was unable to load"
-	},
-	"libgpgme_is_required_for_operation": {
-		"message": "libgpgme is required for operation"
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
 		"message": "You do not appear to have a key-agent configured"
@@ -668,9 +740,6 @@
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
 		"message": "UNABLE TO DECRYPT OR VERIFY THIS MESSAGE"
 	},
-	"PGP_ENCRYPTED_MESSAGE": {
-		"message": "PGP ENCRYPTED MESSAGE"
-	},
 	"PGP_ENCRYPTED_AND_SIGNED_MESSAGE": {
 		"message": "PGP ENCRYPTED AND SIGNED MESSAGE"
 	},
@@ -712,6 +781,9 @@
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING": {
 		"message": "THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING"
+	},
+	"SEARCH_FOR_KEYS_ON_KEYSERVER": {
+		"message": ""
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
 		"message": "THE SIGNATURE ON THIS MESSAGE FAILED"

@@ -66,6 +66,15 @@ webpg.preferences = {
         set: function(value) {
             webpg.localStorage.setItem('decorate_inline', value);
         },
+
+        mode: function(value) {
+            if (typeof(value)!="undefined") {
+                webpg.localStorage.setItem('decorate_mode', value);
+            } else {
+                var mode = webpg.localStorage.getItem('decorate_mode');
+                return (mode == null || mode == -1) ? "window" : mode;
+            }
+        },
     },
 
     /*
@@ -78,7 +87,8 @@ webpg.preferences = {
                 Provides methods to get the preference item
         */
         get: function() {
-            return webpg.localStorage.getItem('gmail_integration')
+            var value = webpg.localStorage.getItem('gmail_integration');
+            return (value && value != -1) ? value : 'false';
         },
 
         /*
@@ -110,7 +120,8 @@ webpg.preferences = {
                 Provides methods to get the preference item
         */
         get: function() {
-            return webpg.localStorage.getItem('sign_gmail')
+            var value = webpg.localStorage.getItem('sign_gmail');
+            return (value && value != -1) ? value : 'false';
         },
 
         /*
@@ -185,6 +196,8 @@ webpg.preferences = {
             (webpg.background.hasOwnProperty("webpg")) ?
                 webpg.background.webpg.background.init() :
                 webpg.background.init();
+            webpg.plugin = (webpg.plugin.valid) ? webpg.plugin :
+                webpg.background.webpg.plugin;
         },
 
         /*
@@ -197,6 +210,8 @@ webpg.preferences = {
             (webpg.background.hasOwnProperty("webpg")) ?
                 webpg.background.webpg.background.init() :
                 webpg.background.init();
+            webpg.plugin = (webpg.plugin.valid) ? webpg.plugin :
+                webpg.background.webpg.plugin;
         },
     },
 
@@ -227,6 +242,8 @@ webpg.preferences = {
             (webpg.background.hasOwnProperty("webpg")) ?
                 webpg.background.webpg.background.init() :
                 webpg.background.init();
+            webpg.plugin = (webpg.plugin.valid) ? webpg.plugin :
+                webpg.background.webpg.plugin;
         },
 
         /*
@@ -239,6 +256,54 @@ webpg.preferences = {
             (webpg.background.hasOwnProperty("webpg")) ?
                 webpg.background.webpg.background.init() :
                 webpg.background.init();
+            webpg.plugin = (webpg.plugin.valid) ? webpg.plugin :
+                webpg.background.webpg.plugin;
+        },
+    },
+
+    /*
+        Class: webpg.preferences.gpgconf
+            Provides methods to get/set the GPGCONF binary execututable
+    */
+    gpgconf: {
+        /*
+            Function: get
+                Provides method to get the preference item
+        */
+        get: function() {
+            var value = webpg.localStorage.getItem('gpgconf');
+            return (value && value != -1) ? value : '';
+        },
+
+        /*
+            Function: set
+                Provides method to set the preference item
+
+            Parameters:
+                value - <str> The string value for GPGCONF
+        */
+        set: function(value) {
+            webpg.localStorage.setItem('gpgconf', value);
+            webpg.plugin.gpgSetGPGConf(value);
+            (webpg.background.hasOwnProperty("webpg")) ?
+                webpg.background.webpg.background.init() :
+                webpg.background.init();
+            webpg.plugin = (webpg.plugin.valid) ? webpg.plugin :
+                webpg.background.webpg.plugin;
+        },
+
+        /*
+            Function: clear
+                Provides method to clear the preference item (erase/unset)
+        */
+        clear: function(){
+            webpg.localStorage.setItem('gpgconf', '');
+            webpg.plugin.gpgSetGPGConf('');
+            (webpg.background.hasOwnProperty("webpg")) ?
+                webpg.background.webpg.background.init() :
+                webpg.background.init();
+            webpg.plugin = (webpg.plugin.valid) ? webpg.plugin :
+                webpg.background.webpg.plugin;
         },
     },
 
@@ -353,6 +418,182 @@ webpg.preferences = {
         */
         clear: function() {
             webpg.plugin.gpgSetPreference('default-key', '');
+        },
+    },
+
+    /*
+        Class: webpg.preferences.groups
+            Provides methods to create/manage groups
+    */
+    group: {
+        /*
+            Function: get
+                Provides method to get the preference item
+        */
+        get: function(group) {
+            var value = JSON.parse(webpg.localStorage.getItem('groups'));
+            return (value && value.hasOwnProperty(group)) ? value[group] : [];
+        },
+
+        /*
+            Function: get_groups
+                Provides method to get all defined groups
+        */
+        get_group_names: function() {
+            var value = JSON.parse(webpg.localStorage.getItem('groups'));
+            return (typeof(value)=='object') ? Object.keys(value) : [];
+        },
+
+        /*
+            Function: get_groups_for_key
+                Provides method to get all defined groups
+        */
+        get_groups_for_key: function(keyid) {
+            var groups = JSON.parse(webpg.localStorage.getItem('groups'));
+            var ingroups = [];
+            for (var group in groups) {
+                if (groups[group].indexOf(keyid) != -1)
+                    ingroups.push(group);
+            }
+            return ingroups;
+        },
+
+        /*
+            Function: add
+                Provides method to add a recipient to the named group
+
+            Parameters:
+                group - <str> The group to add the recipient to
+                recipient - <str> The recipient to add to the group  
+        */
+        add: function(group, recipient) {
+            if (!group && !recipient)
+                return "usage: add('group', 'recipient')";
+            
+            // Get the currently defined group object (if any) and convert it
+            //  to an object
+            var groups = webpg.localStorage.getItem('groups');
+            var groups = (groups.length > 1) ? JSON.parse(groups) : {};
+            
+            groups = (groups != null) ? groups : {};
+
+            // Check if the groups object contains the named group, if not
+            //  create it
+            if (!groups.hasOwnProperty(group))
+                groups[group] = [];
+
+            // Check if the recipient is alredy in the named group, if not
+            //  add it
+            if (groups[group].indexOf(recipient) == -1)
+                groups[group].push(recipient);
+            else
+                return { 'error': false, 'group': group, 'modified': false};
+
+            // Convert the groups object back to a string and store it
+            webpg.localStorage.setItem('groups', JSON.stringify(groups));
+            
+            // Set the group via gpgconf
+            var groupstr = 
+                this.get(group).toString().replace(RegExp(",", "g"), " ");
+
+            webpg.plugin.gpgSetGroup(group, groupstr);
+
+            return { 'error': false, 'group': group, 'modified': true};
+        },
+
+        /*
+            Function: remove
+                Provides method to remove a recipient from the named group
+
+            Parameters:
+                group - <str> The group to remove the recipient from
+                recipient - <str> The recipient to remove from the group  
+        */
+        remove: function(group, recipient) {
+            // Get the currently defined group object (if any) and convert it
+            //  to an object
+            var groups = JSON.parse(webpg.localStorage.getItem('groups'));
+
+            groups = (groups != null) ? groups : {};
+
+            // Check if the groups object contains the named group, if not
+            //  create it
+            if (!groups.hasOwnProperty(group))
+                groups[group] = [];
+
+            // Check if the recipient is in the named group, if so
+            //  remove it
+            var recipIndex = groups[group].indexOf(recipient);
+            if (recipIndex > -1)
+                groups[group].splice(recipIndex, 1);
+            else
+                return { 'error': false, 'group': group, 'modified': false};
+
+            // Convert the groups object back to a string and store it
+            webpg.localStorage.setItem('groups', JSON.stringify(groups));
+
+            // Set the modified group via gpgconf
+            var groupstr =
+                this.get(group).toString().replace(RegExp(",", "g"), " ");
+
+            // Set the group, and retreive the entire gpgconf "group" string
+            var group_res = webpg.plugin.gpgSetGroup(group, groupstr);
+
+//            // Check if there are any empty groups laying around
+//            if (group_res.indexOf("= ,") > -1 || group_res.search(new RegExp(/[^=]$/gm)) > -1) {
+//                group_res = group_res.split(", ");
+
+//                // TODO:
+//                // FIXME:
+//                // The following kludge is due to the fact that, when removing the last
+//                //  entry in a group, it leaves "group groupname =" in the gpg.conf file
+//                //  since the npapi library does not (yet) permit removing the value entirely
+
+//                // Clear all the groups
+//                webpg.plugin.gpgSetPreference("group", "");
+//                // Iterate through the array of "group = values"
+//                for (var rgroup in group_res) {
+//                    // check if this group contains a string like "groupname ="
+//                    if (group_res[rgroup].length != group_res[rgroup].indexOf("=") + 1) {
+//                        // Break out the group name it's values
+//                        group_res[rgroup].replace(
+//                            new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+//                            function($0, $1, $2, $3) {
+//                                // Set the new group value
+//                                webpg.plugin.gpgSetGroup($1.trim(), $3.trim());
+//                            }
+//                        );
+//                    }
+//                }
+//            }
+
+            return { 'error': false, 'group': group, 'modified': true};
+        },
+
+        /*
+            Function: refresh_from_config
+                Provides method to retrieve the group item(s) in gpg.conf
+        */
+        refresh_from_config: function() {
+            if (webpg.plugin.gpgGetPreference("group").length) {
+                var groups = webpg.plugin.gpgGetPreference("group").value.split(", ");
+                var groups_json = {};
+                for (var rgroup in groups) {
+                    if (groups[rgroup] == "")
+                        return;
+                    var g_v = groups[rgroup].split(" = ");
+                    groups_json[g_v[0]] = g_v[1].split(" ");
+                }
+                webpg.localStorage.setItem('groups', JSON.stringify(groups_json));
+            }
+        },
+
+        /*
+            Function: clear
+                Provides method to clear the preference item (erase/unset)
+        */
+        clear: function() {
+            webpg.localStorage.setItem('groups', '');
         },
     },
 };

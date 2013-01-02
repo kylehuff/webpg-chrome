@@ -28,7 +28,12 @@ webpg.overlay = {
         webpg.doc = (aEvent) ?
             aEvent.originalTarget : document;
 
+//        // We don't want to run on certain pages
+//        if (webpg.doc.location.host.indexOf("mail.google.com") > -1)
+//            return;
+
         webpg.overlay.insert_target = null;
+        webpg.overlay.insert_range = null;
         webpg.overlay.block_target = null;
 
         document.addEventListener("contextmenu", webpg.overlay.contextHandler, true);
@@ -42,12 +47,12 @@ webpg.overlay = {
             msg: "decorate_inline" },
             function(response) {
                 if (response.result.decorate_inline == "true") {
+                    var mode = response.result.mode;
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         // Begin parsing the document for PGP Data
-                        gBrowser.addEventListener("DOMContentLoaded",
-                            function(aEvent) { webpg.inline.init(webpg.doc) }, false);
+                        webpg.inline.init(webpg.doc, mode)
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        webpg.inline.init(document);
+                        webpg.inline.init(document, mode);
                     }
                 }
             }
@@ -89,15 +94,34 @@ webpg.overlay = {
             }
         } else if (request.msg == "removeiframe"){
             if (request.iframe_id) {
-                var iframe = document.getElementById(request.iframe_id);
-                if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
-                    content.document.body.removeChild(iframe);
-                else if (webpg.utils.detectedBrowser['product'] == "chrome")
-                    document.body.removeChild(iframe);
+                try {
+                    var iframe = document.getElementById(request.iframe_id);
+                    jq(iframe).remove();
+                    webpg.overlay.block_target = false;
+                } catch (err) {
+                    jq(iframe).hide();
+                }
             }
         } else if (request.msg == "insertEncryptedData") {
-            if (webpg.overlay.insert_target != null) {
-                webpg.overlay.insert_target.value = request.data;
+            if (webpg.overlay.insert_target != null && request.data) {
+                if (webpg.overlay.insert_range != null && (webpg.overlay.insert_target.nodeName != "TEXTAREA" &&
+                        webpg.overlay.insert_target.nodeName != "INPUT")) {
+                    var contents = webpg.overlay.insert_range.extractContents();
+                    contents.textContent = request.data;
+                    webpg.overlay.insert_target.style.whiteSpace = "pre";
+                    webpg.overlay.insert_range.insertNode(contents);
+                } else {
+                    var target_value = request.pre_selection +
+                        request.data +
+                        request.post_selection;
+                    if (webpg.overlay.insert_target.nodeName == "TEXTAREA" ||
+                        webpg.overlay.insert_target.nodeName == "INPUT") {
+                        jq(webpg.overlay.insert_target).val(target_value);
+                    } else {
+                        webpg.overlay.insert_target.style.whiteSpace = "pre";
+                        webpg.overlay.insert_target.textContent = target_value;
+                    }
+                }
             }
             if (request.iframe_id) {
                 webpg.overlay._onRequest({"msg": "removeiframe",
@@ -105,21 +129,31 @@ webpg.overlay = {
             }
         } else if (request.msg == "insertPublicKey") {
             if (webpg.overlay.insert_target != null) {
-                webpg.overlay.insert_target.value = request.data;
+                jq(webpg.overlay.insert_target).val(request.data);
             }
             if (request.iframe_id) {
                 webpg.overlay._onRequest({"msg": "removeiframe",
                     "iframe_id": request.iframe_id});
             }
         } else if (request.msg == "insertSignedData") {
-            if (webpg.overlay.insert_target != null) {
-                var ndata = "";
-                if (request.pre)
-                    ndata = request.pre + "\n";
-                ndata += request.data;
-                if (request.post)
-                    ndata += "\n" + request.post;
-                webpg.overlay.insert_target.value = ndata;
+            if (webpg.overlay.insert_range != null && (webpg.overlay.insert_target.nodeName != "TEXTAREA" &&
+                    webpg.overlay.insert_target.nodeName != "INPUT")) {
+                var contents = webpg.overlay.insert_range.extractContents();
+                contents.textContent = request.data;
+                webpg.overlay.insert_target.style.whiteSpace = "pre";
+                webpg.overlay.insert_range.insertNode(contents);
+            } else {
+                console.log(request);
+                var target_value = request.pre_selection +
+                    request.data +
+                    request.post_selection;
+                if (webpg.overlay.insert_target.nodeName == "TEXTAREA" ||
+                    webpg.overlay.insert_target.nodeName == "INPUT") {
+                    jq(webpg.overlay.insert_target).val(target_value);
+                } else {
+                    webpg.overlay.insert_target.style.whiteSpace = "pre";
+                    webpg.overlay.insert_target.textContent = target_value;
+                }
             }
         } else if (request.msg == "insertDecryptedData") {
             if (webpg.overlay.insert_target != null) {
@@ -154,27 +188,21 @@ webpg.overlay = {
         } else if (request.msg == "openKeySelectionDialog") {
             webpg.overlay.block_target = true;
             var target = webpg.overlay.insert_target;
-            if (request.dialog_type == "import")
-                var iframe = webpg.inline.addDialogFrame(380, 810);
-            else
-                var iframe = webpg.inline.addDialogFrame();
-
-            if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
-                content.document.body.appendChild(iframe);
-            else if (webpg.utils.detectedBrowser['product'] == "chrome")
-                document.body.appendChild(iframe);
+            var range = webpg.overlay.insert_range;
 
             var theURL = webpg.utils.resourcePath + "dialog.html?dialog_type="
                 + request.dialog_type;
-            if (request.dialog_type == "encrypt")
-                theURL += "&encrypt_data=" + escape(request.data);
+            if (request.dialog_type == "encrypt" || request.dialog_type == "encryptsign")
+                theURL += "&encrypt_data=" + escape(request.data) +
+                    "&pre_selection=" + escape(request.pre_selection) +
+                    "&post_selection=" + escape(request.post_selection);
             if (request.dialog_type == "import")
                 theURL += "&import_data=" + escape(request.data);
 
-            if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
-                iframe.contentWindow.location.href = theURL;
-            else if (webpg.utils.detectedBrowser['product'] == "chrome")
-                iframe.src = theURL;
+            if (request.dialog_type == "import")
+                var iframe = webpg.inline.addDialogFrame(theURL, 380, 810);
+            else
+                var iframe = webpg.inline.addDialogFrame(theURL);
 
             iframe.style.marginTop = "";
             iframe.style.marginLeft = "";
@@ -184,22 +212,35 @@ webpg.overlay = {
                     / 3);
             var posX = (window.outerWidth
                     / 3) - 100;
+
             jq(iframe).animate({"top": window.scrollY}, 1, function() {
                 jq(iframe).animate({"top": posY}, 1);
                 jq(iframe).animate({"left": posX}, 1);
             });
-            
+
             // the sendResult event is for communicating with the iframe
             //  from firefox; Google Chrome/Chromium uses the
             //  chrome.extension.sendRequest method.
             iframe.addEventListener("sendResult", function(e) {
-                if (request.dialog_type == "encrypt") {
+                if (request.dialog_type == "encrypt" || request.dialog_type == "encryptsign") {
+                    var sign = (typeof(e.detail.sign)=='undefined'
+                        || e.detail.sign == false) ? 0 : 1;
                     response = webpg.plugin.gpgEncrypt(e.detail.data,
-                        e.detail.recipients, 0);
-                    if (!response.error && (target.type == "textarea" || target.type == "text"))
-                        target.value = response.data;
-                    else
+                        e.detail.recipients, sign);
+                    if (!response.error) {
+                        var target_value = e.detail.pre_selection +
+                            response.data + e.detail.post_selection;
+                        if (target.type == "textarea" || target.type == "text") {
+                            target.value = target_value;
+                        } else {
+                            var contents = range.extractContents();
+                            contents.textContent = response.data;
+                            range.insertNode(contents);
+                            target.style.whiteSpace = "pre";
+                        }
+                    } else {
                         console.log(response);
+                    }
                 } else if (request.dialog_type == "export") {
                     exported_items = "";
                     for (var idx in e.detail.recipients) {
@@ -207,13 +248,19 @@ webpg.overlay = {
                             gpgExportPublicKey(e.detail.recipients[idx]).result
                             + "\n";
                     }
-                    if (target.type == "textarea" || target.type == "text")
+                    if (target.type == "textarea" || target.type == "text") {
                         target.value = exported_items;
+                    } else {
+                        var contents = range.extractContents();
+                        contents.textContent = exported_items;
+                        range.insertNode(contents);
+                        target.style.whiteSpace = "pre";
+                    }
                 } else if (request.dialog_type == "import") {
                     console.log(e.detail);
                 }
                 webpg.overlay.block_target = false;
-                content.document.body.removeChild(iframe);
+                jq(iframe).remove();
             });
         } else if (request.msg == "onContextCommand") {
             webpg.overlay.onContextCommand(null, request.action, sender);
@@ -231,8 +278,8 @@ webpg.overlay = {
         context_menuitems = {};
         if (!webpg.overlay.block_target)
             webpg.overlay.insert_target = event.target;
-        var s = webpg.utils.getSelectedText();
-        var selection = (s.selectionText) ? s.selectionText : "";
+        webpg.overlay.contextSelection = webpg.utils.getSelectedText();
+        var selection = webpg.overlay.contextSelection.selectionText;
         block_type = selection.match(/^\s*?(-----BEGIN PGP.*)/gi);
         if (selection.length > 0 && block_type && block_type[0] ==
             webpg.constants.PGPTags.PGP_KEY_BEGIN) {
@@ -249,7 +296,7 @@ webpg.overlay = {
                 context_menuitems['verify'] = true;
         } else if (selection.length > 0) {
             // text to sign or encrypt
-            if (event.target.value.substr(0, 5) != "-----") {
+            if (event.target.textContent.substr(0, 5) != "-----") {
                 context_menuitems['sign'] = true;
                 context_menuitems['encrypt'] = true;
             }
@@ -269,8 +316,10 @@ webpg.overlay = {
             action - <str> The action to perform
             sender  - <obj> The sender (tab/page) of the request
     */
-	onContextCommand: function(event, action, sender) {
-	    selection = webpg.utils.getSelectedText();
+	onContextCommand: function(event, action, sender, selection) {
+	    selection = (!selection) ? webpg.overlay.contextSelection :
+	        selection;
+
 	    switch (action) {
        		case webpg.constants.overlayActions.PSIGN:
        		    webpg.utils.sendRequest({"msg": "sign", "selectionData": selection});
@@ -295,16 +344,25 @@ webpg.overlay = {
                     });
         		break;
 
+            case webpg.constants.overlayActions.CRYPTSIGN:
 		    case webpg.constants.overlayActions.CRYPT:
+		        if (!selection)
+		            return
+		        var dialog_type = (action == webpg.constants.overlayActions.CRYPTSIGN) ?
+		            'encryptsign' : 'encrypt';
                 webpg.overlay._onRequest({'msg': 'openKeySelectionDialog',
                     'data': selection.selectionText,
-                    'dialog_type': 'encrypt'
+                    'pre_selection': selection.pre_selection,
+                    'post_selection': selection.post_selection,
+                    'dialog_type': dialog_type
                 });
                 break;
 
 		    case webpg.constants.overlayActions.DECRYPT:
+		        if (!selection)
+		            break;
 		        webpg.utils.sendRequest({
-                    // WebPG found a PGP MESSAGE, but it could be a signed. Lets gpgVerify first
+                    // WebPG found a PGP MESSAGE, but it could be signed. Lets gpgVerify first
                     'msg': 'verify',
                     'data': selection.selectionText,
                     'message_event': 'context'},
@@ -325,29 +383,22 @@ webpg.overlay = {
                 );
                 break;
 
+		    case webpg.constants.overlayActions.SYMCRYPT:
+		        webpg.utils.sendRequest({
+                    // WebPG found a PGP MESSAGE, but it could be signed. Lets gpgVerify first
+                    'msg': 'symmetricEncrypt',
+                    'data': selection.selectionText,
+                    'pre_selection': selection.pre_selection,
+                    'post_selection': selection.post_selection,
+                    'message_event': 'context'}
+                );
+                break;
+
 		    case webpg.constants.overlayActions.IMPORT:
                 webpg.overlay._onRequest({'msg': 'openKeySelectionDialog',
                     'dialog_type': 'import',
                     'data': selection.selectionText
                 });
-//                webpg.utils.sendRequest({"msg": "doKeyImport",
-//                    "data": selection.selectionText }, function(response) {
-//                        var import_status = response.result.import_status;
-//                        var msg = "Public Keys Considered: " + import_status.considered +
-//                        "\nPublic Keys Imported: " + import_status.imported +
-//                        "\nPublic Keys - \n\n";
-//                        for (var pubkey in import_status.imports) {
-//                            msg += "  Key ID: " + import_status.imports[pubkey].fingerprint.substr(-6) +
-//                                "\n  Status: ";
-//                            var status = (import_status.imports[pubkey].status == "1") ?
-//                                "Imported" : (import_status.imports[pubkey].status == "0") ?
-//                                "Already in Public Keyring" : (import_status.imports[pubkey].status == "6") ?
-//                                "Updated Public Key" : "Unknown";
-//                            msg += status + "\n\n";
-//                        }
-//                        alert(msg);
-//                    }
-//                );
                 break;
 
 		    case webpg.constants.overlayActions.EXPORT:
@@ -414,7 +465,7 @@ webpg.overlay = {
 
 if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
     webpg.appcontent = document.getElementById("appcontent");
-    webpg.appcontent.addEventListener("DOMContentLoaded", webpg.overlay.init, true);
+    webpg.appcontent.addEventListener("DOMContentLoaded", webpg.overlay.init, false);
 } else {
     webpg.overlay.init();
 }

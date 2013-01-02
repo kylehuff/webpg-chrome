@@ -1,11 +1,15 @@
 #webpg-action-menu {
     cursor:pointer;
     display:inline-block;
+    width: auto;
 }
 #webpg-action-menu img {
     position:relative;
     top:4px;
     left:-4px;
+}
+#webpg-action-menu.rtl img {
+    padding-left: 8px;
 }
 .webpg-action-list-icon {
     display:inline-block;
@@ -51,6 +55,10 @@
     *border-bottom-width:2px;
     text-align:left;
 }
+.webpg-action-list.webpg-gmail-compose-inline {
+    bottom: 36px;
+    top: auto;
+}
 .webpg-li-icon {
     width:24px;
     height:24px;
@@ -76,6 +84,11 @@
     -o-transition:background-position 0.1s linear;
     transition:background-position 0.1s linear;
 }
+.webpg-action-btn a {
+    text-decoration:none !important;
+    display:block;
+    color:black;
+}
 .webpg-action-list a {
     text-decoration:none;
     color:black;
@@ -89,10 +102,16 @@
 /*    -moz-box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);*/
 /*    box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);*/
     border-radius:3px;
+}
+.webpg-gmail-status-line {
     float:left;
     position:relative;
     top:-8px;
     padding:2px;
+}
+div.webpg-gmail-status-line {
+    display: inline-table;
+    margin: 4px 0 0 8px;
 }
 .webpg-status-line a {
     text-shadow:none;
@@ -100,6 +119,9 @@
 @-moz-document domain("mail.google.com") {
     #webpg-action-menu {
         top:4px;
+    }
+    #webpg-action-menu.webpg-gmail-compose-inline {
+        top:0;
     }
     #webpg-current-action {
         position:relative;

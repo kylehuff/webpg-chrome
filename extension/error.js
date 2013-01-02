@@ -17,6 +17,7 @@ var _ = webpg.utils.i18n.gettext;
 
 jq(function(){
     error_map = ext.webpg.plugin.webpg_status;
+    error_map = (!error_map) ? [] : error_map;
     
     jq("#error-text-h1").text(_("Error loading WebPG"));
     jq("#error-text-p").text(_("We encountered a problem while attempting to load WebPG"));

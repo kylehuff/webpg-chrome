@@ -19,7 +19,7 @@ webpg.utils = {
                 // We are using Mozilla, so make `console.log` an alias to
                 //  something that provides more information than the standard
                 //  console logging utility.
-                
+
                 // TODO: This is ugly and buggy; we should consider replacing
                 //  with something a little more elegant and reliable. 
      
@@ -274,7 +274,8 @@ webpg.utils = {
         } else {
             var iframe = jq("#" + id);
             if (iframe)
-                return iframe[0];
+                return (typeof(iframe.length)=="number") ?
+                    iframe[0] : iframe;
         }
     },
 
@@ -299,7 +300,7 @@ webpg.utils = {
                     if (ae.nodeName == "TEXTAREA" ||
                         (ae.nodeName == "INPUT" && 
                         ae.getAttribute("type").toLowerCase() == "text")){
-                        userSelection = ae.value.substring(ae.selectionStart, ae.selectionEnd);
+                        userSelection = ae.textContent.substring(ae.selectionStart, ae.selectionEnd);
                     } else {
                         userSelection = win.getSelection();
                     }
@@ -339,21 +340,23 @@ webpg.utils = {
                 wTitle = (url.search("options_tab=0") > -1) ? _("WebPG Options") :
                     (url.search("options_tab=1") > -1) ? _("WebPG Key Manager") :
                     (url.search("options_tab=2") > -1) ? _("About WebPG") : "";
-                var wFlags = "titlebar=no,menubar=no,location=no";
-                wFlags += "scrollbars=yes,status=no,centerscreen=yes";
+                var wFlags = "titlebar=yes,menubar=no,location=no,dialog=no," +
+                    "maximize=yes,resizeable=yes,scrollbars=yes,status=no," +
+                    "centerscreen=yes";
+                console.log("the title is: " + wTitle);
                 if (url.search("XULContent") > -1) {
-                    window.open(url, wTitle, wFlags);
+                    try {
+                        window.open(url, wTitle, wFlags);
+                    } catch (e) {
+                        var tBrowser = top.document.getElementById("content");
+                        var tab = tBrowser.addTab(url);
+                        tBrowser.selectedTab = tab;
+                    }
                 } else {
                     // Get the reference to the browser window
-                    var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                       .getInterface(Components.interfaces.nsIWebNavigation)
-                       .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-                       .rootTreeItem
-                       .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                       .getInterface(Components.interfaces.nsIDOMWindow);
-                    var gBrowser = mainWindow.gBrowser;
-                    var tab = gBrowser.addTab(url);
-                    gBrowser.selectedTab = tab;
+                    var tBrowser = top.document.getElementById("content");
+                    var tab = tBrowser.addTab(url);
+                    tBrowser.selectedTab = tab;
                 }
                 break;
 
@@ -385,34 +388,75 @@ webpg.utils = {
         Returns:
             {'selectionText': <str>, 'pre_selection': <str>, 'post_selection': <str>}
     */
-    getSelectedText: function() {
-        var selectionText;
-        var preSelection;
-        var postSelection;
-        if (this.detectedBrowser['vendor'] == "mozilla") {
-            var selectionObject = getBrowser().contentWindow.getSelection();
-            var selectionTarget = document.commandDispatcher.focusedElement;
-            var selectionText = selectionObject.toString();
+    getSelectedText: function(context) {
+        var selectionText = '';
+        var preSelection = '';
+        var postSelection = '';
+        var selectionTarget = null;
+        var selectionObject = null;
 
-            if (!selectionText.length > 0 && selectionTarget &&
-                (selectionTarget.selectionStart
-                != selectionTarget.selectionEnd))
-                selectionText = selectionTarget.value.substr(selectionTarget.selectionStart,
-                    selectionTarget.selectionEnd - selectionTarget.selectionStart);
-        } else if (this.detectedBrowser['product'] == "chrome") {
-            var selectionObject = window.getSelection();
-            var selectionTarget = document.activeElement;
-            var selectionText = selectionObject.toString();
+        selectionTarget = document.activeElement;
+
+        if (this.detectedBrowser['vendor'] == "mozilla") {
+            selectionObject = selectionTarget.contentWindow.document.getSelection();
+            selectionTarget = selectionTarget.contentWindow.document.activeElement;
+        } else {
+            selectionObject = window.getSelection();
+        }
+        
+        if (!selectionObject.toString().length > 0 && selectionTarget.nodeName == "IFRAME" &&
+            selectionTarget.className.indexOf("webpg-result-frame") < 0 &&
+            selectionTarget.className.indexOf("webpg-dialog") < 0) {
+            console.log(selectionTarget.className);
+            selectionTarget = selectionTarget.contentDocument.documentElement.ownerDocument;
+            selectionObject = selectionTarget.getSelection();
+            selectionTarget = selectionTarget.activeElement;
+            selectionText = selectionObject.toString();
+        } else {
+            if (selectionTarget.nodeName == "TEXTAREA" || selectionTarget.nodeName == "INPUT")
+                selectionText = selectionTarget.value.substring(selectionTarget.selectionStart, selectionTarget.selectionEnd);
+        }
+
+        if (selectionObject && selectionObject.rangeCount > 0) {
+            webpg.overlay.insert_range = selectionObject.getRangeAt(0);
+            if (webpg.overlay.insert_range.startOffset == webpg.overlay.insert_range.endOffset)
+                webpg.overlay.insert_range = null;
+        } else {
+            webpg.overlay.insert_range = null;
         }
 
         if ((!selectionText || !selectionText.length > 0) && selectionTarget) {
-            selectionText = selectionTarget.value;
-            var preSelection = null;
-            var postSelection = null;
-        } else if (selectionTarget && selectionTarget.value) {
-            var preSelection = selectionTarget.value.substr(0, selectionTarget.selectionStart);
-            var postSelection = selectionTarget.value.substr(selectionTarget.selectionEnd, selectionTarget.value.length);
+            selectionText = (selectionTarget.nodeName == "TEXTAREA") ?
+                selectionTarget.value : selectionTarget.innerText;
+            if (this.detectedBrowser['vendor'] == "mozilla" && selectionTarget.nodeName != "TEXTAREA") {
+                var nodes = selectionTarget.childNodes;
+                var selectionText = "";
+                for (var i=0; i<nodes.length; i++) {
+                    selectionText += nodes[i].textContent || "\n\n";
+                }
+            }
         }
+
+        if (selectionTarget && selectionText.length > 0) {
+            var textValue = (selectionTarget.nodeName == "TEXTAREA") ?
+                selectionTarget.value : selectionTarget.innerText;
+            if (this.detectedBrowser['vendor'] == "mozilla" && (selectionTarget.nodeName != "TEXTAREA" ||
+                selectionTarget.nodeName != "INPUT")) {
+                var nodes = selectionTarget.childNodes;
+                var textValue = "";
+                for (var i=0; i<nodes.length; i++) {
+                    textValue += nodes[i].textContent || "\n\n";
+                }
+            }
+            if (selectionText.length != textValue.length && selectionTarget.selectionStart != undefined) {
+                preSelection = textValue.substr(0, selectionTarget.selectionStart);
+                postSelection = textValue.substr(selectionTarget.selectionEnd, textValue.length);
+            }
+        }
+
+        if (selectionTarget)
+            webpg.overlay.insert_target = selectionTarget;
+
         return {'selectionText': selectionText, 'pre_selection': preSelection, 'post_selection': postSelection};
     },
 
@@ -524,7 +568,11 @@ webpg.utils = {
 
                     return callback(userData, doc, function(data) {
                         if (!userCallback) {
-                            return doc.documentElement.removeChild(node);
+                            try {
+                                return doc.documentElement.removeChild(node);
+                            } catch (err) {
+                                return;
+                            }
                         }
 
                         if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
@@ -617,8 +665,7 @@ webpg.utils = {
                         var id = "webpg-context-insert-pubkey";
                         chrome.contextMenus.create({
                             "title" : _("Paste Public Key"),
-                            "contexts" : ["editable"],
-//                            "id": id,
+                            "contexts" : ["editable", "frame", "selection"],
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -638,7 +685,6 @@ webpg.utils = {
                         chrome.contextMenus.create({
                             "title" : _("Clear-sign this text"),
                             "contexts" : ["selection", "editable"],
-//                            "id": id,
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -658,7 +704,6 @@ webpg.utils = {
                         chrome.contextMenus.create({
                             "title" : _("Import this Key"),
                             "contexts" : ["selection", "editable"],
-//                            "id": id,
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -677,8 +722,7 @@ webpg.utils = {
                         var id = "webpg-context-encrypt";
                         chrome.contextMenus.create({
                             "title" : _("Encrypt this text"),
-                            "contexts" : ["editable"],
-//                            "id": id,
+                            "contexts" : ["editable", "selection"],
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -698,7 +742,6 @@ webpg.utils = {
                         chrome.contextMenus.create({
                             "title" : _("Decrypt this text"),
                             "contexts" : ["selection", "editable"],
-//                            "id": id,
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -718,7 +761,6 @@ webpg.utils = {
                         chrome.contextMenus.create({
                             "title" : _("Verify this text"),
                             "contexts" : ["selection", "editable"],
-//                            "id": id,
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -738,7 +780,6 @@ webpg.utils = {
                         chrome.contextMenus.create({
                             "type" : "separator",
                             "contexts" : ["all", "page"],
-//                            "id": id,
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
@@ -751,7 +792,6 @@ webpg.utils = {
                             "title" : _("Options"),
                             "type" : "normal",
                             "contexts" : ["all", "page"],
-//                            "id": id,
                             "onclick" : function(info, tab) {
                                 var url = "options.html";
                                 if (webpg.utils.detectedBrowser['product'] == "chrome")
@@ -771,7 +811,6 @@ webpg.utils = {
                             "title" : _("Key Manager"),
                             "type" : "normal",
                             "contexts" : ["all", "page"],
-//                            "id": id,
                             "onclick" : function() {
                                 var url = "key_manager.html";
                                 if (webpg.utils.detectedBrowser['product'] == "chrome")

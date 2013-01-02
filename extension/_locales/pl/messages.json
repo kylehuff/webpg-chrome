@@ -35,6 +35,15 @@
 	"Select_Recipient_s_": {
 		"message": "Wybierz odbiorcę (odbiorców)"
 	},
+	"Search_Filter": {
+		"message": "Znajdź/Filtruj"
+	},
+	"UIDs": {
+		"message": "Tożsamości"
+	},
+	"Key_does_not_support_this_operation": {
+		"message": ""
+	},
 	"Error_loading_WebPG": {
 		"message": "Błąd podczas ładowania WebPG"
 	},
@@ -101,6 +110,21 @@
 	"Language": {
 		"message": "Język"
 	},
+	"This_message_already_contains_PGPG_data": {
+		"message": ""
+	},
+	"Would_you_like_to_Encrypt_anyway_": {
+		"message": ""
+	},
+	"This_message_already_contains_PGP_data": {
+		"message": ""
+	},
+	"Would_you_like_to_Sign_anyway_": {
+		"message": ""
+	},
+	"Would_you_like_to_Encrypt_and_Sign_anyway_": {
+		"message": ""
+	},
 	"You_do_not_have_any_keys_for": {
 		"message": "Nie masz żadnych kluczy dla następujących odbiorców:"
 	},
@@ -134,6 +158,12 @@
 	"Do_not_use_WebPG_for_this_message": {
 		"message": "Nie używaj WebPG dla tej wiadomości"
 	},
+	"Decrypt": {
+		"message": ""
+	},
+	"Verify": {
+		"message": ""
+	},
 	"WebPG_Key_Manager": {
 		"message": "Zarządzanie kluczami WebPG"
 	},
@@ -142,9 +172,6 @@
 	},
 	"Public_Keys": {
 		"message": "Klucze publiczne"
-	},
-	"Search_Filter": {
-		"message": "Znajdź/Filtruj"
 	},
 	"Your_Name": {
 		"message": "Twoje imię"
@@ -350,6 +377,9 @@
 	"Revoked": {
 		"message": "Unieważniony"
 	},
+	"no_email_address_provided": {
+		"message": "nie podano adresu email"
+	},
 	"Cannot_unset_your_default_key": {
 		"message": "Nie można wyłączyć twojego domyślnego klucza"
 	},
@@ -367,6 +397,15 @@
 	},
 	"Ultimate": {
 		"message": "Całkowite"
+	},
+	"None": {
+		"message": ""
+	},
+	"New_group": {
+		"message": ""
+	},
+	"Group_Assignment": {
+		"message": ""
 	},
 	"Change_Passphrase": {
 		"message": "Zmień hasło"
@@ -389,9 +428,6 @@
 	"Expires": {
 		"message": "Wygasa"
 	},
-	"UIDs": {
-		"message": "Tożsamości"
-	},
 	"Fingerprint": {
 		"message": "Odcisk klucza"
 	},
@@ -413,6 +449,12 @@
 	"Export_this_Key": {
 		"message": "Eksportuj ten klucz"
 	},
+	"Publish_to_Keyserver": {
+		"message": ""
+	},
+	"Refresh_from_Keyserver": {
+		"message": ""
+	},
 	"Subkeys": {
 		"message": "Klucze wewnętrzne"
 	},
@@ -430,9 +472,6 @@
 	},
 	"User_IDs": {
 		"message": "Tożsamości"
-	},
-	"no_email_address_provided": {
-		"message": "nie podano adresu email"
 	},
 	"Make_primary": {
 		"message": "Ustaw jako główną"
@@ -497,6 +536,36 @@
 	"Description": {
 		"message": "Opis"
 	},
+	"Publish": {
+		"message": ""
+	},
+	"Sending_key_to_Keyserver": {
+		"message": ""
+	},
+	"There_was_a_problem_sending_this_key_to_the_Keyserver": {
+		"message": ""
+	},
+	"No_Keyserver_defined": {
+		"message": ""
+	},
+	"Keyserver": {
+		"message": ""
+	},
+	"Try_Again": {
+		"message": ""
+	},
+	"Key_Published_to_Keyserver": {
+		"message": ""
+	},
+	"Publish_Again": {
+		"message": ""
+	},
+	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
+		"message": ""
+	},
+	"Key_not_found_on_keyserver": {
+		"message": ""
+	},
 	"User_ID_is_no_longer_valid": {
 		"message": "Tożsamość przestała być ważna"
 	},
@@ -524,8 +593,14 @@
 	"Signature_added_using_this_key": {
 		"message": "Dodany podpis z użyciem tego klucza"
 	},
+	"Cannot_Publish_Keys_without_gpgconf_utility_installed": {
+		"message": ""
+	},
 	"Cannot_create_signatures_without_gpgconf_utility_installed": {
 		"message": "Nie można tworzyć podpisów bez zainstalowanego programu gpgconf"
+	},
+	"Cannot_Publish_Keys_without_Keyserver_configured": {
+		"message": ""
 	},
 	"Cannot_sign_a_revoked_UID": {
 		"message": "Nie można podpisać wycofanej tożsamości"
@@ -560,6 +635,9 @@
 	"Searching_for": {
 		"message": "Szukanie"
 	},
+	"Please_wait_while_we_build_the_key_list": {
+		"message": ""
+	},
 	"WebPG_Options": {
 		"message": "Ustawienia WebPG"
 	},
@@ -577,12 +655,6 @@
 	},
 	"you_can_use_the_signature_methods": {
 		"message": "możesz używać podpisów elektronicznych"
-	},
-	"libgpgme_was_unable_to_load": {
-		"message": "nie można było załadować libgpgme"
-	},
-	"libgpgme_is_required_for_operation": {
-		"message": "Do tej operacji wymagana jest biblioteka libgpgme"
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
 		"message": "Wygląda na to że nie posiadasz skonfigurowanego agenta kluczy"
@@ -668,9 +740,6 @@
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
 		"message": "NIE MOŻNA ODSZYFROWAĆ ANI ZWERYFIKOWAĆ TEJ WIADOMOŚCI"
 	},
-	"PGP_ENCRYPTED_MESSAGE": {
-		"message": "WIADOMOŚĆ ZASZYFROWANA PGP"
-	},
 	"PGP_ENCRYPTED_AND_SIGNED_MESSAGE": {
 		"message": "WIADOMOŚĆ ZASZYFROWANA I PODPISANA PGP"
 	},
@@ -712,6 +781,9 @@
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING": {
 		"message": "TA WIADOMOŚĆ ZOSTAŁA PODPISANA KLUCZEM PUBLICZNYM SPOZA TWOJEGO KEYRINGU"
+	},
+	"SEARCH_FOR_KEYS_ON_KEYSERVER": {
+		"message": ""
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
 		"message": "PODPIS POD TĄ WIADOMOŚCIĄ JEST NIEPRAWIDŁOWY"

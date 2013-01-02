@@ -6,6 +6,7 @@ extension/browser_action_menu.js
 extension/dialog.js
 extension/error.js
 extension/gmail.js
+extension/inline.js
 extension/key_manager.js
 extension/manifest.json
 extension/options.js

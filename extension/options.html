@@ -138,6 +138,10 @@ body{
     text-shadow:#666 1px 1px 1px;
     font-size:16px;
 }
+.webpg-option-group {
+    display:block;
+    margin-bottom: 18px;
+}
 </style>
 </head>
 <body>
@@ -148,16 +152,17 @@ body{
     </div>
     <div class="webpg-options-box">
         <div id="valid-options">
-            <span id='enable-decorate-inline'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-decorate-inline-check'/><label for='enable-decorate-inline-check'></label></span><br/><br/>
-            <span id='enable-encrypt-to-self'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-encrypt-to-self-check'/><label for='enable-encrypt-to-self-check'></label></span><br/><br/>
-            <span id='enable-gmail-integration'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-gmail-integration-check'/><label for='enable-gmail-integration-check'></label></span><br/><br/>
-            <span id='gmail-action-sign'><span class='webpg-options-text'></span>&nbsp;&nbsp;
+            <span id='enable-decorate-inline' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-decorate-inline-check'/><label for='enable-decorate-inline-check'></label></span>
+            <span id='enable-encrypt-to-self' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-encrypt-to-self-check'/><label for='enable-encrypt-to-self-check'></label></span>
+            <span id='enable-gmail-integration' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-gmail-integration-check'/><label for='enable-gmail-integration-check'></label></span>
+            <span id='gmail-action-sign' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;
                 <input type='checkbox' id='gmail-action-sign-check'/><label for='gmail-action-sign-check'></label>
-            </span><br/><br/>
-            <a href="#advanced-options" id="advanced-options-link"></a>
+            </span>
+            <a style="text-decoration:underline;cursor:pointer;" id="advanced-options-link"></a>
             <div id="advanced-options" style="display:none; padding:8px;">
-                <span id='gnupg-path-select'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-path-input' class="ui-state-default ui-widget ui-state-default ui-corner-all" style="width:200px;"/><label for='gnupg-path-input'></label><input type="button" id="gnupg-path-save" value="Save" style="display:none;"/></span><br/><br/>
-                <span id='gnupg-binary-select'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-binary-input' class="ui-state-default ui-widget ui-state-default ui-corner-all"/><label for='gnupg-binary-input'></label><input type="button" id="gnupg-binary-save" value="Save" style="display:none;"/></span>
+                <span id='gnupg-path-select' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-path-input' class="ui-state-default ui-widget ui-state-default ui-corner-all" style="width:200px;"/><label for='gnupg-path-input'></label><input type="button" id="gnupg-path-save" value="Save" style="display:none;"/></span>
+                <span id='gnupg-binary-select' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-binary-input' class="ui-state-default ui-widget ui-state-default ui-corner-all"/><label for='gnupg-binary-input'></label><input type="button" id="gnupg-binary-save" value="Save" style="display:none;"/></span>
+                <span id='gnupg-keyserver-select' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-keyserver-input' class="ui-state-default ui-widget ui-state-default ui-corner-all" style="width:200px;"/><label for='gnupg-keyserver-input'></label><input type="button" id="gnupg-keyserver-save" value="Save" style="display:none;"/></span>
             </div>
         </div>
         <div id="step-1" style="text-align:center;">

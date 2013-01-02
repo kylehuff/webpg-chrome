@@ -1,10 +1,11 @@
 {
   "name": "WebPG",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "__MSG_extDesc__",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self'; object-src 'self'",
   "default_locale": "en",
+  "omnibox": { "keyword": "webpg" },
   "web_accessible_resources": [
       "webpg_results.html",
       "webpg_results.js",
@@ -12,11 +13,15 @@
       "dialog.js",
       "skin/gmail_overlay.css",
       "skin/images/menumask.png",
+      "skin/images/webpg-32.png",
       "skin/images/webpg-48.png",
       "skin/images/badges/stock_encrypted.png",
       "skin/images/badges/stock_encrypted_signed.png",
+      "skin/images/badges/stock_signature.png",
       "skin/images/badges/stock_signature-ok.png",
-      "skin/images/badges/stock_decrypted-signature-bad.png"
+      "skin/images/badges/stock_decrypted.png",
+      "skin/images/badges/stock_decrypted-signature-bad.png",
+      "skin/images/badges/stock_keypair.png"
   ],
   "background": {
       "scripts": [
@@ -24,7 +29,8 @@
         "utils.js",
         "preferences.js",
         "background.js"
-      ]
+      ],
+      "persistent": true
   },
   "options_page": "options.html?auto_init=true",
   "icons": {
@@ -39,13 +45,15 @@
        "<all_urls>",
        "tabs",
        "notifications",
-       "contextMenus"
+       "contextMenus",
+       "background"
   ],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": [
         "jquery/js/jquery-1.7.2.min.js",
+        "jquery/js/jquery-ui-1.8.22.custom.min.js",
         "constants.js",
         "utils.js",
         "inline.js",
@@ -57,15 +65,11 @@
     {
       "matches": [ "https://mail.google.com/*", "http://mail.google.com/*" ],
       "js": [
-        "jquery/js/jquery-1.7.2.min.js",
-        "constants.js",
-        "utils.js",
-        "preferences.js",
         "gmail.js"
       ],
       "css": ["skin/gmail_overlay.css"],
-      "run_at": "document_start",
-      "all_frames": true
+      "run_at": "document_end",
+      "all_frames": false
     }
   ],
   "browser_action": {
@@ -74,9 +78,9 @@
     "default_popup": "browser_action_menu.html"
   },
   "plugins": [
-      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.6.2.plugin", "public": false },
-      { "path": "plugins/Linux_x86_64-gcc/npwebpgPlugin-v0.6.2.so", "public": false },
-      { "path": "plugins/Linux_x86-gcc/npwebpgPlugin-v0.6.2.so", "public": false },
-      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.6.2.dll", "public": false }
+      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.6.3.plugin", "public": false },
+      { "path": "plugins/Linux_x86_64-gcc/npwebpgPlugin-v0.6.3.so", "public": false },
+      { "path": "plugins/Linux_x86-gcc/npwebpgPlugin-v0.6.3.so", "public": false },
+      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.6.3.dll", "public": false }
   ]
 }

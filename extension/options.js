@@ -30,7 +30,7 @@ webpg.options = {
         jq('#step-1').ready(function(){
             doSystemCheck();
         });
-        
+
         function doSystemCheck() {
             var _ = webpg.utils.i18n.gettext;
             if (webpg.utils.detectedBrowser['product'] == "chrome")
@@ -52,20 +52,20 @@ webpg.options = {
                     'gpg_agent' : { 'error' : false, 'detail' : _("It appears you have a key-agent configured") },
                     'gpgconf' : { 'error' : false, 'detail' : _("gpgconf was detected") + "; " +  _("you can use the signature methods") },
                 };
-
-                if (!webpg_status.gpgme_valid) {
-                    errors['libgpgme'] = {
-                        'error': true,
-                        'detail': _("libgpgme was unable to load") + "; " + _("libgpgme is required for operation"),
-                        'link' : "http://gpgauth.org/projects/gpgauth-chrome/support-libgpgme",
-                    }
-                }
+//  No longer used; GPGME is statically linked in webpg-npapi
+//                if (!webpg_status.gpgme_valid) {
+//                    errors['libgpgme'] = {
+//                        'error': true,
+//                        'detail': _("libgpgme was unable to load") + "; " + _("libgpgme is required for operation"),
+//                        'link' : "http://gpgauth.org/projects/gpgauth-chrome/support-libgpgme",
+//                    }
+//                }
 
                 if (!webpg_status.gpg_agent_info) {
                     errors['gpg_agent'] = {
                         'error': true,
                         'detail': _("You do not appear to have a key-agent configured") + " " + _("A working key-agent is required"),
-                        'link' : "http://gpgauth.org/projects/gpgauth-chrome/support-libgpgme",
+                        'link' : "http://gpgauth.org/projects/gpgauth-chrome/gpgagent",
                     }
                 }
 
@@ -120,8 +120,15 @@ webpg.options = {
                 // Hide the options for invalid installations
                 jq('#valid-options').hide();
             } else {
-                // Only display the inline check if this is not the app version of webpg-chrome
-                // TODO: We probably don't want to show the "display inline" option for Thunderbird 
+                // Only display the inline check if this is not the app version of webpg-chrome.
+                // and don't show the "display inline" or "GMAIL integration"
+                //  options in Thunderbird
+                if (webpg.utils.detectedBrowser['product'] == "thunderbird") {
+                    jq('#enable-decorate-inline').hide();
+                    jq("#enable-gmail-integration").hide();
+                    jq("#gmail-action-sign").hide();
+                }
+
                 if ((webpg.utils.detectedBrowser['product'] == "chrome") &&
                     !chrome.app.getDetails().hasOwnProperty("content_scripts")){
                         jq('#enable-decorate-inline').hide();
@@ -148,13 +155,18 @@ webpg.options = {
 
                 jq("#gnupg-path-select").find(".webpg-options-text").
                     text(_("GnuPG home directory"));
-                    
+
                 jq("#gnupg-path-select").find("input:button").val(_("Save"))
 
                 jq("#gnupg-binary-select").find(".webpg-options-text").
                     text(_("GnuPG binary") + " (i.e. /usr/bin/gpg)");
-                    
+
                 jq("#gnupg-binary-select").find("input:button").val(_("Save"));
+
+                jq("#gnupg-keyserver-select").find(".webpg-options-text").
+                    text(_("Keyserver") + " (i.e. hkp://subkeys.pgp.net)");
+
+                jq("#gnupg-keyserver-select").find("input:button").val(_("Save"));
 
                 jq("#system-good").find(".trust-desc").text(_("Your system appears to be configured correctly for WebPG"));
 
@@ -200,7 +212,8 @@ webpg.options = {
                 jq('#enable-gmail-integration-check').button({
                     'label': (webpg.preferences.gmail_integration.get() == 'true') ? _('Enabled') : _('Disabled')
                     }).click(function(e) {
-                        if (webpg.preferences.gmail_integration.get() == 'false') {
+                        if (webpg.preferences.gmail_integration.get() == null ||
+                            webpg.preferences.gmail_integration.get() == 'false') {
                             alert(_("WebPG GMAIL integration is EXPERIMENTAL") + "; " + _("use at your own risk"))
                         }
 
@@ -237,7 +250,7 @@ webpg.options = {
                     jq(this).data('oldVal', jq(this).val());
 
                     // Look for changes in the value
-                    jq(this).bind("propertychange keyup input paste", function(event){
+                    jq(this).bind("change propertychange keyup input paste", function(event){
                         // If value has changed...
                         if (jq(this).data('oldVal') != jq(this).val()) {
                             // Updated stored value
@@ -264,7 +277,7 @@ webpg.options = {
                     jq(this).data('oldVal', jq(this).val());
 
                     // Look for changes in the value
-                    jq(this).bind("propertychange keyup input paste", function(event){
+                    jq(this).bind("change propertychange keyup input paste", function(event){
                         // If value has changed...
                         if (jq(this).data('oldVal') != jq(this).val()) {
                             // Updated stored value
@@ -281,9 +294,36 @@ webpg.options = {
 
                 jq("#gnupg-binary-input")[0].dir = "ltr";
 
+                jq("#gnupg-keyserver-save").button().click(function(e){
+                    webpg.plugin.gpgSetPreference("keyserver", jq("#gnupg-keyserver-input")[0].value);
+                    jq(this).hide();
+                });
+
+                jq("#gnupg-keyserver-input").each(function() {
+                    // Save current value of element
+                    jq(this).data('oldVal', jq(this).val());
+
+                    // Look for changes in the value
+                    jq(this).bind("change propertychange keyup input paste", function(event){
+                        // If value has changed...
+                        if (jq(this).data('oldVal') != jq(this).val()) {
+                            // Updated stored value
+                            jq(this).data('oldVal', jq(this).val());
+
+                            // Show save dialog
+                            if (jq(this).val() != webpg.plugin.gpgGetPreference("keyserver").value)
+                                jq("#gnupg-keyserver-save").show();
+                            else
+                                jq("#gnupg-keyserver-save").hide();
+                        }
+                    })
+                })[0].value = webpg.plugin.gpgGetPreference("keyserver").value;
+
+                jq("#gnupg-keyserver-input")[0].dir = "ltr";
+
                 jq("#advanced-options-link").click(function(e){
                     jq("#advanced-options").toggle("slide");
-                });                
+                });
             }
         }
 

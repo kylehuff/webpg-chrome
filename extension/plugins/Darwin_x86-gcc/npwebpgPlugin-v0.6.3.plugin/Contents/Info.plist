@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>webpgPlugin</string>
 	<key>CFBundleGetInfoString</key>
-	<string>webpgPlugin 0.6.2, Copyright 2012 CURE|THE|ITCH</string>
+	<string>webpgPlugin 0.6.3, Copyright 2012 CURE|THE|ITCH</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.webpgPluginLib.WebPG</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BRPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.6.2</string>
+	<string>0.6.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.6.2</string>
+	<string>0.6.3</string>
 	<key>CFPlugInDynamicRegisterFunction</key>
 	<string></string>
 	<key>CFPlugInDynamicRegistration</key>
