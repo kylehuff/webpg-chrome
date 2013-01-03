@@ -473,7 +473,7 @@ webpg.preferences = {
             // Get the currently defined group object (if any) and convert it
             //  to an object
             var groups = webpg.localStorage.getItem('groups');
-            var groups = (groups.length > 1) ? JSON.parse(groups) : {};
+            var groups = (groups && groups.length > 1) ? JSON.parse(groups) : {};
             
             groups = (groups != null) ? groups : {};
 
