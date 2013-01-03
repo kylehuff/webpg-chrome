@@ -441,7 +441,7 @@ webpg.preferences = {
         */
         get_group_names: function() {
             var value = JSON.parse(webpg.localStorage.getItem('groups'));
-            return (typeof(value)=='object') ? Object.keys(value) : [];
+            return (value && typeof(value)=='object') ? Object.keys(value) : [];
         },
 
         /*
