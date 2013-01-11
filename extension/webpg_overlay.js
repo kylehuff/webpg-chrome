@@ -72,6 +72,7 @@ webpg.overlay = {
     */
     _onRequest: function(request, sender, sendResponse) {
         var response = null;
+
         if (request.msg == "log") {
             console.log("Remote log request recieved; ", request.data);
         }
@@ -464,7 +465,7 @@ webpg.overlay = {
 };
 
 if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-    webpg.appcontent = document.getElementById("appcontent");
+    webpg.appcontent = document.getElementById("appcontent") || document;
     webpg.appcontent.addEventListener("DOMContentLoaded", webpg.overlay.init, false);
 } else {
     webpg.overlay.init();

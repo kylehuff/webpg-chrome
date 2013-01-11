@@ -783,7 +783,7 @@ webpg.utils.sendRequest({
             webpg.gmail.sign_gmail = response.result.sign_gmail;
             // Retrieve a reference to the appropriate window object
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                webpg.gmail.appcontent = document.getElementById("appcontent");
+                webpg.gmail.appcontent = document.getElementById("appcontent") || document;
                 webpg.gmail.appcontent.addEventListener("DOMContentLoaded",
                     function(aEvent) {
                         // We need to filter based on the URL for mozilla, as we do

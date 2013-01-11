@@ -68,7 +68,7 @@ webpg.background = {
             webpg.enabled_keys = webpg.preferences.enabled_keys.get();
             var secret_keys = webpg.secret_keys;
             var enabled_keys = webpg.enabled_keys;
-            for (key in enabled_keys){
+            for (var key in enabled_keys){
                 if (enabled_keys[key] in secret_keys == false){
                     webpg.preferences.enabled_keys.remove(enabled_keys[key]);
                 }
@@ -196,16 +196,16 @@ webpg.background = {
                     response.original_text = request.data;
                 }
                 for (sig in response.signatures) {
-                    sig_fp = response.signatures[sig].fingerprint;
-                    key_request = webpg.plugin.getNamedKey(sig_fp);
+                    var sig_fp = response.signatures[sig].fingerprint;
+                    var key_request = webpg.plugin.getNamedKey(sig_fp);
                     response.signatures[sig].public_key = key_request;
                 }
                 if (request.message_event && request.message_event == "context") {
                     if (response.gpg_error_code == "11") {
                         response = webpg.plugin.gpgDecrypt(content);
                         for (sig in response.signatures) {
-                            sig_fp = response.signatures[sig].fingerprint;
-                            key_request = webpg.plugin.getNamedKey(sig_fp);
+                            var sig_fp = response.signatures[sig].fingerprint;
+                            var key_request = webpg.plugin.getNamedKey(sig_fp);
                             response.signatures[sig].public_key = key_request;
                         }
                     }

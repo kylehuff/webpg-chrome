@@ -92,6 +92,8 @@ webpg.utils = {
             return { "vendor": "mozilla", "product": "thunderbird" };
         else if (navigator.userAgent.toLowerCase().search("firefox") > -1)
             return { "vendor": "mozilla", "product": "firefox" };
+        else if (navigator.userAgent.toLowerCase().search("conkeror") > -1)
+            return { "vendor": "mozilla", "product": "conkeror" };
         else if (navigator.userAgent.toLowerCase().search("opera") > -1)
             return { "vendor": "opera", "product": "opera" };
         else if (navigator.userAgent.toLowerCase().search("safari") > -1)
@@ -127,7 +129,9 @@ webpg.utils = {
     resourcePath: function() {
         var userAgent = navigator.userAgent.toLowerCase();
         if (userAgent.search("firefox") > -1 ||
-          userAgent.search("thunderbird") > -1 || userAgent.search("seamonkey") > -1)
+          userAgent.search("thunderbird") > -1 ||
+          userAgent.search("conkeror") > -1 ||
+          userAgent.search("seamonkey") > -1)
             return "chrome://webpg-firefox/content/";   
         else if (userAgent.search("chrome") > -1)
             return chrome.extension.getURL("");
@@ -330,6 +334,7 @@ webpg.utils = {
         switch (webpg.utils.detectedBrowser['product']) {
             case "firefox":
             case "thunderbird":
+            case "conkeror":
             case "seamonkey":
                 if (url.search("options.html") > -1)
                     url = url.replace("options.html", "XULContent/options.xul")

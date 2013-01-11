@@ -26,7 +26,7 @@ webpg.keymanager = {
             webpg.secret_keys = browserWindow.webpg.secret_keys;
             webpg.plugin = webpg.background.webpg.plugin;
         } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-            webpg.plugin = chrome.extension.getBackgroundPage().webpg.plugin;
+//            webpg.plugin = chrome.extension.getBackgroundPage().webpg.plugin;
             webpg.secret_keys = webpg.background.webpg.secret_keys;
             webpg.plugin = webpg.background.webpg.plugin;
         }

@@ -190,7 +190,7 @@ webpg.inline = {
                         return NodeFilter.FILTER_ACCEPT;
                     };
 
-                    tryOne = node.textContent.indexOf(search, idx);
+                    var tryOne = node.textContent.indexOf(search, idx);
 
                     if(tryOne == -1)
                         break;
@@ -229,7 +229,7 @@ webpg.inline = {
         var baseIdx = idx;
 
         idx = node.indexOf(webpg.constants.PGPTags.PGP_KEY_BEGIN, baseIdx);
-        search = webpg.constants.PGPTags.PGP_KEY_END;
+        var search = webpg.constants.PGPTags.PGP_KEY_END;
 
         if(idx == -1) {
             idx = node.indexOf(webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN, baseIdx);
@@ -290,7 +290,7 @@ webpg.inline = {
         var phtml = h.innerHTML;
 
         if (html.match("<div><br></div>-----") == null && scontent == phtml) {
-            reg = new RegExp("(&(.){1,4};)", "g")
+            var reg = new RegExp("(&(.){1,4};)", "g")
             if (html.search(reg) > -1)
                 scontent = phtml;
             else
@@ -691,12 +691,12 @@ webpg.inline = {
     addElementBadge: function(doc, posX, id, control) {
 
         var badge = doc.createElement("span");
+        var posY = "-6";
 
         if (control.nodeName.toLowerCase() == "textarea") {
             posX = "-50";
-            posY = "-6";
         } else {
-            posY = "-34";
+            var posY = "-34";
         }
 
         badge.setAttribute("style", "width:30px;" +
