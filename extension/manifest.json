@@ -29,8 +29,7 @@
         "utils.js",
         "preferences.js",
         "background.js"
-      ],
-      "persistent": true
+      ]
   },
   "options_page": "options.html?auto_init=true",
   "icons": {
