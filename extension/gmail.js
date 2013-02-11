@@ -170,7 +170,7 @@ webpg.gmail = {
                     }
                     if (message.search("-----BEGIN PGP") == 0) {
                         var send = confirm(_("This message already contains PGP data")
-                            + "\n\n" + _("Would you like to Encrypt anyway?"));
+                            + "\n\n" + _("Would you like to Encrypt anyway"));
                         if (!send)
                             return;
                     }
@@ -201,7 +201,7 @@ webpg.gmail = {
                 //  the email.
                 if (message.search("-----BEGIN PGP") == 0) {
                     var send = confirm(_("This message already contains PGP data")
-                        + "\n\n" + _("Would you like to Sign anyway?"));
+                        + "\n\n" + _("Would you like to Sign anyway"));
                     if (!send)
                         return;
                 }
@@ -229,7 +229,7 @@ webpg.gmail = {
                 webpg.gmail.checkRecipients(function(recipKeys) {
                     if (message.search("-----BEGIN PGP") == 0) {
                         var send = confirm(_("This message already contains PGP data")
-                            + "\n\n" + _("Would you like to Encrypt and Sign anyway?"));
+                            + "\n\n" + _("Would you like to Encrypt and Sign anyway"));
                         if (!send)
                             return;
                     }
@@ -260,7 +260,7 @@ webpg.gmail = {
                 //  the email.
                 if (message.search("-----BEGIN PGP") == 0) {
                     var send = confirm(_("This message already contains PGP data")
-                        + "\n\n" + _("Would you like to Encrypt anyway?"));
+                        + "\n\n" + _("Would you like to Encrypt anyway"));
                     if (!send)
                         return;
                 }

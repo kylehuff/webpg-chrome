@@ -2,6 +2,9 @@
 	"About_WebPG": {
 		"message": "حول WebPG"
 	},
+	"Version": {
+		"message": ""
+	},
 	"Finished": {
 		"message": "منتهي"
 	},
@@ -29,14 +32,35 @@
 	"Key_Manager": {
 		"message": "مفتاح مدير"
 	},
-	"Import": {
-		"message": "استورد"
-	},
 	"Select_Recipient_s_": {
 		"message": "حدد المستلمين"
 	},
+	"Import": {
+		"message": "استورد"
+	},
+	"Editor": {
+		"message": ""
+	},
 	"Search_Filter": {
 		"message": "بحث / فلتر"
+	},
+	"Encrypt": {
+		"message": "تشفير"
+	},
+	"Export": {
+		"message": ""
+	},
+	"Insert": {
+		"message": ""
+	},
+	"no_action_has_been_selected": {
+		"message": ""
+	},
+	"no_action_has_been_successful": {
+		"message": ""
+	},
+	"Cancel": {
+		"message": "إلغاء"
 	},
 	"UIDs": {
 		"message": "مستخدم المعرفات"
@@ -110,19 +134,16 @@
 	"Language": {
 		"message": "للغة"
 	},
-	"This_message_already_contains_PGPG_data": {
-		"message": ""
-	},
-	"Would_you_like_to_Encrypt_anyway_": {
-		"message": ""
-	},
 	"This_message_already_contains_PGP_data": {
 		"message": ""
 	},
-	"Would_you_like_to_Sign_anyway_": {
+	"Would_you_like_to_Encrypt_anyway": {
 		"message": ""
 	},
-	"Would_you_like_to_Encrypt_and_Sign_anyway_": {
+	"Would_you_like_to_Sign_anyway": {
+		"message": ""
+	},
+	"Would_you_like_to_Encrypt_and_Sign_anyway": {
 		"message": ""
 	},
 	"You_do_not_have_any_keys_for": {
@@ -143,9 +164,6 @@
 	"Open_the_Key_Manager": {
 		"message": "فتح إدارة المفاتيح"
 	},
-	"Encrypt": {
-		"message": "تشفير"
-	},
 	"Sign_only": {
 		"message": "توقيع فقط"
 	},
@@ -162,6 +180,24 @@
 		"message": ""
 	},
 	"Verify": {
+		"message": ""
+	},
+	"Secure_Editor": {
+		"message": ""
+	},
+	"PGP_Signed_Message": {
+		"message": ""
+	},
+	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
+		"message": "رسالة مشفرة PGP أو وقعت"
+	},
+	"PGP_Public_Key": {
+		"message": ""
+	},
+	"Unsecured_Editor": {
+		"message": ""
+	},
+	"WebPG_Secure_Editor": {
 		"message": ""
 	},
 	"WebPG_Key_Manager": {
@@ -355,9 +391,6 @@
 	},
 	"key_generation_will_continue_in_the_background": {
 		"message": "وسوف يستمر إنشاء المفتاح في الخلفية"
-	},
-	"Cancel": {
-		"message": "إلغاء"
 	},
 	"Enabled": {
 		"message": "تمكين"
@@ -733,9 +766,6 @@
 	},
 	"Verify_this_text": {
 		"message": "التحقق من هذه الرسالة"
-	},
-	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
-		"message": "رسالة مشفرة PGP أو وقعت"
 	},
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
 		"message": "غير قادر على فك تشفير هذه الرسالة أو التحقق"

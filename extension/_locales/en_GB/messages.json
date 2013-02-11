@@ -2,6 +2,9 @@
 	"About_WebPG": {
 		"message": "About WebPG"
 	},
+	"Version": {
+		"message": ""
+	},
 	"Finished": {
 		"message": "Finished"
 	},
@@ -29,14 +32,35 @@
 	"Key_Manager": {
 		"message": "Key Manager"
 	},
-	"Import": {
-		"message": "Import"
-	},
 	"Select_Recipient_s_": {
 		"message": "Select Recipients(s)"
 	},
+	"Import": {
+		"message": "Import"
+	},
+	"Editor": {
+		"message": ""
+	},
 	"Search_Filter": {
 		"message": "Search/Filter"
+	},
+	"Encrypt": {
+		"message": "Encrypt"
+	},
+	"Export": {
+		"message": ""
+	},
+	"Insert": {
+		"message": ""
+	},
+	"no_action_has_been_selected": {
+		"message": ""
+	},
+	"no_action_has_been_successful": {
+		"message": ""
+	},
+	"Cancel": {
+		"message": "Cancel"
 	},
 	"UIDs": {
 		"message": "UIDs"
@@ -110,19 +134,16 @@
 	"Language": {
 		"message": "Language"
 	},
-	"This_message_already_contains_PGPG_data": {
-		"message": ""
-	},
-	"Would_you_like_to_Encrypt_anyway_": {
-		"message": ""
-	},
 	"This_message_already_contains_PGP_data": {
 		"message": ""
 	},
-	"Would_you_like_to_Sign_anyway_": {
+	"Would_you_like_to_Encrypt_anyway": {
 		"message": ""
 	},
-	"Would_you_like_to_Encrypt_and_Sign_anyway_": {
+	"Would_you_like_to_Sign_anyway": {
+		"message": ""
+	},
+	"Would_you_like_to_Encrypt_and_Sign_anyway": {
 		"message": ""
 	},
 	"You_do_not_have_any_keys_for": {
@@ -143,9 +164,6 @@
 	"Open_the_Key_Manager": {
 		"message": "Open the Key Manager"
 	},
-	"Encrypt": {
-		"message": "Encrypt"
-	},
 	"Sign_only": {
 		"message": "Sign only"
 	},
@@ -163,6 +181,24 @@
 	},
 	"Verify": {
 		"message": "Verify"
+	},
+	"Secure_Editor": {
+		"message": ""
+	},
+	"PGP_Signed_Message": {
+		"message": ""
+	},
+	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
+		"message": "PGP ENCRYPTED OR SIGNED MESSAGE"
+	},
+	"PGP_Public_Key": {
+		"message": ""
+	},
+	"Unsecured_Editor": {
+		"message": ""
+	},
+	"WebPG_Secure_Editor": {
+		"message": ""
 	},
 	"WebPG_Key_Manager": {
 		"message": "WebPG Key Manager"
@@ -355,9 +391,6 @@
 	},
 	"key_generation_will_continue_in_the_background": {
 		"message": "key generation will continue in the background"
-	},
-	"Cancel": {
-		"message": "Cancel"
 	},
 	"Enabled": {
 		"message": "Enabled"
@@ -733,9 +766,6 @@
 	},
 	"Verify_this_text": {
 		"message": "Verify this text"
-	},
-	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
-		"message": "PGP ENCRYPTED OR SIGNED MESSAGE"
 	},
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
 		"message": "UNABLE TO DECRYPT OR VERIFY THIS MESSAGE"

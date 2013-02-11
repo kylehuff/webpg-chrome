@@ -2,6 +2,9 @@
 	"About_WebPG": {
 		"message": "About WebPG"
 	},
+	"Version": {
+		"message": "Version"
+	},
 	"Finished": {
 		"message": "Finished"
 	},
@@ -29,20 +32,41 @@
 	"Key_Manager": {
 		"message": "Key Manager"
 	},
-	"Import": {
-		"message": "Import"
-	},
 	"Select_Recipient_s_": {
 		"message": "Select Recipients(s)"
 	},
+	"Import": {
+		"message": "Import"
+	},
+	"Editor": {
+		"message": "Editor"
+	},
 	"Search_Filter": {
 		"message": "Search/Filter"
+	},
+	"Encrypt": {
+		"message": "Encrypt"
+	},
+	"Export": {
+		"message": "Export"
+	},
+	"Insert": {
+		"message": "Insert"
+	},
+	"no_action_has_been_selected": {
+		"message": "no action has been selected"
+	},
+	"no_action_has_been_successful": {
+		"message": "no action has been successful"
+	},
+	"Cancel": {
+		"message": "Cancel"
 	},
 	"UIDs": {
 		"message": "UIDs"
 	},
 	"Key_does_not_support_this_operation": {
-		"message": ""
+		"message": "Key does not support this operation"
 	},
 	"Error_loading_WebPG": {
 		"message": "Error loading WebPG"
@@ -110,20 +134,17 @@
 	"Language": {
 		"message": "Language"
 	},
-	"This_message_already_contains_PGPG_data": {
-		"message": ""
-	},
-	"Would_you_like_to_Encrypt_anyway_": {
-		"message": ""
-	},
 	"This_message_already_contains_PGP_data": {
-		"message": ""
+		"message": "This message already contains PGP data"
 	},
-	"Would_you_like_to_Sign_anyway_": {
-		"message": ""
+	"Would_you_like_to_Encrypt_anyway": {
+		"message": "Would you like to Encrypt anyway?"
 	},
-	"Would_you_like_to_Encrypt_and_Sign_anyway_": {
-		"message": ""
+	"Would_you_like_to_Sign_anyway": {
+		"message": "Would you like to Sign anyway?"
+	},
+	"Would_you_like_to_Encrypt_and_Sign_anyway": {
+		"message": "Would you like to Encrypt and Sign anyway?"
 	},
 	"You_do_not_have_any_keys_for": {
 		"message": "You do not have any keys for"
@@ -143,9 +164,6 @@
 	"Open_the_Key_Manager": {
 		"message": "Open the Key Manager"
 	},
-	"Encrypt": {
-		"message": "Encrypt"
-	},
 	"Sign_only": {
 		"message": "Sign only"
 	},
@@ -163,6 +181,24 @@
 	},
 	"Verify": {
 		"message": "Verify"
+	},
+	"Secure_Editor": {
+		"message": "Secure Editor"
+	},
+	"PGP_Signed_Message": {
+		"message": "PGP Signed Message"
+	},
+	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
+		"message": "PGP ENCRYPTED OR SIGNED MESSAGE"
+	},
+	"PGP_Public_Key": {
+		"message": "PGP Public Key"
+	},
+	"Unsecured_Editor": {
+		"message": "Unsecured Editor"
+	},
+	"WebPG_Secure_Editor": {
+		"message": "WebPG Secure Editor"
 	},
 	"WebPG_Key_Manager": {
 		"message": "WebPG Key Manager"
@@ -355,9 +391,6 @@
 	},
 	"key_generation_will_continue_in_the_background": {
 		"message": "key generation will continue in the background"
-	},
-	"Cancel": {
-		"message": "Cancel"
 	},
 	"Enabled": {
 		"message": "Enabled"
@@ -564,7 +597,7 @@
 		"message": "Are you sure you want to Publish this key to the Keyserver"
 	},
 	"Key_not_found_on_keyserver": {
-		"message": ""
+		"message": "Key not found on keyserver"
 	},
 	"User_ID_is_no_longer_valid": {
 		"message": "User ID is no longer valid"
@@ -636,7 +669,7 @@
 		"message": "Searching for"
 	},
 	"Please_wait_while_we_build_the_key_list": {
-		"message": ""
+		"message": "Please wait while we build the key list"
 	},
 	"WebPG_Options": {
 		"message": "WebPG Options"
@@ -734,9 +767,6 @@
 	"Verify_this_text": {
 		"message": "Verify this text"
 	},
-	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
-		"message": "PGP ENCRYPTED OR SIGNED MESSAGE"
-	},
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
 		"message": "UNABLE TO DECRYPT OR VERIFY THIS MESSAGE"
 	},
@@ -783,7 +813,7 @@
 		"message": "THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING"
 	},
 	"SEARCH_FOR_KEYS_ON_KEYSERVER": {
-		"message": ""
+		"message": "SEARCH FOR KEYS ON KEYSERVER"
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
 		"message": "THE SIGNATURE ON THIS MESSAGE FAILED"
