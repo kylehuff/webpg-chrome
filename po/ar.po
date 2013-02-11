@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webpg-chrome 0.8.9\n"
 "Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
-"POT-Creation-Date: 2013-02-11 01:06-0500\n"
+"POT-Creation-Date: 2013-02-11 04:24-0500\n"
 "PO-Revision-Date: 2012-10-21 16:57-0400\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -83,7 +83,7 @@ msgid "Search/Filter"
 msgstr "بحث / فلتر"
 
 #: extension/dialog.js:234 extension/gmail.js:528 extension/inline.js:523
-#: extension/key_manager.js:121 extension/key_manager.js:956
+#: extension/key_manager.js:121 extension/key_manager.js:958
 msgid "Encrypt"
 msgstr "تشفير"
 
@@ -103,17 +103,17 @@ msgstr ""
 msgid "no action has been successful"
 msgstr ""
 
-#: extension/dialog.js:364 extension/key_manager.js:601
-#: extension/key_manager.js:1360 extension/key_manager.js:1412
-#: extension/key_manager.js:1480 extension/key_manager.js:1547
-#: extension/key_manager.js:1679 extension/key_manager.js:1813
-#: extension/key_manager.js:1864 extension/key_manager.js:1986
-#: extension/key_manager.js:2039 extension/key_manager.js:2096
-#: extension/key_manager.js:2116
+#: extension/dialog.js:364 extension/key_manager.js:603
+#: extension/key_manager.js:1362 extension/key_manager.js:1414
+#: extension/key_manager.js:1482 extension/key_manager.js:1549
+#: extension/key_manager.js:1681 extension/key_manager.js:1815
+#: extension/key_manager.js:1866 extension/key_manager.js:1988
+#: extension/key_manager.js:2041 extension/key_manager.js:2068
+#: extension/key_manager.js:2101 extension/key_manager.js:2121
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: extension/dialog.js:388 extension/key_manager.js:897
+#: extension/dialog.js:388 extension/key_manager.js:899
 msgid "UIDs"
 msgstr "مستخدم المعرفات"
 
@@ -129,8 +129,8 @@ msgstr "خطأ في تحميل WebPG"
 msgid "We encountered a problem while attempting to load WebPG"
 msgstr "واجهنا مشكلة أثناء محاولة تحميل WebPG"
 
-#: extension/error.js:27 extension/key_manager.js:1715
-#: extension/key_manager.js:1718
+#: extension/error.js:27 extension/key_manager.js:1717
+#: extension/key_manager.js:1720
 msgid "Error"
 msgstr "خطأ"
 
@@ -358,8 +358,8 @@ msgstr "مفتاح الحجم خاصة"
 msgid "Expire in"
 msgstr "تنتهي في"
 
-#: extension/key_manager.js:82 extension/key_manager.js:768
-#: extension/key_manager.js:812
+#: extension/key_manager.js:82 extension/key_manager.js:770
+#: extension/key_manager.js:814
 msgid "Never"
 msgstr "أبدا"
 
@@ -387,12 +387,12 @@ msgstr "التشفير فقط"
 msgid "set your own capabilities"
 msgstr "تعيين القدرات الخاصة بك"
 
-#: extension/key_manager.js:120 extension/key_manager.js:955
-#: extension/key_manager.js:1953
+#: extension/key_manager.js:120 extension/key_manager.js:957
+#: extension/key_manager.js:1955
 msgid "Sign"
 msgstr "توقيع فقط"
 
-#: extension/key_manager.js:122 extension/key_manager.js:957
+#: extension/key_manager.js:122 extension/key_manager.js:959
 msgid "Authenticate"
 msgstr "مصادقة"
 
@@ -404,20 +404,20 @@ msgstr "إلغاء هذا مفتاح"
 msgid "Revoke this UID"
 msgstr "إلغاء هذا المستخدم معرف"
 
-#: extension/key_manager.js:142
+#: extension/key_manager.js:142 extension/key_manager.js:2063
 msgid "Revoke this Signature"
 msgstr "إلغاء هذا التوقيع"
 
-#: extension/key_manager.js:143 extension/key_manager.js:2110
+#: extension/key_manager.js:143 extension/key_manager.js:2115
 msgid "Delete this Signature"
 msgstr "حذف هذا التوقيع"
 
-#: extension/key_manager.js:144 extension/key_manager.js:1037
-#: extension/key_manager.js:1797
+#: extension/key_manager.js:144 extension/key_manager.js:1039
+#: extension/key_manager.js:1799
 msgid "Delete this UID"
 msgstr "حذف هذا معرف المستخدم"
 
-#: extension/key_manager.js:145 extension/key_manager.js:909
+#: extension/key_manager.js:145 extension/key_manager.js:911
 msgid "Delete this Key"
 msgstr "حذف هذا المفتاح"
 
@@ -429,16 +429,16 @@ msgstr "سيتم حذف هذا المفتاح بشكل دائم"
 msgid "Are you sure"
 msgstr "هل أنت متأكد"
 
-#: extension/key_manager.js:148 extension/key_manager.js:785
-#: extension/key_manager.js:979
+#: extension/key_manager.js:148 extension/key_manager.js:787
+#: extension/key_manager.js:981
 msgid "Change Expiration"
 msgstr "تاريخ انتهاء الصلاحية الجديد"
 
-#: extension/key_manager.js:149 extension/key_manager.js:1035
+#: extension/key_manager.js:149 extension/key_manager.js:1037
 msgid "Sign this UID"
 msgstr "التوقيع على هذه هوية المستخدم"
 
-#: extension/key_manager.js:150 extension/key_manager.js:894
+#: extension/key_manager.js:150 extension/key_manager.js:896
 msgid "Key Details"
 msgstr "مفتاح التفاصيل"
 
@@ -446,7 +446,7 @@ msgstr "مفتاح التفاصيل"
 msgid "Export Public Key"
 msgstr "تصدير للمفتاح العام"
 
-#: extension/key_manager.js:152 extension/key_manager.js:797
+#: extension/key_manager.js:152 extension/key_manager.js:799
 msgid "Add UID"
 msgstr "إضافة المستخدم معرف"
 
@@ -510,450 +510,459 @@ msgstr "توليد المفتاح"
 msgid "please wait"
 msgstr "يرجى الانتظار"
 
-#: extension/key_manager.js:453
+#: extension/key_manager.js:391 extension/key_manager.js:595
+#: extension/key_manager.js:1540 extension/key_manager.js:1634
+#: extension/key_manager.js:1735
+msgid "Close"
+msgstr "غلق"
+
+#: extension/key_manager.js:454
 msgid "trust"
 msgstr "الثقة"
 
-#: extension/key_manager.js:504
+#: extension/key_manager.js:505
 msgid "Generate New Key"
 msgstr "إنشاء مفتاح جديد"
 
-#: extension/key_manager.js:513 extension/key_manager.js:1434
-#: extension/key_manager.js:1503
+#: extension/key_manager.js:514 extension/key_manager.js:1436
+#: extension/key_manager.js:1505
 msgid "Create"
 msgstr "خلق"
 
-#: extension/key_manager.js:519 extension/key_manager.js:1442
+#: extension/key_manager.js:520 extension/key_manager.js:1444
 msgid "Name Required"
 msgstr "الاسم مطلوب"
 
-#: extension/key_manager.js:523 extension/key_manager.js:1446
+#: extension/key_manager.js:524 extension/key_manager.js:1448
 msgid "UID Names must be at least 5 characters"
 msgstr "يجب أن تكون هوية المستخدم لا يقل عن 5 أحرف"
 
-#: extension/key_manager.js:529 extension/key_manager.js:1450
+#: extension/key_manager.js:530 extension/key_manager.js:1452
 msgid "UID Names cannot begin with a number"
 msgstr "يمكن الأسماء هوية المستخدم لم يبدأ مع عدد"
 
-#: extension/key_manager.js:536 extension/key_manager.js:1455
+#: extension/key_manager.js:537 extension/key_manager.js:1457
 msgid "Not a valid email address"
 msgstr "لا عنوان بريد إلكتروني صالح"
 
-#: extension/key_manager.js:546 extension/key_manager.js:548
+#: extension/key_manager.js:547 extension/key_manager.js:549
 msgid "Passphrases do not match"
 msgstr "كلمات المرور لا تتطابق"
 
-#: extension/key_manager.js:577 extension/key_manager.js:1523
+#: extension/key_manager.js:578 extension/key_manager.js:1525
 msgid "Building key, please wait"
 msgstr "إنشاء المفتاح، يرجى الانتظار"
 
-#: extension/key_manager.js:578
+#: extension/key_manager.js:579
 msgid "This may take a long time (5 minutes or more) to complete"
 msgstr "وهذا قد يستغرق وقتا طويلا (5 دقائق أو أكثر) لإكمال"
 
-#: extension/key_manager.js:578
+#: extension/key_manager.js:579
 msgid "Please be patient while the key is created"
 msgstr "يرجى أن يكون المريض في حين يتم إنشاء مفتاح"
 
-#: extension/key_manager.js:578
+#: extension/key_manager.js:579
 msgid "It is safe to close this window"
 msgstr "أنها آمنة لإغلاق هذه النافذة"
 
-#: extension/key_manager.js:578
+#: extension/key_manager.js:579
 msgid "key generation will continue in the background"
 msgstr "وسوف يستمر إنشاء المفتاح في الخلفية"
 
-#: extension/key_manager.js:688 extension/key_manager.js:740
-#: extension/key_manager.js:2160 extension/options.js:177
+#: extension/key_manager.js:690 extension/key_manager.js:742
+#: extension/key_manager.js:2165 extension/options.js:177
 #: extension/options.js:180 extension/options.js:188 extension/options.js:197
 #: extension/options.js:205 extension/options.js:215 extension/options.js:223
 #: extension/options.js:228
 msgid "Enabled"
 msgstr "تمكين"
 
-#: extension/key_manager.js:688 extension/key_manager.js:695
-#: extension/key_manager.js:741 extension/key_manager.js:929
-#: extension/key_manager.js:2160 extension/options.js:177
+#: extension/key_manager.js:690 extension/key_manager.js:697
+#: extension/key_manager.js:743 extension/key_manager.js:931
+#: extension/key_manager.js:2165 extension/options.js:177
 #: extension/options.js:180 extension/options.js:188 extension/options.js:193
 #: extension/options.js:205 extension/options.js:215 extension/options.js:223
 #: extension/options.js:228
 msgid "Disabled"
 msgstr "مشلول"
 
-#: extension/key_manager.js:691 extension/key_manager.js:927
+#: extension/key_manager.js:693 extension/key_manager.js:929
 msgid "Valid"
 msgstr "صالح"
 
-#: extension/key_manager.js:699 extension/key_manager.js:759
-#: extension/key_manager.js:932 extension/key_manager.js:943
-#: extension/key_manager.js:952
+#: extension/key_manager.js:701 extension/key_manager.js:761
+#: extension/key_manager.js:934 extension/key_manager.js:945
+#: extension/key_manager.js:954
 msgid "Expired"
 msgstr "انقضاء"
 
-#: extension/key_manager.js:703 extension/key_manager.js:935
+#: extension/key_manager.js:705 extension/key_manager.js:937
 msgid "Invalid"
 msgstr "غير صالح"
 
-#: extension/key_manager.js:707 extension/key_manager.js:938
+#: extension/key_manager.js:709 extension/key_manager.js:940
 msgid "Revoked"
 msgstr "سحب"
 
-#: extension/key_manager.js:716 extension/key_manager.js:1006
-#: extension/key_manager.js:1072
+#: extension/key_manager.js:718 extension/key_manager.js:1008
+#: extension/key_manager.js:1074
 msgid "no email address provided"
 msgstr "لم يقدم أي عنوان بريد إلكتروني"
 
-#: extension/key_manager.js:746
+#: extension/key_manager.js:748
 msgid "Cannot unset your default key"
 msgstr "هذا هو المفتاح الخاص بك الافتراضي"
 
-#: extension/key_manager.js:766 extension/key_manager.js:810
+#: extension/key_manager.js:768 extension/key_manager.js:812
 msgid "Trust Assignment"
 msgstr "تعيين الثقة"
 
-#: extension/key_manager.js:768 extension/key_manager.js:812
+#: extension/key_manager.js:770 extension/key_manager.js:814
 msgid "Unknown"
 msgstr "غير معروف"
 
-#: extension/key_manager.js:768 extension/key_manager.js:812
+#: extension/key_manager.js:770 extension/key_manager.js:814
 msgid "Marginal"
 msgstr "هامشي"
 
-#: extension/key_manager.js:768 extension/key_manager.js:812
+#: extension/key_manager.js:770 extension/key_manager.js:814
 msgid "Full"
 msgstr "تماما"
 
-#: extension/key_manager.js:768 extension/key_manager.js:812
+#: extension/key_manager.js:770 extension/key_manager.js:814
 msgid "Ultimate"
 msgstr "نهائي"
 
-#: extension/key_manager.js:772 extension/key_manager.js:816
+#: extension/key_manager.js:774 extension/key_manager.js:818
 msgid "None"
 msgstr ""
 
-#: extension/key_manager.js:772 extension/key_manager.js:816
+#: extension/key_manager.js:774 extension/key_manager.js:818
 msgid "New group"
 msgstr ""
 
-#: extension/key_manager.js:777 extension/key_manager.js:821
+#: extension/key_manager.js:779 extension/key_manager.js:823
 msgid "Group Assignment"
 msgstr ""
 
-#: extension/key_manager.js:791
+#: extension/key_manager.js:793
 msgid "Change Passphrase"
 msgstr "تغيير عبارة المرور"
 
-#: extension/key_manager.js:803
+#: extension/key_manager.js:805
 msgid "Add Subkey"
 msgstr "إضافة مفتاح الفرعي"
 
-#: extension/key_manager.js:890
+#: extension/key_manager.js:892
 msgid "Enable this Key"
 msgstr "تمكين هذا المفتاح لتوقيع"
 
-#: extension/key_manager.js:890
+#: extension/key_manager.js:892
 msgid "Disable this Key"
 msgstr "حذف هذا المفتاح"
 
-#: extension/key_manager.js:895 extension/key_manager.js:968
+#: extension/key_manager.js:897 extension/key_manager.js:970
 msgid "KeyID"
 msgstr "مفتاح معرف"
 
-#: extension/key_manager.js:895 extension/key_manager.js:968
+#: extension/key_manager.js:897 extension/key_manager.js:970
 msgid "Key Created"
 msgstr "تم إنشاؤها على"
 
-#: extension/key_manager.js:896 extension/key_manager.js:969
+#: extension/key_manager.js:898 extension/key_manager.js:971
 #: extension/webpg_results.js:415
 msgid "Expires"
 msgstr "انقضاء"
 
-#: extension/key_manager.js:898 extension/key_manager.js:970
+#: extension/key_manager.js:900 extension/key_manager.js:972
 msgid "Fingerprint"
 msgstr "بصمة"
 
-#: extension/key_manager.js:899 extension/key_manager.js:971
+#: extension/key_manager.js:901 extension/key_manager.js:973
 msgid "Status"
 msgstr "حالة"
 
-#: extension/key_manager.js:899 extension/key_manager.js:971
+#: extension/key_manager.js:901 extension/key_manager.js:973
 msgid "Key Algorithm"
 msgstr "مفتاح خوارزمية"
 
-#: extension/key_manager.js:901
+#: extension/key_manager.js:903
 msgid "Validity"
 msgstr "صحة"
 
-#: extension/key_manager.js:903 extension/key_manager.js:975
+#: extension/key_manager.js:905 extension/key_manager.js:977
 msgid "Key Options"
 msgstr "خيارات"
 
-#: extension/key_manager.js:905 extension/key_manager.js:981
+#: extension/key_manager.js:907 extension/key_manager.js:983
 msgid "Operations"
 msgstr "خيارات"
 
-#: extension/key_manager.js:912
+#: extension/key_manager.js:914
 msgid "Export this Key"
 msgstr "استيراد هذا المفتاح"
 
-#: extension/key_manager.js:916 extension/key_manager.js:1752
+#: extension/key_manager.js:918 extension/key_manager.js:1754
 msgid "Publish to Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:920 extension/webpg_results.js:264
+#: extension/key_manager.js:922 extension/webpg_results.js:264
 msgid "Refresh from Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:923
+#: extension/key_manager.js:925
 msgid "Subkeys"
 msgstr "المفاتيح الفرعية"
 
-#: extension/key_manager.js:965
+#: extension/key_manager.js:967
 msgid "Subkey Details"
 msgstr "مفتاح الفرعي التفاصيل"
 
-#: extension/key_manager.js:972
+#: extension/key_manager.js:974
 msgid "Flags"
 msgstr "الأعلام"
 
-#: extension/key_manager.js:985
+#: extension/key_manager.js:987
 msgid "Delete this Subkey"
 msgstr "حذف هذا المفتاح"
 
-#: extension/key_manager.js:988
+#: extension/key_manager.js:990
 msgid "Revoke this Subkey"
 msgstr "حذف هذا المفتاح"
 
-#: extension/key_manager.js:993
+#: extension/key_manager.js:995
 msgid "User IDs"
 msgstr "مستخدم المعرفات"
 
-#: extension/key_manager.js:1027
+#: extension/key_manager.js:1029
 msgid "Make primary"
 msgstr "جعل الابتدائية"
 
-#: extension/key_manager.js:1031
+#: extension/key_manager.js:1033
 msgid "Revoke UID"
 msgstr "سحب"
 
-#: extension/key_manager.js:1059 extension/webpg_results.js:387
+#: extension/key_manager.js:1061 extension/webpg_results.js:387
 msgid "REVOKED"
 msgstr "فاسخ"
 
-#: extension/key_manager.js:1098
+#: extension/key_manager.js:1100
 msgid "self-signature"
 msgstr "حذف هذا التوقيع"
 
-#: extension/key_manager.js:1100
+#: extension/key_manager.js:1102
 msgid "local"
 msgstr "محلي"
 
-#: extension/key_manager.js:1100
+#: extension/key_manager.js:1102
 msgid "non-exportable"
 msgstr "غير القابلة للتصدير"
 
-#: extension/key_manager.js:1102
+#: extension/key_manager.js:1104
 msgid "other signature"
 msgstr "حذف هذا التوقيع"
 
-#: extension/key_manager.js:1109 extension/key_manager.js:1667
-#: extension/key_manager.js:1852 extension/key_manager.js:2026
+#: extension/key_manager.js:1111 extension/key_manager.js:1669
+#: extension/key_manager.js:1854 extension/key_manager.js:2028
 msgid "Revoke"
 msgstr "سحب"
 
-#: extension/key_manager.js:1112 extension/key_manager.js:2086
+#: extension/key_manager.js:1114 extension/key_manager.js:2091
 msgid "Delete"
 msgstr "حذف"
 
-#: extension/key_manager.js:1121
+#: extension/key_manager.js:1123
 msgid "Signatures made with keys not in your keyring are omitted"
 msgstr ""
 "لا يتم عرض التواقيع التي تم إنشاؤها باستخدام مفاتيح ليس في كيرينغ الخاص"
 
-#: extension/key_manager.js:1326 extension/options.js:151
+#: extension/key_manager.js:1169
+msgid "Calculating Trust"
+msgstr ""
+
+#: extension/key_manager.js:1170
+msgid "Please wait while recalculate the trust for this item"
+msgstr ""
+
+#: extension/key_manager.js:1328 extension/options.js:151
 #: extension/options.js:156 extension/options.js:161
 msgid "Save"
 msgstr "حفظ"
 
-#: extension/key_manager.js:1383
+#: extension/key_manager.js:1385
 msgid "Delete this key"
 msgstr "حذف هذا المفتاح"
 
-#: extension/key_manager.js:1538 extension/key_manager.js:1632
-#: extension/key_manager.js:1733
-msgid "Close"
-msgstr "غلق"
-
-#: extension/key_manager.js:1622
+#: extension/key_manager.js:1624
 msgid "Copy"
 msgstr "نسخ"
 
-#: extension/key_manager.js:1655 extension/key_manager.js:1842
-#: extension/key_manager.js:2016
+#: extension/key_manager.js:1657 extension/key_manager.js:1844
+#: extension/key_manager.js:2018
 msgid "Please specify the revocation details"
 msgstr "يرجى تحديد تفاصيل من إبطال"
 
-#: extension/key_manager.js:1656 extension/key_manager.js:1843
-#: extension/key_manager.js:2017
+#: extension/key_manager.js:1658 extension/key_manager.js:1845
+#: extension/key_manager.js:2019
 msgid "Reason"
 msgstr "سبب"
 
-#: extension/key_manager.js:1658 extension/key_manager.js:1845
-#: extension/key_manager.js:2019
+#: extension/key_manager.js:1660 extension/key_manager.js:1847
+#: extension/key_manager.js:2021
 msgid "No reason specified"
 msgstr "لا يوجد سبب محدد"
 
-#: extension/key_manager.js:1659
+#: extension/key_manager.js:1661
 msgid "Key has been compromised"
 msgstr "تم اختراق المفتاح"
 
-#: extension/key_manager.js:1660
+#: extension/key_manager.js:1662
 msgid "Key is superseded"
 msgstr "وقد تم استبدال مفتاح"
 
-#: extension/key_manager.js:1661
+#: extension/key_manager.js:1663
 msgid "Key is no longer used"
 msgstr "لم يعد يستخدم مفتاح"
 
-#: extension/key_manager.js:1663 extension/key_manager.js:1848
-#: extension/key_manager.js:2022
+#: extension/key_manager.js:1665 extension/key_manager.js:1850
+#: extension/key_manager.js:2024
 msgid "Description"
 msgstr "وصف"
 
-#: extension/key_manager.js:1705
+#: extension/key_manager.js:1707
 msgid "Publish"
 msgstr ""
 
-#: extension/key_manager.js:1708
+#: extension/key_manager.js:1710
 msgid "Sending key to Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:1711
+#: extension/key_manager.js:1713
 msgid "There was a problem sending this key to the Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:1716
+#: extension/key_manager.js:1718
 msgid "No Keyserver defined"
 msgstr ""
 
-#: extension/key_manager.js:1719 extension/options.js:159
+#: extension/key_manager.js:1721 extension/options.js:159
 msgid "Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:1722
+#: extension/key_manager.js:1724
 msgid "Try Again"
 msgstr ""
 
-#: extension/key_manager.js:1726
+#: extension/key_manager.js:1728
 msgid "Key Published to Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:1727
+#: extension/key_manager.js:1729
 msgid "Publish Again"
 msgstr ""
 
-#: extension/key_manager.js:1740
+#: extension/key_manager.js:1742
 msgid "Are you sure you want to Publish this key to the Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:1760 extension/webpg_results.js:284
+#: extension/key_manager.js:1762 extension/webpg_results.js:284
 msgid "Key not found on keyserver"
 msgstr ""
 
-#: extension/key_manager.js:1846 extension/key_manager.js:2020
+#: extension/key_manager.js:1848 extension/key_manager.js:2022
 msgid "User ID is no longer valid"
 msgstr "هوية المستخدم لم يعد صالحا"
 
-#: extension/key_manager.js:1913
+#: extension/key_manager.js:1915
 msgid "Please select which of your keys to create the signature with"
 msgstr "الرجاء اختيار أي من المفاتيح الخاصة بك لإنشاء التوقيع مع"
 
-#: extension/key_manager.js:1923
+#: extension/key_manager.js:1925
 msgid "You have not enabled any keys for use with webpg"
 msgstr "لديك لم يتم تمكين أي مفاتيح للاستخدام مع webpg"
 
-#: extension/key_manager.js:1925 extension/key_manager.js:1929
+#: extension/key_manager.js:1927 extension/key_manager.js:1931
 msgid "please click here"
 msgstr "الرجاء الضغط هنا"
 
-#: extension/key_manager.js:1925
+#: extension/key_manager.js:1927
 msgid "and select 1 or more keys for use with webpg"
 msgstr "وحدد 1 أو أكثر مفاتيح للاستخدام مع webpg"
 
-#: extension/key_manager.js:1927
+#: extension/key_manager.js:1929
 msgid "You have not generated any keys"
 msgstr "لديك لم يتم إنشاء أية مفاتيح"
 
-#: extension/key_manager.js:1929
+#: extension/key_manager.js:1931
 msgid "and generate a key to use with webpg"
 msgstr "وإنشاء مفتاح لاستخدامه مع WebPG"
 
-#: extension/key_manager.js:1936
+#: extension/key_manager.js:1938
 msgid "Already signed with this key"
 msgstr "وقعت بالفعل مع هذا المفتاح"
 
-#: extension/key_manager.js:1938
+#: extension/key_manager.js:1940
 msgid "Signature added using this key"
 msgstr "إنشاء التوقيع باستخدام هذا المفتاح"
 
-#: extension/key_manager.js:2004
+#: extension/key_manager.js:2006
 msgid "Cannot Publish Keys without gpgconf utility installed"
 msgstr ""
 
-#: extension/key_manager.js:2005
+#: extension/key_manager.js:2007
 msgid "Cannot create signatures without gpgconf utility installed"
 msgstr "لا يمكن إنشاء التواقيع دون تثبيت gpgconf"
 
-#: extension/key_manager.js:2007
+#: extension/key_manager.js:2009
 msgid "Cannot Publish Keys without Keyserver configured"
 msgstr ""
 
-#: extension/key_manager.js:2009
+#: extension/key_manager.js:2011
 msgid "Cannot sign a revoked UID"
 msgstr "غير قادر على التوقيع من قبل المستخدم المعرف الذي تم إبطال"
 
-#: extension/key_manager.js:2010
+#: extension/key_manager.js:2012
 msgid "Cannot make a revoked UID primary"
 msgstr ""
 "لا يمكنك تعيين معرف من المستخدم كما الأولية إذا كان المستخدم معرف تم إبطال"
 
-#: extension/key_manager.js:2011
+#: extension/key_manager.js:2013
 msgid "Cannot sign an expired key"
 msgstr "لا يمكن التوقيع على مفتاح منتهية الصلاحية"
 
-#: extension/key_manager.js:2077
+#: extension/key_manager.js:2082
 msgid "Are you certain you would like to delete signature"
 msgstr "أنت متأكد من أنك تريد حذف التوقيع"
 
-#: extension/key_manager.js:2078
+#: extension/key_manager.js:2083
 msgid "from this User ID"
 msgstr "من هذا المعرف المستخدم"
 
-#: extension/key_manager.js:2080
+#: extension/key_manager.js:2085
 msgid "This signature was made with a key that does not belong to you"
 msgstr "وجاء هذا التوقيع مع مفتاح لا ينتمي لك"
 
-#: extension/key_manager.js:2080
+#: extension/key_manager.js:2085
 msgid "This action cannot be undone"
 msgstr "لا يمكن التراجع عن هذا الإجراء"
 
-#: extension/key_manager.js:2166
+#: extension/key_manager.js:2171
 msgid "Enable this key for signing"
 msgstr "تمكين هذا المفتاح لتوقيع"
 
-#: extension/key_manager.js:2176
+#: extension/key_manager.js:2181
 msgid "This is your default key"
 msgstr "هذا هو المفتاح الخاص بك الافتراضي"
 
-#: extension/key_manager.js:2178
+#: extension/key_manager.js:2183
 msgid "Make this the default key for encryption operations"
 msgstr "جعل هذا المفتاح الافتراضي لعمليات التشفير"
 
-#: extension/key_manager.js:2291
+#: extension/key_manager.js:2296
 msgid "Searching for"
 msgstr "العثور على مفتاح"
 
-#: extension/key_manager.js:2292
+#: extension/key_manager.js:2297
 msgid "Please wait while we build the key list"
 msgstr ""
 

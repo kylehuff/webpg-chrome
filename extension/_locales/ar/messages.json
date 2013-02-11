@@ -353,6 +353,9 @@
 	"please_wait": {
 		"message": "يرجى الانتظار"
 	},
+	"Close": {
+		"message": "غلق"
+	},
 	"trust": {
 		"message": "الثقة"
 	},
@@ -536,14 +539,17 @@
 	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
 		"message": "لا يتم عرض التواقيع التي تم إنشاؤها باستخدام مفاتيح ليس في كيرينغ الخاص"
 	},
+	"Calculating_Trust": {
+		"message": ""
+	},
+	"Please_wait_while_recalculate_the_trust_for_this_item": {
+		"message": ""
+	},
 	"Save": {
 		"message": "حفظ"
 	},
 	"Delete_this_key": {
 		"message": "حذف هذا المفتاح"
-	},
-	"Close": {
-		"message": "غلق"
 	},
 	"Copy": {
 		"message": "نسخ"

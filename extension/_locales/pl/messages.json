@@ -353,6 +353,9 @@
 	"please_wait": {
 		"message": "proszę czekać"
 	},
+	"Close": {
+		"message": "Zamknij"
+	},
 	"trust": {
 		"message": "zaufanie"
 	},
@@ -536,14 +539,17 @@
 	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
 		"message": "Podpisy złożone kluczami spoza twojego keyringu są pomijane"
 	},
+	"Calculating_Trust": {
+		"message": ""
+	},
+	"Please_wait_while_recalculate_the_trust_for_this_item": {
+		"message": ""
+	},
 	"Save": {
 		"message": "Zapisz"
 	},
 	"Delete_this_key": {
 		"message": "Usuń ten klucz"
-	},
-	"Close": {
-		"message": "Zamknij"
 	},
 	"Copy": {
 		"message": "Kopiuj"
