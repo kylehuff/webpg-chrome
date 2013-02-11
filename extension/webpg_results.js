@@ -408,10 +408,11 @@ webpg.inline_results = {
                                                 webpg.jq('#header').append(" (" + scrub(keyobj.subkeys[0].size) + scrub(key_algo.abbr) + "/" + keyobj.fingerprint.substr(-8) + ")<br/\>");
                                                 created = new Date();
                                                 created.setTime(keyobj.subkeys[0].created*1000);
-                                                expires = new Date();
-                                                expires.setTime(keyobj.subkeys[0].expires*1000);
+//                                                expires = new Date();
+//                                                expires.setTime(keyobj.subkeys[0].expires*1000);
                                                 webpg.jq('#signature_text').append(_("Created") + ": " + created.toUTCString() + "<br/\>");
-                                                webpg.jq('#signature_text').append(_("Expires") + ": " + expires.toUTCString() + "<br/\>");
+                                                var expires = (keyobj.subkeys[0].expires == 0) ? 'Never' : new Date(keyobj.subkeys[0].expires * 1000).toUTCString();
+                                                webpg.jq('#signature_text').append(_("Expires") + ": " + expires + "<br/\>");
                                                 webpg.jq('#footer').addClass("public_key");
                                                 if (new_public_key) {
                                                     webpg.jq('#footer').append(_("THIS KEY IS NOT IN YOUR KEYRING") + "<br/\>");

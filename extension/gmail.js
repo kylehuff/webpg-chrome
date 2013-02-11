@@ -591,7 +591,7 @@ webpg.gmail = {
             
             webpg.jq(this).closest('.webpg-modified').find("#webpg-current-action")
                 .html("<img src='" + newIcon.src + "' height='17' " +
-                "width='17'/>" + newText);
+                "width='17'/>" + webpg.utils.escape(newText));
 
             var action = this.id.split("-")[1];
 
