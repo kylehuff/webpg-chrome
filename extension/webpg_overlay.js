@@ -140,6 +140,10 @@ webpg.overlay = {
                 webpg.overlay._onRequest({"msg": "removeiframe",
                     "iframe_id": request.iframe_id});
             }
+            if (webpg.overlay.insert_target &&
+                typeof(webpg.overlay.insert_target.updateElementValue) != 'undefined') {
+                webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
+            }
             webpg.overlay.block_target = false;
         } else if (request.msg == "insertPublicKey") {
             if (webpg.overlay.insert_target != null) {
@@ -148,6 +152,10 @@ webpg.overlay = {
             if (request.iframe_id) {
                 webpg.overlay._onRequest({"msg": "removeiframe",
                     "iframe_id": request.iframe_id});
+            }
+            if (webpg.overlay.insert_target &&
+                typeof(webpg.overlay.insert_target.updateElementValue) != 'undefined') {
+                webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
             }
             webpg.overlay.block_target = false;
         } else if (request.msg == "insertSignedData") {
@@ -170,11 +178,19 @@ webpg.overlay = {
                     webpg.overlay.insert_target.textContent = target_value;
                 }
             }
+            if (webpg.overlay.insert_target &&
+                typeof(webpg.overlay.insert_target.updateElementValue) != 'undefined') {
+                webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
+            }
             webpg.overlay.block_target = false;
         } else if (request.msg == "insertIntoPrior") {
             if (webpg.overlay.prior_insert_target != null) {
                 webpg.jq(webpg.overlay.prior_insert_target).val(request.data);
                 webpg.overlay.prior_insert_target = null;
+            }
+            if (webpg.overlay.insert_target &&
+                typeof(webpg.overlay.insert_target.updateElementValue) != 'undefined') {
+                webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
             }
             webpg.overlay.block_target = false;
         } else if (request.msg == "insertDecryptedData") {
@@ -207,9 +223,12 @@ webpg.overlay = {
                         webpg.utils.sendRequest(params);
                     }
             }
+            if (webpg.overlay.insert_target &&
+                typeof(webpg.overlay.insert_target.updateElementValue) != 'undefined') {
+                webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
+            }
             webpg.overlay.block_target = false;
         } else if (request.msg == "openKeySelectionDialog") {
-//            webpg.overlay.block_target = true;
             var target = webpg.overlay.insert_target;
             var range = webpg.overlay.insert_range;
 
@@ -249,7 +268,6 @@ webpg.overlay = {
             posY += 20;
 
             webpg.jq(iframe).animate({"top": posY}, 1, function() {
-//                webpg.jq(iframe).animate({"top": posY}, 1);
                 webpg.jq(iframe).animate({"left": posX}, 1);
             });
 
@@ -303,8 +321,9 @@ webpg.overlay = {
                         target.style.whiteSpace = "pre";
                     }
                 }
-                webpg.overlay.block_target = false;
                 webpg.jq(iframe).remove();
+                webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
+                webpg.overlay.block_target = false;
             });
         } else if (request.msg == "onContextCommand") {
             webpg.overlay.onContextCommand(null, request.action, sender);

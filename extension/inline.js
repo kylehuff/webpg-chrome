@@ -658,20 +658,7 @@ webpg.inline = {
             webpg.jq(toolbar).find('.webpg-keymanager-link, .webpg-options-link').show();
         }
 
-//        webpg.jq(toolbar).hover(
-//            function() {
-//                webpg.overlay.insert_target = element;
-//                // Get the current textarea value or selection
-//                var selection = webpg.utils.getSelectedText().selectedText;
-//                webpg.inline.toolbarTextSelection = selection;
-
-//                detectElementValue(element);
-//            },
-//            function() {
-//                // This empty stub is required in order for the event
-//                //  to fully register. Not sure why...
-//            }
-//        );
+        element.updateElementValue = detectElementValue;
 
         webpg.jq(toolbar).find('.webpg-action-list-icon').css({
             'display': 'inline-block', 'width': '0px',

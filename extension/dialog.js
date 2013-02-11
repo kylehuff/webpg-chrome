@@ -49,10 +49,7 @@ webpg.dialog = {
             'title': title,
             'autoOpen': true,
             'close': function(event) {
-                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                    var iframe = window.parent.document.getElementById(window.frameElement.id);
-                    window.frameElement.parentElement.removeChild(iframe);
-                } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                if (webpg.utils.detectedBrowser['product'] == "chrome") {
                     // In Google Chrome/Chormium, we do not have access to the
                     //  parent document, so we need to send an event to remove
                     //  this iframe.
@@ -356,7 +353,8 @@ webpg.dialog = {
                         }
                         ev_element.dispatchEvent(insertEvent);
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        webpg.utils.sendRequest({"msg": "insertIntoPrior", "data": webpg.overlay.insert_target.value})
+                        webpg.utils.sendRequest({"msg": "insertIntoPrior",
+                            "data": webpg.overlay.insert_target.value});
                     }
                     webpg.jq("#ddialog").dialog("close");
                 },
