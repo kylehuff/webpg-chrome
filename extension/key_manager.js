@@ -34,12 +34,12 @@ webpg.keymanager = {
             _("Version") + ": " + webpg.utils.escape(webpg.utils.extension.version());
 
         /*
-            Global Variable: qs
+            Global Variable: webpg.keymanager.qs
             Stores the items found in the query string
             Type: <dict>
         */
         // Define a global variable to store the location query string
-        qs = {};
+        this.qs = {};
         gpgauth_enabled = false;
 
         // Assign the location.search value for the appropriate
@@ -50,10 +50,10 @@ webpg.keymanager = {
             window.location.search.substring() :
             window.parent.location.search.substring();
 
-        // Populate the global var "qs" with the values
+        // Populate the global var "webpg.keymanager.qs" with the values
         loc.replace(
             new RegExp("([^?=&]+)(=([^&]*))?", "g"),
-            function($0, $1, $2, $3) { qs[$1] = $3; }
+            function($0, $1, $2, $3) { webpg.keymanager.qs[$1] = $3; }
         );
 
         webpg.jq('#tab-2-btn').text(_("Private Keys"));
@@ -176,8 +176,8 @@ webpg.keymanager = {
             );
         });
 
-        var selected_tab = qs.tab ? qs.tab : 0;
-        openKey = (qs.openkey)? qs.openkey : null;
+        var selected_tab = webpg.keymanager.qs.tab ? webpg.keymanager.qs.tab : 0;
+        openKey = (webpg.keymanager.qs.openkey)? webpg.keymanager.qs.openkey : null;
         if (openKey) {
             if (openKey in webpg.secret_keys){
                 selected_tab = 0;
@@ -185,8 +185,8 @@ webpg.keymanager = {
                 selected_tab = 1;
             }
         }
-        var openSubkey = (qs.opensubkey)? qs.opensubkey : null;
-        var openUID = (qs.openuid)? qs.openuid : null;
+        var openSubkey = (webpg.keymanager.qs.opensubkey)? webpg.keymanager.qs.opensubkey : null;
+        var openUID = (webpg.keymanager.qs.openuid)? webpg.keymanager.qs.openuid : null;
         webpg.jq('#tabs').tabs({ selected: selected_tab });
 
         if (selected_tab == 0)
@@ -197,7 +197,7 @@ webpg.keymanager = {
             webpg.keymanager.buildKeylistProxy(
                 null, 'public', openKey, openSubkey, openUID, true
             );
-        if (qs.strip) {
+        if (webpg.keymanager.qs.strip) {
             webpg.jq("#header").remove();
             webpg.jq(document.getElementsByTagName("ul")[0]).remove();
         }
@@ -260,10 +260,10 @@ webpg.keymanager = {
         var _ = webpg.utils.i18n.gettext;
 
         webpg.jq("#dialog-modal").dialog({
-            height: 140,
-            modal: true,
-            autoOpen: true,
-            title: "Building Key list"
+            'height': 140,
+            'modal': true,
+            'autoOpen': true,
+            'title': "Building Key list"
         }).animate({"top": window.scrollY}, 1, function() {
             webpg.jq('#dialog-msg').text("Please wait while we build the key list.");
             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight() + 100}, 1,
@@ -273,12 +273,12 @@ webpg.keymanager = {
                     openSubkey, openUID
                 );
                 webpg.jq("#dialog-modal").dialog('close');
-                if (qs.helper) {
+                if (webpg.keymanager.qs.helper) {
                     function bounce(elem_class, left, top, perpetual) {
                         var nleft = webpg.jq(webpg.jq(elem_class)[0]).parent().offset().left - left;
                         var ntop = webpg.jq(webpg.jq(elem_class)[0]).parent().offset().top - top;
                         webpg.jq("#error_help").parent().css('left', nleft).css('top', ntop).
-                            effect("bounce", {times: 1, direction: 'up', distance: 8 }, 1200, function(){ if (perpetual) { bounce(elem_class, left, top, perpetual) } } )
+                            effect("bounce", {'times': 1, 'direction': 'up', 'distance': 8 }, 1200, function(){ if (perpetual) { bounce(elem_class, left, top, perpetual) } } )
                     }
                     var helper_arrow = document.createElement('div');
                     webpg.jq(helper_arrow).html('' +
@@ -289,14 +289,14 @@ webpg.keymanager = {
                     helper_arrow.style.position = 'absolute';
                     helper_arrow.style.zIndex = 1000;
                     webpg.jq(helper_arrow).css("max-width", "75%");
-                    switch(qs.helper){
+                    switch(webpg.keymanager.qs.helper){
                         case 'generate':
                             webpg.jq(helper_arrow).find('#help_text').text(_("Click to generate a new key"));
                             document.body.appendChild(helper_arrow);
                             webpg.jq('#generate-key-btn').click(function() {
                                 webpg.jq(helper_arrow).stop(true, true).stop(true, true);
                                 document.body.removeChild(helper_arrow.parentElement);
-                                qs.helper = "";
+                                webpg.keymanager.qs.helper = "";
                             });
                             bounce('#generate-key-btn', 5, 44, true);
                             break;
@@ -306,7 +306,7 @@ webpg.keymanager = {
                             webpg.jq('.enable-check').click(function() {
                                 webpg.jq(helper_arrow).stop(true, true).stop(true, true);
                                 document.body.removeChild(helper_arrow.parentElement);
-                                qs.helper = "";
+                                webpg.keymanager.qs.helper = "";
                             });
                             bounce('.enable-check', 65, 50, true);
                             break;
@@ -315,7 +315,7 @@ webpg.keymanager = {
                             webpg.jq('.default-check').click(function() {
                                 webpg.jq(helper_arrow).stop(true, true).stop(true, true);
                                 document.body.removeChild(helper_arrow.parentElement);
-                                qs.helper = "";
+                                webpg.keymanager.qs.helper = "";
                             });
                             document.body.appendChild(helper_arrow);
                             bounce('.default-check', 40, 45, true);
@@ -387,8 +387,9 @@ webpg.keymanager = {
                 webpg.keymanager.genkey_waiting = false;
                 webpg.jq(dialog + "-status").html("Generation " +
                     webpg.utils.escape(data));
-                webpg.jq(dialog + "-dialog").dialog("option", "buttons", { 
-                    "Close": function() {
+                webpg.jq(dialog + "-dialog").dialog("option", "buttons", [{ 
+                    'text': _("Close"),
+                    'click': function() {
                         if (dialog == "#gensubkey")
                              webpg.jq(dialog + "-dialog").dialog("option", "height", 320);
                         webpg.jq(dialog + "_progress").html("");
@@ -398,7 +399,7 @@ webpg.keymanager = {
                         webpg.jq(dialog + "-form")[0].style.display="inline-block";
                         webpg.jq(dialog + "-dialog").dialog("close");
                     }
-                });
+                }]);
 
             }
         }
@@ -510,8 +511,8 @@ webpg.keymanager = {
                     "position": "top",
                     "buttons": [
                     {
-                        text: _("Create"),
-                        click: function() {
+                        'text': _("Create"),
+                        'click': function() {
                             var form = webpg.jq(this).find("#genkey-form")[0];
                             webpg.jq(form).parent().before("<div id=\"genkey-status\"> </div>");
                             var error = "";
@@ -590,16 +591,17 @@ webpg.keymanager = {
                                 form.passphrase.value
                             );
                             if (response == "queued") {
-                                webpg.jq("#genkey-dialog").dialog("option", "buttons", { 
-                                    "Close": function() {
+                                webpg.jq("#genkey-dialog").dialog("option", "buttons", [{ 
+                                    'text': _("Close"),
+                                    'click': function() {
                                         webpg.jq("#genkey-dialog").dialog("close");
                                     }
-                                });
+                                }]);
                             }
                         },
                     }, {
-                        text: _("Cancel"),
-                        click: function() {
+                        'text': _("Cancel"),
+                        'click': function() {
                             webpg.jq("#genkey-dialog").dialog("close");
                             if (webpg.keymanager.genkey_refresh)
                                 webpg.keymanager.buildKeylistProxy(null, 'private');
@@ -649,11 +651,11 @@ webpg.keymanager = {
                 webpg.jq("#genkey-form").find(".open").trigger("click");
             });
             webpg.jq("#genkey-dialog").dialog({
-                resizable: true,
-                minHeight: 300,
-                width: 630,
-                modal: true,
-                autoOpen: false
+                'resizable': true,
+                'minHeight': 300,
+                'width': 630,
+                'modal': true,
+                'autoOpen': false
             }).parent().animate({"top": window.scrollY}, 1, function() {
                 webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
                     / 3}, 1);
@@ -1131,28 +1133,28 @@ webpg.keymanager = {
             e.stopPropagation();
         });
         var pKeyAcOptions = {
-                                header: 'h3', alwaysOpen: false,
-                                autoheight:false, clearStyle:true,
-                                active: '.ui-accordion-left',
-                                collapsible: true
+                                'header': 'h3', 'alwaysOpen': false,
+                                'autoheight': false, 'clearStyle': true,
+                                'active': '.ui-accordion-left',
+                                'collapsible': true
                             }
         webpg.jq('#' + type + '_keylist').children('.primary_key').
             accordion(pKeyAcOptions).children();
 
         var subKeyAcOptions = {
-                                header: 'h4.subkeylist', alwaysOpen: false,
-                                autoheight:false, clearStyle:true,
-                                active:'.ui-accordion-left',
-                                collapsible: true
+                                'header': 'h4.subkeylist', 'alwaysOpen': false,
+                                'autoheight': false, 'clearStyle': true,
+                                'active': '.ui-accordion-left',
+                                'collapsible': true
                               }
 
         webpg.jq(".uidlist").find('.subkey').accordion(subKeyAcOptions);
 
         var uidAcOptions = {
-                                header: 'h4.uidlist', alwaysOpen: false,
-                                autoheight:false, clearStyle:true,
-                                active:'.ui-accordion-left',
-                                collapsible: true
+                                'header': 'h4.uidlist', 'alwaysOpen': false,
+                                'autoheight': false, 'clearStyle': true,
+                                'active':'.ui-accordion-left',
+                                'collapsible': true
                             }
 
         webpg.jq(".uidlist").children('.uid').accordion(uidAcOptions);
@@ -1162,10 +1164,10 @@ webpg.keymanager = {
             if (open_element && type == 'public') {
                 uid_list = open_element.children('h3').find('a')[0];
                 webpg.jq("#dialog-modal").dialog({
-                    height: 140,
-                    modal: true,
-                    title: "Calculating Trust"
-                }).children()[0].innerHTML = "Please wait while recalculate the trust for this item.";
+                    'height': 140,
+                    'modal': true,
+                    'title': _("Calculating Trust")
+                }).children().text(_("Please wait while recalculate the trust for this item"));
                 setTimeout( function() { refresh_trust(uid_list, 'public') }, 300);
             }
         }
@@ -1173,9 +1175,9 @@ webpg.keymanager = {
         webpg.jq('#' + type + '_keylist').children('.open_key').
             accordion("activate", 0)
         webpg.jq('.open_uid').accordion('destroy').accordion().
-            accordion("activate", 0).accordion("option", {collapsible: true});
+            accordion("activate", 0).accordion("option", {'collapsible': true});
         webpg.jq('.open_subkey').accordion('destroy').accordion().
-            accordion("activate", 0).accordion("option", {collapsible: true});
+            accordion("activate", 0).accordion("option", {'collapsible': true});
         webpg.jq('.ui-add-hover').hover(
             function(){
                 webpg.jq(this).addClass("ui-state-hover");
@@ -1282,18 +1284,18 @@ webpg.keymanager = {
 
                 case "expire":
                     webpg.jq("#keyexp-dialog").dialog({
-		                resizable: true,
-		                height: 190,
-		                modal: true,
-		                position: "top",
-                        open: function(event, ui) {
+		                'resizable': true,
+		                'height': 190,
+		                'modal': true,
+		                'position': "top",
+                        'open': function(event, ui) {
                             var key = webpg.plugin.getNamedKey(params[2])
                             webpg.jq("#keyexp-date-input").datepicker({
-                                showButtonPanel: true,
-                                minDate: "+1D",
-                                maxDate: "+4096D",
-                                changeMonth: true,
-	                            changeYear: true
+                                'showButtonPanel': true,
+                                'minDate': "+1D",
+                                'maxDate': "+4096D",
+                                'changeMonth': true,
+	                            'changeYear': true
                             });
                             if (params.length > 3) {
                                 subkey_idx = params[3];
@@ -1307,24 +1309,24 @@ webpg.keymanager = {
                                 webpg.jq("#keyexp-ondate")[0].checked = true;
                                 webpg.jq("#keyexp-date-input").show();
                                 webpg.jq('#keyexp-buttonset').children().blur();
-                                webpg.jq("#keyexp-dialog").dialog({ height: 410 });
+                                webpg.jq("#keyexp-dialog").dialog({ 'height': 410 });
                             }
                             webpg.jq("#keyexp-buttonset").buttonset();
                             webpg.jq("#keyexp-ondate").change(function(){
                                 webpg.jq("#keyexp-date-input").show();
-                                webpg.jq("#keyexp-dialog").dialog({ height: 410 });
+                                webpg.jq("#keyexp-dialog").dialog({ 'height': 410 });
                                 webpg.jq("#keyexp-dialog").dialog("refresh");
                             })
                             webpg.jq("#keyexp-never").change(function(){
                                 webpg.jq("#keyexp-date-input").hide();
-                                webpg.jq("#keyexp-dialog").dialog({ height: 190 });
+                                webpg.jq("#keyexp-dialog").dialog({ 'height': 190 });
                             })
 
                         },
-		                buttons: [
+		                'buttons': [
 		                    {
-		                        text: _("Save"),
-			                    click: function() {
+		                        'text': _("Save"),
+			                    'click': function() {
                                     if (webpg.jq("#keyexp-never")[0].checked) {
                                         var new_expire = 0;
                                     } else {
@@ -1357,8 +1359,8 @@ webpg.keymanager = {
                                     webpg.keymanager.buildKeylistProxy(null, params[1], params[2], params[3], null);
 			                    },
 			                }, {
-			                    text: _("Cancel"),
-		                        click: function(event,ui) {
+			                    'text': _("Cancel"),
+		                        'click': function(event,ui) {
                                     console.log("destroyed...");
                                     webpg.jq("#keyexp-date-input").datepicker('destroy');
                                     webpg.jq(this).dialog('destroy');
@@ -1380,8 +1382,8 @@ webpg.keymanager = {
                     console.log(params);
                     var buttons = {};
                     buttons["delete"] = {
-                        text: _("Delete this key"),
-                        click: function() {
+                        'text': _("Delete this key"),
+                        'click': function() {
                             // Delete the Public Key
                             if (params[1] == "public") {
                                 result = webpg.plugin.gpgDeletePublicKey(params[2]);
@@ -1409,20 +1411,20 @@ webpg.keymanager = {
 		                }
 			        }
                     buttons["cancel"] = {
-                        text: _("Cancel"),
-		                click: function() {
+                        'text': _("Cancel"),
+		                'click': function() {
 			                webpg.jq(this).dialog("close");
 		                }
 		            }
                     webpg.jq("#delete-key-dialog-confirm").dialog({
-		                resizable: true,
-		                height:168,
-		                modal: true,
-		                position: "top",
-		                close: function() {
+		                'resizable': true,
+		                'height': 168,
+		                'modal': true,
+		                'position': "top",
+		                'close': function() {
                             webpg.jq("#delete-key-dialog-confirm").dialog("destroy");
                         },
-		                buttons: buttons
+		                'buttons': buttons
 	                }).parent().animate({"top": window.scrollY}, 1, function() {
                             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()}, 1);
                         });
@@ -1431,8 +1433,8 @@ webpg.keymanager = {
 	            case "adduid":
 	                var buttons = {};
 	                buttons["create"] = {
-                        text: _("Create"),
-                        click: function() {
+                        'text': _("Create"),
+                        'click': function() {
                             var form = webpg.jq(this).find("#adduid-form")[0];
                             if (!webpg.jq("#adduid-status").length) {
                                 webpg.jq(form).parent().before("<div id=\"adduid-status\"> </div>");
@@ -1477,20 +1479,20 @@ webpg.keymanager = {
                         }
                     }
                     buttons["cancel"] = {
-                        text: _("Cancel"),
-                        click: function() {
+                        'text': _("Cancel"),
+                        'click': function() {
                             webpg.jq("#adduid-dialog").dialog("close");
                             webpg.jq("#adduid-form")[0].reset();
                             webpg.jq("#adduid-dialog").dialog("destroy");
                         }
                     }
                     webpg.jq("#adduid-dialog").dialog({
-		                resizable: true,
-		                height: 230,
-		                width: 550,
-		                modal: true,
-		                position: "top",
-                        "buttons": buttons
+		                'resizable': true,
+		                'height': 230,
+		                'width': 550,
+		                'modal': true,
+		                'position': "top",
+                        'buttons': buttons
                     }).parent().animate({"top": window.scrollY}, 1, function() {
                             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
                                 / 2}, 1);
@@ -1500,8 +1502,8 @@ webpg.keymanager = {
                 case "addsubkey":
                     var buttons = {};
                     buttons["create"] = {
-                        text: _("Create"),
-                        click: function() {
+                        'text': _("Create"),
+                        'click': function() {
                             var form = webpg.jq(this).find("#gensubkey-form")[0];
                             form.key_id.value = params[2];
                             webpg.jq(form).parent().before("<div id=\"gensubkey-status\"> </div>");
@@ -1535,8 +1537,8 @@ webpg.keymanager = {
                             );
                             if (response == "queued") {
                                 webpg.jq("#gensubkey-dialog").dialog("option", "buttons", [{ 
-                                    text: _("Close"),
-                                    click: function() {
+                                    'text': _("Close"),
+                                    'click': function() {
                                         webpg.jq("#gensubkey-dialog").dialog("close");
                                     }
                                 }]);
@@ -1544,8 +1546,8 @@ webpg.keymanager = {
                         }
                     }
                     buttons["cancel"] = {
-                        text: _("Cancel"),
-                        click: function() {
+                        'text': _("Cancel"),
+                        'click': function() {
                             webpg.jq("#gensubkey-dialog").dialog("close");
                             if (window.gensubkey_refresh)
                                 webpg.keymanager.buildKeylistProxy(null, 'private');
@@ -1553,13 +1555,13 @@ webpg.keymanager = {
                     }
                     webpg.keymanager.genkey_refresh = false;
                     webpg.jq("#gensubkey-dialog").dialog({
-                        resizable: true,
-                        minHeight: 300,
-                        width: 300,
-                        modal: true,
-                        autoOpen: false,
-                        position: "top",
-                        buttons: buttons
+                        'resizable': true,
+                        'minHeight': 300,
+                        'width': 300,
+                        'modal': true,
+                        'autoOpen': false,
+                        'position': "top",
+                        'buttons': buttons
                     }).parent().animate({"top": window.scrollY}, 1, function() {
                             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
                                 / 3}, 1);
@@ -1619,8 +1621,8 @@ webpg.keymanager = {
                 case "export":
                     var buttons = {};
                     buttons["copy"] = {
-                        text: _("Copy"),
-                        click: function() {
+                        'text': _("Copy"),
+                        'click': function() {
                             webpg.jq("#export-dialog-copytext")[0].select();
                             webpg.jq("#export-dialog-msg").html(
                                 webpg.utils.copyToClipboard(window, document)
@@ -1629,8 +1631,8 @@ webpg.keymanager = {
                         },
                     };
                     buttons["close"] = {
-                        text: _("Close"),
-                        click: function() {
+                        'text': _("Close"),
+                        'click': function() {
                             webpg.jq("#export-dialog").dialog("destroy");
                             webpg.jq("#export-dialog-msg")[0].style.display="none"
                         }
@@ -1639,12 +1641,12 @@ webpg.keymanager = {
                     webpg.jq("#export-dialog-text").html(scrub(export_result));
                     webpg.jq("#export-dialog-copytext").html(scrub(export_result));
                     webpg.jq("#export-dialog").dialog({
-		                resizable: true,
-		                height: 230,
-		                width: 536,
-		                modal: true,
-		                position: "top",
-                        buttons: buttons
+		                'resizable': true,
+		                'height': 230,
+		                'width': 536,
+		                'modal': true,
+		                'position': "top",
+                        'buttons': buttons
                     }).parent().animate({"top": window.scrollY}, 1, function() {
                             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
                                 / 2}, 1);
@@ -1664,8 +1666,8 @@ webpg.keymanager = {
                         "<input type='text' name='revkey-desc' id='revkey-desc' class='ui-corner-all ui-widget ui-state-default'/\>");
                     var buttons = {};
                     buttons["revoke"] = {
-                        text: _("Revoke"),
-                        click: function() {
+                        'text': _("Revoke"),
+                        'click': function() {
                             var reason = webpg.jq('#revkey-reason')[0].value;
                             var desc = webpg.jq('#revkey-desc')[0].value;
                             console.log(params[2], params[3], reason, desc);
@@ -1676,22 +1678,22 @@ webpg.keymanager = {
                         }
                     };
                     buttons["cancel"] = {
-                        text: _("Cancel"),
-                        click: function() {
+                        'text': _("Cancel"),
+                        'click': function() {
                             webpg.jq("#revkey-confirm").dialog("close");
                         }
                     }
                     webpg.jq("#revkey-confirm").dialog({
-                        resizable: true,
-                        height:250,
-                        width: 350,
-                        modal: true,
-                        autoOpen: false,
-                        position: "top",
-                        close: function() {
+                        'resizable': true,
+                        'height': 250,
+                        'width': 350,
+                        'modal': true,
+                        'autoOpen': false,
+                        'position': "top",
+                        'close': function() {
                             webpg.jq("#revkey-confirm").dialog("destroy");
                         },
-                        buttons: buttons
+                        'buttons': buttons
                     }).parent().animate({"top": window.scrollY}, 1, function() {
                             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
                                 / 2}, 1);
@@ -1702,9 +1704,9 @@ webpg.keymanager = {
                 case "publish":
                     var buttons = {};
                     buttons["publish"] = {
-                        text: _("Publish"),
-                        id: "export-dialog-button-publish",
-                        click: function() {
+                        'text': _("Publish"),
+                        'id': "export-dialog-button-publish",
+                        'click': function() {
                             webpg.jq("#export-dialog-text").text(_("Sending key to Keyserver"));
                             var res = webpg.plugin.gpgPublishPublicKey(params[2]);
                             if (typeof(res.result)=='undefined' || res.error == true) {
@@ -1730,8 +1732,8 @@ webpg.keymanager = {
                         },
                     };
                     buttons["close"] = {
-                        text: _("Close"),
-                        click: function() {
+                        'text': _("Close"),
+                        'click': function() {
                             webpg.jq("#export-dialog").dialog("destroy");
                             webpg.jq("#export-dialog-msg")[0].style.display="none"
                         }
@@ -1739,12 +1741,12 @@ webpg.keymanager = {
                     webpg.jq("#export-dialog-copytext").hide();
                     webpg.jq("#export-dialog-text").text(_("Are you sure you want to Publish this key to the Keyserver") + "?");
                     webpg.jq("#export-dialog").dialog({
-		                resizable: true,
-		                height: 230,
-		                width: 536,
-		                modal: true,
-		                position: "top",
-                        buttons: buttons
+		                'resizable': true,
+		                'height': 230,
+		                'width': 536,
+		                'modal': true,
+		                'position': "top",
+                        'buttons': buttons
                     }).parent().animate({"top": window.scrollY}, 1, function() {
                             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
                                 / 2}, 1);
@@ -1794,8 +1796,8 @@ webpg.keymanager = {
                 case "delete":
                     var buttons = {};
                     buttons["delete"] = {
-	                    text: _("Delete this UID"),
-	                    click: function() {
+	                    'text': _("Delete this UID"),
+	                    'click': function() {
                             // Delete the Public Key
                             var uid_idx = parseInt(params[3]) + 1;
                             var result = webpg.plugin.gpgDeleteUID(params[2], uid_idx);
@@ -1810,20 +1812,20 @@ webpg.keymanager = {
 	                    }
 	                }
 	                buttons["cancel"] = {
-	                    text: _("Cancel"),
-		                click: function() {
+	                    'text': _("Cancel"),
+		                'click': function() {
 			                webpg.jq(this).dialog("close");
 		                }
 	                }
                     webpg.jq( "#deluid-confirm" ).dialog({
-		                resizable: true,
-		                height:180,
-		                modal: true,
-		                position: "top",
-                        close: function() {
+		                'resizable': true,
+		                'height': 180,
+		                'modal': true,
+		                'position': "top",
+                        'close': function() {
                             webpg.jq("#deluid-confirm").dialog("destroy");
                         },
-                        buttons: buttons
+                        'buttons': buttons
 	                }).parent().animate({"top": window.scrollY}, 1,
 	                    function() {
                             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
@@ -1849,8 +1851,8 @@ webpg.keymanager = {
                         "<input type='text' name='revuid-desc' id='revuid-desc' class='ui-corner-all ui-widget ui-state-default'/\>");
                     var buttons = {};
                     buttons["confirm"] = {
-                        text: _("Revoke"),
-                        click: function() {
+                        'text': _("Revoke"),
+                        'click': function() {
                             var reason = webpg.jq('#revuid-reason')[0].value;
                             var desc = webpg.jq('#revuid-desc')[0].value;
                             console.log(params[2], params[3], params[4], reason, desc);
@@ -1861,23 +1863,23 @@ webpg.keymanager = {
                         }
                     };
                     buttons["cancel"] = {
-                        text: _("Cancel"),
-                        click: function() {
+                        'text': _("Cancel"),
+                        'click': function() {
                             webpg.jq("#revuid-confirm").dialog("close");
                         }
                     }
                     
                     webpg.jq("#revuid-confirm").dialog({
-                        resizable: true,
-                        height:250,
-                        width: 350,
-                        modal: true,
-                        autoOpen: false,
-                        position: top,
-                        close: function() {
+                        'resizable': true,
+                        'height': 250,
+                        'width': 350,
+                        'modal': true,
+                        'autoOpen': false,
+                        'position': top,
+                        'close': function() {
                             webpg.jq("#revuid-confirm").dialog("destroy");
                         },
-                        "buttons": buttons
+                        'buttons': buttons
                     }).parent().animate({"top": window.scrollY}, 1, function() {
                             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
                                 / 2}, 1);
@@ -1898,12 +1900,12 @@ webpg.keymanager = {
         });
         webpg.jq('.uid-option-button-sign').button().click(function(e){
             webpg.jq("#createsig-dialog").dialog({
-                resizable: true,
-                minHeight: 250,
-                width: 630,
-                modal: true,
-                autoOpen: false,
-                position: "top"
+                'resizable': true,
+                'minHeight': 250,
+                'width': 630,
+                'modal': true,
+                'autoOpen': false,
+                'position': "top"
             }).parent().animate({"top": window.scrollY}, 1, function() {
                     webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
                         / 3}, 1);
@@ -1947,11 +1949,11 @@ webpg.keymanager = {
             }
             var refresh = false;
             webpg.jq("#createsig-dialog").dialog({
-                position: "top",
+                'position': "top",
                 "buttons": [
                     {
-                        text: _("Sign"),
-                        click: function() {
+                        'text': _("Sign"),
+                        'click': function() {
                             var checked = webpg.jq("#createsig-form").children("input:checked");
                             var error = false;
                             for (item in checked) {
@@ -1983,8 +1985,8 @@ webpg.keymanager = {
                             }
                         }
                     }, {
-                        text: _("Cancel"),
-                        click: function() {
+                        'text': _("Cancel"),
+                        'click': function() {
                             webpg.jq("#createsig-dialog").dialog("destroy");
                             if (refresh) {
                                 webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
@@ -2001,14 +2003,14 @@ webpg.keymanager = {
             webpg.jq("#createsig-dialog").dialog('open');
         });
         if (!webpg.plugin.webpg_status.gpgconf_detected) {
-            webpg.jq(".key-operation-button-publish").button({disabled: true, label: _("Cannot Publish Keys without gpgconf utility installed")});
-            webpg.jq('.uid-option-button-sign').button({disabled: true, label: _("Cannot create signatures without gpgconf utility installed")});
+            webpg.jq(".key-operation-button-publish").button({'disabled': true, 'label': _("Cannot Publish Keys without gpgconf utility installed")});
+            webpg.jq('.uid-option-button-sign').button({'disabled': true, 'label': _("Cannot create signatures without gpgconf utility installed")});
         } else if (webpg.plugin.gpgGetPreference("keyserver").value.length < 1) {
-            webpg.jq(".key-operation-button-publish").button({disabled: true, label: _("Cannot Publish Keys without Keyserver configured")});
+            webpg.jq(".key-operation-button-publish").button({'disabled': true, 'label': _("Cannot Publish Keys without Keyserver configured")});
         }
-        webpg.jq('.uid-option-button-sign.uid-revoked').button({disabled: true, label: _("Cannot sign a revoked UID")});
-        webpg.jq('.uid-option-button-primary.uid-revoked').button({disabled: true, label: _("Cannot make a revoked UID primary")});
-        webpg.jq('.uid-option-button-sign.key-expired').button({disabled: true, label: _("Cannot sign an expired key")});
+        webpg.jq('.uid-option-button-sign.uid-revoked').button({'disabled': true, 'label': _("Cannot sign a revoked UID")});
+        webpg.jq('.uid-option-button-primary.uid-revoked').button({'disabled': true, 'label': _("Cannot make a revoked UID primary")});
+        webpg.jq('.uid-option-button-sign.key-expired').button({'disabled': true, 'label': _("Cannot sign an expired key")});
         webpg.jq('.revsig-button').button().click(function(e){
             var params = this.id.split('-');
             var calling_button = this;
@@ -2023,8 +2025,8 @@ webpg.keymanager = {
                 "<input type='text' name='revsig-desc' id='revsig-desc' class='ui-corner-all ui-widget ui-state-default'/\>");
             var buttons = {};
             buttons["revoke"] = {
-                text: _("Revoke"),
-                click: function() {
+                'text': _("Revoke"),
+                'click': function() {
                     var reason = webpg.jq('#revsig-reason')[0].value;
                     var desc = webpg.jq('#revsig-desc')[0].value;
                     console.log(params[2], params[3], params[4], reason, desc);
@@ -2036,8 +2038,8 @@ webpg.keymanager = {
                 }
             }
             buttons["cancel"] = {
-                text: _("Cancel"),
-                click: function() {
+                'text': _("Cancel"),
+                'click': function() {
                     webpg.jq("#revsig-confirm").dialog("close");
                 }
             }
@@ -2049,22 +2051,25 @@ webpg.keymanager = {
             webpg.jq("#revsig-confirm").dialog('open');
         });
         webpg.jq("#revsig-confirm").dialog({
-            resizable: true,
-            height:250,
-            width: 350,
-            modal: true,
-            autoOpen: false,
-            close: function() {
+            'resizable': true,
+            'height': 250,
+            'width': 350,
+            'modal': true,
+            'autoOpen': false,
+            'close': function() {
                 webpg.jq("#revsig-confirm").dialog("destroy");
             },
-            buttons: {
-                'Revoke this Signature?': function() {
-                    webpg.jq(this).dialog('close');
-                },
-                Cancel: function() {
+            'buttons': [{
+                'text': _('Revoke this Signature'),
+                'click': function() {
                     webpg.jq(this).dialog('close');
                 }
-            }
+            }, {
+                'text': _('Cancel'),
+                'click': function() {
+                    webpg.jq(this).dialog('close');
+                }
+            }]
         }).parent().animate({"top": window.scrollY}, 1, function() {
             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
                 / 2}, 1);
@@ -2083,8 +2088,8 @@ webpg.keymanager = {
             }
             var buttons = {};
             buttons["delete"] = {
-                text: _("Delete"),
-                click: function() {
+                'text': _("Delete"),
+                'click': function() {
                     var delsig_result = webpg.plugin.
                         gpgDeleteUIDSign(params[2], parseInt(params[3]) + 1,
                         parseInt(params[4]) + 1);
@@ -2093,8 +2098,8 @@ webpg.keymanager = {
                 }
             };
             buttons["cancel"] = {
-                text: _("Cancel"),
-                click: function() {
+                'text': _("Cancel"),
+                'click': function() {
                     webpg.jq("#delsig-confirm").dialog("close");
                 }
             };
@@ -2107,25 +2112,25 @@ webpg.keymanager = {
         });
         var buttons = {
             "delete": {
-                text: _('Delete this Signature') + '?',
-                click: function() {
+                'text': _('Delete this Signature') + '?',
+                'click': function() {
                     webpg.jq(this).dialog('close');
                 },
             },
             "cancel": {
-                text: _("Cancel"),
-                click: function() {
+                'text': _("Cancel"),
+                'click': function() {
                     webpg.jq(this).dialog('close');
                 }
             }
         };
         webpg.jq("#delsig-confirm").dialog({
-            resizable: true,
-            height:200,
-            modal: true,
-            autoOpen: false,
-            position: "top",
-            buttons: buttons
+            'resizable': true,
+            'height': 200,
+            'modal': true,
+            'autoOpen': false,
+            'position': "top",
+            'buttons': buttons
         }).parent().animate({"top": window.scrollY}, 1, function() {
             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()}, 1);
         });
@@ -2136,18 +2141,18 @@ webpg.keymanager = {
             e.stopPropagation();
             if (this.className.search('active') > -1 && gpgauth_enabled) {
                 webpg.jq("#dialog-modal").dialog({
-                    height: 140,
-                    modal: true,
-                    title: "Calculating Trust"
+                    'height': 140,
+                    'modal': true,
+                    'title': "Calculating Trust"
                 }).children()[0].innerHTML = "Please wait while recalculate the trust for this item.";
                 setTimeout( function() { refresh_trust(e.target, 'public') }, 300);
             }
         });
 
         webpg.jq('.enable-check').button().next().next().button({
-            text: false,
-            icons: {
-                primary: 'ui-icon-check'
+            'text': false,
+            'icons': {
+                'primary': 'ui-icon-check'
             }
         }).click(function(e) {
             var keyid = this.id.substr(-16);
@@ -2201,7 +2206,7 @@ webpg.keymanager = {
             var element = webpg.jq(openItem);
             if (element.length > 0) {
                 var pos = element.offset().top - pos_offset;
-                webpg.jq('html,body').animate({scrollTop: pos}, 1);
+                webpg.jq('html,body').animate({'scrollTop': pos}, 1);
             }
         }
 

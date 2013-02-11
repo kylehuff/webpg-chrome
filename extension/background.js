@@ -557,10 +557,10 @@ webpg.background = {
             var buttons = (browserWindow.content.document.location.href
                 .search(webpg.utils.resourcePath + "XULContent/options.xul") == -1) ?
                     [{
-                        label: _('Open Key Manager'),
-                        accessKey: 'O',
-                        popup: null,
-                        callback: function() {
+                        'label': _('Open Key Manager'),
+                        'accessKey': 'O',
+                        'popup': null,
+                        'callback': function() {
                             webpg.utils.openNewTab(webpg.utils.resourcePath +
                                     "XULContent/options.xul?options_tab=1")
                         }
@@ -589,7 +589,7 @@ if (webpg.utils.detectedBrowser["product"] == "chrome") {
 
     webpg.background.navigate = function(url) {
         chrome.tabs.getSelected(null, function(tab) {
-            chrome.tabs.update(tab.id, {url: url});
+            chrome.tabs.update(tab.id, {'url': url});
         });
     };
 

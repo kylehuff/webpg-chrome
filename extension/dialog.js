@@ -12,7 +12,7 @@ webpg.dialog = {
             Type: <dict>
         */
         // Define a global variable to store the location query string
-        qs = {};
+        this.qs = {};
 
         webpg.dialog.selectedKeys = [];
         var _ = webpg.utils.i18n.gettext;
@@ -25,30 +25,30 @@ webpg.dialog = {
             window.location.search.substring() :
             window.parent.location.search.substring();
 
-        // Populate the global var "qs" with the values
+        // Populate the global var "webpg.dialog.qs" with the values
         loc.replace(
             new RegExp("([^?=&]+)(=([^&]*))?", "g"),
-            function($0, $1, $2, $3) { qs[$1] = $3; }
+            function($0, $1, $2, $3) { webpg.dialog.qs[$1] = $3; }
         );
 
         var width = window.innerWidth - 10;
         var height = window.innerHeight - 48;
         var title = _("Select Recipient(s)");
 
-        if (qs.dialog_type == "import")
+        if (webpg.dialog.qs.dialog_type == "import")
             title = _("Import");
-        else if (qs.dialog_type == "editor")
+        else if (webpg.dialog.qs.dialog_type == "editor")
             title = _("Editor");
 
         webpg.jq("#ddialog").dialog({
-            resizable: false,
-            draggable: false,
-            minHeight: height,
-            width: width,
-            modal: true,
-            title: title,
-            autoOpen: true,
-            close: function(event) {
+            'resizable': false,
+            'draggable': false,
+            'minHeight': height,
+            'width': width,
+            'modal': true,
+            'title': title,
+            'autoOpen': true,
+            'close': function(event) {
                 if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                     var iframe = window.parent.document.getElementById(window.frameElement.id);
                     window.frameElement.parentElement.removeChild(iframe);
@@ -59,8 +59,8 @@ webpg.dialog = {
                     webpg.utils.sendRequest({"msg": "removeiframe", "iframe_id": window.name});
                 }
             },
-            open: function(event, ui) {
-                switch(qs.dialog_type) {
+            'open': function(event, ui) {
+                switch(webpg.dialog.qs.dialog_type) {
                     case "encrypt":
                     case "encryptsign":
                         webpg.jq('.webpg-dialog-insert-btn').hide();
@@ -149,7 +149,7 @@ webpg.dialog = {
                             var nkeylist = (val.length > 0) ? searchResults : null;
                             if (this.value == "")
                                 nkeylist = webpg.pubkeylist
-                            webpg.dialog.populateKeylist(nkeylist, qs.dialog_type);
+                            webpg.dialog.populateKeylist(nkeylist, webpg.dialog.qs.dialog_type);
                         });
                         break;
 
@@ -169,7 +169,7 @@ webpg.dialog = {
                         webpg.jq('.webpg-dialog-encrypt-btn').hide();
                         var editor = webpg.jq('#webpg-dialog-editor');
                         editor.css({ 'height': editor.parent()[0].offsetHeight - 10 });
-                        editor.text(unescape(qs.editor_data));
+                        editor.text(unescape(webpg.dialog.qs.editor_data));
                         editor.show();
                         webpg.overlay.insert_target = editor;
                         webpg.jq("#ddialog").parent().css({'top': '0'});
@@ -177,12 +177,12 @@ webpg.dialog = {
 
                 }
                 if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                    if (qs.dialog_type == "encrypt" || qs.dialog_type == "encryptsign") {
+                    if (webpg.dialog.qs.dialog_type == "encrypt" || webpg.dialog.qs.dialog_type == "encryptsign") {
                         webpg.pubkeylist = webpg.background.webpg.plugin.getPublicKeyList();
-                    } else if (qs.dialog_type == "export") {
+                    } else if (webpg.dialog.qs.dialog_type == "export") {
                         webpg.pubkeylist = webpg.background.webpg.plugin.getPrivateKeyList();
-                    } else if (qs.dialog_type == "import") {
-                        var import_data = unescape(qs.import_data);
+                    } else if (webpg.dialog.qs.dialog_type == "import") {
+                        var import_data = unescape(webpg.dialog.qs.import_data);
                         var pubkeys = import_data.split(webpg.constants.PGPTags.PGP_KEY_END);
                         for (var pubkey in pubkeys) {
                             if (pubkeys[pubkey].length > 1
@@ -197,22 +197,22 @@ webpg.dialog = {
                         }
                         webpg.inline.PGPDataSearch(document);
                         return;
-                    } else if (qs.dialog_type == "editor") {
+                    } else if (webpg.dialog.qs.dialog_type == "editor") {
                         webpg.inline.PGPDataSearch(document);
                     }
-                    webpg.dialog.populateKeylist(webpg.pubkeylist, qs.dialog_type);
+                    webpg.dialog.populateKeylist(webpg.pubkeylist, webpg.dialog.qs.dialog_type);
                 } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                    if (qs.dialog_type == "encrypt" || qs.dialog_type == "encryptsign") {
+                    if (webpg.dialog.qs.dialog_type == "encrypt" || webpg.dialog.qs.dialog_type == "encryptsign") {
                         webpg.utils.sendRequest({"msg": "public_keylist"}, function(response) {
                             webpg.pubkeylist = response.result;
-                            webpg.dialog.populateKeylist(response.result, qs.dialog_type);
+                            webpg.dialog.populateKeylist(response.result, webpg.dialog.qs.dialog_type);
                         })
-                    } else if (qs.dialog_type == "export") {
+                    } else if (webpg.dialog.qs.dialog_type == "export") {
                         webpg.utils.sendRequest({"msg": "private_keylist"}, function(response) {
-                            webpg.dialog.populateKeylist(response.result, qs.dialog_type);
+                            webpg.dialog.populateKeylist(response.result, webpg.dialog.qs.dialog_type);
                         })
-                    } else if (qs.dialog_type == "import") {
-                        var import_data = unescape(qs.import_data);
+                    } else if (webpg.dialog.qs.dialog_type == "import") {
+                        var import_data = unescape(webpg.dialog.qs.import_data);
                         var pubkeys = import_data.split(webpg.constants.PGPTags.PGP_KEY_END);
                         for (var pubkey in pubkeys) {
                             if (pubkeys[pubkey].length > 1 &&
@@ -229,7 +229,7 @@ webpg.dialog = {
                     }
                 }
             },
-            buttons: [
+            'buttons': [
             {
                 'text': _("Encrypt"),
                 'class': 'webpg-dialog-encrypt-btn',
@@ -241,11 +241,11 @@ webpg.dialog = {
                         }
                     };
 
-                    var pre_selection = (unescape(qs.pre_selection)) ?
-                        unescape(qs.pre_selection) : "";
+                    var pre_selection = (unescape(webpg.dialog.qs.pre_selection)) ?
+                        unescape(webpg.dialog.qs.pre_selection) : "";
 
-                    var post_selection = (unescape(qs.post_selection)) ?
-                        unescape(qs.post_selection) : "";
+                    var post_selection = (unescape(webpg.dialog.qs.post_selection)) ?
+                        unescape(webpg.dialog.qs.post_selection) : "";
 
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         var ev_element = window.parent.document.getElementById(window.frameElement.id);
@@ -253,32 +253,32 @@ webpg.dialog = {
                             var encryptEvent = document.createEvent('CustomEvent');
                             encryptEvent.initCustomEvent("sendResult", true, true,
                                 {
-                                    data: unescape(qs.encrypt_data),
-                                    pre_selection: pre_selection,
-                                    post_selection: post_selection,
-                                    recipients: encrypt_to_list,
-                                    sign: (qs.dialog_type == "encryptsign"),
+                                    'data': unescape(webpg.dialog.qs.encrypt_data),
+                                    'pre_selection': pre_selection,
+                                    'post_selection': post_selection,
+                                    'recipients': encrypt_to_list,
+                                    'sign': (webpg.dialog.qs.dialog_type == "encryptsign"),
                                 }
                             );
                         } else {
                             var encryptEvent = new window.CustomEvent('sendResult', {
                                 detail: {
-	                                data: unescape(qs.encrypt_data),
-                                    pre_selection: pre_selection,
-                                    post_selection: post_selection,
-	                                recipients: encrypt_to_list,
-	                                sign: (qs.dialog_type == "encryptsign"),
+	                                'data': unescape(webpg.dialog.qs.encrypt_data),
+                                    'pre_selection': pre_selection,
+                                    'post_selection': post_selection,
+	                                'recipients': encrypt_to_list,
+	                                'sign': (webpg.dialog.qs.dialog_type == "encryptsign"),
                                 }
                             })
                         }
                         ev_element.dispatchEvent(encryptEvent);
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         webpg.utils.sendRequest({"msg": "encrypt",
-                            "data": unescape(qs.encrypt_data),
+                            "data": unescape(webpg.dialog.qs.encrypt_data),
                             "pre_selection": pre_selection,
                             "post_selection": post_selection,
                             "recipients": encrypt_to_list,
-                            "sign": (qs.dialog_type == "encryptsign"),
+                            "sign": (webpg.dialog.qs.dialog_type == "encryptsign"),
                             "iframe_id": window.name});
                     }
                 }
@@ -350,7 +350,7 @@ webpg.dialog = {
                         } else {
                             var insertEvent = new window.CustomEvent('sendResult', {
                                 detail: {
-	                                data: webpg.overlay.insert_target.value,
+	                                'data': webpg.overlay.insert_target.value,
                                 }
                             })
                         }

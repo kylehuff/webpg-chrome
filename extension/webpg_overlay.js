@@ -44,7 +44,7 @@ webpg.overlay = {
         // Check if inline formatting is enabled and setup
         //  required parsers
         webpg.utils.sendRequest({
-            msg: "decorate_inline" },
+            'msg': "decorate_inline" },
             function(response) {
                 if (response.result.decorate_inline == "true") {
                     var mode = response.result.mode;
@@ -347,7 +347,7 @@ webpg.overlay = {
         } else if (!selection.length > 0) {
             context_menuitems['paste'] = true;
         }
-        webpg.utils.sendRequest({msg: "create_menu", "context_menuitems":
+        webpg.utils.sendRequest({'msg': "create_menu", "context_menuitems":
             context_menuitems});
     },
 
@@ -455,7 +455,7 @@ webpg.overlay = {
 		            } else {
 		                webpg.utils.sendRequest({"msg": "export", "keyid": enabled_keys[0]},
 		                function(pubkey) {
-                            webpg.overlay._onRequest({msg: 'insertPublicKey', 'data': pubkey.result});
+                            webpg.overlay._onRequest({'msg': 'insertPublicKey', 'data': pubkey.result});
                         });
                     }
                 });

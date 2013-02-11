@@ -855,7 +855,7 @@ webpg.utils = {
                    .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                    .getInterface(Components.interfaces.nsIDOMWindow);
                 var stringBundle = mainWindow.document.getElementById("webpg-strings");
-                msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9|^\.]/g, '_');
+                var msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9|^\.]/g, '_');
                 try {
                     var res = stringBundle.getString(msgName);
                 } catch (e) {
@@ -873,7 +873,7 @@ webpg.utils = {
                     return res;
                 }
             } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9]/g, '_');
+                var msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9]/g, '_');
                 var tmsg = chrome.i18n.getMessage(msgName);
                 if (tmsg.length == 0) {
                     // msg names that begin with a number, i.e. "90 days", they

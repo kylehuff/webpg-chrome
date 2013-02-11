@@ -825,7 +825,7 @@ webpg.utils.sendRequest({
                 });
 
                 // configuration of the observer:
-                var config = { childList: true, subtree: true, attributes: false, characterData: false };
+                var config = { 'childList': true, 'subtree': true, 'attributes': false, 'characterData': false };
 
                 if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                     webpg.gmail.appcontent = document.getElementById("appcontent") || document;

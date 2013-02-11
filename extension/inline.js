@@ -102,7 +102,7 @@ webpg.inline = {
             });
 
             // configuration of the observer:
-            var config = { childList: true, subtree: true, attributes: false, characterData: false };
+            var config = { 'childList': true, 'subtree': true, 'attributes': false, 'characterData': false };
 
             observer.observe(document.querySelector('body'), config);
         }
@@ -395,8 +395,8 @@ webpg.inline = {
                     }
                 }
                 webpg.utils.sendRequest({
-                    msg: 'verify',
-                    data: scontent},
+                    'msg': 'verify',
+                    'data': scontent},
                     function(response) {
                         if (response.result.gpg_error_code == "58" || !response.result.error) {
                             webpg.utils.sendRequest({
@@ -442,9 +442,9 @@ webpg.inline = {
                 console.log("WebPG found an encrypted or signed message");
                 webpg.utils.sendRequest({
                     // WebPG found a PGP MESSAGE, but it could be a signed. Lets gpgVerify first
-                    msg: 'verify',
-                    data: scontent,
-                    target_id: results_frame.id },
+                    'msg': 'verify',
+                    'data': scontent,
+                    'target_id': results_frame.id },
                     function(response) {
                         if (response.result.signatures && response.result.data)
                             blockType = webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
