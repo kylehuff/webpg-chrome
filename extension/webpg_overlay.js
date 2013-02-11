@@ -1,7 +1,7 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
 // Enforce jQuery.noConflict if not already performed
-if (typeof(jQuery)!='undefined') { var jq = jQuery.noConflict(true); }
+if (typeof(jQuery)!='undefined') { webpg.jq = jQuery.noConflict(true); }
 
 /*
     This file is loaded with each new page request and handles setting up
@@ -49,8 +49,17 @@ webpg.overlay = {
                 if (response.result.decorate_inline == "true") {
                     var mode = response.result.mode;
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                        if (!webpg.plugin) {
+                            var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                                   .getService(Components.interfaces.nsIWindowMediator);
+                            var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
+                                "mail:3pane" : "navigator:browser";
+                            var browserWindow = wm.getMostRecentWindow(winType);
+                            webpg.plugin = browserWindow.webpg.plugin;
+                        }
+
                         // Begin parsing the document for PGP Data
-                        webpg.inline.init(webpg.doc, mode)
+                        webpg.inline.init(webpg.doc, mode);
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                         webpg.inline.init(document, mode);
                     }
@@ -90,20 +99,23 @@ webpg.overlay = {
                     var pos = iframe.offsetTop - 10;
                     var body = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
                         content.document.body : "html,body";
-                    jq(body).animate({scrollTop: pos}, 1);
+                    webpg.jq(body).animate({scrollTop: pos}, 1);
                 }
             }
         } else if (request.msg == "removeiframe"){
             if (request.iframe_id) {
                 try {
                     var iframe = document.getElementById(request.iframe_id);
-                    jq(iframe).remove();
+                    webpg.jq(iframe).remove();
                     webpg.overlay.block_target = false;
                 } catch (err) {
-                    jq(iframe).hide();
+                    webpg.jq(iframe).hide();
                 }
             }
         } else if (request.msg == "insertEncryptedData") {
+            if (webpg.overlay.prior_insert_target != null) {
+                return false;
+            }
             if (webpg.overlay.insert_target != null && request.data) {
                 if (webpg.overlay.insert_range != null && (webpg.overlay.insert_target.nodeName != "TEXTAREA" &&
                         webpg.overlay.insert_target.nodeName != "INPUT")) {
@@ -117,7 +129,7 @@ webpg.overlay = {
                         request.post_selection;
                     if (webpg.overlay.insert_target.nodeName == "TEXTAREA" ||
                         webpg.overlay.insert_target.nodeName == "INPUT") {
-                        jq(webpg.overlay.insert_target).val(target_value);
+                        webpg.jq(webpg.overlay.insert_target).val(target_value);
                     } else {
                         webpg.overlay.insert_target.style.whiteSpace = "pre";
                         webpg.overlay.insert_target.textContent = target_value;
@@ -128,14 +140,16 @@ webpg.overlay = {
                 webpg.overlay._onRequest({"msg": "removeiframe",
                     "iframe_id": request.iframe_id});
             }
+            webpg.overlay.block_target = false;
         } else if (request.msg == "insertPublicKey") {
             if (webpg.overlay.insert_target != null) {
-                jq(webpg.overlay.insert_target).val(request.data);
+                webpg.jq(webpg.overlay.insert_target).val(request.data);
             }
             if (request.iframe_id) {
                 webpg.overlay._onRequest({"msg": "removeiframe",
                     "iframe_id": request.iframe_id});
             }
+            webpg.overlay.block_target = false;
         } else if (request.msg == "insertSignedData") {
             if (webpg.overlay.insert_range != null && (webpg.overlay.insert_target.nodeName != "TEXTAREA" &&
                     webpg.overlay.insert_target.nodeName != "INPUT")) {
@@ -150,12 +164,19 @@ webpg.overlay = {
                     request.post_selection;
                 if (webpg.overlay.insert_target.nodeName == "TEXTAREA" ||
                     webpg.overlay.insert_target.nodeName == "INPUT") {
-                    jq(webpg.overlay.insert_target).val(target_value);
+                    webpg.jq(webpg.overlay.insert_target).val(target_value);
                 } else {
                     webpg.overlay.insert_target.style.whiteSpace = "pre";
                     webpg.overlay.insert_target.textContent = target_value;
                 }
             }
+            webpg.overlay.block_target = false;
+        } else if (request.msg == "insertIntoPrior") {
+            if (webpg.overlay.prior_insert_target != null) {
+                webpg.jq(webpg.overlay.prior_insert_target).val(request.data);
+                webpg.overlay.prior_insert_target = null;
+            }
+            webpg.overlay.block_target = false;
         } else if (request.msg == "insertDecryptedData") {
             if (webpg.overlay.insert_target != null) {
                 if (!request.decrypt_status.block_type)
@@ -186,10 +207,14 @@ webpg.overlay = {
                         webpg.utils.sendRequest(params);
                     }
             }
+            webpg.overlay.block_target = false;
         } else if (request.msg == "openKeySelectionDialog") {
-            webpg.overlay.block_target = true;
+//            webpg.overlay.block_target = true;
             var target = webpg.overlay.insert_target;
             var range = webpg.overlay.insert_range;
+
+            if (request.dialog_type == "editor")
+                webpg.overlay.prior_insert_target = target;
 
             var theURL = webpg.utils.resourcePath + "dialog.html?dialog_type="
                 + request.dialog_type;
@@ -199,9 +224,15 @@ webpg.overlay = {
                     "&post_selection=" + escape(request.post_selection);
             if (request.dialog_type == "import")
                 theURL += "&import_data=" + escape(request.data);
+            if (request.dialog_type == "editor")
+                theURL += "&editor_data=" + escape(request.data);
+
+            var hOffset = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? 140 : 60;
 
             if (request.dialog_type == "import")
                 var iframe = webpg.inline.addDialogFrame(theURL, 380, 810);
+            else if (request.dialog_type == "editor")
+                var iframe = webpg.inline.addDialogFrame(theURL, window.innerHeight - hOffset, window.innerWidth - 60);
             else
                 var iframe = webpg.inline.addDialogFrame(theURL);
 
@@ -209,14 +240,17 @@ webpg.overlay = {
             iframe.style.marginLeft = "";
             var scrollY = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
                 content.window.scrollY : window.scrollY;
-            var posY = scrollY + (jq(iframe).innerHeight()
+            var posY = scrollY + (webpg.jq(iframe).innerHeight()
                     / 3);
-            var posX = (window.outerWidth
-                    / 3) - 100;
+            var posX = (window.outerWidth / 2) - 
+                    (iframe.offsetWidth / 2);
 
-            jq(iframe).animate({"top": window.scrollY}, 1, function() {
-                jq(iframe).animate({"top": posY}, 1);
-                jq(iframe).animate({"left": posX}, 1);
+            posY = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.pageYOffset : window.pageYOffset
+            posY += 20;
+
+            webpg.jq(iframe).animate({"top": posY}, 1, function() {
+//                webpg.jq(iframe).animate({"top": posY}, 1);
+                webpg.jq(iframe).animate({"left": posX}, 1);
             });
 
             // the sendResult event is for communicating with the iframe
@@ -259,9 +293,18 @@ webpg.overlay = {
                     }
                 } else if (request.dialog_type == "import") {
                     console.log(e.detail);
+                } else if (request.dialog_type == "editor") {
+                    if (target.type == "textarea" || target.type == "text") {
+                        target.value = e.detail.data;
+                    } else {
+                        var contents = range.extractContents();
+                        contents.textContent = e.detail.data;
+                        range.insertNode(contents);
+                        target.style.whiteSpace = "pre";
+                    }
                 }
                 webpg.overlay.block_target = false;
-                jq(iframe).remove();
+                webpg.jq(iframe).remove();
             });
         } else if (request.msg == "onContextCommand") {
             webpg.overlay.onContextCommand(null, request.action, sender);
@@ -423,8 +466,13 @@ webpg.overlay = {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
                         "XULContent/options.xul?options_tab=1");
 			    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                    var url = "options.html?auto_init=true"
-                    webpg.utils.openNewTab(webpg.utils.resourcePath + url, sender.tab.index + 1);
+                    var url = "key_manager.html?auto_init=true"
+                    if (typeof(sender.tab)=='undefined') {
+                        sender.tab = {'index': null };
+                    } else {
+                        sender.tab.index += 1;
+                    }
+                    webpg.utils.openNewTab(webpg.utils.resourcePath + url, sender.tab.index);
                 }
 			    break;
 
@@ -433,10 +481,26 @@ webpg.overlay = {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
                         "XULContent/options.xul?options_tab=0");
 			    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                    var url = "key_manager.html?auto_init=true";
-                    webpg.utils.openNewTab(webpg.utils.resourcePath + url, sender.tab.index + 1);
+                    var url = "options.html?auto_init=true";
+                    if (typeof(sender.tab)=='undefined') {
+                        sender.tab = {'index': null };
+                    } else {
+                        sender.tab.index += 1;
+                    }
+                    webpg.utils.openNewTab(webpg.utils.resourcePath + url, sender.tab.index);
                 }
 			    break;
+
+		    case webpg.constants.overlayActions.EDITOR:
+		        if (!selection)
+		            return
+                webpg.overlay._onRequest({'msg': 'openKeySelectionDialog',
+                    'data': selection.selectionText,
+                    'pre_selection': selection.pre_selection,
+                    'post_selection': selection.post_selection,
+                    'dialog_type': 'editor'
+                });
+                break;
 
             case webpg.constants.overlayActions.ABOUT:
 		        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
@@ -465,8 +529,12 @@ webpg.overlay = {
 };
 
 if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-    webpg.appcontent = document.getElementById("appcontent") || document;
-    webpg.appcontent.addEventListener("DOMContentLoaded", webpg.overlay.init, false);
+    if (webpg.utils.detectedBrowser['product'] == "thunderbird") {
+//        window.addEventListener("load", webpg.overlay.init, false);
+    } else {
+        webpg.appcontent = document.getElementById("appcontent") || document;
+        webpg.appcontent.addEventListener("DOMContentLoaded", webpg.overlay.init, false);
+    }
 } else {
     webpg.overlay.init();
 }

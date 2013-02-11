@@ -19,11 +19,12 @@ webpg.background = {
 
         // information and source code for the plugin can be found here:
         //      https://github.com/kylehuff/webpg-npapi
-        if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
+        if (navigator.userAgent.toLowerCase().search("chrome") > -1 ||
+            navigator.userAgent.toLowerCase().search("opera") > -1) {
             // if the plugin is already present, remove it from the DOM
             if (document.getElementById("webpgPlugin"))
                 document.body.removeChild(document.getElementById("webpgPlugin"));
-            embed = document.createElement("embed");
+            var embed = document.createElement("embed");
             embed.id = "webpgPlugin";
             embed.type = "application/x-webpg";
             document.body.appendChild(embed);
@@ -283,6 +284,14 @@ webpg.background = {
                 };
                 break;
 
+            case 'insertIntoPrior':
+                webpg.utils.tabs.sendRequest(sender.tab, {
+                    "msg": "insertIntoPrior",
+                    "data": (request.data) ? request.data : null,
+                    "iframe_id": request.iframe_id}
+                );
+                break;
+
             case 'encrypt':
                 //console.log("encrypt requested");
                 var sign = (typeof(request.sign)=='undefined'
@@ -290,7 +299,7 @@ webpg.background = {
                 if (request.keyid) {
                     response = webpg.plugin.gpgEncrypt(request.data,
                         request.keyid, sign);
-                } else if (request.recipients) {
+                } else if (request.recipients.length > 0) {
                     //console.log(request.data, request.recipients);
                     response = webpg.plugin.gpgEncrypt(request.data,
                         request.recipients, sign);
@@ -300,7 +309,7 @@ webpg.background = {
                 if (typeof(request.message_event)=='undefined' || !request.message_event == "gmail")
                     webpg.utils.tabs.sendRequest(sender.tab, {
                         "msg": "insertEncryptedData",
-                        "data": response.data,
+                        "data": (response.data) ? response.data : null,
                         "pre_selection": request.pre_selection,
                         "post_selection": request.post_selection,
                         "iframe_id": request.iframe_id});
@@ -599,6 +608,7 @@ if (webpg.utils.detectedBrowser["product"] == "chrome") {
     });
 
 }
+
 // Listen for the creation of the background DOM and then init webpg.background
 window.addEventListener("load", function load(event) {
     window.removeEventListener("load", load, false);

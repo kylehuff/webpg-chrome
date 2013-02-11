@@ -1,6 +1,7 @@
 /* <![CDATA[ */
+if (typeof(webpg)=='undefined') { webpg = {}; }
 // Enforce jQuery.noConflict if not already performed
-if (typeof(jQuery)!='undefined') { var jq = jQuery.noConflict(true); }
+if (typeof(jQuery)!='undefined') webpg.jq = jQuery.noConflict(true);
 
 /*
     Class: webpg.about
@@ -22,41 +23,22 @@ webpg.about = {
             else if (webpg.utils.detectedBrowser['product'] == "seamonkey")
                 var browserString = "SeaMonkey";
             document.getElementById("webpg-info-browser").innerHTML += browserString;
-            document.getElementById("webpg-info-version-string").innerHTML +=
-                webpg.utils.escape(webpg.about.version);
         } else if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
             document.getElementById("webpg-info-browser").innerHTML += "Chrome";
-            document.getElementById("webpg-info-version-string").innerText +=
-                webpg.utils.escape(chrome.app.getDetails().version);
         }
 
-        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
-            jq('#window_functions').hide();
+        document.getElementById("webpg-info-version-string").innerText +=
+            _("Version") + ": " + webpg.utils.escape(webpg.utils.extension.version());
 
-        jq('#close').button().button("option", "label", _("Finished"))
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+            webpg.jq('#window_functions').hide();
+
+        webpg.jq('#close').button().button("option", "label", _("Finished"))
             .click(function(e) { window.top.close(); });
    }
 }
 
 window.addEventListener("DOMContentLoaded", function() {
-    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-        try {
-            // Firefox 4 and later; Mozilla 2 and later
-            Components.utils.import("resource://gre/modules/AddonManager.jsm");
-            AddonManager.getAddonByID("webpg-firefox@curetheitch.com", function(result) {
-                webpg.about.version = result.version;
-                webpg.about.init()
-            });
-        }
-        catch (ex) {
-            // Firefox 3.6 and before; Mozilla 1.9.2 and before
-            var em = Components.classes["@mozilla.org/extensions/manager;1"]
-                     .getService(Components.interfaces.nsIExtensionManager);
-            webpg.about.version = em.getItemForID("webpg-firefox@curetheitch.com").version;
-            webpg.about.init();
-        }
-    } else {
-        webpg.about.init();
-    }
+    webpg.about.init();
 }, true);
 /* ]]> */

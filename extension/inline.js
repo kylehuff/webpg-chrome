@@ -1,7 +1,7 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
 // Enforce jQuery.noConflict if not already performed
-if (typeof(jQuery)!='undefined') { var jq = jQuery.noConflict(true); }
+if (typeof(jQuery)!='undefined') { webpg.jq = jQuery.noConflict(true); }
 
 /*
     Class: webpg.inline
@@ -23,21 +23,25 @@ webpg.inline = {
 
         this.mode = mode;
 
+        this.action_selected = false;
+
         // Determine if inline decration has been disabled for this page
         // TODO: Implement this
         //if (!webpg.inline.enabledForPage(doc.location))
         //    return;
 
         if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-            if(typeof(doc.nodeName)!='undefined' && doc.nodeName != "#document")
+            if (typeof(doc.nodeName)!='undefined' && doc.nodeName != "#document")
                 return;
 
             // Don't parse Firefox chrome pages
             try {
-                if(doc.location.protocol == "chrome:")
-                    return;
+                if (doc.location.protocol == "chrome:") {
+                    return false;
+                }
             } catch (err) {
-                return;
+                console.log(err.message);
+                return false;
             }
         }
 
@@ -57,22 +61,51 @@ webpg.inline = {
             }
         }
 
-        window.addEventListener("DOMSubtreeModified", function(e) {
-            if (e.target.nodeName == "IFRAME" && e.target.className.indexOf("webpg-") == -1 &&
-                webpg.inline.existing_iframes.indexOf(e.target) == -1) {
-                webpg.inline.existing_iframes.push(e.target);
-                try {
-                    e.target.contentDocument.documentElement.removeEventListener("contextmenu",
-                        webpg.overlay.contextHandler, true);
-                    e.target.contentDocument.documentElement.addEventListener("contextmenu",
-                        webpg.overlay.contextHandler, true);
-                } catch (err) {
-                    //
+        var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+        // Retrieve a reference to the appropriate window object
+        // Check if the MutationObserver is not present
+        if (typeof(MutationObserver) == 'undefined') {
+            window.addEventListener("DOMSubtreeModified", function(e) {
+                if (e.target.nodeName == "IFRAME" && e.target.className.indexOf("webpg-") == -1 &&
+                    webpg.inline.existing_iframes.indexOf(e.target) == -1) {
+                    webpg.inline.existing_iframes.push(e.target);
+                    try {
+                        e.target.contentDocument.documentElement.removeEventListener("contextmenu",
+                            webpg.overlay.contextHandler, true);
+                        e.target.contentDocument.documentElement.addEventListener("contextmenu",
+                            webpg.overlay.contextHandler, true);
+                    } catch (err) {
+                        //
+                    }
+                    webpg.inline.PGPDataSearch(e.target.contentDocument, true);
                 }
-                webpg.inline.PGPDataSearch(e.target.contentDocument, true);
-            }
-        }, true);
+            }, true);
+        } else {
+            // Otherwise, use the MutationObserver
+            // create an observer instance
+            var observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.target.nodeName == "IFRAME" && mutation.target.className.indexOf("webpg-") == -1 &&
+                        webpg.inline.existing_iframes.indexOf(mutation.target) == -1) {
+                        webpg.inline.existing_iframes.push(mutation.target);
+                        try {
+                            mutation.target.contentDocument.documentElement.removeEventListener("contextmenu",
+                                webpg.overlay.contextHandler, true);
+                            mutation.target.contentDocument.documentElement.addEventListener("contextmenu",
+                                webpg.overlay.contextHandler, true);
+                        } catch (err) {
+                        //
+                        }
+                        webpg.inline.PGPDataSearch(mutation.target.contentDocument, true);
+                    }
+                });
+            });
 
+            // configuration of the observer:
+            var config = { childList: true, subtree: true, attributes: false, characterData: false };
+
+            observer.observe(document.querySelector('body'), config);
+        }
     },
 
     /*
@@ -112,7 +145,8 @@ webpg.inline = {
             if ((node.nodeName == "TEXTAREA" || node.getAttribute("contenteditable") == "true") && (!previousElement
             || previousElement.className != "webpg-toolbar")) {
                 if (node.style.display != "none" && node.offsetHeight > 30) {
-                    webpg.inline.addWebPGToolbar(node);
+//                    webpg.inline.addWebPGToolbar(node);
+                    webpg.inline.addWebPGMenuBar(node);
                 }
             }
         }
@@ -286,7 +320,7 @@ webpg.inline = {
         // The html contents posted to element is the textContent or innerText
         //  of the element with detected PGP Blocks
         var h = document.createElement("pre");
-        jq(h).html(scontent);
+        webpg.jq(h).html(scontent);
         var phtml = h.innerHTML;
 
         if (html.match("<div><br></div>-----") == null && scontent == phtml) {
@@ -311,13 +345,13 @@ webpg.inline = {
 
         range.insertNode(originalNodeData);
 
-        var posX = jq(originalNodeData).width() - 60;
+        var posX = webpg.jq(originalNodeData).width() - 60;
 
         var badge = webpg.inline.addElementBadge(doc, posX, results_frame.id, originalNodeData);
 
-        jq(originalNodeData).hide();
+        webpg.jq(originalNodeData).hide();
 
-        jq(badge).hide();
+        webpg.jq(badge).hide();
 
         originalNodeData.appendChild(badge);
 
@@ -389,9 +423,9 @@ webpg.inline = {
                                 };
                             }
                         } else {
-                            jq(results_frame).hide();
-                            jq(element).children(".original").show();
-                            jq(element).children(".pretext, .postext").hide();
+                            webpg.jq(results_frame).hide();
+                            webpg.jq(element).children(".original").show();
+                            webpg.jq(element).children(".pretext, .postext").hide();
                             console.log("error processing signed message", response.result);
                         }
                     }
@@ -445,149 +479,201 @@ webpg.inline = {
         }
     },
 
-    addWebPGToolbar: function(element) {
+    addWebPGMenuBar: function(element) {
         var _ = webpg.utils.i18n.gettext;
         element.style.whiteSpace = "pre";
         var doc = (webpg.inline.doc) ? webpg.inline.doc : document;
         var toolbar = doc.createElement("div");
-        var toolbarWidth = 0;
 
         toolbar.setAttribute("style", "padding: 0 8px; font-weight: bold; " +
-            "font-family: arial,sans-serif; font-size: 11px; position:absolute;" +
-            "background-color: #f1f1f1;" +
-            "color:#444; width:68px; height:24px; margin: 1px 0 0 1px;" +
-            "border: 1px solid gainsboro; cursor:pointer;" +
-            "z-index: 9998;");
+            "font-family: arial,sans-serif; font-size: 11px; position:relative;" +
+            "background: #f1f1f1 url('" + webpg.utils.escape(webpg.utils.resourcePath) + 
+            "skin/images/menumask.png') repeat-x; border-collapse: separate;" +
+            "color:#444; height:24px; margin: 1px 0 0 1px;" +
+            "border: 1px solid gainsboro; top: 27px;" +
+            "z-index: 1;");
         toolbar.setAttribute("class", "webpg-toolbar");
+        var offset = (element.scrollHeight > element.offsetHeight) ?
+                element.offsetWidth - element.clientWidth - 2 : 0;
+        offset = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
+            0 : offset;
+        toolbar.style.width = element.offsetWidth - 20 - offset + "px";
+        element.style.paddingTop = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
+            "28px" : "30px";
+        webpg.jq(toolbar).insertBefore(element);
 
-        jq(element).hover(
-            function(e) {
-                webpg.overlay.insert_target = element;
-                var _x = 0;
-                var _y = 0;
-                var el = element;
-                while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-                    _x += el.offsetLeft - el.scrollLeft;
-                    _y += el.offsetTop - el.scrollTop;
-                    el = el.offsetParent;
-                }
-                if (webpg.utils.detectedBrowser["vendor"] == "mozilla")
-                    _x += 2;
-                nleft = _x - 8 + ((element.clientWidth) ? element.clientWidth : element.offsetWidth) - toolbarWidth;
-                if (element.nodeName != "TEXTAREA" &&
-                    nleft + toolbarWidth == element.clientWidth)
-                    nleft -= 10;
-                toolbar.style.left = nleft + "px";
-                jq(toolbar).show();
-            },
-            function(e) {
-                var toElement = e.toElement || e.relatedTarget;
-                if (!toElement)
-                    jq(toolbar).hide();
-                else if (toElement.className.indexOf("webpg-") == -1)
-                    jq(toolbar).hide();
-            }
-        );
         var action_menu = '' +
-            '<span class="webpg-current-action">' +
-                '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) +
-                    "skin/images/webpg-32.png" + '" style="position:relative; ' +
-                    'top:4px; left:-4px; width:16px; height:16px;"/>' +
-                'WebPG' +
-            '</span>' +
-            '&nbsp;' +
-            '<span class="webpg-action-list-icon">' +
+            '<span style="cursor:pointer;">' +
+                '<span class="webpg-current-action">' +
+                    '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) +
+                        "skin/images/webpg-32.png" + '" style="position:relative; ' +
+                        'top:4px; left:-4px; width:16px; height:16px;"/>' +
+                    'WebPG' +
+                '</span>' +
                 '&nbsp;' +
+                '<span class="webpg-action-list-icon">' +
+                    '&nbsp;' +
+                '</span>' +
             '</span>' +
             '<span>' +
-            '<ul class="webpg-action-list">' +
-                '<li class="webpg-action-btn">' +
-                    '<a class="webpg-toolbar-encrypt" href="#webpg-link">' +
-                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
-                        _('Encrypt') +
-                    '</a>' +
-                '</li>' +
-                '<li class="webpg-action-btn">' +
-                    '<a class="webpg-toolbar-sign" href="#webpg-link">' +
-                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_signature-ok.png" class="webpg-li-icon"/>' +
-                        _('Sign only') +
-                    '</a>' +
-                '</li>' +
-                '<li class="webpg-action-btn">' +
-                    '<a class="webpg-toolbar-cryptsign" href="#webpg-link">' +
-                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
-                        _('Sign and Encrypt') +
-                    '</a>' +
-                '</li>' +
-                '<li class="webpg-action-btn">' +
-                    '<a class="webpg-toolbar-symcrypt" href="#webpg-link">' +
-                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
-                        _('Symmetric Encryption') +
-                    '</a>' +
-                '</li>' +
-                '<li class="webpg-action-btn webpg-pgp-crypttext">' +
-                    '<a class="webpg-toolbar-decrypt" href="#webpg-link">' +
-                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_decrypted.png" class="webpg-li-icon"/>' +
-                        _('Decrypt') +
-                    '</a>' +
-                '</li>' +
-                '<li class="webpg-action-btn webpg-pgp-import">' +
-                    '<a class="webpg-toolbar-import" href="#webpg-link">' +
-                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_keypair.png" class="webpg-li-icon"/>' +
-                        _('Import') +
-                    '</a>' +
-                '</li>' +
-                '<li class="webpg-action-btn webpg-pgp-signtext">' +
-                    '<a class="webpg-toolbar-verify" href="#webpg-link">' +
-                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_signature-ok.png" class="webpg-li-icon"/>' +
-                        _('Verify') +
-                    '</a>' +
-                '</li>' +
-            '</ul>';
+                '<ul class="webpg-action-list">' +
+                    '<li class="webpg-action-btn">' +
+                        '<a class="webpg-toolbar-encrypt">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
+                            _('Encrypt') +
+                        '</a>' +
+                    '</li>' +
+                    '<li class="webpg-action-btn">' +
+                        '<a class="webpg-toolbar-sign">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_signature-ok.png" class="webpg-li-icon"/>' +
+                            _('Sign only') +
+                        '</a>' +
+                    '</li>' +
+                    '<li class="webpg-action-btn">' +
+                        '<a class="webpg-toolbar-cryptsign">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
+                            _('Sign and Encrypt') +
+                        '</a>' +
+                    '</li>' +
+                    '<li class="webpg-action-btn">' +
+                        '<a class="webpg-toolbar-symcrypt">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
+                            _('Symmetric Encryption') +
+                        '</a>' +
+                    '</li>' +
+                    '<li class="webpg-action-btn webpg-pgp-crypttext">' +
+                        '<a class="webpg-toolbar-decrypt">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_decrypted.png" class="webpg-li-icon"/>' +
+                            _('Decrypt') +
+                        '</a>' +
+                    '</li>' +
+                    '<li class="webpg-action-btn webpg-pgp-import">' +
+                        '<a class="webpg-toolbar-import">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_keypair.png" class="webpg-li-icon"/>' +
+                            _('Import') +
+                        '</a>' +
+                    '</li>' +
+                    '<li class="webpg-action-btn webpg-pgp-signtext">' +
+                        '<a class="webpg-toolbar-verify">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_signature-ok.png" class="webpg-li-icon"/>' +
+                            _('Verify') +
+                        '</a>' +
+                    '</li>' +
+                    '<li class="webpg-action-divider">' +
+                    '</li>' +
+                    '<li class="webpg-action-btn webpg-option-item webpg-secure-editor">' +
+                        '<a class="webpg-toolbar-secure-editor">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/secure_editor.png" class="webpg-li-icon"/>' +
+                            _('Secure Editor') +
+                        '</a>' +
+                    '</li>' +
+                    '<li class="webpg-action-btn webpg-option-item webpg-keymanager-link">' +
+                        '<a class="webpg-toolbar-keymanager-link">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_keypair.png" class="webpg-li-icon"/>' +
+                            _('Key Manager') +
+                        '</a>' +
+                    '</li>' +
+                    '<li class="webpg-action-btn webpg-option-item webpg-options-link">' +
+                        '<a class="webpg-toolbar-options-link">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/webpg-48.png" class="webpg-li-icon"/>' +
+                            _('Options') +
+                        '</a>' +
+                    '</li>' +
+                '</ul>' +
+            '</span>';
 
-        jq(toolbar).append(action_menu);
-        jq(toolbar).insertBefore(element);
-        toolbarWidth = toolbar.clientWidth - 6;
-        jq(toolbar).hide().hover(
-            function() {
+        webpg.jq(toolbar).append(action_menu);
+        webpg.jq(toolbar).append('<span class="webpg-toolbar-status" style="text-transform: uppercase; float:right; position:relative; top: 20%"></span>');
+        detectElementValue(element);
+
+        webpg.jq([element, toolbar]).bind('change keydown keyup mousemove mouseover mouseenter mouseleave',
+            function(e) {
+                detectElementValue(element);
                 // Get the current textarea value or selection
-                var selection = webpg.utils.getSelectedText().selectedText;
+                var selection = { 'selectionText': element.value,
+                    'pre_selection': '', 'post_selection': '' };
+                webpg.overlay.contextSelection = selection;
                 webpg.inline.toolbarTextSelection = selection;
-                var element_value = null;
 
-                if (element.nodeName == "TEXTAREA")
-                    element_value = element.value;
-                else if (element.nodeName == "DIV")
-                    element_value = element.innerText;
-
-                // Show the appropriate action for the textarea value or selection
-                if (element_value.length && element_value.indexOf(
-                    webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN) > -1) {
-                    // Verify
-                    jq(toolbar).find('.webpg-action-btn').hide();
-                    jq(toolbar).find('.webpg-pgp-signtext').show();
-                } else if (element_value.length && element_value.indexOf(
-                    webpg.constants.PGPTags.PGP_ENCRYPTED_BEGIN) > -1) {
-                    // Decrypt
-                    jq(toolbar).find('.webpg-action-btn').hide();
-                    jq(toolbar).find('.webpg-pgp-crypttext').show();
-                } else if (element_value.length && element_value.indexOf(
-                    webpg.constants.PGPTags.PGP_KEY_BEGIN) > -1) {
-                    // Import
-                    jq(toolbar).find('.webpg-action-btn').hide();
-                    jq(toolbar).find('.webpg-pgp-import').show();
-                } else {
-                    // Plain text or non-PGP data
-                    jq(toolbar).find('.webpg-action-btn').show();
-                    jq(toolbar).find('.webpg-pgp-crypttext, .webpg-pgp-signtext, .webpg-pgp-import').hide();
+                if (!webpg.overlay.block_target) {
+                    webpg.overlay.insert_target = element;
                 }
-            },
-            function() {
-                webpg.inline.toolbarTextSelection = null;
-                jq(this).hide();
+
+                var offset = (element.scrollHeight > element.offsetHeight) ?
+                    element.offsetWidth - element.clientWidth - 2 : 0;
+                offset = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
+                    0 : offset;
+                toolbar.style.width = element.offsetWidth - 20 - offset + "px";
             }
         );
-        jq(toolbar).find('.webpg-action-list-icon').css({
+
+        function detectElementValue(element) {
+            var element_value = null;
+
+            if (element.nodeName == "TEXTAREA")
+                element_value = element.value;
+            else if (element.nodeName == "DIV")
+                element_value = element.innerText;
+
+            // Show the appropriate action for the textarea value or selection
+            if (element_value.length && element_value.indexOf(
+                webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN) > -1) {
+                // Verify
+                webpg.jq(toolbar).find('.webpg-action-btn').hide();
+                webpg.jq(toolbar).find('.webpg-pgp-signtext').show();
+                webpg.jq(toolbar).find('.webpg-toolbar-status').text(_("PGP Signed Message"));
+            } else if (element_value.length && element_value.indexOf(
+                webpg.constants.PGPTags.PGP_ENCRYPTED_BEGIN) > -1) {
+                // Decrypt
+                webpg.jq(toolbar).find('.webpg-action-btn').hide();
+                webpg.jq(toolbar).find('.webpg-pgp-crypttext').show();
+                webpg.jq(toolbar).find('.webpg-toolbar-status').text(_("PGP ENCRYPTED OR SIGNED MESSAGE"));
+            } else if (element_value.length && element_value.indexOf(
+                webpg.constants.PGPTags.PGP_KEY_BEGIN) > -1) {
+                // Import
+                webpg.jq(toolbar).find('.webpg-action-btn').hide();
+                webpg.jq(toolbar).find('.webpg-pgp-import').show();
+                webpg.jq(toolbar).find('.webpg-toolbar-status').text(_("PGP Public Key"));
+            } else {
+                // Plain text or non-PGP data
+                webpg.jq(toolbar).find('.webpg-action-btn').show();
+                webpg.jq(toolbar).find('.webpg-pgp-crypttext, .webpg-pgp-signtext, .webpg-pgp-import').hide();
+                // Check if this is a secured editor provided by WebPG
+                var elementDoc = element.ownerDocument;
+                var elementWin = 'defaultView' in elementDoc ? elementDoc.defaultView : elementDoc.parentWindow;
+                var elementTitle = _("Unsecured Editor");
+                if ((elementDoc.location.protocol == "chrome:" ||
+                    elementDoc.location.protocol == "chrome-extension:")) {
+                    if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
+                        var loc = elementDoc.location.protocol + "//" + elementDoc.location.host + elementDoc.location.pathname;
+                    else
+                        var loc = elementDoc.location.origin + elementDoc.location.pathname;
+                    if (loc == webpg.utils.resourcePath + "dialog.html") {
+                        elementTitle = _("WebPG Secure Editor");
+                        webpg.jq(toolbar).find('.webpg-toolbar-secure-editor').hide()
+                    }
+                }
+                webpg.jq(toolbar).find('.webpg-toolbar-status').text(elementTitle);
+            }
+            webpg.jq(toolbar).find('.webpg-keymanager-link, .webpg-options-link').show();
+        }
+
+//        webpg.jq(toolbar).hover(
+//            function() {
+//                webpg.overlay.insert_target = element;
+//                // Get the current textarea value or selection
+//                var selection = webpg.utils.getSelectedText().selectedText;
+//                webpg.inline.toolbarTextSelection = selection;
+
+//                detectElementValue(element);
+//            },
+//            function() {
+//                // This empty stub is required in order for the event
+//                //  to fully register. Not sure why...
+//            }
+//        );
+
+        webpg.jq(toolbar).find('.webpg-action-list-icon').css({
             'display': 'inline-block', 'width': '0px',
             'height': '0', 'text-index': '-9999px',
             'position': 'relative', 'top': '-3px',
@@ -596,16 +682,16 @@ webpg.inline = {
             'border-top': '4px solid black', 'opacity': '0.7',
             'content': '\\2193',
         });
-        jq(toolbar).find('ul.webpg-action-list').css({
-            'position': 'absolute', 'top': '100%', 'left': '-116px',
-            'z-index': '9999', 'float': 'left', 'display': 'none',
+        webpg.jq(toolbar).find('ul.webpg-action-list').css({
+            'position': 'absolute', 'top': '100%', 'left': '-2px',
+            'z-index': '1', 'float': 'left', 'display': 'none',
             'min-width': '200px', 'padding': '0', 'margin': '0',
             'list-style': 'none', 'background-color': '#ffffff',
             'border-color': '#ccc', 'border-color': 'rgba(0, 0, 0, 0.2)',
             'border-style': 'solid', 'border-width': '1px',
-            '-webkit-border-radius': '4px 0 4px 4px',
-            '-moz-border-radius': '4px 0 4px 4px',
-            'border-radius': '4px 0 4px 4px',
+            '-webkit-border-radius': '0 4px 4px 4px',
+            '-moz-border-radius': '0 4px 4px 4px',
+            'border-radius': '0 4px 4px 4px',
             '-webkit-box-shadow': '0 5px 10px rgba(0, 0, 0, 0.2)',
             '-moz-box-shadow': '0 5px 10px rgba(0, 0, 0, 0.2)',
             'box-shadow': '0 5px 10px rgba(0, 0, 0, 0.2)',
@@ -616,20 +702,23 @@ webpg.inline = {
             '*border-bottom-width': '2px',
             'text-align': 'left',
         });
-        jq(toolbar).find('.webpg-action-list li').css({
+        webpg.jq(toolbar).find('.webpg-action-list li').css({
             'font-size': '12px',
             'position': 'relative',
             'padding': '0 6px 2px 6px',
             'display': 'block',
         }).hover(
             function(e) {
-                jq(this).css({
+                webpg.jq(this).css({
                     'background-color': '#e6e6e6',
+                    'background-image': 'url("' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/menumask.png")',
+                    'background-repeat': 'repeat-x',
                 })
             },
             function(e) {
-                jq(this).css({
+                webpg.jq(this).css({
                     'background-color': 'transparent',
+                    'background-image': 'none',
                  })
             }
         ).find('.webpg-li-icon').css({
@@ -637,22 +726,41 @@ webpg.inline = {
             'height': '24px',
             'padding': '0 4px 0 4px',
             'margin': '0',
-            'top': '3px',
             'position': 'relative',
+            'top': '8px',
         });
-        jq(toolbar).find('.webpg-action-list a').css({
+        webpg.jq(toolbar).find('.webpg-action-divider').css({
+            'border-width': '1px 0 0 0',
+            'border-style': 'solid',
+            'border-color': 'rgba(0, 0, 0, 0.1)',
+            'height': '0',
+            'font-size': '1px',
+            'padding': '0',
+        });
+        webpg.jq(toolbar).find('.webpg-toolbar-options-link img').css({
+            'width': '20px',
+            'height': '20px',
+            'padding': '2px 6px 2px 6px',
+        })
+        webpg.jq(toolbar).find('.webpg-action-list a').css({
             'display': 'block',
             'text-decoration': 'none',
             'color': 'black',
+            'position': 'relative',
+            'top': '-5px',
+            'cursor': 'pointer',
         });
-        jq(toolbar).click(function(e) {
-            var list = jq(this).find('.webpg-action-list');
+
+        webpg.jq(toolbar).children(":first").click(function(e) {
+            var list = webpg.jq(toolbar).find('.webpg-action-list');
             list[0].style.display = (list[0].style.display == "inline") ? "none" : "inline";
-        }).bind('mouseleave', function() {
-            if (jq(this).find('.webpg-action-list')[0].style.display == "inline")
-                jq(this).click();
         });
-        jq(toolbar).find('.webpg-action-list a').click(function(e) {
+        webpg.jq(toolbar).bind('mouseleave', function() {
+            if (webpg.jq(toolbar).find('.webpg-action-list')[0].style.display == "inline")
+                webpg.jq(toolbar).find('.webpg-action-list').hide();
+        });
+
+        webpg.jq(toolbar).find('.webpg-action-list a').click(function(e) {
             var textarea = e.currentTarget.parentNode.parentNode.parentNode.parentNode.nextSibling;
             var selection = (webpg.inline.toolbarTextSelection == null) ?
                 {'selectionText': textarea.value || textarea.innerText,
@@ -662,6 +770,7 @@ webpg.inline = {
                 webpg.inline.toolbarTextSelection;
             webpg.overlay.insert_target = textarea;
             var link_class = e.currentTarget.className;
+
             var action = (link_class == "webpg-toolbar-encrypt") ?
                 webpg.constants.overlayActions.CRYPT :
                 (link_class == "webpg-toolbar-cryptsign") ?
@@ -677,16 +786,282 @@ webpg.inline = {
                 (link_class == "webpg-toolbar-import") ?
                 webpg.constants.overlayActions.IMPORT :
                 (link_class == "webpg-toolbar-verify") ?
-                webpg.constants.overlayActions.VERIF : false;
+                webpg.constants.overlayActions.VERIF : 
+                (link_class == "webpg-toolbar-options-link") ?
+                webpg.constants.overlayActions.OPTS :
+                (link_class == "webpg-toolbar-keymanager-link") ?
+                webpg.constants.overlayActions.MANAGER :
+                (link_class == "webpg-toolbar-secure-editor") ?
+                webpg.constants.overlayActions.EDITOR : false;
 
-            if (action)
+            webpg.inline.before_action_value = selection;
+
+            if (action) {
+                webpg.overlay.block_target = true;
                 webpg.overlay.onContextCommand(null, action, {}, selection);
+            }
+
+            webpg.inline.action_selected = (action != webpg.constants.overlayActions.OPTS && action != webpg.constants.overlayActions.MANAGER);
+
+            webpg.jq(toolbar).find('.webpg-action-list').hide();
+
         });
+
         if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
-            jq(toolbar).css({ 'margin-top': '4px' });
-            jq(toolbar).find('.webpg-action-list-icon').css({ 'top': '6px' });
+            webpg.jq(toolbar).css({ 'top': '28px' });
+            webpg.jq(toolbar).find('.webpg-action-list-icon').css({ 'top': '6px' });
         }
+
     },
+
+
+//    addWebPGToolbar: function(element) {
+//        var _ = webpg.utils.i18n.gettext;
+//        element.style.whiteSpace = "pre";
+//        var doc = (webpg.inline.doc) ? webpg.inline.doc : document;
+//        var toolbar = doc.createElement("div");
+//        var toolbarWidth = 0;
+
+//        toolbar.setAttribute("style", "padding: 0 8px; font-weight: bold; " +
+//            "font-family: arial,sans-serif; font-size: 11px; position:absolute;" +
+//            "background-color: #f1f1f1;" +
+//            "color:#444; width:68px; height:24px; margin: 1px 0 0 1px;" +
+//            "border: 1px solid gainsboro; cursor:pointer;" +
+//            "z-index: 9998;");
+//        toolbar.setAttribute("class", "webpg-toolbar");
+
+//        webpg.jq(element).hover(
+//            function(e) {
+//                webpg.overlay.insert_target = element;
+//                var _x = 0;
+//                var _y = 0;
+//                var el = element;
+//                while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+//                    _x += el.offsetLeft - el.scrollLeft;
+//                    _y += el.offsetTop - el.scrollTop;
+//                    el = el.offsetParent;
+//                }
+//                if (webpg.utils.detectedBrowser["vendor"] == "mozilla")
+//                    _x += 2;
+//                nleft = _x - 8 + ((element.clientWidth) ? element.clientWidth : element.offsetWidth) - toolbarWidth;
+//                if (element.nodeName != "TEXTAREA" &&
+//                    nleft + toolbarWidth == element.clientWidth)
+//                    nleft -= 10;
+////                console.log(nleft, element.clientWidth + toolbarWidth);
+////                if (nleft > element.clientWidth + 10)
+////                    nleft = element.clientWidth - toolbarWidth - 4;
+//                toolbar.style.left = nleft + "px";
+//                webpg.jq(toolbar).show();
+//            },
+//            function(e) {
+//                var toElement = e.toElement || e.relatedTarget;
+//                if (!toElement)
+//                    webpg.jq(toolbar).hide();
+//                else if (toElement.className.indexOf("webpg-") == -1)
+//                    webpg.jq(toolbar).hide();
+//            }
+//        );
+//        var action_menu = '' +
+//            '<span class="webpg-current-action">' +
+//                '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) +
+//                    "skin/images/webpg-32.png" + '" style="position:relative; ' +
+//                    'top:4px; left:-4px; width:16px; height:16px;"/>' +
+//                'WebPG' +
+//            '</span>' +
+//            '&nbsp;' +
+//            '<span class="webpg-action-list-icon">' +
+//                '&nbsp;' +
+//            '</span>' +
+//            '<span>' +
+//            '<ul class="webpg-action-list">' +
+//                '<li class="webpg-action-btn">' +
+//                    '<a class="webpg-toolbar-encrypt" href="#webpg-link">' +
+//                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
+//                        _('Encrypt') +
+//                    '</a>' +
+//                '</li>' +
+//                '<li class="webpg-action-btn">' +
+//                    '<a class="webpg-toolbar-sign" href="#webpg-link">' +
+//                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_signature-ok.png" class="webpg-li-icon"/>' +
+//                        _('Sign only') +
+//                    '</a>' +
+//                '</li>' +
+//                '<li class="webpg-action-btn">' +
+//                    '<a class="webpg-toolbar-cryptsign" href="#webpg-link">' +
+//                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
+//                        _('Sign and Encrypt') +
+//                    '</a>' +
+//                '</li>' +
+//                '<li class="webpg-action-btn">' +
+//                    '<a class="webpg-toolbar-symcrypt" href="#webpg-link">' +
+//                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
+//                        _('Symmetric Encryption') +
+//                    '</a>' +
+//                '</li>' +
+//                '<li class="webpg-action-btn webpg-pgp-crypttext">' +
+//                    '<a class="webpg-toolbar-decrypt" href="#webpg-link">' +
+//                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_decrypted.png" class="webpg-li-icon"/>' +
+//                        _('Decrypt') +
+//                    '</a>' +
+//                '</li>' +
+//                '<li class="webpg-action-btn webpg-pgp-import">' +
+//                    '<a class="webpg-toolbar-import" href="#webpg-link">' +
+//                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_keypair.png" class="webpg-li-icon"/>' +
+//                        _('Import') +
+//                    '</a>' +
+//                '</li>' +
+//                '<li class="webpg-action-btn webpg-pgp-signtext">' +
+//                    '<a class="webpg-toolbar-verify" href="#webpg-link">' +
+//                        '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_signature-ok.png" class="webpg-li-icon"/>' +
+//                        _('Verify') +
+//                    '</a>' +
+//                '</li>' +
+//            '</ul>';
+
+//        webpg.jq(toolbar).append(action_menu);
+//        webpg.jq(toolbar).insertBefore(element);
+//        toolbarWidth = toolbar.clientWidth - 6;
+//        webpg.jq(toolbar).hide().hover(
+//            function() {
+//                // Get the current textarea value or selection
+//                var selection = webpg.utils.getSelectedText().selectedText;
+//                webpg.inline.toolbarTextSelection = selection;
+//                var element_value = null;
+
+//                if (element.nodeName == "TEXTAREA")
+//                    element_value = element.value;
+//                else if (element.nodeName == "DIV")
+//                    element_value = element.innerText;
+
+//                // Show the appropriate action for the textarea value or selection
+//                if (element_value.length && element_value.indexOf(
+//                    webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN) > -1) {
+//                    // Verify
+//                    webpg.jq(toolbar).find('.webpg-action-btn').hide();
+//                    webpg.jq(toolbar).find('.webpg-pgp-signtext').show();
+//                } else if (element_value.length && element_value.indexOf(
+//                    webpg.constants.PGPTags.PGP_ENCRYPTED_BEGIN) > -1) {
+//                    // Decrypt
+//                    webpg.jq(toolbar).find('.webpg-action-btn').hide();
+//                    webpg.jq(toolbar).find('.webpg-pgp-crypttext').show();
+//                } else if (element_value.length && element_value.indexOf(
+//                    webpg.constants.PGPTags.PGP_KEY_BEGIN) > -1) {
+//                    // Import
+//                    webpg.jq(toolbar).find('.webpg-action-btn').hide();
+//                    webpg.jq(toolbar).find('.webpg-pgp-import').show();
+//                } else {
+//                    // Plain text or non-PGP data
+//                    webpg.jq(toolbar).find('.webpg-action-btn').show();
+//                    webpg.jq(toolbar).find('.webpg-pgp-crypttext, .webpg-pgp-signtext, .webpg-pgp-import').hide();
+//                }
+//            },
+//            function() {
+//                webpg.inline.toolbarTextSelection = null;
+//                webpg.jq(this).hide();
+//            }
+//        );
+//        webpg.jq(toolbar).find('.webpg-action-list-icon').css({
+//            'display': 'inline-block', 'width': '0px',
+//            'height': '0', 'text-index': '-9999px',
+//            'position': 'relative', 'top': '8px',
+//            'border-left': '4px solid transparent',
+//            'border-right': '4px solid transparent',
+//            'border-top': '4px solid black', 'opacity': '0.7',
+//            'content': '\\2193',
+//        });
+//        webpg.jq(toolbar).find('ul.webpg-action-list').css({
+//            'position': 'absolute', 'top': '100%', 'left': '-116px',
+//            'z-index': '9999', 'float': 'left', 'display': 'none',
+//            'min-width': '200px', 'padding': '0', 'margin': '0',
+//            'list-style': 'none', 'background-color': '#ffffff',
+//            'border-color': '#ccc', 'border-color': 'rgba(0, 0, 0, 0.2)',
+//            'border-style': 'solid', 'border-width': '1px',
+//            '-webkit-border-radius': '4px 0 4px 4px',
+//            '-moz-border-radius': '4px 0 4px 4px',
+//            'border-radius': '4px 0 4px 4px',
+//            '-webkit-box-shadow': '0 5px 10px rgba(0, 0, 0, 0.2)',
+//            '-moz-box-shadow': '0 5px 10px rgba(0, 0, 0, 0.2)',
+//            'box-shadow': '0 5px 10px rgba(0, 0, 0, 0.2)',
+//            '-webkit-background-clip': 'padding-box',
+//            '-moz-background-clip': 'padding',
+//            'background-clip': 'padding-box',
+//            '*border-right-width': '2px',
+//            '*border-bottom-width': '2px',
+//            'text-align': 'left',
+//        });
+//        webpg.jq(toolbar).find('.webpg-action-list li').css({
+//            'font-size': '12px',
+//            'position': 'relative',
+//            'padding': '0 6px 2px 6px',
+//            'display': 'block',
+//        }).hover(
+//            function(e) {
+//                webpg.jq(this).css({
+//                    'background-color': '#e6e6e6',
+//                })
+//            },
+//            function(e) {
+//                webpg.jq(this).css({
+//                    'background-color': 'transparent',
+//                 })
+//            }
+//        ).find('.webpg-li-icon').css({
+//            'width': '24px',
+//            'height': '24px',
+//            'padding': '0 4px 0 4px',
+//            'margin': '0',
+//            'top': '3px',
+//            'position': 'relative',
+//        });
+//        webpg.jq(toolbar).find('.webpg-action-list a').css({
+//            'display': 'block',
+//            'text-decoration': 'none',
+//            'color': 'black',
+//            'position': 'relative',
+//            'top': '-5px',
+//        });
+//        webpg.jq(toolbar).click(function(e) {
+//            var list = webpg.jq(this).find('.webpg-action-list');
+//            list[0].style.display = (list[0].style.display == "inline") ? "none" : "inline";
+//        }).bind('mouseleave', function() {
+//            if (webpg.jq(this).find('.webpg-action-list')[0].style.display == "inline")
+//                webpg.jq(this).click();
+//        });
+//        webpg.jq(toolbar).find('.webpg-action-list a').click(function(e) {
+//            var textarea = e.currentTarget.parentNode.parentNode.parentNode.parentNode.nextSibling;
+//            var selection = (webpg.inline.toolbarTextSelection == null) ?
+//                {'selectionText': textarea.value || textarea.innerText,
+//                    'pre_selection': '',
+//                    'post_selection': '',
+//                } :
+//                webpg.inline.toolbarTextSelection;
+//            webpg.overlay.insert_target = textarea;
+//            var link_class = e.currentTarget.className;
+//            var action = (link_class == "webpg-toolbar-encrypt") ?
+//                webpg.constants.overlayActions.CRYPT :
+//                (link_class == "webpg-toolbar-cryptsign") ?
+//                webpg.constants.overlayActions.CRYPTSIGN :
+//                (link_class == "webpg-toolbar-decrypt") ?
+//                webpg.constants.overlayActions.DECRYPT :
+//                (link_class == "webpg-toolbar-symcrypt") ?
+//                webpg.constants.overlayActions.SYMCRYPT :
+//                (link_class == "webpg-toolbar-sign") ?
+//                webpg.constants.overlayActions.PSIGN :
+//                (link_class == "webpg-toolbar-decrypt") ?
+//                webpg.constants.overlayActions.DECRYPT :
+//                (link_class == "webpg-toolbar-import") ?
+//                webpg.constants.overlayActions.IMPORT :
+//                (link_class == "webpg-toolbar-verify") ?
+//                webpg.constants.overlayActions.VERIF : false;
+
+//            if (action)
+//                webpg.overlay.onContextCommand(null, action, {}, selection);
+//        });
+//        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+//            webpg.jq(toolbar).css({ 'margin-top': '4px' });
+//            webpg.jq(toolbar).find('.webpg-action-list-icon').css({ 'top': '6px' });
+//        }
+//    },
 
     addElementBadge: function(doc, posX, id, control) {
 
@@ -701,7 +1076,7 @@ webpg.inline = {
 
         badge.setAttribute("style", "width:30px;" +
             "display:inline-block;position:relative;top:" + posY + "px;left:" + posX + "px;" +
-            "padding:1px 2px 3px 0;border-radius: 70px; z-index:9000;");
+            "padding:1px 2px 3px 0;border-radius: 70px; z-index:1;");
         badge.setAttribute("id", "webpg-badge-toggle-" + id);
         badge.setAttribute("class", "webpg-badge-toggle");
 
@@ -709,25 +1084,25 @@ webpg.inline = {
                 "' class='webpg-badge-toggle-link'><img style='opacity:0.5;width:28px;height:28px;' src='" +
                 webpg.utils.resourcePath + "skin/images/webpg-48.png'/></a>";
 
-        jq(badge).find('img').hover(
+        webpg.jq(badge).find('img').hover(
             function() {
                 this.style.opacity = '1.0';
-                jq(this).parent().parent()[0].style.backgroundColor = '#333333';
-                jq(this).parent().parent()[0].style.boxShadow = 'black 1px 1px 6px';
+                webpg.jq(this).parent().parent()[0].style.backgroundColor = '#333333';
+                webpg.jq(this).parent().parent()[0].style.boxShadow = 'black 1px 1px 6px';
             },
             function() {
                 this.style.opacity = '0.5';
-                jq(this).parent().parent()[0].style.backgroundColor = 'transparent';
-                jq(this).parent().parent()[0].style.boxShadow = '';
+                webpg.jq(this).parent().parent()[0].style.backgroundColor = 'transparent';
+                webpg.jq(this).parent().parent()[0].style.boxShadow = '';
             }
         );
 
-        jq(badge).find('.webpg-badge-toggle-link').click(function(e) {
-            var link_id = jq(this).parent()[0].id
+        webpg.jq(badge).find('.webpg-badge-toggle-link').click(function(e) {
+            var link_id = webpg.jq(this).parent()[0].id
             var target_id = link_id.substr(link_id.lastIndexOf("-") + 1, link_id.length);
-            jq(control).hide();
-            jq(this).parent().hide();
-            jq(this.ownerDocument.getElementById(target_id)).show();
+            webpg.jq(control).hide();
+            webpg.jq(this).parent().hide();
+            webpg.jq(this.ownerDocument.getElementById(target_id)).show();
         });
 
         return badge;
@@ -765,9 +1140,9 @@ webpg.inline = {
             if (request.msg == "toggle") {
                 try {
                     if (request.target_id == iframe.id) {
-                        jq(node.parentNode).find('.webpg-node-odata').toggle();
-                        jq(node.parentNode).find("#webpg-badge-toggle-" + iframe.id).toggle();
-                        jq(iframe).toggle();
+                        webpg.jq(node.parentNode).find('.webpg-node-odata').toggle();
+                        webpg.jq(node.parentNode).find("#webpg-badge-toggle-" + iframe.id).toggle();
+                        webpg.jq(iframe).toggle();
                     }
                 } catch (err) {
                     return;
@@ -775,9 +1150,9 @@ webpg.inline = {
             } else if (request.msg == "show") {
                 try {
                     if (request.target_id == iframe.id) {
-                        jq(node.parentNode).find('.webpg-node-odata').hide();
-                        jq(node.parentNode).find("#webpg-badge-toggle-" + iframe.id).hide();
-                        jq(iframe).show();
+                        webpg.jq(node.parentNode).find('.webpg-node-odata').hide();
+                        webpg.jq(node.parentNode).find("#webpg-badge-toggle-" + iframe.id).hide();
+                        webpg.jq(iframe).show();
                     }
                 } catch (err) {
                     return;
@@ -809,12 +1184,16 @@ webpg.inline = {
         iframe.style.minWidth = 300;
         if (element.style.width)
             iframe.style.width = element.style.width;
-        jq(iframe).insertAfter(jq(element));
-        jq(element).hide();
+        webpg.jq(iframe).insertAfter(webpg.jq(element));
+        webpg.jq(element).hide();
         webpg.utils._onRequest.addListener(function(request) {
-            if (request.msg == "toggle" && request.target_id == iframe.id) {
-                jq(element).show();
-                jq(iframe).remove();
+            try {
+                if (request.msg == "toggle" && request.target_id == iframe.id) {
+                    webpg.jq(element).show();
+                    webpg.jq(iframe).remove();
+                }
+            } catch (err) {
+                // Do nothing
             }
         });
         var theURL = webpg.utils.resourcePath + "webpg_results.html?id=" + iframe.id;
@@ -848,13 +1227,15 @@ webpg.inline = {
         iframe.style.zIndex = "9999";
         iframe.style.backgroundColor = "transparent";
 
-        if (webpg.overlay.insert_target)
-            jq(iframe).insertAfter(webpg.overlay.insert_target);
+        webpg.overlay.insert_target.ownerDocument.body.appendChild(iframe);
 
-        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+//            content.document.body.appendChild(iframe);
             iframe.contentWindow.location.href = theURL;
-        else if (webpg.utils.detectedBrowser['product'] == "chrome")
+        } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+//            doc.body.appendChild(iframe);
             iframe.src = theURL;
+        }
 
         return iframe;
     },

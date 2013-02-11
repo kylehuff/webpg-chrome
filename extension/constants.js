@@ -1,3 +1,4 @@
+/* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
 
 /*
@@ -38,6 +39,8 @@ webpg.constants = {
         webpg.constants.overlayActions.EXPORT - 'EXPORT'
         webpg.constants.overlayActions.MANAGER - 'MANAGER'
         webpg.constants.overlayActions.OPTS - 'OPTS'
+        webpg.constants.overlayActions.EDITOR - 'EDITOR'
+        webpg.constants.overlayActions.ABOUT - 'ABOUT'
     */
     overlayActions: {
         SIGN: 'SIGN',
@@ -52,10 +55,8 @@ webpg.constants = {
         EXPORT: 'EXPORT',
         MANAGER: 'MANAGER',
         OPTS: 'OPTS',
+        EDITOR: 'EDITOR',
         ABOUT: 'ABOUT',
-        ERASE: 'ERASE',
-        UPDATE: 'UPDATE',
-        CHECKAGAIN: 'CHECKAGAIN'
     },
 
     /*
@@ -116,3 +117,4 @@ webpg.constants = {
         "ELG-E": "g",
     }
 }
+/* ]]> */

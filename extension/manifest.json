@@ -1,6 +1,6 @@
 {
   "name": "WebPG",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "__MSG_extDesc__",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self'; object-src 'self'",
@@ -17,6 +17,7 @@
       "skin/images/webpg-48.png",
       "skin/images/badges/stock_encrypted.png",
       "skin/images/badges/stock_encrypted_signed.png",
+      "skin/images/badges/secure_editor.png",
       "skin/images/badges/stock_signature.png",
       "skin/images/badges/stock_signature-ok.png",
       "skin/images/badges/stock_decrypted.png",
