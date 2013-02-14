@@ -116,7 +116,7 @@ webpg.utils = {
         Function: isRTL
             Returns true if the detected locale is a right-to-left
             language.
-            
+
     */
     isRTL: (function() {
         RTL_locales = ['ar', 'fa', 'he'];
@@ -155,7 +155,7 @@ webpg.utils = {
                         .exec(window.location.search);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     },
-    
+ 
     /*
         Function: parseUrl
             Returns an object containing the many various elements of a URL
@@ -351,7 +351,7 @@ webpg.utils = {
                 console.log("the title is: " + wTitle + ", the url is: " + url);
                 if (url.search("XULContent") > -1) {
                     try {
-                        openTab("chromeTab", { chromePage: url });
+                        window.openTab("chromeTab", { 'chromePage': url });
 //                        window.open(url, wTitle, wFlags);
                     } catch (e) {
                         var tBrowser = top.document.getElementById("content");
@@ -419,7 +419,7 @@ webpg.utils = {
         if (!selectionObject.toString().length > 0 && selectionTarget.nodeName == "IFRAME" &&
             selectionTarget.className.indexOf("webpg-result-frame") < 0 &&
             selectionTarget.className.indexOf("webpg-dialog") < 0) {
-            console.log(selectionTarget.className);
+            if (this.debug) console.log(selectionTarget.className);
             selectionTarget = selectionTarget.contentDocument.documentElement.ownerDocument;
             selectionObject = selectionTarget.getSelection();
             selectionTarget = selectionTarget.activeElement;
@@ -643,6 +643,105 @@ webpg.utils = {
                 chrome.tabs.sendRequest(target.id, request);
             }
         },
+
+        pageAction: {
+            setPopup: function(popupData) {
+                if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                    chrome.pageAction.setPopup(popupData);
+                } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                    var popup = document.getElementById("gpgauth-pageAction-popup");
+                    var frameSource = gpgauth.utils.resourcePath + popupData.popup;
+        		    var dialogFrame = document.getElementById('gpgauth-pageAction-popup-frame');
+                    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                           .getService(Components.interfaces.nsIWindowMediator);
+                    var winType = (gpgauth.utils.detectedBrowser['product'] == "thunderbird") ?
+                        "mail:3pane" : "navigator:browser";
+                    var browserWindow = wm.getMostRecentWindow(winType);
+		            dialogFrame.addEventListener("load", function() {
+		                dialogFrame.removeEventListener("load", arguments.callee, false);
+			            var cont = new XPCNativeWrapper(dialogFrame.contentWindow).wrappedJSObject;
+			            cont.gpgauth.popup.init(browserWindow, popup);
+		            }, true);
+		            popup.removeAttribute('onpopupshowing');
+                    popup.setAttribute('onpopupshowing', "document.getElementById('gpgauth-pageAction-popup-frame').setAttribute('src', '" + frameSource + "')");
+                }
+            },
+
+            setIcon: function(popupData) {
+                if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                    chrome.pageAction.setIcon(popupData);
+                } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                    var pageActionIcon = document.getElementById("gpgauth-pageAction-icon");
+                    pageActionIcon.setAttribute('src', gpgauth.utils.resourcePath + popupData.path);
+                }
+            },
+
+            show: function(popupData) {
+                if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                    chrome.pageAction.show(popupData);
+                } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                    var icon = document.getElementById("gpgauth-pageAction-icon");
+                    icon.setAttribute("collapsed", false);
+                }
+            },
+
+            hide: function(popupData) {
+                if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                    chrome.pageAction.hide(popupData.tabId);
+                } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                    var icon = document.getElementById("gpgauth-pageAction-icon");
+                    icon.setAttribute("collapsed", true);
+                }
+            },
+
+            showPopup: function(popupData) {
+                if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                    chrome.pageAction.show(popupData);
+                } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                    var popup = document.getElementById("gpgauth-pageAction-popup");
+                    popup.openPopup(document.getElementById("gpgauth-pageAction-icon"), "after_end", 1, 4, false, false);
+                }
+            },
+
+            closePopup: function(popup) {
+                if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                    popup.close();
+                } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                    popup.hidePopup();
+                }
+            },
+
+            toggle: function(popupData) {
+//                document.
+            },
+
+        },
+
+        getSelectedTab: function(tab, callback) {
+            if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                chrome.tabs.getSelected(tab, callback);
+            } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                if (!gBrowser) {
+                    var gBrowser = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                           .getInterface(Components.interfaces.nsIWebNavigation)
+                           .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+                           .rootTreeItem
+                           .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                           .getInterface(Components.interfaces.nsIDOMWindow).gBrowser;
+                }
+                var tabID = gBrowser.getBrowserForDocument(content.document)._gpgauthTabID;
+                callback({'url': content.document.location.href, 'id': tabID});
+            }
+        },
+
+        executeScript: function(tabID, code) {
+            if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                chrome.tabs.executeScript(tabID, {'code': code});
+            } else if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                code();
+            }
+        }
+
     },
 
     /*
@@ -821,7 +920,7 @@ webpg.utils = {
                         });
                     }
                     break;
-                    
+
                 case webpg.constants.overlayActions.MANAGER:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         webpg.jq(".webpg-menu-manager")[0].hidden = false;
@@ -899,21 +998,21 @@ webpg.utils = {
     },
 
     extension: {
-        version: function() {
+        version: function(callback) {
             if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
-                return chrome.app.getDetails().version;
+                callback(chrome.app.getDetails().version);
             } else {
                 try {
                     // Firefox 4 and later; Mozilla 2 and later
                     Components.utils.import("resource://gre/modules/AddonManager.jsm");
                     AddonManager.getAddonByID("webpg-firefox@curetheitch.com", function(result) {
-                        return result.version;
+                        callback(result.version);
                     });
                 } catch (ex) {
                     // Firefox 3.6 and before; Mozilla 1.9.2 and before
                     var em = Components.classes["@mozilla.org/extensions/manager;1"]
                              .getService(Components.interfaces.nsIExtensionManager);
-                    return em.getItemForID("webpg-firefox@curetheitch.com").version;
+                    callback(em.getItemForID("webpg-firefox@curetheitch.com").version);
                 }
             }
         }

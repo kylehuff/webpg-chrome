@@ -325,9 +325,11 @@ webpg.options = {
         webpg.jq('#close').button().button("option", "label", _("Finished"))
             .click(function(e) { window.top.close(); });
 
-
-        document.getElementById("webpg-info-version-string").innerText +=
-                _("Version") + ": " + webpg.utils.escape(webpg.utils.extension.version());
+        webpg.utils.extension.version(function(version) {
+            webpg.jq("#webpg-info-version-string").text(
+                _("Version") + ": " + webpg.utils.escape(version)
+            );
+        });
     }
 }
 webpg.jq(function() {

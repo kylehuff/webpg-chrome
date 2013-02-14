@@ -28,8 +28,8 @@ webpg.overlay = {
         webpg.doc = (aEvent) ?
             aEvent.originalTarget : document;
 
-//        // We don't want to run on certain pages
-//        if (webpg.doc.location.host.indexOf("mail.google.com") > -1)
+        // We don't want to run on certain pages
+//        if (webpg.doc.location.host.indexOf("twitter.com") > -1)
 //            return;
 
         webpg.overlay.insert_target = null;
@@ -85,7 +85,7 @@ webpg.overlay = {
         if (request.msg == "log") {
             console.log("Remote log request recieved; ", request.data);
         }
-        if (request.msg == "resizeiframe"){
+        if (request.msg == "resizeiframe") {
             var iframe = webpg.utils.getFrameById(request.iframe_id)
             if (iframe) {
                 if (request.width)
@@ -102,7 +102,7 @@ webpg.overlay = {
                     webpg.jq(body).animate({scrollTop: pos}, 1);
                 }
             }
-        } else if (request.msg == "removeiframe"){
+        } else if (request.msg == "removeiframe") {
             if (request.iframe_id) {
                 try {
                     var iframe = document.getElementById(request.iframe_id);
@@ -264,17 +264,22 @@ webpg.overlay = {
             var posX = (window.outerWidth / 2) - 
                     (iframe.offsetWidth / 2);
 
-            posY = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.pageYOffset : window.pageYOffset
+            posY = window.pageYOffset;
+            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                if (window.self === window.top)
+                    posY = content.pageYOffset
+                else
+                    posY = 0;
+            }
             posY += 20;
 
-            webpg.jq(iframe).animate({"top": posY}, 1, function() {
-                webpg.jq(iframe).animate({"left": posX}, 1);
-            });
+            webpg.jq(iframe).animate({"top": posY, "left": posX}, 1);
 
             // the sendResult event is for communicating with the iframe
             //  from firefox; Google Chrome/Chromium uses the
             //  chrome.extension.sendRequest method.
             iframe.addEventListener("sendResult", function(e) {
+                console.log("dialog_type: " + request.dialog_type)
                 if (request.dialog_type == "encrypt" || request.dialog_type == "encryptsign") {
                     var sign = (typeof(e.detail.sign)=='undefined'
                         || e.detail.sign == false) ? 0 : 1;
@@ -453,7 +458,8 @@ webpg.overlay = {
                     'data': selection.selectionText,
                     'pre_selection': selection.pre_selection,
                     'post_selection': selection.post_selection,
-                    'message_event': 'context'}
+                    'message_event': 'context',
+                    'dialog_type': 'encrypt'}
                 );
                 break;
 

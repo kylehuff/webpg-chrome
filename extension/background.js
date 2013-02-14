@@ -296,10 +296,7 @@ webpg.background = {
                 //console.log("encrypt requested");
                 var sign = (typeof(request.sign)=='undefined'
                     || request.sign == false) ? 0 : 1;
-                if (request.keyid) {
-                    response = webpg.plugin.gpgEncrypt(request.data,
-                        request.keyid, sign);
-                } else if (request.recipients.length > 0) {
+                if (request.recipients.length > 0) {
                     //console.log(request.data, request.recipients);
                     response = webpg.plugin.gpgEncrypt(request.data,
                         request.recipients, sign);
@@ -317,10 +314,7 @@ webpg.background = {
 
             case 'encryptSign':
                 //console.log("encrypt requested");
-                if (request.keyid) {
-                    response = webpg.plugin.gpgEncrypt(request.data,
-                        request.keyid, 1);
-                } else if (request.recipients) {
+                if (request.recipients && request.recipients.length > 0) {
                     response = webpg.plugin.gpgEncrypt(request.data,
                         request.recipients, 1);
                 } else {
@@ -337,6 +331,7 @@ webpg.background = {
             case 'symmetricEncrypt':
                 //console.log("symmetric encryption requested");
                 response = webpg.plugin.gpgSymmetricEncrypt(request.data, 0);
+                console.log(response);
                 if (typeof(request.message_event)=='undefined' ||
                 request.message_event == "context" ||
                 !request.message_event == "gmail")

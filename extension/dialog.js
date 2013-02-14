@@ -49,7 +49,10 @@ webpg.dialog = {
             'title': title,
             'autoOpen': true,
             'close': function(event) {
-                if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                    var iframe = window.parent.document.getElementById(window.frameElement.id);
+                    window.frameElement.parentElement.removeChild(iframe);
+                } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                     // In Google Chrome/Chormium, we do not have access to the
                     //  parent document, so we need to send an event to remove
                     //  this iframe.
@@ -232,7 +235,7 @@ webpg.dialog = {
                 'class': 'webpg-dialog-encrypt-btn',
                 'click': function() {
                     var encrypt_to_list = [];
-                    for (i=0; i<document.forms.keylist_form.keylist_sel_list.length; i++){
+                    for (i=0; i<document.forms.keylist_form.keylist_sel_list.length; i++) {
                         if (document.forms.keylist_form.keylist_sel_list[i].checked == true) {
                             encrypt_to_list[encrypt_to_list.length] = document.forms.keylist_form.keylist_sel_list[i].id.split('_')[1];
                         }
@@ -284,7 +287,7 @@ webpg.dialog = {
                 'class': 'webpg-dialog-export-btn',
                 'click': function() {
                     var export_list = [];
-                    for (i=0; i<document.forms.keylist_form.keylist_sel_list.length; i++){
+                    for (i=0; i<document.forms.keylist_form.keylist_sel_list.length; i++) {
                         if (document.forms.keylist_form.keylist_sel_list[i].checked == true) {
                             export_list[export_list.length] = document.forms.keylist_form.keylist_sel_list[i].id.split('_')[1];
                         }
@@ -421,7 +424,7 @@ webpg.dialog = {
     },
 }
 
-webpg.jq(function(){
+webpg.jq(function() {
     webpg.dialog.init();
 });
 /* ]]> */

@@ -96,7 +96,7 @@ webpg.inline_results = {
             sig_class = "sign-revoked";
         }
         var sig_box = "<div id='sig-" + sig_keyid + "-" + sigIdx + "' class='signature-box " + sig_class + "'>" +
-            "<img src='skin/images/badges/" + sig_image + "'><div style='float:left;'><span class='signature-uid'>" +
+            "<img src='skin/images/badges/48x48/" + sig_image + "'><div style='float:left;'><span class='signature-uid'>" +
             key_name + "</span>";
 
         if (sigkey_url)
@@ -129,7 +129,7 @@ webpg.inline_results = {
             var icon = document.createElement("img");
             switch(request.block_type) {
                 case webpg.constants.PGPBlocks.PGP_ENCRYPTED:
-                    icon.src = "skin/images/badges/stock_encrypted.png";
+                    icon.src = "skin/images/badges/48x48/stock_encrypted.png";
                     webpg.jq(icon).addClass('footer_icon');
                     var gpg_error_code = request.verify_result.gpg_error_code;
                     webpg.jq('#header').html("<a name=\"" + scrub(webpg.inline_results.qs.id) + "\">" + _("PGP ENCRYPTED OR SIGNED MESSAGE") + "</a>");
@@ -145,7 +145,7 @@ webpg.inline_results = {
                     if (request.message_event == "manual" && request.verify_result.original_text.substr(0,5) == "-----") {
                         if (request.verify_result.signatures && request.verify_result.signatures.hasOwnProperty(0)) {
                             webpg.jq('#header').html("<a name=\"" + scrub(webpg.inline_results.qs.id) + "\">" + _("PGP ENCRYPTED AND SIGNED MESSAGE") + "</a>");
-                            icon.src = "skin/images/badges/stock_decrypted-signature.png";
+                            icon.src = "skin/images/badges/48x48/stock_decrypted-signature.png";
                             var sig_ok = true;
                             var sig_boxes = "<div class='signature-container'>";
                             for (var sig in request.verify_result.signatures) {
@@ -160,10 +160,10 @@ webpg.inline_results = {
                             webpg.jq('#signature_text').append(sig_boxes);
                             if (sig_ok) {
                                 webpg.jq('#footer').addClass("signature_good");
-                                icon.src = "skin/images/badges/stock_decrypted-signature-ok.png";
+                                icon.src = "skin/images/badges/48x48/stock_decrypted-signature-ok.png";
                             }
                         } else {
-                            icon.src = "skin/images/badges/stock_decrypted.png";
+                            icon.src = "skin/images/badges/48x48/stock_decrypted.png";
                         }
                     }
                     webpg.jq('#footer').append(icon.outerHTML);
@@ -212,7 +212,7 @@ webpg.inline_results = {
                     gpg_error_code = request.verify_result.gpg_error_code;
                     if (gpg_error_code == "58") {
                         webpg.jq('#footer').addClass("signature_bad_sig");
-                        icon.src = "skin/images/badges/stock_signature-bad.png";
+                        icon.src = "skin/images/badges/48x48/stock_signature-bad.png";
                         webpg.jq(icon).addClass('footer_icon');
                         webpg.jq('#footer').html(icon.outerHTML);
                         webpg.jq('#footer').append(_("THE SIGNATURE ON THIS MESSAGE IS INVALID") + "; " + _("THE SIGNATURE MIGHT BE TAMPERED WITH") + "<br/\>");
@@ -232,7 +232,7 @@ webpg.inline_results = {
                         sig_boxes += "</div>";
                         webpg.jq('#signature_text').append(sig_boxes);
                         if (request.verify_result.signatures[sig].status == "GOOD") {
-                            icon.src = "skin/images/badges/stock_signature-ok.png";
+                            icon.src = "skin/images/badges/48x48/stock_signature-ok.png";
                             webpg.jq(icon).addClass('footer_icon');
                             webpg.jq('#footer').addClass("signature_good");
                             webpg.jq('#footer').html(icon.outerHTML);
@@ -273,7 +273,7 @@ webpg.inline_results = {
                         }
                         if (request.verify_result.signatures[sig].status == "BAD_SIG") {
                             webpg.jq('#footer').addClass("signature_bad_sig");
-                            icon.src = "skin/images/badges/stock_signature-bad.png";
+                            icon.src = "skin/images/badges/48x48/stock_signature-bad.png";
                             webpg.jq(icon).addClass('footer_icon');
                             webpg.jq('#footer').html(icon.outerHTML);
                             webpg.jq('#footer').append(_("THE SIGNATURE ON THIS MESSAGE FAILED") + "; " + _("THE MESSAGE MAY BE TAMPERED WITH") + "<br/\>");
@@ -313,7 +313,7 @@ webpg.inline_results = {
                     webpg.jq('#header').html("<a name=\"" + scrub(webpg.inline_results.qs.id) + "\">" + _("PGP PUBLIC KEY") + "</a>");
                     webpg.jq('#original_text').text(request.original_text);
                     webpg.jq('#clipboard_input')[0].value = request.original_text;
-                    icon.src = "skin/images/badges/stock_keypair.png";
+                    icon.src = "skin/images/badges/48x48/stock_keypair.png";
                     webpg.jq(icon).addClass('footer_icon');
                     webpg.jq('#footer').html(icon.outerHTML);
                     var get_key_response = null;
@@ -574,7 +574,7 @@ webpg.inline_results = {
                             if ((request.verify_result.signatures && response.result.signatures.hasOwnProperty(0)) ||
                             (response.result.signatures && response.result.signatures.hasOwnProperty(0))) {
                                 webpg.jq('#header').html("<a name=\"" + scrub(webpg.inline_results.qs.id) + "\">" + _("PGP ENCRYPTED AND SIGNED MESSAGE") + "</a>");
-                                icon.src = "skin/images/badges/stock_decrypted-signature.png";
+                                icon.src = "skin/images/badges/48x48/stock_decrypted-signature.png";
                                 var sig_ok = true;
                                 sig_boxes = "<div class='signature-container'>";
                                 for (var sig in response.result.signatures) {
@@ -589,10 +589,10 @@ webpg.inline_results = {
                                 webpg.jq('#signature_text').append(sig_boxes);
                                 if (sig_ok) {
                                     webpg.jq('#footer').addClass("signature_good");
-                                    icon.src = "skin/images/badges/stock_decrypted-signature-ok.png";
+                                    icon.src = "skin/images/badges/48x48/stock_decrypted-signature-ok.png";
                                 }
                             } else {
-                                icon.src = "skin/images/badges/stock_decrypted.png";
+                                icon.src = "skin/images/badges/48x48/stock_decrypted.png";
                             }
                             webpg.jq(icon).addClass('footer_icon');
                             webpg.jq('#footer').html(icon.outerHTML);

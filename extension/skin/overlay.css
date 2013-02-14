@@ -1,29 +1,35 @@
 .webpg-menu {
 	list-style-image: url("chrome://webpg-firefox/skin/images/webpg-16.png");
 }
+.webpg-menu-donotuse {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_decrypted-signature-bad.png");
+}
 .webpg-menu-sign {
-    list-style-image: url("chrome://webpg-firefox/skin/images/badges/stock_signature.png");
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_signature.png");
+}
+.webpg-menu-attachsign {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_signature-attachment.png");
 }
 .webpg-menu-verif {
-    list-style-image: url("chrome://webpg-firefox/skin/images/badges/stock_signature-ok.png");
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_signature-ok.png");
 }
 .webpg-menu-crypt {
-    list-style-image: url("chrome://webpg-firefox/skin/images/badges/stock_encrypted.png");
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_encrypted.png");
 }
 .webpg-menu-cryptsign {
-    list-style-image: url("chrome://webpg-firefox/skin/images/badges/stock_encrypted_signed.png");
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_encrypted_signed.png");
 }
 .webpg-menu-decrypt {
-    list-style-image: url("chrome://webpg-firefox/skin/images/badges/stock_decrypted.png");
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_decrypted.png");
 }
 .webpg-menu-import {
-    list-style-image: url("chrome://webpg-firefox/skin/images/badges/import.png");
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/import.png");
 }
 .webpg-menu-export {
-    list-style-image: url("chrome://webpg-firefox/skin/images/badges/export.png");
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/export.png");
 }
 .webpg-menu-manager {
-    list-style-image: url("chrome://webpg-firefox/skin/images/badges/stock_keypair.png");
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_keypair.png");
 }
 .webpg-menu-options {
     list-style-image: url("chrome://webpg-firefox/skin/images/webpg-16.png");
@@ -31,6 +37,10 @@
 .webpg-menu-about {
     list-style-image: url("chrome://webpg-firefox/skin/images/about-48.png");
 }
-#webpg-msg-btn, [place="palette"] > #webpg-msg-btn {
-  list-style-image: url("chrome://webpg-firefox/skin/images/webpg-16.png") !important;
+.webpg-menu-notselected {
+  list-style-image: url("chrome://webpg-firefox/skin/images/webpg-16.png");
+}
+#optionsforwebpg, prefpane {
+    width: 100%;
+    height: 100%;
 }
