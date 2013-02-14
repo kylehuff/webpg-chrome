@@ -29,8 +29,8 @@ webpg.overlay = {
             aEvent.originalTarget : document;
 
         // We don't want to run on certain pages
-//        if (webpg.doc.location.host.indexOf("twitter.com") > -1)
-//            return;
+        if (webpg.doc.location.host.indexOf("twitter.com") > -1)
+            return;
 
         webpg.overlay.insert_target = null;
         webpg.overlay.insert_range = null;
