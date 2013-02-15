@@ -19,10 +19,20 @@
       "skin/images/badges/20x20/stock_encrypted_signed.png",
       "skin/images/badges/20x20/secure_editor.png",
       "skin/images/badges/20x20/stock_signature.png",
+      "skin/images/badges/20x20/stock_signature-attachment.png",
       "skin/images/badges/20x20/stock_signature-ok.png",
       "skin/images/badges/20x20/stock_decrypted.png",
       "skin/images/badges/20x20/stock_decrypted-signature-bad.png",
-      "skin/images/badges/20x20/stock_keypair.png"
+      "skin/images/badges/48x48/stock_keypair.png",
+      "skin/images/badges/48x48/stock_encrypted.png",
+      "skin/images/badges/48x48/stock_encrypted_signed.png",
+      "skin/images/badges/48x48/secure_editor.png",
+      "skin/images/badges/48x48/stock_signature.png",
+      "skin/images/badges/48x48/stock_signature-attachment.png",
+      "skin/images/badges/48x48/stock_signature-ok.png",
+      "skin/images/badges/48x48/stock_decrypted.png",
+      "skin/images/badges/48x48/stock_decrypted-signature-bad.png",
+      "skin/images/badges/48x48/stock_keypair.png"
   ],
   "background": {
       "scripts": [

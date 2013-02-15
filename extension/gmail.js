@@ -524,31 +524,31 @@ webpg.gmail = {
 '<ul class="webpg-action-list webpg-gmail-compose-' + webpg.gmail.gmailComposeType + '">' +
     '<li class="webpg-action-btn" id="webpg-crypt-btn">' +
         '<a href="#">' +
-            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
+            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/48x48/stock_encrypted.png" class="webpg-li-icon"/>' +
             _('Encrypt') +
         '</a>' +
     '</li>' +
     '<li class="webpg-action-btn" id="webpg-sign-btn">' +
         '<a href="#">' +
-            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_signature-ok.png" class="webpg-li-icon"/>' +
+            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/48x48/stock_signature-ok.png" class="webpg-li-icon"/>' +
             _('Sign only') +
         '</a>' +
     '</li>' +
     '<li class="webpg-action-btn" id="webpg-scrypt-btn">' +
         '<a href="#">' +
-            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
+            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/48x48/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
             _('Sign and Encrypt') +
         '</a>' +
     '</li>' +
     '<li class="webpg-action-btn" id="webpg-symmetric-btn">' +
         '<a href="#">' +
-            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_encrypted.png" class="webpg-li-icon"/>' +
+            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/48x48/stock_encrypted.png" class="webpg-li-icon"/>' +
             _('Symmetric Encryption') +
         '</a>' +
     '</li>' +
     '<li class="webpg-action-btn" id="webpg-none-btn">' +
         '<a href="#">' +
-            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/stock_decrypted-signature-bad.png" class="webpg-li-icon"/>' +
+            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/48x48/stock_decrypted-signature-bad.png" class="webpg-li-icon"/>' +
             _('Do not use WebPG for this message') +
         '</a>' +
     '</li>' +
