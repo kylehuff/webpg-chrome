@@ -75,6 +75,10 @@ webpg.background = {
                 }
             }
             webpg.preferences.group.refresh_from_config();
+            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                webpg.background.tabIndex = 100;
+                webpg.utils.tabListener.add();
+            }
             console.log("WebPG background initialized");
         } else {
             if (webpg.plugin.valid == undefined) {
@@ -106,6 +110,14 @@ webpg.background = {
 
         // set the default response to null
         var response = null;
+
+        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+            var tabID = gBrowser.getBrowserForDocument(sender.defaultView.top.content.document)._webpgTabID;
+            sender.tab = {
+                'id': tabID,
+                'selected': true,
+            }
+        }
 
         if (!sender.tab)
             sender.tab = {'id': -1}
@@ -172,16 +184,18 @@ webpg.background = {
                 break;
 
             case 'sign':
+                //console.log("symmetric encryption requested");
                 var signing_key = webpg.preferences.default_key.get()
                 var sign_status = webpg.plugin.gpgSignText([signing_key],
                     request.selectionData.selectionText, 2);
                 response = sign_status;
                 if (!sign_status.error && sign_status.data.length > 0) {
                     if (typeof(request.message_event)=='undefined' || !request.message_event == "gmail") {
-                        webpg.utils.tabs.sendRequest(sender.tab, {'msg': 'insertSignedData',
+                        webpg.utils.tabs.sendRequest(sender.tab, {'msg': 'insertEncryptedData',
                             'data': sign_status.data,
                             'pre_selection' : request.selectionData.pre_selection,
-                            'post_selection' : request.selectionData.post_selection});
+                            'post_selection' : request.selectionData.post_selection,
+                            "iframe_id": request.iframe_id});
                     }
                 }
                 break;
@@ -293,7 +307,6 @@ webpg.background = {
                 break;
 
             case 'encrypt':
-                //console.log("encrypt requested");
                 var sign = (typeof(request.sign)=='undefined'
                     || request.sign == false) ? 0 : 1;
                 if (request.recipients.length > 0) {
@@ -331,10 +344,7 @@ webpg.background = {
             case 'symmetricEncrypt':
                 //console.log("symmetric encryption requested");
                 response = webpg.plugin.gpgSymmetricEncrypt(request.data, 0);
-                console.log(response);
-                if (typeof(request.message_event)=='undefined' ||
-                request.message_event == "context" ||
-                !request.message_event == "gmail")
+                if (request.message_event == "context" || request.message_event == "editor")
                     webpg.utils.tabs.sendRequest(sender.tab, {
                         "msg": "insertEncryptedData",
                         "data": (response.data) ? response.data : null,

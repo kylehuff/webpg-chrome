@@ -172,6 +172,7 @@ webpg.dialog = {
                         editor.text(unescape(webpg.dialog.qs.editor_data));
                         editor.show();
                         webpg.overlay.insert_target = editor;
+                        webpg.overlay.block_target = true;
                         webpg.jq("#ddialog").parent().css({'top': '0'});
                         break;
 
@@ -196,7 +197,6 @@ webpg.dialog = {
                             }
                         }
                         webpg.inline.PGPDataSearch(document);
-                        return;
                     } else if (webpg.dialog.qs.dialog_type == "editor") {
                         webpg.inline.PGPDataSearch(document);
                     }

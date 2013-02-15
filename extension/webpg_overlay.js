@@ -113,9 +113,9 @@ webpg.overlay = {
                 }
             }
         } else if (request.msg == "insertEncryptedData") {
-            if (webpg.overlay.prior_insert_target != null) {
+            if (webpg.overlay.prior_insert_target != null)
                 return false;
-            }
+
             if (webpg.overlay.insert_target != null && request.data) {
                 if (webpg.overlay.insert_range != null && (webpg.overlay.insert_target.nodeName != "TEXTAREA" &&
                         webpg.overlay.insert_target.nodeName != "INPUT")) {
@@ -228,7 +228,7 @@ webpg.overlay = {
                 webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
             }
             webpg.overlay.block_target = false;
-        } else if (request.msg == "openKeySelectionDialog") {
+        } else if (request.msg == "openDialog") {
             var target = webpg.overlay.insert_target;
             var range = webpg.overlay.insert_range;
 
@@ -275,61 +275,63 @@ webpg.overlay = {
 
             webpg.jq(iframe).animate({"top": posY, "left": posX}, 1);
 
-            // the sendResult event is for communicating with the iframe
-            //  from firefox; Google Chrome/Chromium uses the
-            //  chrome.extension.sendRequest method.
-            iframe.addEventListener("sendResult", function(e) {
-                console.log("dialog_type: " + request.dialog_type)
-                if (request.dialog_type == "encrypt" || request.dialog_type == "encryptsign") {
-                    var sign = (typeof(e.detail.sign)=='undefined'
-                        || e.detail.sign == false) ? 0 : 1;
-                    response = webpg.plugin.gpgEncrypt(e.detail.data,
-                        e.detail.recipients, sign);
-                    if (!response.error) {
-                        var target_value = e.detail.pre_selection +
-                            response.data + e.detail.post_selection;
+            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                // the sendResult event is for communicating with the iframe
+                //  from firefox; Google Chrome/Chromium uses the
+                //  chrome.extension.sendRequest method.
+                iframe.addEventListener("sendResult", function(e) {
+                    console.log("dialog_type: " + request.dialog_type)
+                    if (request.dialog_type == "encrypt" || request.dialog_type == "encryptsign" || request.dialog_type == "symcrypt") {
+                        var sign = (typeof(e.detail.sign)=='undefined'
+                            || e.detail.sign == false) ? 0 : 1;
+                        response = webpg.plugin.gpgEncrypt(e.detail.data,
+                            e.detail.recipients, sign);
+                        if (!response.error) {
+                            var target_value = e.detail.pre_selection +
+                                response.data + e.detail.post_selection;
+                            if (target.type == "textarea" || target.type == "text") {
+                                target.value = target_value;
+                            } else {
+                                var contents = range.extractContents();
+                                contents.textContent = response.data;
+                                range.insertNode(contents);
+                                target.style.whiteSpace = "pre";
+                            }
+                        } else {
+                            console.log(response);
+                        }
+                    } else if (request.dialog_type == "export") {
+                        exported_items = "";
+                        for (var idx in e.detail.recipients) {
+                            exported_items += webpg.plugin.
+                                gpgExportPublicKey(e.detail.recipients[idx]).result
+                                + "\n";
+                        }
                         if (target.type == "textarea" || target.type == "text") {
-                            target.value = target_value;
+                            target.value = exported_items;
                         } else {
                             var contents = range.extractContents();
-                            contents.textContent = response.data;
+                            contents.textContent = exported_items;
                             range.insertNode(contents);
                             target.style.whiteSpace = "pre";
                         }
-                    } else {
-                        console.log(response);
+                    } else if (request.dialog_type == "import") {
+                        console.log(e.detail);
+                    } else if (request.dialog_type == "editor") {
+                        if (target.type == "textarea" || target.type == "text") {
+                            target.value = e.detail.data;
+                        } else {
+                            var contents = range.extractContents();
+                            contents.textContent = e.detail.data;
+                            range.insertNode(contents);
+                            target.style.whiteSpace = "pre";
+                        }
                     }
-                } else if (request.dialog_type == "export") {
-                    exported_items = "";
-                    for (var idx in e.detail.recipients) {
-                        exported_items += webpg.plugin.
-                            gpgExportPublicKey(e.detail.recipients[idx]).result
-                            + "\n";
-                    }
-                    if (target.type == "textarea" || target.type == "text") {
-                        target.value = exported_items;
-                    } else {
-                        var contents = range.extractContents();
-                        contents.textContent = exported_items;
-                        range.insertNode(contents);
-                        target.style.whiteSpace = "pre";
-                    }
-                } else if (request.dialog_type == "import") {
-                    console.log(e.detail);
-                } else if (request.dialog_type == "editor") {
-                    if (target.type == "textarea" || target.type == "text") {
-                        target.value = e.detail.data;
-                    } else {
-                        var contents = range.extractContents();
-                        contents.textContent = e.detail.data;
-                        range.insertNode(contents);
-                        target.style.whiteSpace = "pre";
-                    }
-                }
-                webpg.jq(iframe).remove();
-                webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
-                webpg.overlay.block_target = false;
-            });
+                    webpg.jq(iframe).remove();
+                    webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
+                    webpg.overlay.block_target = false;
+                });
+            }
         } else if (request.msg == "onContextCommand") {
             webpg.overlay.onContextCommand(null, request.action, sender);
         }
@@ -385,12 +387,14 @@ webpg.overlay = {
             sender  - <obj> The sender (tab/page) of the request
     */
 	onContextCommand: function(event, action, sender, selection) {
-	    selection = (!selection) ? webpg.overlay.contextSelection :
-	        selection;
+	    selection = selection || webpg.overlay.contextSelection;
 
 	    switch (action) {
        		case webpg.constants.overlayActions.PSIGN:
-       		    webpg.utils.sendRequest({"msg": "sign", "selectionData": selection});
+       		    webpg.utils.sendRequest({
+       		        "msg": "sign",
+       		        "selectionData": selection
+       		    });
                 break;
 
 		    case webpg.constants.overlayActions.VERIF:
@@ -418,7 +422,7 @@ webpg.overlay = {
 		            return
 		        var dialog_type = (action == webpg.constants.overlayActions.CRYPTSIGN) ?
 		            'encryptsign' : 'encrypt';
-                webpg.overlay._onRequest({'msg': 'openKeySelectionDialog',
+                webpg.overlay._onRequest({'msg': 'openDialog',
                     'data': selection.selectionText,
                     'pre_selection': selection.pre_selection,
                     'post_selection': selection.post_selection,
@@ -453,18 +457,17 @@ webpg.overlay = {
 
 		    case webpg.constants.overlayActions.SYMCRYPT:
 		        webpg.utils.sendRequest({
-                    // WebPG found a PGP MESSAGE, but it could be signed. Lets gpgVerify first
                     'msg': 'symmetricEncrypt',
                     'data': selection.selectionText,
                     'pre_selection': selection.pre_selection,
                     'post_selection': selection.post_selection,
                     'message_event': 'context',
-                    'dialog_type': 'encrypt'}
+                    'dialog_type': 'symcrypt'}
                 );
                 break;
 
 		    case webpg.constants.overlayActions.IMPORT:
-                webpg.overlay._onRequest({'msg': 'openKeySelectionDialog',
+                webpg.overlay._onRequest({'msg': 'openDialog',
                     'dialog_type': 'import',
                     'data': selection.selectionText
                 });
@@ -474,7 +477,7 @@ webpg.overlay = {
 		        webpg.utils.sendRequest({"msg": "enabled_keys"}, function(response) {
 		            var enabled_keys = response.result;
 		            if (enabled_keys.length > 1) {
-                        webpg.overlay._onRequest({'msg': 'openKeySelectionDialog',
+                        webpg.overlay._onRequest({'msg': 'openDialog',
                             'dialog_type': 'export'
                         });
 		            } else {
@@ -519,7 +522,7 @@ webpg.overlay = {
 		    case webpg.constants.overlayActions.EDITOR:
 		        if (!selection)
 		            return
-                webpg.overlay._onRequest({'msg': 'openKeySelectionDialog',
+                webpg.overlay._onRequest({'msg': 'openDialog',
                     'data': selection.selectionText,
                     'pre_selection': selection.pre_selection,
                     'post_selection': selection.post_selection,

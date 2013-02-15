@@ -483,8 +483,21 @@ webpg.utils = {
     */
     sendRequest: function(data, callback) { // analogue of chrome.extension.sendRequest
         if (this.detectedBrowser['vendor'] == "mozilla" ||
-            this.detectedBrowser['product'] == "safari" ||
-            this.detectedBrowser['vendor'] == "opera") {
+            this.detectedBrowser['product'] == "safari") {
+
+            if (!gBrowser) {
+                var gBrowser = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                       .getInterface(Components.interfaces.nsIWebNavigation)
+                       .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+                       .rootTreeItem
+                       .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                       .getInterface(Components.interfaces.nsIDOMWindow).gBrowser;
+            }
+            var tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
+            data.sender = {
+                'tab': { 'id': tabID },
+            }
+
             var request = document.createTextNode("");
 
             if (this.detectedBrowser['vendor'] == "mozilla")
@@ -649,21 +662,21 @@ webpg.utils = {
                 if (webpg.utils.detectedBrowser['product'] == 'chrome') {
                     chrome.pageAction.setPopup(popupData);
                 } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
-                    var popup = document.getElementById("gpgauth-pageAction-popup");
-                    var frameSource = gpgauth.utils.resourcePath + popupData.popup;
-        		    var dialogFrame = document.getElementById('gpgauth-pageAction-popup-frame');
+                    var popup = document.getElementById("webpg-pageAction-popup");
+                    var frameSource = webpg.utils.resourcePath + popupData.popup;
+        		    var dialogFrame = document.getElementById('webpg-pageAction-popup-frame');
                     var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                            .getService(Components.interfaces.nsIWindowMediator);
-                    var winType = (gpgauth.utils.detectedBrowser['product'] == "thunderbird") ?
+                    var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
                         "mail:3pane" : "navigator:browser";
                     var browserWindow = wm.getMostRecentWindow(winType);
 		            dialogFrame.addEventListener("load", function() {
 		                dialogFrame.removeEventListener("load", arguments.callee, false);
 			            var cont = new XPCNativeWrapper(dialogFrame.contentWindow).wrappedJSObject;
-			            cont.gpgauth.popup.init(browserWindow, popup);
+			            cont.webpg.popup.init(browserWindow, popup);
 		            }, true);
 		            popup.removeAttribute('onpopupshowing');
-                    popup.setAttribute('onpopupshowing', "document.getElementById('gpgauth-pageAction-popup-frame').setAttribute('src', '" + frameSource + "')");
+                    popup.setAttribute('onpopupshowing', "document.getElementById('webpg-pageAction-popup-frame').setAttribute('src', '" + frameSource + "')");
                 }
             },
 
@@ -671,8 +684,8 @@ webpg.utils = {
                 if (webpg.utils.detectedBrowser['product'] == 'chrome') {
                     chrome.pageAction.setIcon(popupData);
                 } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
-                    var pageActionIcon = document.getElementById("gpgauth-pageAction-icon");
-                    pageActionIcon.setAttribute('src', gpgauth.utils.resourcePath + popupData.path);
+                    var pageActionIcon = document.getElementById("webpg-pageAction-icon");
+                    pageActionIcon.setAttribute('src', webpg.utils.resourcePath + popupData.path);
                 }
             },
 
@@ -680,7 +693,7 @@ webpg.utils = {
                 if (webpg.utils.detectedBrowser['product'] == 'chrome') {
                     chrome.pageAction.show(popupData);
                 } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
-                    var icon = document.getElementById("gpgauth-pageAction-icon");
+                    var icon = document.getElementById("webpg-pageAction-icon");
                     icon.setAttribute("collapsed", false);
                 }
             },
@@ -689,7 +702,7 @@ webpg.utils = {
                 if (webpg.utils.detectedBrowser['product'] == 'chrome') {
                     chrome.pageAction.hide(popupData.tabId);
                 } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
-                    var icon = document.getElementById("gpgauth-pageAction-icon");
+                    var icon = document.getElementById("webpg-pageAction-icon");
                     icon.setAttribute("collapsed", true);
                 }
             },
@@ -698,8 +711,8 @@ webpg.utils = {
                 if (webpg.utils.detectedBrowser['product'] == 'chrome') {
                     chrome.pageAction.show(popupData);
                 } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
-                    var popup = document.getElementById("gpgauth-pageAction-popup");
-                    popup.openPopup(document.getElementById("gpgauth-pageAction-icon"), "after_end", 1, 4, false, false);
+                    var popup = document.getElementById("webpg-pageAction-popup");
+                    popup.openPopup(document.getElementById("webpg-pageAction-icon"), "after_end", 1, 4, false, false);
                 }
             },
 
@@ -729,7 +742,7 @@ webpg.utils = {
                            .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                            .getInterface(Components.interfaces.nsIDOMWindow).gBrowser;
                 }
-                var tabID = gBrowser.getBrowserForDocument(content.document)._gpgauthTabID;
+                var tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
                 callback({'url': content.document.location.href, 'id': tabID});
             }
         },
@@ -1016,6 +1029,52 @@ webpg.utils = {
                 }
             }
         }
+    },
+
+    tabListener: {
+        add: function(openListener, closeListener) {
+            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                var container = gBrowser.tabContainer;
+                container.addEventListener("TabOpen", webpg.utils.tabListener.openListener, false);
+                //container.addEventListener("TabSelect", webpg.utils.tabListener.selectListener, false);
+                container.addEventListener("TabClose", webpg.utils.tabListener.closeListener, false);
+            } else if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                chrome.tabs.onCreated.addListener(webpg.utils.tabListener.openListener);
+                //chrome.tabs.onActivated.addListener(webpg.utils.tabListener.selectListener);
+                chrome.tabs.onRemoved.addListener(webpg.utils.tabListener.closeListener);
+            }
+        },
+
+        openListener: function(event) {
+            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                var browser = gBrowser.getBrowserForTab(event.target);
+                browser._webpgTabID = ++webpg.background.tabIndex;
+            } else if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                if (this.debug) console.log("opened a new tab with id:", event.id);
+            }
+        },
+
+        selectListener: function(event) {
+            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                var browser = gBrowser.getBrowserForTab(event.target);
+                if (this.debug) console.log("checking for headers in tab: " + browser._webpgTabID);
+                if (browser._webpgDisplayAction)
+                    webpg.utils.tabs.pageAction.show({'tabId': browser._webpgTabID});
+                else
+                    webpg.utils.tabs.pageAction.hide({'tabId': browser._webpgTabID});
+            } else if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                if (this.debug) console.log("a tab has been selected with tab id:", event.tabId);
+            }
+        },
+
+        closeListener: function(event) {
+            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                var browser = gBrowser.getBrowserForTab(event.target);
+                if (this.debug) console.log("closing tab with id: " + browser._webpgTabID);
+            } else if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                if (this.debug) console.log("a tab has been closed with tab id:", event);
+            }
+        },
     },
 }
 
