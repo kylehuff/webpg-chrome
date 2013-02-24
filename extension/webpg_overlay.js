@@ -30,7 +30,13 @@ webpg.overlay = {
 
         // We don't want to run on certain pages
         //  TODO: consult a list of user defined domains/pages to ignore
-        if (webpg.doc.location.host.indexOf("twitter.com") > -1)
+        webpg.overlay.blackListedDomains = ["twitter.com", "translate.google.com"];
+        var proceed = webpg.overlay.blackListedDomains.every(function(bldomain) {
+            console.log(webpg.doc.location.host.indexOf(bldomain));
+            return (webpg.doc.location.host.indexOf(bldomain) == -1);
+        });
+
+        if (!proceed)
             return false;
 
         if (webpg.utils.detectedBrowser['vendor'] == 'google') {
