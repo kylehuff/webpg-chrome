@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webpg-chrome 0.8.9\n"
 "Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
-"POT-Creation-Date: 2013-02-24 16:35-0500\n"
+"POT-Creation-Date: 2013-02-24 17:25-0500\n"
 "PO-Revision-Date: 2012-10-21 16:42-0400\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -122,12 +122,16 @@ msgid "The generation of your new key is now complete"
 msgstr ""
 
 #: extension/browser_action_menu.js:44 extension/inline.js:603
-#: extension/utils.js:943
+#: extension/utils.js:943 extension/XULContent/firefoxOverlay.xul:27
+#: extension/XULContent/options.xul:15 extension/XULContent/options.xul:20
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:32
 msgid "Options"
 msgstr ""
 
 #: extension/browser_action_menu.js:46 extension/inline.js:597
-#: extension/utils.js:962
+#: extension/utils.js:962 extension/XULContent/firefoxOverlay.xul:23
+#: extension/XULContent/options.xul:24
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:28
 msgid "Key Manager"
 msgstr ""
 
@@ -136,10 +140,14 @@ msgid "Select Recipient(s)"
 msgstr ""
 
 #: extension/dialog.js:40 extension/inline.js:577
+#: extension/XULContent/firefoxOverlay.xul:72
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:77
 msgid "Import"
 msgstr ""
 
 #: extension/dialog.js:42 extension/dialog.js:271
+#: extension/XULContent/firefoxOverlay.xul:79
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:84
 msgid "Export"
 msgstr ""
 
@@ -153,7 +161,9 @@ msgstr ""
 
 #: extension/dialog.js:252 extension/gmail.js:528 extension/inline.js:547
 #: extension/key_manager.js:124 extension/key_manager.js:961
+#: extension/XULContent/firefoxOverlay.xul:51
 #: extension/XULContent/thunderbird/composeOverlay.js:43
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:56
 msgid "Encrypt"
 msgstr ""
 
@@ -309,7 +319,9 @@ msgid "Sign only"
 msgstr ""
 
 #: extension/gmail.js:540 extension/inline.js:559
+#: extension/XULContent/firefoxOverlay.xul:58
 #: extension/XULContent/thunderbird/composeOverlay.js:42
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:63
 msgid "Sign and Encrypt"
 msgstr ""
 
@@ -323,11 +335,13 @@ msgstr ""
 msgid "Do not use WebPG for this message"
 msgstr ""
 
-#: extension/inline.js:571
+#: extension/inline.js:571 extension/XULContent/firefoxOverlay.xul:65
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:70
 msgid "Decrypt"
 msgstr ""
 
-#: extension/inline.js:583
+#: extension/inline.js:583 extension/XULContent/firefoxOverlay.xul:44
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:49
 msgid "Verify"
 msgstr ""
 
@@ -1113,11 +1127,13 @@ msgstr ""
 msgid "There may have been a problem placing the data into the clipboard"
 msgstr ""
 
-#: extension/utils.js:811
+#: extension/utils.js:811 extension/XULContent/firefoxOverlay.xul:77
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:82
 msgid "Paste Public Key"
 msgstr ""
 
-#: extension/utils.js:831
+#: extension/utils.js:831 extension/XULContent/firefoxOverlay.xul:35
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:40
 msgid "Clear-sign this text"
 msgstr ""
 
@@ -1125,19 +1141,22 @@ msgstr ""
 msgid "Import this Key"
 msgstr ""
 
-#: extension/utils.js:871
+#: extension/utils.js:871 extension/XULContent/firefoxOverlay.xul:49
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:54
 msgid "Encrypt this text"
 msgstr ""
 
-#: extension/utils.js:891
+#: extension/utils.js:891 extension/XULContent/firefoxOverlay.xul:63
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:68
 msgid "Decrypt this text"
 msgstr ""
 
-#: extension/utils.js:911
+#: extension/utils.js:911 extension/XULContent/firefoxOverlay.xul:42
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:47
 msgid "Verify this text"
 msgstr ""
 
-#: extension/webpg_overlay.js:229 extension/webpg_results.js:138
+#: extension/webpg_overlay.js:235 extension/webpg_results.js:138
 msgid "UNABLE TO DECRYPT OR VERIFY THIS MESSAGE"
 msgstr ""
 
@@ -1259,6 +1278,32 @@ msgstr ""
 
 #: extension/webpg_results.js:520
 msgid "NO USER ID"
+msgstr ""
+
+#: extension/XULContent/firefoxOverlay.xul:19
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:24
+msgid "WebPG"
+msgstr ""
+
+#: extension/XULContent/firefoxOverlay.xul:30
+#: extension/XULContent/options.xul:28
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:35
+msgid "About"
+msgstr ""
+
+#: extension/XULContent/firefoxOverlay.xul:37
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:42
+msgid "Clear Sign"
+msgstr ""
+
+#: extension/XULContent/firefoxOverlay.xul:56
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:61
+msgid "Sign and Encrypt this text"
+msgstr ""
+
+#: extension/XULContent/firefoxOverlay.xul:70
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:75
+msgid "Import this Public key"
 msgstr ""
 
 #: extension/XULContent/thunderbird/composeOverlay.js:40
