@@ -60,20 +60,22 @@
     top: auto;
 }
 .webpg-li-icon {
-    width:24px;
-    height:24px;
-    padding:0 0 0 4px;
+    width:20px;
+    height:20px;
+    padding:0 4px;
     margin:0;
+    top:5px;
+    display:inline-block;
+    position:relative;
 }
 .webpg-action-list li {
     font-size:12px;
+    height: 28px;
+    line-height: 24px;
     position:relative;
-    top:2px;
     padding:0 6px 2px 6px;
     display:block;
-}
-.webpg-action-list:last-child {
-    padding-bottom:4px;
+    float: none;
 }
 .webpg-action-list li:hover {
     background-color:#e6e6e6;
@@ -90,8 +92,13 @@
     color:black;
 }
 .webpg-action-list a {
+    display: block;
     text-decoration:none;
-    color:black;
+    color:black !important;
+    position: relative;
+    height: 32px;
+    text-shadow: none;
+    cursor: pointer;
 }
 .webpg-status-line {
     color:#f11;

@@ -12,9 +12,47 @@
 <script type="text/javascript" src="inline.js"></script>
 <script type="text/javascript" src="dialog.js"></script>
 <style>
+.webpg-keylist-ul {
+    padding:0px;
+    margin:0px;
+}
+.webpg-keylist-ul li {
+    list-style-type: none;
+    list-style-position: inside;
+    background: #f7fbff url('skin/images/menumask.png') repeat-x;
+    border-radius: 4px;
+    border-bottom:1px solid #e5eff8;
+}
+.webpg-keylist-ul li:hover {
+    background-color: #a4a9ae;
+}
+.webpg-keylist-ul li input {
+    display:none;
+}
 .help-text {
     padding:0 0 0 12px;
     font-size:12px;
+    line-height: 25px;
+    color:#678197;
+    display: block;
+    font-weight: bold;
+}
+.help-text:hover {
+    cursor: pointer;
+}
+.help-text.disabled {
+    text-decoration: line-through;
+}
+.webpg-keylist-ul li.active {
+    background: #f7fbff url('skin/images/check-small.png') no-repeat scroll 4px center;
+    padding-left: 14px;
+}
+.webpg-keylist-ul li.disabled {
+    background: #f7fbff url('skin/images/cancel-small.png') no-repeat scroll 4px center;
+    padding-left: 14px;
+}
+.webpg-keylist-ul li.active .help-text {
+    font-size:13px;
 }
 span.ui-button-text {
     font-size:12px;
@@ -22,12 +60,25 @@ span.ui-button-text {
 #webpg-dialog-editor {
     font-size:14px;
 }
+#dialog-pubkey-search-fixed {
+    position: fixed;
+    display: inline-table;
+    padding-left: 30px;
+    padding-top: 8px;
+    left: 26px;
+    width: 544px;
+    border: none;
+    background-color: rgb(23, 23, 23);
+    background-color: rgba(23, 23, 23, 0.6);
+}
 </style>
 </head>
 <body>
     <div id="ddialog" style="clear:both;height:100%;width:100%;">
-        <label id="dialog-pubkey-search-lbl" for="pubkey-search" style="display:inline-table;font-size:16px;font-weight:bold;"></label>
-        <input style="font-size:11px;height:16px;width:200px;margin-bottom:8px;" class="ui-corner-all ui-widget ui-state-default" id="dialog-pubkey-search"/>
+        <div id="dialog-pubkey-search-fixed">
+            <label id="dialog-pubkey-search-lbl" for="pubkey-search" style="display:inline-table;font-size:16px;font-weight:bold;">Search/Filter: </label>
+            <input style="margin-left: 8px; font-size: 11px; height: 16px; width: 300px; margin-bottom: 8px; margin-left:8px" class="ui-corner-all ui-widget ui-state-default" id="dialog-pubkey-search">
+        </div>
         <form id="keylist_form" name="keylist_form" style="width:100%; height:100px;">
         </form>
         <textarea class="ui-corner-all ui-widget ui-state-default" style="border: 0; margin: 0; width: 99%; height: 100%; display:none;" id="webpg-dialog-editor">

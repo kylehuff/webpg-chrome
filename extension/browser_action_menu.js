@@ -41,9 +41,12 @@ var menuActions = {
 
 // Listen for the creation of the buttons and assign their methods
 document.addEventListener('DOMContentLoaded', function () {
-    webpg.jq("#options-button").text(_("Options"))[0].addEventListener('click', menuActions.options);
-    webpg.jq("#key-manager-button").text(_("Key Manager"))[0].addEventListener('click', menuActions.key_manager);
-    webpg.jq("#about-button").text(_("About WebPG"))[0].addEventListener('click', menuActions.about);
+    webpg.jq("#options-button").find('span').text(_("Options")).bind('click', menuActions.options)
+        .append("<img src=\"skin/images/badges/32x32/webpg.png\"/>");
+    webpg.jq("#key-manager-button").find('span').text(_("Key Manager")).bind('click', menuActions.key_manager)
+        .append("<img style='padding-left:12px; padding-right: 8px;' src=\"skin/images/badges/32x32/stock_keypair.png\"/>");
+    webpg.jq("#about-button").find('span').text(_("About WebPG")).bind('click', menuActions.about)
+        .append("<img src=\"skin/images/badges/32x32/about.png\"/>");
 });
 
 

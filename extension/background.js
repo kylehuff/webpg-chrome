@@ -75,7 +75,8 @@ webpg.background = {
                 }
             }
             webpg.preferences.group.refresh_from_config();
-            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla'
+            && webpg.utils.detectedBrowser['product'] != 'thunderbird') {
                 webpg.background.tabIndex = 100;
                 webpg.utils.tabListener.add();
             }
@@ -111,7 +112,8 @@ webpg.background = {
         // set the default response to null
         var response = null;
 
-        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla'
+        && webpg.utils.detectedBrowser['product'] != 'thunderbird') {
             var tabID = gBrowser.getBrowserForDocument(sender.defaultView.top.content.document)._webpgTabID;
             sender.tab = {
                 'id': tabID,
@@ -184,7 +186,6 @@ webpg.background = {
                 break;
 
             case 'sign':
-                //console.log("symmetric encryption requested");
                 var signing_key = webpg.preferences.default_key.get()
                 var sign_status = webpg.plugin.gpgSignText([signing_key],
                     request.selectionData.selectionText, 2);
@@ -322,6 +323,7 @@ webpg.background = {
                         "data": (response.data) ? response.data : null,
                         "pre_selection": request.pre_selection,
                         "post_selection": request.post_selection,
+                        "target_id": request.iframe_id,
                         "iframe_id": request.iframe_id});
                 break;
 
@@ -443,7 +445,8 @@ webpg.background = {
 
             case 'removeiframe':
                 webpg.utils.tabs.sendRequest(sender.tab, {
-                    "msg": "removeiframe", "iframe_id": request.iframe_id});
+                    "msg": "removeiframe", "iframe_id": request.iframe_id,
+                    "dialog_type": request.dialog_type});
                 break;
 
             case 'log':

@@ -143,8 +143,8 @@ webpg.gmail = {
         var _ = webpg.utils.i18n.gettext;
 
         // Retrieve the contents of the message
-        var message = webpg.gmail.getContents(webpg.gmail.getCanvasFrame().
-            contents().find('form'));
+        var message = (webpg.gmail.action == 0) ? "" :
+            webpg.gmail.getContents(webpg.gmail.getCanvasFrame().contents().find('form'));
 
         webpg.gmail.removeStatusLine();
         
@@ -226,20 +226,20 @@ webpg.gmail = {
                 //  recipients are valid, encrypt+sign the plaintext,
                 //  populate the editor with the result and send
                 //  the email.
+                if (message.search("-----BEGIN PGP") == 0) {
+                    var send = confirm(_("This message already contains PGP data")
+                        + "\n\n" + _("Would you like to Encrypt and Sign anyway"));
+                    if (!send)
+                        return;
+                }
                 webpg.gmail.checkRecipients(function(recipKeys) {
-                    if (message.search("-----BEGIN PGP") == 0) {
-                        var send = confirm(_("This message already contains PGP data")
-                            + "\n\n" + _("Would you like to Encrypt and Sign anyway"));
-                        if (!send)
-                            return;
-                    }
+                    // TODO: Check that the keys are good for this operation
                     var users = webpg.gmail.getRecipients();
                     webpg.utils.sendRequest({'msg': 'encryptSign',
                             'data': message,
                             'recipients': users,
                             'message_event': 'gmail'
                     }, function(response) {
-                        //console.log(response);
                         if (!response.result.error && response.result.data) {
                             webpg.gmail.setContents(webpg.gmail.getCanvasFrame().
                                 contents().find('form'),
@@ -512,7 +512,7 @@ webpg.gmail = {
 
         var action_menu = '' +
 '<span id="webpg-current-action">' +
-    '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + "skin/images/webpg-32.png" + '" width="17" height="17"/>' +
+    '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + "skin/images/badges/32x32/webpg.png" + '" width="17" height="17"/>' +
     'WebPG' +
 '</span>' +
 '&nbsp;' +
@@ -641,7 +641,7 @@ webpg.gmail = {
                 // The editor must be in an iframe
                 var iframes = canvasFrame.find("iframe");
                 iframes.each(function() {
-                    if (webpg.jq(this.contentDocument).find("*[g_editable='true']"))
+                    if (webpg.jq(this.contentDocument).find("*[g_editable='true']").length > 0)
                         msg_container = webpg.jq(this.contentDocument).find("*[g_editable='true']").first();
                 })
             }
@@ -681,7 +681,7 @@ webpg.gmail = {
                 // The editor must be in an iframe
                 var iframes = canvasFrame.find("iframe");
                 iframes.each(function() {
-                    if (webpg.jq(this.contentDocument).find("*[g_editable='true']"))
+                    if (webpg.jq(this.contentDocument).find("*[g_editable='true']").length > 0)
                         msg_container = webpg.jq(this.contentDocument).find("*[g_editable='true']").first();
                 })
             }

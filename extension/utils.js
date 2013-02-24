@@ -22,7 +22,7 @@ webpg.utils = {
 
                 // TODO: This is ugly and buggy; we should consider replacing
                 //  with something a little more elegant and reliable. 
-     
+
                 // Set the console.log method to use the factory console
                 if (typeof(Application.console.log)!='undefined') {
                     console.log = Application.console.log;
@@ -189,7 +189,7 @@ webpg.utils = {
             return item.replace(
                     new RegExp("(.*?):(.*)", "g"
                 ),
-                "\"$1\":\"$2\"");
+                "\"$1\":\"$2");
         } else {
             return item.replace(
                     new RegExp("(.*?):(.*)", "g"
@@ -351,12 +351,16 @@ webpg.utils = {
                 console.log("the title is: " + wTitle + ", the url is: " + url);
                 if (url.search("XULContent") > -1) {
                     try {
-                        window.openTab("chromeTab", { 'chromePage': url });
-//                        window.open(url, wTitle, wFlags);
+                        openTab("chromeTab", { 'chromePage': url });
                     } catch (e) {
-                        var tBrowser = top.document.getElementById("content");
-                        var tab = tBrowser.addTab(url);
-                        tBrowser.selectedTab = tab;
+                        try {
+                            var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                                .getService(Components.interfaces.nsIWindowMediator);
+                            var gBrowser = wm.getMostRecentWindow("navigator:browser").gBrowser;
+                            gBrowser.selectedTab = gBrowser.addTab(url)
+                        } catch (err) {
+                            console.log(err.message);
+                        }
                     }
                 } else {
                     gBrowser.selectedTab = gBrowser.addTab("http://webpg.org/");
@@ -486,19 +490,25 @@ webpg.utils = {
             this.detectedBrowser['product'] == "safari") {
 
             if (!gBrowser) {
-                var gBrowser = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                       .getInterface(Components.interfaces.nsIWebNavigation)
-                       .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-                       .rootTreeItem
-                       .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                       .getInterface(Components.interfaces.nsIDOMWindow).gBrowser;
+                var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                       .getService(Components.interfaces.nsIWindowMediator);
+                var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
+                    "mail:3pane" : "navigator:browser";
+                var browserWindow = wm.getMostRecentWindow(winType);
+                var gBrowser = browserWindow.gBrowser;
             }
-            var tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
+
+            try {
+                var tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
+            } catch (err) {
+                var tabID = -1;
+            }
+
             data.sender = {
                 'tab': { 'id': tabID },
             }
 
-            var request = document.createTextNode("");
+            var request = content.document.createTextNode("");
 
             if (this.detectedBrowser['vendor'] == "mozilla")
                 request.setUserData("data", data, null);
@@ -511,19 +521,19 @@ webpg.utils = {
                 else
                     webpg.jq(request).data("callback", callback);
 
-                document.addEventListener("webpg-listener-response", function(event) {
+                content.document.addEventListener("webpg-listener-response", function(event) {
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
                         var node = event.target, callback = node.getUserData("callback"), response = node.getUserData("response");
                     else
                         var node = event.target, callback = webpg.jq(node).data("callback"), response = webpg.jqurey(node).data("response");
-                    document.documentElement.removeChild(node);
-                    document.removeEventListener("webpg-listener-response", arguments.callee, false);
+                    content.document.documentElement.removeChild(node);
+                    content.document.removeEventListener("webpg-listener-response", arguments.callee, false);
                     return callback(response);
                 }, false);
             }
-            document.documentElement.appendChild(request);
+            content.document.documentElement.appendChild(request);
 
-            var sender = document.createEvent("HTMLEvents");
+            var sender = content.document.createEvent("HTMLEvents");
             sender.initEvent("webpg-listener-query", true, false);
             return request.dispatchEvent(sender);
         } else if (this.detectedBrowser['vendor'] == "opera") {
@@ -577,7 +587,9 @@ webpg.utils = {
             if (webpg.utils.detectedBrowser['product'] == "safari" ||
                (webpg.utils.detectedBrowser['vendor'] == "mozilla" &&
                webpg.utils.detectedBrowser['product'] != "thunderbird")) {
-                return document.addEventListener("webpg-listener-query", function(event) {
+                var mozDoc = (content) ? content.document : document;
+                return mozDoc.addEventListener("webpg-listener-query", function(event) {
+
                     var node = event.target, doc = node.ownerDocument;
 
                     var userData = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
@@ -610,7 +622,7 @@ webpg.utils = {
                         listener.initEvent("webpg-listener-response", true, false);
                         return node.dispatchEvent(listener);
                     });
-                }, false, true);
+                }, false);
             } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                 chrome.extension.onRequest.addListener(callback);
             }
@@ -634,7 +646,7 @@ webpg.utils = {
         sendRequest: function(target, request) {
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla" ||
                 webpg.utils.detectedBrowser['product'] == "safari") {
-                if (!request.target_id) {
+                if (request.msg != "removeiframe" && request.msg != "resizeiframe" && request.msg != "insertIntoPrior") {
                     webpg.utils.sendRequest(request);
                 } else {
                     var iframe = webpg.utils.getFrameById(request.target_id);
@@ -802,13 +814,14 @@ webpg.utils = {
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
-                                    "action": action
+                                    "action": action,
+                                    "source": 'context-menu',
                                 });
                             }
                         });
                     }
                     break;
-                
+
                 case webpg.constants.overlayActions.PSIGN:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         webpg.jq(".webpg-menu-sign")[0].hidden = false;
@@ -821,7 +834,8 @@ webpg.utils = {
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
-                                    "action": action
+                                    "action": action,
+                                    "source": 'context-menu',
                                 });
                             }
                         });
@@ -840,7 +854,8 @@ webpg.utils = {
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
-                                    "action": action
+                                    "action": action,
+                                    "source": 'context-menu',
                                 });
                             }
                         });
@@ -859,7 +874,8 @@ webpg.utils = {
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
-                                    "action": action
+                                    "action": action,
+                                    "source": 'context-menu',
                                 });
                             }
                         });
@@ -878,7 +894,8 @@ webpg.utils = {
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
-                                    "action": action
+                                    "action": action,
+                                    "source": 'context-menu',
                                 });
                             }
                         });
@@ -897,7 +914,8 @@ webpg.utils = {
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
-                                    "action": action
+                                    "action": action,
+                                    "source": 'context-menu',
                                 });
                             }
                         });
@@ -915,7 +933,8 @@ webpg.utils = {
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
-                                    "action": action
+                                    "action": action,
+                                    "source": 'context-menu',
                                 });
                             },
                         });

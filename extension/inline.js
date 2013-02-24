@@ -107,8 +107,14 @@ webpg.inline = {
 
             // configuration of the observer:
             var config = { 'childList': true, 'subtree': true, 'attributes': false, 'characterData': false };
+            var doc = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.document :
+                (webpg.inline.doc) ? webpg.inline.doc : document;
 
-            observer.observe(document.querySelector('body'), config);
+            try {
+                observer.observe(doc, config);
+            } catch (err) {
+                console.log(err.message);
+            }
         }
     },
 
@@ -140,16 +146,26 @@ webpg.inline = {
                 return; // no access
             }
         } else {
-            var tw = doc.createTreeWalker(doc.body, NodeFilter.SHOW_ELEMENT, elementFilter, false);
+            try {
+                var tw = doc.createTreeWalker(doc.body, NodeFilter.SHOW_ELEMENT, elementFilter, false);
+            } catch (err) {
+                return; // no access
+            }
         }
 
         while ((node = tw.nextNode())) {
             var previousElement = (node.previousSibling) ?
                 node.previousSibling.previousSibling : node.previousSibling;
-            if ((node.nodeName == "TEXTAREA" || node.getAttribute("contenteditable") == "true") && (!previousElement
-            || previousElement.className != "webpg-toolbar")) {
-                if (node.style.display != "none" && node.offsetWidth > 200 && node.offsetHeight > 30)
+            if ((node.nodeName == "TEXTAREA" ||
+                node.getAttribute("contenteditable") == "true") &&
+                (!previousElement || previousElement.className != "webpg-toolbar")) {
+                if (node.style.display != "none" &&
+                    node.offsetWidth > 200 &&
+                    node.offsetHeight > 30 &&
+                    node.offsetLeft >= node.offsetParent.scrollLeft) {
+
                     webpg.inline.addWebPGMenuBar(node);
+                }
             }
         }
 
@@ -217,7 +233,7 @@ webpg.inline = {
                         break;
 
                     haveStart = true;
-                    range = document.createRange();
+                    range = doc.createRange();
                     range.setStart(node, idx);
                     idx += 6;
                 }
@@ -305,6 +321,8 @@ webpg.inline = {
         var str = s.serializeToString(d);
         var xmlnsReg = new RegExp(" xmlns=\"http://www.w3.org/1999/xhtml\"", "gi");
         var wbrReg = new RegExp("\<wbr\>", "gi");
+        var doc = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.document :
+            (webpg.inline.doc) ? webpg.inline.doc : document;
 
         str = str.replace(xmlnsReg, "");
         str = str.replace(wbrReg, "");
@@ -321,7 +339,7 @@ webpg.inline = {
 
         // The html contents posted to element is the textContent or innerText
         //  of the element with detected PGP Blocks
-        var h = document.createElement("pre");
+        var h = doc.createElement("pre");
         webpg.jq(h).html(scontent);
         var phtml = h.innerHTML;
 
@@ -336,8 +354,6 @@ webpg.inline = {
         var fragment = range.extractContents();
 
         var results_frame = webpg.inline.addResultsFrame(node, range);
-
-        var doc = (webpg.inline.doc) ? webpg.inline.doc : document;
 
         var originalNodeData = doc.createElement("span");
         originalNodeData.setAttribute("class", "webpg-node-odata");
@@ -487,7 +503,8 @@ webpg.inline = {
         //  puts the element into an order that would hide it.
         var original_display = element.style.display || 'inline';
         element.style.whiteSpace = "pre";
-        var doc = (webpg.inline.doc) ? webpg.inline.doc : document;
+        var doc = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.document :
+            (webpg.inline.doc) ? webpg.inline.doc : document;
         var toolbar = doc.createElement("div");
 
         toolbar.setAttribute("style", "padding: 0; padding-right: 8px; font-weight: bold; " +
@@ -496,7 +513,7 @@ webpg.inline = {
             "skin/images/menumask.png') repeat-x; border-collapse: separate;" +
             "color:#444; height:24px; margin: 1px 0 0 1px; display: block;" +
             "border: 1px solid gainsboro; top: 27px; clear: left; line-height: 12px;" +
-            "z-index: 1; left: -1px;");
+            "z-index: 2; left: -1px;");
         toolbar.setAttribute("class", "webpg-toolbar");
         var offset = (element.scrollHeight > element.offsetHeight) ?
                 element.offsetWidth - element.clientWidth - 1 : 0;
@@ -513,7 +530,7 @@ webpg.inline = {
             '<span class="webpg-action-menu">' +
                 '<span class="webpg-current-action" style="line-height:24px;">' +
                     '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) +
-                        "skin/images/webpg-32.png" + '" style="position:relative; ' +
+                        "skin/images/badges/32x32/webpg.png" + '" style="position:relative; ' +
                         'top:4px; left:-4px; width:16px; height:16px;"/>' +
                     'WebPG' +
                 '</span>' +
@@ -522,7 +539,7 @@ webpg.inline = {
                     '&nbsp;' +
                 '</span>' +
             '</span>' +
-            '<span>' +
+            '<span style="z-index:4;">' +
                 '<ul class="webpg-action-list">' +
                     '<li class="webpg-action-btn">' +
                         '<a class="webpg-toolbar-encrypt">' +
@@ -582,7 +599,7 @@ webpg.inline = {
                     '</li>' +
                     '<li class="webpg-action-btn webpg-option-item webpg-options-link">' +
                         '<a class="webpg-toolbar-options-link">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/webpg-48.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/32x32/webpg.png" class="webpg-li-icon"/>' +
                             _('Options') +
                         '</a>' +
                     '</li>' +
@@ -593,25 +610,33 @@ webpg.inline = {
         webpg.jq(toolbar).append('<span class="webpg-toolbar-status" style="text-transform: uppercase; float:right; position:relative; top: 20%; line-height: 14px;"></span>');
         detectElementValue(element);
 
-        webpg.jq([element, toolbar]).bind('change keydown keyup mousemove mouseover mouseenter mouseleave',
-            function(e) {
-                detectElementValue(element);
-                // Get the current textarea value or selection
-                var selection = { 'selectionText': element.value,
-                    'pre_selection': '', 'post_selection': '' };
-                webpg.overlay.contextSelection = selection;
-                webpg.inline.toolbarTextSelection = selection;
+        function setActive(e) {
+            detectElementValue(element);
+            // Get the current textarea value or selection
+            var selection = { 'selectionText': element.value,
+                'pre_selection': '', 'post_selection': '' };
 
-                if (!webpg.overlay.block_target) {
-                    webpg.overlay.insert_target = element;
-                }
+            webpg.overlay.contextSelection = selection;
+            webpg.inline.toolbarTextSelection = selection;
 
-                var offset = (element.scrollHeight > element.offsetHeight) ?
-                    element.offsetWidth - element.clientWidth - 1 : 0;
-                offset = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
-                    1 : offset;
-                toolbar.style.width = element.offsetWidth - 10 - offset + "px";
+            if (!webpg.overlay.isContextMenuOpen
+            && !webpg.overlay.block_target) {
+                webpg.overlay.insert_target = element;
             }
+
+            updateOffset(element);
+        }
+
+        function updateOffset(element) {
+            var offset = (element.scrollHeight > element.offsetHeight) ?
+                element.offsetWidth - element.clientWidth - 1 : 0;
+            offset = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
+                1 : offset;
+            toolbar.style.width = element.offsetWidth - 10 - offset + "px";
+        }
+
+        webpg.jq([element, toolbar]).bind('change keydown keyup mousemove mouseover mouseenter mouseleave',
+            setActive
         );
 
         function isSecure(element) {
@@ -669,6 +694,7 @@ webpg.inline = {
                 webpg.jq(toolbar).find('.webpg-toolbar-status').text(elementTitle);
             }
             webpg.jq(toolbar).find('.webpg-keymanager-link, .webpg-options-link').show();
+            updateOffset(element);
         }
 
         element.updateElementValue = detectElementValue;
@@ -699,17 +725,17 @@ webpg.inline = {
         );
 
         webpg.jq(toolbar).find('.webpg-action-list-icon').css({
-            'display': 'inline-block', 'width': '0px',
-            'height': '0', 'text-index': '-9999px',
+            'display': 'inline-block', 'width': '0',
+            'height': '0', 'text-indent': '-9999px',
             'position': 'relative', 'top': '-3px',
             'border-left': '4px solid transparent',
             'border-right': '4px solid transparent',
-            'border-top': '4px solid black', 'opacity': '0.7',
-            'content': '\\2193',
+            'border-top': '4px solid #000000',
+            'opacity': '0.7', 'content': '\\2193',
         });
         webpg.jq(toolbar).find('ul.webpg-action-list').css({
             'position': 'absolute', 'top': '100%', 'left': '-2px',
-            'z-index': '1', 'float': 'left', 'display': 'none',
+            'z-index': '4', 'float': 'left', 'display': 'none',
             'min-width': '200px', 'padding': '0', 'margin': '0',
             'list-style': 'none', 'background-color': '#ffffff',
             'border-color': '#ccc', 'border-color': 'rgba(0, 0, 0, 0.2)',
@@ -842,7 +868,8 @@ webpg.inline = {
             })
 
             if (action) {
-                webpg.overlay.block_target = true;
+                if (action != webpg.constants.overlayActions.EDITOR)
+                    webpg.overlay.block_target = true;
                 webpg.overlay.onContextCommand(null, action, {'source': 'toolbar', 'dialog': (isSecure(element) == true)}, selection);
             }
 
@@ -878,7 +905,7 @@ webpg.inline = {
 
         badge.innerHTML = "<a style='border:none;' href='#" + id +
                 "' class='webpg-badge-toggle-link'><img style='opacity:0.5;width:28px;height:28px;' src='" +
-                webpg.utils.resourcePath + "skin/images/webpg-48.png'/></a>";
+                webpg.utils.resourcePath + "skin/images/badges/32x32/webpg.png'/></a>";
 
         webpg.jq(badge).find('img').hover(
             function() {
@@ -913,9 +940,12 @@ webpg.inline = {
             range - <range> The range containing the identified PGP block
     */
     addResultsFrame: function(node, range) {
-        var doc = (webpg.inline.doc) ? webpg.inline.doc : document;
+        var doc = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.document :
+            (webpg.inline.doc) ? webpg.inline.doc : document;
         var iframe = doc.createElement("iframe");
         var id = (new Date()).getTime();
+        iframe.name = id;
+        iframe.id = id;
         iframe.setAttribute('id', id);
         iframe.setAttribute('name', id);
         iframe.className = "webpg-result-frame"
@@ -977,7 +1007,8 @@ webpg.inline = {
     */
     addResultsReplacementFrame: function(element) {
         var iframe = this.addResultsFrame();
-        var doc = (webpg.inline.doc) ? webpg.inline.doc : document;
+        var doc = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.document :
+            (webpg.inline.doc) ? webpg.inline.doc : document;
         iframe.style.minWidth = 300;
         if (element.style.width)
             iframe.style.width = element.style.width;
@@ -1001,24 +1032,29 @@ webpg.inline = {
         return iframe;
     },
 
-    addDialogFrame: function(theURL, height, width) {
+    addDialogFrame: function(theURL, dialogType, height, width) {
         if (!height)
-            height = 310;
+            height = 400;
         if (!width)
             width = 640;
-        var doc = (webpg.inline.doc) ? webpg.inline.doc : document;
+        var doc = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.document :
+            (webpg.inline.doc) ? webpg.inline.doc : document;
+        if (height > doc.defaultView.innerHeight)
+            height = doc.defaultView.innerHeight - 35;
         var iframe = doc.createElement('iframe');
         var id = (new Date()).getTime();
-        iframe.setAttribute('id', id);
-        iframe.setAttribute('name', id);
         iframe.name = id;
         iframe.id = id;
+        iframe.setAttribute('id', id);
+        iframe.setAttribute('name', id);
         iframe.className = "webpg-dialog";
         iframe.scrolling = "no";
         iframe.frameBorder = "none";
         iframe.style.position = "absolute";
         iframe.style.border = "none";
         iframe.style.margin = "auto";
+        if (dialogType == "editor")
+            iframe.style.minHeight = "378px";
         iframe.style.width = width + "px";
         iframe.style.height = height + "px";
         iframe.style.marginLeft = "-50px";
@@ -1029,10 +1065,8 @@ webpg.inline = {
         webpg.overlay.insert_target.ownerDocument.body.appendChild(iframe);
 
         if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-//            content.document.body.appendChild(iframe);
             iframe.contentWindow.location.href = theURL;
         } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-//            doc.body.appendChild(iframe);
             iframe.src = theURL;
         }
 

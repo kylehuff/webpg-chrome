@@ -13,8 +13,8 @@
       "dialog.js",
       "skin/gmail_overlay.css",
       "skin/images/menumask.png",
-      "skin/images/webpg-32.png",
-      "skin/images/webpg-48.png",
+      "skin/images/badges/32x32/webpg.png",
+      "skin/images/badges/48x48/webpg.png",
       "skin/images/badges/20x20/stock_keypair.png",
       "skin/images/badges/20x20/stock_encrypted.png",
       "skin/images/badges/20x20/stock_encrypted_signed.png",
@@ -45,9 +45,9 @@
   },
   "options_page": "options.html?auto_init=true",
   "icons": {
-      "16": "skin/images/webpg-16.png",
-      "32": "skin/images/webpg-32.png",
-      "48": "skin/images/webpg-48.png",
+      "16": "skin/images/badges/16x16/webpg.png",
+      "32": "skin/images/badges/32x32/webpg.png",
+      "48": "skin/images/badges/48x48/webpg.png",
       "64": "skin/images/webpg-64.png",
       "96": "skin/images/webpg-96.png",
       "128": "skin/images/webpg-128.png"
@@ -84,7 +84,7 @@
     }
   ],
   "browser_action": {
-    "default_icon": "skin/images/webpg-32.png",
+    "default_icon": "skin/images/badges/32x32/webpg.png",
     "default_title": "WebPG",
     "default_popup": "browser_action_menu.html"
   },

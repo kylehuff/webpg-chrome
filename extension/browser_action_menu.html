@@ -8,13 +8,12 @@
 body {
     font:62.5% "Trebuchet MS", sans-serif;
     margin:0 25px 4px 15px;
-    min-width:150px;
+    min-width:160px;
     text-align:left;
 }
 
 .menu-option {
     font-size:16px;
-    text-align:center;
     font-family:sans-serif;
     margin-top:4px;
     background:#fff;
@@ -30,6 +29,26 @@ body {
     -moz-box-shadow:#eef 1px 1px 10px;
     -webkit-box-shadow:#eef 1px 1px 10px;
     background:#eee url('skin/images/menumask.png') repeat-x;
+    display: inline-block;
+    line-height: 24px;
+}
+
+.menu-option img {
+    display: inline-block;
+    float: left;
+    height: 24px;
+    margin: 0;
+    padding: 0 10px;
+    border-radius: 8px 0 0 8px;
+    top: 1px;
+    position: relative;
+}
+
+.menu-option span {
+    padding: 2px 0 4px 2px;
+    width: 100%;
+    display: inline-table;
+    border-radius: 8px;
 }
 
 .menu-option-over {
@@ -37,13 +56,20 @@ body {
     -moz-box-shadow:#666 2px 2px 2px;
     -webkit-box-shadow:#666 2px 2px 2px;
 }
+
+<!--.menu-option-over img {-->
+<!--    background-color: rgba(0, 255, 0, 0.4);-->
+<!--}-->
+.menu-option-over span {
+    background-color: rgba(0, 0, 0, 0.1);
+}
 </style>
 </head>
 <body>
 <div>
-    <div id="options-button" class="menu-option">Options</div>
-    <div id="key-manager-button" class="menu-option">Key Manager</div>
-    <div id="about-button" class="menu-option">About WebPG</div>
+    <div id="options-button" class="menu-option"><span></span></div>
+    <div id="key-manager-button" class="menu-option"><span></span></div>
+    <div id="about-button" class="menu-option"><span></span></div>
 </div>
 </body>
 </html>

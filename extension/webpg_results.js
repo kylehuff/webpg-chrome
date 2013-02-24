@@ -142,8 +142,10 @@ webpg.inline_results = {
                     } else {
                         webpg.jq('#signature_text')[0].textContent = request.verify_result.data;
                     }
-                    if (request.message_event == "manual" && request.verify_result.original_text.substr(0,5) == "-----") {
-                        if (request.verify_result.signatures && request.verify_result.signatures.hasOwnProperty(0)) {
+                    if (request.message_event == "manual"
+                    && request.verify_result.original_text.substr(0,5) == "-----") {
+                        if (request.verify_result.signatures
+                        && request.verify_result.signatures.hasOwnProperty(0)) {
                             webpg.jq('#header').html("<a name=\"" + scrub(webpg.inline_results.qs.id) + "\">" + _("PGP ENCRYPTED AND SIGNED MESSAGE") + "</a>");
                             icon.src = "skin/images/badges/48x48/stock_decrypted-signature.png";
                             var sig_ok = true;
@@ -170,13 +172,15 @@ webpg.inline_results = {
                     webpg.jq('#original_text')[0].textContent = request.verify_result.original_text;
                     webpg.jq('#clipboard_input')[0].value = request.verify_result.original_text;
                     webpg.jq('#original_text').hide();
-                    if (gpg_error_code == "11" || gpg_error_code == "152") {
+                    if (gpg_error_code == "11"
+                    || gpg_error_code == "152") {
                         webpg.jq('#footer').addClass("signature_no_pubkey");
                         if (gpg_error_code == "152") {
                             webpg.jq('#footer').html(_("DECRYPTION FAILED") + "; " + _("NO SECRET KEY") + "<br/\>");
                         }
                         if (gpg_error_code == "11") {
-                            if (request.message_type == "encrypted_message" && request.message_event == "manual") {
+                            if (request.message_type == "encrypted_message"
+                            && request.message_event == "manual") {
                                 webpg.jq('#footer').html(_("DECRYPTION FAILED") + "; " + _("BAD PASSPHRASE") + "<br/\>");
                                 if (request.noninline) {
                                     webpg.jq('#footer').append("<a class=\"decrypt_message\" href=\"#" + scrub(webpg.inline_results.qs.id) + "\"\">" + _("DECRYPT THIS MESSAGE") + "</a> |");
@@ -188,7 +192,8 @@ webpg.inline_results = {
                     } else if (!request.verify_result.error) {
                         webpg.jq('#footer').addClass("signature_good");
                     }
-                    if (!request.verify_result.error && request.verify_result.original_text.length >0) {
+                    if (!request.verify_result.error
+                    && request.verify_result.original_text.length >0) {
                          webpg.jq('#footer').append("<a class=\"original_text_link\" href=\"#" + scrub(webpg.inline_results.qs.id) + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
                     }
                     webpg.jq('#footer').append("<a class=\"copy_to_clipboard\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("COPY TO CLIPBOARD") + "</a>");
@@ -329,8 +334,8 @@ webpg.inline_results = {
                             fpsi.keys_imported = [];
                             import_status = response.result.import_status;
                             for (var imported in import_status.imports) {
-                                if (import_status.imports[imported].fingerprint != "unknown" &&
-                                    import_status.imports[imported].result == "Success") {
+                                if (import_status.imports[imported].fingerprint != "unknown"
+                                && import_status.imports[imported].result == "Success") {
                                     key_id = import_status.imports[imported].fingerprint;
                                     webpg.utils.sendRequest({
                                         'msg': "getNamedKey",
@@ -566,13 +571,16 @@ webpg.inline_results = {
                     function(response) {
                         webpg.jq('.decrypt_status').remove();
                         if (response.result.error) {
-                            if (response.result.gpg_error_code == "11" || response.result.gpg_error_code == "152") {
+                            if (response.result.gpg_error_code == "11"
+                            || response.result.gpg_error_code == "152") {
                                 webpg.jq("<span class='decrypt_status'>" + _("DECRYPTION FAILED") + "; " + _("BAD PASSPHRASE") + "<br/\></span>").insertBefore(webpg.jq(webpg.jq('#footer')[0].firstChild));
                             }
                         } else {
                             webpg.jq('#signature_text').html(webpg.descript(response.result.data));
-                            if ((request.verify_result.signatures && response.result.signatures.hasOwnProperty(0)) ||
-                            (response.result.signatures && response.result.signatures.hasOwnProperty(0))) {
+                            if ((request.verify_result.signatures
+                            && response.result.signatures.hasOwnProperty(0))
+                            || (response.result.signatures
+                            && response.result.signatures.hasOwnProperty(0))) {
                                 webpg.jq('#header').html("<a name=\"" + scrub(webpg.inline_results.qs.id) + "\">" + _("PGP ENCRYPTED AND SIGNED MESSAGE") + "</a>");
                                 icon.src = "skin/images/badges/48x48/stock_decrypted-signature.png";
                                 var sig_ok = true;

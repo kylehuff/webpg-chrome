@@ -7,6 +7,7 @@
 <script type="text/javascript" src="jquery/js/jquery-ui-1.8.22.custom.min.js"></script>
 <script type="text/javascript" src="constants.js"></script>
 <script type="text/javascript" src="utils.js"></script>
+<script type="text/javascript" src="preferences.js"></script>
 <script type="text/javascript" src="about.js"></script>
 <style>
 body{
@@ -45,8 +46,12 @@ body{
     margin-left:2px;
 }
 .webpg-info-text {
-    text-shadow:#666 1px 1px 1px;
-    font-size:16px;
+}
+.webpg-title {
+    font-weight: bold;
+}
+.info-block {
+    margin-left: 16px;
 }
 </style>
 </head>
@@ -60,14 +65,38 @@ body{
         </div>
         <div class="webpg-info-box">
             <span class="webpg-info-text">
-                Author:
-                <ul>
-                    <li>Kyle L. Huff</li>
-                </ul><br/>
-                Contributors:
-                <ul>
-                    <li>Aaron C. de Bruyn</li>
-                </ul>
+                <span class="webpg-title author-label">Author</span>
+                <div class="info-block">
+                    <span class="webpg-info">Kyle L. Huff</span>
+                </div><br/>
+                <span class="webpg-title contributor-label">Contributors</span>
+                <div class="info-block">
+                    <span class="webpg-info">Aaron C. de Bruyn</span><br/>
+                    <span class="webpg-info">Sentynel</span><br/>
+                </div><br/>
+            </span>
+            <span class="webpg-info-details">
+                <span class="webpg-info extension-title webpg-title"></span><br/>
+                <div class="info-block">
+                    <span class="webpg-info extension-version-label"></span>: <span class="webpg-info extension-version"></span><br/>
+                    <span class="webpg-info os-label"></span>: <span class="webpg-info os-version"></span><br/>
+                    <span class="webpg-info browser-label"></span>: <span class="webpg-info browser"></span><br/>
+                    <span class="webpg-info useragent-label"></span>: <span class="webpg-info useragent"></span><br/>
+                    <span class="webpg-info language-label"></span>: <span class="webpg-info language"></span><br/>
+                </div><br/>
+                <span class="webpg-info plugin-title webpg-title"></span><br/>
+                <div class="info-block">
+                    <span class="webpg-info plugin-version-label"></span>: <span class="webpg-info plugin-version"></span><br/>
+                    <span class="webpg-info plugin-path-label"></span>: <span class="webpg-info plugin-path"></span><br/>
+                </div><br/>
+                <span class="webpg-info gnupg-title webpg-title"></span></br>
+                <div class="info-block">
+                    <span class="webpg-info gnupg-version-label"></span>: <span class="webpg-info gnupg-version"></span><br/>
+                    <span class="webpg-info gnupg-binary-label"></span>: <span class="webpg-info gnupg-binary"></span><br/>
+                    <span class="webpg-info gnupg-homedir-label"></span>: <span class="webpg-info gnupg-homedir"></span><br/>
+                    <span class="webpg-info gpgconf-version-label"></span>: <span class="webpg-info gpgconf-version"></span><br/>
+                    <span class="webpg-info assuan-version-label"></span>: <span class="webpg-info assuan-version"></span><br/>
+                </div><br/>
             </span>
             <div id="window_functions" style="width:100%; text-align:right; clear:left;">
                 <br/><br/><input type='button' id='close' value='Finished'>

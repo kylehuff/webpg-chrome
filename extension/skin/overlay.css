@@ -1,46 +1,91 @@
 .webpg-menu {
-	list-style-image: url("chrome://webpg-firefox/skin/images/webpg-16.png");
+	list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/webpg.png");
+}
+toolbar[iconsize="small"] .webpg-menu {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/webpg.png");
 }
 .webpg-menu-donotuse {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/stock_decrypted-signature-bad.png");
+}
+toolbar[iconsize="small"] .webpg-menu-donotuse {
     list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_decrypted-signature-bad.png");
 }
 .webpg-menu-sign {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/stock_signature.png");
+}
+toolbar[iconsize="small"] .webpg-menu-sign {
     list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_signature.png");
 }
 .webpg-menu-attachsign {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/stock_signature-attachment.png");
+}
+toolbar[iconsize="small"] .webpg-menu-attachsign {
     list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_signature-attachment.png");
 }
 .webpg-menu-verif {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/stock_signature-ok.png");
+}
+toolbar[iconsize="small"] .webpg-menu-verif {
     list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_signature-ok.png");
 }
 .webpg-menu-crypt {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/stock_encrypted.png");
+}
+toolbar[iconsize="small"] .webpg-menu-crypt {
     list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_encrypted.png");
 }
 .webpg-menu-cryptsign {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/stock_encrypted_signed.png");
+}
+toolbar[iconsize="small"] .webpg-menu-cryptsign {
     list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_encrypted_signed.png");
 }
 .webpg-menu-decrypt {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/stock_decrypted.png");
+}
+toolbar[iconsize="small"] .webpg-menu-decrypt {
     list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_decrypted.png");
 }
 .webpg-menu-import {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/import.png");
+}
+toolbar[iconsize="small"] .webpg-menu-import {
     list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/import.png");
 }
 .webpg-menu-export {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/export.png");
+}
+toolbar[iconsize="small"] .webpg-menu-export {
     list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/export.png");
 }
 .webpg-menu-manager {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/stock_keypair.png");
+}
+toolbar[iconsize="small"] .webpg-menu-manager {
     list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/stock_keypair.png");
 }
 .webpg-menu-options {
-    list-style-image: url("chrome://webpg-firefox/skin/images/webpg-16.png");
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/webpg.png");
+}
+toolbar[iconsize="small"] .webpg-menu-options {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/webpg.png");
 }
 .webpg-menu-about {
-    list-style-image: url("chrome://webpg-firefox/skin/images/about-48.png");
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/about.png");
+}
+toolbar[iconsize="small"] .webpg-menu-about {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/about.png");
 }
 .webpg-menu-notselected {
-  list-style-image: url("chrome://webpg-firefox/skin/images/webpg-16.png");
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/24x24/webpg.png");
+}
+toolbar[iconsize="small"] .webpg-menu-notselected {
+    list-style-image: url("chrome://webpg-firefox/skin/images/badges/16x16/webpg.png");
 }
 #optionsforwebpg, prefpane {
     width: 100%;
     height: 100%;
+}
+#webpg-msg-asign {
+    display:none;
 }

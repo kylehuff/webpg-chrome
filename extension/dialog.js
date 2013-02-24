@@ -32,11 +32,14 @@ webpg.dialog = {
         );
 
         var width = window.innerWidth - 10;
-        var height = window.innerHeight - 48;
+        var height = window.innerHeight - 10;
+
         var title = _("Select Recipient(s)");
 
         if (webpg.dialog.qs.dialog_type == "import")
             title = _("Import");
+        else if (webpg.dialog.qs.dialog_type == "export")
+            title = _("Export");
         else if (webpg.dialog.qs.dialog_type == "editor")
             title = _("Editor");
 
@@ -49,29 +52,33 @@ webpg.dialog = {
             'title': title,
             'autoOpen': true,
             'close': function(event) {
-                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                    var iframe = window.parent.document.getElementById(window.frameElement.id);
-                    window.frameElement.parentElement.removeChild(iframe);
-                } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                    // In Google Chrome/Chormium, we do not have access to the
-                    //  parent document, so we need to send an event to remove
-                    //  this iframe.
-                    webpg.utils.sendRequest({"msg": "removeiframe", "iframe_id": window.name});
-                }
+                webpg.utils.sendRequest({
+                    "msg": "removeiframe",
+                    "iframe_id": window.name,
+                    "dialog_type": webpg.dialog.qs.dialog_type
+                });
             },
             'open': function(event, ui) {
                 switch(webpg.dialog.qs.dialog_type) {
                     case "encrypt":
                     case "encryptsign":
+                        webpg.jq('#ddialog').css({
+                            'padding-top': (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? '39px' : '35px',
+                            'minHeight': '0',
+                            'height': height - 160 + 'px',
+                        }).parent().css({ 'height': height + 'px'});
                         webpg.jq('.webpg-dialog-insert-btn').hide();
                         webpg.jq('.ui-button-text').each(function(idx, element) {
                             var el = webpg.jq(element);
                             if (el.text() == "Export")
                                 el.parent().hide();
                         });
+                        webpg.jq('#dialog-pubkey-search-fixed').css({
+                            'top': (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? '52px' : '53px', 
+                        });
                         webpg.jq('#dialog-pubkey-search-lbl').text(_("Search/Filter") + ": ")
-                            .show().next().show();
-                        webpg.jq("#dialog-pubkey-search").unbind("change").bind("change", function(e) {
+                            .parent().show().next().show();
+                        webpg.jq("#dialog-pubkey-search").unbind("change input").bind("change input", function(e) {
                             // Sometimes the event is a duplicate, so check the
                             //  data object for "original_value"
                             if (webpg.jq(this).data("original_value") == this.value)
@@ -83,6 +90,10 @@ webpg.dialog = {
                             var keylist = webpg.pubkeylist;
                             // Retrieve the value of the serach field
                             var val = e.target.value.toLowerCase();
+                            // Convert some items of val
+                            val = val.replace(/\\/g, "\\\\").
+                                    replace(/\./g, "\\.").
+                                    replace(/\*/g, "\.*?");
                             // Create an empty object that will hold the keys matching
                             //  the search string
                             var searchResults = {}
@@ -119,7 +130,8 @@ webpg.dialog = {
                                         }
                                         var locate = (searchStrM) ? searchStrM
                                             : searchStrs[searchStr];
-                                        if (keyobjStr.search(locate) == -1) {
+                                        if (keyobjStr.search(locate) > -1
+                                        || keyobjStr.search(locate.replace(":\"", ":")) > -1) {
                                             allfound = false;
                                         }
                                     }
@@ -138,12 +150,18 @@ webpg.dialog = {
                                         }
                                         var locate = (searchStrM) ? searchStrM
                                             : searchStrs[searchStr];
-                                        if (keyobjStr.search(locate) > -1) {
+                                        if (keyobjStr.search(locate) > -1
+                                        || keyobjStr.search(locate.replace(":\"", ":")) > -1) {
                                             searchResults[key] = keyobj;
                                             break;
                                         }
                                     }
                                 }
+                                // Add any already selected keys to the list, if not
+                                //  already present.
+                                if (webpg.dialog.selectedKeys.indexOf(key) > -1)
+                                    if (!searchResults.hasOwnProperty(key))
+                                        searchResults[key] = keyobj;
                             }
 
                             var nkeylist = (val.length > 0) ? searchResults : null;
@@ -156,6 +174,7 @@ webpg.dialog = {
                     case "export":
                         webpg.jq('#dialog-pubkey-search-lbl').hide().next().hide();
                         webpg.jq('.webpg-dialog-encrypt-btn, .webpg-dialog-insert-btn').hide();
+                        webpg.overlay.block_target = true;
                         break;
 
                     case "import":
@@ -164,16 +183,15 @@ webpg.dialog = {
                         break;
 
                     case "editor":
-                        webpg.jq('#dialog-pubkey-search-lbl').hide().next().hide().next().hide();
+                        webpg.jq('#dialog-pubkey-search-fixed').hide().next().hide();
                         webpg.jq('.webpg-dialog-export-btn').hide();
                         webpg.jq('.webpg-dialog-encrypt-btn').hide();
                         var editor = webpg.jq('#webpg-dialog-editor');
-                        editor.css({ 'height': editor.parent()[0].offsetHeight - 10 });
+                        editor.css({ 'height': editor.parent()[0].offsetHeight - 48 });
                         editor.text(unescape(webpg.dialog.qs.editor_data));
                         editor.show();
                         webpg.overlay.insert_target = editor;
                         webpg.overlay.block_target = true;
-                        webpg.jq("#ddialog").parent().css({'top': '0'});
                         break;
 
                 }
@@ -234,53 +252,20 @@ webpg.dialog = {
                 'text': _("Encrypt"),
                 'class': 'webpg-dialog-encrypt-btn',
                 'click': function() {
-                    var encrypt_to_list = [];
-                    for (i=0; i<document.forms.keylist_form.keylist_sel_list.length; i++) {
-                        if (document.forms.keylist_form.keylist_sel_list[i].checked == true) {
-                            encrypt_to_list[encrypt_to_list.length] = document.forms.keylist_form.keylist_sel_list[i].id.split('_')[1];
-                        }
-                    };
+                    var pre_selection = unescape(webpg.dialog.qs.pre_selection) || "";
 
-                    var pre_selection = (unescape(webpg.dialog.qs.pre_selection)) ?
-                        unescape(webpg.dialog.qs.pre_selection) : "";
+                    var post_selection = unescape(webpg.dialog.qs.post_selection) || "";
 
-                    var post_selection = (unescape(webpg.dialog.qs.post_selection)) ?
-                        unescape(webpg.dialog.qs.post_selection) : "";
+                    var iframe_id = window.name;
 
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var ev_element = window.parent.document.getElementById(window.frameElement.id);
-                        if (webpg.utils.detectedBrowser['product'] == "seamonkey") {
-                            var encryptEvent = document.createEvent('CustomEvent');
-                            encryptEvent.initCustomEvent("sendResult", true, true,
-                                {
-                                    'data': unescape(webpg.dialog.qs.encrypt_data),
-                                    'pre_selection': pre_selection,
-                                    'post_selection': post_selection,
-                                    'recipients': encrypt_to_list,
-                                    'sign': (webpg.dialog.qs.dialog_type == "encryptsign"),
-                                }
-                            );
-                        } else {
-                            var encryptEvent = new window.CustomEvent('sendResult', {
-                                detail: {
-	                                'data': unescape(webpg.dialog.qs.encrypt_data),
-                                    'pre_selection': pre_selection,
-                                    'post_selection': post_selection,
-	                                'recipients': encrypt_to_list,
-	                                'sign': (webpg.dialog.qs.dialog_type == "encryptsign"),
-                                }
-                            })
-                        }
-                        ev_element.dispatchEvent(encryptEvent);
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        webpg.utils.sendRequest({"msg": "encrypt",
-                            "data": unescape(webpg.dialog.qs.encrypt_data),
-                            "pre_selection": pre_selection,
-                            "post_selection": post_selection,
-                            "recipients": encrypt_to_list,
-                            "sign": (webpg.dialog.qs.dialog_type == "encryptsign"),
-                            "iframe_id": window.name});
-                    }
+                    webpg.utils.sendRequest({"msg": "encrypt",
+                        "data": unescape(webpg.dialog.qs.encrypt_data),
+                        "pre_selection": pre_selection,
+                        "post_selection": post_selection,
+                        "recipients": webpg.dialog.selectedKeys,
+                        "sign": (webpg.dialog.qs.dialog_type == "encryptsign"),
+                        "target_id": iframe_id,
+                        "iframe_id": iframe_id});
                 }
             }, {
                 'text': _("Export"),
@@ -292,27 +277,8 @@ webpg.dialog = {
                             export_list[export_list.length] = document.forms.keylist_form.keylist_sel_list[i].id.split('_')[1];
                         }
                     };
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var ev_element =  window.parent.document.getElementById(window.frameElement.id);
-                        if (webpg.utils.detectedBrowser['product'] == "seamonkey") {
-                            var exportEvent = document.createEvent('CustomEvent');
-                            exportEvent.initCustomEvent("sendResult", true, true,
-                                {
-                                    recipients: export_list
-                                }
-                            );
-                        } else {
-                            var exportEvent = new CustomEvent('sendResult', {
-                                detail: {
-	                                recipients: export_list
-                                },
-                            })
-                        }
-                        ev_element.dispatchEvent(exportEvent);
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        webpg.utils.sendRequest({"msg": "export", "recipients": export_list,
-                            'iframe_id': window.name})
-                    }
+                    webpg.utils.sendRequest({"msg": "export", "recipients": export_list,
+                        'iframe_id': window.name})
                 }
             }, {
                 'text': _("Insert"),
@@ -338,27 +304,8 @@ webpg.dialog = {
                         return false;
                     }
 
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var ev_element = window.frameElement;
-                        if (webpg.utils.detectedBrowser['product'] == "seamonkey") {
-                            var insertEvent = document.createEvent('CustomEvent');
-                            insertEvent.initCustomEvent("sendResult", true, true,
-                                {
-                                    data: webpg.overlay.insert_target.value,
-                                }
-                            );
-                        } else {
-                            var insertEvent = new window.CustomEvent('sendResult', {
-                                detail: {
-	                                'data': webpg.overlay.insert_target.value,
-                                }
-                            })
-                        }
-                        ev_element.dispatchEvent(insertEvent);
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        webpg.utils.sendRequest({"msg": "insertIntoPrior",
-                            "data": webpg.overlay.insert_target.value});
-                    }
+                    webpg.utils.sendRequest({"msg": "insertIntoPrior",
+                        "data": webpg.overlay.insert_target.value});
                     webpg.jq("#ddialog").dialog("close");
                 },
             }, {
@@ -375,7 +322,7 @@ webpg.dialog = {
         var _ = webpg.utils.i18n.gettext;
         webpg.jq("#keylist_form").find("ul").remove();
         var ul = webpg.jq("<ul></ul>", {
-            'style': "padding:0px; margin:0px;"
+            'class': "webpg-keylist-ul"
         });
         for (idx in keylist) {
             var key = keylist[idx];
@@ -387,25 +334,31 @@ webpg.dialog = {
                 true;
 
             var uidlist = _("UIDs");
-            
+
             for (var uid in key.uids)
                 uidlist += "\n" + key.uids[uid].uid + " " + key.uids[uid].email;
 
             var title = (enabled) ? uidlist : _("Key does not support this operation");
 
-            webpg.jq(ul).append(webpg.jq("<li></li>", {
-                    'style': "list-style-type: none"
-                }).append(webpg.jq("<input></input>", {
+            webpg.jq(ul).append(
+                webpg.jq("<li></li>", {
+                    'class': (webpg.dialog.selectedKeys.indexOf(idx) > -1) ? "active"
+                        : (enabled) ? "" : "disabled",
+                }).append(
+                    webpg.jq("<input></input>", {
                         'id': "key_" + webpg.utils.escape(idx),
                         'type': "checkbox",
                         'name': "keylist_sel_list",
                         'disabled': (!enabled),
                         'title': title,
+                        'class': "",
                         'checked': (webpg.dialog.selectedKeys.indexOf(idx) > -1),
                         'click': function(e) {
                             if (this.checked) {
+                                webpg.jq(this).parent().addClass("active");
                                 webpg.dialog.selectedKeys.push(this.id.split("_")[1]);
                             } else {
+                                webpg.jq(this).parent().removeClass("active");
                                 webpg.dialog.selectedKeys.pop(this.id.split("_")[1]);
                             }
                         }
@@ -413,7 +366,7 @@ webpg.dialog = {
                 ).append(webpg.jq("<label></label>", {
                         'id': "lbl-key_" + webpg.utils.escape(idx),
                         'for': "key_" + webpg.utils.escape(idx),
-                        'class': "help-text",
+                        'class': (enabled) ? "help-text" : "help-text disabled",
                         'title': title,
                         'html': webpg.utils.escape(key.name + " (" + (key.email || idx) + ")")
                     })
