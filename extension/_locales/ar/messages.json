@@ -5,6 +5,54 @@
 	"Version": {
 		"message": ""
 	},
+	"Extension_Information": {
+		"message": ""
+	},
+	"Extension_version": {
+		"message": ""
+	},
+	"Platform": {
+		"message": "منصة"
+	},
+	"Product": {
+		"message": "المنتج"
+	},
+	"User_Agent": {
+		"message": "عميل المستخدم"
+	},
+	"Language": {
+		"message": "للغة"
+	},
+	"Plugin_Information": {
+		"message": ""
+	},
+	"Plugin_version": {
+		"message": ""
+	},
+	"GnuPG_Information": {
+		"message": ""
+	},
+	"GnuPG_version": {
+		"message": ""
+	},
+	"GnuPG_binary": {
+		"message": "GnuPG قابل للتنفيذ"
+	},
+	"GnuPG_home_directory": {
+		"message": "GnuPG الدليل الرئيسي"
+	},
+	"default": {
+		"message": ""
+	},
+	"GPGCONF_version": {
+		"message": ""
+	},
+	"not_detected": {
+		"message": ""
+	},
+	"Assuan_version": {
+		"message": ""
+	},
 	"Finished": {
 		"message": "منتهي"
 	},
@@ -38,6 +86,9 @@
 	"Import": {
 		"message": "استورد"
 	},
+	"Export": {
+		"message": ""
+	},
 	"Editor": {
 		"message": ""
 	},
@@ -46,9 +97,6 @@
 	},
 	"Encrypt": {
 		"message": "تشفير"
-	},
-	"Export": {
-		"message": ""
 	},
 	"Insert": {
 		"message": ""
@@ -113,26 +161,14 @@
 	"System_Information": {
 		"message": "معلومات النظام"
 	},
-	"Platform": {
-		"message": "منصة"
-	},
 	"App_Version": {
 		"message": "التطبيق الإصدار"
-	},
-	"User_Agent": {
-		"message": "عميل المستخدم"
-	},
-	"Product": {
-		"message": "المنتج"
 	},
 	"Sub_product": {
 		"message": "المنتج الفرعي"
 	},
 	"Vendor": {
 		"message": "المُنتِج"
-	},
-	"Language": {
-		"message": "للغة"
 	},
 	"This_message_already_contains_PGP_data": {
 		"message": ""
@@ -194,10 +230,10 @@
 	"PGP_Public_Key": {
 		"message": ""
 	},
-	"Unsecured_Editor": {
+	"WebPG_Secure_Editor": {
 		"message": ""
 	},
-	"WebPG_Secure_Editor": {
+	"Unsecured_Editor": {
 		"message": ""
 	},
 	"WebPG_Key_Manager": {
@@ -575,6 +611,9 @@
 	"Description": {
 		"message": "وصف"
 	},
+	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
+		"message": ""
+	},
 	"Publish": {
 		"message": ""
 	},
@@ -597,9 +636,6 @@
 		"message": ""
 	},
 	"Publish_Again": {
-		"message": ""
-	},
-	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
 		"message": ""
 	},
 	"Key_not_found_on_keyserver": {
@@ -731,12 +767,6 @@
 	"Sign_outgoing_messages_in_GMAIL": {
 		"message": "توقيع الرسائل الصادرة في GMAIL"
 	},
-	"GnuPG_home_directory": {
-		"message": "GnuPG الدليل الرئيسي"
-	},
-	"GnuPG_binary": {
-		"message": "GnuPG قابل للتنفيذ"
-	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
 		"message": "النظام الخاص بك ويبدو أن تكوين بشكل صحيح ل WebPG"
 	},
@@ -856,6 +886,12 @@
 	},
 	"NO_USER_ID": {
 		"message": "مفقود هوية المستخدم"
+	},
+	"Sign_Inline": {
+		"message": ""
+	},
+	"Sign_as_Attachment": {
+		"message": ""
 	},
 	"extDesc": {
 		"message": "امتدادا الذي يوفر GnuPG / GPG / PGP المهام ذات الصلة إلى Chrome"

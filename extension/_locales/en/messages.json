@@ -5,6 +5,54 @@
 	"Version": {
 		"message": "Version"
 	},
+	"Extension_Information": {
+		"message": ""
+	},
+	"Extension_version": {
+		"message": ""
+	},
+	"Platform": {
+		"message": "Platform"
+	},
+	"Product": {
+		"message": "Product"
+	},
+	"User_Agent": {
+		"message": "User Agent"
+	},
+	"Language": {
+		"message": "Language"
+	},
+	"Plugin_Information": {
+		"message": ""
+	},
+	"Plugin_version": {
+		"message": ""
+	},
+	"GnuPG_Information": {
+		"message": ""
+	},
+	"GnuPG_version": {
+		"message": ""
+	},
+	"GnuPG_binary": {
+		"message": "GnuPG binary"
+	},
+	"GnuPG_home_directory": {
+		"message": "GnuPG home directory"
+	},
+	"default": {
+		"message": ""
+	},
+	"GPGCONF_version": {
+		"message": ""
+	},
+	"not_detected": {
+		"message": ""
+	},
+	"Assuan_version": {
+		"message": ""
+	},
 	"Finished": {
 		"message": "Finished"
 	},
@@ -38,6 +86,9 @@
 	"Import": {
 		"message": "Import"
 	},
+	"Export": {
+		"message": "Export"
+	},
 	"Editor": {
 		"message": "Editor"
 	},
@@ -46,9 +97,6 @@
 	},
 	"Encrypt": {
 		"message": "Encrypt"
-	},
-	"Export": {
-		"message": "Export"
 	},
 	"Insert": {
 		"message": "Insert"
@@ -113,26 +161,14 @@
 	"System_Information": {
 		"message": "System Information"
 	},
-	"Platform": {
-		"message": "Platform"
-	},
 	"App_Version": {
 		"message": "App Version"
-	},
-	"User_Agent": {
-		"message": "User Agent"
-	},
-	"Product": {
-		"message": "Product"
 	},
 	"Sub_product": {
 		"message": "Sub-product"
 	},
 	"Vendor": {
 		"message": "Vendor"
-	},
-	"Language": {
-		"message": "Language"
 	},
 	"This_message_already_contains_PGP_data": {
 		"message": "This message already contains PGP data"
@@ -194,11 +230,11 @@
 	"PGP_Public_Key": {
 		"message": "PGP Public Key"
 	},
-	"Unsecured_Editor": {
-		"message": "Unsecured Editor"
-	},
 	"WebPG_Secure_Editor": {
 		"message": "WebPG Secure Editor"
+	},
+	"Unsecured_Editor": {
+		"message": "Unsecured Editor"
 	},
 	"WebPG_Key_Manager": {
 		"message": "WebPG Key Manager"
@@ -540,10 +576,10 @@
 		"message": "Signatures made with keys not in your keyring are omitted"
 	},
 	"Calculating_Trust": {
-		"message": ""
+		"message": "Calculating Trust"
 	},
 	"Please_wait_while_recalculate_the_trust_for_this_item": {
-		"message": ""
+		"message": "Please wait while recalculate the trust for this item"
 	},
 	"Save": {
 		"message": "Save"
@@ -575,6 +611,9 @@
 	"Description": {
 		"message": "Description"
 	},
+	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
+		"message": "Are you sure you want to Publish this key to the Keyserver"
+	},
 	"Publish": {
 		"message": "Publish"
 	},
@@ -598,9 +637,6 @@
 	},
 	"Publish_Again": {
 		"message": "Publish Again"
-	},
-	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
-		"message": "Are you sure you want to Publish this key to the Keyserver"
 	},
 	"Key_not_found_on_keyserver": {
 		"message": "Key not found on keyserver"
@@ -731,12 +767,6 @@
 	"Sign_outgoing_messages_in_GMAIL": {
 		"message": "Sign outgoing messages in GMAIL"
 	},
-	"GnuPG_home_directory": {
-		"message": "GnuPG home directory"
-	},
-	"GnuPG_binary": {
-		"message": "GnuPG binary"
-	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
 		"message": "Your system appears to be configured correctly for WebPG"
 	},
@@ -856,6 +886,12 @@
 	},
 	"NO_USER_ID": {
 		"message": "NO USER ID"
+	},
+	"Sign_Inline": {
+		"message": ""
+	},
+	"Sign_as_Attachment": {
+		"message": ""
 	},
 	"extDesc": {
 		"message": "An extension which provides GnuPG/GPG/PGP related functions to Chrome"

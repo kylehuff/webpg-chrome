@@ -11,4 +11,6 @@ extension/key_manager.js
 extension/manifest.json
 extension/options.js
 extension/utils.js
+extension/webpg_overlay.js
 extension/webpg_results.js
+extension/XULContent/thunderbird/composeOverlay.js

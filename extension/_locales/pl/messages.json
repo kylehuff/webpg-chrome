@@ -5,6 +5,54 @@
 	"Version": {
 		"message": ""
 	},
+	"Extension_Information": {
+		"message": ""
+	},
+	"Extension_version": {
+		"message": ""
+	},
+	"Platform": {
+		"message": "Platforma"
+	},
+	"Product": {
+		"message": "Produkt"
+	},
+	"User_Agent": {
+		"message": "Klient użytkownika (user agent)"
+	},
+	"Language": {
+		"message": "Język"
+	},
+	"Plugin_Information": {
+		"message": ""
+	},
+	"Plugin_version": {
+		"message": ""
+	},
+	"GnuPG_Information": {
+		"message": ""
+	},
+	"GnuPG_version": {
+		"message": ""
+	},
+	"GnuPG_binary": {
+		"message": "Program GnuPG"
+	},
+	"GnuPG_home_directory": {
+		"message": "Katalog domowy GnuPG"
+	},
+	"default": {
+		"message": ""
+	},
+	"GPGCONF_version": {
+		"message": ""
+	},
+	"not_detected": {
+		"message": ""
+	},
+	"Assuan_version": {
+		"message": ""
+	},
 	"Finished": {
 		"message": "OK"
 	},
@@ -38,6 +86,9 @@
 	"Import": {
 		"message": "Importuj"
 	},
+	"Export": {
+		"message": ""
+	},
 	"Editor": {
 		"message": ""
 	},
@@ -46,9 +97,6 @@
 	},
 	"Encrypt": {
 		"message": "Zaszyfruj"
-	},
-	"Export": {
-		"message": ""
 	},
 	"Insert": {
 		"message": ""
@@ -113,26 +161,14 @@
 	"System_Information": {
 		"message": "Informacja o systemie"
 	},
-	"Platform": {
-		"message": "Platforma"
-	},
 	"App_Version": {
 		"message": "Wersja aplikacji"
-	},
-	"User_Agent": {
-		"message": "Klient użytkownika (user agent)"
-	},
-	"Product": {
-		"message": "Produkt"
 	},
 	"Sub_product": {
 		"message": "Numer buildu"
 	},
 	"Vendor": {
 		"message": "Producent"
-	},
-	"Language": {
-		"message": "Język"
 	},
 	"This_message_already_contains_PGP_data": {
 		"message": ""
@@ -194,10 +230,10 @@
 	"PGP_Public_Key": {
 		"message": ""
 	},
-	"Unsecured_Editor": {
+	"WebPG_Secure_Editor": {
 		"message": ""
 	},
-	"WebPG_Secure_Editor": {
+	"Unsecured_Editor": {
 		"message": ""
 	},
 	"WebPG_Key_Manager": {
@@ -575,6 +611,9 @@
 	"Description": {
 		"message": "Opis"
 	},
+	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
+		"message": ""
+	},
 	"Publish": {
 		"message": ""
 	},
@@ -597,9 +636,6 @@
 		"message": ""
 	},
 	"Publish_Again": {
-		"message": ""
-	},
-	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
 		"message": ""
 	},
 	"Key_not_found_on_keyserver": {
@@ -731,12 +767,6 @@
 	"Sign_outgoing_messages_in_GMAIL": {
 		"message": "Podpisuj wiadomości wysyłane w Gmail"
 	},
-	"GnuPG_home_directory": {
-		"message": "Katalog domowy GnuPG"
-	},
-	"GnuPG_binary": {
-		"message": "Program GnuPG"
-	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
 		"message": "Twój system wyglądna na skonfigurowany poprawnie do używania WebPG"
 	},
@@ -856,6 +886,12 @@
 	},
 	"NO_USER_ID": {
 		"message": "BRAK TOŻSAMOŚCI"
+	},
+	"Sign_Inline": {
+		"message": ""
+	},
+	"Sign_as_Attachment": {
+		"message": ""
 	},
 	"extDesc": {
 		"message": "Rozszerzenie dodające obsługę GnuPG/GPG/PGP do Chrome"

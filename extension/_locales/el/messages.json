@@ -5,6 +5,54 @@
 	"Version": {
 		"message": ""
 	},
+	"Extension_Information": {
+		"message": ""
+	},
+	"Extension_version": {
+		"message": ""
+	},
+	"Platform": {
+		"message": ""
+	},
+	"Product": {
+		"message": ""
+	},
+	"User_Agent": {
+		"message": ""
+	},
+	"Language": {
+		"message": ""
+	},
+	"Plugin_Information": {
+		"message": ""
+	},
+	"Plugin_version": {
+		"message": ""
+	},
+	"GnuPG_Information": {
+		"message": ""
+	},
+	"GnuPG_version": {
+		"message": ""
+	},
+	"GnuPG_binary": {
+		"message": ""
+	},
+	"GnuPG_home_directory": {
+		"message": ""
+	},
+	"default": {
+		"message": ""
+	},
+	"GPGCONF_version": {
+		"message": ""
+	},
+	"not_detected": {
+		"message": ""
+	},
+	"Assuan_version": {
+		"message": ""
+	},
 	"Finished": {
 		"message": ""
 	},
@@ -38,6 +86,9 @@
 	"Import": {
 		"message": ""
 	},
+	"Export": {
+		"message": ""
+	},
 	"Editor": {
 		"message": ""
 	},
@@ -45,9 +96,6 @@
 		"message": ""
 	},
 	"Encrypt": {
-		"message": ""
-	},
-	"Export": {
 		"message": ""
 	},
 	"Insert": {
@@ -113,25 +161,13 @@
 	"System_Information": {
 		"message": ""
 	},
-	"Platform": {
-		"message": ""
-	},
 	"App_Version": {
-		"message": ""
-	},
-	"User_Agent": {
-		"message": ""
-	},
-	"Product": {
 		"message": ""
 	},
 	"Sub_product": {
 		"message": ""
 	},
 	"Vendor": {
-		"message": ""
-	},
-	"Language": {
 		"message": ""
 	},
 	"This_message_already_contains_PGP_data": {
@@ -194,10 +230,10 @@
 	"PGP_Public_Key": {
 		"message": ""
 	},
-	"Unsecured_Editor": {
+	"WebPG_Secure_Editor": {
 		"message": ""
 	},
-	"WebPG_Secure_Editor": {
+	"Unsecured_Editor": {
 		"message": ""
 	},
 	"WebPG_Key_Manager": {
@@ -575,6 +611,9 @@
 	"Description": {
 		"message": ""
 	},
+	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
+		"message": ""
+	},
 	"Publish": {
 		"message": ""
 	},
@@ -597,9 +636,6 @@
 		"message": ""
 	},
 	"Publish_Again": {
-		"message": ""
-	},
-	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
 		"message": ""
 	},
 	"Key_not_found_on_keyserver": {
@@ -731,12 +767,6 @@
 	"Sign_outgoing_messages_in_GMAIL": {
 		"message": ""
 	},
-	"GnuPG_home_directory": {
-		"message": ""
-	},
-	"GnuPG_binary": {
-		"message": ""
-	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
 		"message": ""
 	},
@@ -855,6 +885,12 @@
 		"message": ""
 	},
 	"NO_USER_ID": {
+		"message": ""
+	},
+	"Sign_Inline": {
+		"message": ""
+	},
+	"Sign_as_Attachment": {
 		"message": ""
 	},
 	"extDesc": {
