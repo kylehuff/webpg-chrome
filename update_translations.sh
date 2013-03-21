@@ -68,9 +68,9 @@ if ${FFEXT:=true}; then
                 mkdir -p $LOCALEDIR/$locale
             fi
             echo "Creating $LOCALEDIR/$locale/$PROJECT_NAME.dtd"
-            gawk 'BEGIN{ FS="\n"; RS="";} match($0, /msgid.*(\"(.*)\")$/, b) && match(b[0], /msgid.*(\"(.*)\")(\n)?msgstr.*(\".*\")(\n)?/, a) { if (a[2]!="") printf("<!ENTITY %s %s>\n", gensub(/[^\"|^a-Z|^0-9|^\.]/, "_", "g", a[2]), a[4]) }' $PODIR/$locale.po > $LOCALEDIR/$locale/$PROJECT_NAME.dtd
+            gawk 'BEGIN{ FS="\n"; RS="";} match($0, /msgid.*(\"(.*)\")$/, b) && match(b[0], /msgid.*(\"(.*)\")(\n)?msgstr.*(\".*\")(\n)?/, a) { if (a[2]!="") printf("<!ENTITY %s %s>\n", gensub(/([[:punct:]|[:space:]])/, "_", "g", a[2]), a[4]) }' $PODIR/$locale.po > $LOCALEDIR/$locale/$PROJECT_NAME.dtd
             echo "Creating $LOCALEDIR/$locale/$PROJECT_NAME.properties"
-            gawk 'BEGIN{ FS="\n"; RS="";} match($0, /msgid.*(\"(.*)\")$/, b) && match(b[0], /msgid.*(\"(.*)\")(\n)?msgstr.*(\"(.*)\")(\n)?/, a) { if (a[2]!="") printf("%s=%s\n", gensub(/[^\"|^a-Z|^0-9|^\.]/, "_", "g", a[2]), a[5]) }' $PODIR/$locale.po > $LOCALEDIR/$locale/$PROJECT_NAME.properties
+            gawk 'BEGIN{ FS="\n"; RS="";} match($0, /msgid.*(\"(.*)\")$/, b) && match(b[0], /msgid.*(\"(.*)\")(\n)?msgstr.*(\"(.*)\")(\n)?/, a) { if (a[2]!="") printf("%s=%s\n", gensub(/([[:punct:]|[:space:]])/, "_", "g", a[2]), a[5]) }' $PODIR/$locale.po > $LOCALEDIR/$locale/$PROJECT_NAME.properties
         fi
     done
 else
@@ -83,7 +83,7 @@ else
             fi
             echo "Creating $LOCALEDIR/$locale/messages.json"
             echo -e "{" > $LOCALEDIR/$locale/messages.json
-            gawk 'BEGIN{ FS="\n"; RS=""; } match($0, /msgid.*(\"(.*)\")$/, b) && match(b[0], /msgid.*(\"(.*)\")(\n)?msgstr.*(\"(.*)\")(\n)?/, a) { if (a[2]!="") printf("\t\"%s\": {\n\t\t\"message\": %s\n\t},\n", gensub(/[^\"|^a-Z|^0-9]/, "_", "g", a[2]), a[4]) }' $PODIR/$locale.po >> $LOCALEDIR/$locale/messages.json
+            gawk 'BEGIN{ FS="\n"; RS=""; } match($0, /msgid.*(\"(.*)\")$/, b) && match(b[0], /msgid.*(\"(.*)\")(\n)?msgstr.*(\"(.*)\")(\n)?/, a) { if (a[2]!="") printf("\t\"%s\": {\n\t\t\"message\": %s\n\t},\n", gensub(/([[:punct:]|[:space:]])/, "_", "g", a[2]), a[4]) }' $PODIR/$locale.po >> $LOCALEDIR/$locale/messages.json
             echo -e "\t\"empty_end\": {\n\t\t\"message\": \"N/A\",\n\t\t\"description\": \"Just an empty item to mark our end; No need to translate.\"\n\t}\n}" >> $LOCALEDIR/$locale/messages.json
         fi
     done
