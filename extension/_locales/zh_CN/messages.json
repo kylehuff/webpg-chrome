@@ -1,234 +1,234 @@
 {
 	"About_WebPG": {
-		"message": ""
+		"message": "关于WebPG"
 	},
 	"Version": {
-		"message": ""
+		"message": "版本"
 	},
 	"Extension_Information": {
-		"message": ""
+		"message": "扩展的信息"
 	},
 	"Extension_version": {
-		"message": ""
+		"message": "扩展的版本"
 	},
 	"Platform": {
-		"message": ""
+		"message": "平台"
 	},
 	"Product": {
-		"message": ""
+		"message": "产品"
 	},
 	"User_Agent": {
-		"message": ""
+		"message": "用户代理"
 	},
 	"Language": {
-		"message": ""
+		"message": "语言"
 	},
 	"Plugin_Information": {
-		"message": ""
+		"message": "插件信息"
 	},
 	"Plugin_version": {
-		"message": ""
+		"message": "插件版本"
 	},
 	"GnuPG_Information": {
-		"message": ""
+		"message": "GnuPG的信息"
 	},
 	"GnuPG_version": {
-		"message": ""
+		"message": "GnuPG版本"
 	},
 	"GnuPG_binary": {
-		"message": ""
+		"message": "GnuPG的可执行文件"
 	},
 	"GnuPG_home_directory": {
-		"message": ""
+		"message": "GnuPG的用户目录"
 	},
 	"default": {
-		"message": ""
+		"message": "默认"
 	},
 	"GPGCONF_version": {
-		"message": ""
+		"message": "GPGCONF的版本"
 	},
 	"not_detected": {
-		"message": ""
+		"message": "未被检测"
 	},
 	"Assuan_version": {
-		"message": ""
+		"message": "Assuan的版本"
 	},
 	"Finished": {
-		"message": ""
+		"message": "完成"
 	},
 	"WebPG_Plugin_failed_to_load": {
-		"message": ""
+		"message": "WebPG插件装载失败"
 	},
 	"Key_Generation_Complete": {
-		"message": ""
+		"message": "密匙生成完毕"
 	},
 	"Key_Generation": {
-		"message": ""
+		"message": "生成密匙"
 	},
 	"Open_Key_Manager": {
-		"message": ""
+		"message": "打开密匙管理器"
 	},
 	"WebPG_Key_Generation_Failed": {
-		"message": ""
+		"message": "WebPG密匙生成失败"
 	},
 	"The_generation_of_your_new_key_is_now_complete": {
-		"message": ""
+		"message": "您的新密匙生成过程现已完成"
 	},
 	"Options": {
-		"message": ""
+		"message": "选项"
 	},
 	"Key_Manager": {
-		"message": ""
+		"message": "密匙管理器"
 	},
 	"Select_Recipient_s_": {
-		"message": ""
+		"message": "选择签收人"
 	},
 	"Import": {
-		"message": ""
+		"message": "注入"
 	},
 	"Export": {
-		"message": ""
+		"message": "导出"
 	},
 	"Editor": {
-		"message": ""
+		"message": "编辑器"
 	},
 	"Search_Filter": {
-		"message": ""
+		"message": "搜索/过滤"
 	},
 	"Encrypt": {
-		"message": ""
+		"message": "加密"
 	},
 	"Insert": {
-		"message": ""
+		"message": "插入"
 	},
 	"no_action_has_been_selected": {
-		"message": ""
+		"message": "没有操作被选中"
 	},
 	"no_action_has_been_successful": {
-		"message": ""
+		"message": "没有操作成功"
 	},
 	"Cancel": {
-		"message": ""
+		"message": "取消"
 	},
 	"UIDs": {
-		"message": ""
+		"message": "用户标识符"
 	},
 	"Key_does_not_support_this_operation": {
-		"message": ""
+		"message": "密匙不支持该操作"
 	},
 	"Error_loading_WebPG": {
-		"message": ""
+		"message": "WebPG载入过程出错"
 	},
 	"We_encountered_a_problem_while_attempting_to_load_WebPG": {
-		"message": ""
+		"message": "在尝试载入WebPG过程中，我们碰到了一个问题"
 	},
 	"Error": {
-		"message": ""
+		"message": "错误"
 	},
 	"Suggestions": {
-		"message": ""
+		"message": "建议"
 	},
 	"The_plugin_was_unable_to_load": {
-		"message": ""
+		"message": "插件不能载入"
 	},
 	"There_might_be_a_problem_with_the_gpg_installation": {
-		"message": ""
+		"message": "GPG的安装可能有问题"
 	},
 	"consider_reinstalling_gpg4win": {
-		"message": ""
+		"message": "考虑重装gpg4win"
 	},
 	"Error_Details": {
-		"message": ""
+		"message": "错误详情"
 	},
 	"Error_in_Method": {
 		"message": ""
 	},
 	"Error_Code": {
-		"message": ""
+		"message": "错误代码"
 	},
 	"Error_String": {
-		"message": ""
+		"message": "错误字符串"
 	},
 	"File": {
-		"message": ""
+		"message": "文件"
 	},
 	"Line": {
-		"message": ""
+		"message": "行"
 	},
 	"Unknown_Error": {
-		"message": ""
+		"message": "不明错误"
 	},
 	"System_Information": {
-		"message": ""
+		"message": "系统信息"
 	},
 	"App_Version": {
-		"message": ""
+		"message": "软件版本"
 	},
 	"Sub_product": {
-		"message": ""
+		"message": "副产品"
 	},
 	"Vendor": {
-		"message": ""
+		"message": "供应商"
 	},
 	"This_message_already_contains_PGP_data": {
-		"message": ""
+		"message": "该讯息已包含了PGP数据"
 	},
 	"Would_you_like_to_Encrypt_anyway": {
-		"message": ""
+		"message": "无论如何，你都要加密吗？"
 	},
 	"Would_you_like_to_Sign_anyway": {
-		"message": ""
+		"message": "无论如何，你都要签名吗？"
 	},
 	"Would_you_like_to_Encrypt_and_Sign_anyway": {
-		"message": ""
+		"message": "无论如何，你都要签名并加密吗？"
 	},
 	"You_do_not_have_any_keys_for": {
-		"message": ""
+		"message": "您没有任何密匙适用于"
 	},
 	"or": {
-		"message": ""
+		"message": "或者"
 	},
 	"You_have_more_than_1_public_key_matching_that_address": {
-		"message": ""
+		"message": "您有超过1个公匙配置那个地址"
 	},
 	"The_Key_for": {
 		"message": ""
 	},
 	"is_invalid": {
-		"message": ""
+		"message": "是非法的"
 	},
 	"Open_the_Key_Manager": {
-		"message": ""
+		"message": "打开密匙管理器"
 	},
 	"Sign_only": {
-		"message": ""
+		"message": "仅签名"
 	},
 	"Sign_and_Encrypt": {
-		"message": ""
+		"message": "签名并加密"
 	},
 	"Symmetric_Encryption": {
-		"message": ""
+		"message": "对称加密"
 	},
 	"Do_not_use_WebPG_for_this_message": {
-		"message": ""
+		"message": "对于该讯息不使用WebPG"
 	},
 	"Decrypt": {
-		"message": ""
+		"message": "解密"
 	},
 	"Verify": {
-		"message": ""
+		"message": "校验"
 	},
 	"Secure_Editor": {
 		"message": ""
 	},
 	"PGP_Signed_Message": {
-		"message": ""
+		"message": "已被PGP签名的讯息"
 	},
 	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "已被PGP签名或加密的讯息"
 	},
 	"PGP_Public_Key": {
-		"message": ""
+		"message": "PGP公匙"
 	},
 	"WebPG_Secure_Editor": {
 		"message": ""
@@ -237,49 +237,49 @@
 		"message": ""
 	},
 	"WebPG_Key_Manager": {
-		"message": ""
+		"message": "WebPG密匙管理器"
 	},
 	"Private_Keys": {
-		"message": ""
+		"message": "私匙"
 	},
 	"Public_Keys": {
-		"message": ""
+		"message": "公匙"
 	},
 	"Your_Name": {
-		"message": ""
+		"message": "您的姓名"
 	},
 	"Your_Email": {
-		"message": ""
+		"message": "您的电子邮件"
 	},
 	"Comment": {
-		"message": ""
+		"message": "注释"
 	},
 	"Passphrase": {
-		"message": ""
+		"message": "口令"
 	},
 	"Repeat_Passphrase": {
-		"message": ""
+		"message": "重复口令"
 	},
 	"Advanced_Options": {
-		"message": ""
+		"message": "高级选项"
 	},
 	"Public_Key_Algorithm": {
-		"message": ""
+		"message": "公匙算法"
 	},
 	"Public_Key_Size": {
-		"message": ""
+		"message": "公匙尺寸"
 	},
 	"Private_Key_Algorithm": {
-		"message": ""
+		"message": "私匙算法"
 	},
 	"Private_Key_Size": {
-		"message": ""
+		"message": "私匙尺寸"
 	},
 	"Expire_in": {
-		"message": ""
+		"message": "有效期"
 	},
 	"Never": {
-		"message": ""
+		"message": "永不"
 	},
 	"n30_days": {
 		"message": ""
@@ -291,445 +291,445 @@
 		"message": ""
 	},
 	"Subkey_Options": {
-		"message": ""
+		"message": "子匙选项"
 	},
 	"encrypt_only": {
-		"message": ""
+		"message": "仅加密"
 	},
 	"set_your_own_capabilities": {
 		"message": ""
 	},
 	"Sign": {
-		"message": ""
+		"message": "签名"
 	},
 	"Authenticate": {
-		"message": ""
+		"message": "认证"
 	},
 	"Revoke_this_Key": {
-		"message": ""
+		"message": "回收该密匙"
 	},
 	"Revoke_this_UID": {
-		"message": ""
+		"message": "回收该用户标识"
 	},
 	"Revoke_this_Signature": {
-		"message": ""
+		"message": "回收该签名"
 	},
 	"Delete_this_Signature": {
-		"message": ""
+		"message": "删除该签名"
 	},
 	"Delete_this_UID": {
-		"message": ""
+		"message": "删除该用户标识"
 	},
 	"Delete_this_Key": {
-		"message": ""
+		"message": "删除该密匙"
 	},
 	"This_key_will_be_permanently_deleted": {
-		"message": ""
+		"message": "该密匙将永久删除"
 	},
 	"Are_you_sure": {
-		"message": ""
+		"message": "您确认"
 	},
 	"Change_Expiration": {
-		"message": ""
+		"message": "修改有效期"
 	},
 	"Sign_this_UID": {
-		"message": ""
+		"message": "为该用户标识签名"
 	},
 	"Key_Details": {
-		"message": ""
+		"message": "密匙详情"
 	},
 	"Export_Public_Key": {
-		"message": ""
+		"message": "导出公匙"
 	},
 	"Add_UID": {
-		"message": ""
+		"message": "增加用户标识"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Key": {
-		"message": ""
+		"message": "您确认您希望回收该密匙"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_UID": {
-		"message": ""
+		"message": "您确认您希望回收该用户标识"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Signature": {
-		"message": ""
+		"message": "您确认您希望回收该签名"
 	},
 	"Are_you_sure_you_wish_to_delete_this_Signature": {
-		"message": ""
+		"message": "您确认您希望删除该签名"
 	},
 	"Are_you_sure_you_want_to_permanently_delete_this_UID": {
-		"message": ""
+		"message": "您确认您要永久删除该用户标识"
 	},
 	"New_Expiration_Date": {
-		"message": ""
+		"message": "新的有效期"
 	},
 	"Never_Expire": {
-		"message": ""
+		"message": "永不过期"
 	},
 	"Expiration_Date": {
-		"message": ""
+		"message": "过期时间"
 	},
 	"Click_to_generate_a_new_key": {
-		"message": ""
+		"message": "点击以便产生新密匙"
 	},
 	"Click_to_enable_key": {
-		"message": ""
+		"message": "点击以便启用密匙"
 	},
 	"Click_to_set_default_key": {
-		"message": ""
+		"message": "点击以便设定默认密匙"
 	},
 	"Generating_Key": {
-		"message": ""
+		"message": "生成密匙中"
 	},
 	"Waiting_for_entropy": {
 		"message": ""
 	},
 	"Building_key": {
-		"message": ""
+		"message": "构建密匙中"
 	},
 	"please_wait": {
-		"message": ""
+		"message": "请等待"
 	},
 	"Close": {
-		"message": ""
+		"message": "关闭"
 	},
 	"trust": {
-		"message": ""
+		"message": "信任"
 	},
 	"Generate_New_Key": {
-		"message": ""
+		"message": "生成新密匙"
 	},
 	"Create": {
-		"message": ""
+		"message": "创建"
 	},
 	"Name_Required": {
-		"message": ""
+		"message": "必须输入姓名"
 	},
 	"UID_Names_must_be_at_least_5_characters": {
-		"message": ""
+		"message": "用户标识名必须至少含有5个字符"
 	},
 	"UID_Names_cannot_begin_with_a_number": {
-		"message": ""
+		"message": "用户标识名不能以数字开头"
 	},
 	"Not_a_valid_email_address": {
-		"message": ""
+		"message": "并非有效的电子邮件地址"
 	},
 	"Passphrases_do_not_match": {
-		"message": ""
+		"message": "口令不匹配"
 	},
 	"Building_key__please_wait": {
-		"message": ""
+		"message": "构建密匙中，请等待"
 	},
 	"This_may_take_a_long_time__5_minutes_or_more__to_complete": {
-		"message": ""
+		"message": "这可能需要花费很长（5分钟或更长）的时间才能完成"
 	},
 	"Please_be_patient_while_the_key_is_created": {
-		"message": ""
+		"message": "在密匙创建过程中请耐心"
 	},
 	"It_is_safe_to_close_this_window": {
-		"message": ""
+		"message": "关闭该窗口是安全的"
 	},
 	"key_generation_will_continue_in_the_background": {
-		"message": ""
+		"message": "密匙生成过程将在后台继续"
 	},
 	"Enabled": {
-		"message": ""
+		"message": "启用"
 	},
 	"Disabled": {
-		"message": ""
+		"message": "禁用"
 	},
 	"Valid": {
-		"message": ""
+		"message": "合法的"
 	},
 	"Expired": {
-		"message": ""
+		"message": "过期"
 	},
 	"Invalid": {
-		"message": ""
+		"message": "非法"
 	},
 	"Revoked": {
-		"message": ""
+		"message": "已回收"
 	},
 	"no_email_address_provided": {
-		"message": ""
+		"message": "没有提供电子邮件地址"
 	},
 	"Cannot_unset_your_default_key": {
-		"message": ""
+		"message": "未能取消您的默认密匙"
 	},
 	"Trust_Assignment": {
-		"message": ""
+		"message": "指定信任度"
 	},
 	"Unknown": {
-		"message": ""
+		"message": "未知"
 	},
 	"Marginal": {
-		"message": ""
+		"message": "勉强"
 	},
 	"Full": {
-		"message": ""
+		"message": "完全"
 	},
 	"Ultimate": {
-		"message": ""
+		"message": "绝对"
 	},
 	"None": {
-		"message": ""
+		"message": "绝不"
 	},
 	"New_group": {
-		"message": ""
+		"message": "新组"
 	},
 	"Group_Assignment": {
-		"message": ""
+		"message": "指定组"
 	},
 	"Change_Passphrase": {
-		"message": ""
+		"message": "更改口令"
 	},
 	"Add_Subkey": {
-		"message": ""
+		"message": "增加子密匙"
 	},
 	"Enable_this_Key": {
-		"message": ""
+		"message": "启用该密匙"
 	},
 	"Disable_this_Key": {
-		"message": ""
+		"message": "禁用该密匙"
 	},
 	"KeyID": {
-		"message": ""
+		"message": "密匙标识"
 	},
 	"Key_Created": {
-		"message": ""
+		"message": "密匙已被创建"
 	},
 	"Expires": {
-		"message": ""
+		"message": "有效期"
 	},
 	"Fingerprint": {
-		"message": ""
+		"message": "指纹"
 	},
 	"Status": {
-		"message": ""
+		"message": "状态"
 	},
 	"Key_Algorithm": {
-		"message": ""
+		"message": "密匙算法"
 	},
 	"Validity": {
-		"message": ""
+		"message": "合法"
 	},
 	"Key_Options": {
-		"message": ""
+		"message": "密匙选项"
 	},
 	"Operations": {
-		"message": ""
+		"message": "操作"
 	},
 	"Export_this_Key": {
-		"message": ""
+		"message": "导出该密匙"
 	},
 	"Publish_to_Keyserver": {
-		"message": ""
+		"message": "发布到密匙服务器"
 	},
 	"Refresh_from_Keyserver": {
-		"message": ""
+		"message": "从密匙服务器更新"
 	},
 	"Subkeys": {
-		"message": ""
+		"message": "子密匙"
 	},
 	"Subkey_Details": {
-		"message": ""
+		"message": "子密匙详情"
 	},
 	"Flags": {
 		"message": ""
 	},
 	"Delete_this_Subkey": {
-		"message": ""
+		"message": "删除该子密匙"
 	},
 	"Revoke_this_Subkey": {
-		"message": ""
+		"message": "回收该子密匙"
 	},
 	"User_IDs": {
-		"message": ""
+		"message": "用户标识"
 	},
 	"Make_primary": {
-		"message": ""
+		"message": "设为主要"
 	},
 	"Revoke_UID": {
-		"message": ""
+		"message": "回收用户标识"
 	},
 	"REVOKED": {
-		"message": ""
+		"message": "已回收"
 	},
 	"Created": {
-		"message": ""
+		"message": "创建"
 	},
 	"self_signature": {
-		"message": ""
+		"message": "自我签名"
 	},
 	"local": {
-		"message": ""
+		"message": "本地的"
 	},
 	"non_exportable": {
 		"message": ""
 	},
 	"other_signature": {
-		"message": ""
+		"message": "其他签名"
 	},
 	"Revoke": {
-		"message": ""
+		"message": "回收"
 	},
 	"Delete": {
-		"message": ""
+		"message": "删除"
 	},
 	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
-		"message": ""
+		"message": "由不在您的密匙环中的密匙所做签名会被忽略"
 	},
 	"Calculating_Trust": {
-		"message": ""
+		"message": "计算可信度"
 	},
 	"Please_wait_while_recalculate_the_trust_for_this_item": {
-		"message": ""
+		"message": "在重新计算该项的信任度时请等待"
 	},
 	"Save": {
-		"message": ""
+		"message": "保存"
 	},
 	"Delete_this_key": {
-		"message": ""
+		"message": "删除该密匙"
 	},
 	"Copy": {
-		"message": ""
+		"message": "复制"
 	},
 	"Please_specify_the_revocation_details": {
-		"message": ""
+		"message": "请说明回收的详情"
 	},
 	"Reason": {
-		"message": ""
+		"message": "理由"
 	},
 	"No_reason_specified": {
-		"message": ""
+		"message": "没有具体理由"
 	},
 	"Key_has_been_compromised": {
-		"message": ""
+		"message": "密匙已泄露"
 	},
 	"Key_is_superseded": {
-		"message": ""
+		"message": "密匙已被取代"
 	},
 	"Key_is_no_longer_used": {
-		"message": ""
+		"message": "密匙不再使用"
 	},
 	"Description": {
-		"message": ""
+		"message": "描述"
 	},
 	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "您确认要把该密匙发布到密匙服务器"
 	},
 	"Publish": {
-		"message": ""
+		"message": "发布"
 	},
 	"Sending_key_to_Keyserver": {
-		"message": ""
+		"message": "发送密匙到密匙服务器"
 	},
 	"There_was_a_problem_sending_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "在将密匙传送到密匙服务器的过程中存在问题"
 	},
 	"No_Keyserver_defined": {
-		"message": ""
+		"message": "没有预定密匙服务器"
 	},
 	"Keyserver": {
-		"message": ""
+		"message": "密匙服务器"
 	},
 	"Try_Again": {
-		"message": ""
+		"message": "重试"
 	},
 	"Key_Published_to_Keyserver": {
-		"message": ""
+		"message": "密匙被发布到密匙服务器"
 	},
 	"Publish_Again": {
-		"message": ""
+		"message": "再次发布"
 	},
 	"Key_not_found_on_keyserver": {
-		"message": ""
+		"message": "未在密匙服务器中发现密匙"
 	},
 	"User_ID_is_no_longer_valid": {
-		"message": ""
+		"message": "用户标识不在合法"
 	},
 	"Please_select_which_of_your_keys_to_create_the_signature_with": {
-		"message": ""
+		"message": "请选择您将用来创建签名的密匙"
 	},
 	"You_have_not_enabled_any_keys_for_use_with_webpg": {
-		"message": ""
+		"message": "您还没有启用任何密匙供WebPG使用"
 	},
 	"please_click_here": {
-		"message": ""
+		"message": "请点击这儿"
 	},
 	"and_select_1_or_more_keys_for_use_with_webpg": {
-		"message": ""
+		"message": "选择1个或更多密匙供WebPG使用"
 	},
 	"You_have_not_generated_any_keys": {
-		"message": ""
+		"message": "您没有生成任何密匙"
 	},
 	"and_generate_a_key_to_use_with_webpg": {
-		"message": ""
+		"message": "生成一个密匙供WebPG使用"
 	},
 	"Already_signed_with_this_key": {
-		"message": ""
+		"message": "已经被该密匙签名"
 	},
 	"Signature_added_using_this_key": {
-		"message": ""
+		"message": "通过使用该密匙已增加签名"
 	},
 	"Cannot_Publish_Keys_without_gpgconf_utility_installed": {
-		"message": ""
+		"message": "未安装gpgconf工具的话将不能发布密匙"
 	},
 	"Cannot_create_signatures_without_gpgconf_utility_installed": {
-		"message": ""
+		"message": "未安装gpgconf工具的话将不能创建签名"
 	},
 	"Cannot_Publish_Keys_without_Keyserver_configured": {
-		"message": ""
+		"message": "不配置密匙服务器的话将不能发布密匙"
 	},
 	"Cannot_sign_a_revoked_UID": {
-		"message": ""
+		"message": "不能给已回收用户标识签名"
 	},
 	"Cannot_make_a_revoked_UID_primary": {
-		"message": ""
+		"message": "不能将已回收用户标识设为主要"
 	},
 	"Cannot_sign_an_expired_key": {
-		"message": ""
+		"message": "不能给过期密匙签名"
 	},
 	"Are_you_certain_you_would_like_to_delete_signature": {
-		"message": ""
+		"message": "你确认你要删除签名"
 	},
 	"from_this_User_ID": {
 		"message": ""
 	},
 	"This_signature_was_made_with_a_key_that_does_not_belong_to_you": {
-		"message": ""
+		"message": "该签名是由一个不属于您的密匙创建的"
 	},
 	"This_action_cannot_be_undone": {
-		"message": ""
+		"message": "该操作不能取消"
 	},
 	"Enable_this_key_for_signing": {
-		"message": ""
+		"message": "启用该密匙来签名"
 	},
 	"This_is_your_default_key": {
-		"message": ""
+		"message": "这是您的默认密匙"
 	},
 	"Make_this_the_default_key_for_encryption_operations": {
-		"message": ""
+		"message": "设定该密匙为加密操作的默认密匙"
 	},
 	"Searching_for": {
-		"message": ""
+		"message": "搜寻"
 	},
 	"Please_wait_while_we_build_the_key_list": {
-		"message": ""
+		"message": "在创建密匙列表时请等待"
 	},
 	"WebPG_Options": {
-		"message": ""
+		"message": "WebPG选项"
 	},
 	"The_WebPG_NPAPI_Plugin_is_valid": {
-		"message": ""
+		"message": "WebPG NPAPI插件是合法的"
 	},
 	"OpenPGP_was_detected": {
 		"message": ""
 	},
 	"It_appears_you_have_a_key_agent_configured": {
-		"message": ""
+		"message": "您似乎已经设置了密匙代理"
 	},
 	"gpgconf_was_detected": {
-		"message": ""
+		"message": "gpgconf已被检测到"
 	},
 	"you_can_use_the_signature_methods": {
 		"message": ""
@@ -738,61 +738,61 @@
 		"message": ""
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
-		"message": ""
+		"message": "您似乎还没有配置密匙代理"
 	},
 	"A_working_key_agent_is_required": {
-		"message": ""
+		"message": "需要一个工作中的密匙代理"
 	},
 	"gpgconf_does_not_appear_to_be_installed": {
-		"message": ""
+		"message": "gpgconf似乎没有被安装"
 	},
 	"You_will_not_be_able_to_create_signatures": {
-		"message": ""
+		"message": "您不能创建签名"
 	},
 	"There_was_a_problem_loading_the_plugin": {
-		"message": ""
+		"message": "在载入插件过程存在问题"
 	},
 	"the_plugin_might_be_incompatibly_compiled_for_this_architechture": {
 		"message": ""
 	},
 	"click_here_for_help_resolving_this_issue": {
-		"message": ""
+		"message": "点击这里以获取此问题的解决方法"
 	},
 	"Enable_Inline_formatting_of_PGP_Messages_and_Keys": {
-		"message": ""
+		"message": "启用PGP讯息与密匙的行内格式"
 	},
 	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
-		"message": ""
+		"message": "除指定签收人之外总是用您的默认密匙加密"
 	},
 	"Enable_WebPG_GMAIL_integration": {
-		"message": ""
+		"message": "启用WebPG与GMail的整合功能"
 	},
 	"EXPERIMENTAL": {
-		"message": ""
+		"message": "实验阶段"
 	},
 	"Sign_outgoing_messages_in_GMAIL": {
-		"message": ""
+		"message": "为GMail中的送出讯息签名"
 	},
 	"GPGCONF_binary": {
 		"message": ""
 	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
-		"message": ""
+		"message": "您的系统似乎已正确配置了WebPG"
 	},
 	"There_is_a_problem_with_your_configuration": {
-		"message": ""
+		"message": "您的配置文件存在问题"
 	},
 	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
-		"message": ""
+		"message": "WebPG与GMail的整合属于实验性阶段"
 	},
 	"use_at_your_own_risk": {
-		"message": ""
+		"message": "使用它需自担风险"
 	},
 	"Text_copied_to_clipboard": {
-		"message": ""
+		"message": "文本被复制到黏切板之中"
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
-		"message": ""
+		"message": "在将数据存入黏企切板的过程中可能存在问题"
 	},
 	"TEXT_COPIED": {
 		"message": ""
@@ -801,55 +801,55 @@
 		"message": ""
 	},
 	"COPY_TO_CLIPBOARD": {
-		"message": ""
+		"message": "复制到黏切板"
 	},
 	"Paste_Public_Key": {
-		"message": ""
+		"message": "粘帖公匙"
 	},
 	"Clear_sign_this_text": {
-		"message": ""
+		"message": "为该文本做明文签名"
 	},
 	"Import_this_Key": {
-		"message": ""
+		"message": "注入该密匙"
 	},
 	"Encrypt_this_text": {
-		"message": ""
+		"message": "加密该文本"
 	},
 	"Decrypt_this_text": {
-		"message": ""
+		"message": "解密该文本"
 	},
 	"Verify_this_text": {
-		"message": ""
+		"message": "验证该文本"
 	},
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
-		"message": ""
+		"message": "无法解密或者校验该讯息"
 	},
 	"PGP_ENCRYPTED_AND_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "已被PGP加密并签名的讯息"
 	},
 	"DECRYPTION_FAILED": {
-		"message": ""
+		"message": "解密失败"
 	},
 	"NO_SECRET_KEY": {
-		"message": ""
+		"message": "没有私匙"
 	},
 	"BAD_PASSPHRASE": {
-		"message": ""
+		"message": "口令不对"
 	},
 	"DECRYPT_THIS_MESSAGE": {
-		"message": ""
+		"message": "解密该讯息"
 	},
 	"DISPLAY_ORIGINAL": {
-		"message": ""
+		"message": "显示原始讯息"
 	},
 	"DETACHED_PGP_SIGNATURE": {
-		"message": ""
+		"message": "分离式PGP签名"
 	},
 	"PGP_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "已被PGP签名的讯息"
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID": {
-		"message": ""
+		"message": "该讯息上的签名非法"
 	},
 	"THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH": {
 		"message": ""
@@ -858,67 +858,67 @@
 		"message": ""
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY": {
-		"message": ""
+		"message": "该讯息已被一个过期公匙签名"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "该讯息被一个不在您的密匙环中的公匙签名"
 	},
 	"SEARCH_FOR_KEYS_ON_KEYSERVER": {
-		"message": ""
+		"message": "在密匙服务器中搜索密匙"
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
-		"message": ""
+		"message": "该讯息的签名失败"
 	},
 	"THE_MESSAGE_MAY_BE_TAMPERED_WITH": {
 		"message": ""
 	},
 	"PGP_PUBLIC_KEY": {
-		"message": ""
+		"message": "PGP公匙"
 	},
 	"Names_UIDs_on_Key": {
-		"message": ""
+		"message": "密匙上的姓名或用户标识"
 	},
 	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "该密匙不在您的密匙环中"
 	},
 	"THIS_KEY_IS_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "该密匙在您的密匙环中"
 	},
 	"IMPORT_THIS_KEY": {
-		"message": ""
+		"message": "注入该密匙"
 	},
 	"DELETE_THIS_KEY": {
-		"message": ""
+		"message": "删除该密匙"
 	},
 	"HIDE_ORIGINAL": {
 		"message": ""
 	},
 	"UNUSABLE_KEY": {
-		"message": ""
+		"message": "不可用密匙"
 	},
 	"NO_USER_ID": {
-		"message": ""
+		"message": "无用户标识"
 	},
 	"WebPG": {
-		"message": ""
+		"message": "WebPG"
 	},
 	"About": {
-		"message": ""
+		"message": "关于"
 	},
 	"Clear_Sign": {
-		"message": ""
+		"message": "明文"
 	},
 	"Sign_and_Encrypt_this_text": {
-		"message": ""
+		"message": "为这段文字签名并加密"
 	},
 	"Import_this_Public_key": {
-		"message": ""
+		"message": "注入该公匙"
 	},
 	"Sign_Inline": {
-		"message": ""
+		"message": "行内签名"
 	},
 	"Sign_as_Attachment": {
-		"message": ""
+		"message": "给附件签名"
 	},
 	"extDesc": {
 		"message": ""

@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webpg-chrome 0.8.9\n"
 "Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
-"POT-Creation-Date: 2013-03-21 17:57-0400\n"
-"PO-Revision-Date: 2012-10-21 16:57-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"POT-Creation-Date: 2013-03-21 18:01-0400\n"
+"PO-Revision-Date: 2013-03-04 09:43+0800\n"
+"Last-Translator: Easior Lars <easior@fedoraproject.org>\n"
+"Language-Team: Chinese(China) <easior@fedoraproject.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,142 +21,142 @@ msgstr ""
 #: extension/about.js:17 extension/browser_action_menu.js:48
 #: extension/utils.js:385
 msgid "About WebPG"
-msgstr ""
+msgstr "关于WebPG"
 
 #: extension/about.js:46 extension/key_manager.js:35 extension/options.js:373
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 #: extension/about.js:54
 msgid "Extension Information"
-msgstr ""
+msgstr "扩展的信息"
 
 #: extension/about.js:57
 msgid "Extension version"
-msgstr ""
+msgstr "扩展的版本"
 
 #: extension/about.js:67 extension/error.js:60
 msgid "Platform"
-msgstr ""
+msgstr "平台"
 
 #: extension/about.js:73 extension/error.js:63
 msgid "Product"
-msgstr ""
+msgstr "产品"
 
 #: extension/about.js:79 extension/error.js:62
 msgid "User Agent"
-msgstr ""
+msgstr "用户代理"
 
 #: extension/about.js:85 extension/error.js:66
 msgid "Language"
-msgstr ""
+msgstr "语言"
 
 #: extension/about.js:91
 msgid "Plugin Information"
-msgstr ""
+msgstr "插件信息"
 
 #: extension/about.js:94
 msgid "Plugin version"
-msgstr ""
+msgstr "插件版本"
 
 #: extension/about.js:106
 msgid "GnuPG Information"
-msgstr ""
+msgstr "GnuPG的信息"
 
 #: extension/about.js:109
 msgid "GnuPG version"
-msgstr ""
+msgstr "GnuPG版本"
 
 #: extension/about.js:115 extension/options.js:161
 msgid "GnuPG binary"
-msgstr ""
+msgstr "GnuPG的可执行文件"
 
 #: extension/about.js:121 extension/options.js:156
 msgid "GnuPG home directory"
-msgstr ""
+msgstr "GnuPG的用户目录"
 
 #: extension/about.js:130
 msgid "default"
-msgstr ""
+msgstr "默认"
 
 #: extension/about.js:134
 msgid "GPGCONF version"
-msgstr ""
+msgstr "GPGCONF的版本"
 
 #: extension/about.js:140 extension/about.js:146
 msgid "not detected"
-msgstr ""
+msgstr "未被检测"
 
 #: extension/about.js:143
 msgid "Assuan version"
-msgstr ""
+msgstr "Assuan的版本"
 
 #: extension/about.js:153 extension/key_manager.js:208
 #: extension/key_manager.js:222 extension/options.js:368
 msgid "Finished"
-msgstr ""
+msgstr "完成"
 
 #: extension/background.js:85
 msgid "WebPG Plugin failed to load"
-msgstr ""
+msgstr "WebPG插件装载失败"
 
 #: extension/background.js:576 extension/background.js:599
 msgid "Key Generation Complete"
-msgstr ""
+msgstr "密匙生成完毕"
 
 #: extension/background.js:577 extension/background.js:602
 msgid "Key Generation"
-msgstr ""
+msgstr "生成密匙"
 
 #: extension/background.js:586
 msgid "Open Key Manager"
-msgstr ""
+msgstr "打开密匙管理器"
 
 #: extension/background.js:600
 msgid "WebPG Key Generation Failed"
-msgstr ""
+msgstr "WebPG密匙生成失败"
 
 #: extension/background.js:601
 msgid "The generation of your new key is now complete"
-msgstr ""
+msgstr "您的新密匙生成过程现已完成"
 
 #: extension/browser_action_menu.js:44 extension/inline.js:664
 #: extension/utils.js:1203 extension/XULContent/firefoxOverlay.xul:27
 #: extension/XULContent/options.xul:20 extension/XULContent/options.xul:25
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:48
 msgid "Options"
-msgstr ""
+msgstr "选项"
 
 #: extension/browser_action_menu.js:46 extension/inline.js:658
 #: extension/utils.js:1224 extension/XULContent/firefoxOverlay.xul:23
 #: extension/XULContent/options.xul:29
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:44
 msgid "Key Manager"
-msgstr ""
+msgstr "密匙管理器"
 
 #: extension/dialog.js:37
 msgid "Select Recipient(s)"
-msgstr ""
+msgstr "选择签收人"
 
 #: extension/dialog.js:40 extension/inline.js:632
 #: extension/XULContent/firefoxOverlay.xul:72
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:94
 msgid "Import"
-msgstr ""
+msgstr "注入"
 
 #: extension/dialog.js:42 extension/dialog.js:194 extension/inline.js:638
 #: extension/XULContent/firefoxOverlay.xul:79
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:101
 msgid "Export"
-msgstr ""
+msgstr "导出"
 
 #: extension/dialog.js:44
 msgid "Editor"
-msgstr ""
+msgstr "编辑器"
 
 #: extension/dialog.js:81 extension/key_manager.js:64
 msgid "Search/Filter"
-msgstr ""
+msgstr "搜索/过滤"
 
 #: extension/dialog.js:175 extension/gmail.js:528 extension/inline.js:602
 #: extension/key_manager.js:124 extension/key_manager.js:967
@@ -164,19 +164,19 @@ msgstr ""
 #: extension/XULContent/thunderbird/composeOverlay.js:94
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:73
 msgid "Encrypt"
-msgstr ""
+msgstr "加密"
 
 #: extension/dialog.js:207
 msgid "Insert"
-msgstr ""
+msgstr "插入"
 
 #: extension/dialog.js:217
 msgid "no action has been selected"
-msgstr ""
+msgstr "没有操作被选中"
 
 #: extension/dialog.js:226
 msgid "no action has been successful"
-msgstr ""
+msgstr "没有操作成功"
 
 #: extension/dialog.js:235 extension/key_manager.js:608
 #: extension/key_manager.js:1372 extension/key_manager.js:1431
@@ -186,48 +186,48 @@ msgstr ""
 #: extension/key_manager.js:2036 extension/key_manager.js:2061
 #: extension/key_manager.js:2094 extension/key_manager.js:2119
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: extension/dialog.js:259 extension/key_manager.js:908
 msgid "UIDs"
-msgstr ""
+msgstr "用户标识符"
 
 #: extension/dialog.js:264
 msgid "Key does not support this operation"
-msgstr ""
+msgstr "密匙不支持该操作"
 
 #: extension/error.js:23
 msgid "Error loading WebPG"
-msgstr ""
+msgstr "WebPG载入过程出错"
 
 #: extension/error.js:24
 msgid "We encountered a problem while attempting to load WebPG"
-msgstr ""
+msgstr "在尝试载入WebPG过程中，我们碰到了一个问题"
 
 #: extension/error.js:27 extension/key_manager.js:1726
 #: extension/key_manager.js:1729
 msgid "Error"
-msgstr ""
+msgstr "错误"
 
 #: extension/error.js:28
 msgid "Suggestions"
-msgstr ""
+msgstr "建议"
 
 #: extension/error.js:31
 msgid "The plugin was unable to load"
-msgstr ""
+msgstr "插件不能载入"
 
 #: extension/error.js:34
 msgid "There might be a problem with the gpg installation"
-msgstr ""
+msgstr "GPG的安装可能有问题"
 
 #: extension/error.js:36
 msgid "consider reinstalling gpg4win"
-msgstr ""
+msgstr "考虑重装gpg4win"
 
 #: extension/error.js:42
 msgid "Error Details"
-msgstr ""
+msgstr "错误详情"
 
 #: extension/error.js:43
 msgid "Error in Method"
@@ -235,70 +235,70 @@ msgstr ""
 
 #: extension/error.js:44
 msgid "Error Code"
-msgstr ""
+msgstr "错误代码"
 
 #: extension/error.js:45
 msgid "Error String"
-msgstr ""
+msgstr "错误字符串"
 
 #: extension/error.js:52
 msgid "File"
-msgstr ""
+msgstr "文件"
 
 #: extension/error.js:53
 msgid "Line"
-msgstr ""
+msgstr "行"
 
 #: extension/error.js:55
 msgid "Unknown Error"
-msgstr ""
+msgstr "不明错误"
 
 #: extension/error.js:59
 msgid "System Information"
-msgstr ""
+msgstr "系统信息"
 
 #: extension/error.js:61
 msgid "App Version"
-msgstr ""
+msgstr "软件版本"
 
 #: extension/error.js:64
 msgid "Sub-product"
-msgstr ""
+msgstr "副产品"
 
 #: extension/error.js:65
 msgid "Vendor"
-msgstr ""
+msgstr "供应商"
 
 #: extension/gmail.js:172 extension/gmail.js:203 extension/gmail.js:230
 #: extension/gmail.js:262
 msgid "This message already contains PGP data"
-msgstr ""
+msgstr "该讯息已包含了PGP数据"
 
 #: extension/gmail.js:173 extension/gmail.js:263
 msgid "Would you like to Encrypt anyway"
-msgstr ""
+msgstr "无论如何，你都要加密吗？"
 
 #: extension/gmail.js:204
 msgid "Would you like to Sign anyway"
-msgstr ""
+msgstr "无论如何，你都要签名吗？"
 
 #: extension/gmail.js:231
 msgid "Would you like to Encrypt and Sign anyway"
-msgstr ""
+msgstr "无论如何，你都要签名并加密吗？"
 
 #: extension/gmail.js:323
 #: extension/XULContent/thunderbird/composeOverlay.js:264
 msgid "You do not have any keys for"
-msgstr ""
+msgstr "您没有任何密匙适用于"
 
 #: extension/gmail.js:325
 #: extension/XULContent/thunderbird/composeOverlay.js:266
 msgid "or"
-msgstr ""
+msgstr "或者"
 
 #: extension/gmail.js:393
 msgid "You have more than 1 public key matching that address"
-msgstr ""
+msgstr "您有超过1个公匙配置那个地址"
 
 #: extension/gmail.js:405
 msgid "The Key for"
@@ -306,43 +306,43 @@ msgstr ""
 
 #: extension/gmail.js:406
 msgid "is invalid"
-msgstr ""
+msgstr "是非法的"
 
 #: extension/gmail.js:411
 msgid "Open the Key Manager"
-msgstr ""
+msgstr "打开密匙管理器"
 
 #: extension/gmail.js:534 extension/inline.js:608 extension/key_manager.js:103
 #: extension/key_manager.js:106
 msgid "Sign only"
-msgstr ""
+msgstr "仅签名"
 
 #: extension/gmail.js:540 extension/inline.js:614
 #: extension/XULContent/firefoxOverlay.xul:58
 #: extension/XULContent/thunderbird/composeOverlay.js:93
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:80
 msgid "Sign and Encrypt"
-msgstr ""
+msgstr "签名并加密"
 
 #: extension/gmail.js:546 extension/inline.js:620
 #: extension/XULContent/thunderbird/composeOverlay.js:95
 msgid "Symmetric Encryption"
-msgstr ""
+msgstr "对称加密"
 
 #: extension/gmail.js:552
 #: extension/XULContent/thunderbird/composeOverlay.js:90
 msgid "Do not use WebPG for this message"
-msgstr ""
+msgstr "对于该讯息不使用WebPG"
 
 #: extension/inline.js:626 extension/XULContent/firefoxOverlay.xul:65
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:87
 msgid "Decrypt"
-msgstr ""
+msgstr "解密"
 
 #: extension/inline.js:644 extension/XULContent/firefoxOverlay.xul:44
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:66
 msgid "Verify"
-msgstr ""
+msgstr "校验"
 
 #: extension/inline.js:652
 msgid "Secure Editor"
@@ -350,15 +350,15 @@ msgstr ""
 
 #: extension/inline.js:740
 msgid "PGP Signed Message"
-msgstr ""
+msgstr "已被PGP签名的讯息"
 
 #: extension/inline.js:746 extension/webpg_results.js:156
 msgid "PGP ENCRYPTED OR SIGNED MESSAGE"
-msgstr ""
+msgstr "已被PGP签名或加密的讯息"
 
 #: extension/inline.js:752
 msgid "PGP Public Key"
-msgstr ""
+msgstr "PGP公匙"
 
 #: extension/inline.js:766
 msgid "WebPG Secure Editor"
@@ -370,65 +370,65 @@ msgstr ""
 
 #: extension/key_manager.js:22 extension/utils.js:384
 msgid "WebPG Key Manager"
-msgstr ""
+msgstr "WebPG密匙管理器"
 
 #: extension/key_manager.js:62
 msgid "Private Keys"
-msgstr ""
+msgstr "私匙"
 
 #: extension/key_manager.js:63
 msgid "Public Keys"
-msgstr ""
+msgstr "公匙"
 
 #: extension/key_manager.js:65 extension/key_manager.js:133
 msgid "Your Name"
-msgstr ""
+msgstr "您的姓名"
 
 #: extension/key_manager.js:66 extension/key_manager.js:137
 msgid "Your Email"
-msgstr ""
+msgstr "您的电子邮件"
 
 #: extension/key_manager.js:67 extension/key_manager.js:141
 msgid "Comment"
-msgstr ""
+msgstr "注释"
 
 #: extension/key_manager.js:71
 msgid "Passphrase"
-msgstr ""
+msgstr "口令"
 
 #: extension/key_manager.js:75
 msgid "Repeat Passphrase"
-msgstr ""
+msgstr "重复口令"
 
 #: extension/key_manager.js:76 extension/options.js:153
 msgid "Advanced Options"
-msgstr ""
+msgstr "高级选项"
 
 #: extension/key_manager.js:77
 msgid "Public Key Algorithm"
-msgstr ""
+msgstr "公匙算法"
 
 #: extension/key_manager.js:78
 msgid "Public Key Size"
-msgstr ""
+msgstr "公匙尺寸"
 
 #: extension/key_manager.js:79 extension/key_manager.js:99
 msgid "Private Key Algorithm"
-msgstr ""
+msgstr "私匙算法"
 
 #: extension/key_manager.js:80 extension/key_manager.js:128
 msgid "Private Key Size"
-msgstr ""
+msgstr "私匙尺寸"
 
 #: extension/key_manager.js:81 extension/key_manager.js:129
 msgid "Expire in"
-msgstr ""
+msgstr "有效期"
 
 #: extension/key_manager.js:85 extension/key_manager.js:782
 #: extension/key_manager.js:825 extension/key_manager.js:1104
 #: extension/webpg_results.js:134
 msgid "Never"
-msgstr ""
+msgstr "永不"
 
 #: extension/key_manager.js:88
 msgid "n30 days"
@@ -444,11 +444,11 @@ msgstr ""
 
 #: extension/key_manager.js:98
 msgid "Subkey Options"
-msgstr ""
+msgstr "子匙选项"
 
 #: extension/key_manager.js:109 extension/key_manager.js:112
 msgid "encrypt only"
-msgstr ""
+msgstr "仅加密"
 
 #: extension/key_manager.js:115 extension/key_manager.js:118
 msgid "set your own capabilities"
@@ -457,113 +457,113 @@ msgstr ""
 #: extension/key_manager.js:123 extension/key_manager.js:966
 #: extension/key_manager.js:1950
 msgid "Sign"
-msgstr ""
+msgstr "签名"
 
 #: extension/key_manager.js:125 extension/key_manager.js:968
 msgid "Authenticate"
-msgstr ""
+msgstr "认证"
 
 #: extension/key_manager.js:143
 msgid "Revoke this Key"
-msgstr ""
+msgstr "回收该密匙"
 
 #: extension/key_manager.js:144
 msgid "Revoke this UID"
-msgstr ""
+msgstr "回收该用户标识"
 
 #: extension/key_manager.js:145 extension/key_manager.js:2056
 msgid "Revoke this Signature"
-msgstr ""
+msgstr "回收该签名"
 
 #: extension/key_manager.js:146 extension/key_manager.js:2114
 msgid "Delete this Signature"
-msgstr ""
+msgstr "删除该签名"
 
 #: extension/key_manager.js:147 extension/key_manager.js:1048
 #: extension/key_manager.js:1806
 msgid "Delete this UID"
-msgstr ""
+msgstr "删除该用户标识"
 
 #: extension/key_manager.js:148 extension/key_manager.js:920
 msgid "Delete this Key"
-msgstr ""
+msgstr "删除该密匙"
 
 #: extension/key_manager.js:149
 msgid "This key will be permanently deleted"
-msgstr ""
+msgstr "该密匙将永久删除"
 
 #: extension/key_manager.js:150
 msgid "Are you sure"
-msgstr ""
+msgstr "您确认"
 
 #: extension/key_manager.js:151 extension/key_manager.js:798
 #: extension/key_manager.js:990
 msgid "Change Expiration"
-msgstr ""
+msgstr "修改有效期"
 
 #: extension/key_manager.js:152 extension/key_manager.js:1046
 msgid "Sign this UID"
-msgstr ""
+msgstr "为该用户标识签名"
 
 #: extension/key_manager.js:153 extension/key_manager.js:905
 msgid "Key Details"
-msgstr ""
+msgstr "密匙详情"
 
 #: extension/key_manager.js:154
 msgid "Export Public Key"
-msgstr ""
+msgstr "导出公匙"
 
 #: extension/key_manager.js:155 extension/key_manager.js:810
 msgid "Add UID"
-msgstr ""
+msgstr "增加用户标识"
 
 #: extension/key_manager.js:159
 msgid "Are you sure you wish to revoke this Key"
-msgstr ""
+msgstr "您确认您希望回收该密匙"
 
 #: extension/key_manager.js:160
 msgid "Are you sure you wish to revoke this UID"
-msgstr ""
+msgstr "您确认您希望回收该用户标识"
 
 #: extension/key_manager.js:161
 msgid "Are you sure you wish to revoke this Signature"
-msgstr ""
+msgstr "您确认您希望回收该签名"
 
 #: extension/key_manager.js:162
 msgid "Are you sure you wish to delete this Signature"
-msgstr ""
+msgstr "您确认您希望删除该签名"
 
 #: extension/key_manager.js:163
 msgid "Are you sure you want to permanently delete this UID"
-msgstr ""
+msgstr "您确认您要永久删除该用户标识"
 
 #: extension/key_manager.js:164
 msgid "New Expiration Date"
-msgstr ""
+msgstr "新的有效期"
 
 #: extension/key_manager.js:165
 msgid "Never Expire"
-msgstr ""
+msgstr "永不过期"
 
 #: extension/key_manager.js:166
 msgid "Expiration Date"
-msgstr ""
+msgstr "过期时间"
 
 #: extension/key_manager.js:297
 msgid "Click to generate a new key"
-msgstr ""
+msgstr "点击以便产生新密匙"
 
 #: extension/key_manager.js:307
 msgid "Click to enable key"
-msgstr ""
+msgstr "点击以便启用密匙"
 
 #: extension/key_manager.js:317
 msgid "Click to set default key"
-msgstr ""
+msgstr "点击以便设定默认密匙"
 
 #: extension/key_manager.js:356
 msgid "Generating Key"
-msgstr ""
+msgstr "生成密匙中"
 
 #: extension/key_manager.js:356
 msgid "Waiting for entropy"
@@ -571,70 +571,70 @@ msgstr ""
 
 #: extension/key_manager.js:357
 msgid "Building key"
-msgstr ""
+msgstr "构建密匙中"
 
 #: extension/key_manager.js:357
 msgid "please wait"
-msgstr ""
+msgstr "请等待"
 
 #: extension/key_manager.js:394 extension/key_manager.js:600
 #: extension/key_manager.js:1555 extension/key_manager.js:1647
 #: extension/key_manager.js:1743
 msgid "Close"
-msgstr ""
+msgstr "关闭"
 
 #: extension/key_manager.js:457
 msgid "trust"
-msgstr ""
+msgstr "信任"
 
 #: extension/key_manager.js:510
 msgid "Generate New Key"
-msgstr ""
+msgstr "生成新密匙"
 
 #: extension/key_manager.js:519 extension/key_manager.js:1451
 #: extension/key_manager.js:1520
 msgid "Create"
-msgstr ""
+msgstr "创建"
 
 #: extension/key_manager.js:525 extension/key_manager.js:1459
 msgid "Name Required"
-msgstr ""
+msgstr "必须输入姓名"
 
 #: extension/key_manager.js:529 extension/key_manager.js:1463
 msgid "UID Names must be at least 5 characters"
-msgstr ""
+msgstr "用户标识名必须至少含有5个字符"
 
 #: extension/key_manager.js:535 extension/key_manager.js:1467
 msgid "UID Names cannot begin with a number"
-msgstr ""
+msgstr "用户标识名不能以数字开头"
 
 #: extension/key_manager.js:542 extension/key_manager.js:1472
 msgid "Not a valid email address"
-msgstr ""
+msgstr "并非有效的电子邮件地址"
 
 #: extension/key_manager.js:552 extension/key_manager.js:554
 msgid "Passphrases do not match"
-msgstr ""
+msgstr "口令不匹配"
 
 #: extension/key_manager.js:583 extension/key_manager.js:1540
 msgid "Building key, please wait"
-msgstr ""
+msgstr "构建密匙中，请等待"
 
 #: extension/key_manager.js:584
 msgid "This may take a long time (5 minutes or more) to complete"
-msgstr ""
+msgstr "这可能需要花费很长（5分钟或更长）的时间才能完成"
 
 #: extension/key_manager.js:584
 msgid "Please be patient while the key is created"
-msgstr ""
+msgstr "在密匙创建过程中请耐心"
 
 #: extension/key_manager.js:584
 msgid "It is safe to close this window"
-msgstr ""
+msgstr "关闭该窗口是安全的"
 
 #: extension/key_manager.js:584
 msgid "key generation will continue in the background"
-msgstr ""
+msgstr "密匙生成过程将在后台继续"
 
 #: extension/key_manager.js:702 extension/key_manager.js:754
 #: extension/key_manager.js:2156 extension/options.js:189
@@ -642,7 +642,7 @@ msgstr ""
 #: extension/options.js:217 extension/options.js:227 extension/options.js:235
 #: extension/options.js:240
 msgid "Enabled"
-msgstr ""
+msgstr "启用"
 
 #: extension/key_manager.js:702 extension/key_manager.js:709
 #: extension/key_manager.js:755 extension/key_manager.js:940
@@ -651,142 +651,142 @@ msgstr ""
 #: extension/options.js:217 extension/options.js:227 extension/options.js:235
 #: extension/options.js:240
 msgid "Disabled"
-msgstr ""
+msgstr "禁用"
 
 #: extension/key_manager.js:705 extension/key_manager.js:938
 msgid "Valid"
-msgstr ""
+msgstr "合法的"
 
 #: extension/key_manager.js:713 extension/key_manager.js:773
 #: extension/key_manager.js:943 extension/key_manager.js:954
 #: extension/key_manager.js:963
 msgid "Expired"
-msgstr ""
+msgstr "过期"
 
 #: extension/key_manager.js:717 extension/key_manager.js:946
 msgid "Invalid"
-msgstr ""
+msgstr "非法"
 
 #: extension/key_manager.js:721 extension/key_manager.js:949
 msgid "Revoked"
-msgstr ""
+msgstr "已回收"
 
 #: extension/key_manager.js:730 extension/key_manager.js:1017
 #: extension/key_manager.js:1083
 msgid "no email address provided"
-msgstr ""
+msgstr "没有提供电子邮件地址"
 
 #: extension/key_manager.js:760
 msgid "Cannot unset your default key"
-msgstr ""
+msgstr "未能取消您的默认密匙"
 
 #: extension/key_manager.js:780 extension/key_manager.js:823
 msgid "Trust Assignment"
-msgstr ""
+msgstr "指定信任度"
 
 #: extension/key_manager.js:782 extension/key_manager.js:825
 #: extension/key_manager.js:1102 extension/webpg_results.js:132
 msgid "Unknown"
-msgstr ""
+msgstr "未知"
 
 #: extension/key_manager.js:782 extension/key_manager.js:825
 msgid "Marginal"
-msgstr ""
+msgstr "勉强"
 
 #: extension/key_manager.js:782 extension/key_manager.js:825
 msgid "Full"
-msgstr ""
+msgstr "完全"
 
 #: extension/key_manager.js:782 extension/key_manager.js:825
 msgid "Ultimate"
-msgstr ""
+msgstr "绝对"
 
 #: extension/key_manager.js:786 extension/key_manager.js:829
 msgid "None"
-msgstr ""
+msgstr "绝不"
 
 #: extension/key_manager.js:786 extension/key_manager.js:829
 msgid "New group"
-msgstr ""
+msgstr "新组"
 
 #: extension/key_manager.js:790 extension/key_manager.js:833
 msgid "Group Assignment"
-msgstr ""
+msgstr "指定组"
 
 #: extension/key_manager.js:804
 msgid "Change Passphrase"
-msgstr ""
+msgstr "更改口令"
 
 #: extension/key_manager.js:816
 msgid "Add Subkey"
-msgstr ""
+msgstr "增加子密匙"
 
 #: extension/key_manager.js:901
 msgid "Enable this Key"
-msgstr ""
+msgstr "启用该密匙"
 
 #: extension/key_manager.js:901
 msgid "Disable this Key"
-msgstr ""
+msgstr "禁用该密匙"
 
 #: extension/key_manager.js:906 extension/key_manager.js:979
 msgid "KeyID"
-msgstr ""
+msgstr "密匙标识"
 
 #: extension/key_manager.js:906 extension/key_manager.js:979
 msgid "Key Created"
-msgstr ""
+msgstr "密匙已被创建"
 
 #: extension/key_manager.js:907 extension/key_manager.js:980
 #: extension/key_manager.js:1106 extension/webpg_results.js:136
 #: extension/webpg_results.js:439
 msgid "Expires"
-msgstr ""
+msgstr "有效期"
 
 #: extension/key_manager.js:909 extension/key_manager.js:981
 msgid "Fingerprint"
-msgstr ""
+msgstr "指纹"
 
 #: extension/key_manager.js:910 extension/key_manager.js:982
 #: extension/webpg_results.js:137
 msgid "Status"
-msgstr ""
+msgstr "状态"
 
 #: extension/key_manager.js:910 extension/key_manager.js:982
 msgid "Key Algorithm"
-msgstr ""
+msgstr "密匙算法"
 
 #: extension/key_manager.js:912 extension/webpg_results.js:138
 msgid "Validity"
-msgstr ""
+msgstr "合法"
 
 #: extension/key_manager.js:914 extension/key_manager.js:986
 msgid "Key Options"
-msgstr ""
+msgstr "密匙选项"
 
 #: extension/key_manager.js:916 extension/key_manager.js:992
 msgid "Operations"
-msgstr ""
+msgstr "操作"
 
 #: extension/key_manager.js:923
 msgid "Export this Key"
-msgstr ""
+msgstr "导出该密匙"
 
 #: extension/key_manager.js:927 extension/key_manager.js:1753
 msgid "Publish to Keyserver"
-msgstr ""
+msgstr "发布到密匙服务器"
 
 #: extension/key_manager.js:931 extension/webpg_results.js:290
 msgid "Refresh from Keyserver"
-msgstr ""
+msgstr "从密匙服务器更新"
 
 #: extension/key_manager.js:934
 msgid "Subkeys"
-msgstr ""
+msgstr "子密匙"
 
 #: extension/key_manager.js:976
 msgid "Subkey Details"
-msgstr ""
+msgstr "子密匙详情"
 
 #: extension/key_manager.js:983
 msgid "Flags"
@@ -794,40 +794,40 @@ msgstr ""
 
 #: extension/key_manager.js:996
 msgid "Delete this Subkey"
-msgstr ""
+msgstr "删除该子密匙"
 
 #: extension/key_manager.js:999
 msgid "Revoke this Subkey"
-msgstr ""
+msgstr "回收该子密匙"
 
 #: extension/key_manager.js:1004
 msgid "User IDs"
-msgstr ""
+msgstr "用户标识"
 
 #: extension/key_manager.js:1038
 msgid "Make primary"
-msgstr ""
+msgstr "设为主要"
 
 #: extension/key_manager.js:1042
 msgid "Revoke UID"
-msgstr ""
+msgstr "回收用户标识"
 
 #: extension/key_manager.js:1070 extension/webpg_results.js:411
 msgid "REVOKED"
-msgstr ""
+msgstr "已回收"
 
 #: extension/key_manager.js:1105 extension/webpg_results.js:135
 #: extension/webpg_results.js:437
 msgid "Created"
-msgstr ""
+msgstr "创建"
 
 #: extension/key_manager.js:1110
 msgid "self-signature"
-msgstr ""
+msgstr "自我签名"
 
 #: extension/key_manager.js:1112
 msgid "local"
-msgstr ""
+msgstr "本地的"
 
 #: extension/key_manager.js:1112
 msgid "non-exportable"
@@ -835,177 +835,177 @@ msgstr ""
 
 #: extension/key_manager.js:1114
 msgid "other signature"
-msgstr ""
+msgstr "其他签名"
 
 #: extension/key_manager.js:1121 extension/key_manager.js:1682
 #: extension/key_manager.js:1862 extension/key_manager.js:2024
 msgid "Revoke"
-msgstr ""
+msgstr "回收"
 
 #: extension/key_manager.js:1124 extension/key_manager.js:2085
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: extension/key_manager.js:1133
 msgid "Signatures made with keys not in your keyring are omitted"
-msgstr ""
+msgstr "由不在您的密匙环中的密匙所做签名会被忽略"
 
 #: extension/key_manager.js:1179
 msgid "Calculating Trust"
-msgstr ""
+msgstr "计算可信度"
 
 #: extension/key_manager.js:1180
 msgid "Please wait while recalculate the trust for this item"
-msgstr ""
+msgstr "在重新计算该项的信任度时请等待"
 
 #: extension/key_manager.js:1338 extension/options.js:158
 #: extension/options.js:163 extension/options.js:168 extension/options.js:173
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: extension/key_manager.js:1403
 msgid "Delete this key"
-msgstr ""
+msgstr "删除该密匙"
 
 #: extension/key_manager.js:1638
 msgid "Copy"
-msgstr ""
+msgstr "复制"
 
 #: extension/key_manager.js:1660 extension/key_manager.js:1841
 #: extension/key_manager.js:2013
 msgid "Please specify the revocation details"
-msgstr ""
+msgstr "请说明回收的详情"
 
 #: extension/key_manager.js:1661 extension/key_manager.js:1842
 #: extension/key_manager.js:2014
 msgid "Reason"
-msgstr ""
+msgstr "理由"
 
 #: extension/key_manager.js:1663 extension/key_manager.js:1844
 #: extension/key_manager.js:2016
 msgid "No reason specified"
-msgstr ""
+msgstr "没有具体理由"
 
 #: extension/key_manager.js:1664
 msgid "Key has been compromised"
-msgstr ""
+msgstr "密匙已泄露"
 
 #: extension/key_manager.js:1665
 msgid "Key is superseded"
-msgstr ""
+msgstr "密匙已被取代"
 
 #: extension/key_manager.js:1666
 msgid "Key is no longer used"
-msgstr ""
+msgstr "密匙不再使用"
 
 #: extension/key_manager.js:1668 extension/key_manager.js:1847
 #: extension/key_manager.js:2019
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: extension/key_manager.js:1707
 msgid "Are you sure you want to Publish this key to the Keyserver"
-msgstr ""
+msgstr "您确认要把该密匙发布到密匙服务器"
 
 #: extension/key_manager.js:1716
 msgid "Publish"
-msgstr ""
+msgstr "发布"
 
 #: extension/key_manager.js:1719
 msgid "Sending key to Keyserver"
-msgstr ""
+msgstr "发送密匙到密匙服务器"
 
 #: extension/key_manager.js:1722
 msgid "There was a problem sending this key to the Keyserver"
-msgstr ""
+msgstr "在将密匙传送到密匙服务器的过程中存在问题"
 
 #: extension/key_manager.js:1727
 msgid "No Keyserver defined"
-msgstr ""
+msgstr "没有预定密匙服务器"
 
 #: extension/key_manager.js:1730 extension/options.js:171
 msgid "Keyserver"
-msgstr ""
+msgstr "密匙服务器"
 
 #: extension/key_manager.js:1733
 msgid "Try Again"
-msgstr ""
+msgstr "重试"
 
 #: extension/key_manager.js:1737
 msgid "Key Published to Keyserver"
-msgstr ""
+msgstr "密匙被发布到密匙服务器"
 
 #: extension/key_manager.js:1738
 msgid "Publish Again"
-msgstr ""
+msgstr "再次发布"
 
 #: extension/key_manager.js:1761 extension/webpg_results.js:310
 msgid "Key not found on keyserver"
-msgstr ""
+msgstr "未在密匙服务器中发现密匙"
 
 #: extension/key_manager.js:1845 extension/key_manager.js:2017
 msgid "User ID is no longer valid"
-msgstr ""
+msgstr "用户标识不在合法"
 
 #: extension/key_manager.js:1910
 msgid "Please select which of your keys to create the signature with"
-msgstr ""
+msgstr "请选择您将用来创建签名的密匙"
 
 #: extension/key_manager.js:1920
 msgid "You have not enabled any keys for use with webpg"
-msgstr ""
+msgstr "您还没有启用任何密匙供WebPG使用"
 
 #: extension/key_manager.js:1922 extension/key_manager.js:1926
 msgid "please click here"
-msgstr ""
+msgstr "请点击这儿"
 
 #: extension/key_manager.js:1922
 msgid "and select 1 or more keys for use with webpg"
-msgstr ""
+msgstr "选择1个或更多密匙供WebPG使用"
 
 #: extension/key_manager.js:1924
 msgid "You have not generated any keys"
-msgstr ""
+msgstr "您没有生成任何密匙"
 
 #: extension/key_manager.js:1926
 msgid "and generate a key to use with webpg"
-msgstr ""
+msgstr "生成一个密匙供WebPG使用"
 
 #: extension/key_manager.js:1933
 msgid "Already signed with this key"
-msgstr ""
+msgstr "已经被该密匙签名"
 
 #: extension/key_manager.js:1935
 msgid "Signature added using this key"
-msgstr ""
+msgstr "通过使用该密匙已增加签名"
 
 #: extension/key_manager.js:2001
 msgid "Cannot Publish Keys without gpgconf utility installed"
-msgstr ""
+msgstr "未安装gpgconf工具的话将不能发布密匙"
 
 #: extension/key_manager.js:2002
 msgid "Cannot create signatures without gpgconf utility installed"
-msgstr ""
+msgstr "未安装gpgconf工具的话将不能创建签名"
 
 #: extension/key_manager.js:2004
 msgid "Cannot Publish Keys without Keyserver configured"
-msgstr ""
+msgstr "不配置密匙服务器的话将不能发布密匙"
 
 #: extension/key_manager.js:2006
 msgid "Cannot sign a revoked UID"
-msgstr ""
+msgstr "不能给已回收用户标识签名"
 
 #: extension/key_manager.js:2007
 msgid "Cannot make a revoked UID primary"
-msgstr ""
+msgstr "不能将已回收用户标识设为主要"
 
 #: extension/key_manager.js:2008
 msgid "Cannot sign an expired key"
-msgstr ""
+msgstr "不能给过期密匙签名"
 
 #: extension/key_manager.js:2075
 msgid "Are you certain you would like to delete signature"
-msgstr ""
+msgstr "你确认你要删除签名"
 
 #: extension/key_manager.js:2076
 msgid "from this User ID"
@@ -1013,39 +1013,39 @@ msgstr ""
 
 #: extension/key_manager.js:2078
 msgid "This signature was made with a key that does not belong to you"
-msgstr ""
+msgstr "该签名是由一个不属于您的密匙创建的"
 
 #: extension/key_manager.js:2078
 msgid "This action cannot be undone"
-msgstr ""
+msgstr "该操作不能取消"
 
 #: extension/key_manager.js:2162
 msgid "Enable this key for signing"
-msgstr ""
+msgstr "启用该密匙来签名"
 
 #: extension/key_manager.js:2172
 msgid "This is your default key"
-msgstr ""
+msgstr "这是您的默认密匙"
 
 #: extension/key_manager.js:2174
 msgid "Make this the default key for encryption operations"
-msgstr ""
+msgstr "设定该密匙为加密操作的默认密匙"
 
 #: extension/key_manager.js:2228
 msgid "Searching for"
-msgstr ""
+msgstr "搜寻"
 
 #: extension/key_manager.js:2229
 msgid "Please wait while we build the key list"
-msgstr ""
+msgstr "在创建密匙列表时请等待"
 
 #: extension/options.js:23 extension/options.js:139 extension/utils.js:383
 msgid "WebPG Options"
-msgstr ""
+msgstr "WebPG选项"
 
 #: extension/options.js:50
 msgid "The WebPG NPAPI Plugin is valid"
-msgstr ""
+msgstr "WebPG NPAPI插件是合法的"
 
 #: extension/options.js:51
 msgid "OpenPGP was detected"
@@ -1053,11 +1053,11 @@ msgstr ""
 
 #: extension/options.js:52
 msgid "It appears you have a key-agent configured"
-msgstr ""
+msgstr "您似乎已经设置了密匙代理"
 
 #: extension/options.js:53
 msgid "gpgconf was detected"
-msgstr ""
+msgstr "gpgconf已被检测到"
 
 #: extension/options.js:53
 msgid "you can use the signature methods"
@@ -1069,23 +1069,23 @@ msgstr ""
 
 #: extension/options.js:67
 msgid "You do not appear to have a key-agent configured"
-msgstr ""
+msgstr "您似乎还没有配置密匙代理"
 
 #: extension/options.js:67
 msgid "A working key-agent is required"
-msgstr ""
+msgstr "需要一个工作中的密匙代理"
 
 #: extension/options.js:75
 msgid "gpgconf does not appear to be installed"
-msgstr ""
+msgstr "gpgconf似乎没有被安装"
 
 #: extension/options.js:75
 msgid "You will not be able to create signatures"
-msgstr ""
+msgstr "您不能创建签名"
 
 #: extension/options.js:84
 msgid "There was a problem loading the plugin"
-msgstr ""
+msgstr "在载入插件过程存在问题"
 
 #: extension/options.js:84
 msgid "the plugin might be incompatibly compiled for this architechture"
@@ -1093,27 +1093,27 @@ msgstr ""
 
 #: extension/options.js:113
 msgid "click here for help resolving this issue"
-msgstr ""
+msgstr "点击这里以获取此问题的解决方法"
 
 #: extension/options.js:142
 msgid "Enable Inline formatting of PGP Messages and Keys"
-msgstr ""
+msgstr "启用PGP讯息与密匙的行内格式"
 
 #: extension/options.js:145
 msgid "Always encrypt to your default key in addition to the recipient"
-msgstr ""
+msgstr "除指定签收人之外总是用您的默认密匙加密"
 
 #: extension/options.js:148
 msgid "Enable WebPG GMAIL integration"
-msgstr ""
+msgstr "启用WebPG与GMail的整合功能"
 
 #: extension/options.js:148
 msgid "EXPERIMENTAL"
-msgstr ""
+msgstr "实验阶段"
 
 #: extension/options.js:151
 msgid "Sign outgoing messages in GMAIL"
-msgstr ""
+msgstr "为GMail中的送出讯息签名"
 
 #: extension/options.js:166
 msgid "GPGCONF binary"
@@ -1121,27 +1121,27 @@ msgstr ""
 
 #: extension/options.js:175
 msgid "Your system appears to be configured correctly for WebPG"
-msgstr ""
+msgstr "您的系统似乎已正确配置了WebPG"
 
 #: extension/options.js:177
 msgid "There is a problem with your configuration"
-msgstr ""
+msgstr "您的配置文件存在问题"
 
 #: extension/options.js:221
 msgid "WebPG GMAIL integration is EXPERIMENTAL"
-msgstr ""
+msgstr "WebPG与GMail的整合属于实验性阶段"
 
 #: extension/options.js:221
 msgid "use at your own risk"
-msgstr ""
+msgstr "使用它需自担风险"
 
 #: extension/utils.js:322
 msgid "Text copied to clipboard"
-msgstr ""
+msgstr "文本被复制到黏切板之中"
 
 #: extension/utils.js:347
 msgid "There may have been a problem placing the data into the clipboard"
-msgstr ""
+msgstr "在将数据存入黏企切板的过程中可能存在问题"
 
 #: extension/utils.js:351
 msgid "TEXT COPIED"
@@ -1157,61 +1157,61 @@ msgstr ""
 #: extension/webpg_results.js:307 extension/webpg_results.js:458
 #: extension/webpg_results.js:541 extension/webpg_results.js:627
 msgid "COPY TO CLIPBOARD"
-msgstr ""
+msgstr "复制到黏切板"
 
 #: extension/utils.js:1059 extension/XULContent/firefoxOverlay.xul:77
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:99
 msgid "Paste Public Key"
-msgstr ""
+msgstr "粘帖公匙"
 
 #: extension/utils.js:1081 extension/XULContent/firefoxOverlay.xul:35
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:57
 msgid "Clear-sign this text"
-msgstr ""
+msgstr "为该文本做明文签名"
 
 #: extension/utils.js:1103
 msgid "Import this Key"
-msgstr ""
+msgstr "注入该密匙"
 
 #: extension/utils.js:1125 extension/XULContent/firefoxOverlay.xul:49
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:71
 msgid "Encrypt this text"
-msgstr ""
+msgstr "加密该文本"
 
 #: extension/utils.js:1147 extension/XULContent/firefoxOverlay.xul:63
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:85
 msgid "Decrypt this text"
-msgstr ""
+msgstr "解密该文本"
 
 #: extension/utils.js:1169 extension/XULContent/firefoxOverlay.xul:42
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:64
 msgid "Verify this text"
-msgstr ""
+msgstr "验证该文本"
 
 #: extension/webpg_overlay.js:236 extension/webpg_results.js:159
 msgid "UNABLE TO DECRYPT OR VERIFY THIS MESSAGE"
-msgstr ""
+msgstr "无法解密或者校验该讯息"
 
 #: extension/webpg_results.js:170 extension/webpg_results.js:603
 msgid "PGP ENCRYPTED AND SIGNED MESSAGE"
-msgstr ""
+msgstr "已被PGP加密并签名的讯息"
 
 #: extension/webpg_results.js:200 extension/webpg_results.js:205
 #: extension/webpg_results.js:595
 msgid "DECRYPTION FAILED"
-msgstr ""
+msgstr "解密失败"
 
 #: extension/webpg_results.js:200
 msgid "NO SECRET KEY"
-msgstr ""
+msgstr "没有私匙"
 
 #: extension/webpg_results.js:205 extension/webpg_results.js:595
 msgid "BAD PASSPHRASE"
-msgstr ""
+msgstr "口令不对"
 
 #: extension/webpg_results.js:207 extension/webpg_results.js:210
 msgid "DECRYPT THIS MESSAGE"
-msgstr ""
+msgstr "解密该讯息"
 
 #: extension/webpg_results.js:218 extension/webpg_results.js:282
 #: extension/webpg_results.js:295 extension/webpg_results.js:306
@@ -1221,19 +1221,19 @@ msgstr ""
 #: extension/webpg_results.js:626 extension/webpg_results.js:630
 #: extension/webpg_results.js:636
 msgid "DISPLAY ORIGINAL"
-msgstr ""
+msgstr "显示原始讯息"
 
 #: extension/webpg_results.js:227
 msgid "DETACHED PGP SIGNATURE"
-msgstr ""
+msgstr "分离式PGP签名"
 
 #: extension/webpg_results.js:229
 msgid "PGP SIGNED MESSAGE"
-msgstr ""
+msgstr "已被PGP签名的讯息"
 
 #: extension/webpg_results.js:244
 msgid "THE SIGNATURE ON THIS MESSAGE IS INVALID"
-msgstr ""
+msgstr "该讯息上的签名非法"
 
 #: extension/webpg_results.js:244
 msgid "THE SIGNATURE MIGHT BE TAMPERED WITH"
@@ -1245,19 +1245,19 @@ msgstr ""
 
 #: extension/webpg_results.js:288
 msgid "THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY"
-msgstr ""
+msgstr "该讯息已被一个过期公匙签名"
 
 #: extension/webpg_results.js:294
 msgid "THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING"
-msgstr ""
+msgstr "该讯息被一个不在您的密匙环中的公匙签名"
 
 #: extension/webpg_results.js:298
 msgid "SEARCH FOR KEYS ON KEYSERVER"
-msgstr ""
+msgstr "在密匙服务器中搜索密匙"
 
 #: extension/webpg_results.js:305
 msgid "THE SIGNATURE ON THIS MESSAGE FAILED"
-msgstr ""
+msgstr "该讯息的签名失败"
 
 #: extension/webpg_results.js:305
 msgid "THE MESSAGE MAY BE TAMPERED WITH"
@@ -1265,27 +1265,27 @@ msgstr ""
 
 #: extension/webpg_results.js:337
 msgid "PGP PUBLIC KEY"
-msgstr ""
+msgstr "PGP公匙"
 
 #: extension/webpg_results.js:386
 msgid "Names/UIDs on Key"
-msgstr ""
+msgstr "密匙上的姓名或用户标识"
 
 #: extension/webpg_results.js:442
 msgid "THIS KEY IS NOT IN YOUR KEYRING"
-msgstr ""
+msgstr "该密匙不在您的密匙环中"
 
 #: extension/webpg_results.js:448
 msgid "THIS KEY IS IN YOUR KEYRING"
-msgstr ""
+msgstr "该密匙在您的密匙环中"
 
 #: extension/webpg_results.js:453 extension/webpg_results.js:540
 msgid "IMPORT THIS KEY"
-msgstr ""
+msgstr "注入该密匙"
 
 #: extension/webpg_results.js:456
 msgid "DELETE THIS KEY"
-msgstr ""
+msgstr "删除该密匙"
 
 #: extension/webpg_results.js:482 extension/webpg_results.js:573
 #: extension/webpg_results.js:633
@@ -1294,46 +1294,46 @@ msgstr ""
 
 #: extension/webpg_results.js:539
 msgid "UNUSABLE KEY"
-msgstr ""
+msgstr "不可用密匙"
 
 #: extension/webpg_results.js:539
 msgid "NO USER ID"
-msgstr ""
+msgstr "无用户标识"
 
 #: extension/XULContent/firefoxOverlay.xul:19
 #: extension/XULContent/thunderbird/thunderbirdOverlay.xul:16
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:40
 msgid "WebPG"
-msgstr ""
+msgstr "WebPG"
 
 #: extension/XULContent/firefoxOverlay.xul:30
 #: extension/XULContent/options.xul:33
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:52
 msgid "About"
-msgstr ""
+msgstr "关于"
 
 #: extension/XULContent/firefoxOverlay.xul:37
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:59
 msgid "Clear Sign"
-msgstr ""
+msgstr "明文"
 
 #: extension/XULContent/firefoxOverlay.xul:56
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:78
 msgid "Sign and Encrypt this text"
-msgstr ""
+msgstr "为这段文字签名并加密"
 
 #: extension/XULContent/firefoxOverlay.xul:70
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:92
 msgid "Import this Public key"
-msgstr ""
+msgstr "注入该公匙"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:91
 msgid "Sign Inline"
-msgstr ""
+msgstr "行内签名"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:92
 msgid "Sign as Attachment"
-msgstr ""
+msgstr "给附件签名"
 
 #: extension/manifest.json:4
 msgid "extDesc"

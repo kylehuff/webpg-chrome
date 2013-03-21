@@ -25,7 +25,7 @@ msgstr "حول WebPG"
 
 #: extension/about.js:46 extension/key_manager.js:35 extension/options.js:373
 msgid "Version"
-msgstr ""
+msgstr "النسخة"
 
 #: extension/about.js:54
 msgid "Extension Information"
@@ -148,11 +148,11 @@ msgstr "استورد"
 #: extension/XULContent/firefoxOverlay.xul:79
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:101
 msgid "Export"
-msgstr ""
+msgstr "تصدير"
 
 #: extension/dialog.js:44
 msgid "Editor"
-msgstr ""
+msgstr "المحرر"
 
 #: extension/dialog.js:81 extension/key_manager.js:64
 msgid "Search/Filter"
@@ -168,15 +168,15 @@ msgstr "تشفير"
 
 #: extension/dialog.js:207
 msgid "Insert"
-msgstr ""
+msgstr "أدرج"
 
 #: extension/dialog.js:217
 msgid "no action has been selected"
-msgstr ""
+msgstr "لم يتم تحديد عمل"
 
 #: extension/dialog.js:226
 msgid "no action has been successful"
-msgstr ""
+msgstr "لم يتم إنجاح أي عمل"
 
 #: extension/dialog.js:235 extension/key_manager.js:608
 #: extension/key_manager.js:1372 extension/key_manager.js:1431
@@ -194,7 +194,7 @@ msgstr "مستخدم المعرفات"
 
 #: extension/dialog.js:264
 msgid "Key does not support this operation"
-msgstr ""
+msgstr "المفتاح لا يدعم هذه العملية"
 
 #: extension/error.js:23
 msgid "Error loading WebPG"
@@ -272,19 +272,19 @@ msgstr "المُنتِج"
 #: extension/gmail.js:172 extension/gmail.js:203 extension/gmail.js:230
 #: extension/gmail.js:262
 msgid "This message already contains PGP data"
-msgstr ""
+msgstr "هذه الرسالة تحتوي مسبقاً على بيانات PGP"
 
 #: extension/gmail.js:173 extension/gmail.js:263
 msgid "Would you like to Encrypt anyway"
-msgstr ""
+msgstr "هل تريد على أي حال التشفير"
 
 #: extension/gmail.js:204
 msgid "Would you like to Sign anyway"
-msgstr ""
+msgstr "هل تريد على أي حال التسجيل"
 
 #: extension/gmail.js:231
 msgid "Would you like to Encrypt and Sign anyway"
-msgstr ""
+msgstr "هل تريد على أي حال التشفير والتسجيل"
 
 #: extension/gmail.js:323
 #: extension/XULContent/thunderbird/composeOverlay.js:264
@@ -337,20 +337,20 @@ msgstr "لا تستخدم WebPG لهذه الرسالة"
 #: extension/inline.js:626 extension/XULContent/firefoxOverlay.xul:65
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:87
 msgid "Decrypt"
-msgstr ""
+msgstr "فكّ التشفير"
 
 #: extension/inline.js:644 extension/XULContent/firefoxOverlay.xul:44
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:66
 msgid "Verify"
-msgstr ""
+msgstr "تحقّق"
 
 #: extension/inline.js:652
 msgid "Secure Editor"
-msgstr ""
+msgstr "محرر آمن"
 
 #: extension/inline.js:740
 msgid "PGP Signed Message"
-msgstr ""
+msgstr "رسالة PGP موقعة"
 
 #: extension/inline.js:746 extension/webpg_results.js:156
 msgid "PGP ENCRYPTED OR SIGNED MESSAGE"
@@ -358,15 +358,15 @@ msgstr "رسالة مشفرة PGP أو وقعت"
 
 #: extension/inline.js:752
 msgid "PGP Public Key"
-msgstr ""
+msgstr "مفتاح PGP عام"
 
 #: extension/inline.js:766
 msgid "WebPG Secure Editor"
-msgstr ""
+msgstr "محرر WebPG آمن"
 
 #: extension/inline.js:769
 msgid "Unsecured Editor"
-msgstr ""
+msgstr "محرر غير آمن"
 
 #: extension/key_manager.js:22 extension/utils.js:384
 msgid "WebPG Key Manager"
@@ -703,11 +703,11 @@ msgstr "نهائي"
 
 #: extension/key_manager.js:786 extension/key_manager.js:829
 msgid "None"
-msgstr ""
+msgstr "لا شيء"
 
 #: extension/key_manager.js:786 extension/key_manager.js:829
 msgid "New group"
-msgstr ""
+msgstr "مجموعة جديدة"
 
 #: extension/key_manager.js:790 extension/key_manager.js:833
 msgid "Group Assignment"
@@ -774,11 +774,11 @@ msgstr "استيراد هذا المفتاح"
 
 #: extension/key_manager.js:927 extension/key_manager.js:1753
 msgid "Publish to Keyserver"
-msgstr ""
+msgstr "انشر للخادم الرئيسي"
 
 #: extension/key_manager.js:931 extension/webpg_results.js:290
 msgid "Refresh from Keyserver"
-msgstr ""
+msgstr "حدث من الخادم الرئيسي"
 
 #: extension/key_manager.js:934
 msgid "Subkeys"
@@ -853,11 +853,11 @@ msgstr ""
 
 #: extension/key_manager.js:1179
 msgid "Calculating Trust"
-msgstr ""
+msgstr "حساب مقدار الثقة"
 
 #: extension/key_manager.js:1180
 msgid "Please wait while recalculate the trust for this item"
-msgstr ""
+msgstr "الرجاء الانتظار بينما نقوم بإعادة حساب مقدار الثقة لهذا العنصر"
 
 #: extension/key_manager.js:1338 extension/options.js:158
 #: extension/options.js:163 extension/options.js:168 extension/options.js:173
@@ -906,43 +906,43 @@ msgstr "وصف"
 
 #: extension/key_manager.js:1707
 msgid "Are you sure you want to Publish this key to the Keyserver"
-msgstr ""
+msgstr "هل أنت متأكد أنك تريد نشر هذا المفتاح للخادم الرئيسي"
 
 #: extension/key_manager.js:1716
 msgid "Publish"
-msgstr ""
+msgstr "نشر"
 
 #: extension/key_manager.js:1719
 msgid "Sending key to Keyserver"
-msgstr ""
+msgstr "ارسال المفتاح إلى الخادم الرئيسي"
 
 #: extension/key_manager.js:1722
 msgid "There was a problem sending this key to the Keyserver"
-msgstr ""
+msgstr "حصلت مشكلة عند إرسال هذا المفتاح للخادم الرئيسي"
 
 #: extension/key_manager.js:1727
 msgid "No Keyserver defined"
-msgstr ""
+msgstr "لم يتم تحديد خادم رئيسي"
 
 #: extension/key_manager.js:1730 extension/options.js:171
 msgid "Keyserver"
-msgstr ""
+msgstr "خادم رئيسي"
 
 #: extension/key_manager.js:1733
 msgid "Try Again"
-msgstr ""
+msgstr "أعِد المحاولة"
 
 #: extension/key_manager.js:1737
 msgid "Key Published to Keyserver"
-msgstr ""
+msgstr "تم نشر المفتاح للخادم الرئيسي"
 
 #: extension/key_manager.js:1738
 msgid "Publish Again"
-msgstr ""
+msgstr "أعِد النشر مرة أخرى"
 
 #: extension/key_manager.js:1761 extension/webpg_results.js:310
 msgid "Key not found on keyserver"
-msgstr ""
+msgstr "لم يتم العثور على المفتاح في الخادم الرئيسي"
 
 #: extension/key_manager.js:1845 extension/key_manager.js:2017
 msgid "User ID is no longer valid"
@@ -982,7 +982,7 @@ msgstr "إنشاء التوقيع باستخدام هذا المفتاح"
 
 #: extension/key_manager.js:2001
 msgid "Cannot Publish Keys without gpgconf utility installed"
-msgstr ""
+msgstr "لا يمكن نشر المفاتيح دون تثبيت أداة pgpconf"
 
 #: extension/key_manager.js:2002
 msgid "Cannot create signatures without gpgconf utility installed"
@@ -990,7 +990,7 @@ msgstr "لا يمكن إنشاء التواقيع دون تثبيت gpgconf"
 
 #: extension/key_manager.js:2004
 msgid "Cannot Publish Keys without Keyserver configured"
-msgstr ""
+msgstr "لا يمكن نشر المفاتيح بدون إعداد الخادم الرئيسي"
 
 #: extension/key_manager.js:2006
 msgid "Cannot sign a revoked UID"
@@ -1039,7 +1039,7 @@ msgstr "العثور على مفتاح"
 
 #: extension/key_manager.js:2229
 msgid "Please wait while we build the key list"
-msgstr ""
+msgstr "الرجاء الانتظار بينما نقوم ببناء قائمة المفاتيح"
 
 #: extension/options.js:23 extension/options.js:139 extension/utils.js:383
 msgid "WebPG Options"
@@ -1255,7 +1255,7 @@ msgstr "وقد وقع هذه الرسالة مع مفاتيح العامة ال�
 
 #: extension/webpg_results.js:298
 msgid "SEARCH FOR KEYS ON KEYSERVER"
-msgstr ""
+msgstr "البحث عن المفاتيح على الخادم الرئيسي"
 
 #: extension/webpg_results.js:305
 msgid "THE SIGNATURE ON THIS MESSAGE FAILED"
@@ -1306,7 +1306,7 @@ msgstr "مفقود هوية المستخدم"
 #: extension/XULContent/thunderbird/thunderbirdOverlay.xul:16
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:40
 msgid "WebPG"
-msgstr ""
+msgstr "WebPG"
 
 #: extension/XULContent/firefoxOverlay.xul:30
 #: extension/XULContent/options.xul:33

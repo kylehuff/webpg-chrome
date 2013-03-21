@@ -355,7 +355,7 @@ msgstr ""
 
 #: extension/inline.js:746 extension/webpg_results.js:156
 msgid "PGP ENCRYPTED OR SIGNED MESSAGE"
-msgstr "PGG VERSCHLÜSSELTE ODER SIGNIERTE NACHRICHT"
+msgstr "PGP VERSCHLÜSSELTE ODER SIGNIERTE NACHRICHT"
 
 #: extension/inline.js:752
 msgid "PGP Public Key"
