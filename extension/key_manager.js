@@ -437,7 +437,7 @@ webpg.keymanager = {
                 var uidcontainer = item.parentNode.parentNode.children[1];
             }
             var uidlist = webpg.jq(uidcontainer).children('[class~=uid]');
-            var keylist = webpg.plugin.getPublicKeyList();
+            var keylist = (!webpg.keymanager.public_built) ? webpg.keymanager.publickeylist : webpg.plugin.getPublicKeyList();
             if (!keylist) {
                 // if the parsing failed, create an empty keylist
                 var keylist = {};
@@ -477,7 +477,7 @@ webpg.keymanager = {
                         var keylist = webpg.plugin.getNamedKey(find);
                     }
                 } else {
-                    var keylist = webpg.plugin.getPublicKeyList();
+                    var keylist = (!webpg.keymanager.public_built) ? webpg.keymanager.publickeylist : webpg.plugin.getPublicKeyList();
                 }
 
                 if (!keylist) {
@@ -485,7 +485,7 @@ webpg.keymanager = {
                     var keylist = {};
                 }
             } else {
-                keylist = {};
+                keylist = webpg.plugin.getPublicKeyList();
             }
             var pkeylist = webpg.plugin.getPrivateKeyList();
 
@@ -499,9 +499,6 @@ webpg.keymanager = {
             var pkeylist = {};
             webpg.keymanager.pkeylist = pkeylist;
         }
-
-        
-        
 
         webpg.jq(keylist_element).html("<div class='ui-accordion-left'></div>");
 
@@ -737,7 +734,7 @@ webpg.keymanager = {
                 webpg.jq(keyobj).html("<h3 class='private_keylist' style='height: 29px;'><a href='#' name='" + scrub(key) + "'><span style='margin: 0;width: 25%;min-width:200px; display:inline-table;'>[" + key.substr(-8) + "] " + scrub(current_keylist[key].name) + 
                     "</span><span>" + email + "</span></a><span class='trust' style='z-index:1000; left: 4px; top:-30px;height:22px;float:" + ((webpg.utils.isRTL()) ? "left" : "right") + "'>" +
                     "<span class='keyoption-help-text' style=\"margin: 0 14px;position:relative;top:2px;\">&nbsp;</span>" +
-                    "<input class='enable-check' id='check-" + scrub(key) +"' type='checkbox' " + enabled + "/\><label class='enable-check-text' for='check-" + scrub(key) + "' style='z-index:100;height:29px;'>" + status_text + "</label><input class='default-check' type='radio' name='default_key' " +
+                    "<input class='enable-check' id='check-" + scrub(key) +"' type='checkbox' " + enabled + "/\><label class='enable-check-text' for='check-" + scrub(key) + "' style='z-index:100;height:29px;'>" + scrub(status_text) + "</label><input class='default-check' type='radio' name='default_key' " +
                     " id='default-" + scrub(key) + "' " + scrub(default_key) + "/\><label class='default-check' dir='ltr' style='z-index:0;margin-left:0px;height:29px;' for='default-" + scrub(key) + "'>Set as default</label></span></h3>");
             }
             keylist_element.appendChild(keyobj);
@@ -846,30 +843,30 @@ webpg.keymanager = {
                 switch(option.input_type) {
                     case "button":
                         compiled_option_list += "<span class='uid-options'><input class='" + 
-                            type + "-key-option-button' id='" + option.command + "-" + type + "-" + key + 
-                                "' type='button' value='" + option.text + "'/\></span>";
+                            type + "-key-option-button' id='" + scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + 
+                                "' type='button' value='" + scrub(option.text) + "'/\></span>";
                         break;
 
                     case "dialog":
                         compiled_option_list += "<span class='uid-options'><input class='" + 
-                            type + "-key-option-button' id='" + option.command + "-" + type + "-" + key + 
-                                "' type='button' value='" + option.text + "'/\></span>";
+                            type + "-key-option-button' id='" + scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + 
+                                "' type='button' value='" + scrub(option.text) + "'/\></span>";
                         break;
 
                     case "calendar":
                         compiled_option_list += "<span class='uid-options'><input class='" + 
-                            type + "-key-option-button' id='" + option.command + "-" + type + "-" + key + 
-                                "' type='button' value='" + option.text + "'/\></span>";
+                            type + "-key-option-button' id='" + scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + 
+                                "' type='button' value='" + scrub(option.text) + "'/\></span>";
                         break;
 
                     case "list":
                         var style = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
                             'position: relative; top: -16px;' : 'margin-top:-10px;';
-                        compiled_option_list += "<span class='uid-options' style='" + style + "'>" +
-                            "<label for='" + option.command + "-" + type + "-" + key + 
-                            "'>" + option.text + "</label><select class='" + 
-                            type + "-key-option-list ui-button ui-corner-all ui-button ui-widget ui-state-default' id='" + 
-                            option.command + "-" + type + "-" + key + "' style=\"text-align:left; margin-right: 10px;\">";
+                        compiled_option_list += "<span class='uid-options' style='" + scrub(style) + "'>" +
+                            "<label for='" + scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + 
+                            "'>" + scrub(option.text) + "</label><select class='" + 
+                            scrub(type) + "-key-option-list ui-button ui-corner-all ui-button ui-widget ui-state-default' id='" + 
+                            scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + "' style=\"text-align:left; margin-right: 10px;\">";
                         for (var listitem in option.list_values) {
                             if (option.type == "trust") {
                                 if (option.list_values[listitem].toLowerCase() == current_keylist[key].owner_trust)
@@ -893,44 +890,44 @@ webpg.keymanager = {
 
                     case "multilist":
                         compiled_option_list += "<span class='uid-options' style='margin-top:-10px;'>" +
-                            "<label for='" + option.command + "-" + type + "-" + key + 
-                            "' style=\"display:block; margin-right: 24px;\">" + option.text + "</label><input class='" + 
-                            type + "-key-option-list ui-corner-all ui-widget ui-state-default' id='" + 
-                            option.command + "-" + type + "-" + key + "' style=\"text-align:left;height:25px; margin-right: 10px;\"/></span>";
+                            "<label for='" + scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + 
+                            "' style=\"display:block; margin-right: 24px;\">" + scrub(option.text) + "</label><input class='" + 
+                            scrub(type) + "-key-option-list ui-corner-all ui-widget ui-state-default' id='" + 
+                            scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + "' style=\"text-align:left;height:25px; margin-right: 10px;\"/></span>";
                         break;
                 }
             }
             var keystatus = (current_keylist[key].disabled) ? 'enable':'disable';
             var keystatus_text = (current_keylist[key].disabled)? _('Enable this Key'):_('Disable this Key');
             var key_option_button = "<span class='uid-options' style='font-size:12px;'><input class='" + 
-                    type + "-key-option-button' id='" + keystatus + "-" + scrub(type) + "-" + scrub(key) + 
-                        "' type='button' value='" + keystatus_text + "'/\></span>";
+                    scrub(type) + "-key-option-button' id='" + scrub(keystatus) + "-" + scrub(type) + "-" + scrub(key) + 
+                        "' type='button' value='" + scrub(keystatus_text) + "'/\></span>";
             var uidlist_innerHTML = "<div class='keydetails' style='text-align:" + (webpg.utils.isRTL() ? 'right' : 'left') + "'><span class='dh'>" + _("Key Details") + "</span><hr" + (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
                 "<span><h4>" + _("KeyID") + ":</h4> " + key.substr(-8) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
-                    created_date + "</span><span><h4>" + _("Expires") + ":</h4> " + expiry +
-                        "</span><span><h4>" + _("UIDs") + ":</h4> " + current_keylist[key].nuids + "</span><br/\>" +
-                "<h4 style='margin-right: 24px;'>" + _("Fingerprint") + ":</h4> " + current_keylist[key].fingerprint + "<br/\>" +
-                "<span><h4>" + _("Status") + ":</h4> " + status + "</span><span><h4>" + _("Key Algorithm") + ":</h4> " +
-                        current_keylist[key].subkeys[0].algorithm_name + "</span>" +
-                "<span><h4>" + _("Validity") + ":</h4> " + current_keylist[key].uids[0].validity + "</span>" +
+                    scrub(created_date) + "</span><span><h4>" + _("Expires") + ":</h4> " + scrub(expiry) +
+                        "</span><span><h4>" + _("UIDs") + ":</h4> " + scrub(current_keylist[key].nuids) + "</span><br/\>" +
+                "<h4 style='margin-right: 24px;'>" + _("Fingerprint") + ":</h4> " + scrub(current_keylist[key].fingerprint) + "<br/\>" +
+                "<span><h4>" + _("Status") + ":</h4> " + scrub(status) + "</span><span><h4>" + _("Key Algorithm") + ":</h4> " +
+                        scrub(current_keylist[key].subkeys[0].algorithm_name) + "</span>" +
+                "<span><h4>" + _("Validity") + ":</h4> " + scrub(current_keylist[key].uids[0].validity) + "</span>" +
                 "<br/\>" +
                 "<span class='dh'>" + _("Key Options") + "</span><hr" + (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
                 compiled_option_list + "<br/\>" + 
                 "<span class='dh'>" + _("Operations") + "</span><hr" + (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
                     key_option_button + 
                 "<span class='uid-options'><input class='" + 
-                            type + "-key-option-button key-operation-button-delete' id='delete-" + type + "-" + key + 
+                            scrub(type) + "-key-option-button key-operation-button-delete' id='delete-" + scrub(type) + "-" + scrub(key) + 
                                 "' type='button' value='" + _("Delete this Key") + "'/\></span>";
             uidlist_innerHTML += "<span class='uid-options'><input class='" + 
-                type + "-key-option-button key-operation-button-export' id='export-" + type + "-" + key + 
+                scrub(type) + "-key-option-button key-operation-button-export' id='export-" + scrub(type) + "-" + scrub(key) + 
                     "' type='button' value='" + _("Export this Key") + "'/\></span>";
             if (type == "private") {
                 uidlist_innerHTML += "<span class='uid-options'><input class='" + 
-                    type + "-key-option-button key-operation-button-publish' id='publish-" + type + "-" + key + 
+                    scrub(type) + "-key-option-button key-operation-button-publish' id='publish-" + scrub(type) + "-" + scrub(key) + 
                         "' type='button' value='" + _("Publish to Keyserver") + "'/\></span>";
             }
             uidlist_innerHTML += "<span class='uid-options'><input class='" + 
-                type + "-key-option-button key-operation-button-refresh' id='refresh-" + type + "-" + key + 
+                scrub(type) + "-key-option-button key-operation-button-refresh' id='refresh-" + scrub(type) + "-" + scrub(key) + 
                     "' type='button' value='" + _("Refresh from Keyserver") + "'/\></span><br/\>" +
                 "</div>";
             webpg.jq(uidlist).html(uidlist_innerHTML);
@@ -972,18 +969,18 @@ webpg.keymanager = {
                 subkey_info += "<div class=\"subkey" + extraClass + "\" id=\"" + 
                     scrub(key) + '-s' + scrub(subkey) + "\"><h4 class='subkeylist'><a href='#'>" +
                     "<span style='margin:0; width: 50%'>" + scrub(skey.size) + 
-                    webpg.constants.algoTypes[skey.algorithm_name] + "/" + skey.subkey.substr(-8) + 
+                    webpg.constants.algoTypes[skey.algorithm_name] + "/" + scrub(skey.subkey.substr(-8)) + 
                     "</span></a></h4><div class=\"subkey-info\">" +
                     "<div class='keydetails' style='text-align:" +
                         (webpg.utils.isRTL() ? 'right' : 'left') +
                         "'><span class='dh'>" + _("Subkey Details") +
                         "</span><hr" + (webpg.utils.isRTL() ?
                             ' class=\"rtl\"' : '') + "/\>" +
-                    "<span><h4>" + _("KeyID") + ":</h4> " + skey.subkey.substr(-8) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
-                    created_date + "</span><span><h4>" + _("Expires") + ":</h4> " + scrub(expiry) + "</span>" +
+                    "<span><h4>" + _("KeyID") + ":</h4> " + scrub(skey.subkey.substr(-8)) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
+                    scrub(created_date) + "</span><span><h4>" + _("Expires") + ":</h4> " + scrub(expiry) + "</span>" +
                     "<br/\><h4 style='margin-right: 24px;'>" + _("Fingerprint") + ":</h4> " + scrub(skey.subkey) + "<br/\>" +
-                    "<span><h4>" + _("Status") + ":</h4> " + skey_status + "</span><span><h4>" + _("Key Algorithm") + ":</h4> " +
-                    skey.algorithm_name + "</span><span><h4>" + _("Flags") + ":</h4> " + flags.toString().replace(/\,/g, ", ") + "</span>";
+                    "<span><h4>" + _("Status") + ":</h4> " + scrub(skey_status) + "</span><span><h4>" + _("Key Algorithm") + ":</h4> " +
+                    scrub(skey.algorithm_name) + "</span><span><h4>" + _("Flags") + ":</h4> " + flags.toString().replace(/\,/g, ", ") + "</span>";
                 if (type == "private") {
                     subkey_info += "<br/\>" +
                         "<span class='dh'>" + _("Key Options") + "</span><hr" +
@@ -1010,7 +1007,7 @@ webpg.keymanager = {
             for (var uid in current_keylist[key].uids) {
                 var uidobj = document.createElement('div');
                 uidobj.setAttribute('class', 'uid');
-                uidobj.setAttribute('id', key + '-' + uid);
+                uidobj.setAttribute('id', scrub(key) + '-' + scrub(uid));
                 if (key == openKey && uid == openUID)
                     webpg.jq(uidobj).addClass('open_uid');
                 if (current_keylist[key].expired || current_keylist[key].uids[uid].revoked)
@@ -1038,16 +1035,16 @@ webpg.keymanager = {
                 if (type == "private") {
                     if (uid != 0) {
                         primary_button = "<span class=\"uid-options\"><input class='uid-option-button uid-option-button-primary' id='primary-" +
-                            type + "-" + key + "-" + uid + "' type='button' value='" + _("Make primary") + "'/\></span>";
+                            scrub(type) + "-" + scrub(key) + "-" + scrub(uid) + "' type='button' value='" + _("Make primary") + "'/\></span>";
                     }
                     if (!current_keylist[key].uids[uid].revoked){
                         revoke_button = "<span class=\"uid-options\"><input class='uid-option-button uid-option-button-revoke' id='revoke-" +
-                            type + "-" + key + "-" + uid + "' type='button' value='" + _("Revoke UID") + "'/\></span>";
+                            scrub(type) + "-" + scrub(key) + "-" + scrub(uid) + "' type='button' value='" + _("Revoke UID") + "'/\></span>";
                     }
                 }
 
-                webpg.jq(uidobjbody).html("<div class=\"uid-options uid-options-line\"><span class='uid-options'><input class='uid-option-button-sign' id='sign-" + type + "-" + key + "-" + uid + "' type='button' value='" + _("Sign this UID") + "'/\></span>" +
-                    "<span class='uid-options'>" + primary_button + revoke_button + "<input class='uid-option-button' id='delete-" + type + "-" + key + "-" + uid +
+                webpg.jq(uidobjbody).html("<div class=\"uid-options uid-options-line\"><span class='uid-options'><input class='uid-option-button-sign' id='sign-" + scrub(type) + "-" + scrub(key) + "-" + scrub(uid) + "' type='button' value='" + _("Sign this UID") + "'/\></span>" +
+                    "<span class='uid-options'>" + primary_button + revoke_button + "<input class='uid-option-button' id='delete-" + scrub(type) + "-" + scrub(key) + "-" + scrub(uid) +
                     "' type='button' value='" + _("Delete this UID") + "'/\></span></div>");
                 webpg.jq(uidobjbody).append("<br/\>");
                 if (current_keylist[key].uids[uid].revoked) {
@@ -1082,7 +1079,7 @@ webpg.keymanager = {
                             }
                         }
                         email = (tpublic_keylist[sig_keyid].uids[0].email.length > 1) ? "&lt;" +
-                            tpublic_keylist[sig_keyid].uids[0].email + 
+                            scrub(tpublic_keylist[sig_keyid].uids[0].email) + 
                             "&gt;" : "(" + _("no email address provided") + ")"
                         var sig_class;
                         var sig_image;
@@ -1096,8 +1093,8 @@ webpg.keymanager = {
                             sig_class = "";
                             sig_image = "stock_signature.png";
                         }
-                        var sig_box = "<div id='sig-" + sig_keyid + "-" + sig + "' class='signature-box " + sig_class + "'>" +
-                            "<img src='skin/images/badges/48x48/" + sig_image + "'>" + 
+                        var sig_box = "<div id='sig-" + scrub(sig_keyid) + "-" + scrub(sig) + "' class='signature-box " + scrub(sig_class) + "'>" +
+                            "<img src='skin/images/badges/48x48/" + scrub(sig_image) + "'>" + 
                             "<div style='float:left; clear:right;width:80%;'><span class='signature-uid'>" + 
                             tpublic_keylist[sig_keyid].name + status + "</span><br/\><span class='signature-email'>" + 
                             email + "</span><br/\><span class='signature-keyid'>" + sig_keyid + "</span><br/\>";
@@ -1105,8 +1102,8 @@ webpg.keymanager = {
                             _('Unknown') : new Date(tpublic_keylist[key].uids[uid].signatures[sig].created * 1000).toJSON().substring(0, 10);
                         var date_expires = (tpublic_keylist[key].uids[uid].signatures[sig].expires == 0) ? 
                             _('Never') : new Date(tpublic_keylist[key].uids[uid].signatures[sig].expires * 1000).toJSON().substring(0, 10);
-                        sig_box += "<span class='signature-keyid'>" + _('Created') + ": " + date_created + "</span><br/\>";
-                        sig_box += "<span class='signature-keyid'>" + _('Expires') + ": " + date_expires + "</span><br/\>"
+                        sig_box += "<span class='signature-keyid'>" + _('Created') + ": " + scrub(date_created) + "</span><br/\>";
+                        sig_box += "<span class='signature-keyid'>" + _('Expires') + ": " + scrub(date_expires) + "</span><br/\>"
 
                         sig_box += "<span class='signature-keyid'>";
                         if (sig_keyid == key) {
@@ -1120,11 +1117,11 @@ webpg.keymanager = {
 
                         if (signed && tpublic_keylist[key].uids[uid].signatures[sig].exportable && key != sig_keyid
                             && !tpublic_keylist[key].uids[uid].signatures[sig].revoked) {
-                            sig_box += "<input type='button' class='revsig-button' id='revsig-" + type + "-" + 
-                                key + "-" + uid + "-" + rev_index + "' value='" + _("Revoke") + "'/\>";
+                            sig_box += "<input type='button' class='revsig-button' id='revsig-" + scrub(type) + "-" + 
+                                scrub(key) + "-" + scrub(uid) + "-" + scrub(rev_index) + "' value='" + _("Revoke") + "'/\>";
                         }
-                        sig_box += "<input type='button' class='delsig-button' id='delsig-" + type + "-" + key +
-                            "-" + uid + "-" + sig + "' value='" + _("Delete") + "'/\></div>";
+                        sig_box += "<input type='button' class='delsig-button' id='delsig-" + scrub(type) + "-" + scrub(key) +
+                            "-" + scrub(uid) + "-" + scrub(sig) + "' value='" + _("Delete") + "'/\></div>";
                         webpg.jq(uidobjbody).append(sig_box);
                     } else {
                         sigs_not_in_keyring[sig] = current_keylist[key].uids[uid].signatures[sig];
