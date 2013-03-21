@@ -554,6 +554,9 @@
 	"REVOKED": {
 		"message": "WIDERRUFEN"
 	},
+	"Created": {
+		"message": "Erzeugt"
+	},
 	"self_signature": {
 		"message": "eigene Unterschrift"
 	},
@@ -719,8 +722,8 @@
 	"The_WebPG_NPAPI_Plugin_is_valid": {
 		"message": "Das WebPG-NPAPI-Plugin ist gültig"
 	},
-	"libgpgme_loaded_successfully": {
-		"message": "libgpgme erfolgreich geladen"
+	"OpenPGP_was_detected": {
+		"message": ""
 	},
 	"It_appears_you_have_a_key_agent_configured": {
 		"message": "Es scheint, als hätten Sie einen Schlüsselagenten konfiguriert"
@@ -730,6 +733,9 @@
 	},
 	"you_can_use_the_signature_methods": {
 		"message": "Sie können die Signaturmethoden anwenden"
+	},
+	"OpenPGP_does_not_appear_to_be_installed": {
+		"message": ""
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
 		"message": "Sie scheinen keinen Schlüsselagenten konfiguriert zu haben"
@@ -767,6 +773,9 @@
 	"Sign_outgoing_messages_in_GMAIL": {
 		"message": "Ausgehende Nachrichten in GMAIL unterschreiben"
 	},
+	"GPGCONF_binary": {
+		"message": ""
+	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
 		"message": "Ihr System scheint korrekt für WebPG konfiguriert zu sein"
 	},
@@ -784,6 +793,15 @@
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
 		"message": "Zwischenablage"
+	},
+	"TEXT_COPIED": {
+		"message": ""
+	},
+	"UNABLE_TO_COPY_TEXT": {
+		"message": ""
+	},
+	"COPY_TO_CLIPBOARD": {
+		"message": "IN ZWISCHENABLAGE KOPIEREN"
 	},
 	"Paste_Public_Key": {
 		"message": "Öffentlichen Schlüssel einfügen"
@@ -824,9 +842,6 @@
 	"DISPLAY_ORIGINAL": {
 		"message": "ORIGINAL ANZEIGEN"
 	},
-	"COPY_TO_CLIPBOARD": {
-		"message": "IN ZWISCHENABLAGE KOPIEREN"
-	},
 	"DETACHED_PGP_SIGNATURE": {
 		"message": "ABGETRENNTE PGP SIGNATUR"
 	},
@@ -862,9 +877,6 @@
 	},
 	"Names_UIDs_on_Key": {
 		"message": "NAMEN/UIDs am Schlüssel"
-	},
-	"Created": {
-		"message": "Erzeugt"
 	},
 	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {
 		"message": "DIESER SCHLÜSSEL BEFINDET SICH NICHT AN IHREM SCHLÜSSELBUND"

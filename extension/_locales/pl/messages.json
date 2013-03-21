@@ -554,6 +554,9 @@
 	"REVOKED": {
 		"message": "WYCOFANA"
 	},
+	"Created": {
+		"message": "Utworzony"
+	},
 	"self_signature": {
 		"message": "podpisana przez siebie"
 	},
@@ -719,8 +722,8 @@
 	"The_WebPG_NPAPI_Plugin_is_valid": {
 		"message": "Wtyczka WebPG NPAPI jest zainstalowana prawidłowo"
 	},
-	"libgpgme_loaded_successfully": {
-		"message": "libgpgme załadowana"
+	"OpenPGP_was_detected": {
+		"message": ""
 	},
 	"It_appears_you_have_a_key_agent_configured": {
 		"message": "Wygląda na to że skonfigurowałeś już agenta kluczy"
@@ -730,6 +733,9 @@
 	},
 	"you_can_use_the_signature_methods": {
 		"message": "możesz używać podpisów elektronicznych"
+	},
+	"OpenPGP_does_not_appear_to_be_installed": {
+		"message": ""
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
 		"message": "Wygląda na to że nie posiadasz skonfigurowanego agenta kluczy"
@@ -767,6 +773,9 @@
 	"Sign_outgoing_messages_in_GMAIL": {
 		"message": "Podpisuj wiadomości wysyłane w Gmail"
 	},
+	"GPGCONF_binary": {
+		"message": ""
+	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
 		"message": "Twój system wyglądna na skonfigurowany poprawnie do używania WebPG"
 	},
@@ -784,6 +793,15 @@
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
 		"message": "Mógł wystąpić problem podczas kopiowania danych do schowka"
+	},
+	"TEXT_COPIED": {
+		"message": ""
+	},
+	"UNABLE_TO_COPY_TEXT": {
+		"message": ""
+	},
+	"COPY_TO_CLIPBOARD": {
+		"message": "KOPIUJ DO SCHOWKA"
 	},
 	"Paste_Public_Key": {
 		"message": "Wklej klucz publiczny"
@@ -824,9 +842,6 @@
 	"DISPLAY_ORIGINAL": {
 		"message": "WYŚWIETL ORYGINAŁ"
 	},
-	"COPY_TO_CLIPBOARD": {
-		"message": "KOPIUJ DO SCHOWKA"
-	},
 	"DETACHED_PGP_SIGNATURE": {
 		"message": "ODŁĄCZONA SYGNATURA PGP"
 	},
@@ -862,9 +877,6 @@
 	},
 	"Names_UIDs_on_Key": {
 		"message": "Nazwy/tożsamości w kluczu"
-	},
-	"Created": {
-		"message": "Utworzony"
 	},
 	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {
 		"message": "TEGO KLUCZA NIE MA W TWOIM KEYRINGU"

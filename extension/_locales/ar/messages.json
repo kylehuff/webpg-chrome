@@ -554,6 +554,9 @@
 	"REVOKED": {
 		"message": "فاسخ"
 	},
+	"Created": {
+		"message": "تم إنشاؤها على"
+	},
 	"self_signature": {
 		"message": "حذف هذا التوقيع"
 	},
@@ -719,8 +722,8 @@
 	"The_WebPG_NPAPI_Plugin_is_valid": {
 		"message": "البرنامج المساعد NPAPI WebPG صالحة"
 	},
-	"libgpgme_loaded_successfully": {
-		"message": "libgpgme تحميل بنجاح"
+	"OpenPGP_was_detected": {
+		"message": ""
 	},
 	"It_appears_you_have_a_key_agent_configured": {
 		"message": "يبدو لديك مفتاح وكيل تكوينه"
@@ -730,6 +733,9 @@
 	},
 	"you_can_use_the_signature_methods": {
 		"message": "يمكنك استخدام أساليب التوقيع"
+	},
+	"OpenPGP_does_not_appear_to_be_installed": {
+		"message": ""
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
 		"message": "لا يبدو أن لديك مفتاح وكيل تكوينه"
@@ -767,6 +773,9 @@
 	"Sign_outgoing_messages_in_GMAIL": {
 		"message": "توقيع الرسائل الصادرة في GMAIL"
 	},
+	"GPGCONF_binary": {
+		"message": ""
+	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
 		"message": "النظام الخاص بك ويبدو أن تكوين بشكل صحيح ل WebPG"
 	},
@@ -784,6 +793,15 @@
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
 		"message": "قد كانت هناك مشكلة وضع البيانات في الحافظة"
+	},
+	"TEXT_COPIED": {
+		"message": ""
+	},
+	"UNABLE_TO_COPY_TEXT": {
+		"message": ""
+	},
+	"COPY_TO_CLIPBOARD": {
+		"message": "نسخ إلى الحافظة"
 	},
 	"Paste_Public_Key": {
 		"message": "لصق المفتاح العمومي"
@@ -824,9 +842,6 @@
 	"DISPLAY_ORIGINAL": {
 		"message": "عرض الأصلية"
 	},
-	"COPY_TO_CLIPBOARD": {
-		"message": "نسخ إلى الحافظة"
-	},
 	"DETACHED_PGP_SIGNATURE": {
 		"message": "التوقيع منفصلة"
 	},
@@ -862,9 +877,6 @@
 	},
 	"Names_UIDs_on_Key": {
 		"message": "أسماء على مفتاح"
-	},
-	"Created": {
-		"message": "تم إنشاؤها على"
 	},
 	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {
 		"message": "هذا المفتاح ليس في كيرينغ الخاص"

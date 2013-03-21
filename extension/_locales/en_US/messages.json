@@ -554,6 +554,9 @@
 	"REVOKED": {
 		"message": "REVOKED"
 	},
+	"Created": {
+		"message": "Created"
+	},
 	"self_signature": {
 		"message": "self-signature"
 	},
@@ -719,8 +722,8 @@
 	"The_WebPG_NPAPI_Plugin_is_valid": {
 		"message": "The WebPG NPAPI Plugin is valid"
 	},
-	"libgpgme_loaded_successfully": {
-		"message": "libgpgme loaded successfully"
+	"OpenPGP_was_detected": {
+		"message": ""
 	},
 	"It_appears_you_have_a_key_agent_configured": {
 		"message": "It appears you have a key-agent configured"
@@ -730,6 +733,9 @@
 	},
 	"you_can_use_the_signature_methods": {
 		"message": "you can use the signature methods"
+	},
+	"OpenPGP_does_not_appear_to_be_installed": {
+		"message": ""
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
 		"message": "You do not appear to have a key-agent configured"
@@ -767,6 +773,9 @@
 	"Sign_outgoing_messages_in_GMAIL": {
 		"message": "Sign outgoing messages in GMAIL"
 	},
+	"GPGCONF_binary": {
+		"message": ""
+	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
 		"message": "Your system appears to be configured correctly for WebPG"
 	},
@@ -784,6 +793,15 @@
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
 		"message": "There may have been a problem placing the data into the clipboard"
+	},
+	"TEXT_COPIED": {
+		"message": ""
+	},
+	"UNABLE_TO_COPY_TEXT": {
+		"message": ""
+	},
+	"COPY_TO_CLIPBOARD": {
+		"message": "COPY TO CLIPBOARD"
 	},
 	"Paste_Public_Key": {
 		"message": "Paste Public Key"
@@ -824,9 +842,6 @@
 	"DISPLAY_ORIGINAL": {
 		"message": "DISPLAY ORIGINAL"
 	},
-	"COPY_TO_CLIPBOARD": {
-		"message": "COPY TO CLIPBOARD"
-	},
 	"DETACHED_PGP_SIGNATURE": {
 		"message": "DETACHED PGP SIGNATURE"
 	},
@@ -862,9 +877,6 @@
 	},
 	"Names_UIDs_on_Key": {
 		"message": "Names/UIDs on Key"
-	},
-	"Created": {
-		"message": "Created"
 	},
 	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {
 		"message": "THIS KEY IS NOT IN YOUR KEYRING"

@@ -554,6 +554,9 @@
 	"REVOKED": {
 		"message": ""
 	},
+	"Created": {
+		"message": ""
+	},
 	"self_signature": {
 		"message": ""
 	},
@@ -719,7 +722,7 @@
 	"The_WebPG_NPAPI_Plugin_is_valid": {
 		"message": ""
 	},
-	"libgpgme_loaded_successfully": {
+	"OpenPGP_was_detected": {
 		"message": ""
 	},
 	"It_appears_you_have_a_key_agent_configured": {
@@ -729,6 +732,9 @@
 		"message": ""
 	},
 	"you_can_use_the_signature_methods": {
+		"message": ""
+	},
+	"OpenPGP_does_not_appear_to_be_installed": {
 		"message": ""
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
@@ -767,6 +773,9 @@
 	"Sign_outgoing_messages_in_GMAIL": {
 		"message": ""
 	},
+	"GPGCONF_binary": {
+		"message": ""
+	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
 		"message": ""
 	},
@@ -783,6 +792,15 @@
 		"message": ""
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
+		"message": ""
+	},
+	"TEXT_COPIED": {
+		"message": ""
+	},
+	"UNABLE_TO_COPY_TEXT": {
+		"message": ""
+	},
+	"COPY_TO_CLIPBOARD": {
 		"message": ""
 	},
 	"Paste_Public_Key": {
@@ -824,9 +842,6 @@
 	"DISPLAY_ORIGINAL": {
 		"message": ""
 	},
-	"COPY_TO_CLIPBOARD": {
-		"message": ""
-	},
 	"DETACHED_PGP_SIGNATURE": {
 		"message": ""
 	},
@@ -861,9 +876,6 @@
 		"message": ""
 	},
 	"Names_UIDs_on_Key": {
-		"message": ""
-	},
-	"Created": {
 		"message": ""
 	},
 	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {

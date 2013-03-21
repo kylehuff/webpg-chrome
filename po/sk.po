@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webpg-chrome 0.8.9\n"
 "Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
-"POT-Creation-Date: 2013-02-24 17:25-0500\n"
+"POT-Creation-Date: 2013-03-21 17:57-0400\n"
 "PO-Revision-Date: 2012-10-21 16:57-0400\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,118 +20,118 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: extension/about.js:17 extension/browser_action_menu.js:48
-#: extension/utils.js:347
+#: extension/utils.js:385
 msgid "About WebPG"
 msgstr ""
 
-#: extension/about.js:42 extension/key_manager.js:35 extension/options.js:330
+#: extension/about.js:46 extension/key_manager.js:35 extension/options.js:373
 msgid "Version"
 msgstr ""
 
-#: extension/about.js:50
+#: extension/about.js:54
 msgid "Extension Information"
 msgstr ""
 
-#: extension/about.js:53
+#: extension/about.js:57
 msgid "Extension version"
 msgstr ""
 
-#: extension/about.js:63 extension/error.js:60
+#: extension/about.js:67 extension/error.js:60
 msgid "Platform"
 msgstr ""
 
-#: extension/about.js:69 extension/error.js:63
+#: extension/about.js:73 extension/error.js:63
 msgid "Product"
 msgstr ""
 
-#: extension/about.js:75 extension/error.js:62
+#: extension/about.js:79 extension/error.js:62
 msgid "User Agent"
 msgstr ""
 
-#: extension/about.js:81 extension/error.js:66
+#: extension/about.js:85 extension/error.js:66
 msgid "Language"
 msgstr ""
 
-#: extension/about.js:87
+#: extension/about.js:91
 msgid "Plugin Information"
 msgstr ""
 
-#: extension/about.js:90
+#: extension/about.js:94
 msgid "Plugin version"
 msgstr ""
 
-#: extension/about.js:102
+#: extension/about.js:106
 msgid "GnuPG Information"
 msgstr ""
 
-#: extension/about.js:105
+#: extension/about.js:109
 msgid "GnuPG version"
 msgstr ""
 
-#: extension/about.js:111 extension/options.js:154
+#: extension/about.js:115 extension/options.js:161
 msgid "GnuPG binary"
 msgstr ""
 
-#: extension/about.js:117 extension/options.js:149
+#: extension/about.js:121 extension/options.js:156
 msgid "GnuPG home directory"
 msgstr ""
 
-#: extension/about.js:126
+#: extension/about.js:130
 msgid "default"
 msgstr ""
 
-#: extension/about.js:130
+#: extension/about.js:134
 msgid "GPGCONF version"
 msgstr ""
 
-#: extension/about.js:136
+#: extension/about.js:140 extension/about.js:146
 msgid "not detected"
 msgstr ""
 
-#: extension/about.js:139
+#: extension/about.js:143
 msgid "Assuan version"
 msgstr ""
 
-#: extension/about.js:149 extension/key_manager.js:208
-#: extension/key_manager.js:222 extension/options.js:325
+#: extension/about.js:153 extension/key_manager.js:208
+#: extension/key_manager.js:222 extension/options.js:368
 msgid "Finished"
 msgstr ""
 
-#: extension/background.js:89
+#: extension/background.js:85
 msgid "WebPG Plugin failed to load"
 msgstr ""
 
-#: extension/background.js:558 extension/background.js:581
+#: extension/background.js:576 extension/background.js:599
 msgid "Key Generation Complete"
 msgstr ""
 
-#: extension/background.js:559 extension/background.js:584
+#: extension/background.js:577 extension/background.js:602
 msgid "Key Generation"
 msgstr ""
 
-#: extension/background.js:568
+#: extension/background.js:586
 msgid "Open Key Manager"
 msgstr ""
 
-#: extension/background.js:582
+#: extension/background.js:600
 msgid "WebPG Key Generation Failed"
 msgstr ""
 
-#: extension/background.js:583
+#: extension/background.js:601
 msgid "The generation of your new key is now complete"
 msgstr ""
 
-#: extension/browser_action_menu.js:44 extension/inline.js:603
-#: extension/utils.js:943 extension/XULContent/firefoxOverlay.xul:27
-#: extension/XULContent/options.xul:15 extension/XULContent/options.xul:20
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:32
+#: extension/browser_action_menu.js:44 extension/inline.js:664
+#: extension/utils.js:1203 extension/XULContent/firefoxOverlay.xul:27
+#: extension/XULContent/options.xul:20 extension/XULContent/options.xul:25
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:48
 msgid "Options"
 msgstr ""
 
-#: extension/browser_action_menu.js:46 extension/inline.js:597
-#: extension/utils.js:962 extension/XULContent/firefoxOverlay.xul:23
-#: extension/XULContent/options.xul:24
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:28
+#: extension/browser_action_menu.js:46 extension/inline.js:658
+#: extension/utils.js:1224 extension/XULContent/firefoxOverlay.xul:23
+#: extension/XULContent/options.xul:29
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:44
 msgid "Key Manager"
 msgstr ""
 
@@ -139,15 +139,15 @@ msgstr ""
 msgid "Select Recipient(s)"
 msgstr ""
 
-#: extension/dialog.js:40 extension/inline.js:577
+#: extension/dialog.js:40 extension/inline.js:632
 #: extension/XULContent/firefoxOverlay.xul:72
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:77
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:94
 msgid "Import"
 msgstr ""
 
-#: extension/dialog.js:42 extension/dialog.js:271
+#: extension/dialog.js:42 extension/dialog.js:194 extension/inline.js:638
 #: extension/XULContent/firefoxOverlay.xul:79
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:84
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:101
 msgid "Export"
 msgstr ""
 
@@ -155,45 +155,45 @@ msgstr ""
 msgid "Editor"
 msgstr ""
 
-#: extension/dialog.js:79 extension/key_manager.js:64
+#: extension/dialog.js:81 extension/key_manager.js:64
 msgid "Search/Filter"
 msgstr ""
 
-#: extension/dialog.js:252 extension/gmail.js:528 extension/inline.js:547
-#: extension/key_manager.js:124 extension/key_manager.js:961
+#: extension/dialog.js:175 extension/gmail.js:528 extension/inline.js:602
+#: extension/key_manager.js:124 extension/key_manager.js:967
 #: extension/XULContent/firefoxOverlay.xul:51
-#: extension/XULContent/thunderbird/composeOverlay.js:43
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:56
+#: extension/XULContent/thunderbird/composeOverlay.js:94
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:73
 msgid "Encrypt"
 msgstr ""
 
-#: extension/dialog.js:284
+#: extension/dialog.js:207
 msgid "Insert"
 msgstr ""
 
-#: extension/dialog.js:294
+#: extension/dialog.js:217
 msgid "no action has been selected"
 msgstr ""
 
-#: extension/dialog.js:303
+#: extension/dialog.js:226
 msgid "no action has been successful"
 msgstr ""
 
-#: extension/dialog.js:312 extension/key_manager.js:606
-#: extension/key_manager.js:1365 extension/key_manager.js:1424
-#: extension/key_manager.js:1489 extension/key_manager.js:1556
-#: extension/key_manager.js:1686 extension/key_manager.js:1814
-#: extension/key_manager.js:1866 extension/key_manager.js:1976
-#: extension/key_manager.js:2029 extension/key_manager.js:2054
-#: extension/key_manager.js:2087 extension/key_manager.js:2112
+#: extension/dialog.js:235 extension/key_manager.js:608
+#: extension/key_manager.js:1372 extension/key_manager.js:1431
+#: extension/key_manager.js:1496 extension/key_manager.js:1563
+#: extension/key_manager.js:1693 extension/key_manager.js:1821
+#: extension/key_manager.js:1873 extension/key_manager.js:1983
+#: extension/key_manager.js:2036 extension/key_manager.js:2061
+#: extension/key_manager.js:2094 extension/key_manager.js:2119
 msgid "Cancel"
 msgstr ""
 
-#: extension/dialog.js:336 extension/key_manager.js:902
+#: extension/dialog.js:259 extension/key_manager.js:908
 msgid "UIDs"
 msgstr ""
 
-#: extension/dialog.js:341
+#: extension/dialog.js:264
 msgid "Key does not support this operation"
 msgstr ""
 
@@ -205,8 +205,8 @@ msgstr ""
 msgid "We encountered a problem while attempting to load WebPG"
 msgstr ""
 
-#: extension/error.js:27 extension/key_manager.js:1719
-#: extension/key_manager.js:1722
+#: extension/error.js:27 extension/key_manager.js:1726
+#: extension/key_manager.js:1729
 msgid "Error"
 msgstr ""
 
@@ -288,12 +288,12 @@ msgid "Would you like to Encrypt and Sign anyway"
 msgstr ""
 
 #: extension/gmail.js:323
-#: extension/XULContent/thunderbird/composeOverlay.js:244
+#: extension/XULContent/thunderbird/composeOverlay.js:264
 msgid "You do not have any keys for"
 msgstr ""
 
 #: extension/gmail.js:325
-#: extension/XULContent/thunderbird/composeOverlay.js:246
+#: extension/XULContent/thunderbird/composeOverlay.js:266
 msgid "or"
 msgstr ""
 
@@ -313,63 +313,63 @@ msgstr ""
 msgid "Open the Key Manager"
 msgstr ""
 
-#: extension/gmail.js:534 extension/inline.js:553 extension/key_manager.js:103
+#: extension/gmail.js:534 extension/inline.js:608 extension/key_manager.js:103
 #: extension/key_manager.js:106
 msgid "Sign only"
 msgstr ""
 
-#: extension/gmail.js:540 extension/inline.js:559
+#: extension/gmail.js:540 extension/inline.js:614
 #: extension/XULContent/firefoxOverlay.xul:58
-#: extension/XULContent/thunderbird/composeOverlay.js:42
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:63
+#: extension/XULContent/thunderbird/composeOverlay.js:93
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:80
 msgid "Sign and Encrypt"
 msgstr ""
 
-#: extension/gmail.js:546 extension/inline.js:565
-#: extension/XULContent/thunderbird/composeOverlay.js:44
+#: extension/gmail.js:546 extension/inline.js:620
+#: extension/XULContent/thunderbird/composeOverlay.js:95
 msgid "Symmetric Encryption"
 msgstr ""
 
 #: extension/gmail.js:552
-#: extension/XULContent/thunderbird/composeOverlay.js:39
+#: extension/XULContent/thunderbird/composeOverlay.js:90
 msgid "Do not use WebPG for this message"
 msgstr ""
 
-#: extension/inline.js:571 extension/XULContent/firefoxOverlay.xul:65
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:70
+#: extension/inline.js:626 extension/XULContent/firefoxOverlay.xul:65
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:87
 msgid "Decrypt"
 msgstr ""
 
-#: extension/inline.js:583 extension/XULContent/firefoxOverlay.xul:44
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:49
+#: extension/inline.js:644 extension/XULContent/firefoxOverlay.xul:44
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:66
 msgid "Verify"
 msgstr ""
 
-#: extension/inline.js:591
+#: extension/inline.js:652
 msgid "Secure Editor"
 msgstr ""
 
-#: extension/inline.js:670
+#: extension/inline.js:740
 msgid "PGP Signed Message"
 msgstr ""
 
-#: extension/inline.js:676 extension/webpg_results.js:135
+#: extension/inline.js:746 extension/webpg_results.js:156
 msgid "PGP ENCRYPTED OR SIGNED MESSAGE"
 msgstr ""
 
-#: extension/inline.js:682
+#: extension/inline.js:752
 msgid "PGP Public Key"
 msgstr ""
 
-#: extension/inline.js:689
+#: extension/inline.js:766
 msgid "WebPG Secure Editor"
 msgstr ""
 
-#: extension/inline.js:692
+#: extension/inline.js:769
 msgid "Unsecured Editor"
 msgstr ""
 
-#: extension/key_manager.js:22 extension/utils.js:346
+#: extension/key_manager.js:22 extension/utils.js:384
 msgid "WebPG Key Manager"
 msgstr ""
 
@@ -401,7 +401,7 @@ msgstr ""
 msgid "Repeat Passphrase"
 msgstr ""
 
-#: extension/key_manager.js:76 extension/options.js:146
+#: extension/key_manager.js:76 extension/options.js:153
 msgid "Advanced Options"
 msgstr ""
 
@@ -425,8 +425,9 @@ msgstr ""
 msgid "Expire in"
 msgstr ""
 
-#: extension/key_manager.js:85 extension/key_manager.js:773
-#: extension/key_manager.js:817
+#: extension/key_manager.js:85 extension/key_manager.js:782
+#: extension/key_manager.js:825 extension/key_manager.js:1104
+#: extension/webpg_results.js:134
 msgid "Never"
 msgstr ""
 
@@ -454,12 +455,12 @@ msgstr ""
 msgid "set your own capabilities"
 msgstr ""
 
-#: extension/key_manager.js:123 extension/key_manager.js:960
-#: extension/key_manager.js:1943
+#: extension/key_manager.js:123 extension/key_manager.js:966
+#: extension/key_manager.js:1950
 msgid "Sign"
 msgstr ""
 
-#: extension/key_manager.js:125 extension/key_manager.js:962
+#: extension/key_manager.js:125 extension/key_manager.js:968
 msgid "Authenticate"
 msgstr ""
 
@@ -471,20 +472,20 @@ msgstr ""
 msgid "Revoke this UID"
 msgstr ""
 
-#: extension/key_manager.js:145 extension/key_manager.js:2049
+#: extension/key_manager.js:145 extension/key_manager.js:2056
 msgid "Revoke this Signature"
 msgstr ""
 
-#: extension/key_manager.js:146 extension/key_manager.js:2107
+#: extension/key_manager.js:146 extension/key_manager.js:2114
 msgid "Delete this Signature"
 msgstr ""
 
-#: extension/key_manager.js:147 extension/key_manager.js:1042
-#: extension/key_manager.js:1799
+#: extension/key_manager.js:147 extension/key_manager.js:1048
+#: extension/key_manager.js:1806
 msgid "Delete this UID"
 msgstr ""
 
-#: extension/key_manager.js:148 extension/key_manager.js:914
+#: extension/key_manager.js:148 extension/key_manager.js:920
 msgid "Delete this Key"
 msgstr ""
 
@@ -496,16 +497,16 @@ msgstr ""
 msgid "Are you sure"
 msgstr ""
 
-#: extension/key_manager.js:151 extension/key_manager.js:790
-#: extension/key_manager.js:984
+#: extension/key_manager.js:151 extension/key_manager.js:798
+#: extension/key_manager.js:990
 msgid "Change Expiration"
 msgstr ""
 
-#: extension/key_manager.js:152 extension/key_manager.js:1040
+#: extension/key_manager.js:152 extension/key_manager.js:1046
 msgid "Sign this UID"
 msgstr ""
 
-#: extension/key_manager.js:153 extension/key_manager.js:899
+#: extension/key_manager.js:153 extension/key_manager.js:905
 msgid "Key Details"
 msgstr ""
 
@@ -513,7 +514,7 @@ msgstr ""
 msgid "Export Public Key"
 msgstr ""
 
-#: extension/key_manager.js:155 extension/key_manager.js:802
+#: extension/key_manager.js:155 extension/key_manager.js:810
 msgid "Add UID"
 msgstr ""
 
@@ -577,9 +578,9 @@ msgstr ""
 msgid "please wait"
 msgstr ""
 
-#: extension/key_manager.js:394 extension/key_manager.js:598
-#: extension/key_manager.js:1548 extension/key_manager.js:1640
-#: extension/key_manager.js:1736
+#: extension/key_manager.js:394 extension/key_manager.js:600
+#: extension/key_manager.js:1555 extension/key_manager.js:1647
+#: extension/key_manager.js:1743
 msgid "Close"
 msgstr ""
 
@@ -587,451 +588,459 @@ msgstr ""
 msgid "trust"
 msgstr ""
 
-#: extension/key_manager.js:508
+#: extension/key_manager.js:510
 msgid "Generate New Key"
 msgstr ""
 
-#: extension/key_manager.js:517 extension/key_manager.js:1444
-#: extension/key_manager.js:1513
+#: extension/key_manager.js:519 extension/key_manager.js:1451
+#: extension/key_manager.js:1520
 msgid "Create"
 msgstr ""
 
-#: extension/key_manager.js:523 extension/key_manager.js:1452
+#: extension/key_manager.js:525 extension/key_manager.js:1459
 msgid "Name Required"
 msgstr ""
 
-#: extension/key_manager.js:527 extension/key_manager.js:1456
+#: extension/key_manager.js:529 extension/key_manager.js:1463
 msgid "UID Names must be at least 5 characters"
 msgstr ""
 
-#: extension/key_manager.js:533 extension/key_manager.js:1460
+#: extension/key_manager.js:535 extension/key_manager.js:1467
 msgid "UID Names cannot begin with a number"
 msgstr ""
 
-#: extension/key_manager.js:540 extension/key_manager.js:1465
+#: extension/key_manager.js:542 extension/key_manager.js:1472
 msgid "Not a valid email address"
 msgstr ""
 
-#: extension/key_manager.js:550 extension/key_manager.js:552
+#: extension/key_manager.js:552 extension/key_manager.js:554
 msgid "Passphrases do not match"
 msgstr ""
 
-#: extension/key_manager.js:581 extension/key_manager.js:1533
+#: extension/key_manager.js:583 extension/key_manager.js:1540
 msgid "Building key, please wait"
 msgstr ""
 
-#: extension/key_manager.js:582
+#: extension/key_manager.js:584
 msgid "This may take a long time (5 minutes or more) to complete"
 msgstr ""
 
-#: extension/key_manager.js:582
+#: extension/key_manager.js:584
 msgid "Please be patient while the key is created"
 msgstr ""
 
-#: extension/key_manager.js:582
+#: extension/key_manager.js:584
 msgid "It is safe to close this window"
 msgstr ""
 
-#: extension/key_manager.js:582
+#: extension/key_manager.js:584
 msgid "key generation will continue in the background"
 msgstr ""
 
-#: extension/key_manager.js:693 extension/key_manager.js:745
-#: extension/key_manager.js:2149 extension/options.js:177
-#: extension/options.js:180 extension/options.js:188 extension/options.js:197
-#: extension/options.js:205 extension/options.js:215 extension/options.js:223
-#: extension/options.js:228
+#: extension/key_manager.js:702 extension/key_manager.js:754
+#: extension/key_manager.js:2156 extension/options.js:189
+#: extension/options.js:192 extension/options.js:200 extension/options.js:209
+#: extension/options.js:217 extension/options.js:227 extension/options.js:235
+#: extension/options.js:240
 msgid "Enabled"
 msgstr ""
 
-#: extension/key_manager.js:693 extension/key_manager.js:700
-#: extension/key_manager.js:746 extension/key_manager.js:934
-#: extension/key_manager.js:2149 extension/options.js:177
-#: extension/options.js:180 extension/options.js:188 extension/options.js:193
-#: extension/options.js:205 extension/options.js:215 extension/options.js:223
-#: extension/options.js:228
+#: extension/key_manager.js:702 extension/key_manager.js:709
+#: extension/key_manager.js:755 extension/key_manager.js:940
+#: extension/key_manager.js:2156 extension/options.js:189
+#: extension/options.js:192 extension/options.js:200 extension/options.js:205
+#: extension/options.js:217 extension/options.js:227 extension/options.js:235
+#: extension/options.js:240
 msgid "Disabled"
 msgstr ""
 
-#: extension/key_manager.js:696 extension/key_manager.js:932
+#: extension/key_manager.js:705 extension/key_manager.js:938
 msgid "Valid"
 msgstr ""
 
-#: extension/key_manager.js:704 extension/key_manager.js:764
-#: extension/key_manager.js:937 extension/key_manager.js:948
-#: extension/key_manager.js:957
+#: extension/key_manager.js:713 extension/key_manager.js:773
+#: extension/key_manager.js:943 extension/key_manager.js:954
+#: extension/key_manager.js:963
 msgid "Expired"
 msgstr ""
 
-#: extension/key_manager.js:708 extension/key_manager.js:940
+#: extension/key_manager.js:717 extension/key_manager.js:946
 msgid "Invalid"
 msgstr ""
 
-#: extension/key_manager.js:712 extension/key_manager.js:943
+#: extension/key_manager.js:721 extension/key_manager.js:949
 msgid "Revoked"
 msgstr ""
 
-#: extension/key_manager.js:721 extension/key_manager.js:1011
-#: extension/key_manager.js:1077
+#: extension/key_manager.js:730 extension/key_manager.js:1017
+#: extension/key_manager.js:1083
 msgid "no email address provided"
 msgstr ""
 
-#: extension/key_manager.js:751
+#: extension/key_manager.js:760
 msgid "Cannot unset your default key"
 msgstr ""
 
-#: extension/key_manager.js:771 extension/key_manager.js:815
+#: extension/key_manager.js:780 extension/key_manager.js:823
 msgid "Trust Assignment"
 msgstr ""
 
-#: extension/key_manager.js:773 extension/key_manager.js:817
+#: extension/key_manager.js:782 extension/key_manager.js:825
+#: extension/key_manager.js:1102 extension/webpg_results.js:132
 msgid "Unknown"
 msgstr ""
 
-#: extension/key_manager.js:773 extension/key_manager.js:817
+#: extension/key_manager.js:782 extension/key_manager.js:825
 msgid "Marginal"
 msgstr ""
 
-#: extension/key_manager.js:773 extension/key_manager.js:817
+#: extension/key_manager.js:782 extension/key_manager.js:825
 msgid "Full"
 msgstr ""
 
-#: extension/key_manager.js:773 extension/key_manager.js:817
+#: extension/key_manager.js:782 extension/key_manager.js:825
 msgid "Ultimate"
 msgstr ""
 
-#: extension/key_manager.js:777 extension/key_manager.js:821
+#: extension/key_manager.js:786 extension/key_manager.js:829
 msgid "None"
 msgstr ""
 
-#: extension/key_manager.js:777 extension/key_manager.js:821
+#: extension/key_manager.js:786 extension/key_manager.js:829
 msgid "New group"
 msgstr ""
 
-#: extension/key_manager.js:782 extension/key_manager.js:826
+#: extension/key_manager.js:790 extension/key_manager.js:833
 msgid "Group Assignment"
 msgstr ""
 
-#: extension/key_manager.js:796
+#: extension/key_manager.js:804
 msgid "Change Passphrase"
 msgstr ""
 
-#: extension/key_manager.js:808
+#: extension/key_manager.js:816
 msgid "Add Subkey"
 msgstr ""
 
-#: extension/key_manager.js:895
+#: extension/key_manager.js:901
 msgid "Enable this Key"
 msgstr ""
 
-#: extension/key_manager.js:895
+#: extension/key_manager.js:901
 msgid "Disable this Key"
 msgstr ""
 
-#: extension/key_manager.js:900 extension/key_manager.js:973
+#: extension/key_manager.js:906 extension/key_manager.js:979
 msgid "KeyID"
 msgstr ""
 
-#: extension/key_manager.js:900 extension/key_manager.js:973
+#: extension/key_manager.js:906 extension/key_manager.js:979
 msgid "Key Created"
 msgstr ""
 
-#: extension/key_manager.js:901 extension/key_manager.js:974
-#: extension/webpg_results.js:420
+#: extension/key_manager.js:907 extension/key_manager.js:980
+#: extension/key_manager.js:1106 extension/webpg_results.js:136
+#: extension/webpg_results.js:439
 msgid "Expires"
 msgstr ""
 
-#: extension/key_manager.js:903 extension/key_manager.js:975
+#: extension/key_manager.js:909 extension/key_manager.js:981
 msgid "Fingerprint"
 msgstr ""
 
-#: extension/key_manager.js:904 extension/key_manager.js:976
+#: extension/key_manager.js:910 extension/key_manager.js:982
+#: extension/webpg_results.js:137
 msgid "Status"
 msgstr ""
 
-#: extension/key_manager.js:904 extension/key_manager.js:976
+#: extension/key_manager.js:910 extension/key_manager.js:982
 msgid "Key Algorithm"
 msgstr ""
 
-#: extension/key_manager.js:906
+#: extension/key_manager.js:912 extension/webpg_results.js:138
 msgid "Validity"
 msgstr ""
 
-#: extension/key_manager.js:908 extension/key_manager.js:980
+#: extension/key_manager.js:914 extension/key_manager.js:986
 msgid "Key Options"
 msgstr ""
 
-#: extension/key_manager.js:910 extension/key_manager.js:986
+#: extension/key_manager.js:916 extension/key_manager.js:992
 msgid "Operations"
 msgstr ""
 
-#: extension/key_manager.js:917
+#: extension/key_manager.js:923
 msgid "Export this Key"
 msgstr ""
 
-#: extension/key_manager.js:921 extension/key_manager.js:1746
+#: extension/key_manager.js:927 extension/key_manager.js:1753
 msgid "Publish to Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:925 extension/webpg_results.js:269
+#: extension/key_manager.js:931 extension/webpg_results.js:290
 msgid "Refresh from Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:928
+#: extension/key_manager.js:934
 msgid "Subkeys"
 msgstr ""
 
-#: extension/key_manager.js:970
+#: extension/key_manager.js:976
 msgid "Subkey Details"
 msgstr ""
 
-#: extension/key_manager.js:977
+#: extension/key_manager.js:983
 msgid "Flags"
 msgstr ""
 
-#: extension/key_manager.js:990
+#: extension/key_manager.js:996
 msgid "Delete this Subkey"
 msgstr ""
 
-#: extension/key_manager.js:993
+#: extension/key_manager.js:999
 msgid "Revoke this Subkey"
 msgstr ""
 
-#: extension/key_manager.js:998
+#: extension/key_manager.js:1004
 msgid "User IDs"
 msgstr ""
 
-#: extension/key_manager.js:1032
+#: extension/key_manager.js:1038
 msgid "Make primary"
 msgstr ""
 
-#: extension/key_manager.js:1036
+#: extension/key_manager.js:1042
 msgid "Revoke UID"
 msgstr ""
 
-#: extension/key_manager.js:1064 extension/webpg_results.js:392
+#: extension/key_manager.js:1070 extension/webpg_results.js:411
 msgid "REVOKED"
 msgstr ""
 
-#: extension/key_manager.js:1103
+#: extension/key_manager.js:1105 extension/webpg_results.js:135
+#: extension/webpg_results.js:437
+msgid "Created"
+msgstr ""
+
+#: extension/key_manager.js:1110
 msgid "self-signature"
 msgstr ""
 
-#: extension/key_manager.js:1105
+#: extension/key_manager.js:1112
 msgid "local"
 msgstr ""
 
-#: extension/key_manager.js:1105
+#: extension/key_manager.js:1112
 msgid "non-exportable"
 msgstr ""
 
-#: extension/key_manager.js:1107
+#: extension/key_manager.js:1114
 msgid "other signature"
 msgstr ""
 
-#: extension/key_manager.js:1114 extension/key_manager.js:1675
-#: extension/key_manager.js:1855 extension/key_manager.js:2017
+#: extension/key_manager.js:1121 extension/key_manager.js:1682
+#: extension/key_manager.js:1862 extension/key_manager.js:2024
 msgid "Revoke"
 msgstr ""
 
-#: extension/key_manager.js:1117 extension/key_manager.js:2078
+#: extension/key_manager.js:1124 extension/key_manager.js:2085
 msgid "Delete"
 msgstr ""
 
-#: extension/key_manager.js:1126
+#: extension/key_manager.js:1133
 msgid "Signatures made with keys not in your keyring are omitted"
 msgstr ""
 
-#: extension/key_manager.js:1172
+#: extension/key_manager.js:1179
 msgid "Calculating Trust"
 msgstr ""
 
-#: extension/key_manager.js:1173
+#: extension/key_manager.js:1180
 msgid "Please wait while recalculate the trust for this item"
 msgstr ""
 
-#: extension/key_manager.js:1331 extension/options.js:151
-#: extension/options.js:156 extension/options.js:161
+#: extension/key_manager.js:1338 extension/options.js:158
+#: extension/options.js:163 extension/options.js:168 extension/options.js:173
 msgid "Save"
 msgstr ""
 
-#: extension/key_manager.js:1396
+#: extension/key_manager.js:1403
 msgid "Delete this key"
 msgstr ""
 
-#: extension/key_manager.js:1631
+#: extension/key_manager.js:1638
 msgid "Copy"
 msgstr ""
 
-#: extension/key_manager.js:1653 extension/key_manager.js:1834
-#: extension/key_manager.js:2006
+#: extension/key_manager.js:1660 extension/key_manager.js:1841
+#: extension/key_manager.js:2013
 msgid "Please specify the revocation details"
 msgstr ""
 
-#: extension/key_manager.js:1654 extension/key_manager.js:1835
-#: extension/key_manager.js:2007
+#: extension/key_manager.js:1661 extension/key_manager.js:1842
+#: extension/key_manager.js:2014
 msgid "Reason"
 msgstr ""
 
-#: extension/key_manager.js:1656 extension/key_manager.js:1837
-#: extension/key_manager.js:2009
+#: extension/key_manager.js:1663 extension/key_manager.js:1844
+#: extension/key_manager.js:2016
 msgid "No reason specified"
 msgstr ""
 
-#: extension/key_manager.js:1657
+#: extension/key_manager.js:1664
 msgid "Key has been compromised"
 msgstr ""
 
-#: extension/key_manager.js:1658
+#: extension/key_manager.js:1665
 msgid "Key is superseded"
 msgstr ""
 
-#: extension/key_manager.js:1659
+#: extension/key_manager.js:1666
 msgid "Key is no longer used"
 msgstr ""
 
-#: extension/key_manager.js:1661 extension/key_manager.js:1840
-#: extension/key_manager.js:2012
+#: extension/key_manager.js:1668 extension/key_manager.js:1847
+#: extension/key_manager.js:2019
 msgid "Description"
 msgstr ""
 
-#: extension/key_manager.js:1700
+#: extension/key_manager.js:1707
 msgid "Are you sure you want to Publish this key to the Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:1709
+#: extension/key_manager.js:1716
 msgid "Publish"
 msgstr ""
 
-#: extension/key_manager.js:1712
+#: extension/key_manager.js:1719
 msgid "Sending key to Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:1715
+#: extension/key_manager.js:1722
 msgid "There was a problem sending this key to the Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:1720
+#: extension/key_manager.js:1727
 msgid "No Keyserver defined"
 msgstr ""
 
-#: extension/key_manager.js:1723 extension/options.js:159
+#: extension/key_manager.js:1730 extension/options.js:171
 msgid "Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:1726
+#: extension/key_manager.js:1733
 msgid "Try Again"
 msgstr ""
 
-#: extension/key_manager.js:1730
+#: extension/key_manager.js:1737
 msgid "Key Published to Keyserver"
 msgstr ""
 
-#: extension/key_manager.js:1731
+#: extension/key_manager.js:1738
 msgid "Publish Again"
 msgstr ""
 
-#: extension/key_manager.js:1754 extension/webpg_results.js:289
+#: extension/key_manager.js:1761 extension/webpg_results.js:310
 msgid "Key not found on keyserver"
 msgstr ""
 
-#: extension/key_manager.js:1838 extension/key_manager.js:2010
+#: extension/key_manager.js:1845 extension/key_manager.js:2017
 msgid "User ID is no longer valid"
 msgstr ""
 
-#: extension/key_manager.js:1903
+#: extension/key_manager.js:1910
 msgid "Please select which of your keys to create the signature with"
 msgstr ""
 
-#: extension/key_manager.js:1913
+#: extension/key_manager.js:1920
 msgid "You have not enabled any keys for use with webpg"
 msgstr ""
 
-#: extension/key_manager.js:1915 extension/key_manager.js:1919
+#: extension/key_manager.js:1922 extension/key_manager.js:1926
 msgid "please click here"
 msgstr ""
 
-#: extension/key_manager.js:1915
+#: extension/key_manager.js:1922
 msgid "and select 1 or more keys for use with webpg"
 msgstr ""
 
-#: extension/key_manager.js:1917
+#: extension/key_manager.js:1924
 msgid "You have not generated any keys"
 msgstr ""
 
-#: extension/key_manager.js:1919
+#: extension/key_manager.js:1926
 msgid "and generate a key to use with webpg"
 msgstr ""
 
-#: extension/key_manager.js:1926
+#: extension/key_manager.js:1933
 msgid "Already signed with this key"
 msgstr ""
 
-#: extension/key_manager.js:1928
+#: extension/key_manager.js:1935
 msgid "Signature added using this key"
 msgstr ""
 
-#: extension/key_manager.js:1994
+#: extension/key_manager.js:2001
 msgid "Cannot Publish Keys without gpgconf utility installed"
 msgstr ""
 
-#: extension/key_manager.js:1995
+#: extension/key_manager.js:2002
 msgid "Cannot create signatures without gpgconf utility installed"
 msgstr ""
 
-#: extension/key_manager.js:1997
+#: extension/key_manager.js:2004
 msgid "Cannot Publish Keys without Keyserver configured"
 msgstr ""
 
-#: extension/key_manager.js:1999
+#: extension/key_manager.js:2006
 msgid "Cannot sign a revoked UID"
 msgstr ""
 
-#: extension/key_manager.js:2000
+#: extension/key_manager.js:2007
 msgid "Cannot make a revoked UID primary"
 msgstr ""
 
-#: extension/key_manager.js:2001
+#: extension/key_manager.js:2008
 msgid "Cannot sign an expired key"
 msgstr ""
 
-#: extension/key_manager.js:2068
+#: extension/key_manager.js:2075
 msgid "Are you certain you would like to delete signature"
 msgstr ""
 
-#: extension/key_manager.js:2069
+#: extension/key_manager.js:2076
 msgid "from this User ID"
 msgstr ""
 
-#: extension/key_manager.js:2071
+#: extension/key_manager.js:2078
 msgid "This signature was made with a key that does not belong to you"
 msgstr ""
 
-#: extension/key_manager.js:2071
+#: extension/key_manager.js:2078
 msgid "This action cannot be undone"
 msgstr ""
 
-#: extension/key_manager.js:2155
+#: extension/key_manager.js:2162
 msgid "Enable this key for signing"
 msgstr ""
 
-#: extension/key_manager.js:2165
+#: extension/key_manager.js:2172
 msgid "This is your default key"
 msgstr ""
 
-#: extension/key_manager.js:2167
+#: extension/key_manager.js:2174
 msgid "Make this the default key for encryption operations"
 msgstr ""
 
-#: extension/key_manager.js:2286
+#: extension/key_manager.js:2228
 msgid "Searching for"
 msgstr ""
 
-#: extension/key_manager.js:2287
+#: extension/key_manager.js:2229
 msgid "Please wait while we build the key list"
 msgstr ""
 
-#: extension/options.js:23 extension/options.js:132 extension/utils.js:345
+#: extension/options.js:23 extension/options.js:139 extension/utils.js:383
 msgid "WebPG Options"
 msgstr ""
 
@@ -1040,7 +1049,7 @@ msgid "The WebPG NPAPI Plugin is valid"
 msgstr ""
 
 #: extension/options.js:51
-msgid "libgpgme loaded successfully"
+msgid "OpenPGP was detected"
 msgstr ""
 
 #: extension/options.js:52
@@ -1056,261 +1065,274 @@ msgid "you can use the signature methods"
 msgstr ""
 
 #: extension/options.js:59
+msgid "OpenPGP does not appear to be installed"
+msgstr ""
+
+#: extension/options.js:67
 msgid "You do not appear to have a key-agent configured"
 msgstr ""
 
-#: extension/options.js:59
+#: extension/options.js:67
 msgid "A working key-agent is required"
 msgstr ""
 
-#: extension/options.js:67
+#: extension/options.js:75
 msgid "gpgconf does not appear to be installed"
 msgstr ""
 
-#: extension/options.js:67
+#: extension/options.js:75
 msgid "You will not be able to create signatures"
 msgstr ""
 
-#: extension/options.js:76
+#: extension/options.js:84
 msgid "There was a problem loading the plugin"
 msgstr ""
 
-#: extension/options.js:76
+#: extension/options.js:84
 msgid "the plugin might be incompatibly compiled for this architechture"
 msgstr ""
 
-#: extension/options.js:105
+#: extension/options.js:113
 msgid "click here for help resolving this issue"
 msgstr ""
 
-#: extension/options.js:135
+#: extension/options.js:142
 msgid "Enable Inline formatting of PGP Messages and Keys"
 msgstr ""
 
-#: extension/options.js:138
+#: extension/options.js:145
 msgid "Always encrypt to your default key in addition to the recipient"
 msgstr ""
 
-#: extension/options.js:141
+#: extension/options.js:148
 msgid "Enable WebPG GMAIL integration"
 msgstr ""
 
-#: extension/options.js:141
+#: extension/options.js:148
 msgid "EXPERIMENTAL"
 msgstr ""
 
-#: extension/options.js:144
+#: extension/options.js:151
 msgid "Sign outgoing messages in GMAIL"
 msgstr ""
 
-#: extension/options.js:163
+#: extension/options.js:166
+msgid "GPGCONF binary"
+msgstr ""
+
+#: extension/options.js:175
 msgid "Your system appears to be configured correctly for WebPG"
 msgstr ""
 
-#: extension/options.js:165
+#: extension/options.js:177
 msgid "There is a problem with your configuration"
 msgstr ""
 
-#: extension/options.js:209
+#: extension/options.js:221
 msgid "WebPG GMAIL integration is EXPERIMENTAL"
 msgstr ""
 
-#: extension/options.js:209
+#: extension/options.js:221
 msgid "use at your own risk"
 msgstr ""
 
-#: extension/utils.js:315
+#: extension/utils.js:322
 msgid "Text copied to clipboard"
 msgstr ""
 
-#: extension/utils.js:318
+#: extension/utils.js:347
 msgid "There may have been a problem placing the data into the clipboard"
 msgstr ""
 
-#: extension/utils.js:811 extension/XULContent/firefoxOverlay.xul:77
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:82
-msgid "Paste Public Key"
+#: extension/utils.js:351
+msgid "TEXT COPIED"
 msgstr ""
 
-#: extension/utils.js:831 extension/XULContent/firefoxOverlay.xul:35
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:40
-msgid "Clear-sign this text"
+#: extension/utils.js:351
+msgid "UNABLE TO COPY TEXT"
 msgstr ""
 
-#: extension/utils.js:851
-msgid "Import this Key"
-msgstr ""
-
-#: extension/utils.js:871 extension/XULContent/firefoxOverlay.xul:49
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:54
-msgid "Encrypt this text"
-msgstr ""
-
-#: extension/utils.js:891 extension/XULContent/firefoxOverlay.xul:63
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:68
-msgid "Decrypt this text"
-msgstr ""
-
-#: extension/utils.js:911 extension/XULContent/firefoxOverlay.xul:42
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:47
-msgid "Verify this text"
-msgstr ""
-
-#: extension/webpg_overlay.js:235 extension/webpg_results.js:138
-msgid "UNABLE TO DECRYPT OR VERIFY THIS MESSAGE"
-msgstr ""
-
-#: extension/webpg_results.js:149 extension/webpg_results.js:584
-msgid "PGP ENCRYPTED AND SIGNED MESSAGE"
-msgstr ""
-
-#: extension/webpg_results.js:179 extension/webpg_results.js:184
-#: extension/webpg_results.js:576
-msgid "DECRYPTION FAILED"
-msgstr ""
-
-#: extension/webpg_results.js:179
-msgid "NO SECRET KEY"
-msgstr ""
-
-#: extension/webpg_results.js:184 extension/webpg_results.js:576
-msgid "BAD PASSPHRASE"
-msgstr ""
-
-#: extension/webpg_results.js:186 extension/webpg_results.js:189
-msgid "DECRYPT THIS MESSAGE"
-msgstr ""
-
-#: extension/webpg_results.js:197 extension/webpg_results.js:261
-#: extension/webpg_results.js:274 extension/webpg_results.js:285
-#: extension/webpg_results.js:431 extension/webpg_results.js:460
-#: extension/webpg_results.js:466 extension/webpg_results.js:510
-#: extension/webpg_results.js:551 extension/webpg_results.js:557
-#: extension/webpg_results.js:607 extension/webpg_results.js:611
-#: extension/webpg_results.js:617
-msgid "DISPLAY ORIGINAL"
-msgstr ""
-
-#: extension/webpg_results.js:199 extension/webpg_results.js:224
-#: extension/webpg_results.js:262 extension/webpg_results.js:268
-#: extension/webpg_results.js:276 extension/webpg_results.js:286
-#: extension/webpg_results.js:439 extension/webpg_results.js:522
-#: extension/webpg_results.js:608
+#: extension/utils.js:353 extension/webpg_results.js:220
+#: extension/webpg_results.js:245 extension/webpg_results.js:283
+#: extension/webpg_results.js:289 extension/webpg_results.js:297
+#: extension/webpg_results.js:307 extension/webpg_results.js:458
+#: extension/webpg_results.js:541 extension/webpg_results.js:627
 msgid "COPY TO CLIPBOARD"
 msgstr ""
 
-#: extension/webpg_results.js:206
+#: extension/utils.js:1059 extension/XULContent/firefoxOverlay.xul:77
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:99
+msgid "Paste Public Key"
+msgstr ""
+
+#: extension/utils.js:1081 extension/XULContent/firefoxOverlay.xul:35
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:57
+msgid "Clear-sign this text"
+msgstr ""
+
+#: extension/utils.js:1103
+msgid "Import this Key"
+msgstr ""
+
+#: extension/utils.js:1125 extension/XULContent/firefoxOverlay.xul:49
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:71
+msgid "Encrypt this text"
+msgstr ""
+
+#: extension/utils.js:1147 extension/XULContent/firefoxOverlay.xul:63
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:85
+msgid "Decrypt this text"
+msgstr ""
+
+#: extension/utils.js:1169 extension/XULContent/firefoxOverlay.xul:42
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:64
+msgid "Verify this text"
+msgstr ""
+
+#: extension/webpg_overlay.js:236 extension/webpg_results.js:159
+msgid "UNABLE TO DECRYPT OR VERIFY THIS MESSAGE"
+msgstr ""
+
+#: extension/webpg_results.js:170 extension/webpg_results.js:603
+msgid "PGP ENCRYPTED AND SIGNED MESSAGE"
+msgstr ""
+
+#: extension/webpg_results.js:200 extension/webpg_results.js:205
+#: extension/webpg_results.js:595
+msgid "DECRYPTION FAILED"
+msgstr ""
+
+#: extension/webpg_results.js:200
+msgid "NO SECRET KEY"
+msgstr ""
+
+#: extension/webpg_results.js:205 extension/webpg_results.js:595
+msgid "BAD PASSPHRASE"
+msgstr ""
+
+#: extension/webpg_results.js:207 extension/webpg_results.js:210
+msgid "DECRYPT THIS MESSAGE"
+msgstr ""
+
+#: extension/webpg_results.js:218 extension/webpg_results.js:282
+#: extension/webpg_results.js:295 extension/webpg_results.js:306
+#: extension/webpg_results.js:450 extension/webpg_results.js:479
+#: extension/webpg_results.js:485 extension/webpg_results.js:529
+#: extension/webpg_results.js:570 extension/webpg_results.js:576
+#: extension/webpg_results.js:626 extension/webpg_results.js:630
+#: extension/webpg_results.js:636
+msgid "DISPLAY ORIGINAL"
+msgstr ""
+
+#: extension/webpg_results.js:227
 msgid "DETACHED PGP SIGNATURE"
 msgstr ""
 
-#: extension/webpg_results.js:208
+#: extension/webpg_results.js:229
 msgid "PGP SIGNED MESSAGE"
 msgstr ""
 
-#: extension/webpg_results.js:223
+#: extension/webpg_results.js:244
 msgid "THE SIGNATURE ON THIS MESSAGE IS INVALID"
 msgstr ""
 
-#: extension/webpg_results.js:223
+#: extension/webpg_results.js:244
 msgid "THE SIGNATURE MIGHT BE TAMPERED WITH"
 msgstr ""
 
-#: extension/webpg_results.js:261
+#: extension/webpg_results.js:282
 msgid "THIS MESSAGE WAS SIGNED WITH KEY"
 msgstr ""
 
-#: extension/webpg_results.js:267
+#: extension/webpg_results.js:288
 msgid "THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY"
 msgstr ""
 
-#: extension/webpg_results.js:273
+#: extension/webpg_results.js:294
 msgid "THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING"
 msgstr ""
 
-#: extension/webpg_results.js:277
+#: extension/webpg_results.js:298
 msgid "SEARCH FOR KEYS ON KEYSERVER"
 msgstr ""
 
-#: extension/webpg_results.js:284
+#: extension/webpg_results.js:305
 msgid "THE SIGNATURE ON THIS MESSAGE FAILED"
 msgstr ""
 
-#: extension/webpg_results.js:284
+#: extension/webpg_results.js:305
 msgid "THE MESSAGE MAY BE TAMPERED WITH"
 msgstr ""
 
-#: extension/webpg_results.js:318
+#: extension/webpg_results.js:337
 msgid "PGP PUBLIC KEY"
 msgstr ""
 
-#: extension/webpg_results.js:367
+#: extension/webpg_results.js:386
 msgid "Names/UIDs on Key"
 msgstr ""
 
-#: extension/webpg_results.js:418
-msgid "Created"
-msgstr ""
-
-#: extension/webpg_results.js:423
+#: extension/webpg_results.js:442
 msgid "THIS KEY IS NOT IN YOUR KEYRING"
 msgstr ""
 
-#: extension/webpg_results.js:429
+#: extension/webpg_results.js:448
 msgid "THIS KEY IS IN YOUR KEYRING"
 msgstr ""
 
-#: extension/webpg_results.js:434 extension/webpg_results.js:521
+#: extension/webpg_results.js:453 extension/webpg_results.js:540
 msgid "IMPORT THIS KEY"
 msgstr ""
 
-#: extension/webpg_results.js:437
+#: extension/webpg_results.js:456
 msgid "DELETE THIS KEY"
 msgstr ""
 
-#: extension/webpg_results.js:463 extension/webpg_results.js:554
-#: extension/webpg_results.js:614
+#: extension/webpg_results.js:482 extension/webpg_results.js:573
+#: extension/webpg_results.js:633
 msgid "HIDE ORIGINAL"
 msgstr ""
 
-#: extension/webpg_results.js:520
+#: extension/webpg_results.js:539
 msgid "UNUSABLE KEY"
 msgstr ""
 
-#: extension/webpg_results.js:520
+#: extension/webpg_results.js:539
 msgid "NO USER ID"
 msgstr ""
 
 #: extension/XULContent/firefoxOverlay.xul:19
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:24
+#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:16
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:40
 msgid "WebPG"
 msgstr ""
 
 #: extension/XULContent/firefoxOverlay.xul:30
-#: extension/XULContent/options.xul:28
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:35
+#: extension/XULContent/options.xul:33
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:52
 msgid "About"
 msgstr ""
 
 #: extension/XULContent/firefoxOverlay.xul:37
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:42
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:59
 msgid "Clear Sign"
 msgstr ""
 
 #: extension/XULContent/firefoxOverlay.xul:56
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:61
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:78
 msgid "Sign and Encrypt this text"
 msgstr ""
 
 #: extension/XULContent/firefoxOverlay.xul:70
-#: extension/XULContent/thunderbird/thunderbirdOverlay.xul:75
+#: extension/XULContent/thunderbird/thunderbirdUtils.js:92
 msgid "Import this Public key"
 msgstr ""
 
-#: extension/XULContent/thunderbird/composeOverlay.js:40
+#: extension/XULContent/thunderbird/composeOverlay.js:91
 msgid "Sign Inline"
 msgstr ""
 
-#: extension/XULContent/thunderbird/composeOverlay.js:41
+#: extension/XULContent/thunderbird/composeOverlay.js:92
 msgid "Sign as Attachment"
 msgstr ""
 
