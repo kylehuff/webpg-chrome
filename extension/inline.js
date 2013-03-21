@@ -92,7 +92,7 @@ webpg.inline = {
         } else {
             // Otherwise, use the MutationObserver
             // create an observer instance
-//            console.log("Using MutationObserver");
+            console.log("Using MutationObserver");
             var observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
                     if (mutation.target.nodeName == "IFRAME" && mutation.target.className.indexOf("webpg-") == -1 &&
@@ -197,7 +197,6 @@ webpg.inline = {
 
         while((node = tw.nextNode())) {
             idx = 0;
-//            console.log(node.nodeName);
 
             while(true) {
                 if(!haveStart) {
@@ -372,7 +371,13 @@ webpg.inline = {
         var phtml = h.innerHTML;
 
         if (webpg.utils.detectedBrowser['product'] == 'thunderbird') {
-            scontent = node.parentNode.textContent;
+            // In thunderbird, we need to use the HTML, which the rendered plaintext
+            //  value of the message. Because it is escaped html, we then need to
+            //  place it back into our temporary element and retrieve the nodeValue
+            //  for proper parsing.
+            scontent = html.replace(/\n/gim, "").replace(/<br>/gim, "\n");
+            h.innerHTML = webpg.descript(scontent);
+            scontent = h.childNodes[0].nodeValue;
         } else {
             var reg = new RegExp("(&(.){1,4};)", "g");
             if (html.search(reg) > -1)
@@ -387,18 +392,18 @@ webpg.inline = {
 
         if (html.search(/^.*?(-----BEGIN PGP.*?<br>)/gim) == -1 && html.search(/^.*?(<br>-----BEGIN PGP.*?)/gim) == -1
             && html.search(/^.*?(<br>Version.*?)/gim) == -1 && html.search(new RegExp("(&(.){1,4};)", "g")) == -1) {
-            console.log("using html")
+//            console.log("using html")
             scontent = html;
         } else if (scontent.search(/.*?(-----BEGIN PGP.*?<br>)/gim) > 0 || scontent.search(/^.*?(<br>-----BEGIN PGP.*?)/gim) > 0 ||
             scontent.search(/^\s*?(-----BEGIN PGP.*?)<br>/gi) == 0) {
-            console.log("using phtml");
+//            console.log("using phtml");
             scontent = phtml;
         } else {
-            console.log("using scontent");
+//            console.log("using scontent");
         }
 
         if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
-            scontent = scontent.replace(/([\"|>])\s(\b.*?)\s([\"|<])/gim, "$1$2$3");
+            scontent = scontent.replace(/([\"|>])\s(\b.*?)\s([\"|<])(?:\/)/gim, "$1$2$3");
 
         var fragment = range.extractContents();
 
