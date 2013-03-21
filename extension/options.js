@@ -27,7 +27,7 @@ webpg.options = {
         else if (webpg.utils.detectedBrowser['product'] == "chrome")
             webpg.plugin = chrome.extension.getBackgroundPage().webpg.plugin;
 
-        webpg.jq('#step-1').ready(function(){
+        webpg.jq('#step-1').ready(function() {
             doSystemCheck();
         });
 
@@ -48,10 +48,18 @@ webpg.options = {
                 webpg_status = webpg.plugin.webpg_status;
                 errors = {
                     'NPAPI' : { 'error' : false, 'detail': _("The WebPG NPAPI Plugin is valid") + "; version " + webpg.plugin.version },
-                    'libgpgme' : { 'error' : false, 'detail' : _("libgpgme loaded successfully") + "; version " + webpg_status.gpgme_version },
+                    'openpgp' : { 'error' : false, 'detail' : _("OpenPGP was detected") + "; version " + webpg_status.OpenPGP.version },
                     'gpg_agent' : { 'error' : false, 'detail' : _("It appears you have a key-agent configured") },
                     'gpgconf' : { 'error' : false, 'detail' : _("gpgconf was detected") + "; " +  _("you can use the signature methods") },
                 };
+
+                if (!webpg_status.openpgp_detected) {
+                    errors['openpgp'] = {
+                        'error': true,
+                        'detail': _("OpenPGP does not appear to be installed"),
+                        'link' : "http://gpgauth.org/projects/gpgauth-chrome/support-gpgconf",
+                    }
+                }
 
                 if (!webpg_status.gpg_agent_info) {
                     errors['gpg_agent'] = {
@@ -105,10 +113,9 @@ webpg.options = {
                             errors[error]['detail'] + " - <a href=\"" + errors[error]['link'] + platform + "/\" target=\"new\">" + _("click here for help resolving this issue") + "</a>" : errors[error]['detail']
                     })
                 );
-                if (errors_found)
-                    webpg.jq('#status_result').append(item_result);
+                webpg.jq('#status_result').append(item_result);
             }
-            if (errors_found && (error == 'libgpgme' || error == 'NPAPI')) {
+            if (errors_found && error == 'NPAPI') {
                 // Hide the options for invalid installations
                 webpg.jq('#valid-options').hide();
             } else {
@@ -116,13 +123,13 @@ webpg.options = {
                 // and don't show the "display inline" or "GMAIL integration"
                 //  options in Thunderbird
                 if (webpg.utils.detectedBrowser['product'] == "thunderbird") {
-                    webpg.jq('#enable-decorate-inline').hide();
+                    //webpg.jq('#enable-decorate-inline').hide();
                     webpg.jq("#enable-gmail-integration").hide();
                     webpg.jq("#gmail-action-sign").hide();
                 }
 
                 if ((webpg.utils.detectedBrowser['product'] == "chrome") &&
-                    !chrome.app.getDetails().hasOwnProperty("content_scripts")){
+                    !chrome.app.getDetails().hasOwnProperty("content_scripts")) {
                         webpg.jq('#enable-decorate-inline').hide();
                 } else {
                     webpg.jq('#enable-decorate-inline-check')[0].checked = 
@@ -154,6 +161,11 @@ webpg.options = {
                     text(_("GnuPG binary") + " (i.e. /usr/bin/gpg)");
 
                 webpg.jq("#gnupg-binary-select").find("input:button").val(_("Save"));
+
+                webpg.jq("#gpgconf-binary-select").find(".webpg-options-text").
+                    text(_("GPGCONF binary") + " (i.e. /usr/bin/gpgconf)");
+
+                webpg.jq("#gpgconf-binary-select").find("input:button").val(_("Save"));
 
                 webpg.jq("#gnupg-keyserver-select").find(".webpg-options-text").
                     text(_("Keyserver") + " (i.e. hkp://subkeys.pgp.net)");
@@ -232,7 +244,7 @@ webpg.options = {
                     }
                 );
 
-                webpg.jq("#gnupg-path-save").button().click(function(e){
+                webpg.jq("#gnupg-path-save").button().click(function(e) {
                     webpg.preferences.gnupghome.set(webpg.jq("#gnupg-path-input")[0].value);
                     webpg.jq(this).hide();
                 });
@@ -242,7 +254,7 @@ webpg.options = {
                     webpg.jq(this).data('oldVal', webpg.jq(this).val());
 
                     // Look for changes in the value
-                    webpg.jq(this).bind("change propertychange keyup input paste", function(event){
+                    webpg.jq(this).bind("change propertychange keyup input paste", function(event) {
                         // If value has changed...
                         if (webpg.jq(this).data('oldVal') != webpg.jq(this).val()) {
                             // Updated stored value
@@ -259,8 +271,9 @@ webpg.options = {
 
                 webpg.jq("#gnupg-path-input")[0].dir = "ltr";
 
-                webpg.jq("#gnupg-binary-save").button().click(function(e){
+                webpg.jq("#gnupg-binary-save").button().click(function(e) {
                     webpg.preferences.gnupgbin.set(webpg.jq("#gnupg-binary-input")[0].value);
+                    window.top.document.location.reload();
                     webpg.jq(this).hide();
                 });
 
@@ -269,7 +282,7 @@ webpg.options = {
                     webpg.jq(this).data('oldVal', webpg.jq(this).val());
 
                     // Look for changes in the value
-                    webpg.jq(this).bind("change propertychange keyup input paste", function(event){
+                    webpg.jq(this).bind("change propertychange keyup input paste", function(event) {
                         // If value has changed...
                         if (webpg.jq(this).data('oldVal') != webpg.jq(this).val()) {
                             // Updated stored value
@@ -286,7 +299,37 @@ webpg.options = {
 
                 webpg.jq("#gnupg-binary-input")[0].dir = "ltr";
 
-                webpg.jq("#gnupg-keyserver-save").button().click(function(e){
+                webpg.jq("#gpgconf-binary-save").button().click(function(e) {
+                    webpg.preferences.gpgconf.set(webpg.jq("#gpgconf-binary-input")[0].value);
+                    window.top.document.location.reload();
+                    webpg.jq(this).hide();
+                });
+
+                webpg.jq("#gpgconf-binary-input").each(function() {
+                    // Save current value of element
+                    webpg.jq(this).data('oldVal', webpg.jq(this).val());
+
+                    // Look for changes in the value
+                    webpg.jq(this).bind("change propertychange keyup input paste", function(event) {
+                        // If value has changed...
+                        if (webpg.jq(this).data('oldVal') != webpg.jq(this).val()) {
+                            // Updated stored value
+                            webpg.jq(this).data('oldVal', webpg.jq(this).val());
+
+                            // Show save dialog
+                            if (webpg.jq(this).val() != webpg.preferences.gpgconf.get())
+                                webpg.jq("#gpgconf-binary-save").show();
+                            else
+                                webpg.jq("#gpgconf-binary-save").hide();
+                        }
+                    })
+                })[0].value = webpg.preferences.gpgconf.get();
+
+                webpg.jq("#gpgconf-binary-input")[0].dir = "ltr";
+
+                webpg.jq("#gnupg-keyserver-save").button().click(function(e) {
+                    if (!webpg.plugin.webpg_status.gpgconf_detected)    
+                        return false;
                     webpg.plugin.gpgSetPreference("keyserver", webpg.jq("#gnupg-keyserver-input")[0].value);
                     webpg.jq(this).hide();
                 });
@@ -296,7 +339,7 @@ webpg.options = {
                     webpg.jq(this).data('oldVal', webpg.jq(this).val());
 
                     // Look for changes in the value
-                    webpg.jq(this).bind("change propertychange keyup input paste", function(event){
+                    webpg.jq(this).bind("change propertychange keyup input paste", function(event) {
                         // If value has changed...
                         if (webpg.jq(this).data('oldVal') != webpg.jq(this).val()) {
                             // Updated stored value
@@ -313,7 +356,7 @@ webpg.options = {
 
                 webpg.jq("#gnupg-keyserver-input")[0].dir = "ltr";
 
-                webpg.jq("#advanced-options-link").click(function(e){
+                webpg.jq("#advanced-options-link").click(function(e) {
                     webpg.jq("#advanced-options").toggle("slide");
                 });
             }

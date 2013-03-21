@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://webpg-firefox/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://webpg-firefox/locale/webpg.dtd">
+<overlay id="webpg-overlay" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <script src="../../constants.js"/>
+    <script src="../../utils.js"/>
+    <script src="../../preferences.js"/>
+    <script src="thunderbirdUtils.js"/>
+    <script src="../../inline.js"/>
+    <script src="../../webpg_overlay.js"/>
+
+    <menubar id="mail-menubar">
+        <menu id="menu-webpg" class="webpg-menu" insertbefore="tasksMenu"/>
+    </menubar>
+
+<!--    <menu id="menu-webpg" label="WebAA">-->
+<!--        <menupopup id="webpg-menu-popup">-->
+<!--            <menuitem class="webpg-menu-manager menuitem-iconic" label="1" oncommand="webpg.overlay.onContextCommand(event,webpg.constants.overlayActions.MANAGER)"/>-->
+<!--            <menuitem class="webpg-menu-options menuitem-iconic" label="2" oncommand="webpg.overlay.onContextCommand(event,webpg.constants.overlayActions.OPTS)"/>-->
+<!--            <menuitem class="webpg-menu-about menuitem-iconic" label="3" oncommand="webpg.overlay.onContextCommand(event,webpg.constants.overlayActions.ABOUT)"/>-->
+<!--        </menupopup>-->
+<!--    </menu>-->
+
+</overlay>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://webpg-firefox/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://webpg-firefox/locale/webpg.dtd">
+<overlay id="webpg-overlay" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <script src="../../constants.js"/>
+    <script src="../../utils.js"/>
+    <script src="../../preferences.js"/>
+    <script src="../../background.js"/>
+    <script src="../../inline.js"/>
+    <script src="thunderbirdUtils.js"/>
+    <script type="text/javascript">
+        webpg.tbOverlay = {
+            init: function(aEvent) {
+                webpg.jq = webpg.thunderbird.utils.loadjQuery(window);
+                var _ = webpg.utils.i18n.gettext;
+                document.querySelector('#webpg-menu-popup').parentNode.setAttribute('label', _("WebPG"));
+                var webpg_menuitems = document.querySelectorAll('.webpg-menuitem');
+                webpg.thunderbird.utils.setMenuItemLabels(webpg_menuitems);
+            },
+
+        }
+        window.addEventListener('load', webpg.tbOverlay.init);
+    </script>
+
+    <!-- Thunderbird & SeaMonkey -->
+    <menubar id="mail-menubar">
+        <menu id="menu-webpg" class="webpg-menu webpg-menu-webpg" insertbefore="tasksMenu" />
+    </menubar>
+
+    <menu id="menu-webpg" class="webpg-menuitem webpg-menu-webpg" label="aa">
+        <menupopup id="webpg-menu-popup">
+            <menuitem class="webpg-menuitem webpg-menu-manager menuitem-iconic" oncommand="webpg.overlay.onContextCommand(event,webpg.constants.overlayActions.MANAGER)"/>
+            <menuitem class="webpg-menuitem webpg-menu-options menuitem-iconic" oncommand="webpg.overlay.onContextCommand(event,webpg.constants.overlayActions.OPTS)"/>
+            <menuitem class="webpg-menuitem webpg-menu-about menuitem-iconic" oncommand="webpg.overlay.onContextCommand(event,webpg.constants.overlayActions.ABOUT)"/>
+        </menupopup>
+    </menu>
+
+    <!-- Thunderbird 2 Context Menu -->
+<!--    <menupopup id="messagePaneContext">-->
+<!--        <popup id="mailContext" />-->
+<!--    </menupopup>-->
+
+    <!-- Thunderbird 3 Context Menu -->
+<!--    <popup id="mailContext">-->
+<!--        <menu id="context-webpg" />-->
+<!--    </popup>-->
+
+    <!-- Status Bar -->
+    <statusbar id="status-bar">
+        <statusbarpanel id="webpg-statusbar">
+            <label value="" id="webpg-results-trusted-hover"/>
+        </statusbarpanel>
+    </statusbar>
+    <!-- Status bar -->
+
+    <window>
+        <vbox collapsed="true">
+            <html:object id="webpgPlugin" type="application/x-webpg" height="1" width="1" style="visibility:hidden;"></html:object>
+        </vbox>
+    </window>
+</overlay>

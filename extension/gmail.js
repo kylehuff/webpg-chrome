@@ -208,7 +208,7 @@ webpg.gmail = {
                 webpg.utils.sendRequest({'msg': 'sign',
                     'message_event': 'gmail',
                     'selectionData': {
-                        'selectionText': message
+                        'selectionText': webpg.utils.linkify(message)
                     }
                 }, function(response) {
                     if (!response.result.error && response.result.data) {
@@ -635,6 +635,7 @@ webpg.gmail = {
     */
     getContents: function(editor) {
         var canvasFrame = webpg.gmail.getCanvasFrame();
+        var plaintext = (webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=ishtml]").val() != "1")
         if (webpg.gmail.gmailComposeType == "inline") {
             var msg_container = canvasFrame.find("*[g_editable='true']").first();
             if (msg_container.length < 1) {
@@ -647,6 +648,8 @@ webpg.gmail = {
             }
             message = (msg_container[0].nodeName == "TEXTAREA") ?
                 msg_container.val() : msg_container.html();
+            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
+                message = new XMLSerializer().serializeToString(msg_container[0]);
         } else {
             var textarea = canvasFrame.find('textarea[name!=to]', editor).
                 filter("[name!=bcc]").filter("[name!=cc]");
@@ -655,9 +658,15 @@ webpg.gmail = {
                 var message = iframe.html();
             } else {
                 var message = textarea.val();
+                plaintext = true;
             }
         }
-        return webpg.gmail.clean(message);
+
+        message = webpg.gmail.clean(message);
+
+        if (webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=nowrap]").val() != "1")
+            message = webpg.utils.gmailWrapping(message);
+        return message;
     },
 
     /*
@@ -669,11 +678,6 @@ webpg.gmail = {
             message - <str/html> The content to place in the gmail UI message editor
     */
     setContents: function(editor, message) {
-        var reg = new RegExp("\n\n", "g");
-        var html_message = message.replace(reg, "<div><br></div>");
-        var reg = new RegExp("\n", "g");
-        html_message = html_message.replace(reg, "<br>");
-
         var canvasFrame = webpg.gmail.getCanvasFrame();
         if (webpg.gmail.gmailComposeType == "inline") {
             var msg_container = canvasFrame.find("*[g_editable='true']").first();
@@ -686,10 +690,26 @@ webpg.gmail = {
                 })
             }
             if (msg_container.length > 0) {
-                if (msg_container[0].nodeName == "TEXTAREA")
+                // Determine if we are in plaintext mode in inline mode
+                var plaintext = (webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=ishtml]").val() != "1");
+                console.log((plaintext) ? "plaintext" : "richtext");
+                if (msg_container[0].nodeName == "TEXTAREA") {
                     msg_container.val(message);
-                else
-                    msg_container.html(html_message);
+                } else {
+                    if (plaintext) {
+                        //console.log("PLAINTEXT");
+                        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                            msg_container[0].innerHTML = message.
+                                replace(/<(\/?a.*?)>/gim, "&lt;$1&gt;").
+                                replace(/\n/gim, "<br>");
+                        } else {
+                            msg_container[0].innerText = message;
+                        }
+                    } else {
+                        //console.log("RICHTEXT");
+                        msg_container.html(message);
+                    }
+                }
             }
         } else {
             var textarea = webpg.jq('textarea[name!=to]', editor).
@@ -697,7 +717,7 @@ webpg.gmail = {
             var iframe = webpg.jq('iframe', editor).contents().find('body');
 
             if (iframe.length > 0) {
-                iframe.html(html_message);
+                iframe.html(message);
             } else {
                 textarea.val(message);
             }
@@ -712,17 +732,21 @@ webpg.gmail = {
             text - <str> The string to parse
     */
     clean: function(text) {
-        var reg = new RegExp("<br[^>]*>", "gi");
-        str = text.replace(reg,"\n");
+        reg = new RegExp("<div[^>]*><br></div>", "gi");
+        str = text.replace(reg, "\n");
 
-        reg = new RegExp("<br>", "gi");
-        str = str.replace(reg,"\n");
+        reg = new RegExp("<div[^>]*>(.*?)</div>", "gi");
+        str = text.replace(reg, "\n$1");
+
+        var reg = new RegExp("<div[^>]*><br></div>", "gi");
+        str = str.replace(reg, "\n");
+
+        var space = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? "\n" : "";
+        var reg = new RegExp("<br[^>]*>", "gi");
+        str = str.replace(reg,space);
 
         reg = new RegExp("<wbr>", "gi");
         str = str.replace(reg,"\n");
-
-        var reg = new RegExp("</div>", "gi");
-        str = str.replace(reg, "\n");
 
         reg = new RegExp("<[^>]+>", "g");
         str = str.replace(reg, "");
@@ -736,7 +760,7 @@ webpg.gmail = {
         reg = new RegExp("&nbsp;", "g");
         str = str.replace(reg, " ");
 
-        return str;
+        return (str.indexOf("\n") == 0) ? str.substr(1) : str;
     },
 
     /*

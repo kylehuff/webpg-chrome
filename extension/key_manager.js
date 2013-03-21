@@ -204,17 +204,17 @@ webpg.keymanager = {
             webpg.jq("#header").remove();
             webpg.jq(document.getElementsByTagName("ul")[0]).remove();
         }
-		if (webpg.utils.detectedBrowser['product'] == 'opera') {
-		    webpg.jq('#close').button().button("option", "label", _("Finished"))
-		        .click(function(e) {
-		            var popup = opera.extension.bgProcess.opera.contexts.toolbar[0];
-		            opera.extension.bgProcess.window.setTimeout(function() {
-		                opera.extension.bgProcess.opera.contexts.toolbar.removeItem(popup);
-		                opera.extension.bgProcess.opera.contexts.toolbar.addItem(popup);
-		            }, 1);
-		            opera.extension.bgProcess.opera.contexts.toolbar.removeItem(popup);
-		    });
-		}
+        if (webpg.utils.detectedBrowser['product'] == 'opera') {
+            webpg.jq('#close').button().button("option", "label", _("Finished"))
+                .click(function(e) {
+                    var popup = opera.extension.bgProcess.opera.contexts.toolbar[0];
+                    opera.extension.bgProcess.window.setTimeout(function() {
+                        opera.extension.bgProcess.opera.contexts.toolbar.removeItem(popup);
+                        opera.extension.bgProcess.opera.contexts.toolbar.addItem(popup);
+                    }, 1);
+                    opera.extension.bgProcess.opera.contexts.toolbar.removeItem(popup);
+            });
+        }
 
         if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
             webpg.jq('#window_functions').hide();
@@ -421,12 +421,12 @@ webpg.keymanager = {
             openSubkey - <str> The ID for the Subkey to render in the open (viewing) status
             openUID - <int> The index number for the UID to render in the open (viewing) status 
     */
-    buildKeylist: function(keyList, type, openKey, openSubkey, openUID){
+    buildKeylist: function(keylist, type, openKey, openSubkey, openUID){
         var _ = webpg.utils.i18n.gettext;
         var scrub = webpg.utils.escape;
         //console.log(keyList, type, openKey, openSubkey, openUID);
         refresh_trust = function(item, type) {
-            if (this.debug) console.log("refresh requested for type", type);
+            if (this.debug) console.log("refresh requested for type: " + type);
             if (type == 'private') {
                 webpg.jq("#dialog-modal:ui-dialog").dialog( "destroy" );
                 return false;
@@ -466,7 +466,7 @@ webpg.keymanager = {
             var enabled_keys = webpg.preferences.enabled_keys.get();
         }
 
-        if (!keyList) {
+        if (!keylist) {
             if (type == 'public') {
                 var find = webpg.jq("#pubkey-search")[0].value;
                 if (find.length > 0) {
@@ -484,6 +484,8 @@ webpg.keymanager = {
                     // if the parsing failed, create an empty keylist
                     var keylist = {};
                 }
+            } else {
+                keylist = {};
             }
             var pkeylist = webpg.plugin.getPrivateKeyList();
 
@@ -491,12 +493,15 @@ webpg.keymanager = {
                 // if the parsing failed, create an empty keylist
                 var pkeylist = {};
             }
-            webpg.keymanager.pkeylist = pkeylist;
             webpg.keymanager.pubkeylist = keylist;
+            webpg.keymanager.pkeylist = pkeylist;
         } else {
-            var keylist = keyList;
             var pkeylist = {};
+            webpg.keymanager.pkeylist = pkeylist;
         }
+
+        
+        
 
         webpg.jq(keylist_element).html("<div class='ui-accordion-left'></div>");
 
@@ -669,10 +674,17 @@ webpg.keymanager = {
             // End key generation dialog
             webpg.keymanager.private_built = true;
         }
+        // End key-generate button and dialog
 
         var prev_key = null;
         var current_keylist = (type == 'public')? keylist : pkeylist;
-        var tpublic_keylist = webpg.plugin.getPublicKeyList();
+        var tpublic_keylist = webpg.keymanager.pubkeylist; //webpg.plugin.getPublicKeyList();
+        var default_key = webpg.preferences.default_key.get();
+        var existing_groups = webpg.preferences.group.get_group_names();
+
+        if (!webpg.plugin.webpg_status.openpgp_detected)
+            return false;
+
         for (var key in current_keylist){
             if (type == 'public') {
                 if (key in pkeylist) {
@@ -691,7 +703,7 @@ webpg.keymanager = {
                 keyobj.className += ' primary_key';
                 var enabled = (enabled_keys.indexOf(key) != -1) ? 'checked' : '';
                 var status_text = (enabled) ? _("Enabled") : _("Disabled");
-                var default_key = (key == webpg.preferences.default_key.get()) ? 'checked' : '';
+                var default_key = (key == default_key) ? 'checked' : '';
             }
             var status = _("Valid");
             var keyobj = document.createElement('div');
@@ -775,7 +787,6 @@ webpg.keymanager = {
                 }
                 options_list[options_list.length] = option;
                 var group_list = [_("None"), _("New group")];
-                var existing_groups = webpg.preferences.group.get_group_names();
                 group_list = group_list.concat(existing_groups);
                 option = {
                     "command" : "group",
@@ -819,7 +830,6 @@ webpg.keymanager = {
                 }
                 options_list[options_list.length] = option;
                 var group_list = [_("None"), _("New group")];
-                var existing_groups = webpg.preferences.group.get_group_names();
                 group_list = group_list.concat(existing_groups);
                 option = {
                     "command" : "group",
@@ -857,13 +867,12 @@ webpg.keymanager = {
                             'position: relative; top: -16px;' : 'margin-top:-10px;';
                         compiled_option_list += "<span class='uid-options' style='" + style + "'>" +
                             "<label for='" + option.command + "-" + type + "-" + key + 
-                            "' style=\"\">" + option.text + "</label><select class='" + 
+                            "'>" + option.text + "</label><select class='" + 
                             type + "-key-option-list ui-button ui-corner-all ui-button ui-widget ui-state-default' id='" + 
                             option.command + "-" + type + "-" + key + "' style=\"text-align:left; margin-right: 10px;\">";
                         for (var listitem in option.list_values) {
                             if (option.type == "trust") {
-                                var owner_trust = current_keylist[key].owner_trust;
-                                if (option.list_values[listitem].toLowerCase() == owner_trust)
+                                if (option.list_values[listitem].toLowerCase() == current_keylist[key].owner_trust)
                                     var selected = "selected";
                                 else
                                     var selected = "";
@@ -891,7 +900,7 @@ webpg.keymanager = {
                         break;
                 }
             }
-            var keystatus = (current_keylist[key].disabled)? 'enable':'disable';
+            var keystatus = (current_keylist[key].disabled) ? 'enable':'disable';
             var keystatus_text = (current_keylist[key].disabled)? _('Enable this Key'):_('Disable this Key');
             var key_option_button = "<span class='uid-options' style='font-size:12px;'><input class='" + 
                     type + "-key-option-button' id='" + keystatus + "-" + scrub(type) + "-" + scrub(key) + 
@@ -1007,7 +1016,7 @@ webpg.keymanager = {
                 if (current_keylist[key].expired || current_keylist[key].uids[uid].revoked)
                     uidobj.className += ' invalid-key';
                 var email = (current_keylist[key].uids[uid].email.length > 1) ?
-                    current_keylist[key].uids[uid].email:
+                    current_keylist[key].uids[uid].email :
                     _("no email address provided");
                 if (webpg.utils.isRTL())
                     var uid_string = (current_keylist[key].uids[uid].email.length > 1) ?
@@ -1092,11 +1101,12 @@ webpg.keymanager = {
                             "<div style='float:left; clear:right;width:80%;'><span class='signature-uid'>" + 
                             tpublic_keylist[sig_keyid].name + status + "</span><br/\><span class='signature-email'>" + 
                             email + "</span><br/\><span class='signature-keyid'>" + sig_keyid + "</span><br/\>";
-                        var date_created = new Date(tpublic_keylist[key].uids[uid].signatures[sig].created * 1000).toJSON();
+                        var date_created = (tpublic_keylist[key].uids[uid].signatures[sig].created == 0) ?
+                            _('Unknown') : new Date(tpublic_keylist[key].uids[uid].signatures[sig].created * 1000).toJSON().substring(0, 10);
                         var date_expires = (tpublic_keylist[key].uids[uid].signatures[sig].expires == 0) ? 
-                            'Never' : new Date(tpublic_keylist[key].uids[uid].signatures[sig].expires * 1000).toJSON().substring(0, 10);
-                        sig_box += "<span class='signature-keyid'>Created: " + date_created.substring(0, 10) + "</span><br/\>";
-                        sig_box += "<span class='signature-keyid'>Expires: " + date_expires + "</span><br/\>"
+                            _('Never') : new Date(tpublic_keylist[key].uids[uid].signatures[sig].expires * 1000).toJSON().substring(0, 10);
+                        sig_box += "<span class='signature-keyid'>" + _('Created') + ": " + date_created + "</span><br/\>";
+                        sig_box += "<span class='signature-keyid'>" + _('Expires') + ": " + date_expires + "</span><br/\>"
 
                         sig_box += "<span class='signature-keyid'>";
                         if (sig_keyid == key) {
@@ -1287,10 +1297,10 @@ webpg.keymanager = {
 
                 case "expire":
                     webpg.jq("#keyexp-dialog").dialog({
-		                'resizable': true,
-		                'height': 190,
-		                'modal': true,
-		                'position': "top",
+                        'resizable': true,
+                        'height': 190,
+                        'modal': true,
+                        'position': "top",
                         'open': function(event, ui) {
                             var key = webpg.plugin.getNamedKey(params[2])
                             webpg.jq("#keyexp-date-input").datepicker({
@@ -1298,7 +1308,7 @@ webpg.keymanager = {
                                 'minDate': "+1D",
                                 'maxDate': "+4096D",
                                 'changeMonth': true,
-	                            'changeYear': true
+                                'changeYear': true
                             });
                             if (params.length > 3) {
                                 subkey_idx = params[3];
@@ -1326,10 +1336,10 @@ webpg.keymanager = {
                             })
 
                         },
-		                'buttons': [
-		                    {
-		                        'text': _("Save"),
-			                    'click': function() {
+                        'buttons': [
+                            {
+                                'text': _("Save"),
+                                'click': function() {
                                     if (webpg.jq("#keyexp-never")[0].checked) {
                                         var new_expire = 0;
                                     } else {
@@ -1360,17 +1370,17 @@ webpg.keymanager = {
                                     }
                                     webpg.jq(this).dialog("close");
                                     webpg.keymanager.buildKeylistProxy(null, params[1], params[2], params[3], null);
-			                    },
-			                }, {
-			                    'text': _("Cancel"),
-		                        'click': function(event,ui) {
+                                },
+                            }, {
+                                'text': _("Cancel"),
+                                'click': function(event,ui) {
                                     console.log("destroyed...");
                                     webpg.jq("#keyexp-date-input").datepicker('destroy');
                                     webpg.jq(this).dialog('destroy');
                                 },
-			                }
-			            ]
-	                }).parent().animate({"top": window.scrollY}, 1, function() {
+                            }
+                        ]
+                    }).parent().animate({"top": window.scrollY}, 1, function() {
                         webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
                             / 3}, 1);
                     });
@@ -1384,14 +1394,14 @@ webpg.keymanager = {
                 case "delete":
                     console.log(params);
                     webpg.jq("#delete-key-dialog-confirm").dialog({
-		                'resizable': true,
-		                'height': 168,
-		                'modal': true,
-		                'position': "top",
-		                'close': function() {
+                        'resizable': true,
+                        'height': 168,
+                        'modal': true,
+                        'position': "top",
+                        'close': function() {
                             webpg.jq("#delete-key-dialog-confirm").dialog("destroy");
                         },
-		                'buttons': [
+                        'buttons': [
                         {
                             'text': _("Delete this key"),
                             'click': function() {
@@ -1406,7 +1416,7 @@ webpg.keymanager = {
                                     result = webpg.plugin.gpgDeletePrivateSubKey(params[2],
                                         parseInt(params[3]));
                                 }
-			                    webpg.jq(this).dialog("close");
+                                webpg.jq(this).dialog("close");
 
                                 if (result && !result.error) {
                                     if (params[1] == "subkey") {
@@ -1419,26 +1429,26 @@ webpg.keymanager = {
                                     }
                                     webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
                                 }
-		                    }
-			            }, {
+                            }
+                        }, {
                             'text': _("Cancel"),
-		                    'click': function() {
-			                    webpg.jq(this).dialog("close");
-		                    }
-		                }
-		            ]
-	                }).parent().animate({"top": window.scrollY}, 1, function() {
+                            'click': function() {
+                                webpg.jq(this).dialog("close");
+                            }
+                        }
+                    ]
+                    }).parent().animate({"top": window.scrollY}, 1, function() {
                             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()}, 1);
                         });
-	                break;
+                    break;
 
-	            case "adduid":
+                case "adduid":
                     webpg.jq("#adduid-dialog").dialog({
-		                'resizable': true,
-		                'height': 230,
-		                'width': 550,
-		                'modal': true,
-		                'position': "top",
+                        'resizable': true,
+                        'height': 230,
+                        'width': 550,
+                        'modal': true,
+                        'position': "top",
                         'buttons': [
                         {
                             'text': _("Create"),
@@ -1563,7 +1573,7 @@ webpg.keymanager = {
                     ]}).parent().animate({"top": window.scrollY}, 1, function() {
                             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
                                 / 3}, 1);
-                        });
+                    });
                     webpg.jq("#subKey_flags").buttonset();
                     webpg.jq("#gensubkey-form").children('input').removeClass('input-error');
                     webpg.jq("#gensubkey-form")[0].reset();
@@ -1621,11 +1631,11 @@ webpg.keymanager = {
                     webpg.jq("#export-dialog-text").html(scrub(export_result));
                     webpg.jq("#export-dialog-copytext").html(scrub(export_result));
                     webpg.jq("#export-dialog").dialog({
-		                'resizable': true,
-		                'height': 230,
-		                'width': 536,
-		                'modal': true,
-		                'position': "top",
+                        'resizable': true,
+                        'height': 230,
+                        'width': 536,
+                        'modal': true,
+                        'position': "top",
                         'buttons': [
                         {
                             'text': _("Copy"),
@@ -1699,11 +1709,11 @@ webpg.keymanager = {
                     webpg.jq("#export-dialog-copytext").hide();
                     webpg.jq("#export-dialog-text").text(_("Are you sure you want to Publish this key to the Keyserver") + "?");
                     webpg.jq("#export-dialog").dialog({
-		                'resizable': true,
-		                'height': 230,
-		                'width': 536,
-		                'modal': true,
-		                'position': "top",
+                        'resizable': true,
+                        'height': 230,
+                        'width': 536,
+                        'modal': true,
+                        'position': "top",
                         'buttons': [
                         {
                             'text': _("Publish"),
@@ -1787,37 +1797,37 @@ webpg.keymanager = {
             switch(params[0]) {
                 case "delete":
                     webpg.jq( "#deluid-confirm" ).dialog({
-		                'resizable': true,
-		                'height': 180,
-		                'modal': true,
-		                'position': "top",
+                        'resizable': true,
+                        'height': 180,
+                        'modal': true,
+                        'position': "top",
                         'close': function() {
                             webpg.jq("#deluid-confirm").dialog("destroy");
                         },
                         'buttons': [
                         {
-	                        'text': _("Delete this UID"),
-	                        'click': function() {
+                            'text': _("Delete this UID"),
+                            'click': function() {
                                 // Delete the Public Key
                                 var uid_idx = parseInt(params[3]) + 1;
                                 var result = webpg.plugin.gpgDeleteUID(params[2], uid_idx);
                                 console.log(result, params[2], uid_idx);
-		                        webpg.jq(this).dialog("close");
+                                webpg.jq(this).dialog("close");
                                 // Remove the Key-ID from the params array, since it
                                 //  no longer exists
                                 if (!result.error) {
                                     params[3] = null;
                                     webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
                                 }
-	                        }
-	                    }, {
-	                        'text': _("Cancel"),
-		                    'click': function() {
-			                    webpg.jq(this).dialog("close");
-		                    }
-	                    }
-	                ]}).parent().animate({"top": window.scrollY}, 1,
-	                    function() {
+                            }
+                        }, {
+                            'text': _("Cancel"),
+                            'click': function() {
+                                webpg.jq(this).dialog("close");
+                            }
+                        }
+                    ]}).parent().animate({"top": window.scrollY}, 1,
+                        function() {
                             webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
                                 / 2}, 1);
                         });
@@ -2208,76 +2218,11 @@ webpg.keymanager = {
                 var keylist = webpg.keymanager.pubkeylist;
                 // Retrieve the value of the serach field
                 var val = e.target.value.toLowerCase();
-                // Convert some items of val
-                val = val.replace(/\\/g, "\\\\").
-                        replace(/\./g, "\\.").
-                        replace(/\*/g, "\.*?");
-                // Create an empty object that will hold the keys matching
-                //  the search string
-                var searchResults = {}
-                // Determine if this is a compound search
-                var compound = (val.search("&&") > -1)
-                if (compound)
-                    var searchStrs = val.split(" && ");
-                else
-                    var searchStrs = val.split(" & ");
-                // Iterate through the keys in the keylist to preform
-                //  our search
-                for (var key in keylist) {
-                    // The instance of the current key object
-                    var keyobj = keylist[key];
-                    // Convert the key object to a string
-                    var keyobjStr = JSON.stringify(keyobj).toLowerCase();
-                    // Check if this is a compound search
-                    if (compound) {
-                        // Set a flag to determine if all of the search words
-                        //  were located
-                        var allfound = true;
-                        // Iterate through each of the search words.
-                        for (var searchStr in searchStrs) {
-                            // Determine if this search word is a
-                            //  property:value item
-                            if (searchStrs[searchStr].search(":") > -1) {
-                                // Format the property:value search item
-                                //  to a compatible format
-                                searchStrM = webpg.utils.formatSearchParameter(
-                                    searchStrs[searchStr]
-                                );
-                            } else {
-                                searchStrM = false;
-                            }
-                            var locate = (searchStrM) ? searchStrM
-                                : searchStrs[searchStr];
-                            if (keyobjStr.search(locate) == -1
-                            || keyobjStr.search(locate.replace(":\"", ":")) == -1) {
-                                allfound = false;
-                            }
-                        }
-                        if (allfound)
-                            searchResults[key] = keyobj;
-                    } else {
-                        for (var searchStr in searchStrs) {
-                            if (searchStrs[searchStr].search(":") > -1) {
-                                // Format the property:value search item
-                                //  to a compatible format
-                                searchStrM = webpg.utils.formatSearchParameter(
-                                    searchStrs[searchStr]
-                                );
-                            } else {
-                                searchStrM = false;
-                            }
-                            var locate = (searchStrM) ? searchStrM
-                                : searchStrs[searchStr];
-                            if (keyobjStr.search(locate) > -1
-                            || keyobjStr.search(locate.replace(":\"", ":")) > -1) {
-                                searchResults[key] = keyobj;
-                                break;
-                            }
-                        }
-                    }
-                }
 
-                var nkeylist = (val.length > 0) ? searchResults : null;
+                var nkeylist = webpg.utils.keylistTextSearch(val, keylist);
+
+                if (this.value == "")
+                    nkeylist = webpg.keymanager.pubkeylist;
 
                 webpg.jq("#dialog-modal").dialog('option', 'modal', false)
                 .dialog('open').animate({"top": window.scrollY}, 1,

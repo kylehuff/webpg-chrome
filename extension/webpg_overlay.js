@@ -28,11 +28,15 @@ webpg.overlay = {
         webpg.doc = (aEvent) ?
             aEvent.originalTarget : document;
 
+        if (webpg.utils.detectedBrowser['product'] == 'thunderbird'
+        || webpg.utils.detectedBrowser['product'] == 'seamonkey')
+            if (typeof(webpg.jq)=='undefined')
+                webpg.jq = webpg.thunderbird.utils.loadjQuery(window);
+
         // We don't want to run on certain pages
         //  TODO: consult a list of user defined domains/pages to ignore
         webpg.overlay.blackListedDomains = ["twitter.com", "translate.google.com"];
         var proceed = webpg.overlay.blackListedDomains.every(function(bldomain) {
-            console.log(webpg.doc.location.host.indexOf(bldomain));
             return (webpg.doc.location.host.indexOf(bldomain) == -1);
         });
 
@@ -46,15 +50,17 @@ webpg.overlay = {
         }
 
         function hideContextmenu(e){
-            webpg.overlay.isContextMenuOpen = false;
+            if (!(e.which === 3 || e.button === 2))
+                webpg.overlay.isContextMenuOpen = false;
         }
 
         webpg.overlay.isContextMenuOpen = false;
+
         webpg.jq(document).blur(hideContextmenu);
         webpg.jq(document).click(hideContextmenu);
 
-
-        document.addEventListener("contextmenu", webpg.overlay.contextHandler, true);
+        if (webpg.utils.detectedBrowser['product'] != 'thunderbird')
+            document.addEventListener("contextmenu", webpg.overlay.contextHandler, true);
 
         // Setup a listener for making changes to the page
         webpg.utils._onRequest.addListener(webpg.overlay._onRequest);
@@ -100,10 +106,6 @@ webpg.overlay = {
     _onRequest: function(request, sender, sendResponse) {
         var _ = webpg.utils.i18n.gettext;
         var response = null;
-
-        if (request.msg == "log") {
-            console.log("Remote log request recieved; ", request.data);
-        }
 
         if (request.msg == "resizeiframe"
         || (request.msg == "sendtoiframe"
@@ -200,7 +202,6 @@ webpg.overlay = {
                 webpg.overlay.insert_target.style.whiteSpace = "pre";
                 webpg.overlay.insert_range.insertNode(contents);
             } else {
-                console.log(request);
                 var target_value = request.pre_selection +
                     request.data +
                     request.post_selection;
@@ -252,7 +253,6 @@ webpg.overlay = {
                     'msg': "sendtoiframe",
                     'block_type': request.decrypt_status.block_type,
                     'target_id': results_frame.id,
-                    'iframe_id': results_frame.id,
                     'verify_result': request.decrypt_status,
                     'message_event': request.message_type,
                     'message_type': "encrypted_message",
@@ -342,6 +342,8 @@ webpg.overlay = {
         webpg.overlay.contextSelection = webpg.utils.getSelectedText();
         var selection = webpg.overlay.contextSelection.selectionText;
         block_type = selection.match(/^\s*?(-----BEGIN PGP.*)/gi);
+        if (block_type && block_type[0])
+            block_type[0] = block_type[0].substring(block_type[0].indexOf("-"));
         if (selection.length > 0 && block_type && block_type[0] ==
             webpg.constants.PGPTags.PGP_KEY_BEGIN) {
                 context_menuitems['import'] = true;
@@ -376,25 +378,26 @@ webpg.overlay = {
             event - <event> The original event
             action - <str> The action to perform
             sender  - <obj> The sender (tab/page) of the request
+            selection - <obj> The webpg.utils.getSelectedText object
     */
-	onContextCommand: function(event, action, sender, selection) {
-	    selection = selection || webpg.overlay.contextSelection;
+    onContextCommand: function(event, action, sender, selection) {
+        selection = selection || webpg.overlay.contextSelection;
 
-	    switch (action) {
-       		case webpg.constants.overlayActions.PSIGN:
-       		    if (event == "context-menu")
-       		        webpg.overlay.block_target = true;
-       		    webpg.utils.sendRequest({
-       		        "msg": "sign",
-       		        "selectionData": selection
-       		    });
+        switch (action) {
+            case webpg.constants.overlayActions.PSIGN:
+                if (event == "context-menu")
+                    webpg.overlay.block_target = true;
+                webpg.utils.sendRequest({
+                    "msg": "sign",
+                    "selectionData": selection
+                });
                 break;
 
-		    case webpg.constants.overlayActions.VERIF:
-       		    if (event == "context-menu")
-       		        webpg.overlay.block_target = true;
-		        webpg.utils.sendRequest({"msg": "verify",
-		            "message_event": "context", "selectionData": selection},
+            case webpg.constants.overlayActions.VERIF:
+               if (event == "context-menu")
+                   webpg.overlay.block_target = true;
+                webpg.utils.sendRequest({"msg": "verify",
+                    "message_event": "context", "selectionData": selection},
                     function(response) {
                         if (response.result.signatures && response.result.data)
                             blockType = webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
@@ -409,16 +412,16 @@ webpg.overlay = {
                             'original_text': selection.selectionText
                          });
                     });
-        		break;
+                break;
 
             case webpg.constants.overlayActions.CRYPTSIGN:
-		    case webpg.constants.overlayActions.CRYPT:
-		        if (!selection)
-		            return false;
-       		    if (event == "context-menu")
-       		        webpg.overlay.block_target = true;
-		        var dialog_type = (action == webpg.constants.overlayActions.CRYPTSIGN) ?
-		            'encryptsign' : 'encrypt';
+            case webpg.constants.overlayActions.CRYPT:
+                if (!selection)
+                    return false;
+                if (event == "context-menu")
+                   webpg.overlay.block_target = true;
+                var dialog_type = (action == webpg.constants.overlayActions.CRYPTSIGN) ?
+                    'encryptsign' : 'encrypt';
                 webpg.overlay._onRequest({'msg': 'openDialog',
                     'data': selection.selectionText,
                     'pre_selection': selection.pre_selection,
@@ -427,12 +430,12 @@ webpg.overlay = {
                 });
                 break;
 
-		    case webpg.constants.overlayActions.DECRYPT:
-		        if (!selection)
-		            break;
-       		    if (event == "context-menu")
-       		        webpg.overlay.block_target = true;
-		        webpg.utils.sendRequest({
+            case webpg.constants.overlayActions.DECRYPT:
+                if (!selection)
+                    break;
+                if (event == "context-menu")
+                    webpg.overlay.block_target = true;
+                webpg.utils.sendRequest({
                     // WebPG found a PGP MESSAGE, but it could be signed. Lets gpgVerify first
                     'msg': 'verify',
                     'data': selection.selectionText,
@@ -454,10 +457,10 @@ webpg.overlay = {
                 );
                 break;
 
-		    case webpg.constants.overlayActions.SYMCRYPT:
-       		    if (event == "context-menu")
-       		        webpg.overlay.block_target = true;
-		        webpg.utils.sendRequest({
+            case webpg.constants.overlayActions.SYMCRYPT:
+                if (event == "context-menu")
+                    webpg.overlay.block_target = true;
+                webpg.utils.sendRequest({
                     'msg': 'symmetricEncrypt',
                     'data': selection.selectionText,
                     'pre_selection': selection.pre_selection,
@@ -467,36 +470,36 @@ webpg.overlay = {
                 );
                 break;
 
-		    case webpg.constants.overlayActions.IMPORT:
+            case webpg.constants.overlayActions.IMPORT:
                 webpg.overlay._onRequest({'msg': 'openDialog',
                     'dialog_type': 'import',
                     'data': selection.selectionText
                 });
                 break;
 
-		    case webpg.constants.overlayActions.EXPORT:
-       		    if (event == "context-menu")
-       		        webpg.overlay.block_target = true;
-		        webpg.utils.sendRequest({"msg": "enabled_keys"}, function(response) {
-		            var enabled_keys = response.result;
-		            if (enabled_keys.length > 1) {
+            case webpg.constants.overlayActions.EXPORT:
+                if (event == "context-menu")
+                   webpg.overlay.block_target = true;
+                webpg.utils.sendRequest({"msg": "enabled_keys"}, function(response) {
+                    var enabled_keys = response.result;
+                    if (enabled_keys.length > 1) {
                         webpg.overlay._onRequest({'msg': 'openDialog',
                             'dialog_type': 'export'
                         });
-		            } else {
-		                webpg.utils.sendRequest({"msg": "export", "keyid": enabled_keys[0]},
-		                function(pubkey) {
+                    } else {
+                        webpg.utils.sendRequest({"msg": "export", "keyid": enabled_keys[0]},
+                        function(pubkey) {
                             webpg.overlay._onRequest({'msg': 'insertPublicKey', 'data': pubkey.result});
                         });
                     }
                 });
                 break;
 
-		    case webpg.constants.overlayActions.MANAGER:
-		        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+            case webpg.constants.overlayActions.MANAGER:
+                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
                         "XULContent/options.xul?options_tab=1");
-			    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                     var url = "key_manager.html?auto_init=true"
                     if (typeof(sender.tab)=='undefined') {
                         sender.tab = {'index': null };
@@ -505,13 +508,13 @@ webpg.overlay = {
                     }
                     webpg.utils.openNewTab(webpg.utils.resourcePath + url, sender.tab.index);
                 }
-			    break;
+                break;
 
             case webpg.constants.overlayActions.OPTS:
-		        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
                         "XULContent/options.xul?options_tab=0");
-			    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                     var url = "options.html?auto_init=true";
                     if (typeof(sender.tab)=='undefined') {
                         sender.tab = {'index': null };
@@ -520,11 +523,11 @@ webpg.overlay = {
                     }
                     webpg.utils.openNewTab(webpg.utils.resourcePath + url, sender.tab.index);
                 }
-			    break;
+                break;
 
-		    case webpg.constants.overlayActions.EDITOR:
-		        if (!selection)
-		            return false;
+            case webpg.constants.overlayActions.EDITOR:
+                if (!selection)
+                    return false;
                 webpg.overlay._onRequest({'msg': 'openDialog',
                     'data': selection.selectionText,
                     'pre_selection': selection.pre_selection,
@@ -534,18 +537,17 @@ webpg.overlay = {
                 break;
 
             case webpg.constants.overlayActions.ABOUT:
-		        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
                         "XULContent/options.xul?options_tab=2");
-			    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                     var url = "about.html?auto_init=true";
                     webpg.utils.openNewTab(webpg.utils.resourcePath + url, sender.tab.index + 1);
                 }
-			    break;
+                break;
         }
-	},
-
-
+    },
+    
     /*
         Function: listenerUnload
             This function unloads then event listener when the window/tab is closed.
@@ -561,7 +563,13 @@ webpg.overlay = {
 
 if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
     if (webpg.utils.detectedBrowser['product'] == "thunderbird") {
-//        window.addEventListener("load", webpg.overlay.init, false);
+        //window.addEventListener("load", webpg.overlay.init, false);
+        if (document.location.href != "chrome://messenger/content/messengercompose/messengercompose.xul") {
+            var messagepane = document.getElementById("messagepane"); // mail
+            if (messagepane) {
+                messagepane.addEventListener("load", webpg.overlay.init, true);
+            }
+        }
     } else {
         webpg.appcontent = document.getElementById("appcontent") || document;
         webpg.appcontent.addEventListener("DOMContentLoaded", webpg.overlay.init, false);

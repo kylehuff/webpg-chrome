@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://webpg-firefox/skin/overlay.css" type="text/css"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://webpg-firefox/locale/webpg.dtd">
+<prefwindow onunload="webpg.firefoxOptions.restoreAnimateFadeIn()" id="optionsforwebpg" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <script src="../jquery/js/jquery-1.7.2.min.js"/>
+    <script type="text/javascript">
+        if (typeof(webpg)=='undefined') { webpg = {}; }
+        // Enforce jQuery.noConflict if not already performed
+        if (typeof(jQuery)!='undefined') { webpg.jq = jQuery.noConflict(true); }
+        webpg.firefoxOptions = {
+            init: function() {
+                var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+                        .getService(Components.interfaces.nsIPrefService);
+                prefs = prefs.getBranch("browser.preferences.");
+                webpg.firefoxOptions.animateFadeIn = prefs.getBoolPref("animateFadeIn");
+                prefs.setBoolPref("animateFadeIn", false);
+                var _ = webpg.utils.i18n.gettext;
+                var XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+                document.getElementById("optionsforwebpg").title = _("Options");
+
+                var prefPanes = {
+                    "options" : {
+                        "image": "chrome://webpg-firefox/skin/images/badges/48x48/webpg.png",
+                        "label": _("Options"),
+                    },
+                    "keylist" : {
+                        "image": "chrome://webpg-firefox/skin/images/badges/48x48/stock_keypair.png",
+                        "label": _("Key Manager"),
+                    },
+                    "about" : {
+                        "image": "chrome://webpg-firefox/skin/images/badges/48x48/about.png",
+                        "label": _("About"),
+                    }
+                }
+
+                // Dynamically create the prefPanes
+                for (let pane in prefPanes) {
+                    var prefPane = document.createElementNS(XUL_NS, "prefpane");
+                    prefPane.setAttribute("id", pane);
+                    prefPane.setAttribute("flex", "1");
+                    prefPane.setAttribute("image", prefPanes[pane].image);
+                    prefPane.setAttribute("label", prefPanes[pane].label);
+                    prefPane.setAttribute("width", document.width);
+                    prefPane.setAttribute("height", document.height - 108);
+                    var paneFrame = document.createElement("iframe");
+                    paneFrame.style.height = "100%";
+                    paneFrame.style.width = "100%";
+                    paneFrame.style.overflow = "auto";
+                    paneFrame.setAttribute("id", pane + "Frame");
+                    paneFrame.setAttribute("type", "content");
+                    paneFrame.setAttribute("flex", "1");
+                    prefPane.appendChild(paneFrame);
+                    document.getElementById("optionsforwebpg").addPane(prefPane);
+                }
+
+                var tab = (window.location.search.search("options_tab")) ? 
+                    webpg.utils.getParameterByName("options_tab") : -1;
+
+                if (tab > -1) {
+                    switch(tab) {
+                        case "0":
+                            console.log("Setting options as selected tab");
+                            var pane = document.getElementById("options");
+                            break;
+
+                        case "1":
+                            console.log("Setting keylist as selected tab");
+                            var pane = document.getElementById("keylist");
+                            break;
+
+                        case "2":
+                            console.log("Setting about as selected tab");
+                            var pane = document.getElementById("about");
+                            break;
+
+                    }
+                    document.getElementById("optionsforwebpg").showPane(pane);
+                }
+
+                var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                       .getService(Components.interfaces.nsIWindowMediator);
+                var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
+                    "mail:3pane" : "navigator:browser";
+                var browserWindow = wm.getMostRecentWindow(winType);
+
+                var optionsFrame = document.getElementById('optionsFrame');
+                optionsFrame.setAttribute('src','chrome://webpg-firefox/content/options.html');
+                optionsFrame.addEventListener("load", function() {
+                    var cont = new XPCNativeWrapper(optionsFrame.contentWindow).wrappedJSObject;
+                    cont.webpg.options.init(browserWindow);
+                }, true);
+
+                var keylistFrame = document.getElementById('keylistFrame');
+                keylistFrame.setAttribute('src',
+                    'chrome://webpg-firefox/content/key_manager.html');
+                keylistFrame.addEventListener("load", function() {
+                    var cont = new XPCNativeWrapper(keylistFrame.contentWindow).wrappedJSObject;
+                    cont.webpg.keymanager.init(browserWindow);
+                }, true);
+
+
+                var aboutFrame = document.getElementById('aboutFrame');
+                aboutFrame.setAttribute('src','chrome://webpg-firefox/content/about.html');
+                aboutFrame.addEventListener("load", function() {
+                    var cont = new XPCNativeWrapper(aboutFrame.contentWindow).wrappedJSObject;
+                    cont.webpg.about.init(browserWindow);
+                }, true);
+
+                if (webpg.utils.detectedBrowser['product'] == 'thunderbird') {
+                    var winType = (window != window.top) ? "tab" : "window";
+                    if (winType == "window") {
+                        window.resizeTo(
+                            (browserWindow.screen.availWidth),
+                            (browserWindow.screen.availHeight)
+                        );
+                        window.moveTo(0, 0);
+                    } else {
+                        // TODO: fix thunderbird close button when options page is in a tab
+                    }
+                }
+            },
+
+            restoreAnimateFadeIn: function() {
+                var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+                        .getService(Components.interfaces.nsIPrefService);
+                prefs = prefs.getBranch("browser.preferences.");
+                prefs.setBoolPref("animateFadeIn", webpg.firefoxOptions.animateFadeIn);
+            },
+        }
+
+        window.addEventListener("load", function(aEvent) {
+            webpg.firefoxOptions.init();
+        });
+    </script>
+    <script src="../constants.js"/>
+    <script src="../utils.js"/>
+</prefwindow>

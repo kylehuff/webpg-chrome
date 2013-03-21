@@ -62,17 +62,19 @@ webpg.dialog = {
                 switch(webpg.dialog.qs.dialog_type) {
                     case "encrypt":
                     case "encryptsign":
+                    case "export":
                         webpg.jq('#ddialog').css({
                             'padding-top': (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? '39px' : '35px',
                             'minHeight': '0',
                             'height': height - 160 + 'px',
                         }).parent().css({ 'height': height + 'px'});
-                        webpg.jq('.webpg-dialog-insert-btn').hide();
-                        webpg.jq('.ui-button-text').each(function(idx, element) {
-                            var el = webpg.jq(element);
-                            if (el.text() == "Export")
-                                el.parent().hide();
-                        });
+                        if (webpg.dialog.qs.dialog_type == "export") {
+                            webpg.jq('.webpg-dialog-encrypt-btn, .webpg-dialog-insert-btn').hide();
+                            webpg.jq('.webpg-dialog-export-btn').show();
+                            webpg.overlay.block_target = true;
+                        } else {
+                            webpg.jq('.webpg-dialog-insert-btn, .webpg-dialog-export-btn').hide();
+                        }
                         webpg.jq('#dialog-pubkey-search-fixed').css({
                             'top': (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? '52px' : '53px', 
                         });
@@ -90,91 +92,11 @@ webpg.dialog = {
                             var keylist = webpg.pubkeylist;
                             // Retrieve the value of the serach field
                             var val = e.target.value.toLowerCase();
-                            // Convert some items of val
-                            val = val.replace(/\\/g, "\\\\").
-                                    replace(/\./g, "\\.").
-                                    replace(/\*/g, "\.*?");
-                            // Create an empty object that will hold the keys matching
-                            //  the search string
-                            var searchResults = {}
-                            // Determine if this is a compound search
-                            var compound = (val.search("&&") > -1)
-                            if (compound)
-                                var searchStrs = val.split(" && ");
-                            else
-                                var searchStrs = val.split(" & ");
-                            // Iterate through the keys in the keylist to preform
-                            //  our search
-                            for (var key in keylist) {
-                                // The instance of the current key object
-                                var keyobj = keylist[key];
-                                // Convert the key object to a string
-                                var keyobjStr = JSON.stringify(keyobj).toLowerCase();
-                                // Check if this is a compound search
-                                if (compound) {
-                                    // Set a flag to determine if all of the search words
-                                    //  were located
-                                    var allfound = true;
-                                    // Iterate through each of the search words.
-                                    for (var searchStr in searchStrs) {
-                                        // Determine if this search word is a
-                                        //  property:value item
-                                        if (searchStrs[searchStr].search(":") > -1) {
-                                            // Format the property:value search item
-                                            //  to a compatible format
-                                            searchStrM = webpg.utils.formatSearchParameter(
-                                                searchStrs[searchStr]
-                                            );
-                                        } else {
-                                            searchStrM = false;
-                                        }
-                                        var locate = (searchStrM) ? searchStrM
-                                            : searchStrs[searchStr];
-                                        if (keyobjStr.search(locate) > -1
-                                        || keyobjStr.search(locate.replace(":\"", ":")) > -1) {
-                                            allfound = false;
-                                        }
-                                    }
-                                    if (allfound)
-                                        searchResults[key] = keyobj;
-                                } else {
-                                    for (var searchStr in searchStrs) {
-                                        if (searchStrs[searchStr].search(":") > -1) {
-                                            // Format the property:value search item
-                                            //  to a compatible format
-                                            searchStrM = webpg.utils.formatSearchParameter(
-                                                searchStrs[searchStr]
-                                            );
-                                        } else {
-                                            searchStrM = false;
-                                        }
-                                        var locate = (searchStrM) ? searchStrM
-                                            : searchStrs[searchStr];
-                                        if (keyobjStr.search(locate) > -1
-                                        || keyobjStr.search(locate.replace(":\"", ":")) > -1) {
-                                            searchResults[key] = keyobj;
-                                            break;
-                                        }
-                                    }
-                                }
-                                // Add any already selected keys to the list, if not
-                                //  already present.
-                                if (webpg.dialog.selectedKeys.indexOf(key) > -1)
-                                    if (!searchResults.hasOwnProperty(key))
-                                        searchResults[key] = keyobj;
-                            }
-
-                            var nkeylist = (val.length > 0) ? searchResults : null;
+                            var nkeylist = webpg.utils.keylistTextSearch(val, keylist);
                             if (this.value == "")
-                                nkeylist = webpg.pubkeylist
+                                nkeylist = webpg.pubkeylist;
                             webpg.dialog.populateKeylist(nkeylist, webpg.dialog.qs.dialog_type);
                         });
-                        break;
-
-                    case "export":
-                        webpg.jq('#dialog-pubkey-search-lbl').hide().next().hide();
-                        webpg.jq('.webpg-dialog-encrypt-btn, .webpg-dialog-insert-btn').hide();
-                        webpg.overlay.block_target = true;
                         break;
 
                     case "import":
@@ -227,6 +149,7 @@ webpg.dialog = {
                         })
                     } else if (webpg.dialog.qs.dialog_type == "export") {
                         webpg.utils.sendRequest({"msg": "private_keylist"}, function(response) {
+                            webpg.pubkeylist = response.result;
                             webpg.dialog.populateKeylist(response.result, webpg.dialog.qs.dialog_type);
                         })
                     } else if (webpg.dialog.qs.dialog_type == "import") {

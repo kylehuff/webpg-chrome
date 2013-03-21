@@ -25,14 +25,14 @@ webpg.inline = {
 
         this.action_selected = false;
 
-        // Determine if inline decration has been disabled for this page
+        // Determine if inline decoration has been disabled for this page
         // TODO: Implement this
         //if (!webpg.inline.enabledForPage(doc.location))
         //    return;
 
         if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
             if (typeof(doc.nodeName)!='undefined' && doc.nodeName != "#document")
-                return;
+                return false;
 
             // Don't parse Firefox chrome pages
             try {
@@ -46,29 +46,34 @@ webpg.inline = {
         }
 
         webpg.inline.PGPDataSearch(doc);
+        
+        if (webpg.utils.detectedBrowser['product'] == 'thunderbird')
+            return;
 
-        var ifrms = doc.querySelectorAll("iframe");
         webpg.inline.existing_iframes = [];
+        // Killing this, since I don't think we need it anymore...
+//        var ifrms = doc.querySelectorAll("iframe");
 
-        for (var ifrm in ifrms) {
-            if (!isNaN(ifrm) && ifrms[ifrm].className.indexOf("webpg-") == -1) {
-                webpg.inline.existing_iframes.push(ifrms[ifrm]);
-                try {
-                    ifrms[ifrm].contentDocument.removeEventListener("contextmenu",
-                        webpg.overlay.contextHandler, true);
-                    ifrms[ifrm].contentDocument.addEventListener("contextmenu",
-                        webpg.overlay.contextHandler, true);
-                    webpg.inline.PGPDataSearch(ifrms[ifrm].contentDocument);
-                } catch (err) {
-                    //console.log(err);
-                }
-            }
-        }
+//        for (var ifrm in ifrms) {
+//            if (!isNaN(ifrm) && ifrms[ifrm].className.indexOf("webpg-") == -1) {
+//                webpg.inline.existing_iframes.push(ifrms[ifrm]);
+//                try {
+//                    ifrms[ifrm].contentDocument.removeEventListener("contextmenu",
+//                        webpg.overlay.contextHandler, true);
+//                    ifrms[ifrm].contentDocument.addEventListener("contextmenu",
+//                        webpg.overlay.contextHandler, true);
+//                    webpg.inline.PGPDataSearch(ifrms[ifrm].contentDocument);
+//                } catch (err) {
+//                    console.log(err.message);
+//                }
+//            }
+//        }
 
         var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
         // Retrieve a reference to the appropriate window object
         // Check if the MutationObserver is not present
         if (typeof(MutationObserver) == 'undefined') {
+            console.log("Using depreciated DOMSubtreeModified");
             window.addEventListener("DOMSubtreeModified", function(e) {
                 if (e.target.nodeName == "IFRAME" && e.target.className.indexOf("webpg-") == -1 &&
                     webpg.inline.existing_iframes.indexOf(e.target) == -1) {
@@ -79,7 +84,7 @@ webpg.inline = {
                         e.target.contentDocument.documentElement.addEventListener("contextmenu",
                             webpg.overlay.contextHandler, true);
                     } catch (err) {
-                        //
+                        console.log(err.message);
                     }
                     webpg.inline.PGPDataSearch(e.target.contentDocument, true);
                 }
@@ -87,6 +92,7 @@ webpg.inline = {
         } else {
             // Otherwise, use the MutationObserver
             // create an observer instance
+//            console.log("Using MutationObserver");
             var observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
                     if (mutation.target.nodeName == "IFRAME" && mutation.target.className.indexOf("webpg-") == -1 &&
@@ -98,9 +104,20 @@ webpg.inline = {
                             mutation.target.contentDocument.documentElement.addEventListener("contextmenu",
                                 webpg.overlay.contextHandler, true);
                         } catch (err) {
-                        //
+                            console.log(err.message);
                         }
                         webpg.inline.PGPDataSearch(mutation.target.contentDocument, true);
+                    } else{
+                        // check if gmail message appears
+                        if(webpg.jq(mutation.target).parent().is('.ii.gt.adP.adO')) {
+                            if (mutation.target.className.indexOf("webpg-") == -1
+                            && webpg.jq(mutation.target).find(".webpg-node-odata").length < 1) {
+                                if (webpg.inline.existing_iframes.indexOf(mutation.target) == -1) {
+                                    webpg.inline.existing_iframes.push(mutation.target);
+                                    webpg.inline.PGPDataSearch(doc, false, true);
+                                }
+                            }
+                        }
                     }
                 });
             });
@@ -125,8 +142,10 @@ webpg.inline = {
 
         Parameters:
             doc - <document> The document to search
+            onchange - <bool> re-walk the DOM since this is a change
+            gmail - <bool> This is a gmail message
     */
-    PGPDataSearch: function(doc, onchange) {
+    PGPDataSearch: function(doc, onchange, gmail) {
         var node, range, idx, search, baseIdx;
 
         var elementFilter = function(node) {
@@ -156,6 +175,8 @@ webpg.inline = {
         while ((node = tw.nextNode())) {
             var previousElement = (node.previousSibling) ?
                 node.previousSibling.previousSibling : node.previousSibling;
+//            if (webpg.utils.detectedBrowser['product'] == 'thunderbird' && node.nodeName == "PRE")
+//                webpg.inline.addWebPGMenuBar(node);
             if ((node.nodeName == "TEXTAREA" ||
                 node.getAttribute("contenteditable") == "true") &&
                 (!previousElement || previousElement.className != "webpg-toolbar")) {
@@ -171,10 +192,12 @@ webpg.inline = {
 
         var haveStart = false;
         var blockType;
+        var blockStart;
         var tw = doc.createTreeWalker(doc.documentElement, NodeFilter.SHOW_TEXT, textFilter, false);
 
         while((node = tw.nextNode())) {
             idx = 0;
+//            console.log(node.nodeName);
 
             while(true) {
                 if(!haveStart) {
@@ -207,26 +230,31 @@ webpg.inline = {
                         idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_SIGNATURE_BEGIN, baseIdx);
                         search = webpg.constants.PGPTags.PGP_SIGNATURE_END;
                         blockType = webpg.constants.PGPBlocks.PGP_SIGNATURE;
+                        blockStart = idx;
                     }
                     if(idx == -1   || idx > node.textContent.indexOf(webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN, baseIdx)) {
                         idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN, baseIdx);
                         search = webpg.constants.PGPTags.PGP_SIGNATURE_END;
                         blockType = webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
+                        blockStart = idx;
                     }
                     if(idx == -1 || idx < node.textContent.indexOf(webpg.constants.PGPTags.PGP_ENCRYPTED_BEGIN, baseIdx)) {
                         idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_ENCRYPTED_BEGIN, baseIdx);
                         search = webpg.constants.PGPTags.PGP_ENCRYPTED_END;
                         blockType = webpg.constants.PGPBlocks.PGP_ENCRYPTED;
+                        blockStart = idx;
                     }
                     if(idx == -1 || idx < node.textContent.indexOf(webpg.constants.PGPTags.PGP_KEY_BEGIN, baseIdx)) {
                         idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_KEY_BEGIN, baseIdx);
                         search = webpg.constants.PGPTags.PGP_KEY_END;
                         blockType = webpg.constants.PGPBlocks.PGP_KEY;
+                        blockStart = idx;
                     }
                     if(idx == -1 || idx < node.textContent.indexOf(webpg.constants.PGPTags.PGP_PKEY_BEGIN, baseIdx)) {
                         idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_PKEY_BEGIN, baseIdx);
                         search = webpg.constants.PGPTags.PGP_PKEY_END;
                         blockType = webpg.constants.PGPBlocks.PGP_PKEY;
+                        blockStart = idx;
                     }
 
                     if(idx == -1)
@@ -234,7 +262,7 @@ webpg.inline = {
 
                     haveStart = true;
                     range = doc.createRange();
-                    range.setStart(node, idx);
+                    range.setStart(node, blockStart);
                     idx += 6;
                 }
                 if(haveStart) {
@@ -257,9 +285,11 @@ webpg.inline = {
                     haveStart = false;
                     range.setEnd(node, idx + search.length);
 
+//                    console.log(node.textContent);
+//                    console.log(node.parentNode);
                     webpg.inline.PGPBlockParse(range, node, blockType);
                     range.detach();
-                    idx =0;
+                    idx = 0;
                 }
             }
         }
@@ -325,17 +355,15 @@ webpg.inline = {
             (webpg.inline.doc) ? webpg.inline.doc : document;
 
         str = str.replace(xmlnsReg, "");
-        str = str.replace(wbrReg, "");
+        str = str.replace(wbrReg, "\n");
 
         var html = node.parentNode.innerHTML;
 
         while (html.lastIndexOf("\n") + 1 == html.length) {
-            html = html.substring(0, html.lastIndexOf("\n"));
+            html = html.substring(0, html.lastIndexOf("\n")).replace(wbrReg, "");
         }
 
-        var scontent = (webpg.utils.detectedBrowser['product'] == "chrome") ?
-                node.parentNode.innerText :
-                node.parentNode.textContent;
+        var scontent = webpg.utils.getPlainText(node.parentNode);
 
         // The html contents posted to element is the textContent or innerText
         //  of the element with detected PGP Blocks
@@ -343,13 +371,34 @@ webpg.inline = {
         webpg.jq(h).html(scontent);
         var phtml = h.innerHTML;
 
-        if (html.match("<div><br></div>-----") == null && scontent == phtml) {
-            var reg = new RegExp("(&(.){1,4};)", "g")
+        if (webpg.utils.detectedBrowser['product'] == 'thunderbird') {
+            scontent = node.parentNode.textContent;
+        } else {
+            var reg = new RegExp("(&(.){1,4};)", "g");
             if (html.search(reg) > -1)
                 scontent = phtml;
             else
                 scontent = html
         }
+
+//        console.log(scontent);
+//        console.log(phtml);
+//        console.log(html);
+
+        if (html.search(/^.*?(-----BEGIN PGP.*?<br>)/gim) == -1 && html.search(/^.*?(<br>-----BEGIN PGP.*?)/gim) == -1
+            && html.search(/^.*?(<br>Version.*?)/gim) == -1 && html.search(new RegExp("(&(.){1,4};)", "g")) == -1) {
+            console.log("using html")
+            scontent = html;
+        } else if (scontent.search(/.*?(-----BEGIN PGP.*?<br>)/gim) > 0 || scontent.search(/^.*?(<br>-----BEGIN PGP.*?)/gim) > 0 ||
+            scontent.search(/^\s*?(-----BEGIN PGP.*?)<br>/gi) == 0) {
+            console.log("using phtml");
+            scontent = phtml;
+        } else {
+            console.log("using scontent");
+        }
+
+        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
+            scontent = scontent.replace(/([\"|>])\s(\b.*?)\s([\"|<])/gim, "$1$2$3");
 
         var fragment = range.extractContents();
 
@@ -507,13 +556,14 @@ webpg.inline = {
             (webpg.inline.doc) ? webpg.inline.doc : document;
         var toolbar = doc.createElement("div");
 
-        toolbar.setAttribute("style", "padding: 0; padding-right: 8px; font-weight: bold; " +
+        toolbar.setAttribute("style", "text-align:left; padding: 0; padding-right: 8px; font-weight: bold; " +
             "font-family: arial,sans-serif; font-size: 11px; position:relative;" +
             "background: #f1f1f1 url('" + webpg.utils.escape(webpg.utils.resourcePath) + 
             "skin/images/menumask.png') repeat-x; border-collapse: separate;" +
             "color:#444; height:24px; margin: 1px 0 0 1px; display: block;" +
             "border: 1px solid gainsboro; top: 27px; clear: left; line-height: 12px;" +
-            "z-index: 2; left: -1px;");
+            "z-index: 2; left: -1px; text-shadow: none; text-decoration: none;");
+
         toolbar.setAttribute("class", "webpg-toolbar");
         var offset = (element.scrollHeight > element.offsetHeight) ?
                 element.offsetWidth - element.clientWidth - 1 : 0;
@@ -577,6 +627,12 @@ webpg.inline = {
                             _('Import') +
                         '</a>' +
                     '</li>' +
+                    '<li class="webpg-action-btn webpg-pgp-export">' +
+                        '<a class="webpg-toolbar-export">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_keypair.png" class="webpg-li-icon"/>' +
+                            _('Export') +
+                        '</a>' +
+                    '</li>' +
                     '<li class="webpg-action-btn webpg-pgp-signtext">' +
                         '<a class="webpg-toolbar-verify">' +
                             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_signature-ok.png" class="webpg-li-icon"/>' +
@@ -608,6 +664,9 @@ webpg.inline = {
 
         webpg.jq(toolbar).append(action_menu);
         webpg.jq(toolbar).append('<span class="webpg-toolbar-status" style="text-transform: uppercase; float:right; position:relative; top: 20%; line-height: 14px;"></span>');
+        webpg.jq(toolbar.ownerDocument.defaultView).bind("resize", function() {
+            detectElementValue(element);
+        });
         detectElementValue(element);
 
         function setActive(e) {
@@ -616,7 +675,9 @@ webpg.inline = {
             var selection = { 'selectionText': element.value,
                 'pre_selection': '', 'post_selection': '' };
 
-            webpg.overlay.contextSelection = selection;
+            if (!webpg.overlay.isContextMenuOpen)
+                webpg.overlay.contextSelection = selection;
+
             webpg.inline.toolbarTextSelection = selection;
 
             if (!webpg.overlay.isContextMenuOpen
@@ -656,25 +717,29 @@ webpg.inline = {
         function detectElementValue(element) {
             var element_value = null;
 
+            if (element.offsetLeft != toolbar.offsetLeft && element.style.display !== 'none') {
+                toolbar.style.marginLeft = element.offsetLeft - 9;
+            }
+
             if (element.nodeName == "TEXTAREA")
                 element_value = element.value;
-            else if (element.nodeName == "DIV")
-                element_value = element.innerText;
+            else if (element.nodeName == "DIV" || element.nodeName == "PRE")
+                element_value = element.innerText || element.textContent;
 
             // Show the appropriate action for the textarea value or selection
-            if (element_value.length && element_value.indexOf(
+            if (element_value.length > 1 && element_value.indexOf(
                 webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN) > -1) {
                 // Verify
                 webpg.jq(toolbar).find('.webpg-action-btn').hide();
                 webpg.jq(toolbar).find('.webpg-pgp-signtext').show();
                 webpg.jq(toolbar).find('.webpg-toolbar-status').text(_("PGP Signed Message"));
-            } else if (element_value.length && element_value.indexOf(
+            } else if (element_value.length > 1 && element_value.indexOf(
                 webpg.constants.PGPTags.PGP_ENCRYPTED_BEGIN) > -1) {
                 // Decrypt
                 webpg.jq(toolbar).find('.webpg-action-btn').hide();
                 webpg.jq(toolbar).find('.webpg-pgp-crypttext').show();
                 webpg.jq(toolbar).find('.webpg-toolbar-status').text(_("PGP ENCRYPTED OR SIGNED MESSAGE"));
-            } else if (element_value.length && element_value.indexOf(
+            } else if (element_value.length > 1 && element_value.indexOf(
                 webpg.constants.PGPTags.PGP_KEY_BEGIN) > -1) {
                 // Import
                 webpg.jq(toolbar).find('.webpg-action-btn').hide();
@@ -682,7 +747,14 @@ webpg.inline = {
                 webpg.jq(toolbar).find('.webpg-toolbar-status').text(_("PGP Public Key"));
             } else {
                 // Plain text or non-PGP data
-                webpg.jq(toolbar).find('.webpg-action-btn').show();
+                if (element_value.length < 1 && isSecure(element) !== true) {
+                    webpg.jq(toolbar).find('.webpg-action-btn').hide();
+                    webpg.jq(toolbar).find('.webpg-pgp-export').show();
+                    webpg.jq(toolbar).find('.webpg-action-btn.webpg-option-item.webpg-secure-editor').show();
+                } else {
+                    webpg.jq(toolbar).find('.webpg-action-btn').show();
+                    webpg.jq(toolbar).find('.webpg-pgp-export').hide();
+                }
                 webpg.jq(toolbar).find('.webpg-pgp-crypttext, .webpg-pgp-signtext, .webpg-pgp-import').hide();
                 var elementTitle;
                 if (isSecure(element) == true) {
@@ -693,7 +765,8 @@ webpg.inline = {
                 }
                 webpg.jq(toolbar).find('.webpg-toolbar-status').text(elementTitle);
             }
-            webpg.jq(toolbar).find('.webpg-keymanager-link, .webpg-options-link').show();
+            webpg.jq(toolbar).find('.webpg-keymanager-link').show();
+            webpg.jq(toolbar).find('.webpg-options-link').hide();
             updateOffset(element);
         }
 
@@ -851,6 +924,8 @@ webpg.inline = {
                 webpg.constants.overlayActions.DECRYPT :
                 (link_class == "webpg-toolbar-import") ?
                 webpg.constants.overlayActions.IMPORT :
+                (link_class == "webpg-toolbar-export") ?
+                webpg.constants.overlayActions.EXPORT :
                 (link_class == "webpg-toolbar-verify") ?
                 webpg.constants.overlayActions.VERIF : 
                 (link_class == "webpg-toolbar-options-link") ?
@@ -903,8 +978,7 @@ webpg.inline = {
         badge.setAttribute("id", "webpg-badge-toggle-" + id);
         badge.setAttribute("class", "webpg-badge-toggle");
 
-        badge.innerHTML = "<a style='border:none;' href='#" + id +
-                "' class='webpg-badge-toggle-link'><img style='opacity:0.5;width:28px;height:28px;' src='" +
+        badge.innerHTML = "<a style='border:none;' class='webpg-badge-toggle-link'><img style='opacity:0.5;width:28px;height:28px;' src='" +
                 webpg.utils.resourcePath + "skin/images/badges/32x32/webpg.png'/></a>";
 
         webpg.jq(badge).find('img').hover(

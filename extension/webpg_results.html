@@ -23,6 +23,15 @@
         font-weight: bold;
         text-transform: uppercase;
     }
+    .signed_text_header a {
+        color: #000;
+        text-decoration: none;
+    }
+    .signed_text_header a:hover {
+        cursor: text;
+        color: #000;
+        text-decoration: none;
+    }
     .signed_text_header.rtl {
         float: right;
     }
@@ -147,8 +156,23 @@
     .copy_to_clipboard {
         text-transform:uppercase;
     }
+    .results-control {
+        float: right;
+    }
+    .results-control.rtl {
+        float: left;
+    }
+    .webpg-results-trusted-hover {
+        position: absolute;
+        top: 6px;
+        right: 40px;
+    }
+    .webpg-results-trusted-hover.rtl {
+        position: absolute;
+        top: 6px;
+        left: 40px;
+    }
     .results-close-btn img {
-        float:right;
         width: 20px;
         margin-right: 2px;
     }
@@ -156,11 +180,24 @@
         width: 24px;
         margin-right: 0;
     }
+
+    a {
+        text-decoration: underline;
+        color: rgb(0, 0, 238);
+        cursor: pointer;
+    }
+
+    a:hover {
+        color: rgb(17, 85, 155);
+    }
 </style>
 </head>
 <body>
     <div class="pgp_block_container">
-        <span class="results-close-btn"><a href="#"><img src="skin/images/cancel.png"/></a></span>
+        <span class="results-control">
+            <span class="webpg-results-trusted-hover"></span>
+            <span class="results-close-btn"><a><img src="skin/images/cancel.png"/></a></span>
+        </span>
         <textarea cols="3" rows="3" id="clipboard_input" style="float:left; margin-left: -500px; margin-top: -50px;"></textarea>
         <div id="header" class="signed_text_header"></div>
         <div id="signature_text" class="signed_text"></div>

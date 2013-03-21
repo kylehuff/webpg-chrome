@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://webpg-firefox/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://webpg-firefox/locale/webpg.dtd">
+<overlay id="webpg-overlay" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <script src="../jquery/js/jquery-1.7.2.min.js"/>
+    <script type="text/javascript">
+        if (typeof(webpg)=='undefined') { webpg = {}; }
+        // Enforce jQuery.noConflict if not already performed
+        if (typeof(jQuery)!='undefined') { webpg.jq = jQuery.noConflict(true); }
+        webpg.firefoxOverlay = {
+            init: function() {
+                var _ = webpg.utils.i18n.gettext;
+                webpg.jq('.webpg-menuitem').each(function() {
+                    var itemClasses = this.className.split(" ");
+                    for (let itemClass in itemClasses) {
+                        if (itemClasses[itemClass].indexOf("webpg-menu-") == 0) {
+                            switch (itemClasses[itemClass]) {
+                                case 'webpg-menu-webpg':
+                                    this.label = _("WebPG");
+                                    break;
+
+                                case 'webpg-menu-manager':
+                                    this.label = _("Key Manager");
+                                    break;
+
+                                case 'webpg-menu-options':
+                                    this.label = _("Options");
+                                    break;
+                                case 'webpg-menu-about':
+                                    this.label = _("About");
+                                    break;
+
+                                case 'webpg-menu-sign':
+                                    if (this.className.indexOf("context-menu-item") > -1)
+                                        this.label = _("Clear-sign this text");
+                                    else
+                                        this.label = _("Clear Sign");
+                                    break;
+
+                                case 'webpg-menu-verif':
+                                    if (this.className.indexOf("context-menu-item") > -1)
+                                        this.label = _("Verify this text");
+                                    else
+                                        this.label = _("Verify");
+                                    break;
+
+                                case 'webpg-menu-crypt':
+                                    if (this.className.indexOf("context-menu-item") > -1)
+                                        this.label = _("Encrypt this text");
+                                    else
+                                        this.label = _("Encrypt");
+                                    break;
+
+                                case 'webpg-menu-cryptsign':
+                                    if (this.className.indexOf("context-menu-item") > -1)
+                                        this.label = _("Sign and Encrypt this text");
+                                    else
+                                        this.label = _("Sign and Encrypt");
+                                    break;
+
+                                case 'webpg-menu-decrypt':
+                                    if (this.className.indexOf("context-menu-item") > -1)
+                                        this.label = _("Decrypt this text");
+                                    else
+                                        this.label = _("Decrypt");
+                                    break;
+
+                                case 'webpg-menu-import':
+                                    if (this.className.indexOf("context-menu-item") > -1)
+                                        this.label = _("Import this Public key");
+                                    else
+                                        this.label = _("Import");
+                                    break;
+
+                                case 'webpg-menu-export':
+                                    if (this.className.indexOf("context-menu-item") > -1)
+                                        this.label = _("Paste Public Key");
+                                    else
+                                        this.label = _("Export");
+                                    break;
+                            }
+                        }
+                    }
+                });
+            },
+        }
+        window.addEventListener('load', function(aEvent) {
+            webpg.firefoxOverlay.init(aEvent);
+        });
+    </script>
+    <script src="../constants.js"/>
+    <script src="../utils.js"/>
+    <script src="../preferences.js"/>
+    <script src="../background.js"/>
+    <script src="../inline.js"/>
+    <script src="../webpg_overlay.js"/>
+    <script src="../gmail.js"/>
+    <stringbundleset id="stringbundleset">
+        <stringbundle id="webpg-strings" src="chrome://webpg-firefox/locale/webpg.properties"/>
+    </stringbundleset>
+
+    <!-- Firefox Tools Menu -->
+    <menupopup id="menu_ToolsPopup">
+        <menuseparator/>
+        <menu id="menu-webpg" class="menu-iconic webpg-menuitem webpg-menu webpg-menu-webpg">
+            <menupopup id="webpg-menu-popup">
+                <menuitem class="webpg-menuitem webpg-menu-manager menuitem-iconic" oncommand="webpg.overlay.onContextCommand(event, webpg.constants.overlayActions.MANAGER)"/>
+                <menuitem class="webpg-menuitem webpg-menu-options menuitem-iconic" oncommand="webpg.overlay.onContextCommand(event, webpg.constants.overlayActions.OPTS)"/>
+                <menuitem class="webpg-menuitem webpg-menu-about menuitem-iconic" oncommand="webpg.overlay.onContextCommand(event, webpg.constants.overlayActions.ABOUT)"/>
+            </menupopup>
+        </menu>
+    </menupopup>
+    <!-- Firefox Tools Menu -->
+
+    <!-- SeaMonkey Tools Menu -->
+    <menupopup id="taskPopup">
+        <menuseparator/>
+        <menu id="menu-webpg" class="menu-iconic webpg-menuitem webpg-menu webpg-menu-webpg">
+            <menupopup id="webpg-menu-popup">
+                <menuitem class="webpg-menuitem webpg-menu-manager menuitem-iconic" oncommand="webpg.overlay.onContextCommand(event, webpg.constants.overlayActions.MANAGER)"/>
+                <menuitem class="webpg-menuitem webpg-menu-options menuitem-iconic" oncommand="webpg.overlay.onContextCommand(event, webpg.constants.overlayActions.OPTS)"/>
+                <menuitem class="webpg-menuitem webpg-menu-about menuitem-iconic" oncommand="webpg.overlay.onContextCommand(event, webpg.constants.overlayActions.ABOUT)"/>
+            </menupopup>
+        </menu>
+    </menupopup>
+    <!-- SeaMonkey Tools Menu -->
+
+    <!-- Firefox Context Menu -->
+    <!-- SeaMonkey Context Menu -->
+    <popup id="contentAreaContextMenu">
+        <menuseparator/>
+        <menu id="context-webpg" class="webpg-menuitem menu-iconic webpg-menu webpg-menu-webpg" src="chrome://webpg-firefox/skin/images/badges/32x32/webpg.png">
+            <menupopup  id="webpg-contex-popup">
+                <menuitem class="webpg-menu-sign webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.PSIGN)"/>
+                <menuitem class="webpg-menu-verif webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.VERIF)"/>
+                <menuitem class="webpg-menu-crypt webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.CRYPT)"/>
+                <menuitem class="webpg-menu-cryptsign webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.CRYPTSIGN)"/>
+                <menuitem class="webpg-menu-decrypt webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.DECRYPT)"/>
+                <menuitem class="webpg-menu-import webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.IMPORT)"/>
+                <menuitem class="webpg-menu-export webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.EXPORT)"/>
+                <menuseparator/>
+                <menuitem class="webpg-menu-manager webpg-menuitem context-menu-item menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.MANAGER)"/>
+                <menuitem class="webpg-menu-options webpg-menuitem context-menu-item menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.OPTS)"/>
+            </menupopup>
+        </menu>
+    </popup>
+    <!-- SeaMonkey Context Menu -->
+    <!-- Firefox Context Menu -->
+
+    <!-- Status Bar -->
+    <statusbar id="status-bar">
+        <statusbarpanel id="webpg-statusbar">
+            <label value="" id="webpg-results-trusted-hover"/>
+        </statusbarpanel>
+    </statusbar>
+    <!-- Status bar -->
+
+    <window id="main-window">
+        <vbox collapsed="true">
+            <html:object id="webpgPlugin" type="application/x-webpg" height="1" width="1" style="visibility:hidden;"></html:object>
+        </vbox>
+    </window>
+</overlay>

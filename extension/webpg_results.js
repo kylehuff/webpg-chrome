@@ -23,6 +23,23 @@ webpg.inline_results = {
 
         webpg.utils._onRequest.addListener(this.processRequest);
         window.addEventListener("message", this.receiveMessage, false);
+        webpg.inline_results.mouseCount = 0;
+        webpg.jq(window).bind("mouseover mousemove", function(event) {
+            if (webpg.inline_results.mouseCount == 0) {
+                var trustStatus = webpg.utils.getTrustStatus();
+                document.querySelector('.webpg-results-trusted-hover').textContent = trustStatus;
+                webpg.utils.setStatusBarText(trustStatus);
+            }
+            webpg.inline_results.mouseCount++;
+            if (webpg.inline_results.mouseCount > 10)
+                webpg.inline_results.mouseCount = 0;
+        });
+        webpg.jq(window).bind("mouseout",
+            function(event) {
+                document.querySelector('.webpg-results-trusted-hover').textContent = "";
+                webpg.utils.setStatusBarText("");
+            }
+        );
     },
 
     /*
@@ -36,6 +53,8 @@ webpg.inline_results = {
     doResize: function(scrollTop) {
         if (webpg.utils.isRTL()) {
             webpg.jq(".signed_text_header").addClass("rtl");
+            webpg.jq(".results-control").addClass("rtl");
+            webpg.jq(".webpg-results-trusted-hover").addClass("rtl");
             webpg.jq(".signed_text").addClass("rtl");
             webpg.jq(".signature-box").addClass("rtl");
             webpg.jq(".footer").addClass("rtl");
@@ -64,6 +83,7 @@ webpg.inline_results = {
             sigIdx - <int> The index of the signature within the keyring
     */
     createSignatureBox: function(sigObj, sigIdx) {
+        var _ = webpg.utils.i18n.gettext;
         var scrub = webpg.utils.escape;
         var sig_keyid = sigObj.fingerprint.substr(-8);
         var subkey_index = 0;
@@ -100,7 +120,7 @@ webpg.inline_results = {
             key_name + "</span>";
 
         if (sigkey_url)
-            sig_box += "<span class='signature-keyid'>(<a href='#' id='" + sigkey_url +
+            sig_box += "<span class='signature-keyid'>(<a id='" + sigkey_url +
                 "' class='webpg-link'>" + sig_keyid + "</a>)</span>";
 
         sig_box += "<br/\>";
@@ -108,13 +128,14 @@ webpg.inline_results = {
         if (email)
             sig_box += "<span class='signature-email'>" + email + "</span><br/\>";
 
-        var date_created = new Date(sigObj.timestamp * 1000).toJSON();
-        var date_expires = (sigObj.expiration == 0) ? 
-            'Never' : new Date(sigObj.expiration * 1000).toJSON().substring(0, 10);
-        sig_box += "<span class='signature-keyid'>Created: " + date_created.substring(0, 10) + "</span><br/\>";
-        sig_box += "<span class='signature-keyid'>Expires: " + date_expires + "</span><br/\>" +
-            "<span class='signature-keyid'>Status: " + sigObj.validity + "</span><br/\>" +
-            "<span class='signature-keyid'>Validity: " + sigObj.status + "</span></div></div>";
+        var date_created = (sigObj.timestamp == 0) ?
+            _('Unknown') : new Date(sigObj.timestamp * 1000).toJSON().substring(0, 10);
+        var date_expires = (sigObj.expiration == 0) ?
+            _('Never') : new Date(sigObj.expiration * 1000).toJSON().substring(0, 10);
+        sig_box += "<span class='signature-keyid'>" + _('Created') + ": " + date_created + "</span><br/\>";
+        sig_box += "<span class='signature-keyid'>" + _('Expires') + ": " + date_expires + "</span><br/\>" +
+            "<span class='signature-keyid'>" + _('Status') + ": " + sigObj.validity + "</span><br/\>" +
+            "<span class='signature-keyid'>" + _('Validity') + ": " + sigObj.status + "</span></div></div>";
         return sig_box;
     },
 
@@ -168,9 +189,9 @@ webpg.inline_results = {
                             icon.src = "skin/images/badges/48x48/stock_decrypted.png";
                         }
                     }
-                    webpg.jq('#footer').append(icon.outerHTML);
+                    webpg.jq('#footer').append(icon.outerHTML || new XMLSerializer().serializeToString(icon));
                     webpg.jq('#original_text')[0].textContent = request.verify_result.original_text;
-                    webpg.jq('#clipboard_input')[0].value = request.verify_result.original_text;
+                    webpg.jq('#clipboard_input')[0].textContent = request.verify_result.original_text;
                     webpg.jq('#original_text').hide();
                     if (gpg_error_code == "11"
                     || gpg_error_code == "152") {
@@ -183,10 +204,10 @@ webpg.inline_results = {
                             && request.message_event == "manual") {
                                 webpg.jq('#footer').html(_("DECRYPTION FAILED") + "; " + _("BAD PASSPHRASE") + "<br/\>");
                                 if (request.noninline) {
-                                    webpg.jq('#footer').append("<a class=\"decrypt_message\" href=\"#" + scrub(webpg.inline_results.qs.id) + "\"\">" + _("DECRYPT THIS MESSAGE") + "</a> |");
+                                    webpg.jq('#footer').append("<a class=\"decrypt_message\">" + _("DECRYPT THIS MESSAGE") + "</a> |");
                                 }
                             } else {
-                                webpg.jq('#footer').html("<a class=\"decrypt_message\" href=\"#" + scrub(webpg.inline_results.qs.id) + "\"\">" + _("DECRYPT THIS MESSAGE") + "</a> | ");
+                                webpg.jq('#footer').html("<a class=\"decrypt_message\">" + _("DECRYPT THIS MESSAGE") + "</a> | ");
                             }
                         }
                     } else if (!request.verify_result.error) {
@@ -194,9 +215,9 @@ webpg.inline_results = {
                     }
                     if (!request.verify_result.error
                     && request.verify_result.original_text.length >0) {
-                         webpg.jq('#footer').append("<a class=\"original_text_link\" href=\"#" + scrub(webpg.inline_results.qs.id) + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
+                         webpg.jq('#footer').append("<a class=\"original_text_link\">" + _("DISPLAY ORIGINAL") + "</a> | ");
                     }
-                    webpg.jq('#footer').append("<a class=\"copy_to_clipboard\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("COPY TO CLIPBOARD") + "</a>");
+                    webpg.jq('#footer').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a>");
                     webpg.inline_results.doResize();
                     break;
 
@@ -219,9 +240,9 @@ webpg.inline_results = {
                         webpg.jq('#footer').addClass("signature_bad_sig");
                         icon.src = "skin/images/badges/48x48/stock_signature-bad.png";
                         webpg.jq(icon).addClass('footer_icon');
-                        webpg.jq('#footer').html(icon.outerHTML);
+                        webpg.jq('#footer').html(icon.outerHTML || new XMLSerializer().serializeToString(icon));
                         webpg.jq('#footer').append(_("THE SIGNATURE ON THIS MESSAGE IS INVALID") + "; " + _("THE SIGNATURE MIGHT BE TAMPERED WITH") + "<br/\>");
-                        webpg.jq('#footer').append("<a class=\"copy_to_clipboard\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("COPY TO CLIPBOARD") + "</a>");
+                        webpg.jq('#footer').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a>");
                     } else {
                         webpg.jq('#footer').addClass("signature_bad_sig");
                     }
@@ -240,7 +261,7 @@ webpg.inline_results = {
                             icon.src = "skin/images/badges/48x48/stock_signature-ok.png";
                             webpg.jq(icon).addClass('footer_icon');
                             webpg.jq('#footer').addClass("signature_good");
-                            webpg.jq('#footer').html(icon.outerHTML);
+                            webpg.jq('#footer').html(icon.outerHTML || new XMLSerializer().serializeToString(icon));
                             var key_id = request.verify_result.signatures[sig].fingerprint.substring(16, -1)
                             var sig_fp = request.verify_result.signatures[sig].fingerprint;
                             var public_keys = request.verify_result.signatures[sig].public_key;
@@ -252,38 +273,38 @@ webpg.inline_results = {
                                             var sigkey_url = webpg.utils.resourcePath + "key_manager.html" +
                                                 "?auto_init=true&tab=-1&openkey=" + scrub(pubkey) + "&opensubkey=" +
                                                 scrub(pubkey_subkey);
-                                            sigkey_link = "<a href='#webpg-link-" + (new Date()).getTime() + "' id='" + sigkey_url + "' class='webpg-link'>" +
+                                            sigkey_link = "<a id='" + sigkey_url + "' class='webpg-link'>" +
                                                 pubkey + "</a>";
                                         }
                                     }
                                 }
                             }
-                            webpg.jq('#footer').append(_("THIS MESSAGE WAS SIGNED WITH KEY") + " " + sigkey_link + "<br/\><a class=\"original_text_link\" href=\"#" + scrub(webpg.inline_results.qs.id) + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
-                            webpg.jq('#footer').append("<a class=\"copy_to_clipboard\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("COPY TO CLIPBOARD") + "</a>");
+                            webpg.jq('#footer').append(_("THIS MESSAGE WAS SIGNED WITH KEY") + " " + sigkey_link + "<br/\><a class=\"original_text_link\">" + _("DISPLAY ORIGINAL") + "</a> | ");
+                            webpg.jq('#footer').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a>");
                         }
                         if (request.verify_result.signatures[sig].status == "GOOD_EXPKEY") {
                             webpg.inline_results.missingKeys.push(request.verify_result.signatures[sig].fingerprint);
                             webpg.jq('#footer').addClass("signature_no_pubkey");
                             webpg.jq('#footer').html(_("THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY") + "<br/\>");
-                            webpg.jq('#footer').append("<a class=\"copy_to_clipboard\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("COPY TO CLIPBOARD") + "</a>");
-                            webpg.jq('#footer').append("<a class=\"refresh_key_link\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("Refresh from Keyserver") + "</a>");
+                            webpg.jq('#footer').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a>");
+                            webpg.jq('#footer').append("<a class=\"refresh_key_link\">" + _("Refresh from Keyserver") + "</a>");
                         }
                         if (request.verify_result.signatures[sig].status == "NO_PUBKEY") {
                             webpg.jq('#footer').addClass("signature_no_pubkey");
                             webpg.jq('#footer').html(_("THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING") + "<br/\>");
-                            webpg.jq('#footer').append("<a class=\"original_text_link\" href=\"#" + scrub(webpg.inline_results.qs.id) + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
+                            webpg.jq('#footer').append("<a class=\"original_text_link\">" + _("DISPLAY ORIGINAL") + "</a> | ");
                             webpg.inline_results.missingKeys.push(request.verify_result.signatures[sig].fingerprint);
-                            webpg.jq('#footer').append("<a class=\"copy_to_clipboard\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("COPY TO CLIPBOARD") + "</a> | ");
-                            webpg.jq('#footer').append("<a class=\"refresh_key_link\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("SEARCH FOR KEYS ON KEYSERVER") + "</a>");
+                            webpg.jq('#footer').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a> | ");
+                            webpg.jq('#footer').append("<a class=\"refresh_key_link\">" + _("SEARCH FOR KEYS ON KEYSERVER") + "</a>");
                         }
                         if (request.verify_result.signatures[sig].status == "BAD_SIG") {
                             webpg.jq('#footer').addClass("signature_bad_sig");
                             icon.src = "skin/images/badges/48x48/stock_signature-bad.png";
                             webpg.jq(icon).addClass('footer_icon');
-                            webpg.jq('#footer').html(icon.outerHTML);
+                            webpg.jq('#footer').html(icon.outerHTML || new XMLSerializer().serializeToString(icon));
                             webpg.jq('#footer').append(_("THE SIGNATURE ON THIS MESSAGE FAILED") + "; " + _("THE MESSAGE MAY BE TAMPERED WITH") + "<br/\>");
-                            webpg.jq('#footer').append("<a class=\"original_text_link\" href=\"#" + scrub(webpg.inline_results.qs.id) + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
-                            webpg.jq('#footer').append("<a class=\"copy_to_clipboard\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("COPY TO CLIPBOARD") + "</a>");
+                            webpg.jq('#footer').append("<a class=\"original_text_link\">" + _("DISPLAY ORIGINAL") + "</a> | ");
+                            webpg.jq('#footer').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a>");
                         }
                         if (document.location.hash.indexOf("searched") > -1)
                             webpg.jq(document.createTextNode(" | " + _("Key not found on keyserver")))
@@ -303,9 +324,7 @@ webpg.inline_results = {
                         );
                     });
                     webpg.inline_results.doResize();
-                    webpg.jq('.webpg-link').each(function(){
-                        this.href = "#webpg-link-" + (new Date()).getTime();
-                    }).click(function() {
+                    webpg.jq('.webpg-link').click(function() {
                         webpg.utils.sendRequest({
                             'msg': "newtab",
                             'url': this.id,
@@ -320,7 +339,7 @@ webpg.inline_results = {
                     webpg.jq('#clipboard_input')[0].value = request.original_text;
                     icon.src = "skin/images/badges/48x48/stock_keypair.png";
                     webpg.jq(icon).addClass('footer_icon');
-                    webpg.jq('#footer').html(icon.outerHTML);
+                    webpg.jq('#footer').html(icon.outerHTML || new XMLSerializer().serializeToString(icon));
                     var get_key_response = null;
                     var import_status = null;
                     webpg.utils.sendRequest({
@@ -424,19 +443,19 @@ webpg.inline_results = {
                                                 } else {
                                                     key_url = webpg.utils.resourcePath + "key_manager.html" +
                                                         "?auto_init=true&tab=-1&openkey=" + keyobj.fingerprint.substr(-16);
-                                                    key_link = "(<a href='#webpg-link-" + (new Date()).getTime() + "' id='" + key_url +
+                                                    key_link = "(<a id='" + key_url +
                                                         "' class='webpg-link'>" + keyobj.fingerprint.substr(-8) + "</a>)";
                                                     webpg.jq('#footer').append(_("THIS KEY IS IN YOUR KEYRING") + " " + key_link + "<br/\>");
                                                 }
-                                                webpg.jq('#footer').append("<a class=\"original_text_link\" href=\"#" + scrub(webpg.inline_results.qs.id) + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
+                                                webpg.jq('#footer').append("<a class=\"original_text_link\">" + _("DISPLAY ORIGINAL") + "</a> | ");
                                                 if (new_public_key) {
                                                     // This is a key we don't already have, make import available
-                                                    webpg.jq('#footer').append("<a class=\"import_key_link\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("IMPORT THIS KEY") + "</a> | ");
+                                                    webpg.jq('#footer').append("<a class=\"import_key_link\">" + _("IMPORT THIS KEY") + "</a> | ");
                                                 } else {
                                                     // This is a key we already have, make delete available
-                                                    webpg.jq('#footer').append("<a class=\"delete_key_link\" href=\"#webpg-link-" + (new Date()).getTime() + "\" id=\"" + keyobj.fingerprint + "\">" + _("DELETE THIS KEY") + "</a> | ");
+                                                    webpg.jq('#footer').append("<a class=\"delete_key_link\" id=\"" + keyobj.fingerprint + "\">" + _("DELETE THIS KEY") + "</a> | ");
                                                 }
-                                                webpg.jq('#footer').append("<a class=\"copy_to_clipboard\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("COPY TO CLIPBOARD") + "</a>");
+                                                webpg.jq('#footer').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a>");
 
                                                 webpg.jq('.delete_key_link').click(function(){
                                                     webpg.utils.sendRequest({
@@ -505,7 +524,7 @@ webpg.inline_results = {
                                                 })
                                                 webpg.jq('.copy_to_clipboard').click(function(){
                                                     webpg.jq('#clipboard_input')[0].select();
-                                                    console.log(webpg.utils.copyToClipboard(window, document));
+                                                    var copyResult = webpg.utils.copyToClipboard(window, document, this);
                                                 })
                                                 if (webpg.jq('.original_text_link')[0].textContent == _("DISPLAY ORIGINAL"))
                                                     webpg.inline_results.doResize();
@@ -518,8 +537,8 @@ webpg.inline_results = {
                                     webpg.jq('#footer').addClass("signature_no_pubkey");
                                     if (import_status.no_user_id > 0)
                                         webpg.jq("<span class='decrypt_status'>" + _("UNUSABLE KEY") + "; " + _("NO USER ID") + "<br/\></span>").insertBefore(webpg.jq(webpg.jq('#footer')[0].firstChild));
-                                    webpg.jq('#footer').append("<a class=\"import_key_link\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("IMPORT THIS KEY") + "</a> | ");
-                                    webpg.jq('#footer').append("<a class=\"copy_to_clipboard\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("COPY TO CLIPBOARD") + "</a>");
+                                    webpg.jq('#footer').append("<a class=\"import_key_link\">" + _("IMPORT THIS KEY") + "</a> | ");
+                                    webpg.jq('#footer').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a>");
                                 }
                                 webpg.jq('#original_text').hide();
                                 webpg.inline_results.doResize();
@@ -535,7 +554,7 @@ webpg.inline_results = {
                                 })
                                 webpg.jq('.copy_to_clipboard').click(function(){
                                     webpg.jq('#clipboard_input')[0].select(); 
-                                    console.log(webpg.utils.copyToClipboard(window, document));
+                                    var copyResult = webpg.utils.copyToClipboard(window, document, this);
                                 })
                             }
                         }
@@ -562,7 +581,7 @@ webpg.inline_results = {
             });
             webpg.jq('.copy_to_clipboard').click(function(){
                 webpg.jq('#clipboard_input')[0].select();
-                console.log(webpg.utils.copyToClipboard(window, document));
+                var copyResult = webpg.utils.copyToClipboard(window, document, this);
             });
             webpg.jq('.decrypt_message').click(function(){
                 webpg.utils.sendRequest({
@@ -603,9 +622,9 @@ webpg.inline_results = {
                                 icon.src = "skin/images/badges/48x48/stock_decrypted.png";
                             }
                             webpg.jq(icon).addClass('footer_icon');
-                            webpg.jq('#footer').html(icon.outerHTML);
-                            webpg.jq('#footer').append("<a class=\"original_text_link\" href=\"#" + scrub(webpg.inline_results.qs.id) + "\">" + _("DISPLAY ORIGINAL") + "</a> | ");
-                            webpg.jq('#footer').append("<a class=\"copy_to_clipboard\" href=\"#webpg-link-" + (new Date()).getTime() + "\">" + _("COPY TO CLIPBOARD") + "</a>");
+                            webpg.jq('#footer').html(icon.outerHTML || new XMLSerializer().serializeToString(icon));
+                            webpg.jq('#footer').append("<a class=\"original_text_link\">" + _("DISPLAY ORIGINAL") + "</a> | ");
+                            webpg.jq('#footer').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a>");
                             webpg.jq('.original_text_link').off('click');
                             webpg.jq('.original_text_link').click(function(){
                                 if (this.textContent == _("DISPLAY ORIGINAL")){
@@ -622,7 +641,7 @@ webpg.inline_results = {
                             });
                             webpg.jq('.copy_to_clipboard').click(function(){
                                 webpg.jq('#clipboard_input')[0].select();
-                                console.log(webpg.utils.copyToClipboard(window, document));
+                                var copyResult = webpg.utils.copyToClipboard(window, document, this);
                             })
                             webpg.jq('.webpg-link').click(function() {
                                 webpg.utils.sendRequest({
@@ -637,7 +656,7 @@ webpg.inline_results = {
                 );
                 webpg.inline_results.doResize();
             });
-            webpg.jq('.results-close-btn').find('a')[0].href = "#" + scrub(webpg.inline_results.qs.id);
+//            webpg.jq('.results-close-btn').find('a')[0].href = "#" + scrub(webpg.inline_results.qs.id);
             webpg.jq('.results-close-btn').find('a').off('click.webpg-link');
             webpg.jq('.results-close-btn').find('a').bind('click.webpg-link', function() {
                 webpg.utils.sendRequest({

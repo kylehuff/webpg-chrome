@@ -12,7 +12,7 @@ webpg.about = {
         Function: init
             Sets up the page to reflect the correct host application
     */
-    init: function() {
+    init: function(browserWindow) {
         var _ = webpg.utils.i18n.gettext;
         document.title = _("About WebPG");
         var browserString;
@@ -24,12 +24,16 @@ webpg.about = {
             else if (webpg.utils.detectedBrowser['product'] == "seamonkey")
                 browserString = "SeaMonkey";
             document.getElementById("webpg-info-browser").innerHTML += browserString;
-            webpg.plugin = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-               .getInterface(Components.interfaces.nsIWebNavigation)
-               .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-               .rootTreeItem
-               .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-               .getInterface(Components.interfaces.nsIDOMWindow).webpg.plugin;
+            if (!browserWindow) {
+                webpg.plugin = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                   .getInterface(Components.interfaces.nsIWebNavigation)
+                   .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+                   .rootTreeItem
+                   .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                   .getInterface(Components.interfaces.nsIDOMWindow).webpg.plugin;
+            } else {
+                webpg.plugin = browserWindow.webpg.plugin;
+            }
         } else if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
             browserString = "Chrome";
             document.getElementById("webpg-info-browser").innerHTML += browserString;
@@ -139,10 +143,10 @@ webpg.about = {
                     webpg.jq(this).text(_("Assuan version"));
                     break;
                 case "assuan-version":
-                    webpg.jq(this).text(webpg.plugin.webpg_status.Assuan.version);
+                    webpg.jq(this).text((typeof(webpg.plugin.webpg_status.Assuan)=='undefined') ? _("not detected") : webpg.plugin.webpg_status.Assuan.version);
                     break;
             }
-        });      
+        });
         if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
             webpg.jq('#window_functions').hide();
 
@@ -151,7 +155,12 @@ webpg.about = {
    }
 }
 
-window.addEventListener("DOMContentLoaded", function() {
-    webpg.about.init();
-}, true);
+webpg.jq(function() {
+    if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+        if (webpg.utils.getParameterByName("auto_init") == "true")
+            webpg.about.init();
+    } else {
+        webpg.about.init();
+    }
+});
 /* ]]> */

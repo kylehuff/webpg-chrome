@@ -14,7 +14,7 @@ webpg.error = {
                .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
                .rootTreeItem
                .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-               .getInterface(Components.interfaces.nsIDOMWindow);
+               .getInterface(Components.interfaces.nsIDOMWindow).webpg;
         }
 
         var error_map = webpg.background.plugin.webpg_status;

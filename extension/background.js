@@ -14,6 +14,7 @@ webpg.background = {
     */
     init: function() {
         var _ = webpg.utils.i18n.gettext;
+
         var gnupghome = (webpg.preferences.gnupghome.get() != -1 &&
             webpg.preferences.gnupghome.get()) ? webpg.preferences.gnupghome.get() : "";
 
@@ -47,15 +48,10 @@ webpg.background = {
             }
         }
         
-//        if (webpg.plugin.webpg_status.gpg_error_code == "150") {
-//            // The GnuPG binary was not found, try the users preference
-//            console.log(webpg.plugin.webpg_status);
-//        }
-
         if (webpg.plugin.valid && !webpg.plugin.webpg_status["error"]) {
             if (gnupghome.length > 0)
                 console.log("Setting GnuPG home directory to user value: '" + gnupghome + "'");
-            if (webpg.plugin.webpg_status.openpgp_valid)
+            if (webpg.plugin.webpg_status.openpgp_detected)
                 console.log("Protocol OpenPGP is valid; v" + webpg.plugin.webpg_status.OpenPGP.version);
             if (webpg.plugin.webpg_status.gpgconf_detected)
                 console.log("Protocol GPGCONF is valid; v" + webpg.plugin.webpg_status.GPGCONF.version); 
@@ -172,6 +168,28 @@ webpg.background = {
                     break;
                 }
                 response = webpg.utils.openNewTab(request.url, index);
+                break;
+
+            case 'getTabInfo':
+                response = (sender.tab) ? sender.tab : false;
+                break;
+
+            case 'setBadgeText':
+                try {
+                    chrome.browserAction.setBadgeText({'text': request.badgeText, 'tabId': sender.tab.id});
+                } catch (err) {
+                    console.log(err.message);
+                }
+                break;
+
+            case 'updateStatusBar':
+                var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                       .getService(Components.interfaces.nsIWindowMediator);
+                var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
+                    "mail:3pane" : "navigator:browser";
+                var browserWindow = wm.getMostRecentWindow(winType);
+                browserWindow.document.getElementById("webpg-results-trusted-hover").value = request.statusText;
+                browserWindow.document.getElementById("webpg-results-trusted-hover").style.display = (request.statusText.length > 0) ? '' : 'none';
                 break;
 
             case 'decrypt':
@@ -621,8 +639,11 @@ if (webpg.utils.detectedBrowser["product"] == "chrome") {
 window.addEventListener("load", function load(event) {
     window.removeEventListener("load", load, false);
     webpg.background.init();
+    if (webpg.utils.detectedBrowser['product'] == 'thunderbird')
+        webpg.utils._onRequest.addListener(webpg.background._onRequest);
 }, false);
 
 // Listen for the content script to send messages to the background page.
-webpg.utils._onRequest.addListener(webpg.background._onRequest);
+if (webpg.utils.detectedBrowser['product'] != 'thunderbird')
+    webpg.utils._onRequest.addListener(webpg.background._onRequest);
 /* ]]> */
