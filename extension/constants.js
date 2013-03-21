@@ -8,7 +8,7 @@ if (typeof(webpg)=='undefined') { webpg = {}; }
 webpg.constants = {
 
     debug: {
-        LOG: true
+        LOG: false
     },
 
     /*
