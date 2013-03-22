@@ -225,7 +225,7 @@
 		"message": ""
 	},
 	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
-		"message": "PGG VERSCHLÜSSELTE ODER SIGNIERTE NACHRICHT"
+		"message": "PGP VERSCHLÜSSELTE ODER SIGNIERTE NACHRICHT"
 	},
 	"PGP_Public_Key": {
 		"message": ""
