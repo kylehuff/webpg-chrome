@@ -29,15 +29,15 @@ msgstr "النسخة"
 
 #: extension/about.js:54
 msgid "Extension Information"
-msgstr ""
+msgstr "تمديد المعلومات"
 
 #: extension/about.js:57
 msgid "Extension version"
-msgstr ""
+msgstr "تمديد إصدار"
 
 #: extension/about.js:67 extension/error.js:60
 msgid "Platform"
-msgstr "منصة"
+msgstr "المنصة"
 
 #: extension/about.js:73 extension/error.js:63
 msgid "Product"
@@ -49,23 +49,23 @@ msgstr "عميل المستخدم"
 
 #: extension/about.js:85 extension/error.js:66
 msgid "Language"
-msgstr "للغة"
+msgstr "اللغة"
 
 #: extension/about.js:91
 msgid "Plugin Information"
-msgstr ""
+msgstr "معلومات عن الملحق"
 
 #: extension/about.js:94
 msgid "Plugin version"
-msgstr ""
+msgstr "البرنامج المساعد الإصدار"
 
 #: extension/about.js:106
 msgid "GnuPG Information"
-msgstr ""
+msgstr "GnuPG المعلومات"
 
 #: extension/about.js:109
 msgid "GnuPG version"
-msgstr ""
+msgstr "GnuPG الإصدار"
 
 #: extension/about.js:115 extension/options.js:161
 msgid "GnuPG binary"
@@ -73,23 +73,23 @@ msgstr "GnuPG قابل للتنفيذ"
 
 #: extension/about.js:121 extension/options.js:156
 msgid "GnuPG home directory"
-msgstr "GnuPG الدليل الرئيسي"
+msgstr "مجلد منزل GnuPG"
 
 #: extension/about.js:130
 msgid "default"
-msgstr ""
+msgstr "الافتراضي"
 
 #: extension/about.js:134
 msgid "GPGCONF version"
-msgstr ""
+msgstr "Gpgconf النسخة"
 
 #: extension/about.js:140 extension/about.js:146
 msgid "not detected"
-msgstr ""
+msgstr "لم يتم الكشف عن"
 
 #: extension/about.js:143
 msgid "Assuan version"
-msgstr ""
+msgstr "Assuan الإصدار"
 
 #: extension/about.js:153 extension/key_manager.js:208
 #: extension/key_manager.js:222 extension/options.js:368
@@ -98,11 +98,11 @@ msgstr "منتهي"
 
 #: extension/background.js:85
 msgid "WebPG Plugin failed to load"
-msgstr "WebPG فشل تحميل البرنامج المساعد"
+msgstr "فشل تحميل إضافة WebPG"
 
 #: extension/background.js:576 extension/background.js:599
 msgid "Key Generation Complete"
-msgstr "أكملت إنشاء المفتاح"
+msgstr "اكتمل توليد المفتاح"
 
 #: extension/background.js:577 extension/background.js:602
 msgid "Key Generation"
@@ -110,22 +110,22 @@ msgstr "مفتاح الجيل"
 
 #: extension/background.js:586
 msgid "Open Key Manager"
-msgstr "فتح إدارة المفاتيح"
+msgstr "افتح مدير المفاتيح"
 
 #: extension/background.js:600
 msgid "WebPG Key Generation Failed"
-msgstr "WebPG الجيل مفتاح فشل"
+msgstr "فشل توليد مفتاح WebPG"
 
 #: extension/background.js:601
 msgid "The generation of your new key is now complete"
-msgstr "توليد المفتاح الخاص بك هو الآن كاملة"
+msgstr "اكتمل توليد مفتاحك الجديد"
 
 #: extension/browser_action_menu.js:44 extension/inline.js:664
 #: extension/utils.js:1203 extension/XULContent/firefoxOverlay.xul:27
 #: extension/XULContent/options.xul:20 extension/XULContent/options.xul:25
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:48
 msgid "Options"
-msgstr "خيارات"
+msgstr "الخيارات"
 
 #: extension/browser_action_menu.js:46 extension/inline.js:658
 #: extension/utils.js:1224 extension/XULContent/firefoxOverlay.xul:23
@@ -156,7 +156,7 @@ msgstr "المحرر"
 
 #: extension/dialog.js:81 extension/key_manager.js:64
 msgid "Search/Filter"
-msgstr "بحث / فلتر"
+msgstr "بحث/تصفية"
 
 #: extension/dialog.js:175 extension/gmail.js:528 extension/inline.js:602
 #: extension/key_manager.js:124 extension/key_manager.js:967
@@ -186,11 +186,11 @@ msgstr "لم يتم إنجاح أي عمل"
 #: extension/key_manager.js:2036 extension/key_manager.js:2061
 #: extension/key_manager.js:2094 extension/key_manager.js:2119
 msgid "Cancel"
-msgstr "إلغاء"
+msgstr "ألغِ"
 
 #: extension/dialog.js:259 extension/key_manager.js:908
 msgid "UIDs"
-msgstr "مستخدم المعرفات"
+msgstr "معرِّفات المستخدمين"
 
 #: extension/dialog.js:264
 msgid "Key does not support this operation"
@@ -215,15 +215,15 @@ msgstr "اقتراحات"
 
 #: extension/error.js:31
 msgid "The plugin was unable to load"
-msgstr "كان غير قادر على تحميل البرنامج المساعد"
+msgstr "لم يتمكن من تحميل الاضافات"
 
 #: extension/error.js:34
 msgid "There might be a problem with the gpg installation"
-msgstr "قد يكون هناك مشكلة في التثبيت GPG"
+msgstr "قد يكون هناك مشكلة في تثبيت GPG"
 
 #: extension/error.js:36
 msgid "consider reinstalling gpg4win"
-msgstr "النظر في إعادة تثبيت gpg4win"
+msgstr "خذ بالاعتبار إعادة تثبيت gpg4win"
 
 #: extension/error.js:42
 msgid "Error Details"
@@ -231,7 +231,7 @@ msgstr "تفاصيل الخطأ"
 
 #: extension/error.js:43
 msgid "Error in Method"
-msgstr "خطأ في الأسلوب"
+msgstr "خطأ في أسلوب"
 
 #: extension/error.js:44
 msgid "Error Code"
@@ -243,7 +243,7 @@ msgstr "خطأ سلسلة"
 
 #: extension/error.js:52
 msgid "File"
-msgstr "ملف"
+msgstr "الملف"
 
 #: extension/error.js:53
 msgid "Line"
@@ -259,7 +259,7 @@ msgstr "معلومات النظام"
 
 #: extension/error.js:61
 msgid "App Version"
-msgstr "التطبيق الإصدار"
+msgstr "إصدار التطبيق"
 
 #: extension/error.js:64
 msgid "Sub-product"
@@ -289,7 +289,7 @@ msgstr "هل تريد على أي حال التشفير والتسجيل"
 #: extension/gmail.js:323
 #: extension/XULContent/thunderbird/composeOverlay.js:264
 msgid "You do not have any keys for"
-msgstr "لم يكن لديك أي مفاتيح"
+msgstr "لا تمتلك مفاتيح ل"
 
 #: extension/gmail.js:325
 #: extension/XULContent/thunderbird/composeOverlay.js:266
@@ -298,11 +298,11 @@ msgstr "أو"
 
 #: extension/gmail.js:393
 msgid "You have more than 1 public key matching that address"
-msgstr "لديك أكثر من 1 المفتاح العمومي مطابقة هذا العنوان"
+msgstr "لديك أكثر من مفتاح عمومي مطابق لهذا العنوان"
 
 #: extension/gmail.js:405
 msgid "The Key for"
-msgstr "مفتاح لل"
+msgstr "المفتاح ل"
 
 #: extension/gmail.js:406
 msgid "is invalid"
@@ -310,7 +310,7 @@ msgstr "غير صالح"
 
 #: extension/gmail.js:411
 msgid "Open the Key Manager"
-msgstr "فتح إدارة المفاتيح"
+msgstr "افتح مدير المفاتيح"
 
 #: extension/gmail.js:534 extension/inline.js:608 extension/key_manager.js:103
 #: extension/key_manager.js:106
@@ -327,8 +327,7 @@ msgstr "توقيع وتشفير"
 #: extension/gmail.js:546 extension/inline.js:620
 #: extension/XULContent/thunderbird/composeOverlay.js:95
 msgid "Symmetric Encryption"
-msgstr "متماثل التشفير"
-
+msgstr "تشفير متناسب"
 #: extension/gmail.js:552
 #: extension/XULContent/thunderbird/composeOverlay.js:90
 msgid "Do not use WebPG for this message"
@@ -354,7 +353,7 @@ msgstr "رسالة PGP موقعة"
 
 #: extension/inline.js:746 extension/webpg_results.js:156
 msgid "PGP ENCRYPTED OR SIGNED MESSAGE"
-msgstr "رسالة مشفرة PGP أو وقعت"
+msgstr "رسالة PGP موقّعة أو مشفّرة"
 
 #: extension/inline.js:752
 msgid "PGP Public Key"
@@ -370,15 +369,15 @@ msgstr "محرر غير آمن"
 
 #: extension/key_manager.js:22 extension/utils.js:384
 msgid "WebPG Key Manager"
-msgstr "مفتاح مدير WebPG"
+msgstr "مدير مفاتيح WebPG"
 
 #: extension/key_manager.js:62
 msgid "Private Keys"
-msgstr "مفاتيح خاصة"
+msgstr "المفاتيح الخاصة"
 
 #: extension/key_manager.js:63
 msgid "Public Keys"
-msgstr "مفاتيح العامة"
+msgstr "المفاتيح العامة"
 
 #: extension/key_manager.js:65 extension/key_manager.js:133
 msgid "Your Name"
@@ -386,7 +385,7 @@ msgstr "اسمك"
 
 #: extension/key_manager.js:66 extension/key_manager.js:137
 msgid "Your Email"
-msgstr "البريد الإلكتروني الخاص بك"
+msgstr "بريدك  الإلكترونى"
 
 #: extension/key_manager.js:67 extension/key_manager.js:141
 msgid "Comment"
@@ -398,31 +397,31 @@ msgstr "عبارة المرور"
 
 #: extension/key_manager.js:75
 msgid "Repeat Passphrase"
-msgstr "تكرار عبارة المرور"
+msgstr "كرّر عبارة المرور"
 
 #: extension/key_manager.js:76 extension/options.js:153
 msgid "Advanced Options"
-msgstr "خيارات متقدمة"
+msgstr "الخيارات المتقدّمة"
 
 #: extension/key_manager.js:77
 msgid "Public Key Algorithm"
-msgstr "مفتاح خوارزمية العامة"
+msgstr "خوارزمية المفتاح العام"
 
 #: extension/key_manager.js:78
 msgid "Public Key Size"
-msgstr "مفتاح الحجم العام"
+msgstr "حجم المفتاح العام"
 
 #: extension/key_manager.js:79 extension/key_manager.js:99
 msgid "Private Key Algorithm"
-msgstr "مفتاح خوارزمية خاصة"
+msgstr "خوارزمية المفتاح الخاص"
 
 #: extension/key_manager.js:80 extension/key_manager.js:128
 msgid "Private Key Size"
-msgstr "مفتاح الحجم خاصة"
+msgstr "حجم المفتاح الخاص"
 
 #: extension/key_manager.js:81 extension/key_manager.js:129
 msgid "Expire in"
-msgstr "تنتهي في"
+msgstr "تنتهي صلاحيته في"
 
 #: extension/key_manager.js:85 extension/key_manager.js:782
 #: extension/key_manager.js:825 extension/key_manager.js:1104
@@ -432,32 +431,32 @@ msgstr "أبدا"
 
 #: extension/key_manager.js:88
 msgid "n30 days"
-msgstr "30 يوما"
+msgstr "30 يوماً"
 
 #: extension/key_manager.js:91
 msgid "n90 days"
-msgstr "90 يوما"
+msgstr "90 يوماً"
 
 #: extension/key_manager.js:94
 msgid "n1 year"
-msgstr "1 سنة"
+msgstr "سنة"
 
 #: extension/key_manager.js:98
 msgid "Subkey Options"
-msgstr "خيارات للمفتاح الفرعي"
+msgstr "خيارات المفتاح الفرعي"
 
 #: extension/key_manager.js:109 extension/key_manager.js:112
 msgid "encrypt only"
-msgstr "التشفير فقط"
+msgstr "تشفير فقط"
 
 #: extension/key_manager.js:115 extension/key_manager.js:118
 msgid "set your own capabilities"
-msgstr "تعيين القدرات الخاصة بك"
+msgstr "تعيين القدرات الخاصة"
 
 #: extension/key_manager.js:123 extension/key_manager.js:966
 #: extension/key_manager.js:1950
 msgid "Sign"
-msgstr "توقيع فقط"
+msgstr "توقيع"
 
 #: extension/key_manager.js:125 extension/key_manager.js:968
 msgid "Authenticate"
@@ -465,28 +464,28 @@ msgstr "مصادقة"
 
 #: extension/key_manager.js:143
 msgid "Revoke this Key"
-msgstr "إلغاء هذا مفتاح"
+msgstr "ألغِ هذا المفتاح"
 
 #: extension/key_manager.js:144
 msgid "Revoke this UID"
-msgstr "إلغاء هذا المستخدم معرف"
+msgstr "ألغِ معرّف المستخدم هذا"
 
 #: extension/key_manager.js:145 extension/key_manager.js:2056
 msgid "Revoke this Signature"
-msgstr "إلغاء هذا التوقيع"
+msgstr "ألغِ هذا التوقيع"
 
 #: extension/key_manager.js:146 extension/key_manager.js:2114
 msgid "Delete this Signature"
-msgstr "حذف هذا التوقيع"
+msgstr "احذِف هذا التوقيع"
 
 #: extension/key_manager.js:147 extension/key_manager.js:1048
 #: extension/key_manager.js:1806
 msgid "Delete this UID"
-msgstr "حذف هذا معرف المستخدم"
+msgstr "احذِف معرف المستخدم هذا"
 
 #: extension/key_manager.js:148 extension/key_manager.js:920
 msgid "Delete this Key"
-msgstr "حذف هذا المفتاح"
+msgstr "احذِف هذا المفتاح"
 
 #: extension/key_manager.js:149
 msgid "This key will be permanently deleted"
@@ -499,31 +498,31 @@ msgstr "هل أنت متأكد"
 #: extension/key_manager.js:151 extension/key_manager.js:798
 #: extension/key_manager.js:990
 msgid "Change Expiration"
-msgstr "تاريخ انتهاء الصلاحية الجديد"
+msgstr "تغيير موعد انتهاء الصلاحية"
 
 #: extension/key_manager.js:152 extension/key_manager.js:1046
 msgid "Sign this UID"
-msgstr "التوقيع على هذه هوية المستخدم"
+msgstr "وقِّع هوية المستخدم هذه"
 
 #: extension/key_manager.js:153 extension/key_manager.js:905
 msgid "Key Details"
-msgstr "مفتاح التفاصيل"
+msgstr "تفاصيل المفتاح"
 
 #: extension/key_manager.js:154
 msgid "Export Public Key"
-msgstr "تصدير للمفتاح العام"
+msgstr "تصدير المفتاح العام"
 
 #: extension/key_manager.js:155 extension/key_manager.js:810
 msgid "Add UID"
-msgstr "إضافة المستخدم معرف"
+msgstr "إضافة معرف المستخدم"
 
 #: extension/key_manager.js:159
 msgid "Are you sure you wish to revoke this Key"
-msgstr "هل أنت متأكد أنك ترغب في الغاء هذا معرف المستخدم"
+msgstr "هل أنت متأكد أنك ترغب في إلغاء هذا المفتاح"
 
 #: extension/key_manager.js:160
 msgid "Are you sure you wish to revoke this UID"
-msgstr "هل أنت متأكد أنك ترغب في الغاء هذا التحديد المستخدم"
+msgstr "هل أنت متأكد أنك ترغب في إلغاء معرف المستخدم هذا"
 
 #: extension/key_manager.js:161
 msgid "Are you sure you wish to revoke this Signature"
@@ -535,7 +534,7 @@ msgstr "هل أنت متأكد أنك تريد حذف هذا التوقيع"
 
 #: extension/key_manager.js:163
 msgid "Are you sure you want to permanently delete this UID"
-msgstr "هل أنت متأكد أنك تريد حذف هذا معرف المستخدم بشكل دائم"
+msgstr "هل أنت متأكد أنك تريد حذف معرف المستخدم هذا بشكل دائم"
 
 #: extension/key_manager.js:164
 msgid "New Expiration Date"
@@ -543,7 +542,7 @@ msgstr "تاريخ انتهاء الصلاحية الجديد"
 
 #: extension/key_manager.js:165
 msgid "Never Expire"
-msgstr "أبدا انتهاء"
+msgstr "بدون تاريخ انتهاء صلاحية"
 
 #: extension/key_manager.js:166
 msgid "Expiration Date"
@@ -555,7 +554,7 @@ msgstr "انقر لإنشاء مفتاح جديد"
 
 #: extension/key_manager.js:307
 msgid "Click to enable key"
-msgstr "انقر فوق لتمكين مفتاح"
+msgstr "انقر لتمكين المفتاح"
 
 #: extension/key_manager.js:317
 msgid "Click to set default key"
@@ -571,7 +570,7 @@ msgstr "في انتظار بايت أكثر عشوائية"
 
 #: extension/key_manager.js:357
 msgid "Building key"
-msgstr "توليد المفتاح"
+msgstr "إنشاء المفتاح"
 
 #: extension/key_manager.js:357
 msgid "please wait"
@@ -581,7 +580,7 @@ msgstr "يرجى الانتظار"
 #: extension/key_manager.js:1555 extension/key_manager.js:1647
 #: extension/key_manager.js:1743
 msgid "Close"
-msgstr "غلق"
+msgstr "إغلاق"
 
 #: extension/key_manager.js:457
 msgid "trust"
@@ -594,7 +593,7 @@ msgstr "إنشاء مفتاح جديد"
 #: extension/key_manager.js:519 extension/key_manager.js:1451
 #: extension/key_manager.js:1520
 msgid "Create"
-msgstr "خلق"
+msgstr "إنشاء"
 
 #: extension/key_manager.js:525 extension/key_manager.js:1459
 msgid "Name Required"
@@ -602,15 +601,15 @@ msgstr "الاسم مطلوب"
 
 #: extension/key_manager.js:529 extension/key_manager.js:1463
 msgid "UID Names must be at least 5 characters"
-msgstr "يجب أن تكون هوية المستخدم لا يقل عن 5 أحرف"
+msgstr "يجب أن تكون هوية المستخدم لا تقل عن 5 أحرف"
 
 #: extension/key_manager.js:535 extension/key_manager.js:1467
 msgid "UID Names cannot begin with a number"
-msgstr "يمكن الأسماء هوية المستخدم لم يبدأ مع عدد"
+msgstr "لا يمكن أن تبدأ هوية المستخدم برقم"
 
 #: extension/key_manager.js:542 extension/key_manager.js:1472
 msgid "Not a valid email address"
-msgstr "لا عنوان بريد إلكتروني صالح"
+msgstr "عنوان بريد إلكتروني غير صالح"
 
 #: extension/key_manager.js:552 extension/key_manager.js:554
 msgid "Passphrases do not match"
@@ -622,19 +621,19 @@ msgstr "إنشاء المفتاح، يرجى الانتظار"
 
 #: extension/key_manager.js:584
 msgid "This may take a long time (5 minutes or more) to complete"
-msgstr "وهذا قد يستغرق وقتا طويلا (5 دقائق أو أكثر) لإكمال"
+msgstr "هذا قد يستغرق ليكتمل وقتا طويلا (5 دقائق أو أكثر)"
 
 #: extension/key_manager.js:584
 msgid "Please be patient while the key is created"
-msgstr "يرجى أن يكون المريض في حين يتم إنشاء مفتاح"
+msgstr "الرجاء التحلّي بالصبر بينما يتم إنشاء المفتاح"
 
 #: extension/key_manager.js:584
 msgid "It is safe to close this window"
-msgstr "أنها آمنة لإغلاق هذه النافذة"
+msgstr "بإمكانك إغلاق هذه النافذة"
 
 #: extension/key_manager.js:584
 msgid "key generation will continue in the background"
-msgstr "وسوف يستمر إنشاء المفتاح في الخلفية"
+msgstr "وسوف يستمر توليد المفتاح في الخلفية"
 
 #: extension/key_manager.js:702 extension/key_manager.js:754
 #: extension/key_manager.js:2156 extension/options.js:189
@@ -642,7 +641,7 @@ msgstr "وسوف يستمر إنشاء المفتاح في الخلفية"
 #: extension/options.js:217 extension/options.js:227 extension/options.js:235
 #: extension/options.js:240
 msgid "Enabled"
-msgstr "تمكين"
+msgstr "مفعّل"
 
 #: extension/key_manager.js:702 extension/key_manager.js:709
 #: extension/key_manager.js:755 extension/key_manager.js:940
@@ -651,7 +650,7 @@ msgstr "تمكين"
 #: extension/options.js:217 extension/options.js:227 extension/options.js:235
 #: extension/options.js:240
 msgid "Disabled"
-msgstr "مشلول"
+msgstr "معطّل"
 
 #: extension/key_manager.js:705 extension/key_manager.js:938
 msgid "Valid"
@@ -661,7 +660,7 @@ msgstr "صالح"
 #: extension/key_manager.js:943 extension/key_manager.js:954
 #: extension/key_manager.js:963
 msgid "Expired"
-msgstr "انقضاء"
+msgstr "منتهي الصلاحية"
 
 #: extension/key_manager.js:717 extension/key_manager.js:946
 msgid "Invalid"
@@ -669,16 +668,16 @@ msgstr "غير صالح"
 
 #: extension/key_manager.js:721 extension/key_manager.js:949
 msgid "Revoked"
-msgstr "سحب"
+msgstr "ملغيّ"
 
 #: extension/key_manager.js:730 extension/key_manager.js:1017
 #: extension/key_manager.js:1083
 msgid "no email address provided"
-msgstr "لم يقدم أي عنوان بريد إلكتروني"
+msgstr "لم يُقدَّم أي عنوان بريد إلكتروني"
 
 #: extension/key_manager.js:760
 msgid "Cannot unset your default key"
-msgstr "هذا هو المفتاح الخاص بك الافتراضي"
+msgstr "لا يمكنك إلغاء تحديد مفتاحك الافتراضي"
 
 #: extension/key_manager.js:780 extension/key_manager.js:823
 msgid "Trust Assignment"
@@ -687,7 +686,7 @@ msgstr "تعيين الثقة"
 #: extension/key_manager.js:782 extension/key_manager.js:825
 #: extension/key_manager.js:1102 extension/webpg_results.js:132
 msgid "Unknown"
-msgstr "غير معروف"
+msgstr "مجهول"
 
 #: extension/key_manager.js:782 extension/key_manager.js:825
 msgid "Marginal"
@@ -695,7 +694,7 @@ msgstr "هامشي"
 
 #: extension/key_manager.js:782 extension/key_manager.js:825
 msgid "Full"
-msgstr "تماما"
+msgstr "كامل"
 
 #: extension/key_manager.js:782 extension/key_manager.js:825
 msgid "Ultimate"
@@ -711,7 +710,7 @@ msgstr "مجموعة جديدة"
 
 #: extension/key_manager.js:790 extension/key_manager.js:833
 msgid "Group Assignment"
-msgstr ""
+msgstr "مهمة المجموعة"
 
 #: extension/key_manager.js:804
 msgid "Change Passphrase"
@@ -719,54 +718,54 @@ msgstr "تغيير عبارة المرور"
 
 #: extension/key_manager.js:816
 msgid "Add Subkey"
-msgstr "إضافة مفتاح الفرعي"
+msgstr "إضافة مفتاح فرعي"
 
 #: extension/key_manager.js:901
 msgid "Enable this Key"
-msgstr "تمكين هذا المفتاح لتوقيع"
+msgstr "تمكين هذا المفتاح"
 
 #: extension/key_manager.js:901
 msgid "Disable this Key"
-msgstr "حذف هذا المفتاح"
+msgstr "تعطيل هذا المفتاح"
 
 #: extension/key_manager.js:906 extension/key_manager.js:979
 msgid "KeyID"
-msgstr "مفتاح معرف"
+msgstr "معرِّف المفتاح"
 
 #: extension/key_manager.js:906 extension/key_manager.js:979
 msgid "Key Created"
-msgstr "تم إنشاؤها على"
+msgstr "تم إنشاء المفتاح"
 
 #: extension/key_manager.js:907 extension/key_manager.js:980
 #: extension/key_manager.js:1106 extension/webpg_results.js:136
 #: extension/webpg_results.js:439
 msgid "Expires"
-msgstr "انقضاء"
+msgstr "تاريخ انتهاء الصلاحية"
 
 #: extension/key_manager.js:909 extension/key_manager.js:981
 msgid "Fingerprint"
-msgstr "بصمة"
+msgstr "البصمة"
 
 #: extension/key_manager.js:910 extension/key_manager.js:982
 #: extension/webpg_results.js:137
 msgid "Status"
-msgstr "حالة"
+msgstr "الحالة"
 
 #: extension/key_manager.js:910 extension/key_manager.js:982
 msgid "Key Algorithm"
-msgstr "مفتاح خوارزمية"
+msgstr "خوارزمية المفتاح"
 
 #: extension/key_manager.js:912 extension/webpg_results.js:138
 msgid "Validity"
-msgstr "صحة"
+msgstr "الصّلاحية"
 
 #: extension/key_manager.js:914 extension/key_manager.js:986
 msgid "Key Options"
-msgstr "خيارات"
+msgstr "خيارات المفتاح"
 
 #: extension/key_manager.js:916 extension/key_manager.js:992
 msgid "Operations"
-msgstr "خيارات"
+msgstr "العمليات"
 
 #: extension/key_manager.js:923
 msgid "Export this Key"
@@ -786,7 +785,7 @@ msgstr "المفاتيح الفرعية"
 
 #: extension/key_manager.js:976
 msgid "Subkey Details"
-msgstr "مفتاح الفرعي التفاصيل"
+msgstr "تفاصيل المفتاح الفرعي"
 
 #: extension/key_manager.js:983
 msgid "Flags"
@@ -794,23 +793,23 @@ msgstr "الأعلام"
 
 #: extension/key_manager.js:996
 msgid "Delete this Subkey"
-msgstr "حذف هذا المفتاح"
+msgstr "حذف هذا المفتاح الفرعي"
 
 #: extension/key_manager.js:999
 msgid "Revoke this Subkey"
-msgstr "حذف هذا المفتاح"
+msgstr "إلغاء هذا المفتاح الفرعي"
 
 #: extension/key_manager.js:1004
 msgid "User IDs"
-msgstr "مستخدم المعرفات"
+msgstr "معرِّفات المستخدمين"
 
 #: extension/key_manager.js:1038
 msgid "Make primary"
-msgstr "جعل الابتدائية"
+msgstr "اجعله الرئيسي"
 
 #: extension/key_manager.js:1042
 msgid "Revoke UID"
-msgstr "سحب"
+msgstr "إلغاء معرِّفات المستخدمين"
 
 #: extension/key_manager.js:1070 extension/webpg_results.js:411
 msgid "REVOKED"
@@ -819,11 +818,11 @@ msgstr "فاسخ"
 #: extension/key_manager.js:1105 extension/webpg_results.js:135
 #: extension/webpg_results.js:437
 msgid "Created"
-msgstr "تم إنشاؤها على"
+msgstr "تاريخ الإنشاء"
 
 #: extension/key_manager.js:1110
 msgid "self-signature"
-msgstr "حذف هذا التوقيع"
+msgstr "التوقيع الذاتي"
 
 #: extension/key_manager.js:1112
 msgid "local"
@@ -831,16 +830,16 @@ msgstr "محلي"
 
 #: extension/key_manager.js:1112
 msgid "non-exportable"
-msgstr "غير القابلة للتصدير"
+msgstr "غير قابل للتصدير"
 
 #: extension/key_manager.js:1114
 msgid "other signature"
-msgstr "حذف هذا التوقيع"
+msgstr "التواقيع الأخرى"
 
 #: extension/key_manager.js:1121 extension/key_manager.js:1682
 #: extension/key_manager.js:1862 extension/key_manager.js:2024
 msgid "Revoke"
-msgstr "سحب"
+msgstr "إلغاء"
 
 #: extension/key_manager.js:1124 extension/key_manager.js:2085
 msgid "Delete"
@@ -849,7 +848,8 @@ msgstr "حذف"
 #: extension/key_manager.js:1133
 msgid "Signatures made with keys not in your keyring are omitted"
 msgstr ""
-"لا يتم عرض التواقيع التي تم إنشاؤها باستخدام مفاتيح ليس في كيرينغ الخاص"
+"لا يتم عرض التواقيع التي تم إنشاؤها باستخدام مفاتيح ليست في حلقة مفاتيحك "
+"الخاصة"
 
 #: extension/key_manager.js:1179
 msgid "Calculating Trust"
@@ -866,7 +866,7 @@ msgstr "حفظ"
 
 #: extension/key_manager.js:1403
 msgid "Delete this key"
-msgstr "حذف هذا المفتاح"
+msgstr "احذف هذا المفتاح"
 
 #: extension/key_manager.js:1638
 msgid "Copy"
@@ -875,34 +875,34 @@ msgstr "نسخ"
 #: extension/key_manager.js:1660 extension/key_manager.js:1841
 #: extension/key_manager.js:2013
 msgid "Please specify the revocation details"
-msgstr "يرجى تحديد تفاصيل من إبطال"
+msgstr "يرجى تحديد تفاصيل الإبطال"
 
 #: extension/key_manager.js:1661 extension/key_manager.js:1842
 #: extension/key_manager.js:2014
 msgid "Reason"
-msgstr "سبب"
+msgstr "السبب"
 
 #: extension/key_manager.js:1663 extension/key_manager.js:1844
 #: extension/key_manager.js:2016
 msgid "No reason specified"
-msgstr "لا يوجد سبب محدد"
+msgstr "لم يتم تحديد سبب"
 
 #: extension/key_manager.js:1664
 msgid "Key has been compromised"
-msgstr "تم اختراق المفتاح"
+msgstr "لقد تعرّض هذا المفتاح للخطر"
 
 #: extension/key_manager.js:1665
 msgid "Key is superseded"
-msgstr "وقد تم استبدال مفتاح"
+msgstr "تم استبدال المفتاح"
 
 #: extension/key_manager.js:1666
 msgid "Key is no longer used"
-msgstr "لم يعد يستخدم مفتاح"
+msgstr "لم يعد هذا المفتاح مستخدَما"
 
 #: extension/key_manager.js:1668 extension/key_manager.js:1847
 #: extension/key_manager.js:2019
 msgid "Description"
-msgstr "وصف"
+msgstr "الوصف"
 
 #: extension/key_manager.js:1707
 msgid "Are you sure you want to Publish this key to the Keyserver"
@@ -946,15 +946,15 @@ msgstr "لم يتم العثور على المفتاح في الخادم الر�
 
 #: extension/key_manager.js:1845 extension/key_manager.js:2017
 msgid "User ID is no longer valid"
-msgstr "هوية المستخدم لم يعد صالحا"
+msgstr "هوية المستخدم لم تعد صالحة"
 
 #: extension/key_manager.js:1910
 msgid "Please select which of your keys to create the signature with"
-msgstr "الرجاء اختيار أي من المفاتيح الخاصة بك لإنشاء التوقيع مع"
+msgstr "الرجاء اختيار المفتاح المُراد استخدامه للتوقيع"
 
 #: extension/key_manager.js:1920
 msgid "You have not enabled any keys for use with webpg"
-msgstr "لديك لم يتم تمكين أي مفاتيح للاستخدام مع webpg"
+msgstr "لم تقم بتمكين أي مفتاح لاستخدامه مع webpg"
 
 #: extension/key_manager.js:1922 extension/key_manager.js:1926
 msgid "please click here"
@@ -962,15 +962,15 @@ msgstr "الرجاء الضغط هنا"
 
 #: extension/key_manager.js:1922
 msgid "and select 1 or more keys for use with webpg"
-msgstr "وحدد 1 أو أكثر مفاتيح للاستخدام مع webpg"
+msgstr "وتحديد مفتاح أو أكثر للاستخدام مع webpg"
 
 #: extension/key_manager.js:1924
 msgid "You have not generated any keys"
-msgstr "لديك لم يتم إنشاء أية مفاتيح"
+msgstr "لم تقم بتوليد أي مفتاح"
 
 #: extension/key_manager.js:1926
 msgid "and generate a key to use with webpg"
-msgstr "وإنشاء مفتاح لاستخدامه مع WebPG"
+msgstr "وأنشئ مفتاحاً للاستخدام مع webpg"
 
 #: extension/key_manager.js:1933
 msgid "Already signed with this key"
@@ -978,7 +978,7 @@ msgstr "وقعت بالفعل مع هذا المفتاح"
 
 #: extension/key_manager.js:1935
 msgid "Signature added using this key"
-msgstr "إنشاء التوقيع باستخدام هذا المفتاح"
+msgstr "تمت إضافة التوقيع بهذا المفتاح"
 
 #: extension/key_manager.js:2001
 msgid "Cannot Publish Keys without gpgconf utility installed"
@@ -986,7 +986,7 @@ msgstr "لا يمكن نشر المفاتيح دون تثبيت أداة pgpconf
 
 #: extension/key_manager.js:2002
 msgid "Cannot create signatures without gpgconf utility installed"
-msgstr "لا يمكن إنشاء التواقيع دون تثبيت gpgconf"
+msgstr "لا يمكن إنشاء التواقيع دون تثبيت أداة gpgconf"
 
 #: extension/key_manager.js:2004
 msgid "Cannot Publish Keys without Keyserver configured"
@@ -994,28 +994,27 @@ msgstr "لا يمكن نشر المفاتيح بدون إعداد الخادم �
 
 #: extension/key_manager.js:2006
 msgid "Cannot sign a revoked UID"
-msgstr "غير قادر على التوقيع من قبل المستخدم المعرف الذي تم إبطال"
+msgstr "غير قادر على توقيع معرف مستخدِم مبطَل"
 
 #: extension/key_manager.js:2007
 msgid "Cannot make a revoked UID primary"
-msgstr ""
-"لا يمكنك تعيين معرف من المستخدم كما الأولية إذا كان المستخدم معرف تم إبطال"
+msgstr "لا يمكن جعل معرف مستخدِم مبطَل معرفاً رئيسياً"
 
 #: extension/key_manager.js:2008
 msgid "Cannot sign an expired key"
-msgstr "لا يمكن التوقيع على مفتاح منتهية الصلاحية"
+msgstr "لا يمكن توقيع مفتاح منتهي الصلاحية"
 
 #: extension/key_manager.js:2075
 msgid "Are you certain you would like to delete signature"
-msgstr "أنت متأكد من أنك تريد حذف التوقيع"
+msgstr "هل أنت متأكد من أنك تريد حذف التوقيع"
 
 #: extension/key_manager.js:2076
 msgid "from this User ID"
-msgstr "من هذا المعرف المستخدم"
+msgstr "مِن معرِّف المستخدِم هذا"
 
 #: extension/key_manager.js:2078
 msgid "This signature was made with a key that does not belong to you"
-msgstr "وجاء هذا التوقيع مع مفتاح لا ينتمي لك"
+msgstr "تم عمل هذا التوقيع بمفتاح غير خاص بك"
 
 #: extension/key_manager.js:2078
 msgid "This action cannot be undone"
@@ -1023,11 +1022,11 @@ msgstr "لا يمكن التراجع عن هذا الإجراء"
 
 #: extension/key_manager.js:2162
 msgid "Enable this key for signing"
-msgstr "تمكين هذا المفتاح لتوقيع"
+msgstr "تمكين هذا المفتاح للتوقيع"
 
 #: extension/key_manager.js:2172
 msgid "This is your default key"
-msgstr "هذا هو المفتاح الخاص بك الافتراضي"
+msgstr "هذا هو مفتاحك الافتراضي"
 
 #: extension/key_manager.js:2174
 msgid "Make this the default key for encryption operations"
@@ -1035,7 +1034,7 @@ msgstr "جعل هذا المفتاح الافتراضي لعمليات التش�
 
 #: extension/key_manager.js:2228
 msgid "Searching for"
-msgstr "العثور على مفتاح"
+msgstr "البحق عن"
 
 #: extension/key_manager.js:2229
 msgid "Please wait while we build the key list"
@@ -1047,15 +1046,15 @@ msgstr "خيارات WebPG"
 
 #: extension/options.js:50
 msgid "The WebPG NPAPI Plugin is valid"
-msgstr "البرنامج المساعد NPAPI WebPG صالحة"
+msgstr "إضافة NPAPI لـ WebPG غير صالحة"
 
 #: extension/options.js:51
 msgid "OpenPGP was detected"
-msgstr ""
+msgstr "تم الكشف عن الحل OpenPGP"
 
 #: extension/options.js:52
 msgid "It appears you have a key-agent configured"
-msgstr "يبدو لديك مفتاح وكيل تكوينه"
+msgstr "يبدو أنك قمت بإعداد وكيل للمفتاح"
 
 #: extension/options.js:53
 msgid "gpgconf was detected"
@@ -1067,31 +1066,31 @@ msgstr "يمكنك استخدام أساليب التوقيع"
 
 #: extension/options.js:59
 msgid "OpenPGP does not appear to be installed"
-msgstr ""
+msgstr "الحل OpenPGP لا يظهر ليتم تثبيتها"
 
 #: extension/options.js:67
 msgid "You do not appear to have a key-agent configured"
-msgstr "لا يبدو أن لديك مفتاح وكيل تكوينه"
+msgstr "لا يبدو أن لديك وكيل مفتاح معَدّ"
 
 #: extension/options.js:67
 msgid "A working key-agent is required"
-msgstr "يجب على مفتاح صالح وكيل تكون موجودة"
+msgstr "مطلوب وكيل مفتاح يعمل"
 
 #: extension/options.js:75
 msgid "gpgconf does not appear to be installed"
-msgstr "gpgconf لا يظهر ليتم تثبيتها"
+msgstr "لا يظهر أن gpgconf مثبَّتة"
 
 #: extension/options.js:75
 msgid "You will not be able to create signatures"
-msgstr "فلن تكون قادرا على إنشاء التوقيعات"
+msgstr "لذا لن تكون قادرا على إنشاء التوقيعات"
 
 #: extension/options.js:84
 msgid "There was a problem loading the plugin"
-msgstr "هناك مشكلة تهيئة البرنامج المساعد"
+msgstr "حصلت مشكلة في تهيئة الإضافة"
 
 #: extension/options.js:84
 msgid "the plugin might be incompatibly compiled for this architechture"
-msgstr "قد تجميع البرنامج المساعد لا يكون للهندسة المعمارية الخاصة بك"
+msgstr "يبدو أن الإضافة لم تعد لتكون متوافقة مع تكوين البرنامج"
 
 #: extension/options.js:113
 msgid "click here for help resolving this issue"
@@ -1099,15 +1098,15 @@ msgstr "انقر هنا للحصول على المساعدة لحل هذه ال�
 
 #: extension/options.js:142
 msgid "Enable Inline formatting of PGP Messages and Keys"
-msgstr "تمكين التنسيق التلقائي للرسائل ومفاتيح"
+msgstr "تمكين التنسيق التلقائي لرسائل ومفاتيح PGP"
 
 #: extension/options.js:145
 msgid "Always encrypt to your default key in addition to the recipient"
-msgstr "تشفير المفتاح دائما الافتراضي الخاص بك بالإضافة إلى المستلم"
+msgstr "دائما قم بالتشفير لمفتاحك بالإضافة إلى المستلم"
 
 #: extension/options.js:148
 msgid "Enable WebPG GMAIL integration"
-msgstr "تمكين GMAIL التكامل"
+msgstr "تمكين تكامل WebPG و GMAIL"
 
 #: extension/options.js:148
 msgid "EXPERIMENTAL"
@@ -1119,11 +1118,11 @@ msgstr "توقيع الرسائل الصادرة في GMAIL"
 
 #: extension/options.js:166
 msgid "GPGCONF binary"
-msgstr ""
+msgstr "GPGCONF  ثنائي"
 
 #: extension/options.js:175
 msgid "Your system appears to be configured correctly for WebPG"
-msgstr "النظام الخاص بك ويبدو أن تكوين بشكل صحيح ل WebPG"
+msgstr "يبدو أن نظامك قد أعد بشكل صحيح لـ WebPG"
 
 #: extension/options.js:177
 msgid "There is a problem with your configuration"
@@ -1131,27 +1130,27 @@ msgstr "هناك مشكلة مع التكوين الخاص بك"
 
 #: extension/options.js:221
 msgid "WebPG GMAIL integration is EXPERIMENTAL"
-msgstr "جوجل التكامل تجريبية WebPG"
+msgstr "تكامل WebPG و GMAIL تكامل تجريبي"
 
 #: extension/options.js:221
 msgid "use at your own risk"
-msgstr "استخدام على مسؤوليتك الخاصة"
+msgstr "استخدم على مسؤوليتك الخاصة"
 
 #: extension/utils.js:322
 msgid "Text copied to clipboard"
-msgstr "تم نسخ النص إلى الحافظة"
+msgstr "تم نسخ النص"
 
 #: extension/utils.js:347
 msgid "There may have been a problem placing the data into the clipboard"
-msgstr "قد كانت هناك مشكلة وضع البيانات في الحافظة"
+msgstr "قد تكون حصلت مشكلة في نسخ البيانات"
 
 #: extension/utils.js:351
 msgid "TEXT COPIED"
-msgstr ""
+msgstr "تم نسخ النص"
 
 #: extension/utils.js:351
 msgid "UNABLE TO COPY TEXT"
-msgstr ""
+msgstr "غير قادر على نسخ النص"
 
 #: extension/utils.js:353 extension/webpg_results.js:220
 #: extension/webpg_results.js:245 extension/webpg_results.js:283
@@ -1178,7 +1177,7 @@ msgstr "استيراد هذا المفتاح"
 #: extension/utils.js:1125 extension/XULContent/firefoxOverlay.xul:49
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:71
 msgid "Encrypt this text"
-msgstr "تشفير هذه الرسالة"
+msgstr "تشفير هذا النص"
 
 #: extension/utils.js:1147 extension/XULContent/firefoxOverlay.xul:63
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:85
@@ -1188,15 +1187,15 @@ msgstr "فك تشفير هذا النص"
 #: extension/utils.js:1169 extension/XULContent/firefoxOverlay.xul:42
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:64
 msgid "Verify this text"
-msgstr "التحقق من هذه الرسالة"
+msgstr "التحقق من هذا النص"
 
 #: extension/webpg_overlay.js:236 extension/webpg_results.js:159
 msgid "UNABLE TO DECRYPT OR VERIFY THIS MESSAGE"
-msgstr "غير قادر على فك تشفير هذه الرسالة أو التحقق"
+msgstr "غير قادر على فك تشفير أو التحقق من هذه الرسالة"
 
 #: extension/webpg_results.js:170 extension/webpg_results.js:603
 msgid "PGP ENCRYPTED AND SIGNED MESSAGE"
-msgstr "PGP رسالة المشفرة والموقعة"
+msgstr "رسالة PGP مشفرة وموقعة"
 
 #: extension/webpg_results.js:200 extension/webpg_results.js:205
 #: extension/webpg_results.js:595
@@ -1205,11 +1204,11 @@ msgstr "فشل فك التشفير"
 
 #: extension/webpg_results.js:200
 msgid "NO SECRET KEY"
-msgstr "لا المفتاح السري"
+msgstr "لا يوجد مفتاح سري"
 
 #: extension/webpg_results.js:205 extension/webpg_results.js:595
 msgid "BAD PASSPHRASE"
-msgstr "عبارة المرور خاطئة"
+msgstr "عبارة مرور سيئة"
 
 #: extension/webpg_results.js:207 extension/webpg_results.js:210
 msgid "DECRYPT THIS MESSAGE"
@@ -1227,31 +1226,31 @@ msgstr "عرض الأصلية"
 
 #: extension/webpg_results.js:227
 msgid "DETACHED PGP SIGNATURE"
-msgstr "التوقيع منفصلة"
+msgstr "توقيع PGP منفصل"
 
 #: extension/webpg_results.js:229
 msgid "PGP SIGNED MESSAGE"
-msgstr "وقعت رسالة PGP"
+msgstr "رسالة PGP موقعة"
 
 #: extension/webpg_results.js:244
 msgid "THE SIGNATURE ON THIS MESSAGE IS INVALID"
-msgstr "التوقيع غير صالح"
+msgstr "توقيع هذه الرسالة غير صالح"
 
 #: extension/webpg_results.js:244
 msgid "THE SIGNATURE MIGHT BE TAMPERED WITH"
-msgstr "تم تغيير التوقيع"
+msgstr "قد يكون تم تغيير التوقيع بواسطة"
 
 #: extension/webpg_results.js:282
 msgid "THIS MESSAGE WAS SIGNED WITH KEY"
-msgstr "وقد وقع هذه الرسالة مع المفتاح"
+msgstr "تم توقيع هذه الرسالة بواسطة مفتاح"
 
 #: extension/webpg_results.js:288
 msgid "THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY"
-msgstr "وقد وقع هذه الرسالة مع المفتاح العمومي الذي انتهت مدة صلاحية"
+msgstr "تم توقيع هذه الرسالة بواسطة مفتاح عمومي منتهي الصلاحية"
 
 #: extension/webpg_results.js:294
 msgid "THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING"
-msgstr "وقد وقع هذه الرسالة مع مفاتيح العامة التي ليست في الدائري مفتاح"
+msgstr "تم توقيع هذه الرسالة بواسطة مفتاح ليس على حلقة مفاتيحك"
 
 #: extension/webpg_results.js:298
 msgid "SEARCH FOR KEYS ON KEYSERVER"
@@ -1259,27 +1258,27 @@ msgstr "البحث عن المفاتيح على الخادم الرئيسي"
 
 #: extension/webpg_results.js:305
 msgid "THE SIGNATURE ON THIS MESSAGE FAILED"
-msgstr "التوقيع على هذه الرسالة غير صالح"
+msgstr "فشل التوقيع على هذه الرسالة"
 
 #: extension/webpg_results.js:305
 msgid "THE MESSAGE MAY BE TAMPERED WITH"
-msgstr "قد يكون العبث بالرسالة"
+msgstr "قد يكون تم العبث بالرسالة بواسطة"
 
 #: extension/webpg_results.js:337
 msgid "PGP PUBLIC KEY"
-msgstr "PGP مفاتيح العامة"
+msgstr "مفتاح PGP العام"
 
 #: extension/webpg_results.js:386
 msgid "Names/UIDs on Key"
-msgstr "أسماء على مفتاح"
+msgstr "معرِّفات المستخدمين/الأسماء على المفتاح"
 
 #: extension/webpg_results.js:442
 msgid "THIS KEY IS NOT IN YOUR KEYRING"
-msgstr "هذا المفتاح ليس في كيرينغ الخاص"
+msgstr "هذا المفتاح ليس على حلقة مفاتيحك"
 
 #: extension/webpg_results.js:448
 msgid "THIS KEY IS IN YOUR KEYRING"
-msgstr "هذا المفتاح هو في كيرينغ الخاص"
+msgstr "هذا المفتاح على حلقة مفاتيحك"
 
 #: extension/webpg_results.js:453 extension/webpg_results.js:540
 msgid "IMPORT THIS KEY"
@@ -1296,11 +1295,11 @@ msgstr "إخفاء الأصلي"
 
 #: extension/webpg_results.js:539
 msgid "UNUSABLE KEY"
-msgstr "غير صالحة للاستعمال مفتاح"
+msgstr "مفتاح غير قابل للاستعمال"
 
 #: extension/webpg_results.js:539
 msgid "NO USER ID"
-msgstr "مفقود هوية المستخدم"
+msgstr "لا يوجد معرِّف للمستخدم"
 
 #: extension/XULContent/firefoxOverlay.xul:19
 #: extension/XULContent/thunderbird/thunderbirdOverlay.xul:16
@@ -1312,37 +1311,31 @@ msgstr "WebPG"
 #: extension/XULContent/options.xul:33
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:52
 msgid "About"
-msgstr ""
+msgstr "حوالي"
 
 #: extension/XULContent/firefoxOverlay.xul:37
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:59
 msgid "Clear Sign"
-msgstr ""
+msgstr "علامة واضحة"
 
 #: extension/XULContent/firefoxOverlay.xul:56
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:78
 msgid "Sign and Encrypt this text"
-msgstr ""
+msgstr "توقيع وتشفير هذا النص"
 
 #: extension/XULContent/firefoxOverlay.xul:70
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:92
 msgid "Import this Public key"
-msgstr ""
+msgstr "استيراد هذا المفتاح العام"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:91
 msgid "Sign Inline"
-msgstr ""
+msgstr "توقيع مضمن"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:92
 msgid "Sign as Attachment"
-msgstr ""
+msgstr "توقيع كمرفق"
 
 #: extension/manifest.json:4
 msgid "extDesc"
 msgstr "امتدادا الذي يوفر GnuPG / GPG / PGP المهام ذات الصلة إلى Chrome"
-
-#~ msgid "libgpgme loaded successfully"
-#~ msgstr "libgpgme تحميل بنجاح"
-
-#~ msgid "PGP ENCRYPTED MESSAGE"
-#~ msgstr "رسالة مشفرة PGP"
