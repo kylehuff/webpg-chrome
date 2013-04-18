@@ -110,7 +110,15 @@ webpg.background = {
 
         if (webpg.utils.detectedBrowser['vendor'] == 'mozilla'
         && webpg.utils.detectedBrowser['product'] != 'thunderbird') {
-            var tabID = gBrowser.getBrowserForDocument(sender.defaultView.top.content.document)._webpgTabID;
+
+            try {
+                if (webpg.utils.detectedBrowser['product'] == 'conkeror')
+                    var tabID = window.buffers.current.browser._webpgTabID;
+                else
+                    var tabID = gBrowser.getBrowserForDocument(sender.defaultView.top.content.document)._webpgTabID;
+            } catch (err) {
+            }
+
             sender.tab = {
                 'id': tabID,
                 'selected': true,
@@ -183,13 +191,11 @@ webpg.background = {
                 break;
 
             case 'updateStatusBar':
-                var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                       .getService(Components.interfaces.nsIWindowMediator);
-                var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
-                    "mail:3pane" : "navigator:browser";
-                var browserWindow = wm.getMostRecentWindow(winType);
-                browserWindow.document.getElementById("webpg-results-trusted-hover").value = request.statusText;
-                browserWindow.document.getElementById("webpg-results-trusted-hover").style.display = (request.statusText.length > 0) ? '' : 'none';
+                var browserWindow = webpg.utils.mozilla.getChromeWindow();
+                if (browserWindow.document.getElementById("webpg-results-trusted-hover")) {
+                    browserWindow.document.getElementById("webpg-results-trusted-hover").value = request.statusText;
+                    browserWindow.document.getElementById("webpg-results-trusted-hover").style.display = (request.statusText.length > 0) ? '' : 'none';
+                }
                 break;
 
             case 'decrypt':
@@ -220,6 +226,15 @@ webpg.background = {
                 break;
 
             case 'verify':
+                if (request.data && request.data.length > 0) {
+                    content = request.data;
+                    lowerBlock = content.match(/(-----BEGIN PGP.*?)\n.*?\n\n/gim);
+                    if (lowerBlock && lowerBlock.length > 1) {
+                        content.substr(0, content.indexOf(lowerBlock[1]) + lowerBlock[1].length)
+                            + content.substr(content.indexOf(lowerBlock[1]) + lowerBlock[1].length, content.length).replace(/\n\n/gim, "\n");
+                    }
+                    request.data = content;
+                }
                 if (request.message_event && request.message_event == "context") {
                     var content = (request.data) ? request.data :
                         request.selectionData.selectionText;
@@ -427,22 +442,24 @@ webpg.background = {
                 break;
 
             case 'getNamedKeys':
-                var keyResults = {};
+                var userKeys = {};
                 var users = request.users;
-                for (var u in users) {
-                    keyResults[users[u]] = webpg.plugin.getNamedKey(users[u]);
-                    var i = -1;
-                    for (i in keyResults[users[u]]) {
-                        // nothing
-                    }
-                    if (i < 0) {
-                        var group_result = webpg.preferences.group.get(users[u]);
-                        for (var group in group_result) {
-                            keyResults[users[u]] = webpg.plugin.getNamedKey(group_result[group]);
-                        }
+                var key;
+                for (var u=0; u < users.length; u++) {
+                    // Pull keys by named user
+                    userKeys[users[u]] = [];
+                    key = webpg.plugin.getNamedKey(users[u]);
+                    if (JSON.stringify(key) !== "{}")
+                        userKeys[users[u]] = userKeys[users[u]].concat(key);
+                    // Pull keys by named group
+                    var group_result = webpg.preferences.group.get(users[u]);
+                    for (var group=0; group < group_result.length; group++) {
+                        key = webpg.plugin.getNamedKey(group_result[group]);
+                        if (JSON.stringify(key) !== "{}")
+                            userKeys[users[u]] = userKeys[users[u]].concat(key);
                     }
                 }
-                response = {'keys': keyResults};
+                response = {'keys': userKeys};
                 break;
 
             case 'export':
@@ -570,9 +587,7 @@ webpg.background = {
 
         // Notify the user
         if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-            var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                   .getService(Components.interfaces.nsIWindowMediator);
-            var browserWindow = wm.getMostRecentWindow("navigator:browser");
+            var browserWindow = webpg.utils.mozilla.getChromeWindow();
             var message = (valid) ? 'WebPG - ' + _("Key Generation Complete") + '!' :
                 "WebPG " + _("Key Generation") + " " + data;
             var nb = browserWindow.getNotificationBox(browserWindow.content);
@@ -593,7 +608,7 @@ webpg.background = {
                     }] : [];
             var priority = nb.PRIORITY_INFO_MEDIUM;
             nb.appendNotification(message, 'keygen-complete',
-                 'chrome://webpg-firefox/skin/images/webpg-32.png',
+                 'chrome://webpg-firefox/skin/images/badges/32x32/webpg.png',
                   priority, buttons);
         } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
             var title = (valid) ? "WebPG - " + _("Key Generation Complete") + "!" :
@@ -601,7 +616,7 @@ webpg.background = {
             var message = (valid) ? _("The generation of your new key is now complete") + "." :
                 _("Key Generation") + " " + data;
             var notification = webkitNotifications.createNotification(
-              'skin/images/webpg-48.png',
+              'skin/images/badges/48x48/webpg.png',
               title,
               message
             );

@@ -9,12 +9,7 @@ webpg.error = {
         if (webpg.utils.detectedBrowser['product'] == "chrome") {
             webpg.background = chrome.extension.getBackgroundPage().webpg;
         } else {
-            webpg.background = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-               .getInterface(Components.interfaces.nsIWebNavigation)
-               .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-               .rootTreeItem
-               .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-               .getInterface(Components.interfaces.nsIDOMWindow).webpg;
+            webpg.background = webpg.utils.mozilla.getChromeWindow().webpg;
         }
 
         var error_map = webpg.background.plugin.webpg_status;

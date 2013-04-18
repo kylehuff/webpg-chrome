@@ -35,7 +35,17 @@ webpg.overlay = {
 
         // We don't want to run on certain pages
         //  TODO: consult a list of user defined domains/pages to ignore
-        webpg.overlay.blackListedDomains = ["twitter.com", "translate.google.com"];
+        webpg.overlay.blackListedDomains = [
+            // Micro PGP signatures don't exist yet
+            "twitter.com",
+            // Google translate doesn't yet decrypt PGP packets
+            "translate.google.com",
+            // You can't pin me down
+            "pintrist.com",
+            // You have no friends anyway
+            "facebook.com"
+        ];
+
         var proceed = webpg.overlay.blackListedDomains.every(function(bldomain) {
             return (webpg.doc.location.host.indexOf(bldomain) == -1);
         });
@@ -59,7 +69,8 @@ webpg.overlay = {
         webpg.jq(document).blur(hideContextmenu);
         webpg.jq(document).click(hideContextmenu);
 
-        if (webpg.utils.detectedBrowser['product'] != 'thunderbird')
+        if (webpg.utils.detectedBrowser['product'] != 'thunderbird'
+        && webpg.utils.detectedBrowser['product'] != 'conkeror')
             document.addEventListener("contextmenu", webpg.overlay.contextHandler, true);
 
         // Setup a listener for making changes to the page
@@ -74,11 +85,7 @@ webpg.overlay = {
                     var mode = response.result.mode;
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         if (!webpg.plugin) {
-                            var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                                   .getService(Components.interfaces.nsIWindowMediator);
-                            var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
-                                "mail:3pane" : "navigator:browser";
-                            var browserWindow = wm.getMostRecentWindow(winType);
+                            var browserWindow = webpg.utils.mozilla.getChromeWindow();
                             webpg.plugin = browserWindow.webpg.plugin;
                         }
 

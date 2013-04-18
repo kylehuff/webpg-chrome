@@ -79,7 +79,7 @@ webpg.options = {
 
             } else {
                 errors = {
-	            "NPAPI" : {
+                "NPAPI" : {
                         'error': true,
                         'detail': _("There was a problem loading the plugin") + "; " + _("the plugin might be incompatibly compiled for this architechture"),
                         'link' : null,
@@ -120,10 +120,8 @@ webpg.options = {
                 webpg.jq('#valid-options').hide();
             } else {
                 // Only display the inline check if this is not the app version of webpg-chrome.
-                // and don't show the "display inline" or "GMAIL integration"
-                //  options in Thunderbird
+                // and don't show the "GMAIL integration" option in Thunderbird
                 if (webpg.utils.detectedBrowser['product'] == "thunderbird") {
-                    //webpg.jq('#enable-decorate-inline').hide();
                     webpg.jq("#enable-gmail-integration").hide();
                     webpg.jq("#gmail-action-sign").hide();
                 }
@@ -134,12 +132,24 @@ webpg.options = {
                 } else {
                     webpg.jq('#enable-decorate-inline-check')[0].checked = 
                         (webpg.preferences.decorate_inline.get() == 'true');
+                    if (!webpg.preferences.decorate_inline.get() == 'true'
+                    || webpg.utils.detectedBrowser['product'] == "thunderbird")
+                        webpg.jq("#inline-options-link").hide();
+                }
+
+                // If no errors were found in the configuration, only display
+                //  the "good-to-go" status item
+                if (!errors_found) {
+                    webpg.jq('#status_result').children().hide();
+                    webpg.jq("#system-good").show();
                 }
 
                 webpg.jq(".webpg-options-title").first().text(_("WebPG Options"));
 
                 webpg.jq("#enable-decorate-inline").find(".webpg-options-text").
                     text(_("Enable Inline formatting of PGP Messages and Keys"));
+
+                webpg.jq("#inline-options-link").text(_("Inline Options"));
 
                 webpg.jq("#enable-encrypt-to-self").find(".webpg-options-text").
                     text(_("Always encrypt to your default key in addition to the recipient"));
@@ -188,13 +198,87 @@ webpg.options = {
                 webpg.jq('#enable-decorate-inline-check').button({
                     'label': (webpg.preferences.decorate_inline.get() == 'true') ? _('Enabled') : _('Disabled')
                     }).click(function(e) {
-                        (webpg.preferences.decorate_inline.get() == 'true') ? webpg.preferences.decorate_inline.set(false) : webpg.preferences.decorate_inline.set(true);
-                        status = (webpg.preferences.decorate_inline.get() == 'true') ? _('Enabled') : _('Disabled')
+                        if (webpg.preferences.decorate_inline.get() == 'true') {
+                            webpg.preferences.decorate_inline.set(false)
+                            var status = _("Disabled");
+                            this.checked = false;
+                            webpg.jq("#inline-options-link").hide();
+                        } else {
+                            webpg.preferences.decorate_inline.set(true);
+                            var status = _("Enabled");
+                            this.checked = true;
+                            webpg.jq("#inline-options-link").show();
+                        }
                         webpg.jq(this).button('option', 'label', status);
-                        this.checked = (webpg.preferences.decorate_inline.get() == 'true');
                         webpg.jq(this).button('refresh');
                     }
                 );
+
+                webpg.jq("#inline-options-link").click(function() {
+                    if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                        webpg.jq("#options-dialog-content").html(
+                            "<span class='webpg-options-text'>" + _("Inline formatting mode") + "&nbsp;&nbsp;</span>" +
+                            "<div style='display:inline-block;' id='inline-format-options'>" +
+                            "<input type='radio' name='inline-format-radio' id='window' /><label for='window'>" + _("Window") + "</label>" +
+                            "<input type='radio' name='inline-format-radio' id='icon' /><label for='icon'>" + _("Icon") + "</label>" +
+                            "</div>" +
+                            "<div style='padding-top:12px' class='webpg-options-text'>" + _("Sample") + "</div>" +
+                            "<img id='inline-options-image' src='" + webpg.utils.resourcePath + "skin/images/examples/inline-formatting-" +
+                                webpg.preferences.decorate_inline.mode() + ".png'/>"
+                        );
+                    } else {
+                        webpg.jq("#options-dialog-content").html(
+                            "<span class='webpg-options-text'>" + _("Inline formatting mode") + "&nbsp;&nbsp;</span>" +
+                            "<div style='display:inline-block;' id='inline-format-options'>" +
+                            "<input type='radio' name='inline-format-radio' id='window' /><label for='window'>" + _("Window") + "</label>" +
+                            "<input type='radio' name='inline-format-radio' id='icon' /><label for='icon'>" + _("Icon") + "</label>" +
+                            "</div>" +
+                            "<div style='padding-top:12px' class='webpg-options-text'>" + _("Sample") + "</div>" +
+                            "<pre id='inline-options-pgp-test'>-----BEGIN PGP MESSAGE-----\n" +
+                            "Version: GnuPG v1.4.11 (GNU/Linux)\n\n"+
+                            "jA0EAwMCL/ruujWlHoVgyS7nibjGsDtEt9QcaHAmknBXnk9yjrh42ug0SxCD/tEO\n" +
+                            "ztexzAlHOvxqca3GWTYC\n" +
+                            "=HMC5\n" +
+                            "-----END PGP MESSAGE-----</pre>"
+                        );
+                    }
+                    webpg.jq("#inline-format-options").buttonset()
+                        .find("#" + webpg.preferences.decorate_inline.mode()).attr({"checked": "checked"})
+                        .parent().buttonset("refresh").click(function(e) {
+                        if (e.target.type == "radio") {
+                            webpg.preferences.decorate_inline.mode(e.target.id);
+                            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                                webpg.jq("#inline-options-image")[0].src = webpg.utils.resourcePath
+                                    + "skin/images/examples/inline-formatting-"
+                                    + webpg.preferences.decorate_inline.mode()
+                                    + ".png"
+                            } else {
+                                webpg.inline.mode = e.target.id;
+                                var pre = "<pre id='inline-options-pgp-test'>"
+                                    + webpg.jq("#inline-options-pgp-test").find(".webpg-node-odata").text()
+                                    + "</pre>";
+                                webpg.jq(pre).insertBefore("#inline-options-pgp-test").next().remove();
+                            }
+                        }
+                    });
+                    webpg.jq("#options-dialog").dialog({
+                        'resizable': true,
+                        'height': 420,
+                        'width': 620,
+                        'modal': true,
+                        'position': "top",
+                        'buttons': [
+                        {
+                            'text': _("Close"),
+                            'click': function() {
+                                webpg.jq("#options-dialog").dialog("destroy");
+                            }
+                        }
+                    ]}).parent().animate({"top": window.scrollY}, 1, function() {
+                        document.activeElement.blur();
+                        webpg.jq(this).animate({"top": 20}, 1);
+                    });
+                });
 
                 webpg.jq('#enable-encrypt-to-self-check').button({
                     'label': (webpg.preferences.encrypt_to_self.get()) ? _('Enabled') : _('Disabled')

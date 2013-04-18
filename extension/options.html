@@ -9,6 +9,8 @@
 <script type="text/javascript" src="utils.js"></script>
 <script type="text/javascript" src="preferences.js"></script>
 <script type="text/javascript" src="options.js"></script>
+<script type="text/javascript" src="inline.js"></script>
+<script type="text/javascript" src="webpg_overlay.js"></script>
 <style>
 body{
     font:62.5% "Trebuchet MS", sans-serif;
@@ -159,7 +161,7 @@ body{
     </div>
     <div class="webpg-options-box">
         <div id="valid-options">
-            <span id='enable-decorate-inline' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-decorate-inline-check'/><label for='enable-decorate-inline-check'></label></span>
+            <span id='enable-decorate-inline' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-decorate-inline-check'/><label for='enable-decorate-inline-check'></label><a style="padding-left:20px;text-decoration:underline;cursor:pointer;" id="inline-options-link"></a></span>
             <span id='enable-encrypt-to-self' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-encrypt-to-self-check'/><label for='enable-encrypt-to-self-check'></label></span>
             <span id='enable-gmail-integration' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-gmail-integration-check'/><label for='enable-gmail-integration-check'></label></span>
             <span id='gmail-action-sign' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;
@@ -196,6 +198,9 @@ body{
 </div>
 <div id="dialog-modal" title="">
     <div id="dialog-msg"></div>
+</div>
+<div id="options-dialog" title="">
+    <div id="options-dialog-content"></div>
 </div>
 </body>
 </html>

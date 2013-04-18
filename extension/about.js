@@ -25,15 +25,9 @@ webpg.about = {
                 browserString = "SeaMonkey";
             document.getElementById("webpg-info-browser").innerHTML += browserString;
             if (!browserWindow) {
-                webpg.plugin = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                   .getInterface(Components.interfaces.nsIWebNavigation)
-                   .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-                   .rootTreeItem
-                   .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                   .getInterface(Components.interfaces.nsIDOMWindow).webpg.plugin;
-            } else {
-                webpg.plugin = browserWindow.webpg.plugin;
+                var browserWindow = webpg.utils.mozilla.getChromeWindow();
             }
+            webpg.plugin = browserWindow.webpg.plugin;
         } else if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
             browserString = "Chrome";
             document.getElementById("webpg-info-browser").innerHTML += browserString;
@@ -152,6 +146,37 @@ webpg.about = {
 
         webpg.jq('#close').button().button("option", "label", _("Finished"))
             .click(function(e) { window.top.close(); });
+
+        webpg.jq('#translation-status-link').click(function() {
+            webpg.jq('#translation-status')
+            .load('https://translations.launchpad.net/webpg-chrome/trunk/+pots/webpg #language-chart',
+            function(responseText, status, xhrObject) {
+                if (status == "success") {
+                    webpg.jq("#language-chart").find('tr').find('td:gt(2), th:gt(2)').hide();
+                    webpg.jq("#language-chart").find('tr').find('td:gt(4), th:gt(4)').show();
+                    webpg.jq("#language-chart").find('a').each(function() {
+                        this.href = this.href.replace(/.*?\:\/\/.*?\//, "https://translations.launchpad.net/")
+                    });
+                    webpg.jq("#language-chart").find('img').each(function() {
+                        this.src = this.src.replace(/.*?\:\/\/.*?\//, "https://translations.launchpad.net/")
+                    });
+                    webpg.jq("#language-chart").find('.sortkey').each(function() {
+                        if (!webpg.jq(this).next()[0]) {
+                            webpg.jq(this.nextSibling).remove();
+                        } else {
+                            if (webpg.jq(this).next()[0].nodeName == 'IMG')
+                                webpg.jq(this).remove();
+                            else
+                                webpg.jq(this).next().remove();
+                        }
+                    })
+                    webpg.jq("#language-chart").css({
+                        'text-align': 'left',
+                        'color': '#fff',
+                    }).find('th').css({'border': '1px solid #F22'});
+                }
+            });
+        }).button().button("option", "label", _("Translation Status"));
    }
 }
 

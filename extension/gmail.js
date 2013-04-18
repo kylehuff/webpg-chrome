@@ -165,8 +165,10 @@ webpg.gmail = {
                 //  the email.
                 webpg.gmail.checkRecipients(function(recipKeys) {
                     var users = [];
-                    for (var key in recipKeys) {
-                        users.push(recipKeys[key].fingerprint.substr(-16));
+                    for (var keyItem in recipKeys) {
+                        for (var key in recipKeys[keyItem]) {
+                            users.push(recipKeys[keyItem][key].fingerprint.substr(-16));
+                        }
                     }
                     if (message.search("-----BEGIN PGP") == 0) {
                         var send = confirm(_("This message already contains PGP data")
@@ -233,8 +235,12 @@ webpg.gmail = {
                         return;
                 }
                 webpg.gmail.checkRecipients(function(recipKeys) {
-                    // TODO: Check that the keys are good for this operation
-                    var users = webpg.gmail.getRecipients();
+                    var users = [];
+                    for (var keyItem in recipKeys) {
+                        for (var key in recipKeys[keyItem]) {
+                            users.push(recipKeys[keyItem][key].fingerprint.substr(-16));
+                        }
+                    }
                     webpg.utils.sendRequest({'msg': 'encryptSign',
                             'data': message,
                             'recipients': users,
@@ -301,28 +307,53 @@ webpg.gmail = {
         var _ = webpg.utils.i18n.gettext;
         webpg.gmail.removeStatusLine();
         var users = webpg.gmail.getRecipients();
+        // Get the keys for the named users/groups
         webpg.utils.sendRequest({'msg': 'getNamedKeys',
             'users': users
         }, function(response) {
             var recipKeys = {};
             var keys = response.result.keys;
             for (var u in keys) {
-                for (var k in keys[u]) {
-                    recipKeys[u] = keys[u][k];
+                recipKeys[u] = [];
+                for (var i in keys[u]) {
+                    for (var k in keys[u][i]) {
+                        if (!keys[u][i][k].disabled)
+                            recipKeys[u] = recipKeys[u].concat(keys[u][i][k]);
+                    }
                 }
             }
             var notAllKeys = false;
             var missingKeys = [];
             for (var u in users) {
-                if (!(users[u] in recipKeys)) {
+                if (!(users[u] in recipKeys) || recipKeys[users[u]].length < 1) {
                     notAllKeys = true;
                     missingKeys.push(users[u]);
                 }
             }
+            // Check for expired keys that are not disabled and inform the user
+            var expiredKeys = []
+            for (var u in keys) {
+                for (var i in keys[u]) {
+                    for (var k in keys[u][i]) {
+                        if (!keys[u][i][k].disabled && keys[u][i][k].expired) {
+                            expiredKeys.push(u);
+                            notAllKeys = true;
+                        }
+                    }
+                }
+            }
+
             if (notAllKeys) {
-                var status = _("You do not have any keys for") + " " +
-                    missingKeys.toString().
-                    replace(/((,))/g, "<br/>" + _("or") + " ").replace(",", " ");
+                status = "";
+                if (missingKeys.length > 0) {
+                    status += _("You do not have any keys for") + " <br/><div style='padding-left:12px;'>" +
+                        missingKeys.toString().
+                        replace(/((,))/g, "<br/>" + _("or") + " ").replace(",", " ") + "</div>";
+                }
+                if (expiredKeys.length > 0) {
+                    status += _("Expired keys found for") + ":<br/><div style='padding-left:12px;'>" + expiredKeys.toString().
+                        replace(/((,))/g, "<br/>" + _("and") + " ").replace(",", " ") + "</div>";
+                }
                 webpg.gmail.displayStatusLine(status);
             } else {
                 if (callback)
@@ -341,10 +372,11 @@ webpg.gmail = {
     displayStatusLine: function(message) {
         var canvasFrame = webpg.gmail.getCanvasFrame();
         var status_line = (webpg.gmail.gmailComposeType == "inline") ?
-            canvasFrame.find(".Hp") : canvasFrame.find(".fN");
+            canvasFrame.find(".Hp, .aDk") : canvasFrame.find(".fN");
+        
         if (!status_line.length > 0) {
             canvasFrame.find(".webpg-status-line-holder").remove();
-            status_line = webpg.jq("<span style='margin-top:10px;' class='webpg-status-line-holder'></span>").insertBefore(webpg.gmail.getCanvasFrameDocument().querySelector("div>.nH.nH .ip.adB .I5 form"));
+            status_line = webpg.jq("<span class='webpg-status-line-holder'></span>").insertBefore(webpg.gmail.getCanvasFrameDocument().querySelector("div>.nH.nH .ip.adB .I5 form"));
         }
         canvasFrame.find(".webpg-status-line").remove();
         var status_msg = webpg.gmail.getCanvasFrameDocument().createElement("span");
@@ -352,10 +384,11 @@ webpg.gmail = {
             "webpg-gmail-inline-status-line" :
             "webpg-gmail-status-line";
         status_msg.setAttribute("class", "webpg-status-line " + cssClass);
-        webpg.jq(status_msg).html("WebPG:<br/>" + webpg.descript(message));
+        webpg.jq(status_msg).html("<div style='margin-top:4px; max-height: 64px; overflow: auto; width: 100%;'>WebPG -- " + webpg.descript(message) + "</div>");
         if (webpg.gmail.gmailComposeType == "inline") {
             var new_status = status_line.clone().addClass("webpg-status-line")
                 .addClass("webpg-gmail-status-line");
+            new_status.css({'width': '100%'});
             new_status.html(status_msg);
             status_line.parent().append(new_status);
         } else {
@@ -690,7 +723,7 @@ webpg.gmail = {
                 })
             }
             if (msg_container.length > 0) {
-                // Determine if we are in plaintext mode in inline mode
+                // Determine if we are in plaintext mode or inline mode
                 var plaintext = (webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=ishtml]").val() != "1");
                 console.log((plaintext) ? "plaintext" : "richtext");
                 if (msg_container[0].nodeName == "TEXTAREA") {
@@ -707,7 +740,7 @@ webpg.gmail = {
                         }
                     } else {
                         //console.log("RICHTEXT");
-                        msg_container.html(message);
+                        msg_container.html(message.replace(/\n/gim, "<br>"));
                     }
                 }
             }
@@ -825,7 +858,7 @@ webpg.utils.sendRequest({
                         function(aEvent) {
                             // We need to filter based on the URL for mozilla, as we do
                             //  not have the option to set the overlay by URL
-                            if (content.location.host == "mail.google.com") {
+                            if (aEvent.originalTarget.location.host == "mail.google.com") {
                                 webpg.gmail.getCanvasFrameDocument()
                                 .addEventListener("DOMSubtreeModified",
                                     webpg.gmail.gmailChanges, false
@@ -857,7 +890,7 @@ webpg.utils.sendRequest({
                             function(aEvent) {
                                 // We need to filter based on the URL for mozilla, as we do
                                 //  not have the option to set the overlay by URL
-                                if (content.location.host == "mail.google.com") {
+                                if (aEvent.originalTarget.location.host == "mail.google.com") {
                                     observer.observe(webpg.gmail.getCanvasFrameDocument(), config);
                                 }
                             },

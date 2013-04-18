@@ -233,6 +233,47 @@ webpg.utils = {
     },
 
     /*
+        Function: clean
+            Strips out or replaces extra HTML markup added by the page
+
+        Parameters:
+            text - <str> The string to parse
+    */
+    clean: function(text) {
+        reg = new RegExp("<div[^>]*><br></div>", "gi");
+        str = text.replace(reg, "\n");
+
+        reg = new RegExp("<div[^>]*>(.*?)</div>", "gi");
+        str = text.replace(reg, "\n$1");
+
+        var reg = new RegExp("<div[^>]*><br></div>", "gi");
+        str = str.replace(reg, "\n");
+
+        var reg = new RegExp("</p>", "gi");
+        str = str.replace(reg, "</p>\n");
+
+        var reg = new RegExp("<br[^>]*>", "gi");
+        str = str.replace(reg,"");
+
+        reg = new RegExp("<wbr>", "gi");
+        str = str.replace(reg,"\n");
+
+        reg = new RegExp("<[^>]+>", "g");
+        str = str.replace(reg, "");
+
+        reg = new RegExp("&lt;", "g");
+        str = str.replace(reg, "<");
+
+        reg = new RegExp("&gt;", "g");
+        str = str.replace(reg, ">");
+
+        reg = new RegExp("&nbsp;", "g");
+        str = str.replace(reg, " ");
+
+        return (str.indexOf("\n") == 0) ? str.substr(1) : str;
+    },
+
+    /*
         Function: getFrameById
             Iterates through the windows to find a frame matching the given ID
 
@@ -246,12 +287,7 @@ webpg.utils = {
                 if (iframes[i].id == id)
                     return iframes[i];
             }
-            var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                   .getInterface(Components.interfaces.nsIWebNavigation)
-                   .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-                   .rootTreeItem
-                   .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                   .getInterface(Components.interfaces.nsIDOMWindow);
+            var mainWindow = webpg.utils.mozilla.getChromeWindow();
             var tabmail = mainWindow.document.getElementById("tabmail");
             for (var ti = 0; ti < tabmail.tabInfo.length; ti++) {
                 var tab = tabmail.tabInfo[ti];
@@ -265,15 +301,16 @@ webpg.utils = {
                 }
             }
         } else if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-            var iframes = gBrowser.contentDocument.getElementsByTagName("iframe");
+            if (webpg.utils.detectedBrowser['product'] == 'conkeror')
+                var iframes = window.buffers.current.browser.contentDocument.getElementsByTagName("iframe");
+            else
+                var iframes = gBrowser.contentDocument.getElementsByTagName("iframe");
             for (var i=0; i < iframes.length; i++) {
                 if (iframes[i].id == id)
                     return iframes[i];
             }
             // Check for iframes within frame elements
-            var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                   .getService(Components.interfaces.nsIWindowMediator);
-            var browserWindow = wm.getMostRecentWindow("navigator:browser");
+            var browserWindow = webpg.utils.mozilla.getChromeWindow();
             for (var i = 0; i < browserWindow.content.frames.length; i++) {
                 var iframes = browserWindow.content.frames[i].frameElement.contentDocument.getElementsByTagName("iframe");
                 for (var x=0; x < iframes.length; x++) {
@@ -282,21 +319,32 @@ webpg.utils = {
                 }
             }
             // Check all windows
-            var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                         .getService(Components.interfaces.nsIWindowMediator);
-            for (var found = false, index = 0, tabbrowser = wm.getEnumerator('navigator:browser').getNext().gBrowser;
-               index < tabbrowser.tabContainer.childNodes.length && !found;
-               index++) {
+            if (webpg.utils.detectedBrowser['product'] == 'conkeror') {
+                for (var i = 0; i < window.buffers.container.childNodes.length; i++) {
+                    var currentTab = window.buffers.container.childNodes.item(i).conkeror_buffer_object;
+                    var iframes = currentTab.browser.contentDocument.getElementsByTagName("iframe");
+                    for (var x=0; x < iframes.length; x++) {
+                        if (iframes[x].id == id)
+                            return iframes[x];
+                    }
+                }
+            } else {
+                var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                             .getService(Components.interfaces.nsIWindowMediator);
+                for (var found = false, index = 0, tabbrowser = wm.getEnumerator('navigator:browser').getNext().gBrowser;
+                   index < tabbrowser.tabContainer.childNodes.length && !found;
+                   index++) {
 
-                // Get the next tab
-                var currentTab = tabbrowser.tabContainer.childNodes[index];
+                    // Get the next tab
+                    var currentTab = tabbrowser.tabContainer.childNodes[index];
 
-                // Check if this tab contains the frame we are looking for
-                var browser = tabbrowser.getBrowserAtIndex(index);
-                var iframes = browser.contentDocument.getElementsByTagName("iframe");
-                for (var x=0; x < iframes.length; x++) {
-                    if (iframes[x].id == id)
-                        return iframes[x];
+                    // Check if this tab contains the frame we are looking for
+                    var browser = tabbrowser.getBrowserAtIndex(index);
+                    var iframes = browser.contentDocument.getElementsByTagName("iframe");
+                    for (var x=0; x < iframes.length; x++) {
+                        if (iframes[x].id == id)
+                            return iframes[x];
+                    }
                 }
             }
         } else {
@@ -390,15 +438,14 @@ webpg.utils = {
                     try {
                         openTab("chromeTab", { 'chromePage': url });
                     } catch (e) {
-                        var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                            .getService(Components.interfaces.nsIWindowMediator);
-                        var gBrowser = wm.getMostRecentWindow("navigator:browser").gBrowser;
+                        if (webpg.utils.detectedBrowser['product'] == 'conkeror')
+                            var gBrowser = window.buffers.current.browser;
+                        else
+                            var gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
                         gBrowser.selectedTab = gBrowser.addTab(url)
                     }
                 } else {
-                    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                        .getService(Components.interfaces.nsIWindowMediator);
-                    var gBrowser = wm.getMostRecentWindow("navigator:browser").gBrowser;
+                    var gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
                     gBrowser.selectedTab = gBrowser.addTab(url);
                 }
                 break;
@@ -513,7 +560,7 @@ webpg.utils = {
     },
 
     getPlainText: function(node) {
-        if (webpg.utils.detectedBrowser['product'] == "chrome")
+        if (webpg.utils.detectedBrowser['product'] == "chrome" && typeof(node) == 'object')
             return node.innerText;
 
 	    // used for testing:
@@ -590,8 +637,16 @@ webpg.utils = {
 		    t += gap;
 		    return t;
 	    }
+
 	    // Use a copy because stuff gets changed
-	    node = node.cloneNode(true);
+	    if (typeof(node) == 'object') {
+	        node = node.cloneNode(true);
+	    } else {
+	        cloneNode = document.createElement('pre');
+	        cloneNode.textContent = node;
+	        node = cloneNode;
+	    }
+
 	    // Line breaks aren't picked up by textContent
 	    node.innerHTML = node.innerHTML.replace(/<br>/g, "\n");
 
@@ -710,16 +765,17 @@ webpg.utils = {
     */
     sendRequest: function(data, callback) { // analogue of chrome.extension.sendRequest
         if (this.detectedBrowser['product'] == 'thunderbird') {
-            var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                   .getService(Components.interfaces.nsIWindowMediator);
-            var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
-                "mail:3pane" : "navigator:browser";
-            var browserWindow = wm.getMostRecentWindow(winType);
+            var browserWindow = webpg.utils.mozilla.getChromeWindow();
+
+            var tabID = -1;
 
             try {
-                var tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
+                if (webpg.utils.detectedBrowser['product'] == 'conkeror')
+                    var tabID = window.getBrowser()._webpgTabID;
+                else
+                    var tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
             } catch (err) {
-                var tabID = -1;
+                // Do nothing
             }
 
             data.sender = {
@@ -735,11 +791,7 @@ webpg.utils = {
             this.detectedBrowser['product'] == "safari") {
 
             if (!gBrowser) {
-                var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                       .getService(Components.interfaces.nsIWindowMediator);
-                var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
-                    "mail:3pane" : "navigator:browser";
-                var browserWindow = wm.getMostRecentWindow(winType);
+                var browserWindow = webpg.utils.mozilla.getChromeWindow();
                 var gBrowser = browserWindow.gBrowser;
             }
 
@@ -811,6 +863,7 @@ webpg.utils = {
             else
                 chrome.extension.sendRequest(data, callback);
         }
+        return false;
     },
 
     /*
@@ -855,7 +908,7 @@ webpg.utils = {
                             try {
                                 return doc.documentElement.removeChild(node);
                             } catch (err) {
-                                return;
+                                return false;
                             }
                         }
 
@@ -872,6 +925,7 @@ webpg.utils = {
             } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
                 chrome.extension.onRequest.addListener(callback);
             }
+            return false;
         },
     },
 
@@ -923,11 +977,7 @@ webpg.utils = {
                     var popup = document.getElementById("webpg-pageAction-popup");
                     var frameSource = webpg.utils.resourcePath + popupData.popup;
         		    var dialogFrame = document.getElementById('webpg-pageAction-popup-frame');
-                    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                           .getService(Components.interfaces.nsIWindowMediator);
-                    var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
-                        "mail:3pane" : "navigator:browser";
-                    var browserWindow = wm.getMostRecentWindow(winType);
+                    var browserWindow = webpg.utils.mozilla.getChromeWindow();
 		            dialogFrame.addEventListener("load", function() {
 		                dialogFrame.removeEventListener("load", arguments.callee, false);
 			            var cont = new XPCNativeWrapper(dialogFrame.contentWindow).wrappedJSObject;
@@ -993,12 +1043,7 @@ webpg.utils = {
                 chrome.tabs.getSelected(tab, callback);
             } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
                 if (!gBrowser) {
-                    var gBrowser = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                           .getInterface(Components.interfaces.nsIWebNavigation)
-                           .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-                           .rootTreeItem
-                           .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                           .getInterface(Components.interfaces.nsIDOMWindow).gBrowser;
+                    webpg.utils.mozilla.getChromeWindow().gBrowser;
                 }
                 var tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
                 callback({'url': content.document.location.href, 'id': tabID});
@@ -1241,12 +1286,7 @@ webpg.utils = {
         gettext: function(msg) {
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                 // Get the reference to the browser window
-                var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                   .getInterface(Components.interfaces.nsIWebNavigation)
-                   .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-                   .rootTreeItem
-                   .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                   .getInterface(Components.interfaces.nsIDOMWindow);
+                var mainWindow = webpg.utils.mozilla.getChromeWindow();
                 var stringBundle = mainWindow.document.getElementById("webpg-strings");
                 var msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9|^\.]/g, '_');
                 try {
@@ -1291,6 +1331,28 @@ webpg.utils = {
         },
     },
 
+    mozilla: {
+        getChromeWindow: function() {
+            var mainWindow = window
+                    .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                    .getInterface(Components.interfaces.nsIWebNavigation)
+                    .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+                    .rootTreeItem
+                    .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                    .getInterface(Components.interfaces.nsIDOMWindow);
+
+            if (!mainWindow) {
+                var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                       .getService(Components.interfaces.nsIWindowMediator);
+                var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
+                    "mail:3pane" : "navigator:browser";
+                var mainWindow = wm.getMostRecentWindow(winType);
+            }
+
+            return mainWindow;
+        },
+    },
+
     extension: {
         version: function(callback) {
             if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
@@ -1316,15 +1378,12 @@ webpg.utils = {
         add: function(openListener, closeListener) {
             if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
                 if (!gBrowser) {
-                    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                           .getService(Components.interfaces.nsIWindowMediator);
-                    var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
-                        "mail:3pane" : "navigator:browser";
-                    var browserWindow = wm.getMostRecentWindow(winType);
-                    var gBrowser = browserWindow.gBrowser;
+                    var gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
                 }
+
                 if (!gBrowser)
                     return;
+
                 var container = gBrowser.tabContainer;
                 container.addEventListener("TabOpen", webpg.utils.tabListener.openListener, false);
                 //container.addEventListener("TabSelect", webpg.utils.tabListener.selectListener, false);

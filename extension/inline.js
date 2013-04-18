@@ -45,6 +45,9 @@ webpg.inline = {
             }
         }
 
+        if (doc.location && doc.location.pathname.substr(-4) == ".pdf")
+            return false;
+
         webpg.inline.PGPDataSearch(doc);
         
         if (webpg.utils.detectedBrowser['product'] == 'thunderbird')
@@ -95,6 +98,13 @@ webpg.inline = {
             console.log("Using MutationObserver");
             var observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
+                    if (doc.location.host.indexOf("mail.google.com") > -1) {
+                        try {
+                            doc.querySelectorAll(".Bu.y3")[0].style.display = "none";
+                            doc.querySelectorAll(".AT")[0].style.display = "none";
+                        } catch (err) {
+                        }
+                    }
                     if (mutation.target.nodeName == "IFRAME" && mutation.target.className.indexOf("webpg-") == -1 &&
                         webpg.inline.existing_iframes.indexOf(mutation.target) == -1) {
                         webpg.inline.existing_iframes.push(mutation.target);
@@ -108,6 +118,11 @@ webpg.inline = {
                         }
                         webpg.inline.PGPDataSearch(mutation.target.contentDocument, true);
                     } else{
+                        if (doc.location.host.indexOf("mail.google.com") == -1 && mutation.target.nodeName != "BODY") {
+                            if (mutation.addedNodes.length > 0)
+                                if (mutation.addedNodes[0].nodeName != "#text")
+                                    webpg.inline.PGPDataSearch(mutation.addedNodes[0].ownerDocument, true);
+                        }
                         // check if gmail message appears
                         if(webpg.jq(mutation.target).parent().is('.ii.gt.adP.adO')) {
                             if (mutation.target.className.indexOf("webpg-") == -1
@@ -149,7 +164,7 @@ webpg.inline = {
         var node, range, idx, search, baseIdx;
 
         var elementFilter = function(node) {
-            if (node.tagName == "IMG" || node.tagName == "SCRIPT")
+            if (node.tagName == "IMG" || node.tagName == "SCRIPT" || node.tagName == "EMBED")
                 return NodeFilter.FILTER_SKIP;
             return NodeFilter.FILTER_ACCEPT;
         };
@@ -173,19 +188,32 @@ webpg.inline = {
         }
 
         while ((node = tw.nextNode())) {
-            var previousElement = (node.previousSibling) ?
-                node.previousSibling.previousSibling : node.previousSibling;
+            var previousElement = node.previousSibling;
 //            if (webpg.utils.detectedBrowser['product'] == 'thunderbird' && node.nodeName == "PRE")
 //                webpg.inline.addWebPGMenuBar(node);
             if ((node.nodeName == "TEXTAREA" ||
                 node.getAttribute("contenteditable") == "true") &&
                 (!previousElement || previousElement.className != "webpg-toolbar")) {
                 if (node.style.display != "none" &&
+                    node.style.visibility != "hidden" &&
                     node.offsetWidth > 200 &&
                     node.offsetHeight > 30 &&
                     node.offsetLeft >= node.offsetParent.scrollLeft) {
 
-                    webpg.inline.addWebPGMenuBar(node);
+                    // Do not add toolbar item for the following domains
+                    var blackListedDomains = [
+                        // google mail is already enhanced with WebPG
+                        "mail.google.com",
+                        // Mozilla Add-ons
+                        "addons.mozilla.org",
+                    ];
+
+                    var proceed = blackListedDomains.every(function(bldomain) {
+                        return (doc.location.host.indexOf(bldomain) == -1);
+                    });
+
+                    if (proceed)
+                        webpg.inline.addWebPGMenuBar(node);
                 }
             }
         }
@@ -213,13 +241,21 @@ webpg.inline = {
                     if (node.parentNode && node.parentNode.nodeName == 'TEXTAREA')
                         break;
 
-                    if (node.parentNode && node.parentNode.nodeName == 'PRE' && node.parentNode.parentNode && node.parentNode.parentNode.parentNode  && typeof node.parentNode.parentNode.parentNode.getAttribute == 'function' && node.parentNode.parentNode.parentNode.getAttribute('id') == 'storeArea') {
-
+                    if (node.parentNode && node.parentNode.nodeName == 'PRE'
+                    && node.parentNode.parentNode
+                    && node.parentNode.parentNode.parentNode
+                    && typeof node.parentNode.parentNode.parentNode.getAttribute == 'function'
+                    && node.parentNode.parentNode.parentNode.getAttribute('id') == 'storeArea') {
                         // Possible TidyWiki document
                         var topwinjs = node.ownerDocument.defaultView.parent.wrappedJSObject;
                         if ("version" in topwinjs && topwinjs.version.title == "TiddlyWiki")
                             break; // It is, bail out
                     }
+                    
+                    if (node.textContent.search(/^.*?(-----BEGIN PGP.*?).*?(-----)/gim) < 0
+                    || !node.textContent.search(/^.*?(-----END PGP.*?).*?(-----)/gim) < 0)
+                        break;
+
 
                     baseIdx = idx;
                     idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_KEY_BEGIN, baseIdx);
@@ -265,10 +301,6 @@ webpg.inline = {
                     idx += 6;
                 }
                 if(haveStart) {
-                    var filter = function(node) {
-                        return NodeFilter.FILTER_ACCEPT;
-                    };
-
                     var tryOne = node.textContent.indexOf(search, idx);
 
                     if(tryOne == -1)
@@ -284,9 +316,7 @@ webpg.inline = {
                     haveStart = false;
                     range.setEnd(node, idx + search.length);
 
-//                    console.log(node.textContent);
-//                    console.log(node.parentNode);
-                    webpg.inline.PGPBlockParse(range, node, blockType);
+                    webpg.inline.PGPBlockParse(range, node, blockType, gmail);
                     range.detach();
                     idx = 0;
                 }
@@ -344,7 +374,7 @@ webpg.inline = {
             node - <obj> The node that PGP data was discovered in
             blockType - <int> The type of webpg.constants.PGPBlocks found
     */
-    PGPBlockParse: function(range, node, blockType) {
+    PGPBlockParse: function(range, node, blockType, gmail) {
         var s = new XMLSerializer();
         var d = range.cloneContents();
         var str = s.serializeToString(d);
@@ -364,11 +394,28 @@ webpg.inline = {
 
         var scontent = webpg.utils.getPlainText(node.parentNode);
 
+        if (scontent.search(/^\s*?(-----BEGIN PGP.*?)/gi) < 0)
+            scontent = webpg.utils.clean(str);
+
+        if (webpg.utils.detectedBrowser['product'] == 'thunderbird') {
+            var tmp_scontent = str.replace(new RegExp("<[^>]+>", "gim"), "");
+            if (tmp_scontent.search(/^\s*?(-----BEGIN PGP.*?--\n.*?\n\n)/gi) > -1)
+                scontent = tmp_scontent;
+        }
+
         // The html contents posted to element is the textContent or innerText
         //  of the element with detected PGP Blocks
         var h = doc.createElement("pre");
         webpg.jq(h).html(scontent);
-        var phtml = h.innerHTML;
+        if (webpg.utils.detectedBrowser['product'] == 'thunderbird')
+            var phtml = h.childNodes[0].nodeValue.replace(new RegExp(String.fromCharCode(160).toString(), "gim"), " ");
+        else
+            var phtml = h.innerHTML;
+
+        // Strip any whitespace from the phtml value
+        while (phtml.indexOf("\n") == 0) {
+            phtml = phtml.substring(1, phtml.length);
+        }
 
         if (webpg.utils.detectedBrowser['product'] == 'thunderbird') {
             // In thunderbird, we need to use the HTML, which the rendered plaintext
@@ -376,30 +423,79 @@ webpg.inline = {
             //  place it back into our temporary element and retrieve the nodeValue
             //  for proper parsing.
             scontent = html.replace(/\n/gim, "").replace(/<br>/gim, "\n");
-            h.innerHTML = webpg.descript(scontent);
-            scontent = h.childNodes[0].nodeValue;
-        } else {
-            var reg = new RegExp("(&(.){1,4};)", "g");
-            if (html.search(reg) > -1)
+            h.innerHTML =  webpg.descript(escape(scontent));
+            scontent = unescape(h.childNodes[0].nodeValue);
+            if (scontent.search(new RegExp("(&(.){1,4};)", "g")) > -1
+            && phtml.search(new RegExp("(&(.){1,4};)", "g")) == -1)
                 scontent = phtml;
-            else
-                scontent = html
         }
 
-//        console.log(scontent);
-//        console.log(phtml);
-//        console.log(html);
+        console.log("scontent:\n" + scontent);
+        console.log("phtml:\n" + phtml);
+        console.log("html:\n" + html);
 
-        if (html.search(/^.*?(-----BEGIN PGP.*?<br>)/gim) == -1 && html.search(/^.*?(<br>-----BEGIN PGP.*?)/gim) == -1
-            && html.search(/^.*?(<br>Version.*?)/gim) == -1 && html.search(new RegExp("(&(.){1,4};)", "g")) == -1) {
-//            console.log("using html")
+        if (html.search(/^\s*?(-----BEGIN PGP.*?)/gi) > -1
+        && html.search(/^.*?(-----BEGIN PGP.*?<br>)/gim) == -1
+        && html.search(/^.*?(<br>-----BEGIN PGP.*?)/gim) == -1
+        && html.search(/^.*?(<br>Version.*?)/gim) == -1
+        && html.search(new RegExp("(&(.){1,4};)", "g")) == -1) {
+            console.log("using html");
             scontent = html;
-        } else if (scontent.search(/.*?(-----BEGIN PGP.*?<br>)/gim) > 0 || scontent.search(/^.*?(<br>-----BEGIN PGP.*?)/gim) > 0 ||
-            scontent.search(/^\s*?(-----BEGIN PGP.*?)<br>/gi) == 0) {
-//            console.log("using phtml");
-            scontent = phtml;
+        } else if ((html.search(/.*?(-----BEGIN PGP.*?-----<br>)/gim) > -1
+        || html.search(/^.*?(<br>-----BEGIN PGP.*?)/gim) > -1
+        || html.search(/^\s*?(-----BEGIN PGP.*?)<br>/gi) > -1)
+        && phtml.search(new RegExp("(&(.){1,4};)", "g")) == -1
+        && (phtml.search(new RegExp("<[^>]+>", "gim")) > -1
+        || gmail)
+        && webpg.utils.detectedBrowser['product'] != 'thunderbird') {
+            if (html.search(new RegExp("(&(.){1,4};)", "g")) == -1
+            && webpg.utils.detectedBrowser['vendor'] == 'mozilla'
+            && gmail == true) {
+                scontent = html.replace(/\n/gim, "")
+                    .replace(new RegExp("<div[^>]*><br></div>", "gim"), "\n\n")
+                    .replace(new RegExp("<div[^>]*></div>", "gim"), "")
+                    .replace(new RegExp("<div[^>]*>(.*?)</div>", "gim"), "$1")
+                    .replace(/<br>/gim, "\n")
+                    .replace(wbrReg, "");
+                console.log("using html cleaned for gmail");
+            } else {
+                if (gmail) {
+                    phtml = webpg.utils.linkify(phtml).replace(new RegExp("<div[^>]*></div>", "gim"), "")
+                        .replace(new RegExp("<div[^>]*>(.*?)</div>", "gim"), "$1")
+                        .replace(wbrReg, "");
+                    if (html.search(new RegExp("<div[^>]*><br><br>.*?-----BEGIN PGP.*?-----", "gim")) > -1
+                    && phtml.search(RegExp("\n\n.*?\n-----BEGIN PGP.*?-----", "gim")) > -1)
+                        phtml = phtml.replace(RegExp("\n(\n.*?\n-----BEGIN PGP.*?-----)", "gim"), "$1");
+                }
+                console.log("using phtml");
+                scontent = webpg.utils.linkify(phtml);
+            }
         } else {
-//            console.log("using scontent");
+            if (scontent.search(/^\s*?(-----BEGIN(\s|&nbsp;|\%20)PGP.*?)(\n|%0A)/gi) < 0) {
+                if (phtml.search(/^\s*?(-----BEGIN PGP.*?--\n.*?\n\n)/gi) > -1)
+                    scontent = phtml;
+                else
+                    scontent = html;
+            }
+
+            scontent = scontent.replace(new RegExp(" " + String.fromCharCode(160).toString() + " ", "gim"), " \n  ")
+                .replace(new RegExp(String.fromCharCode(160).toString(), "gim"), " ");
+
+            if (scontent.search(new RegExp("<\\s[^>]+\\s>", "gim")) > -1
+            && html.search(new RegExp("<\\s[^>]+\\s>", "gim")) == -1)
+                scontent = scontent.replace(new RegExp("<\\s([^>]+)\\s>", "gim"), "<$1>");
+
+//            if (gmail) {
+//                if (html.match(new RegExp("<a[^>]*>(.*?)</a>", "gim")) > -1)
+//                    scontent = webpg.utils.linkify(scontent);
+//                scontent = webpg.utils.linkify(scontent);
+//            }
+
+            if (html.search(new RegExp("<div[^>]*><br><br>.*?-----BEGIN PGP.*?-----", "gim")) > -1
+            && scontent.search(RegExp("\n\n.*?\n-----BEGIN PGP.*?-----", "gim")) > -1)
+                scontent = scontent.replace(RegExp("\n(\n.*?\n-----BEGIN PGP.*?-----)", "gim"), "$1");
+
+            console.log("using scontent");
         }
 
         if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
@@ -421,9 +517,10 @@ webpg.inline = {
 
         var badge = webpg.inline.addElementBadge(doc, posX, results_frame.id, originalNodeData);
 
-        webpg.jq(originalNodeData).hide();
-
-        webpg.jq(badge).hide();
+        if (this.mode == "window") {
+            webpg.jq(originalNodeData).hide();
+            webpg.jq(badge).hide();
+        }
 
         originalNodeData.appendChild(badge);
 
@@ -574,7 +671,7 @@ webpg.inline = {
                 element.offsetWidth - element.clientWidth - 1 : 0;
         offset = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
             1 : offset;
-        toolbar.style.width = element.offsetWidth - 10 - offset + "px";
+        toolbar.style.width = element.offsetWidth - 11 - offset + "px";
         element.style.paddingTop = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
             "28px" : "30px";
         element.style.marginTop = "1px";
@@ -1005,6 +1102,12 @@ webpg.inline = {
             webpg.jq(control).hide();
             webpg.jq(this).parent().hide();
             webpg.jq(this.ownerDocument.getElementById(target_id)).show();
+            webpg.utils.sendRequest({
+                'msg': 'sendtoiframe',
+                'msg_to_pass': 'resizeiframe',
+                'target_id': target_id,
+                'iframe_id': target_id
+            });
         });
 
         return badge;
@@ -1046,11 +1149,16 @@ webpg.inline = {
             if (request.msg == "toggle") {
                 try {
                     if (request.target_id == iframe.id) {
-                        webpg.jq(node.parentNode).find('.webpg-node-odata').toggle();
-                        webpg.jq(node.parentNode).find("#webpg-badge-toggle-" + iframe.id).toggle();
+                        var parentNode = node.parentNode;
+                        if (!webpg.jq(parentNode).find('.webpg-node-odata').length > 0) {
+                            parentNode = parentNode.parentNode;
+                        }
+                        webpg.jq(parentNode).find('.webpg-node-odata').toggle();
+                        webpg.jq(parentNode).find("#webpg-badge-toggle-" + iframe.id).toggle();
                         webpg.jq(iframe).toggle();
                     }
                 } catch (err) {
+                    console.log(err);
                     return;
                 }
             } else if (request.msg == "show") {
@@ -1061,6 +1169,7 @@ webpg.inline = {
                         webpg.jq(iframe).show();
                     }
                 } catch (err) {
+                    console.log(err);
                     return;
                 }
             }

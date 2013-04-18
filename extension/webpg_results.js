@@ -154,6 +154,7 @@ webpg.inline_results = {
                     webpg.jq(icon).addClass('footer_icon');
                     var gpg_error_code = request.verify_result.gpg_error_code;
                     webpg.jq('#header').html("<a name=\"" + scrub(webpg.inline_results.qs.id) + "\">" + _("PGP ENCRYPTED OR SIGNED MESSAGE") + "</a>");
+                    webpg.jq('#footer').html("");
                     if (gpg_error_code == "58") {
                         webpg.jq('#footer').addClass("signature_bad_sig");
                         webpg.jq('#footer').html(_("UNABLE TO DECRYPT OR VERIFY THIS MESSAGE") + "<br/\>");

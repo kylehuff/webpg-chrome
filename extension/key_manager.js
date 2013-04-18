@@ -496,7 +496,7 @@ webpg.keymanager = {
             webpg.keymanager.pubkeylist = keylist;
             webpg.keymanager.pkeylist = pkeylist;
         } else {
-            var pkeylist = {};
+            var pkeylist = webpg.plugin.getPrivateKeyList();
             webpg.keymanager.pkeylist = pkeylist;
         }
 

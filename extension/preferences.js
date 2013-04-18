@@ -575,7 +575,7 @@ webpg.preferences = {
                 Provides method to retrieve the group item(s) in gpg.conf
         */
         refresh_from_config: function() {
-            if (webpg.plugin.gpgGetPreference("group").length) {
+            if (!webpg.plugin.gpgGetPreference("group").error) {
                 var groups = webpg.plugin.gpgGetPreference("group").value.split(", ");
                 var groups_json = {};
                 for (var rgroup in groups) {
@@ -612,11 +612,7 @@ if (webpg.utils.detectedBrowser['product'] == "chrome") {
     webpg.localStorage = window.localStorage;
 // If this is Firefox, set up required objects
 } else if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-    webpg.wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-           .getService(Components.interfaces.nsIWindowMediator);
-    webpg.winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
-        "mail:3pane" : "navigator:browser";
-    webpg.browserWindow = webpg.wm.getMostRecentWindow(webpg.winType);
+    webpg.browserWindow = webpg.utils.mozilla.getChromeWindow();
     // We are running on Mozilla, we need to set our localStorage object to
     //  use the 'mozilla.org/preference-service'
     webpg.localStorage = {
