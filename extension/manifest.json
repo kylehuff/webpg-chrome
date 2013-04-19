@@ -89,9 +89,9 @@
     "default_popup": "browser_action_menu.html"
   },
   "plugins": [
-      { "path": "plugins/Darwin_x86-gcc/npwebpgPlugin-v0.6.4.plugin", "public": false },
-      { "path": "plugins/Linux_x86_64-gcc/npwebpgPlugin-v0.6.4.so", "public": false },
-      { "path": "plugins/Linux_x86-gcc/npwebpgPlugin-v0.6.4.so", "public": false },
-      { "path": "plugins/WINNT_x86-msvc/npwebpgPlugin-v0.6.4.dll", "public": false }
+      { "path": "plugins/Darwin_x86-gcc/npwebpg-ext-v0.6.5-Darwin_x86_64-gcc.plugin", "public": false },
+      { "path": "plugins/Linux_x86_64-gcc/npwebpg-ext-v0.6.5-Linux_x86_64-gcc.so", "public": false },
+      { "path": "plugins/Linux_x86-gcc/npwebpg-ext-v0.6.5-Linux_x86-gcc.so", "public": false },
+      { "path": "plugins/WINNT_x86-msvc/npwebpg-ext-v0.6.5-WINNT_x86-msvc.dll", "public": false }
   ]
 }
