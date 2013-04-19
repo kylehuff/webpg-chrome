@@ -1,6 +1,6 @@
 {
   "name": "WebPG",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "__MSG_extDesc__",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self'; object-src 'self'",
