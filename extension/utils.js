@@ -539,15 +539,9 @@ webpg.utils = {
         if (selectionTarget && selectionText.length > 0) {
             var textValue = (selectionTarget.nodeName == "TEXTAREA") ?
                 selectionTarget.value : selectionTarget.innerText;
-//            if (this.detectedBrowser['vendor'] == "mozilla" && (selectionTarget.nodeName != "TEXTAREA" ||
-//                selectionTarget.nodeName != "INPUT")) {
-//                var nodes = selectionTarget.childNodes;
-//                var textValue = "";
-//                for (var i=0; i<nodes.length; i++) {
-//                    textValue += nodes[i].textContent || "\n\n";
-//                }
-//            }
-            if (selectionTarget.selectionStart != undefined) {
+            if (selectionTarget.selectionStart != undefined
+            && selectionTarget.selectionStart > 0
+            && selectionTarget.selectionStart !== textValue.length) {
                 preSelection = textValue.substr(0, selectionTarget.selectionStart);
                 postSelection = textValue.substr(selectionTarget.selectionEnd, textValue.length);
             }

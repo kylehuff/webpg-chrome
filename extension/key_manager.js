@@ -2004,7 +2004,7 @@ webpg.keymanager = {
         if (!webpg.plugin.webpg_status.gpgconf_detected) {
             webpg.jq(".key-operation-button-publish").button({'disabled': true, 'label': _("Cannot Publish Keys without gpgconf utility installed")});
             webpg.jq('.uid-option-button-sign').button({'disabled': true, 'label': _("Cannot create signatures without gpgconf utility installed")});
-        } else if (webpg.plugin.gpgGetPreference("keyserver").value.length < 1) {
+        } else if (webpg.plugin.gpgGetPreference("keyserver").value && webpg.plugin.gpgGetPreference("keyserver").length < 1) {
             webpg.jq(".key-operation-button-publish").button({'disabled': true, 'label': _("Cannot Publish Keys without Keyserver configured")});
         }
         webpg.jq('.uid-option-button-sign.uid-revoked').button({'disabled': true, 'label': _("Cannot sign a revoked UID")});
