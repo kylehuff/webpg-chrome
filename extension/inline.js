@@ -116,20 +116,24 @@ webpg.inline = {
                         } catch (err) {
                             console.log(err.message);
                         }
-                        webpg.inline.PGPDataSearch(mutation.target.contentDocument, true);
-                    } else{
-                        if (doc.location.host.indexOf("mail.google.com") == -1 && mutation.target.nodeName != "BODY") {
+                        webpg.inline.PGPDataSearch(mutation.target.contentDocument, true, false, mutation.target);
+                    } else {
+                        if (doc.location.host.indexOf("mail.google.com") == -1) {
                             if (mutation.addedNodes.length > 0)
                                 if (mutation.addedNodes[0].nodeName != "#text")
-                                    webpg.inline.PGPDataSearch(mutation.addedNodes[0].ownerDocument, true);
+                                    webpg.inline.PGPDataSearch(mutation.addedNodes[0].ownerDocument, true, false, mutation.target);
                         }
                         // check if gmail message appears
-                        if(webpg.jq(mutation.target).parent().is('.ii.gt.adP.adO')) {
+                        if (webpg.jq(mutation.target).parent().is('.ii.gt.adP.adO')
+                        || webpg.jq(mutation.target).parent().is('.adn.ads')) {
                             if (mutation.target.className.indexOf("webpg-") == -1
                             && webpg.jq(mutation.target).find(".webpg-node-odata").length < 1) {
+                                if (webpg.jq(mutation.target).parent().is('.adn.ads'))
+                                    if (webpg.jq(mutation.target).find('.ii.gt.adP.adO').length < 1)
+                                        return false;
                                 if (webpg.inline.existing_iframes.indexOf(mutation.target) == -1) {
                                     webpg.inline.existing_iframes.push(mutation.target);
-                                    webpg.inline.PGPDataSearch(doc, false, true);
+                                    webpg.inline.PGPDataSearch(doc, false, true, mutation.target);
                                 }
                             }
                         }
@@ -160,7 +164,7 @@ webpg.inline = {
             onchange - <bool> re-walk the DOM since this is a change
             gmail - <bool> This is a gmail message
     */
-    PGPDataSearch: function(doc, onchange, gmail) {
+    PGPDataSearch: function(doc, onchange, gmail, root) {
         var node, range, idx, search, baseIdx;
 
         var elementFilter = function(node) {
@@ -220,13 +224,13 @@ webpg.inline = {
 
         var haveStart = false;
         var blockType;
-        var blockStart;
-        var tw = doc.createTreeWalker(doc.documentElement, NodeFilter.SHOW_TEXT, textFilter, false);
+        root = (root) ? root : doc.documentElement;
+        var tw = doc.createTreeWalker(root, NodeFilter.SHOW_TEXT, textFilter, false);
 
         while((node = tw.nextNode())) {
             idx = 0;
 
-            while(true) {
+            while(node && true) {
                 if(!haveStart) {
 
                     if (node.parentNode.nodeName == "SCRIPT")
@@ -265,31 +269,26 @@ webpg.inline = {
                         idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_SIGNATURE_BEGIN, baseIdx);
                         search = webpg.constants.PGPTags.PGP_SIGNATURE_END;
                         blockType = webpg.constants.PGPBlocks.PGP_SIGNATURE;
-                        blockStart = idx;
                     }
                     if(idx == -1   || idx > node.textContent.indexOf(webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN, baseIdx)) {
                         idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN, baseIdx);
                         search = webpg.constants.PGPTags.PGP_SIGNATURE_END;
                         blockType = webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
-                        blockStart = idx;
                     }
                     if(idx == -1 || idx < node.textContent.indexOf(webpg.constants.PGPTags.PGP_ENCRYPTED_BEGIN, baseIdx)) {
                         idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_ENCRYPTED_BEGIN, baseIdx);
                         search = webpg.constants.PGPTags.PGP_ENCRYPTED_END;
                         blockType = webpg.constants.PGPBlocks.PGP_ENCRYPTED;
-                        blockStart = idx;
                     }
                     if(idx == -1 || idx < node.textContent.indexOf(webpg.constants.PGPTags.PGP_KEY_BEGIN, baseIdx)) {
                         idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_KEY_BEGIN, baseIdx);
                         search = webpg.constants.PGPTags.PGP_KEY_END;
                         blockType = webpg.constants.PGPBlocks.PGP_KEY;
-                        blockStart = idx;
                     }
                     if(idx == -1 || idx < node.textContent.indexOf(webpg.constants.PGPTags.PGP_PKEY_BEGIN, baseIdx)) {
                         idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_PKEY_BEGIN, baseIdx);
                         search = webpg.constants.PGPTags.PGP_PKEY_END;
                         blockType = webpg.constants.PGPBlocks.PGP_PKEY;
-                        blockStart = idx;
                     }
 
                     if(idx == -1)
@@ -297,7 +296,7 @@ webpg.inline = {
 
                     haveStart = true;
                     range = doc.createRange();
-                    range.setStart(node, blockStart);
+                    range.setStart(node, idx);
                     idx += 6;
                 }
                 if(haveStart) {
@@ -503,7 +502,7 @@ webpg.inline = {
 
         var fragment = range.extractContents();
 
-        var results_frame = webpg.inline.addResultsFrame(node, range);
+        var results_frame = webpg.inline.addResultsFrame(range.commonAncestorContainer, range);
 
         var originalNodeData = doc.createElement("span");
         originalNodeData.setAttribute("class", "webpg-node-odata");
