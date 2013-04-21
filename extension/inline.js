@@ -176,8 +176,6 @@ webpg.inline = {
 
         while ((node = tw.nextNode())) {
             var previousElement = node.previousSibling;
-//            if (webpg.utils.detectedBrowser['product'] == 'thunderbird' && node.nodeName == "PRE")
-//                webpg.inline.addWebPGMenuBar(node);
             if ((node.nodeName == "TEXTAREA" ||
                 node.getAttribute("contenteditable") == "true") &&
                 (!previousElement || previousElement.className != "webpg-toolbar")) {
@@ -759,7 +757,7 @@ webpg.inline = {
             'border-radius': '4px 4px 4px 4px',
             'border-color': 'transparent',
         });
-        webpg.jq(toolbar).find('.webpg-action-list li, .webpg-subaction-list li').css({
+        webpg.jq(toolbar).find('.webpg-action-list li, .webpg-subaction-list li').not('.webpg-action-divider').css({
             'font-size': '12px',
             'height': '28px',
             'line-height': '24px',
@@ -840,7 +838,7 @@ webpg.inline = {
                 })
                 var list = webpg.jq(toolbar).find('.webpg-action-list');
                 list.css({
-                    'display': (this.style.display == 'inline') ? 'none' : 'inline'
+                    'display': (list[0].style.display == 'inline') ? 'none' : 'inline'
                 });
             });
         }
