@@ -358,7 +358,7 @@ webpg.thunderbird.compose = {
                         return true;
                     });
                 }
-                var status = webpg.plugin.gpgEncrypt(msg, recipients, (sign == true) ? 1 : 0);
+                var status = webpg.plugin.gpgEncrypt(msg, recipients, (sign == true) ? 1 : 0, []);
                 webpg.plugin.restoreGPGConfig();
                 if (!status.error)
                     webpg.thunderbird.compose.setEditorContents(status.data);
@@ -374,7 +374,7 @@ webpg.thunderbird.compose = {
 
     symCryptMsg: function(msg) {
         try {
-            var encryptStatus = webpg.plugin.gpgSymmetricEncrypt(msg, 0);
+            var encryptStatus = webpg.plugin.gpgSymmetricEncrypt(msg, 0, []);
             if (!encryptStatus.error)
                 webpg.thunderbird.compose.setEditorContents(encryptStatus.data);
         } catch (err) {

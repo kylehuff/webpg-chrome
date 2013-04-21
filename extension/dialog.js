@@ -180,6 +180,10 @@ webpg.dialog = {
                     var post_selection = unescape(webpg.dialog.qs.post_selection) || "";
 
                     var iframe_id = window.name;
+                    
+                    var signers = (webpg.dialog.qs.signers!=undefined
+                        && unescape(webpg.dialog.qs.signers)!=null) ?
+                        [unescape(webpg.dialog.qs.signers)] : null;
 
                     webpg.utils.sendRequest({"msg": "encrypt",
                         "data": unescape(webpg.dialog.qs.encrypt_data),
@@ -187,6 +191,7 @@ webpg.dialog = {
                         "post_selection": post_selection,
                         "recipients": webpg.dialog.selectedKeys,
                         "sign": (webpg.dialog.qs.dialog_type == "encryptsign"),
+                        "signers": signers,
                         "target_id": iframe_id,
                         "iframe_id": iframe_id});
                 }

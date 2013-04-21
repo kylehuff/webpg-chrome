@@ -61,7 +61,10 @@ webpg.background = {
 
             /* Check to make sure all of the enabled_keys are private keys 
                 this would occur if the key was enabled and then the secret key was deleted. */
+            webpg.default_key = webpg.preferences.default_key.get();
             webpg.secret_keys = webpg.plugin.getPrivateKeyList();
+            for (var sKey in webpg.secret_keys)
+                webpg.secret_keys[sKey].default = (sKey == webpg.default_key);
             webpg.enabled_keys = webpg.preferences.enabled_keys.get();
             var secret_keys = webpg.secret_keys;
             var enabled_keys = webpg.enabled_keys;
@@ -210,8 +213,10 @@ webpg.background = {
                 break;
 
             case 'sign':
-                var signing_key = webpg.preferences.default_key.get()
-                var sign_status = webpg.plugin.gpgSignText([signing_key],
+                var signers = (typeof(request.signers)!=undefined
+                        && request.signers != null
+                        && request.signers.length > 0) ? request.signers : [webpg.preferences.default_key.get()]
+                var sign_status = webpg.plugin.gpgSignText(signers,
                     request.selectionData.selectionText, 2);
                 response = sign_status;
                 if (!sign_status.error && sign_status.data.length > 0) {
@@ -343,10 +348,13 @@ webpg.background = {
             case 'encrypt':
                 var sign = (typeof(request.sign)=='undefined'
                     || request.sign == false) ? 0 : 1;
+                var signers = (typeof(request.signers)!=undefined
+                        && request.signers != null
+                        && request.signers.length > 0) ? request.signers : [];
                 if (request.recipients.length > 0) {
                     //console.log(request.data, request.recipients);
                     response = webpg.plugin.gpgEncrypt(request.data,
-                        request.recipients, sign);
+                        request.recipients, sign, signers);
                 } else {
                     response = "";
                 }
@@ -364,7 +372,7 @@ webpg.background = {
                 //console.log("encrypt requested");
                 if (request.recipients && request.recipients.length > 0) {
                     response = webpg.plugin.gpgEncrypt(request.data,
-                        request.recipients, 1);
+                        request.recipients, 1, request.signers);
                 } else {
                     response = "";
                 }
@@ -378,7 +386,7 @@ webpg.background = {
 
             case 'symmetricEncrypt':
                 //console.log("symmetric encryption requested");
-                response = webpg.plugin.gpgSymmetricEncrypt(request.data, 0);
+                response = webpg.plugin.gpgSymmetricEncrypt(request.data, 0, []);
                 if (request.message_event == "context" || request.message_event == "editor")
                     webpg.utils.tabs.sendRequest(sender.tab, {
                         "msg": "insertEncryptedData",

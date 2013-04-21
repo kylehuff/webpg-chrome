@@ -84,15 +84,25 @@ webpg.overlay = {
                 if (response.result.decorate_inline == "true") {
                     var mode = response.result.mode;
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        if (!webpg.plugin) {
+                        if (!browserWindow)
                             var browserWindow = webpg.utils.mozilla.getChromeWindow();
+                        if (!webpg.plugin)
                             webpg.plugin = browserWindow.webpg.plugin;
-                        }
 
+                        // Add a reference to the secret keys information store
+                        webpg.inline.secret_keys = browserWindow.webpg.secret_keys;
                         // Begin parsing the document for PGP Data
                         webpg.inline.init(webpg.doc, mode);
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        webpg.inline.init(document, mode);
+                        webpg.utils.sendRequest({
+                            'msg': "private_keylist" },
+                            function(response) {
+                                // Add a reference to the secret keys information store
+                                webpg.inline.secret_keys = (response.result) ?
+                                    response.result : [];
+                                webpg.inline.init(document, mode);
+                            }
+                        );
                     }
                 }
             }
@@ -294,6 +304,8 @@ webpg.overlay = {
                 theURL += "&import_data=" + escape(request.data);
             if (request.dialog_type == "editor")
                 theURL += "&editor_data=" + escape(request.data);
+            if (request.signers != null)
+                theURL += "&signers=" + escape(request.signers);
 
             var win = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content : window;
             
@@ -396,7 +408,8 @@ webpg.overlay = {
                     webpg.overlay.block_target = true;
                 webpg.utils.sendRequest({
                     "msg": "sign",
-                    "selectionData": selection
+                    "selectionData": selection,
+                    "signers": sender.signers,
                 });
                 break;
 
@@ -433,7 +446,8 @@ webpg.overlay = {
                     'data': selection.selectionText,
                     'pre_selection': selection.pre_selection,
                     'post_selection': selection.post_selection,
-                    'dialog_type': dialog_type
+                    'dialog_type': dialog_type,
+                    'signers': sender.signers,
                 });
                 break;
 

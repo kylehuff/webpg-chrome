@@ -647,6 +647,257 @@ webpg.inline = {
         }
     },
 
+    createSecretKeySubmenu: function(purpose, action) {
+        var _ = webpg.utils.i18n.gettext;
+        var submenu = "";
+        for (var key in webpg.inline.secret_keys) {
+            if (webpg.inline.secret_keys[key]['can_' + purpose]
+            && webpg.inline.secret_keys[key].revoked == false
+            && webpg.inline.secret_keys[key].expired == false
+            && webpg.inline.secret_keys[key].disabled == false) {
+                var keyObj = webpg.inline.secret_keys[key];
+                var email = (keyObj.email.length > 1) ?
+                    "&lt;" + webpg.utils.escape(keyObj.email) + "&gt;" :
+                    "(" + _("no email address provided") + ")";
+                var detail = webpg.utils.escape(keyObj.subkeys[0].size) +
+                    webpg.utils.escape(keyObj.subkeys[0].algorithm_name)[0].toUpperCase() +
+                    "/" + key.substr(-8);
+                var opacity = (keyObj.default == true) ? 1.0 : 0;
+                submenu += '' +
+                    '<li class="webpg-action-btn">' +
+                        '<a class="webpg-toolbar-' + action + '" id="0x' + key + '" style="padding-top:2px;">' +
+                            keyObj.name + '&nbsp;' + "(" + detail + ")<br/>" + email +
+                            '<img style="position: absolute;top: 4px;right: 4px;opacity:' + opacity + ';" src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/check-small.png"/>' +
+                        '</a>' +
+                    '</li>'
+            }
+        }
+        return submenu;
+    },
+
+    createWebPGActionMenu: function(toolbar, gmail) {
+        var _ = webpg.utils.i18n.gettext;
+
+        if (!gmail) {
+            webpg.jq(toolbar).find('.webpg-action-menu').css({
+                'padding': '0 8px',
+                'cursor': 'pointer',
+                'height': '24px',
+                'background': '#aaa url(' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/menumask.png) repeat-x',
+                'border-radius': '0 4px 4px 0',
+                'display': 'inline-block',
+                'border-right': '1px solid #999',
+            }).hover(
+                function(e) {
+                    if (webpg.jq(toolbar).find('.webpg-action-list')[0].style.display != 'inline') {
+                        webpg.jq(this).css({
+                            'background-color': '#f92',
+                        })
+                    }
+                },
+                function(e) {
+                    if (webpg.jq(toolbar).find('.webpg-action-list')[0].style.display != 'inline') {
+                        webpg.jq(this).css({
+                            'background-color': '#aaa',
+                        })
+                    }
+                }
+            );
+        }
+
+        webpg.jq(toolbar).find('.webpg-action-menu .webpg-action-list-icon').css({
+            'display': 'inline-block', 'width': '0',
+            'height': '0', 'text-indent': '-9999px',
+            'position': 'relative', 'top': '-3px',
+            'border-left': '4px solid transparent',
+            'border-right': '4px solid transparent',
+            'border-top': '4px solid #000000',
+            'opacity': '0.7', 'content': '\\2193',
+        });
+        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla'
+        &&  gmail) {
+             webpg.jq(toolbar).find('.webpg-action-menu .webpg-action-list-icon').css({
+                'top': '10px',
+             });
+        }
+        webpg.jq(toolbar).find('.webpg-toolbar-sign-callout .webpg-action-list-icon').css({
+            'display': 'inline-block', 'width': '0',
+            'height': '0', 'text-indent': '-9999px',
+            'position': 'relative', 'top': '48%',
+            'border-left': '4px solid transparent',
+            'border-right': '4px solid transparent',
+            'border-top': '4px solid #000000',
+            'opacity': '0.7', 'content': "\\2193",
+        });
+        webpg.jq(toolbar).find('.webpg-toolbar-sign-callout').css({
+            'display': (Object.keys(webpg.inline.secret_keys).length < 2) ? 'none' : 'inline-block',
+        });
+        webpg.jq(toolbar).find('ul.webpg-action-list, ul.webpg-subaction-list').css({
+            'position': 'absolute', 'top': '100%', 'left': '-2px',
+            'z-index': '4', 'float': 'left', 'display': 'none',
+            'min-width': '200px', 'padding': '0', 'margin': '0',
+            'list-style': 'none', 'background-color': '#ffffff',
+            'border-color': '#ccc', 'border-color': 'rgba(0, 0, 0, 0.2)',
+            'border-style': 'solid', 'border-width': '1px',
+            '-webkit-border-radius': '0 4px 4px 4px',
+            '-moz-border-radius': '0 4px 4px 4px',
+            'border-radius': '0 4px 4px 4px',
+            '-webkit-box-shadow': '0 5px 10px rgba(0, 0, 0, 0.2)',
+            '-moz-box-shadow': '0 5px 10px rgba(0, 0, 0, 0.2)',
+            'box-shadow': '0 5px 10px rgba(0, 0, 0, 0.2)',
+            '-webkit-background-clip': 'padding-box',
+            '-moz-background-clip': 'padding',
+            'background-clip': 'padding-box',
+            '*border-right-width': '2px',
+            '*border-bottom-width': '2px',
+            'text-align': 'left',
+        });
+        if (gmail) {
+            if (webpg.gmail.gmailComposeType == "inline") {
+                webpg.jq('.nH.nn .no .nH.nn.aQK').css({'width': '600px'}).parent().parent().css({'width': '600px'})
+                webpg.jq(toolbar).find('ul.webpg-action-list').css({
+                    'top': 'auto', 'bottom': '36px', 'left': '6px'
+                });
+                webpg.jq("*[g_editable='true']").focus();
+            }
+            webpg.jq('.webpg-subaction-btn .webpg-action-list-icon').css({ 'top': '0' })
+        }
+        webpg.jq(toolbar).find('.webpg-action-list li').css({
+            'border-style': 'solid', 'border-width': '1px',
+            '-webkit-border-radius': '4px 4px 4px 4px',
+            '-moz-border-radius': '4px 4px 4px 4px',
+            'border-radius': '4px 4px 4px 4px',
+            'border-color': 'transparent',
+        });
+        webpg.jq(toolbar).find('.webpg-action-list li, .webpg-subaction-list li').css({
+            'font-size': '12px',
+            'height': '28px',
+            'line-height': '24px',
+            'position': 'relative',
+            'padding': '0 6px 2px 6px',
+            'display': 'block',
+            'float': 'none',
+        }).hover(
+            function(e) {
+                webpg.jq(this).css({
+                    'background-color': '#e6e6e6',
+                    'background-image': 'url("' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/menumask.png")',
+                    'background-repeat': 'repeat-x',
+                    'border-color': '#ccc', 'border-color': 'rgba(0, 0, 0, 0.2)',
+                })
+            },
+            function(e) {
+                webpg.jq(this).css({
+                    'background-color': 'transparent',
+                    'background-image': 'none',
+                    'border-color': 'transparent',
+                 })
+            }
+        ).find('.webpg-li-icon').css({
+            'width': '24px',
+            'height': '24px',
+            'padding': '0 4px 0 4px',
+            'margin': '0',
+            'position': 'relative',
+            'top': '5px',
+        });
+        webpg.jq(toolbar).find('.webpg-subaction-btn').css({
+            'top': '-1', 'padding': '0 8px 2px 8px', 'margin-right': '-5px',
+            'border-style': 'solid', 'border-width': '1px',
+            '-webkit-border-radius': '0 4px 4px 0',
+            '-moz-border-radius': '0 4px 4px 0',
+            'border-radius': '0 4px 4px 0',
+        })
+        webpg.jq(toolbar).find('.webpg-subaction-list').css({
+            'top': '0', 'left': '100%',
+        });
+        webpg.jq(toolbar).find('.webpg-action-divider').css({
+            'border-width': '1px 0 0 0',
+            'border-style': 'solid',
+            'border-color': 'rgba(0, 0, 0, 0.1)',
+            'height': '0',
+            'font-size': '1px',
+            'padding': '0',
+        });
+        webpg.jq(toolbar).find('img').css({
+            'display': 'inline-block',
+            'margin': '0',
+        });
+        webpg.jq(toolbar).find('.webpg-action-btn img').css({
+            'width': '20px',
+            'height': '20px',
+        });
+        webpg.jq(toolbar).find('.webpg-action-list a').css({
+            'display': 'block',
+            'text-decoration': 'none',
+            'color': 'black',
+            'position': 'relative',
+            'height': '32px',
+            'text-shadow': 'none',
+            'cursor': 'pointer',
+            'white-space': 'nowrap',
+        });
+        webpg.jq(toolbar).find('.webpg-subaction-list a').css({
+            'padding-top': '3px',
+            'line-height': '12px',
+            'padding-right': '30px',
+        });
+
+        if (!gmail) {
+            webpg.jq(toolbar).children(":first").click(function(e) {
+                webpg.jq(toolbar).find('.webpg-action-menu').css({
+                    'background-color': '#fa3',
+                })
+                var list = webpg.jq(toolbar).find('.webpg-action-list');
+                list.css({
+                    'display': (this.style.display == 'inline') ? 'none' : 'inline'
+                });
+            });
+        }
+        webpg.jq(toolbar).find('.webpg-subaction-btn').click(function(e) {
+            var list = webpg.jq(this).parent().parent().find('.webpg-subaction-list');
+            list[0].seen = false;
+            list[0].style.display = (list[0].style.display == "inline") ? "none" : "inline";
+        }).hover(function(e) {
+            var list = webpg.jq(this).parent().parent().find('.webpg-subaction-list');
+            if (e.type == "mouseleave" && list[0].seen)
+                list[0].style.display = "none";
+        });
+        webpg.jq(toolbar).find('.webpg-subaction-list').hover(function(e) {
+            if (e.type == "mouseleave")
+                this.style.display = 'none';
+        });
+        webpg.jq(toolbar).find('.webpg-subaction-list li').hover(
+            function(e) {
+                this.parentElement.seen = true;
+                var toolbarStatus = (!gmail) ? webpg.jq(toolbar).find('.webpg-toolbar-status') : gmail.children().first();
+                this.oldStatusText = toolbarStatus.html();
+                if (e.type == "mouseenter" && toolbarStatus) {
+                    var key = webpg.jq(this).find('a')[0].id.substr(2);
+                    var keyObj = webpg.inline.secret_keys[key];
+                    if (keyObj) {
+                        var detail = webpg.utils.escape(keyObj.subkeys[0].size) +
+                                webpg.utils.escape(keyObj.subkeys[0].algorithm_name)[0].toUpperCase() +
+                                "/" + key.substr(-8);
+                        var keyText = (keyObj.email.length > 0) ? webpg.utils.escape(keyObj.email) :
+                            webpg.utils.escape(keyObj.name);
+                        keyText += " (" + detail + ")";
+                        toolbarStatus.text(_("Use") + " " + keyText);
+                    }
+                } else {
+                    if (this.oldStatusText)
+                        toolbarStatus.text(this.oldStatusText);
+                }
+            },
+            function(e) {
+                var toolbarStatus = (!gmail) ? webpg.jq(toolbar).find('.webpg-toolbar-status') : gmail.children().first();
+                if (this.oldStatusText)
+                    toolbarStatus.html(this.oldStatusText);
+            }
+        );
+
+    },
+
     addWebPGMenuBar: function(element) {
         var _ = webpg.utils.i18n.gettext;
         // Store the elements display setting in case modifying the dom
@@ -663,7 +914,7 @@ webpg.inline = {
             "skin/images/menumask.png') repeat-x; border-collapse: separate;" +
             "color:#444; height:24px; margin: 1px 0 0 1px; display: block;" +
             "border: 1px solid gainsboro; top: 27px; clear: left; line-height: 12px;" +
-            "z-index: 2; left: -1px; text-shadow: none; text-decoration: none;");
+            "left: -1px; text-shadow: none; text-decoration: none;");
 
         toolbar.setAttribute("class", "webpg-toolbar");
         var offset = (element.scrollHeight > element.offsetHeight) ?
@@ -699,16 +950,38 @@ webpg.inline = {
                         '</a>' +
                     '</li>' +
                     '<li class="webpg-action-btn">' +
-                        '<a class="webpg-toolbar-sign">' +
+                        '<a class="webpg-toolbar-sign" style="display:inline-block;">' +
                             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_signature-ok.png" class="webpg-li-icon"/>' +
                             _('Sign only') +
                         '</a>' +
+                        '<ul class="webpg-toolbar-sign-callout" style="top:0;' +
+                            'right:4px;width:20px;display:inline-block;' +
+                            'position:absolute;padding:0;">' +
+                            '<li class="webpg-subaction-btn">' +
+                                '<span class="webpg-action-list-icon">' +
+                                    '&nbsp;' +
+                                '</span>' +
+                            '</li>' +
+                        '</ul>' +
+                        '<ul class="webpg-subaction-list">' +
+                            webpg.inline.createSecretKeySubmenu('sign', 'sign') +
+                        '</ul>' +
                     '</li>' +
                     '<li class="webpg-action-btn">' +
                         '<a class="webpg-toolbar-cryptsign">' +
                             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
                             _('Sign and Encrypt') +
                         '</a>' +
+                        '<ul class="webpg-toolbar-sign-callout" style="top:0;right:4px;width:20px;display:inline-block;position:absolute;padding:0;">' +
+                            '<li class="webpg-subaction-btn">' +
+                                '<span class="webpg-action-list-icon">' +
+                                    '&nbsp;' +
+                                '</span>' +
+                            '</li>' +
+                        '</ul>' +
+                        '<ul class="webpg-subaction-list">' +
+                            webpg.inline.createSecretKeySubmenu('sign', 'cryptsign') +
+                        '</ul>' +
                     '</li>' +
                     '<li class="webpg-action-btn">' +
                         '<a class="webpg-toolbar-symcrypt">' +
@@ -771,6 +1044,13 @@ webpg.inline = {
         detectElementValue(element);
 
         function setActive(e) {
+            if (e.toElement
+            && e.toElement.parentElement
+            && (e.toElement.parentElement.className == "webpg-subaction-list"
+            || (e.toElement.parentElement.parentElement
+            && e.toElement.parentElement.parentElement.className == "webpg-subaction-list")))
+                return;
+
             detectElementValue(element);
             // Get the current textarea value or selection
             var selection = { 'selectionText': element.value,
@@ -873,126 +1153,11 @@ webpg.inline = {
 
         element.updateElementValue = detectElementValue;
 
-        webpg.jq(toolbar).find('.webpg-action-menu').css({
-            'padding': '0 8px',
-            'cursor': 'pointer',
-            'height': '24px',
-            'background': '#aaa url(' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/menumask.png) repeat-x',
-            'border-radius': '0 4px 4px 0',
-            'display': 'inline-block',
-            'border-right': '1px solid #999',
-        }).hover(
-            function(e) {
-                if (webpg.jq(toolbar).find('.webpg-action-list')[0].style.display != 'inline') {
-                    webpg.jq(this).css({
-                        'background-color': '#f92',
-                    })
-                }
-            },
-            function(e) {
-                if (webpg.jq(toolbar).find('.webpg-action-list')[0].style.display != 'inline') {
-                    webpg.jq(this).css({
-                        'background-color': '#aaa',
-                    })
-                }
-            }
-        );
+        webpg.inline.createWebPGActionMenu(toolbar);
 
-        webpg.jq(toolbar).find('.webpg-action-list-icon').css({
-            'display': 'inline-block', 'width': '0',
-            'height': '0', 'text-indent': '-9999px',
-            'position': 'relative', 'top': '-3px',
-            'border-left': '4px solid transparent',
-            'border-right': '4px solid transparent',
-            'border-top': '4px solid #000000',
-            'opacity': '0.7', 'content': '\\2193',
-        });
-        webpg.jq(toolbar).find('ul.webpg-action-list').css({
-            'position': 'absolute', 'top': '100%', 'left': '-2px',
-            'z-index': '4', 'float': 'left', 'display': 'none',
-            'min-width': '200px', 'padding': '0', 'margin': '0',
-            'list-style': 'none', 'background-color': '#ffffff',
-            'border-color': '#ccc', 'border-color': 'rgba(0, 0, 0, 0.2)',
-            'border-style': 'solid', 'border-width': '1px',
-            '-webkit-border-radius': '0 4px 4px 4px',
-            '-moz-border-radius': '0 4px 4px 4px',
-            'border-radius': '0 4px 4px 4px',
-            '-webkit-box-shadow': '0 5px 10px rgba(0, 0, 0, 0.2)',
-            '-moz-box-shadow': '0 5px 10px rgba(0, 0, 0, 0.2)',
-            'box-shadow': '0 5px 10px rgba(0, 0, 0, 0.2)',
-            '-webkit-background-clip': 'padding-box',
-            '-moz-background-clip': 'padding',
-            'background-clip': 'padding-box',
-            '*border-right-width': '2px',
-            '*border-bottom-width': '2px',
-            'text-align': 'left',
-        });
-        webpg.jq(toolbar).find('.webpg-action-list li').css({
-            'font-size': '12px',
-            'height': '28px',
-            'line-height': '24px',
-            'position': 'relative',
-            'padding': '0 6px 2px 6px',
-            'display': 'block',
-            'float': 'none',
-        }).hover(
-            function(e) {
-                webpg.jq(this).css({
-                    'background-color': '#e6e6e6',
-                    'background-image': 'url("' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/menumask.png")',
-                    'background-repeat': 'repeat-x',
-                })
-            },
-            function(e) {
-                webpg.jq(this).css({
-                    'background-color': 'transparent',
-                    'background-image': 'none',
-                 })
-            }
-        ).find('.webpg-li-icon').css({
-            'width': '24px',
-            'height': '24px',
-            'padding': '0 4px 0 4px',
-            'margin': '0',
-            'position': 'relative',
-            'top': '5px',
-        });
-        webpg.jq(toolbar).find('.webpg-action-divider').css({
-            'border-width': '1px 0 0 0',
-            'border-style': 'solid',
-            'border-color': 'rgba(0, 0, 0, 0.1)',
-            'height': '0',
-            'font-size': '1px',
-            'padding': '0',
-        });
-        webpg.jq(toolbar).find('img').css({
-            'display': 'inline-block',
-            'margin': '0',
-        });
-        webpg.jq(toolbar).find('.webpg-action-btn img').css({
-            'width': '20px',
-            'height': '20px',
-        });
-        webpg.jq(toolbar).find('.webpg-action-list a').css({
-            'display': 'block',
-            'text-decoration': 'none',
-            'color': 'black',
-            'position': 'relative',
-            'height': '32px',
-            'text-shadow': 'none',
-            'cursor': 'pointer',
-        });
-
-        webpg.jq(toolbar).children(":first").click(function(e) {
-            webpg.jq(toolbar).find('.webpg-action-menu').css({
-                'background-color': '#fa3',
-            })
-            var list = webpg.jq(toolbar).find('.webpg-action-list');
-            list[0].style.display = (list[0].style.display == "inline") ? "none" : "inline";
-        });
         webpg.jq(toolbar).bind('mouseleave', function() {
             if (webpg.jq(toolbar).find('.webpg-action-list')[0].style.display == "inline") {
-                webpg.jq(toolbar).find('.webpg-action-list').hide();
+                webpg.jq(toolbar).find('.webpg-action-list, .webpg-subaction-list').hide();
                 webpg.jq(toolbar).find('.webpg-action-menu').css({
                     'background-color': '#aaa',
                 })
@@ -1046,7 +1211,12 @@ webpg.inline = {
             if (action) {
                 if (action != webpg.constants.overlayActions.EDITOR)
                     webpg.overlay.block_target = true;
-                webpg.overlay.onContextCommand(null, action, {'source': 'toolbar', 'dialog': (isSecure(element) == true)}, selection);
+                signers = (e.currentTarget
+                        && e.currentTarget.id
+                        && e.currentTarget.id.search("0x") == 0) ?
+                    [e.currentTarget.id.substr(2)] : null;
+                    
+                webpg.overlay.onContextCommand(null, action, {'source': 'toolbar', 'dialog': (isSecure(element) == true), 'signers': signers}, selection);
             }
 
             webpg.inline.action_selected = (action != webpg.constants.overlayActions.OPTS && action != webpg.constants.overlayActions.MANAGER);
@@ -1057,7 +1227,7 @@ webpg.inline = {
 
         if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
             webpg.jq(toolbar).css({ 'top': '28px' });
-            webpg.jq(toolbar).find('.webpg-action-list-icon').css({ 'top': '6px' });
+            webpg.jq(toolbar).find('.webpg-action-menu .webpg-action-list-icon').css({ 'top': '6px' });
         }
 
     },

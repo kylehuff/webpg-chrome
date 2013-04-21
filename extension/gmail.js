@@ -17,7 +17,7 @@ webpg.gmail = {
             navDiv - <obj> The navigation div from the gmail interface we will be working with
     */
     setup: function(navDiv) {
-        if (navDiv.find("#webpg-action-menu").length < 1) {
+        if (navDiv.find(".webpg-action-menu").length < 1) {
             // If we are running Mozilla, inject the CSS file
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                 var sss = Components.classes["@mozilla.org/content/style-sheet-service;1"]
@@ -208,6 +208,7 @@ webpg.gmail = {
                         return;
                 }
                 webpg.utils.sendRequest({'msg': 'sign',
+                    'signers': webpg.gmail.signers,
                     'message_event': 'gmail',
                     'selectionData': {
                         'selectionText': webpg.utils.linkify(message)
@@ -219,6 +220,9 @@ webpg.gmail = {
                             response.result.data
                         );
                         webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
+                    } else {
+                        var result = response.result;
+                        webpg.gmail.handleFailure(result);
                     }
                 });
                 break;
@@ -244,6 +248,7 @@ webpg.gmail = {
                     webpg.utils.sendRequest({'msg': 'encryptSign',
                             'data': message,
                             'recipients': users,
+                            'signers': webpg.gmail.signers,
                             'message_event': 'gmail'
                     }, function(response) {
                         if (!response.result.error && response.result.data) {
@@ -544,117 +549,169 @@ webpg.gmail = {
         this.oSendBtn.hide();
 
         var action_menu = '' +
-'<span id="webpg-current-action">' +
-    '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + "skin/images/badges/32x32/webpg.png" + '" width="17" height="17"/>' +
-    'WebPG' +
-'</span>' +
-'&nbsp;' +
-'<span class="webpg-action-list-icon">' +
-    '&nbsp;' +
-'</span>';
+            '<span class="webpg-action-menu">' +
+                '<span class="webpg-current-action" style="line-height:24px;">' +
+                    '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + "skin/images/badges/32x32/webpg.png" + '" width="17" height="17"/>' +
+                    'WebPG' +
+                '</span>' +
+                '&nbsp;' +
+                '<span class="webpg-action-list-icon">' +
+                    '&nbsp;' +
+                '</span>' +
+            '</span>';
 
-    var action_list = '' +
-'<ul class="webpg-action-list webpg-gmail-compose-' + webpg.gmail.gmailComposeType + '">' +
-    '<li class="webpg-action-btn" id="webpg-crypt-btn">' +
-        '<a href="#">' +
-            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/48x48/stock_encrypted.png" class="webpg-li-icon"/>' +
-            _('Encrypt') +
-        '</a>' +
-    '</li>' +
-    '<li class="webpg-action-btn" id="webpg-sign-btn">' +
-        '<a href="#">' +
-            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/48x48/stock_signature-ok.png" class="webpg-li-icon"/>' +
-            _('Sign only') +
-        '</a>' +
-    '</li>' +
-    '<li class="webpg-action-btn" id="webpg-scrypt-btn">' +
-        '<a href="#">' +
-            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/48x48/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
-            _('Sign and Encrypt') +
-        '</a>' +
-    '</li>' +
-    '<li class="webpg-action-btn" id="webpg-symmetric-btn">' +
-        '<a href="#">' +
-            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/48x48/stock_encrypted.png" class="webpg-li-icon"/>' +
-            _('Symmetric Encryption') +
-        '</a>' +
-    '</li>' +
-    '<li class="webpg-action-btn" id="webpg-none-btn">' +
-        '<a href="#">' +
-            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/48x48/stock_decrypted-signature-bad.png" class="webpg-li-icon"/>' +
-            _('Do not use WebPG for this message') +
-        '</a>' +
-    '</li>' +
-'</ul>';
+        var action_list = '' +
+            '<span style="z-index:4;">' +
+                '<ul class="webpg-action-list webpg-gmail-compose-' + webpg.gmail.gmailComposeType + '">' +
+                    '<li class="webpg-action-btn">' +
+                        '<a class="webpg-toolbar-encrypt">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted.png" class="webpg-li-icon"/>' +
+                            _('Encrypt') +
+                        '</a>' +
+                    '</li>' +
+                    '<li class="webpg-action-btn">' +
+                        '<a class="webpg-toolbar-sign" style="display:inline-block;">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_signature-ok.png" class="webpg-li-icon"/>' +
+                            _('Sign only') +
+                        '</a>' +
+                        '<ul class="webpg-toolbar-sign-callout" style="top:0;' +
+                            'right:4px;width:20px;display:inline-block;' +
+                            'position:absolute;padding:0;">' +
+                            '<li class="webpg-subaction-btn">' +
+                                '<span class="webpg-action-list-icon">' +
+                                    '&nbsp;' +
+                                '</span>' +
+                            '</li>' +
+                        '</ul>' +
+                        '<ul class="webpg-subaction-list">' +
+                            webpg.inline.createSecretKeySubmenu('sign', 'sign') +
+                        '</ul>' +
+                    '</li>' +
+                    '<li class="webpg-action-btn">' +
+                        '<a class="webpg-toolbar-cryptsign">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
+                            _('Sign and Encrypt') +
+                        '</a>' +
+                        '<ul class="webpg-toolbar-sign-callout" style="top:0;right:4px;width:20px;display:inline-block;position:absolute;padding:0;">' +
+                            '<li class="webpg-subaction-btn">' +
+                                '<span class="webpg-action-list-icon">' +
+                                    '&nbsp;' +
+                                '</span>' +
+                            '</li>' +
+                        '</ul>' +
+                        '<ul class="webpg-subaction-list">' +
+                            webpg.inline.createSecretKeySubmenu('sign', 'cryptsign') +
+                        '</ul>' +
+                    '</li>' +
+                    '<li class="webpg-action-btn">' +
+                        '<a class="webpg-toolbar-symcrypt">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted.png" class="webpg-li-icon"/>' +
+                            _('Symmetric Encryption') +
+                        '</a>' +
+                    '</li>' +
+                    '<li class="webpg-action-btn webpg-none-btn">' +
+                        '<a class="webpg-toolbar-btn-none">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_decrypted-signature-bad.png" class="webpg-li-icon"/>' +
+                            _('Do not use WebPG for this message') +
+                        '</a>' +
+                    '</li>' +
+                '</ul>' +
+            '</span>';
 
         if (webpg.gmail.gmailComposeType == "inline") {
             esBtn.html(action_menu);
             var canvasFrame = webpg.gmail.getCanvasFrame();
             var action_list_el = webpg.gmail.getCanvasFrameDocument().createElement("span");
+            webpg.jq(action_list_el).html(action_list);
             if (webpg.gmail.getCanvasFrame().find(".Hp").length < 1) {
-                webpg.jq(action_list_el).html(action_list);
                 navDiv.context.ownerDocument.querySelector('.aDh').appendChild(action_list_el);
             } else {
-                webpg.jq(action_list_el).html(action_list);
                 navDiv.context.ownerDocument.querySelector('div>.nH.nH .aaZ, div>.nH.nH .ip.adB').firstChild.appendChild(action_list_el);
             }
+            webpg.gmail.action_list = webpg.jq(action_list_el).find('ul.webpg-action-list');
+            webpg.inline.createWebPGActionMenu(action_list_el, esBtn);
         } else {
             esBtn.html(action_menu + action_list);
+            webpg.gmail.action_list = esBtn.find('ul.webpg-action-list');
+            webpg.inline.createWebPGActionMenu(esBtn, esBtn);
         }
 
         esBtn.click(function(e) {
-            var list = webpg.jq(this).closest('.webpg-modified').find('.webpg-action-list');
-            list[0].style.display = (list[0].style.display == "inline") ? "none" : "inline";
-        }).bind('mouseleave', function(e) {
-            if (webpg.gmail.gmailComposeType != "inline") {
-                var list = webpg.jq(this).closest('.webpg-modified').find('.webpg-action-list');
-                if (list[0].style.display == "inline")
-                    webpg.jq(this).click();
+            if (e.target.className != "webpg-subaction-btn"
+            &&  e.target.parentElement.className != "webpg-subaction-btn") {
+                webpg.gmail.action_list.css({
+                    'display': (webpg.gmail.action_list[0].style.display == 'inline') ? 'none' : 'inline'
+                });
+                webpg.gmail.action_list.find('.webpg-subaction-list').hide();
+                if (webpg.gmail.gmailComposeType == "inline") {
+                    webpg.gmail.action_list.find('ul.webpg-subaction-list').css({'top': 'auto', 'bottom': '0'});
+                }
             }
         });
 
-        esBtn.closest('.webpg-modified').find(".webpg-action-btn").click(function(e) {
-            var newIcon = webpg.jq(this).find("img")[0];
-            var newText = webpg.jq(this).find("a").text();
-            
+        webpg.gmail.action_list.bind('mouseleave', function(e) {
+            webpg.jq(this).hide();
+        });
+
+        webpg.gmail.action_list.find('a').click(function(e) {
+            var newIcon = (this.id.indexOf("0x") > -1) ?
+                webpg.jq(this).parent().parent().parent().find('a img')[0] :
+                webpg.jq(this).find("img")[0];
+            var newText = (this.id.indexOf("0x") > -1) ? 
+                webpg.jq(this).parent().parent().parent().find('a').first().text() :
+                webpg.jq(this).text();
+
             if (webpg.gmail.gmailComposeType == "inline") {
-                this.parentNode.style.display = "none";
                 newText = "WebPG";
+                esBtn.click();
             }
-            
-            webpg.jq(this).closest('.webpg-modified').find("#webpg-current-action")
+
+            webpg.jq(this).closest('.webpg-modified').find(".webpg-current-action")
                 .html("<img src='" + newIcon.src + "' height='17' " +
                 "width='17'/>" + webpg.utils.escape(newText));
 
-            var action = this.id.split("-")[1];
+            var action = this.className.split("-")[2];
 
             switch (action) {
 
-                case "crypt":
+                case "encrypt":
                     webpg.gmail.removeStatusLine();
                     webpg.gmail.checkRecipients();
                     webpg.gmail.action = 1;
+                    esBtn.attr('data-tooltip', _("Encrypt"));
                     break;
 
                 case "sign":
                     webpg.gmail.removeStatusLine();
                     webpg.gmail.action = 2;
+                    esBtn.attr('data-tooltip', _("Sign Only"));
                     break;
 
-                case "scrypt":
+                case "cryptsign":
                     webpg.gmail.removeStatusLine();
                     webpg.gmail.checkRecipients();
                     webpg.gmail.action = 3;
+                    esBtn.attr('data-tooltip', _("Sign and Encrypt"));
                     break;
 
-                case "symmetric":
+                case "symcrypt":
                     webpg.gmail.removeStatusLine();
                     webpg.gmail.action = 4;
+                    esBtn.attr('data-tooltip', _("Symmetric Encryption"));
                     break;
 
                 default:
                     webpg.gmail.removeStatusLine();
                     webpg.gmail.action = 0;
+                    esBtn.attr('data-tooltip', _("Do not use WebPG for this message"));
+            }
+
+            webpg.gmail.signers = (this.id.search("0x") == 0) ?
+                    [e.currentTarget.id.substr(2)] : null;
+
+            if (this.id.search("0x") == 0) {
+                webpg.jq(this).parent().parent().find('a img').css({'opacity': '0'});
+                webpg.jq(this).find('img').css({'opacity': '1.0'});
             }
         });
     },

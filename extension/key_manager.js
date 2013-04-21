@@ -1779,6 +1779,10 @@ webpg.keymanager = {
             }
             console.log(".*-key-option-button pressed..", params);
             if (refresh) {
+                var default_key = webpg.preferences.default_key.get();
+                webpg.background.webpg.secret_keys = webpg.plugin.getPrivateKeyList();
+                for (var sKey in webpg.background.webpg.secret_keys)
+                    webpg.background.webpg.secret_keys[sKey].default = (sKey == default_key);
                 if (params[1] == "subkey")
                     params[1] = "private";
                 webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
@@ -2148,6 +2152,8 @@ webpg.keymanager = {
         }).click(function(e) {
             var keyid = this.id.substr(-16);
             webpg.preferences.default_key.set(keyid);
+            for (var sKey in webpg.background.webpg.secret_keys)
+                webpg.background.webpg.secret_keys[sKey].default = (sKey == keyid);
             var enable_element = webpg.jq('#check-' + this.id.substr(-16))[0];
             var enabled_keys = webpg.preferences.enabled_keys.get();
             if (enabled_keys.indexOf(keyid) == -1) {

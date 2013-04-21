@@ -3,13 +3,16 @@
     display:inline-block;
     width: auto;
 }
-#webpg-action-menu img {
+#webpg-action-menu .webpg-current-action img {
     position:relative;
     top:4px;
     left:-4px;
 }
 #webpg-action-menu.rtl img {
     padding-left: 8px;
+}
+.webpg-subaction-btn {
+    top: -1px;
 }
 .webpg-action-list-icon {
     display:inline-block;
@@ -25,40 +28,6 @@
     opacity:0.7;
     content:"\2193";
 }
-.webpg-action-list {
-    position:absolute;
-    top:100%;
-    left:0;
-    z-index:9999;
-    float:left;
-    display:none;
-    min-width:130px;
-    _width:130px;
-    padding:0;
-    margin:0;
-    list-style:none;
-    background-color:#ffffff;
-    border-color:#ccc;
-    border-color:rgba(0, 0, 0, 0.2);
-    border-style:solid;
-    border-width:1px;
-    -webkit-border-radius:4px;
-    -moz-border-radius:4px;
-    border-radius:4px;
-    -webkit-box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);
-    box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);
-    -webkit-background-clip:padding-box;
-    -moz-background-clip:padding;
-    background-clip:padding-box;
-    *border-right-width:2px;
-    *border-bottom-width:2px;
-    text-align:left;
-}
-.webpg-action-list.webpg-gmail-compose-inline {
-    bottom: 36px;
-    top: auto;
-}
 .webpg-li-icon {
     width:20px;
     height:20px;
@@ -68,46 +37,13 @@
     display:inline-block;
     position:relative;
 }
-.webpg-action-list li {
-    font-size:12px;
-    height: 28px;
-    line-height: 24px;
-    position:relative;
-    padding:0 6px 2px 6px;
-    display:block;
-    float: none;
-}
-.webpg-action-list li:hover {
-    background-color:#e6e6e6;
-    background-position:0 -15px;
-    -webkit-transition:background-position 0.1s linear;
-    -moz-transition:background-position 0.1s linear;
-    -ms-transition:background-position 0.1s linear;
-    -o-transition:background-position 0.1s linear;
-    transition:background-position 0.1s linear;
-}
-.webpg-action-btn a {
-    text-decoration:none !important;
-    display:block;
-    color:black;
-}
-.webpg-action-list a {
-    display: block;
-    text-decoration:none;
-    color:black !important;
-    position: relative;
-    height: 32px;
-    text-shadow: none;
-    cursor: pointer;
+.webpg-subaction-list {
+    background: #fff;
 }
 .webpg-status-line {
     color:#f11;
     font-size:13px;
     text-shadow:#886 0.5px 1px 1px;
-/*    background-color:#fff;*/
-/*    -webkit-box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);*/
-/*    -moz-box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);*/
-/*    box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);*/
     border-radius:3px;
 }
 .webpg-gmail-status-line {
@@ -130,11 +66,11 @@ div.webpg-gmail-status-line {
     #webpg-action-menu.webpg-gmail-compose-inline {
         top:0;
     }
-    #webpg-current-action {
+    .webpg-current-action {
         position:relative;
         top:-3px;
     }
     .webpg-action-list-icon {
-        top:12px;
+        top: 10px;
     }
 }
