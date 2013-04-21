@@ -33,6 +33,9 @@ body{
     width:48px;
     padding-right:6px;
 }
+#private_keylist {
+    min-height:400px;
+}
 #trust-header {
     font-size:16px;
     text-align:left;
@@ -317,6 +320,44 @@ ul.expand ul
     display:inline;
     text-shadow:1px 1px 1px #000000;
 }
+.pubkey-search {
+    width: 100%;
+}
+.pubkey-search label {
+    position:absolute;
+    right:328px;
+    margin-top:4px;
+    font-size:1em;
+    font-weight:bold;
+}
+.pubkey-search input {
+    position:absolute;
+    right:20px;
+    width:300px;
+}
+#window_functions {
+    width:100%;
+    text-align:right;
+    clear:left;
+}
+#error_help {
+    text-align: center;
+    display: inline;
+    text-shadow: #000 1px 1px 1px;
+    color: #fff;
+    font-size: 12px;
+}
+#help_text {
+    display: block;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    z-index: 10;
+    padding: 8px 5px 8px 5px;
+    margin-right: -5px;
+    background-color: #ff6600;
+    min-width: 200px;
+}
 </style>
 </head>
 <body>
@@ -327,21 +368,21 @@ ul.expand ul
         <span class="webpg-info-version"><span id="webpg-info-version-string"></span>
     </ul>
     <div id="tabs-2">
-        <div id="private_keylist" style="min-height:400px;">
+        <div id="private_keylist">
             <div class="ui-accordion-left"></div>
         </div>
     </div>
     <div id="tabs-3">
-        <div style="width: 100%;">
-            <label id="pubkey-search-lbl" for="pubkey-search" style="position:absolute;right:328px;margin-top:4px;font-size:1em;font-weight:bold;"></label>
-            <input style="position:absolute;right:20px;width:300px;" class="ui-corner-all ui-widget ui-state-default" id="pubkey-search"/><br/><br/>
+        <div class='pubkey-search'>
+            <label id="pubkey-search-lbl" for="pubkey-search"></label>
+            <input class="ui-corner-all ui-widget ui-state-default" id="pubkey-search"/><br/><br/>
         </div>
         <div id="public_keylist">
             <div class="ui-accordion-left"></div>
         </div>
     </div>
     <br/>
-    <div id="window_functions" style="width:100%; text-align:right; clear:left;">
+    <div id="window_functions">
         <br/><br/><input type='button' id='close' value='Finished'>
     </div>
 </div>

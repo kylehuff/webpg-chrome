@@ -285,8 +285,8 @@ webpg.keymanager = {
                     }
                     var helper_arrow = document.createElement('div');
                     webpg.jq(helper_arrow).html('' +
-                        '<div id="error_help" style="text-align: center; display: inline; text-shadow: #000 1px 1px 1px; color: #fff; font-size: 12px;">' +
-                        '<div id="help_text" style="display: block; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; z-index: 10; padding: 8px 5px 8px 5px; margin-right: -5px; background-color: #ff6600; min-width: 200px;"></div>' +
+                        '<div id="error_help">' +
+                        '<div id="help_text"></div>' +
                         '<span style="margin-left: 94px;"><img width="30px" src="skin/images/help_arrow.png"></span>' +
                         '</div>');
                     helper_arrow.style.position = 'absolute';

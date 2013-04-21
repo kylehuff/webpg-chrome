@@ -232,7 +232,7 @@ webpg.background = {
 
             case 'verify':
                 if (request.data && request.data.length > 0) {
-                    content = request.data;
+                    var content = request.data;
                     lowerBlock = content.match(/(-----BEGIN PGP.*?)\n.*?\n\n/gim);
                     if (lowerBlock && lowerBlock.length > 1) {
                         content.substr(0, content.indexOf(lowerBlock[1]) + lowerBlock[1].length)

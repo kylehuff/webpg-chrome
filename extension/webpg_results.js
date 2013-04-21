@@ -381,9 +381,6 @@ webpg.inline_results = {
                                                 } else {
                                                     var new_public_key = true;
                                                 }
-<!--                                                email = (keyobj.email.length > 1) ? "&lt;<a href=\"mailto:" + scrub(keyobj.email) + "\">" + scrub(keyobj.email) +-->
-<!--                                                    "</a>&gt;" : _("no email address provided");-->
-<!--                                                webpg.jq('#signature_text').html("<span class=\"uid_line\">" + scrub(keyobj.name) + " " + scrub(email) + "</span>");-->
                                                 webpg.jq('#signature_text').html(_("Names/UIDs on Key") + ":");
                                                 if (keyobj.revoked) {
                                                     webpg.jq('#footer').addClass("signature_bad_sig");

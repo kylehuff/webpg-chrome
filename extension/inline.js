@@ -54,23 +54,6 @@ webpg.inline = {
             return;
 
         webpg.inline.existing_iframes = [];
-        // Killing this, since I don't think we need it anymore...
-//        var ifrms = doc.querySelectorAll("iframe");
-
-//        for (var ifrm in ifrms) {
-//            if (!isNaN(ifrm) && ifrms[ifrm].className.indexOf("webpg-") == -1) {
-//                webpg.inline.existing_iframes.push(ifrms[ifrm]);
-//                try {
-//                    ifrms[ifrm].contentDocument.removeEventListener("contextmenu",
-//                        webpg.overlay.contextHandler, true);
-//                    ifrms[ifrm].contentDocument.addEventListener("contextmenu",
-//                        webpg.overlay.contextHandler, true);
-//                    webpg.inline.PGPDataSearch(ifrms[ifrm].contentDocument);
-//                } catch (err) {
-//                    console.log(err.message);
-//                }
-//            }
-//        }
 
         var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
         // Retrieve a reference to the appropriate window object
@@ -316,6 +299,7 @@ webpg.inline = {
                     range.setEnd(node, idx + search.length);
 
                     webpg.inline.PGPBlockParse(range, node, blockType, gmail);
+
                     range.detach();
                     idx = 0;
                 }
@@ -332,7 +316,7 @@ webpg.inline = {
             end - <int> The last position of the block detected
             node - <object> The node we are currently working on
     */
-    ignoreInners: function(idx, end,node) {
+    ignoreInners: function(idx, end, node) {
         if  (end == -1)
             return -1;
 
@@ -429,16 +413,16 @@ webpg.inline = {
                 scontent = phtml;
         }
 
-        console.log("scontent:\n" + scontent);
-        console.log("phtml:\n" + phtml);
-        console.log("html:\n" + html);
+//        console.log("scontent:\n" + scontent);
+//        console.log("phtml:\n" + phtml);
+//        console.log("html:\n" + html);
 
         if (html.search(/^\s*?(-----BEGIN PGP.*?)/gi) > -1
         && html.search(/^.*?(-----BEGIN PGP.*?<br>)/gim) == -1
         && html.search(/^.*?(<br>-----BEGIN PGP.*?)/gim) == -1
         && html.search(/^.*?(<br>Version.*?)/gim) == -1
         && html.search(new RegExp("(&(.){1,4};)", "g")) == -1) {
-            console.log("using html");
+//            console.log("using html");
             scontent = html;
         } else if ((html.search(/.*?(-----BEGIN PGP.*?-----<br>)/gim) > -1
         || html.search(/^.*?(<br>-----BEGIN PGP.*?)/gim) > -1
@@ -456,7 +440,7 @@ webpg.inline = {
                     .replace(new RegExp("<div[^>]*>(.*?)</div>", "gim"), "$1")
                     .replace(/<br>/gim, "\n")
                     .replace(wbrReg, "");
-                console.log("using html cleaned for gmail");
+//                console.log("using html cleaned for gmail");
             } else {
                 if (gmail) {
                     phtml = webpg.utils.linkify(phtml).replace(new RegExp("<div[^>]*></div>", "gim"), "")
@@ -466,7 +450,7 @@ webpg.inline = {
                     && phtml.search(RegExp("\n\n.*?\n-----BEGIN PGP.*?-----", "gim")) > -1)
                         phtml = phtml.replace(RegExp("\n(\n.*?\n-----BEGIN PGP.*?-----)", "gim"), "$1");
                 }
-                console.log("using phtml");
+//                console.log("using phtml");
                 scontent = webpg.utils.linkify(phtml);
             }
         } else {
@@ -478,23 +462,17 @@ webpg.inline = {
             }
 
             scontent = scontent.replace(new RegExp(" " + String.fromCharCode(160).toString() + " ", "gim"), " \n  ")
-                .replace(new RegExp(String.fromCharCode(160).toString(), "gim"), " ");
+                            .replace(new RegExp(String.fromCharCode(160).toString(), "gim"), " ");
 
             if (scontent.search(new RegExp("<\\s[^>]+\\s>", "gim")) > -1
             && html.search(new RegExp("<\\s[^>]+\\s>", "gim")) == -1)
                 scontent = scontent.replace(new RegExp("<\\s([^>]+)\\s>", "gim"), "<$1>");
 
-//            if (gmail) {
-//                if (html.match(new RegExp("<a[^>]*>(.*?)</a>", "gim")) > -1)
-//                    scontent = webpg.utils.linkify(scontent);
-//                scontent = webpg.utils.linkify(scontent);
-//            }
-
             if (html.search(new RegExp("<div[^>]*><br><br>.*?-----BEGIN PGP.*?-----", "gim")) > -1
             && scontent.search(RegExp("\n\n.*?\n-----BEGIN PGP.*?-----", "gim")) > -1)
                 scontent = scontent.replace(RegExp("\n(\n.*?\n-----BEGIN PGP.*?-----)", "gim"), "$1");
 
-            console.log("using scontent");
+//            console.log("using scontent");
         }
 
         if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
@@ -1166,7 +1144,7 @@ webpg.inline = {
         });
 
         webpg.jq(toolbar).find('.webpg-action-list a').click(function(e) {
-            var textarea = e.currentTarget.parentNode.parentNode.parentNode.parentNode.nextSibling;
+            var textarea = toolbar.nextSibling;
             var selection = (webpg.inline.toolbarTextSelection == null) ?
                 {'selectionText': textarea.value || textarea.innerText,
                     'pre_selection': '',

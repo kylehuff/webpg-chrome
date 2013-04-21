@@ -517,7 +517,7 @@ webpg.gmail = {
             navDiv - <obj> The navigation div from the gmail interface we will be working with
     */
     addSendOptionBtn: function(navDiv) {
-        console.log("Add Send button");
+        //console.log("Add Send button");
         var _ = webpg.utils.i18n.gettext;
         // Set the default action according to the user preference
         webpg.gmail.action = (webpg.gmail.sign_gmail=='true') ? 2 : 0;
@@ -782,7 +782,7 @@ webpg.gmail = {
             if (msg_container.length > 0) {
                 // Determine if we are in plaintext mode or inline mode
                 var plaintext = (webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=ishtml]").val() != "1");
-                console.log((plaintext) ? "plaintext" : "richtext");
+                //console.log((plaintext) ? "plaintext" : "richtext");
                 if (msg_container[0].nodeName == "TEXTAREA") {
                     msg_container.val(message);
                 } else {
@@ -933,9 +933,9 @@ webpg.utils.sendRequest({
 
                 // create an observer instance
                 var observer = new MutationObserver(function(mutations) {
-                  mutations.forEach(function(mutation) {
-                    webpg.gmail.gmailChanges(mutation);
-                  });
+                    mutations.forEach(function(mutation) {
+                        webpg.gmail.gmailChanges(mutation);
+                    });
                 });
 
                 // configuration of the observer:
@@ -948,12 +948,14 @@ webpg.utils.sendRequest({
                                 // We need to filter based on the URL for mozilla, as we do
                                 //  not have the option to set the overlay by URL
                                 if (aEvent.originalTarget.location.host == "mail.google.com") {
+                                    observer.disconnect();
                                     observer.observe(webpg.gmail.getCanvasFrameDocument(), config);
                                 }
                             },
                         true
                     );
                 } else {
+//                    console.log("Observing");
                     observer.observe(document.querySelector('body'), config);
                 }
             }
