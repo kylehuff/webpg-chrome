@@ -136,9 +136,10 @@ webpg.dialog = {
                                 }
                             }
                         }
+                        webpg.inline.init(document, "window");
                         webpg.inline.PGPDataSearch(document);
                     } else if (webpg.dialog.qs.dialog_type == "editor") {
-                        webpg.inline.PGPDataSearch(document);
+                        webpg.inline.PGPDataSearch(document, false, false, webpg.jq("#keylist_form")[0]);
                     }
                     webpg.dialog.populateKeylist(webpg.pubkeylist, webpg.dialog.qs.dialog_type);
                 } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
@@ -166,7 +167,6 @@ webpg.dialog = {
                                 }
                             }
                         }
-                        webpg.inline.PGPDataSearch(document);
                     }
                 }
             },
