@@ -110,6 +110,8 @@ webpg.background = {
 
         // set the default response to null
         var response = null;
+        if (sender==undefined)
+            sender = {};
 
         if (webpg.utils.detectedBrowser['vendor'] == 'mozilla'
         && webpg.utils.detectedBrowser['product'] != 'thunderbird') {
