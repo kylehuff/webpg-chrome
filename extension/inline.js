@@ -462,7 +462,7 @@ webpg.inline = {
             }
 
             scontent = scontent.replace(new RegExp(" " + String.fromCharCode(160).toString() + " ", "gim"), " \n  ")
-                            .replace(new RegExp(String.fromCharCode(160).toString(), "gim"), " ");
+                .replace(new RegExp(String.fromCharCode(160).toString(), "gim"), " ");
 
             if (scontent.search(new RegExp("<\\s[^>]+\\s>", "gim")) > -1
             && html.search(new RegExp("<\\s[^>]+\\s>", "gim")) == -1)
