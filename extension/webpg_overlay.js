@@ -33,25 +33,36 @@ webpg.overlay = {
             if (typeof(webpg.jq)=='undefined')
                 webpg.jq = webpg.thunderbird.utils.loadjQuery(window);
 
-        // We don't want to run on certain pages
+        // We don't want to run on certain things on certain pages
+        
+        // Do not inline parse the following domains
         //  TODO: consult a list of user defined domains/pages to ignore
-        webpg.overlay.blackListedDomains = [
+        webpg.overlay.parseBlacklist = [
+            // Lets not be so hasty
+            {"domain": "hastebin.com", "allow": ["\/raw\/"]},
+            // Pasty bastard
+            {"domain": "pastebin.com", "allow": ["\/raw.php"]},
+            // Don't paste me bro!
+            {"domain": "dpaste.com", "allow": ["\/.*?\/plain\/", "\/.*?\/html\/"]},
+        ];
+
+        // Do not add toolbar item for the following domains
+        webpg.overlay.toolbarBlacklist = [
+            // google mail is already enhanced with WebPG
+            "mail.google.com",
+            // Nothing against Mozilla Add-ons, but strange things happen
+            "addons.mozilla.org",
             // Micro PGP signatures don't exist yet
             "twitter.com",
-            // Google translate doesn't yet decrypt PGP packets
+            // Google translate doesn't decrypt PGP packets (yet)
             "translate.google.com",
             // You can't pin me down
             "pintrist.com",
             // You have no friends anyway
-            "facebook.com"
+            "facebook.com",
+            // Lets not be so hasty
+            "hastebin.com",
         ];
-
-        var proceed = webpg.overlay.blackListedDomains.every(function(bldomain) {
-            return (webpg.doc.location.host.indexOf(bldomain) == -1);
-        });
-
-        if (!proceed)
-            return false;
 
         if (webpg.utils.detectedBrowser['vendor'] == 'google') {
             webpg.overlay.insert_target = null;

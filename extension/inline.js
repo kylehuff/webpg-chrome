@@ -187,15 +187,7 @@ webpg.inline = {
                     node.offsetHeight > 30 &&
                     node.offsetLeft >= node.offsetParent.scrollLeft) {
 
-                    // Do not add toolbar item for the following domains
-                    var blackListedDomains = [
-                        // google mail is already enhanced with WebPG
-                        "mail.google.com",
-                        // Mozilla Add-ons
-                        "addons.mozilla.org",
-                    ];
-
-                    var proceed = blackListedDomains.every(function(bldomain) {
+                    var proceed = webpg.overlay.toolbarBlacklist.every(function(bldomain) {
                         return (doc.location.host.indexOf(bldomain) == -1);
                     });
 
@@ -205,10 +197,30 @@ webpg.inline = {
             }
         }
 
+        var proceed = webpg.overlay.parseBlacklist.every(function(bldomain) {
+            if (webpg.doc.location.host.indexOf(bldomain['domain']) != -1) {
+                var stop = bldomain['allow'].every(function(allowance) {
+                    return (webpg.doc.location.href.search(new RegExp(webpg.doc.location.origin + allowance)) != 0);
+                });
+                if (stop)
+                    return false;
+            }
+            return true;
+        });
+
+        if (!proceed)
+            return false;
+
         var haveStart = false;
         var blockType;
         root = (root) ? root : doc.documentElement;
         var tw = doc.createTreeWalker(root, NodeFilter.SHOW_TEXT, textFilter, false);
+
+        var acceptNodes = [
+            "DIV",
+            "PRE",
+            "SPAN",
+        ];
 
         while((node = tw.nextNode())) {
             idx = 0;
@@ -216,16 +228,17 @@ webpg.inline = {
             while(node && true) {
                 if(!haveStart) {
 
-                    if (node.parentNode.nodeName == "SCRIPT")
+                    var stop = acceptNodes.every(function(acceptNode) {
+                        return (node.parentNode.nodeName.indexOf(acceptNode) == -1);
+                    });
+
+                    if (stop)
                         break;
 
                     if (node.parentNode.className.indexOf("webpg-node-odata") != -1)
                         break;
 
                     if (node.textContent.indexOf(webpg.constants.PGPTags.PGP_DATA_BEGIN, idx) == -1)
-                        break;
-
-                    if (node.parentNode && node.parentNode.nodeName == 'TEXTAREA')
                         break;
 
                     if (node.parentNode && node.parentNode.nodeName == 'PRE'
@@ -291,9 +304,8 @@ webpg.inline = {
                     idx = node.textContent.indexOf(search,
                         this.ignoreInners(idx, tryOne, node.textContent));
 
-                    if(idx == -1) {
+                    if(idx == -1)
                         break;
-                    }
 
                     haveStart = false;
                     range.setEnd(node, idx + search.length);
