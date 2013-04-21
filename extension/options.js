@@ -132,7 +132,7 @@ webpg.options = {
                 } else {
                     webpg.jq('#enable-decorate-inline-check')[0].checked = 
                         (webpg.preferences.decorate_inline.get() == 'true');
-                    if (!webpg.preferences.decorate_inline.get() == 'true'
+                    if (!webpg.jq('#enable-decorate-inline-check')[0].checked
                     || webpg.utils.detectedBrowser['product'] == "thunderbird")
                         webpg.jq("#inline-options-link").hide();
                 }
@@ -223,7 +223,7 @@ webpg.options = {
                             "<input type='radio' name='inline-format-radio' id='icon' /><label for='icon'>" + _("Icon") + "</label>" +
                             "</div>" +
                             "<div style='padding-top:12px' class='webpg-options-text'>" + _("Sample") + "</div>" +
-                            "<img id='inline-options-image' src='" + webpg.utils.resourcePath + "skin/images/examples/inline-formatting-" +
+                            "<img id='inline-options-image' style='max-width:610px;' src='" + webpg.utils.resourcePath + "skin/images/examples/inline-formatting-" +
                                 webpg.preferences.decorate_inline.mode() + ".png'/>"
                         );
                     } else {
@@ -255,16 +255,17 @@ webpg.options = {
                             } else {
                                 webpg.inline.mode = e.target.id;
                                 var pre = "<pre id='inline-options-pgp-test'>"
-                                    + webpg.jq("#inline-options-pgp-test").find(".webpg-node-odata").text()
+                                    + webpg.jq("#inline-options-pgp-test").text()
                                     + "</pre>";
                                 webpg.jq(pre).insertBefore("#inline-options-pgp-test").next().remove();
                             }
+                            webpg.inline.PGPDataSearch(document, false, false);
                         }
                     });
                     webpg.jq("#options-dialog").dialog({
                         'resizable': true,
                         'height': 420,
-                        'width': 620,
+                        'width': 630,
                         'modal': true,
                         'position': "top",
                         'buttons': [
@@ -277,6 +278,8 @@ webpg.options = {
                     ]}).parent().animate({"top": window.scrollY}, 1, function() {
                         document.activeElement.blur();
                         webpg.jq(this).animate({"top": 20}, 1);
+                        webpg.inline.mode = webpg.preferences.decorate_inline.mode();
+                        webpg.inline.PGPDataSearch(document, false, false);
                     });
                 });
 
