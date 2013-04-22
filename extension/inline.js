@@ -218,6 +218,7 @@ webpg.inline = {
             "DIV",
             "PRE",
             "SPAN",
+            "TT",
         ];
 
         while((node = tw.nextNode())) {
@@ -1259,12 +1260,14 @@ webpg.inline = {
             webpg.jq(control).hide();
             webpg.jq(this).parent().hide();
             webpg.jq(this.ownerDocument.getElementById(target_id)).show();
-            webpg.utils.sendRequest({
-                'msg': 'sendtoiframe',
-                'msg_to_pass': 'resizeiframe',
-                'target_id': target_id,
-                'iframe_id': target_id
-            });
+            if (webpg.inline.mode == "icon") {
+                webpg.utils.sendRequest({
+                    'msg': 'sendtoiframe',
+                    'msg_to_pass': 'resizeiframe',
+                    'target_id': target_id,
+                    'iframe_id': target_id
+                });
+            }
         });
 
         return badge;

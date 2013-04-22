@@ -676,7 +676,7 @@ webpg.keymanager = {
         var prev_key = null;
         var current_keylist = (type == 'public')? keylist : pkeylist;
         var tpublic_keylist = webpg.keymanager.pubkeylist; //webpg.plugin.getPublicKeyList();
-        var default_key = webpg.preferences.default_key.get();
+        var default_key_s = webpg.preferences.default_key.get();
         var existing_groups = webpg.preferences.group.get_group_names();
 
         if (!webpg.plugin.webpg_status.openpgp_detected)
@@ -700,7 +700,7 @@ webpg.keymanager = {
                 keyobj.className += ' primary_key';
                 var enabled = (enabled_keys.indexOf(key) != -1) ? 'checked' : '';
                 var status_text = (enabled) ? _("Enabled") : _("Disabled");
-                var default_key = (key == default_key) ? 'checked' : '';
+                var default_key = (key == default_key_s) ? 'checked' : '';
             }
             var status = _("Valid");
             var keyobj = document.createElement('div');
@@ -743,14 +743,22 @@ webpg.keymanager = {
                 if (webpg.preferences.enabled_keys.has(checked_id) && 
                     checked_id == webpg.preferences.default_key.get()){
                     webpg.jq(this).next().addClass('ui-state-active');
-                    return false
+                    webpg.jq(this).parent().children('.keyoption-help-text').html("<span style=\"color:f6f;\">" + _("Cannot unset your default key") + "</span>");
+                    return false;
                 }
                 if (this.checked && !webpg.preferences.default_key.get()) {
                     webpg.jq(this).next().next().click();
                     webpg.jq(this).next().next().next().addClass('ui-state-active');
                 }
-                (this.checked) ? webpg.preferences.enabled_keys.add(this.id.split("-")[1]) :
-                    webpg.preferences.enabled_keys.remove(this.id.split("-")[1]);
+                if (this.checked == true) {
+                    webpg.preferences.enabled_keys.add(checked_id);
+                    webpg.jq("#enable-private-" + checked_id).click();
+                } else {
+                    webpg.preferences.enabled_keys.remove(checked_id);
+                    webpg.jq("#disable-private-" + checked_id).click();
+                }
+//                (this.checked) ? webpg.preferences.enabled_keys.add(this.id.split("-")[1]) :
+//                    webpg.preferences.enabled_keys.remove(this.id.split("-")[1]);
                 (this.checked) ? webpg.jq(this).button('option', 'label', _('Enabled')) :
                     webpg.jq(this).button('option', 'label', _('Disabled'));
             });
@@ -1095,7 +1103,7 @@ webpg.keymanager = {
                         }
                         var sig_box = "<div id='sig-" + scrub(sig_keyid) + "-" + scrub(sig) + "' class='signature-box " + scrub(sig_class) + "'>" +
                             "<img src='skin/images/badges/48x48/" + scrub(sig_image) + "'>" + 
-                            "<div style='float:left; clear:right;width:80%;'><span class='signature-uid'>" + 
+                            "<div style='float:left;clear:right;width:80%;white-space:nowrap;'><span class='signature-uid'>" + 
                             tpublic_keylist[sig_keyid].name + status + "</span><br/\><span class='signature-email'>" + 
                             email + "</span><br/\><span class='signature-keyid'>" + sig_keyid + "</span><br/\>";
                         var date_created = (tpublic_keylist[key].uids[uid].signatures[sig].created == 0) ?
@@ -1283,11 +1291,15 @@ webpg.keymanager = {
 
             switch(params[0]) {
                 case "disable":
+                    if (params[1] == "private")
+                        webpg.preferences.enabled_keys.remove(params[2]);
                     webpg.plugin.gpgDisableKey(params[2]);
                     refresh = true;
                     break;
 
                 case "enable":
+                    if (params[1] == "private")
+                        webpg.preferences.enabled_keys.add(params[2]);
                     webpg.plugin.gpgEnableKey(params[2]);
                     refresh = true;
                     break;
@@ -2155,17 +2167,19 @@ webpg.keymanager = {
             for (var sKey in webpg.background.webpg.secret_keys)
                 webpg.background.webpg.secret_keys[sKey].default = (sKey == keyid);
             var enable_element = webpg.jq('#check-' + this.id.substr(-16))[0];
-            var enabled_keys = webpg.preferences.enabled_keys.get();
-            if (enabled_keys.indexOf(keyid) == -1) {
-                webpg.preferences.enabled_keys.add(keyid);
-                webpg.jq(enable_element).trigger('click');
-                webpg.jq(enable_element).next().html(webpg.jq(enable_element).next()[0].innerHTML.replace(_('Disabled'), _('Enabled')));
-            }
+            webpg.jq("#enable-private-" + keyid).click();
+            //var enabled_keys = webpg.preferences.enabled_keys.get();
+//            if (enabled_keys.indexOf(keyid) == -1) {
+//                webpg.preferences.enabled_keys.add(keyid);
+//                webpg.jq(enable_element).trigger('click');
+//                webpg.jq(enable_element).next().html(webpg.jq(enable_element).next()[0].innerHTML.replace(_('Disabled'), _('Enabled')));
+//                
+//            }
         }).parent().buttonset();
 
         webpg.jq('.enable-check').next().hover(
             function(e){
-                webpg.jq(this).parent().children('.keyoption-help-text').html(_("Enable this key for signing"));
+                webpg.jq(this).parent().children('.keyoption-help-text').html(_("Enable this key for GnuPG operations"));
             },
             function(e){
                 webpg.jq(this).parent().children('.keyoption-help-text').html("&nbsp;");
@@ -2177,7 +2191,7 @@ webpg.keymanager = {
                 if (input && input.checked) {
                     webpg.jq(this).parent().children('.keyoption-help-text').html(_("This is your default key"));
                 } else {
-                    webpg.jq(this).parent().children('.keyoption-help-text').html(_("Make this the default key for encryption operations"));
+                    webpg.jq(this).parent().children('.keyoption-help-text').html(_("Make this the default key for GnuPG operations"));
                 }
             },
             function(e){

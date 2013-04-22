@@ -82,6 +82,8 @@ webpg.inline_results = {
             sigObj - <obj> An object with information about a signature
             sigIdx - <int> The index of the signature within the keyring
     */
+    // TODO: Maybe move this to some place generic so we can use the same
+    //  generator on the key manager
     createSignatureBox: function(sigObj, sigIdx) {
         var _ = webpg.utils.i18n.gettext;
         var scrub = webpg.utils.escape;
@@ -249,15 +251,11 @@ webpg.inline_results = {
                     }
                     webpg.jq('#original_text').text(request.verify_result.original_text);
                     webpg.jq('#original_text').hide();
+                    sig_boxes = "<div class='signature-container'>";
                     for (var sig in request.verify_result.signatures) {
-                        var sig_boxes = "<div class='signature-container'>";
-                        for (var sig in request.verify_result.signatures) {
-                            sig_boxes += webpg.inline_results.
-                                createSignatureBox(request.verify_result.
-                                    signatures[sig], sig);
-                        }
-                        sig_boxes += "</div>";
-                        webpg.jq('#signature_text').append(sig_boxes);
+                        sig_boxes += webpg.inline_results.
+                            createSignatureBox(request.verify_result.
+                                signatures[sig], sig);
                         if (request.verify_result.signatures[sig].status == "GOOD") {
                             icon.src = "skin/images/badges/48x48/stock_signature-ok.png";
                             webpg.jq(icon).addClass('footer_icon');
@@ -311,6 +309,8 @@ webpg.inline_results = {
                             webpg.jq(document.createTextNode(" | " + _("Key not found on keyserver")))
                                 .insertBefore(webpg.jq('#footer').children().first());
                     }
+                    sig_boxes += "</div>";
+                    webpg.jq('#signature_text').append(sig_boxes);
                     webpg.jq('.refresh_key_link').click(function(){
                         webpg.utils.sendRequest({
                             "temp_context": true,

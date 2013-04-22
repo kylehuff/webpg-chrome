@@ -63,16 +63,19 @@ webpg.background = {
                 this would occur if the key was enabled and then the secret key was deleted. */
             webpg.default_key = webpg.preferences.default_key.get();
             webpg.secret_keys = webpg.plugin.getPrivateKeyList();
-            for (var sKey in webpg.secret_keys)
+            webpg.preferences.enabled_keys.clear();
+            for (var sKey in webpg.secret_keys) {
+                webpg.preferences.enabled_keys.add(sKey);
                 webpg.secret_keys[sKey].default = (sKey == webpg.default_key);
-            webpg.enabled_keys = webpg.preferences.enabled_keys.get();
-            var secret_keys = webpg.secret_keys;
-            var enabled_keys = webpg.enabled_keys;
-            for (var key in enabled_keys){
-                if (enabled_keys[key] in secret_keys == false){
-                    webpg.preferences.enabled_keys.remove(enabled_keys[key]);
-                }
             }
+            webpg.enabled_keys = webpg.preferences.enabled_keys.get();
+//            var secret_keys = webpg.secret_keys;
+//            var enabled_keys = webpg.enabled_keys;
+//            for (var key in enabled_keys){
+//                if (enabled_keys[key] in secret_keys == false){
+//                    webpg.preferences.enabled_keys.remove(enabled_keys[key]);
+//                }
+//            }
             webpg.preferences.group.refresh_from_config();
             if (webpg.utils.detectedBrowser['vendor'] == 'mozilla'
             && webpg.utils.detectedBrowser['product'] != 'thunderbird') {
