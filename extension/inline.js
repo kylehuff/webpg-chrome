@@ -1318,7 +1318,7 @@ webpg.inline = {
                         webpg.jq(iframe).toggle();
                     }
                 } catch (err) {
-                    console.log(err);
+//                    console.log(err);
                     return;
                 }
             } else if (request.msg == "show") {
@@ -1329,7 +1329,7 @@ webpg.inline = {
                         webpg.jq(iframe).show();
                     }
                 } catch (err) {
-                    console.log(err);
+//                    console.log(err);
                     return;
                 }
             }
@@ -1353,13 +1353,15 @@ webpg.inline = {
         Parameters:
             element - The HTML element that contained the PGP Data
     */
-    addResultsReplacementFrame: function(element) {
+    addResultsReplacementFrame: function(element, noninline) {
         var iframe = this.addResultsFrame();
         var doc = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.document :
             (webpg.inline.doc) ? webpg.inline.doc : document;
         iframe.style.minWidth = 300;
         if (element.style.width)
             iframe.style.width = element.style.width;
+        if (noninline)
+            iframe.style.display = 'inline';
         webpg.jq(iframe).insertAfter(webpg.jq(element));
         webpg.jq(element).hide();
         webpg.utils._onRequest.addListener(function(request) {

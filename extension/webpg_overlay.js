@@ -272,7 +272,7 @@ webpg.overlay = {
                     request.decrypt_status.block_type = webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
                 else if (!request.decrypt_status.error)
                     request.decrypt_status.block_type = webpg.constants.PGPBlocks.PGP_ENCRYPTED;
-                results_frame = webpg.inline.addResultsReplacementFrame(webpg.overlay.insert_target);
+                results_frame = webpg.inline.addResultsReplacementFrame(webpg.overlay.insert_target, true);
                 if (!request.decrypt_status.original_text)
                     request.decrypt_status.original_text = request.original_text;
                 var params = {
