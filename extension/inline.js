@@ -198,7 +198,7 @@ webpg.inline = {
         var proceed = webpg.overlay.parseBlacklist.every(function(bldomain) {
             if (webpg.doc.location.host.indexOf(bldomain['domain']) != -1) {
                 var stop = bldomain['allow'].every(function(allowance) {
-                    return (webpg.doc.location.href.search(new RegExp(webpg.doc.location.origin + allowance)) != 0);
+                    return (webpg.doc.location.pathname.search(new RegExp(allowance)) != 0);
                 });
                 if (stop)
                     return false;
