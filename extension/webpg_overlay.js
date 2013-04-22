@@ -173,8 +173,6 @@ webpg.overlay = {
                 }
             }
         } else if (request.msg == "insertEncryptedData") {
-            var doc = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ? content.document : document;
-
             if (webpg.overlay.prior_insert_target != null)
                 return false;
 
