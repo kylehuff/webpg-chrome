@@ -132,10 +132,10 @@
         <menu id="context-webpg" class="webpg-menuitem menu-iconic webpg-menu webpg-menu-webpg" src="chrome://webpg-firefox/skin/images/badges/32x32/webpg.png">
             <menupopup  id="webpg-contex-popup">
                 <menuitem class="webpg-menu-sign webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.PSIGN, {})"/>
-                <menuitem class="webpg-menu-verif webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.VERIF)"/>
+                <menuitem class="webpg-menu-verif webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.VERIF, {})"/>
                 <menuitem class="webpg-menu-crypt webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.CRYPT, {})"/>
                 <menuitem class="webpg-menu-cryptsign webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.CRYPTSIGN, {})"/>
-                <menuitem class="webpg-menu-decrypt webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.DECRYPT)"/>
+                <menuitem class="webpg-menu-decrypt webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.DECRYPT, {})"/>
                 <menuitem class="webpg-menu-import webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.IMPORT)"/>
                 <menuitem class="webpg-menu-export webpg-menuitem context-menu-item menuitem-iconic" oncommand="webpg.overlay.onContextCommand('context-menu', webpg.constants.overlayActions.EXPORT)"/>
                 <menuseparator/>
