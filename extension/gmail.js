@@ -562,7 +562,7 @@ webpg.gmail = {
 
         var action_list = '' +
             '<span style="z-index:4;">' +
-                '<ul class="webpg-action-list webpg-gmail-compose-' + webpg.gmail.gmailComposeType + '" style="display:none;">' +
+                '<ul class="webpg-action-list webpg-gmail-compose-' + webpg.gmail.gmailComposeType + '">' +
                     '<li class="webpg-action-btn">' +
                         '<a class="webpg-toolbar-encrypt">' +
                             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted.png" class="webpg-li-icon"/>' +

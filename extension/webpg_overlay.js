@@ -25,7 +25,7 @@ webpg.overlay = {
             aEvent - <event> The window event
     */
     init: function(aEvent) {
-        webpg.doc = (aEvent) ?
+        webpg.doc = (aEvent && aEvent.originalTarget) ?
             aEvent.originalTarget : document;
 
         if (webpg.utils.detectedBrowser['product'] == 'thunderbird'
@@ -87,35 +87,31 @@ webpg.overlay = {
         // Setup a listener for making changes to the page
         webpg.utils._onRequest.addListener(webpg.overlay._onRequest);
 
-        // Check if inline formatting is enabled and setup
-        //  required parsers
+        // Retrieve the users secret keys
         webpg.utils.sendRequest({
-            'msg': "decorate_inline" },
+            'msg': "private_keylist" },
             function(response) {
-                if (response.result.decorate_inline == "true") {
-                    var mode = response.result.mode;
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        if (!browserWindow)
-                            var browserWindow = webpg.utils.mozilla.getChromeWindow();
-                        if (!webpg.plugin)
-                            webpg.plugin = browserWindow.webpg.plugin;
-
-                        // Add a reference to the secret keys information store
-                        webpg.inline.secret_keys = browserWindow.webpg.secret_keys;
-                        // Begin parsing the document for PGP Data
-                        webpg.inline.init(webpg.doc, mode);
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        webpg.utils.sendRequest({
-                            'msg': "private_keylist" },
-                            function(response) {
-                                // Add a reference to the secret keys information store
-                                webpg.inline.secret_keys = (response.result) ?
-                                    response.result : [];
-                                webpg.inline.init(document, mode);
+                // Add a reference to the secret keys information store
+                webpg.inline.secret_keys = (response.result) ?
+                    response.result : [];
+                // Check if inline formatting is enabled and setup
+                //  required parsers
+                webpg.utils.sendRequest({
+                    'msg': "decorate_inline" },
+                    function(response) {
+                        if (response.result.decorate_inline == "true") {
+                            var mode = response.result.mode;
+                            if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                                if (!browserWindow)
+                                    var browserWindow = webpg.utils.mozilla.getChromeWindow();
+                                if (!webpg.plugin)
+                                    webpg.plugin = browserWindow.webpg.plugin;
                             }
-                        );
+                            // Begin parsing the document for PGP Data
+                            webpg.inline.init(webpg.doc, mode);
+                        }
                     }
-                }
+                );
             }
         );
     },
