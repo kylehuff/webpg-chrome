@@ -724,7 +724,8 @@ webpg.inline = {
             'opacity': '0.7', 'content': "\\2193",
         });
         webpg.jq(toolbar).find('.webpg-toolbar-sign-callout').css({
-            'display': (Object.keys(webpg.inline.secret_keys).length < 2) ? 'none' : 'inline-block',
+            'display': (webpg.inline.default_key() == undefined
+                || Object.keys(webpg.inline.secret_keys).length < 2) ? 'none' : 'inline-block',
         });
         webpg.jq(toolbar).find('ul.webpg-action-list, ul.webpg-subaction-list').css({
             'position': 'absolute', 'top': '100%', 'left': '-2px',
@@ -864,8 +865,11 @@ webpg.inline = {
         webpg.jq(toolbar).find('.webpg-subaction-list li').hover(
             function(e) {
                 this.parentElement.seen = true;
-                var toolbarStatus = (!gmail) ? webpg.jq(toolbar).find('.webpg-toolbar-status') : gmail.children().first();
-                this.oldStatusText = toolbarStatus.html();
+                var toolbarStatus = (!gmail) ? webpg.jq(toolbar).find('.webpg-toolbar-status') : gmail.find('.webpg-action-text');
+                if (!toolbar.firstStatusText)
+                    toolbar.firstStatusText = toolbarStatus.text();
+                if (!this.oldStatusText)
+                    this.oldStatusText = toolbarStatus.text();
                 if (e.type == "mouseenter" && toolbarStatus) {
                     var key = webpg.jq(this).find('a')[0].id.substr(2);
                     var keyObj = webpg.inline.secret_keys[key];
@@ -876,7 +880,8 @@ webpg.inline = {
                         var keyText = (keyObj.email.length > 0) ? webpg.utils.escape(keyObj.email) :
                             webpg.utils.escape(keyObj.name);
                         keyText += " (" + detail + ")";
-                        toolbarStatus.text(_("Use") + " " + keyText);
+                        this.newStatusText = _("Use") + " " + keyText;
+                        toolbarStatus.text(this.newStatusText);
                     }
                 } else {
                     if (this.oldStatusText)
@@ -884,9 +889,11 @@ webpg.inline = {
                 }
             },
             function(e) {
-                var toolbarStatus = (!gmail) ? webpg.jq(toolbar).find('.webpg-toolbar-status') : gmail.children().first();
+                var toolbarStatus = (!gmail) ? webpg.jq(toolbar).find('.webpg-toolbar-status') : gmail.find('.webpg-action-text');
+                if (gmail && toolbar.oldStatusText != gmail.find('.webpg-action-text').text())
+                    this.oldStatusText = toolbar.firstStatusText;
                 if (this.oldStatusText)
-                    toolbarStatus.html(this.oldStatusText);
+                    toolbarStatus.text(this.oldStatusText);
             }
         );
 
@@ -1170,6 +1177,19 @@ webpg.inline = {
             webpg.overlay.insert_target = textarea;
             var link_class = e.currentTarget.className;
 
+            var signers = (this.id.indexOf("0x") > -1) ? null : [webpg.inline.default_key()];
+
+            if ((link_class == "webpg-toolbar-sign"
+            || link_class == "webpg-toolbar-cryptsign")
+            && this.id.indexOf("0x") == -1
+            && webpg.inline.default_key() == undefined) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+                e.stopPropagation();
+                webpg.jq(this).next().find('.webpg-subaction-btn').click();
+                return false;
+            }
+
             var action = (link_class == "webpg-toolbar-encrypt") ?
                 webpg.constants.overlayActions.CRYPT :
                 (link_class == "webpg-toolbar-cryptsign") ?
@@ -1208,7 +1228,7 @@ webpg.inline = {
                 signers = (e.currentTarget
                         && e.currentTarget.id
                         && e.currentTarget.id.search("0x") == 0) ?
-                    [e.currentTarget.id.substr(2)] : null;
+                    [e.currentTarget.id.substr(2)] : signers;
                     
                 webpg.overlay.onContextCommand(null, action, {'source': 'toolbar', 'dialog': (isSecure(element) == true), 'signers': signers}, selection);
             }

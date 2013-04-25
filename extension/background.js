@@ -221,7 +221,9 @@ webpg.background = {
             case 'sign':
                 var signers = (typeof(request.signers)!=undefined
                         && request.signers != null
-                        && request.signers.length > 0) ? request.signers : [webpg.preferences.default_key.get()]
+                        && request.signers.length > 0) ? request.signers : 
+                        webpg.preferences.default_key.get() != ""
+                            ? [webpg.preferences.default_key.get()] : [];
                 var sign_status = webpg.plugin.gpgSignText(signers,
                     request.selectionData.selectionText, 2);
                 response = sign_status;

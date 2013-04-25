@@ -94,6 +94,18 @@ webpg.overlay = {
                 // Add a reference to the secret keys information store
                 webpg.inline.secret_keys = (response.result) ?
                     response.result : [];
+                try {
+                    Object.keys(response.result);
+                } catch (err) {
+                    console.log(err);
+                    webpg.inline.secret_keys = {};
+                }
+                webpg.inline.default_key = function() {
+                    for (var key in webpg.inline.secret_keys) {
+                        if (webpg.inline.secret_keys[key].default == true)
+                            return key;
+                    }
+                }
                 // Check if inline formatting is enabled and setup
                 //  required parsers
                 webpg.utils.sendRequest({

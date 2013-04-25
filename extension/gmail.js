@@ -552,7 +552,7 @@ webpg.gmail = {
             '<span class="webpg-action-menu">' +
                 '<span class="webpg-current-action" style="line-height:24px;">' +
                     '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + "skin/images/badges/32x32/webpg.png" + '" width="17" height="17"/>' +
-                    'WebPG' +
+                    '<span class="webpg-action-text">WebPG</span>' +
                 '</span>' +
                 '&nbsp;' +
                 '<span class="webpg-action-list-icon">' +
@@ -654,10 +654,26 @@ webpg.gmail = {
         });
 
         webpg.gmail.action_list.find('a').click(function(e) {
+            var action = this.className.split("-")[2];
+
+            var signers = (this.id.indexOf("0x") > -1) ? null : [webpg.inline.default_key()];
+
+            if ((action == "sign"
+            || action == "cryptsign")
+            && this.id.indexOf("0x") == -1
+            && webpg.inline.default_key() == undefined) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+                e.stopPropagation();
+                webpg.jq(this).next().find('.webpg-subaction-btn').click();
+                return false;
+            }
+
             var newIcon = (this.id.indexOf("0x") > -1) ?
-                webpg.jq(this).parent().parent().parent().find('a img')[0] :
+                webpg.jq(this).parent().parent().parent().find('a img.webpg-li-icon')[0] :
                 webpg.jq(this).find("img")[0];
-            var newText = (this.id.indexOf("0x") > -1) ? 
+
+            var newText = (this.id.indexOf("0x") > -1) ?
                 webpg.jq(this).parent().parent().parent().find('a').first().text() :
                 webpg.jq(this).text();
 
@@ -666,11 +682,9 @@ webpg.gmail = {
                 esBtn.click();
             }
 
-            webpg.jq(this).closest('.webpg-modified').find(".webpg-current-action")
-                .html("<img src='" + newIcon.src + "' height='17' " +
-                "width='17'/>" + webpg.utils.escape(newText));
-
-            var action = this.className.split("-")[2];
+            webpg.jq(esBtn).find(".webpg-current-action").find("img").attr({'src': newIcon.src});
+            webpg.jq(esBtn).find(".webpg-action-text").text(webpg.utils.escape(newText));
+            esBtn.firstStatusText = null;
 
             switch (action) {
 
@@ -707,7 +721,7 @@ webpg.gmail = {
             }
 
             webpg.gmail.signers = (this.id.search("0x") == 0) ?
-                    [e.currentTarget.id.substr(2)] : null;
+                    [e.currentTarget.id.substr(2)] : signers;
 
             if (this.id.search("0x") == 0) {
                 webpg.jq(this).parent().parent().find('a img').css({'opacity': '0'});
