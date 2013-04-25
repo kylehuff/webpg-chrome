@@ -182,7 +182,7 @@ webpg.preferences = {
         set: function(value) {
             // if this setting is disabled, remove the value for 'encrypt-to'
             if (!value) {
-                webpg.plugin.gpgSetPreference('encrypt-to', '');
+                webpg.plugin.gpgSetPreference('encrypt-to', 'blank');
             } else {
                 default_key = webpg.plugin.gpgGetPreference('default-key').value
                 webpg.plugin.gpgSetPreference('encrypt-to', default_key);
@@ -438,7 +438,7 @@ webpg.preferences = {
                 Provides method to clear the preference item (erase/unset)
         */
         clear: function() {
-            webpg.plugin.gpgSetPreference('default-key', '');
+            webpg.plugin.gpgSetPreference('default-key', 'blank');
         },
     },
 
