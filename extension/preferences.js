@@ -77,6 +77,27 @@ webpg.preferences = {
         },
     },
 
+    render_toolbar: {
+        /*
+            Function: get
+                Provides methods to get the preference item
+        */
+        get: function() {
+            return webpg.localStorage.getItem('render_toolbar');
+        },
+
+        /*
+            Function: set
+                Provides method to set the preference item
+
+            Parameters:
+                value - <bool> The boolean value to set
+        */
+        set: function(value) {
+            webpg.localStorage.setItem('render_toolbar', value);
+        },
+    },
+
     /*
         Class: webpg.preferences.gmail_integration
             Provides methods to get/set the "gmail_integration" preference

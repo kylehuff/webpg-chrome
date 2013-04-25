@@ -222,10 +222,24 @@ webpg.options = {
                             "<input type='radio' name='inline-format-radio' id='window' /><label for='window'>" + _("Window") + "</label>" +
                             "<input type='radio' name='inline-format-radio' id='icon' /><label for='icon'>" + _("Icon") + "</label>" +
                             "</div>" +
-                            "<div style='padding-top:12px' class='webpg-options-text'>" + _("Sample") + "</div>" +
-                            "<img id='inline-options-image' style='max-width:610px;' src='" + webpg.utils.resourcePath + "skin/images/examples/inline-formatting-" +
-                                webpg.preferences.decorate_inline.mode() + ".png'/>"
+                            "<a id='inline-sample-link' style='padding-top:12px' class='webpg-options-text options-link'>" + _("Sample") + "</a>" +
+                            "<img id='inline-sample-image' style='max-width:610px;' src='" + webpg.utils.resourcePath + "skin/images/examples/inline-formatting-" +
+                                webpg.preferences.decorate_inline.mode() + ".png'/><br/><br/>" +
+                            "<span class='webpg-options-text'>" + _("WebPG Toolbar") + "&nbsp;&nbsp;</span>" +
+                            "<div style='display:inline-block;' id='toolbar-format-options'>" +
+                            "<input type='checkbox' name='toolbar-check' id='toolbar-check' /><label for='toolbar-check'></label>" +
+                            "</div>" +
+                            "<a id='toolbar-sample-link' style='padding-top:12px' class='webpg-options-text options-link'>" + _("Sample") + "</a><br/><br/>" +
+                            "<div id='toolbar-sample-textarea'><img id='toolbar-sample-image' style='max-width:610px;' src='" + webpg.utils.resourcePath + "skin/images/examples/toolbar-sample.png'/></div>"
                         );
+                        webpg.jq("#inline-sample-link").click(function(e) {
+                            webpg.jq("#inline-sample-image").toggle("slide");
+                        });
+                        webpg.jq("#toolbar-sample-link").click(function(e) {
+                            webpg.jq("#toolbar-sample-textarea").toggle("slide");
+                        });
+                        if (webpg.preferences.render_toolbar.get() == "false")
+                            webpg.jq("#toolbar-sample-link").hide();
                     } else {
                         webpg.jq("#options-dialog-content").html(
                             "<span class='webpg-options-text'>" + _("Inline formatting mode") + "&nbsp;&nbsp;</span>" +
@@ -233,14 +247,29 @@ webpg.options = {
                             "<input type='radio' name='inline-format-radio' id='window' /><label for='window'>" + _("Window") + "</label>" +
                             "<input type='radio' name='inline-format-radio' id='icon' /><label for='icon'>" + _("Icon") + "</label>" +
                             "</div>" +
-                            "<div style='padding-top:12px' class='webpg-options-text'>" + _("Sample") + "</div>" +
+                            "<a id='inline-sample-link' class='webpg-options-text options-link'>" + _("Sample") + "</a>" +
                             "<pre id='inline-options-pgp-test'>-----BEGIN PGP MESSAGE-----\n" +
                             "Version: GnuPG v1.4.11 (GNU/Linux)\n\n"+
                             "jA0EAwMCL/ruujWlHoVgyS7nibjGsDtEt9QcaHAmknBXnk9yjrh42ug0SxCD/tEO\n" +
                             "ztexzAlHOvxqca3GWTYC\n" +
                             "=HMC5\n" +
-                            "-----END PGP MESSAGE-----</pre>"
+                            "-----END PGP MESSAGE-----</pre><br/><br/>" +
+                            "<span class='webpg-options-text'>" + _("WebPG Toolbar") + "&nbsp;&nbsp;</span>" +
+                            "<div style='display:inline-block;' id='toolbar-format-options'>" +
+                            "<input type='checkbox' name='toolbar-check' id='toolbar-check' /><label for='toolbar-check'></label>" +
+                            "</div>" +
+                            "<a id='toolbar-sample-link' style='padding-top:12px' class='webpg-options-text options-link'>" + _("Sample") + "</a>" +
+                            "<div id='toolbar-sample-textarea'></div>"
+                            
                         );
+                        webpg.jq("#inline-sample-link").click(function(e) {
+                            webpg.jq("#inline-options-pgp-test").toggle("slide");
+                        });
+                        webpg.jq("#toolbar-sample-link").click(function(e) {
+                            webpg.jq("#toolbar-sample-textarea").html("<textarea style='width:100%;height:50%;'></textarea>").toggle("slide");
+                            webpg.inline.render_toolbar = (webpg.preferences.render_toolbar.get() == "true")
+                            webpg.inline.PGPDataSearch(document, false, false);
+                        });
                     }
                     webpg.jq("#inline-format-options").buttonset()
                         .find("#" + webpg.preferences.decorate_inline.mode()).attr({"checked": "checked"})
@@ -248,20 +277,38 @@ webpg.options = {
                         if (e.target.type == "radio") {
                             webpg.preferences.decorate_inline.mode(e.target.id);
                             if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
-                                webpg.jq("#inline-options-image")[0].src = webpg.utils.resourcePath
+                                webpg.jq("#inline-sample-image")[0].src = webpg.utils.resourcePath
                                     + "skin/images/examples/inline-formatting-"
                                     + webpg.preferences.decorate_inline.mode()
                                     + ".png"
                             } else {
                                 webpg.inline.mode = e.target.id;
-                                var pre = "<pre id='inline-options-pgp-test'>"
-                                    + webpg.jq("#inline-options-pgp-test").text()
-                                    + "</pre>";
-                                webpg.jq(pre).insertBefore("#inline-options-pgp-test").next().remove();
+                                webpg.jq("#inline-options-pgp-test")[0].innerHTML = webpg.jq("#inline-options-pgp-test").text();
                             }
                             webpg.inline.PGPDataSearch(document, false, false);
                         }
                     });
+                    webpg.jq("#toolbar-check").button({
+                            'label': (webpg.preferences.render_toolbar.get() == "true") ? _("Enabled") : _("Disabled")
+                    }).click(function(e) {
+                        webpg.preferences.render_toolbar.set((this.checked));
+                        webpg.inline.render_toolbar = (this.checked);
+                        var status = (this.checked) ? _("Enabled") : _("Disabled");
+                        webpg.jq(this).button('option', 'label', status);
+                        webpg.jq(this).button('refresh');
+                        if (this.checked) {
+                            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
+                                webpg.jq("#toolbar-sample-link").show();
+                            else
+                                webpg.inline.PGPDataSearch(document, false, false);
+                        } else {
+                            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
+                                webpg.jq("#toolbar-sample-link").hide();
+                            webpg.jq("#toolbar-sample-textarea").hide();
+                        }
+                    });
+                    if (webpg.preferences.render_toolbar.get() == "true")
+                        webpg.jq("#toolbar-check").attr({'checked': 'checked'}).button("refresh");
                     webpg.jq("#options-dialog").dialog({
                         'resizable': true,
                         'height': 420,

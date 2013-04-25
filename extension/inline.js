@@ -17,11 +17,12 @@ webpg.inline = {
         Parameters:
             doc - <document> The document object to parse
     */
-    init: function(doc, mode) {
+    init: function(doc, mode, render_toolbar) {
         // Initialize webpg.doc
         this.doc = doc;
 
         this.mode = mode;
+        this.render_toolbar = render_toolbar;
 
         this.action_selected = false;
 
@@ -175,6 +176,10 @@ webpg.inline = {
         }
 
         while ((node = tw.nextNode())) {
+            if (!webpg.inline.render_toolbar) {
+                node = false;
+                break;
+            }
             var previousElement = node.previousSibling;
             if ((node.nodeName == "TEXTAREA" ||
                 node.getAttribute("contenteditable") == "true") &&

@@ -707,6 +707,10 @@ webpg.keymanager = {
             if (current_keylist[key].disabled) {
                 webpg.jq(keyobj).addClass('disabled');
                 status = _("Disabled");
+                webpg.preferences.enabled_keys.remove(key);
+            } else {
+                if (!webpg.preferences.enabled_keys.has(key))
+                    webpg.preferences.enabled_keys.add(key);
             }
             if (current_keylist[key].expired) {
                 webpg.jq(keyobj).addClass('invalid-key');

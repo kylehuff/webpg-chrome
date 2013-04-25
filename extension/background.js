@@ -147,6 +147,7 @@ webpg.background = {
                 response = {'decorate_inline':
                     webpg.preferences.decorate_inline.get(),
                     'mode': webpg.preferences.decorate_inline.mode(),
+                    'render_toolbar': (webpg.preferences.render_toolbar.get() == "true"),
                 };
                 break;
 

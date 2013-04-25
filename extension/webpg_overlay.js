@@ -101,6 +101,7 @@ webpg.overlay = {
                     function(response) {
                         if (response.result.decorate_inline == "true") {
                             var mode = response.result.mode;
+                            var render_toolbar = response.result.render_toolbar;
                             if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                                 if (!browserWindow)
                                     var browserWindow = webpg.utils.mozilla.getChromeWindow();
@@ -108,7 +109,7 @@ webpg.overlay = {
                                     webpg.plugin = browserWindow.webpg.plugin;
                             }
                             // Begin parsing the document for PGP Data
-                            webpg.inline.init(webpg.doc, mode);
+                            webpg.inline.init(webpg.doc, mode, render_toolbar);
                         }
                     }
                 );
