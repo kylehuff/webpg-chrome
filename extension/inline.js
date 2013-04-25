@@ -1045,11 +1045,11 @@ webpg.inline = {
         detectElementValue(element);
 
         function setActive(e) {
-            if (e.toElement
-            && e.toElement.parentElement
-            && (e.toElement.parentElement.className == "webpg-subaction-list"
-            || (e.toElement.parentElement.parentElement
-            && e.toElement.parentElement.parentElement.className == "webpg-subaction-list")))
+            if (e.target
+            && e.target.parentElement
+            && (e.target.parentElement.className == "webpg-subaction-list"
+            || (e.target.parentElement.parentElement
+            && e.target.parentElement.parentElement.className == "webpg-subaction-list")))
                 return;
 
             detectElementValue(element);
