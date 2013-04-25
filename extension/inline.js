@@ -220,10 +220,14 @@ webpg.inline = {
         var tw = doc.createTreeWalker(root, NodeFilter.SHOW_TEXT, textFilter, false);
 
         var acceptNodes = [
+            "BODY",
             "DIV",
             "PRE",
+            "CODE",
             "SPAN",
             "TT",
+            "P",
+            "FONT",
         ];
 
         while((node = tw.nextNode())) {
@@ -285,11 +289,11 @@ webpg.inline = {
                         search = webpg.constants.PGPTags.PGP_KEY_END;
                         blockType = webpg.constants.PGPBlocks.PGP_KEY;
                     }
-                    if(idx == -1 || idx < node.textContent.indexOf(webpg.constants.PGPTags.PGP_PKEY_BEGIN, baseIdx)) {
-                        idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_PKEY_BEGIN, baseIdx);
-                        search = webpg.constants.PGPTags.PGP_PKEY_END;
-                        blockType = webpg.constants.PGPBlocks.PGP_PKEY;
-                    }
+//                    if(idx == -1 || idx < node.textContent.indexOf(webpg.constants.PGPTags.PGP_PKEY_BEGIN, baseIdx)) {
+//                        idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_PKEY_BEGIN, baseIdx);
+//                        search = webpg.constants.PGPTags.PGP_PKEY_END;
+//                        blockType = webpg.constants.PGPBlocks.PGP_PKEY;
+//                    }
 
                     if(idx == -1)
                         break;
@@ -473,6 +477,8 @@ webpg.inline = {
             if (scontent.search(/^\s*?(-----BEGIN(\s|&nbsp;|\%20)PGP.*?)(\n|%0A)/gi) < 0) {
                 if (phtml.search(/^\s*?(-----BEGIN PGP.*?--\n.*?\n\n)/gi) > -1)
                     scontent = phtml;
+                else if (str.search(/^\s*?(-----BEGIN PGP.*?--<br[^>]*>)/gi) > -1)
+                    scontent = str.replace(new RegExp("<br[^>]*>", "gi"), '\n');
                 else
                     scontent = html;
             }
