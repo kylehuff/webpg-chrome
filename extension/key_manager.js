@@ -266,16 +266,16 @@ webpg.keymanager = {
             'height': 140,
             'modal': true,
             'autoOpen': true,
-            'title': "Building Key list"
+            'title': _("Building Key list")
         }).animate({"top": window.scrollY}, 1, function() {
-            webpg.jq('#dialog-msg').text("Please wait while we build the key list.");
-            webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight() + 100}, 1,
+            webpg.jq('#dialog-msg').text(_("Please wait while we build the key list")).css({'top':'0'});
+            webpg.jq(this).dialog().animate({"top": window.scrollY + webpg.jq(this).innerHeight() + 100}, 1,
             function() {
                 webpg.keymanager.buildKeylist(
                     keyList, type, openKey,
                     openSubkey, openUID
                 );
-                webpg.jq("#dialog-modal").dialog('close');
+                webpg.jq("#dialog-modal").dialog('destroy');
                 if (webpg.keymanager.qs.helper) {
                     function bounce(elem_class, left, top, perpetual) {
                         var nleft = webpg.jq(webpg.jq(elem_class)[0]).parent().offset().left - left;
@@ -385,7 +385,7 @@ webpg.keymanager = {
                 webpg.jq(dialog + "-status").remove();
                 webpg.jq(dialog + "-form")[0].reset();
                 webpg.jq(dialog + "-form")[0].style.display="inline-block";
-                webpg.jq(dialog + "-dialog").dialog("close");
+                webpg.jq(dialog + "-dialog").dialog("destroy");
             } else if (data.search("failed") > -1) {
                 webpg.keymanager.genkey_waiting = false;
                 webpg.jq(dialog + "-status").html("Generation " +
@@ -456,7 +456,7 @@ webpg.keymanager = {
                 var validity = keylist[key].uids[uid].validity;
                 webpg.jq(uidobj).find('.trust')[0].textContent = validity + ' | gpgAuth ' + _("trust") + ': ' + GAUTrust;
             });
-            webpg.jq("#dialog-modal:ui-dialog").dialog( "destroy" );
+            webpg.jq("#dialog-modal:ui-dialog").dialog("destroy");
         }
 
         if (type == 'public') {
@@ -733,10 +733,10 @@ webpg.keymanager = {
                 "&lt;" + scrub(current_keylist[key].email) + "&gt;" :
                 "(" + _("no email address provided") + ")";
             if (type == "public") {
-                webpg.jq(keyobj).html("<h3 class='public_keylist'><a href='#' name='" + scrub(key) + "'><span style='margin: 0;width: 25%;min-width:200px; display:inline-table;'>" + scrub(current_keylist[key].name) + "</span><span>" + email + "</span><span class='trust' style='float:" + ((webpg.utils.isRTL()) ? "right" : "left") + "'></span></a></h3>");
+                webpg.jq(keyobj).html("<h3 class='public_keylist'><a href='#' name='" + scrub(key) + "'><span class='uid-line'>" + scrub(current_keylist[key].name) + "</span><span>" + email + "</span><span class='trust' style='float:" + ((webpg.utils.isRTL()) ? "right" : "left") + "'></span></a></h3>");
             } else {
-                webpg.jq(keyobj).html("<h3 class='private_keylist' style='height: 29px;'><a href='#' name='" + scrub(key) + "'><span style='margin: 0;width: 25%;min-width:200px; display:inline-table;'>[" + key.substr(-8) + "] " + scrub(current_keylist[key].name) + 
-                    "</span><span>" + email + "</span></a><span class='trust' style='z-index:1000; left: 4px; top:-30px;height:22px;float:" + ((webpg.utils.isRTL()) ? "left" : "right") + "'>" +
+                webpg.jq(keyobj).html("<h3 class='private_keylist' style='height: 29px;'><a href='#' name='" + scrub(key) + "'><span class='uid-line'>[" + key.substr(-8) + "] " + scrub(current_keylist[key].name) + 
+                    "</span><span>" + email + "</span></a><span class='trust' style='float:" + ((webpg.utils.isRTL()) ? "left" : "right") + "'>" +
                     "<span class='keyoption-help-text' style=\"margin: 0 14px;position:relative;top:2px;\">&nbsp;</span>" +
                     "<input class='enable-check' id='check-" + scrub(key) +"' type='checkbox' " + enabled + "/\><label class='enable-check-text' for='check-" + scrub(key) + "' style='z-index:100;height:29px;'>" + scrub(status_text) + "</label><input class='default-check' type='radio' name='default_key' " +
                     " id='default-" + scrub(key) + "' " + scrub(default_key) + "/\><label class='default-check' dir='ltr' style='z-index:0;margin-left:0px;height:29px;' for='default-" + scrub(key) + "'>Set as default</label></span></h3>");
@@ -917,8 +917,8 @@ webpg.keymanager = {
             var uidlist_innerHTML = "<div class='keydetails' style='text-align:" + (webpg.utils.isRTL() ? 'right' : 'left') + "'><span class='dh'>" + _("Key Details") + "</span><hr" + (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
                 "<span><h4>" + _("KeyID") + ":</h4> " + key.substr(-8) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
                     scrub(created_date) + "</span><span><h4>" + _("Expires") + ":</h4> " + scrub(expiry) +
-                        "</span><span><h4>" + _("UIDs") + ":</h4> " + scrub(current_keylist[key].nuids) + "</span><br/\>" +
-                "<h4 style='margin-right: 24px;'>" + _("Fingerprint") + ":</h4> " + scrub(current_keylist[key].fingerprint) + "<br/\>" +
+                        "</span><span><h4>" + _("User IDs") + ":</h4> " + scrub(current_keylist[key].nuids) + "</span><br/\>" +
+                "<h4>" + _("Fingerprint") + ":</h4> " + scrub(current_keylist[key].fingerprint) + "<br/\>" +
                 "<span><h4>" + _("Status") + ":</h4> " + scrub(status) + "</span><span><h4>" + _("Key Algorithm") + ":</h4> " +
                         scrub(current_keylist[key].subkeys[0].algorithm_name) + "</span>" +
                 "<span><h4>" + _("Validity") + ":</h4> " + scrub(current_keylist[key].uids[0].validity) + "</span>" +
@@ -990,7 +990,7 @@ webpg.keymanager = {
                             ' class=\"rtl\"' : '') + "/\>" +
                     "<span><h4>" + _("KeyID") + ":</h4> " + scrub(skey.subkey.substr(-8)) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
                     scrub(created_date) + "</span><span><h4>" + _("Expires") + ":</h4> " + scrub(expiry) + "</span>" +
-                    "<br/\><h4 style='margin-right: 24px;'>" + _("Fingerprint") + ":</h4> " + scrub(skey.subkey) + "<br/\>" +
+                    "<br/\><h4>" + _("Fingerprint") + ":</h4> " + scrub(skey.subkey) + "<br/\>" +
                     "<span><h4>" + _("Status") + ":</h4> " + scrub(skey_status) + "</span><span><h4>" + _("Key Algorithm") + ":</h4> " +
                     scrub(skey.algorithm_name) + "</span><span><h4>" + _("Flags") + ":</h4> " + flags.toString().replace(/\,/g, ", ") + "</span>";
                 if (type == "private") {
@@ -1038,7 +1038,7 @@ webpg.keymanager = {
                 var comment = (current_keylist[key].uids[uid].comment.length > 1) ?
                     "[" + scrub(current_keylist[key].uids[uid].comment) + "]" :
                     "";
-                webpg.jq(uidobj).html("<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%;'>" + uid_string + "<span style='margin:0 15px;'>" + comment + "</span></span><span class='trust' style='text-decoration: none;float:" + ((webpg.utils.isRTL()) ? "left" : "right") + "''></span></a></h4>");
+                webpg.jq(uidobj).html("<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%;'>" + uid_string + "<span style='margin:0 15px;'>" + comment + "</span></span><span class='trust' style='text-decoration: none;float:" + ((webpg.utils.isRTL()) ? "left" : "right") + "'></span></a></h4>");
                 var signed = 0;
                 var uidobjbody = document.createElement('div');
                 var primary_button = "";
@@ -1107,15 +1107,15 @@ webpg.keymanager = {
                         }
                         var sig_box = "<div id='sig-" + scrub(sig_keyid) + "-" + scrub(sig) + "' class='signature-box " + scrub(sig_class) + "'>" +
                             "<img src='skin/images/badges/48x48/" + scrub(sig_image) + "'>" + 
-                            "<div style='float:left;clear:right;width:80%;white-space:nowrap;'><span class='signature-uid'>" + 
-                            tpublic_keylist[sig_keyid].name + status + "</span><br/\><span class='signature-email'>" + 
-                            email + "</span><br/\><span class='signature-keyid'>" + sig_keyid + "</span><br/\>";
+                            "<div class='signature-text-box'><span class='signature-uid'>" + 
+                            tpublic_keylist[sig_keyid].name + status + "</span><span class='signature-email'>" + 
+                            email + "</span><span class='signature-keyid'>" + sig_keyid + "</span>";
                         var date_created = (tpublic_keylist[key].uids[uid].signatures[sig].created == 0) ?
                             _('Unknown') : new Date(tpublic_keylist[key].uids[uid].signatures[sig].created * 1000).toJSON().substring(0, 10);
                         var date_expires = (tpublic_keylist[key].uids[uid].signatures[sig].expires == 0) ? 
                             _('Never') : new Date(tpublic_keylist[key].uids[uid].signatures[sig].expires * 1000).toJSON().substring(0, 10);
-                        sig_box += "<span class='signature-keyid'>" + _('Created') + ": " + scrub(date_created) + "</span><br/\>";
-                        sig_box += "<span class='signature-keyid'>" + _('Expires') + ": " + scrub(date_expires) + "</span><br/\>"
+                        sig_box += "<span class='signature-keyid'>" + _('Created') + ": " + scrub(date_created) + "</span>";
+                        sig_box += "<span class='signature-keyid'>" + _('Expires') + ": " + scrub(date_expires) + "</span>"
 
                         sig_box += "<span class='signature-keyid'>";
                         if (sig_keyid == key) {
@@ -1125,7 +1125,7 @@ webpg.keymanager = {
                         } else {
                             sig_box += "[" + _("other signature") + "]";
                         }
-                        sig_box += "</span></div><br/\>";
+                        sig_box += "</span></div>";
 
                         if (signed && tpublic_keylist[key].uids[uid].signatures[sig].exportable && key != sig_keyid
                             && !tpublic_keylist[key].uids[uid].signatures[sig].revoked) {
@@ -1189,8 +1189,9 @@ webpg.keymanager = {
                     'height': 140,
                     'modal': true,
                     'title': _("Calculating Trust")
-                }).children().text(_("Please wait while recalculate the trust for this item"));
-                setTimeout( function() { refresh_trust(uid_list, 'public') }, 300);
+                });
+                webpg.jq('#dialog-msg').text(_("Please wait while we calculate the trust for this item"));
+                setTimeout( function() { refresh_trust(uid_list, 'public') }, 100);
             }
         }
 
@@ -1377,11 +1378,10 @@ webpg.keymanager = {
                                     } else {
                                         webpg.plugin.gpgSetPubkeyExpire(params[2], new_expire);
                                     }
-                                    webpg.jq(this).dialog("close");
+                                    webpg.jq(this).dialog("destroy");
                                     if (params[1] == "subkey") {
                                         params[1] = "private";
                                     }
-                                    webpg.jq(this).dialog("close");
                                     webpg.keymanager.buildKeylistProxy(null, params[1], params[2], params[3], null);
                                 },
                             }, {
@@ -2155,8 +2155,9 @@ webpg.keymanager = {
                     'height': 140,
                     'modal': true,
                     'title': "Calculating Trust"
-                }).children()[0].innerHTML = "Please wait while recalculate the trust for this item.";
-                setTimeout( function() { refresh_trust(e.target, 'public') }, 300);
+                });
+                webpg.jq('#dialog-msg').text(_("Please wait while we calculate the trust for this item"));
+                setTimeout( function() { refresh_trust(e.target, 'public') }, 100);
             }
         });
 
@@ -2172,13 +2173,6 @@ webpg.keymanager = {
                 webpg.background.webpg.secret_keys[sKey].default = (sKey == keyid);
             var enable_element = webpg.jq('#check-' + this.id.substr(-16))[0];
             webpg.jq("#enable-private-" + keyid).click();
-            //var enabled_keys = webpg.preferences.enabled_keys.get();
-//            if (enabled_keys.indexOf(keyid) == -1) {
-//                webpg.preferences.enabled_keys.add(keyid);
-//                webpg.jq(enable_element).trigger('click');
-//                webpg.jq(enable_element).next().html(webpg.jq(enable_element).next()[0].innerHTML.replace(_('Disabled'), _('Enabled')));
-//                
-//            }
         }).parent().buttonset();
 
         webpg.jq('.enable-check').next().hover(
@@ -2245,8 +2239,8 @@ webpg.keymanager = {
                 if (this.value == "")
                     nkeylist = webpg.keymanager.pubkeylist;
 
-                webpg.jq("#dialog-modal").dialog('option', 'modal', false)
-                .dialog('open').animate({"top": window.scrollY}, 1,
+                webpg.jq("#dialog-modal").dialog()
+                .animate({"top": window.scrollY}, 1,
                     function() {
                         webpg.jq('#dialog-msg').text(
                             (val.length > 0) ? _("Searching for") + " \"" + val
@@ -2257,7 +2251,7 @@ webpg.keymanager = {
                         function() {
                             webpg.keymanager.buildKeylist(
                                 nkeylist, 'public');
-                            webpg.jq("#dialog-modal").dialog('close');
+                            webpg.jq("#dialog-modal:ui-dialog").dialog('destroy');
                         }
                     )
                 });

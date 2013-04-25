@@ -36,33 +36,7 @@ body{
 #private_keylist {
     min-height:400px;
 }
-#trust-header {
-    font-size:16px;
-    text-align:left;
-    float:left;
-    clear:right;
-    color:black;
-    text-shadow:#999 1px 1px 1px;
-    border-radius:8px;
-    -moz-border-radius:8px;
-    -webkit-border-radius:8px;
-}
-#trust-list .selected {
-  color:black !important;
-  font-weight:bold;
-}
-#trust-list .level {
-    padding:5px;
-    color:gray;
-}
-#trust-list .level:hover {
-    font-weight:bold;
-}
-#trust-level-desc {
-    color:#000;
-    text-align:left;
-    display:none;
-}
+
 .trust-level-desc {
     min-height:30px;
     border:1px solid #ddd;
@@ -111,6 +85,18 @@ body{
 .uid, .subkey {
     width:100%;
 }
+.uid-line {
+    margin:0;
+    width:25%;
+    min-width:200px;
+    display:inline-table;
+}
+.signature-text-box {
+    float:left;
+    clear:right;
+    width:80%;
+    white-space:nowrap;
+}
 div.uid-options {
     background-color:#eee;
     border-radius:6px 6px 0 0;
@@ -141,6 +127,12 @@ span.uid-options label {
     position:relative;
     text-decoration:none;
     clear:right;
+}
+h3 .trust {
+    z-index:1000;
+    left: 4px;
+    top:-30px;
+    height:22px;
 }
 .keydetails {
     font-size:14px;
@@ -243,10 +235,11 @@ span.trust .ui-button-text {
     position:relative;
     bottom:0;
 }
-.signature-uid, .signature-email, .signature-keyid {
+.signature-box span {
     font-size:120%;
     margin-left:10px;
     clear:both;
+    display:block;
 }
 .signature-keyid {
 
