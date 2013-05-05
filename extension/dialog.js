@@ -17,6 +17,9 @@ webpg.dialog = {
         webpg.dialog.selectedKeys = [];
         var _ = webpg.utils.i18n.gettext;
 
+        if (webpg.overlay.default_key == undefined)
+            webpg.overlay.init();
+
         // Assign the location.search value for the appropriate
         //  window to a local variable. window.location for normal
         //  windows, and window.parent.location for iframes that are

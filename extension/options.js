@@ -126,6 +126,9 @@ webpg.options = {
                     webpg.jq("#gmail-action-sign").hide();
                 }
 
+                if (webpg.preferences.gmail_integration.get() !== 'true')
+                    webpg.jq("#gmail-action-sign").hide();
+
                 if ((webpg.utils.detectedBrowser['product'] == "chrome") &&
                     !chrome.app.getDetails().hasOwnProperty("content_scripts")) {
                         webpg.jq('#enable-decorate-inline').hide();
@@ -158,7 +161,7 @@ webpg.options = {
                     text(_("Enable WebPG GMAIL integration") + " [" + _("EXPERIMENTAL") + "]");
 
                 webpg.jq("#gmail-action-sign").find(".webpg-options-text").
-                    text(_("Sign outgoing messages in GMAIL"));
+                    text(_("Automatically Sign outgoing messages in GMAIL"));
 
                 webpg.jq("#advanced-options-link").text(_("Advanced Options"));
 
@@ -359,6 +362,10 @@ webpg.options = {
                             webpg.preferences.gmail_integration.set(false)
                             : webpg.preferences.gmail_integration.set(true);
                         status = (webpg.preferences.gmail_integration.get() == 'true') ? _('Enabled') : _('Disabled')
+                        if (webpg.preferences.gmail_integration.get() == 'true')
+                            webpg.jq("#gmail-action-sign").show()
+                        else
+                            webpg.jq("#gmail-action-sign").hide();
                         webpg.jq(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.gmail_integration.get() == 'true');
                         webpg.jq(this).button('refresh');

@@ -16,6 +16,37 @@ if (typeof(jQuery)!='undefined') { webpg.jq = jQuery.noConflict(true); }
 */
 webpg.overlay = {
 
+    // Do not inline parse the following domains
+    //  TODO: consult a list of user defined domains/pages to ignore
+    parseBlacklist: [
+        // Lets not be so hasty
+        {"domain": "hastebin.com", "allow": ["\/raw\/"]},
+        // Pasty bastard
+        {"domain": "pastebin.com", "allow": ["\/raw.php"]},
+        // Don't paste me bro!
+        {"domain": "dpaste.com", "allow": ["\/.*?\/plain\/", "\/.*?\/html\/"]},
+    ],
+
+    // Do not add toolbar item for the following domains
+    toolbarBlacklist: [
+        // google mail is already enhanced with WebPG
+        "mail.google.com",
+        // Nothing against Mozilla Add-ons, but strange things happen
+        "addons.mozilla.org",
+        // Micro PGP signatures don't exist yet
+        "twitter.com",
+        // Google translate doesn't decrypt PGP packets (yet)
+        "translate.google.com",
+        // You can't pin me down
+        "pintrist.com",
+        // You have no friends anyway
+        "facebook.com",
+        // Lets not be so hasty
+        "hastebin.com",
+        // I got the gist of it
+        "gist.github.com",
+    ],
+
     /*
         Function: init
             This function is called when a new window is created. It sets the preferences
@@ -35,35 +66,6 @@ webpg.overlay = {
 
         // We don't want to run on certain things on certain pages
         
-        // Do not inline parse the following domains
-        //  TODO: consult a list of user defined domains/pages to ignore
-        webpg.overlay.parseBlacklist = [
-            // Lets not be so hasty
-            {"domain": "hastebin.com", "allow": ["\/raw\/"]},
-            // Pasty bastard
-            {"domain": "pastebin.com", "allow": ["\/raw.php"]},
-            // Don't paste me bro!
-            {"domain": "dpaste.com", "allow": ["\/.*?\/plain\/", "\/.*?\/html\/"]},
-        ];
-
-        // Do not add toolbar item for the following domains
-        webpg.overlay.toolbarBlacklist = [
-            // google mail is already enhanced with WebPG
-            "mail.google.com",
-            // Nothing against Mozilla Add-ons, but strange things happen
-            "addons.mozilla.org",
-            // Micro PGP signatures don't exist yet
-            "twitter.com",
-            // Google translate doesn't decrypt PGP packets (yet)
-            "translate.google.com",
-            // You can't pin me down
-            "pintrist.com",
-            // You have no friends anyway
-            "facebook.com",
-            // Lets not be so hasty
-            "hastebin.com",
-        ];
-
         if (webpg.utils.detectedBrowser['vendor'] == 'google') {
             webpg.overlay.insert_target = null;
             webpg.overlay.insert_range = null;
@@ -97,7 +99,6 @@ webpg.overlay = {
                 try {
                     Object.keys(response.result);
                 } catch (err) {
-                    console.log(err);
                     webpg.inline.secret_keys = {};
                 }
                 webpg.inline.default_key = function() {

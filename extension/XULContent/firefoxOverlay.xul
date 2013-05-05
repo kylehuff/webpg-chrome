@@ -86,6 +86,7 @@
         }
         window.addEventListener('load', function(aEvent) {
             webpg.firefoxOverlay.init(aEvent);
+            window.removeEventListener(aEvent.type, arguments.callee);
         });
     </script>
     <script src="../constants.js"/>

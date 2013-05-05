@@ -13,7 +13,7 @@
 <style>
 body{
     font:62.5% "Trebuchet MS", sans-serif;
-    min-width:640px;
+    min-width:750px;
     margin:0;
     padding:0;
     background-color:#000;
@@ -118,6 +118,18 @@ span.uid-options label {
     display: block;
     margin-left: 2px;
 }
+.keyphoto {
+    float: right;
+    position: absolute;
+    right: 30px;
+    top: 51px;
+    height: 80px;
+    max-width:120px;
+    border: 2px solid gainsboro;
+    box-shadow:#666 2px 2px 2px;
+    -moz-box-shadow:#666 2px 2px 2px;
+    -webkit-box-shadow:#666 2px 2px 2px;
+}
 .private-key-option-list, .public-key-option-list {
     padding:2px;
 }
@@ -127,6 +139,9 @@ span.uid-options label {
     position:relative;
     text-decoration:none;
     clear:right;
+}
+h3 {
+    white-space: nowrap;  
 }
 h3 .trust {
     z-index:1000;
@@ -261,6 +276,17 @@ span.trust .ui-button-text {
 .input-error {
     border:2px solid #f20;
 }
+.error-text {
+    color:#f20;
+}
+#list {
+    display:inline-table;
+    padding-top:20px;
+}
+#list ul {
+    list-style:none;
+    width: 100%;
+}
 ul.expand { padding:0; margin:0; list-style:none; }
 ul.expand li { padding:0; margin:0; }
 ul.expand li.trigger.top { margin-top:0; }
@@ -393,6 +419,9 @@ ul.expand ul
 </div>
 <div id="deluid-confirm" style="display:none;" title="Delete this UID?">
     <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='deluid-text'></span></p>
+</div>
+<div id="delphoto-confirm" style="display:none;" title="Delete this Photo?">
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='delphoto-text'></span></p>
 </div>
 <div id="keyexp-dialog" style="display:none;" title="Change Key Expiration">
     <p><span class="ui-icon ui-icon-calendar" style="float:left; margin:0 7px 20px 0;"></span><span id='keyexp-text'></span>
@@ -541,6 +570,15 @@ ul.expand ul
             <input type='text' id='au-uid_0_email' name='uid_0_email'/><span class='help-text'>i.e.: john.smith@example.com</span><br/>
             <label for='au-uid_0_comment' style='display:inline-block;width:128px;'></label>
             <input type='text' id='au-uid_0_comment' name='uid_0_comment'/><span class='help-text'>i.e.: uid for XYZ only</span><br/>
+        </form>
+    </p>
+</div>
+<div id="addphoto-dialog" style="display:none;" title="Add Photo" style="font-size:14px;">
+    <p>
+        <span id='addphoto-text'></span>
+        <form id="addphoto-form" style="width:100%;">
+            <input type='file' id='ap-photo_name' name='ap-photo_name' style="float:left;left:30%;position:relative;"/><br/>
+            <output id="list"></output>
         </form>
     </p>
 </div>

@@ -875,19 +875,26 @@ webpg.gmail = {
             e - <event> The HTML Event dispatched
     */
     gmailChanges: function(e) {
-        if (!e.target || !e.target.nodeName == "DIV")
-            return
+        if (!e.target || e.target.nodeName !== "DIV")
+            return;
+//        
+//        if (e.target.parentNode
+//        && (e.target.parentNode.className == undefined
+//        || e.target.parentNode.className == "aAU"))
+//            return;
+        if (e.target.ownerDocument.location.hash.search("#settings") !== -1)
+            return;
 
         if (e.target.parentElement &&
             typeof(e.target.parentElement.className)!="undefined" &&
             e.target.parentElement.className.search("dW E") > -1) {
-            // do notihng here; this even originates most likely from our
+            // do notihng here; this event originates most likely from our
             //  button creation in a normal compose window
 
         } else if (e.target.parentElement &&
             typeof(e.target.parentElement.className)!="undefined" &&
             e.target.parentElement.className.search("gU Up") > -1) {
-            // do notihng here; this even originates most likely from our
+            // do notihng here; this event originates most likely from our
             //  button creation in an inline compose window
 
         // A normal document load
@@ -963,13 +970,12 @@ webpg.utils.sendRequest({
                                 //  not have the option to set the overlay by URL
                                 if (aEvent.originalTarget.location.host == "mail.google.com") {
                                     observer.disconnect();
-                                    observer.observe(webpg.gmail.getCanvasFrameDocument(), config);
+                                    observer.observe(aEvent.originalTarget.querySelector('body'), config);
                                 }
                             },
                         true
                     );
                 } else {
-//                    console.log("Observing");
                     observer.observe(document.querySelector('body'), config);
                 }
             }

@@ -37,7 +37,8 @@ webpg.inline = {
 
             // Don't parse Firefox chrome pages
             try {
-                if (doc.location.protocol == "chrome:") {
+                if (doc.location.protocol == "chrome:"
+                && doc.location.host != "webpg-firefox") {
                     return false;
                 }
             } catch (err) {
@@ -64,7 +65,6 @@ webpg.inline = {
             window.addEventListener("DOMSubtreeModified", function(e) {
                 if (e.target.nodeName == "IFRAME" && e.target.className.indexOf("webpg-") == -1 &&
                     webpg.inline.existing_iframes.indexOf(e.target) == -1) {
-                    webpg.inline.existing_iframes.push(e.target);
                     try {
                         e.target.contentDocument.documentElement.removeEventListener("contextmenu",
                             webpg.overlay.contextHandler, true);
@@ -91,7 +91,6 @@ webpg.inline = {
                     }
                     if (mutation.target.nodeName == "IFRAME" && mutation.target.className.indexOf("webpg-") == -1 &&
                         webpg.inline.existing_iframes.indexOf(mutation.target) == -1) {
-                        webpg.inline.existing_iframes.push(mutation.target);
                         try {
                             mutation.target.contentDocument.documentElement.removeEventListener("contextmenu",
                                 webpg.overlay.contextHandler, true);
@@ -115,10 +114,7 @@ webpg.inline = {
                                 if (webpg.jq(mutation.target).parent().is('.adn.ads'))
                                     if (webpg.jq(mutation.target).find('.ii.gt.adP.adO').length < 1)
                                         return false;
-                                if (webpg.inline.existing_iframes.indexOf(mutation.target) == -1) {
-                                    webpg.inline.existing_iframes.push(mutation.target);
-                                    webpg.inline.PGPDataSearch(doc, false, true, mutation.target);
-                                }
+                                webpg.inline.PGPDataSearch(doc, false, true, mutation.target);
                             }
                         }
                     }
@@ -131,6 +127,7 @@ webpg.inline = {
                 (webpg.inline.doc) ? webpg.inline.doc : document;
 
             try {
+                observer.disconnect();
                 observer.observe(doc, config);
             } catch (err) {
                 console.log(err.message);
@@ -177,7 +174,6 @@ webpg.inline = {
 
         while ((node = tw.nextNode())) {
             if (!webpg.inline.render_toolbar) {
-                node = false;
                 break;
             }
             var previousElement = node.previousSibling;
@@ -201,9 +197,9 @@ webpg.inline = {
         }
 
         var proceed = webpg.overlay.parseBlacklist.every(function(bldomain) {
-            if (webpg.doc.location.host.indexOf(bldomain['domain']) != -1) {
+            if (doc.location.host.indexOf(bldomain['domain']) != -1) {
                 var stop = bldomain['allow'].every(function(allowance) {
-                    return (webpg.doc.location.pathname.search(new RegExp(allowance)) != 0);
+                    return (doc.location.pathname.search(new RegExp(allowance)) != 0);
                 });
                 if (stop)
                     return false;
@@ -524,31 +520,6 @@ webpg.inline = {
         originalNodeData.appendChild(badge);
 
         switch(blockType) {
-            case webpg.constants.PGPBlocks.PGP_KEY:
-                console.log("WebPG found a public key");
-                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                    webpg.utils.sendRequest({
-                        'msg': "sendtoiframe",
-                        'block_type': blockType,
-                        'target_id': results_frame.id,
-                        'original_text': scontent
-                    });
-                } else {
-                    results_frame.onload = function() {
-                        webpg.utils.sendRequest({
-                            'msg': "sendtoiframe",
-                            'block_type': blockType,
-                            'target_id': results_frame.id,
-                            'original_text': scontent
-                        });
-                    };
-                }
-                break;
-
-            case webpg.constants.PGPBlocks.PGP_PKEY:
-                console.log("WebPG found a private key, which is scary when you think about it... exiting");
-                break;
-
             case webpg.constants.PGPBlocks.PGP_SIGNED_MSG:
                 // check for the required PGP BLOCKS
                 console.log("WebPG found a signed message");
@@ -600,12 +571,6 @@ webpg.inline = {
                 );
                 break;
 
-            case webpg.constants.PGPBlocks.PGP_SIGNATURE:
-                // This should never be reached, because our parser should
-                //  normally catch both the text, and the detached sig
-                console.log("WebPG found a detached signature, but we don't have the file - exiting");
-                break;
-
             case webpg.constants.PGPBlocks.PGP_ENCRYPTED:
                 console.log("WebPG found an encrypted or signed message");
                 webpg.utils.sendRequest({
@@ -644,6 +609,38 @@ webpg.inline = {
                     }
                 );
                 break;
+
+            case webpg.constants.PGPBlocks.PGP_KEY:
+                console.log("WebPG found a public key");
+                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                    webpg.utils.sendRequest({
+                        'msg': "sendtoiframe",
+                        'block_type': blockType,
+                        'target_id': results_frame.id,
+                        'original_text': scontent
+                    });
+                } else {
+                    results_frame.onload = function() {
+                        webpg.utils.sendRequest({
+                            'msg': "sendtoiframe",
+                            'block_type': blockType,
+                            'target_id': results_frame.id,
+                            'original_text': scontent
+                        });
+                    };
+                }
+                break;
+
+            case webpg.constants.PGPBlocks.PGP_PKEY:
+                console.log("WebPG found a private key, which is scary when you think about it... exiting");
+                break;
+
+            case webpg.constants.PGPBlocks.PGP_SIGNATURE:
+                // This should never be reached, because our parser should
+                //  normally catch both the text, and the detached sig
+                console.log("WebPG found a detached signature, but we don't have the file - exiting");
+                break;
+
         }
     },
 
@@ -909,7 +906,7 @@ webpg.inline = {
         var _ = webpg.utils.i18n.gettext;
         // Store the elements display setting in case modifying the dom
         //  puts the element into an order that would hide it.
-        var original_display = element.style.display || 'inline';
+        var original_display = element.style.display;
         element.style.whiteSpace = "pre";
         var doc = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.document :
             (webpg.inline.doc) ? webpg.inline.doc : document;
@@ -924,16 +921,26 @@ webpg.inline = {
             "left: -1px; text-shadow: none; text-decoration: none;");
 
         toolbar.setAttribute("class", "webpg-toolbar");
-        var offset = (element.scrollHeight > element.offsetHeight) ?
+        var offset = (element.scrollHeight < element.offsetHeight) ?
                 element.offsetWidth - element.clientWidth - 1 : 0;
         offset = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
             1 : offset;
         toolbar.style.width = element.offsetWidth - 11 - offset + "px";
+        if (element.offsetHeight > element.scrollHeight)
+            element.style.width = (element.offsetWidth - 11 - offset) +
+                (element.offsetWidth - element.clientWidth) - 11 + "px";
+        else
+            element.style.width = toolbar.style.width;
+
+        if (element.parentElement.offsetWidth < parseInt(toolbar.style.width))
+            toolbar.style.width = element.parentElement.offsetWidth - 11 + "px";
+        
         element.style.paddingTop = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
             "28px" : "30px";
         element.style.marginTop = "1px";
         webpg.jq(toolbar).insertBefore(element);
-        element.style.display = original_display;
+        if (original_display)
+            element.style.display = original_display;
 
         var action_menu = '' +
             '<span class="webpg-action-menu">' +
@@ -1081,7 +1088,24 @@ webpg.inline = {
                 element.offsetWidth - element.clientWidth - 1 : 0;
             offset = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
                 1 : offset;
+//            if (element.parentElement
+//            && (element.parentElement.nodeName == 'DIV'
+//            || element.parentElement.nodeName == 'SPAN')
+//            && element.parentElement.offsetWidth > parseInt(toolbar.style.width)) 
+//                toolbar.style.width = element.parentElement.offsetWidth - 12 + "px";
+//            else
             toolbar.style.width = element.offsetWidth - 10 - offset + "px";
+            if (element.parentElement.offsetWidth < parseInt(toolbar.style.width))
+                toolbar.style.width = element.parentElement.offsetWidth - 11 + "px";
+
+//            if (element.parentElement
+//            && (element.parentElement.nodeName == 'DIV'
+//            || element.parentElement.nodeName == 'SPAN')
+//            && webpg.jq(toolbar).prev().length > 0
+//            && webpg.jq(toolbar).prev() != webpg.jq(toolbar).parent()) {
+//                toolbar.style.top = '-1px';
+//                element.style.paddingTop = '0';
+//            }
         }
 
         webpg.jq([element, toolbar]).bind('change keydown keyup mousemove mouseover mouseenter mouseleave',

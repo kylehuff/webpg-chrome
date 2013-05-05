@@ -33,6 +33,10 @@ webpg.utils = {
                     console.log = ffconsoleService.logStringMessage;
                 }
 
+//                if (webpg.utils.mozilla.getChromeWindow().Firebug != undefined) {
+//                    console.log = webpg.utils.mozilla.getChromeWindow().Firebug.Console.log;
+//                } else {
+
                 var jq = webpg.jq;
 
                 // Proxy the newly set console.log method to make it more like the
@@ -76,6 +80,7 @@ webpg.utils = {
                         );
                     };
                 })(this, console.log);
+//                }
             }
         }
     },
@@ -134,7 +139,7 @@ webpg.utils = {
           userAgent.search("thunderbird") > -1 ||
           userAgent.search("conkeror") > -1 ||
           userAgent.search("seamonkey") > -1)
-            return "chrome://webpg-firefox/content/";   
+            return "chrome://webpg-firefox/content/";
         else if (userAgent.search("chrome") > -1)
             return chrome.extension.getURL("");
         else if (userAgent.search("safari") > -1)
@@ -576,17 +581,17 @@ webpg.utils = {
 		    }
 		    var ws = [];
 		    var findWhite = function(node){
-			    for(var i=0; i<node.childNodes.length;i++) {
+			    for(var i=0; i<node.childNodes.length; i++) {
 				    var n = node.childNodes[i];
 				    if (n.nodeType==3 && isWhite(n)){
 					    ws.push(n)
-				    }else if(n.hasChildNodes()){
+				    } else if (n.hasChildNodes()) {
 					    findWhite(n);
 				    }
 			    }
 		    }
 		    findWhite(node);
-		    for(var i=0;i<ws.length;i++) {
+		    for(var i=0;i<ws.length; i++) {
 			    ws[i].parentNode.removeChild(ws[i])
 		    }
 
@@ -623,7 +628,7 @@ webpg.utils = {
 		    if(s == "none") return "";
 		    var gap = isBlock(n) ? "\n" : " ";
 		    t += gap;
-		    for(var i=0; i<n.childNodes.length;i++){
+		    for(var i=0; i<n.childNodes.length; i++){
 			    var c = n.childNodes[i];
 			    if(c.nodeType == 3) t += c.nodeValue;
 			    if(c.childNodes.length) recurse(c);
@@ -647,7 +652,7 @@ webpg.utils = {
 	    // Double line breaks after P tags are desired, but would get
 	    // stripped by the final RegExp. Using placeholder text.
 	    var paras = node.getElementsByTagName("p");
-	    for(var i=0; i<paras.length;i++){
+	    for(var i=0; i<paras.length; i++){
 		    paras[i].innerHTML += "NEWLINE";
 	    }
 
@@ -674,8 +679,7 @@ webpg.utils = {
         var result = "";
 
         // Wrap each line
-        for (var i = 0; i < lines.length; i++)
-        {
+        for (var i = 0; i < lines.length; i++) {
             // gmail doesn't wrap lines with less than 81 characters
             // or lines that have been quoted from previous messages
             // in the usual way, so we don't bother either.
@@ -823,6 +827,7 @@ webpg.utils = {
                     return callback(response);
                 }, false);
             }
+
             mozDoc.documentElement.appendChild(request);
 
             var sender = mozDoc.createEvent("HTMLEvents");
@@ -920,6 +925,15 @@ webpg.utils = {
                 chrome.extension.onRequest.addListener(callback);
             }
             return false;
+        },
+
+        removeEventListener: function() {
+            if (webpg.utils.detectedBrowser['product'] == "safari" ||
+               (webpg.utils.detectedBrowser['vendor'] == "mozilla" &&
+               webpg.utils.detectedBrowser['product'] != "thunderbird")) {
+                var mozDoc = (content) ? content.document : document;
+                mozDoc.removeEventListener("webpg-listener-query", arguments.callee, false);
+            }
         },
     },
 
@@ -1087,16 +1101,16 @@ webpg.utils = {
         add: function(action) {
             var _ = webpg.utils.i18n.gettext;
             switch (action) {
-                case webpg.constants.overlayActions.EXPORT:
+                case webpg.constants.overlayActions.VERIF:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var item = document.querySelector(".webpg-menu-export");
+                        var item = document.querySelector(".webpg-menu-verif");
                         if (item)
                             item.hidden = false;
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        var id = "webpg-context-insert-pubkey";
+                        var id = "webpg-context-verify";
                         chrome.contextMenus.create({
-                            "title" : _("Paste Public Key"),
-                            "contexts" : ["editable", "frame", "selection"],
+                            "title" : _("Verify this text"),
+                            "contexts" : ["selection", "editable"],
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -1109,15 +1123,15 @@ webpg.utils = {
                     }
                     break;
 
-                case webpg.constants.overlayActions.PSIGN:
+                case webpg.constants.overlayActions.DECRYPT:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var item = document.querySelector(".webpg-menu-sign");
+                        var item = document.querySelector(".webpg-menu-decrypt");
                         if (item)
                             item.hidden = false;
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        var id = "webpg-context-clearsign";
+                        var id = "webpg-context-decrypt";
                         chrome.contextMenus.create({
-                            "title" : _("Clear-sign this text"),
+                            "title" : _("Decrypt this text"),
                             "contexts" : ["selection", "editable"],
                             "type" : "normal",
                             "onclick" : function(info, tab) {
@@ -1153,6 +1167,28 @@ webpg.utils = {
                     }
                     break;
 
+                case webpg.constants.overlayActions.PSIGN:
+                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                        var item = document.querySelector(".webpg-menu-sign");
+                        if (item)
+                            item.hidden = false;
+                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                        var id = "webpg-context-clearsign";
+                        chrome.contextMenus.create({
+                            "title" : _("Clear-sign this text"),
+                            "contexts" : ["selection", "editable"],
+                            "type" : "normal",
+                            "onclick" : function(info, tab) {
+                                webpg.utils.tabs.sendRequest(tab, {
+                                    "msg": "onContextCommand",
+                                    "action": action,
+                                    "source": 'context-menu',
+                                });
+                            }
+                        });
+                    }
+                    break;
+
                 case webpg.constants.overlayActions.CRYPT:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
                         var item = document.querySelector(".webpg-menu-crypt");
@@ -1175,38 +1211,16 @@ webpg.utils = {
                     }
                     break;
 
-                case webpg.constants.overlayActions.DECRYPT:
+                case webpg.constants.overlayActions.EXPORT:
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var item = document.querySelector(".webpg-menu-decrypt");
+                        var item = document.querySelector(".webpg-menu-export");
                         if (item)
                             item.hidden = false;
                     } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        var id = "webpg-context-decrypt";
+                        var id = "webpg-context-insert-pubkey";
                         chrome.contextMenus.create({
-                            "title" : _("Decrypt this text"),
-                            "contexts" : ["selection", "editable"],
-                            "type" : "normal",
-                            "onclick" : function(info, tab) {
-                                webpg.utils.tabs.sendRequest(tab, {
-                                    "msg": "onContextCommand",
-                                    "action": action,
-                                    "source": 'context-menu',
-                                });
-                            }
-                        });
-                    }
-                    break;
-
-                case webpg.constants.overlayActions.VERIF:
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var item = document.querySelector(".webpg-menu-verif");
-                        if (item)
-                            item.hidden = false;
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        var id = "webpg-context-verify";
-                        chrome.contextMenus.create({
-                            "title" : _("Verify this text"),
-                            "contexts" : ["selection", "editable"],
+                            "title" : _("Paste Public Key"),
+                            "contexts" : ["editable", "frame", "selection"],
                             "type" : "normal",
                             "onclick" : function(info, tab) {
                                 webpg.utils.tabs.sendRequest(tab, {
@@ -1365,7 +1379,28 @@ webpg.utils = {
                     callback(em.getItemForID("webpg-firefox@curetheitch.com").version);
                 }
             }
+        },
+
+        extensionURI: function(callback) {
+            if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
+                callback(webpg.plugin.webpg_status.plugin.path.split("plugins")[0]);
+            } else {
+                var id = "webpg-firefox@curetheitch.com";
+                try {
+                    // Firefox 4 and later; Mozilla 2 and later
+                    Components.utils.import("resource://gre/modules/AddonManager.jsm");
+                    AddonManager.getAddonByID(id, function(result) {
+                        callback(result.getResourceURI("extension").path);
+                    });
+                } catch (ex) {
+                    // Firefox 3.6 and before; Mozilla 1.9.2 and before
+                    var em = Components.classes["@mozilla.org/extensions/manager;1"]
+                             .getService(Components.interfaces.nsIExtensionManager);
+                    callback(em.getInstallLocation(id).getItemFile(id, "extension").path);
+                }
+            }
         }
+        
     },
 
     tabListener: {

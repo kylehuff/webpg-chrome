@@ -138,13 +138,14 @@ webpg.keymanager = {
         webpg.jq("#au-uid_0_comment").click(function(e) {
             webpg.jq(this).removeClass('ui-state-error');
         });
-        webpg.jq("label[for=au-uid_0_email]", "#adduid-form").text(_("Comment") + ":");
+        webpg.jq("label[for=au-uid_0_comment]", "#adduid-form").text(_("Comment") + ":");
 
         webpg.jq("#revkey-confirm").attr("title", _("Revoke this Key") + "?");
         webpg.jq("#revuid-confirm").attr("title", _("Revoke this UID") + "?");
         webpg.jq("#revsig-confirm").attr("title", _("Revoke this Signature") + "?");
         webpg.jq("#delsig-confirm").attr("title", _("Delete this Signature") + "?");
         webpg.jq("#deluid-confirm").attr("title", _("Delete this UID") + "?");
+        webpg.jq("#delphoto-confirm").attr("title", _("Delete this UID") + "?");
         webpg.jq("#delete-key-dialog-confirm").attr("title", _("Delete this Key") + "?");
         webpg.jq("#delete-key-confirm-text").text(_("This key will be permanently deleted") +
             ". " + _("Are you sure") + "?");
@@ -161,6 +162,7 @@ webpg.keymanager = {
         webpg.jq('#revsig-text').text(_("Are you sure you wish to revoke this Signature") + "?");
         webpg.jq('#delsig-text').text(_("Are you sure you wish to delete this Signature") + "?");
         webpg.jq('#deluid-text').text(_("Are you sure you want to permanently delete this UID") + "?");
+        webpg.jq('#delphoto-text').text(_("Are you sure you want to permanently delete this Photo") + "?");
         webpg.jq('#keyexp-text').text(_("New Expiration Date") + ":");
         webpg.jq('#keyexp-never').button({"label": _("Never Expire")});
         webpg.jq('#keyexp-ondate').button({"label": _("Expiration Date")});
@@ -267,70 +269,69 @@ webpg.keymanager = {
             'modal': true,
             'autoOpen': true,
             'title': _("Building Key list")
-        }).animate({"top": window.scrollY}, 1, function() {
-            webpg.jq('#dialog-msg').text(_("Please wait while we build the key list")).css({'top':'0'});
-            webpg.jq(this).dialog().animate({"top": window.scrollY + webpg.jq(this).innerHeight() + 100}, 1,
-            function() {
-                webpg.keymanager.buildKeylist(
-                    keyList, type, openKey,
-                    openSubkey, openUID
-                );
-                webpg.jq("#dialog-modal").dialog('destroy');
-                if (webpg.keymanager.qs.helper) {
-                    function bounce(elem_class, left, top, perpetual) {
-                        var nleft = webpg.jq(webpg.jq(elem_class)[0]).parent().offset().left - left;
-                        var ntop = webpg.jq(webpg.jq(elem_class)[0]).parent().offset().top - top;
-                        webpg.jq("#error_help").parent().css('left', nleft).css('top', ntop).
-                            effect("bounce", {'times': 1, 'direction': 'up', 'distance': 8 }, 1200, function(){ if (perpetual) { bounce(elem_class, left, top, perpetual) } } )
-                    }
-                    var helper_arrow = document.createElement('div');
-                    webpg.jq(helper_arrow).html('' +
-                        '<div id="error_help">' +
-                        '<div id="help_text"></div>' +
-                        '<span style="margin-left: 94px;"><img width="30px" src="skin/images/help_arrow.png"></span>' +
-                        '</div>');
-                    helper_arrow.style.position = 'absolute';
-                    helper_arrow.style.zIndex = 1000;
-                    webpg.jq(helper_arrow).css("max-width", "75%");
-                    switch(webpg.keymanager.qs.helper){
-                        case 'generate':
-                            webpg.jq(helper_arrow).find('#help_text').text(_("Click to generate a new key"));
-                            document.body.appendChild(helper_arrow);
-                            webpg.jq('#generate-key-btn').click(function() {
-                                webpg.jq(helper_arrow).stop(true, true).stop(true, true);
-                                document.body.removeChild(helper_arrow.parentElement);
-                                webpg.keymanager.qs.helper = "";
-                            });
-                            bounce('#generate-key-btn', 5, 44, true);
-                            break;
-                        case 'enable':
-                            webpg.jq(helper_arrow).find('#help_text').text(_("Click to enable key"))[0].style.minWidth = "150px";
-                            document.body.appendChild(helper_arrow);
-                            webpg.jq('.enable-check').click(function() {
-                                webpg.jq(helper_arrow).stop(true, true).stop(true, true);
-                                document.body.removeChild(helper_arrow.parentElement);
-                                webpg.keymanager.qs.helper = "";
-                            });
-                            bounce('.enable-check', 65, 50, true);
-                            break;
-                        case 'default':
-                            webpg.jq(helper_arrow).find('#help_text').text(_("Click to set default key"));
-                            webpg.jq('.default-check').click(function() {
-                                webpg.jq(helper_arrow).stop(true, true).stop(true, true);
-                                document.body.removeChild(helper_arrow.parentElement);
-                                webpg.keymanager.qs.helper = "";
-                            });
-                            document.body.appendChild(helper_arrow);
-                            bounce('.default-check', 40, 45, true);
-                            break;
-                        case 'signuids':
-                            webpg.jq(helper_arrow).find('#help_text').text("Below is a list of key IDs that represent the domains that this server key is valid for; please sign the domain IDs that you want to use with webpg.");
-                            document.body.appendChild(helper_arrow);
-                            bounce('#disable-public-' + openKey, 15, 15, false);
-                            break;
-                    }
+        }).animate({"opacity": 1.0}, 1, function() {
+            webpg.jq('#dialog-msg').text(_("Please wait while we build the key list"));
+            webpg.keymanager.buildKeylist(
+                keyList, type, openKey,
+                openSubkey, openUID
+            );
+            webpg.jq("#dialog-modal").dialog('destroy');
+            if (webpg.keymanager.qs.helper) {
+                function bounce(elem_class, left, top, perpetual) {
+                    var nleft = webpg.jq(webpg.jq(elem_class)[0]).parent().offset().left - left;
+                    var ntop = webpg.jq(webpg.jq(elem_class)[0]).parent().offset().top - top;
+                    webpg.jq("#error_help").parent().css('left', nleft).css('top', ntop).
+                        effect("bounce", {'times': 1, 'direction': 'up', 'distance': 8 }, 1200, function(){ if (perpetual) { bounce(elem_class, left, top, perpetual) } } )
                 }
-            });
+                var helper_arrow = document.createElement('div');
+                webpg.jq(helper_arrow).html('' +
+                    '<div id="error_help">' +
+                    '<div id="help_text"></div>' +
+                    '<span style="margin-left: 94px;"><img width="30px" src="skin/images/help_arrow.png"></span>' +
+                    '</div>');
+                helper_arrow.style.position = 'absolute';
+                helper_arrow.style.zIndex = 1000;
+                webpg.jq(helper_arrow).css("max-width", "75%");
+                switch(webpg.keymanager.qs.helper){
+                    case 'generate':
+                        webpg.jq(helper_arrow).find('#help_text').text(_("Click to generate a new key"));
+                        document.body.appendChild(helper_arrow);
+                        webpg.jq('#generate-key-btn').click(function() {
+                            webpg.jq(helper_arrow).stop(true, true).stop(true, true);
+                            document.body.removeChild(helper_arrow.parentElement);
+                            webpg.keymanager.qs.helper = "";
+                        });
+                        bounce('#generate-key-btn', 5, 44, true);
+                        break;
+                    case 'enable':
+                        webpg.jq(helper_arrow).find('#help_text').text(_("Click to enable key"))[0].style.minWidth = "150px";
+                        document.body.appendChild(helper_arrow);
+                        webpg.jq('#private_keylist').off('click', '.enable-check');
+                        webpg.jq('#private_keylist').on('click', '.enable-check', function() {
+                            webpg.jq(helper_arrow).stop(true, true).stop(true, true);
+                            document.body.removeChild(helper_arrow.parentElement);
+                            webpg.keymanager.qs.helper = "";
+                        });
+                        bounce('.enable-check', 65, 50, true);
+                        break;
+                    case 'default':
+                        webpg.jq(helper_arrow).find('#help_text').text(_("Click to set default key"));
+                        webpg.jq('#private_keylist').off('click', '.default-check');
+                        webpg.jq('#private_keylist').on('click', '.default-check', function() {
+                            webpg.jq(helper_arrow).stop(true, true).stop(true, true);
+                            document.body.removeChild(helper_arrow.parentElement);
+                            webpg.keymanager.qs.helper = "";
+                        });
+                        document.body.appendChild(helper_arrow);
+                        bounce('.default-check', 40, 45, true);
+                        break;
+                    case 'signuids':
+                        webpg.jq(helper_arrow).find('#help_text').text("Below is a list of key IDs that represent the domains that this server key is valid for; please sign the domain IDs that you want to use with webpg.");
+                        document.body.appendChild(helper_arrow);
+                        bounce('#disable-public-' + openKey, 15, 15, false);
+                        break;
+                }
+            }
         })
 
         if (type == "public")
@@ -408,6 +409,8 @@ webpg.keymanager = {
         }
     },
 
+
+
     /*
        Function: buildKeylist
             Generates the formatted, interactive keylist and populates the DOM.
@@ -421,14 +424,14 @@ webpg.keymanager = {
             openSubkey - <str> The ID for the Subkey to render in the open (viewing) status
             openUID - <int> The index number for the UID to render in the open (viewing) status 
     */
-    buildKeylist: function(keylist, type, openKey, openSubkey, openUID){
+    buildKeylist: function(keylist, type, openKey, openSubkey, openUID) {
         var _ = webpg.utils.i18n.gettext;
         var scrub = webpg.utils.escape;
         //console.log(keyList, type, openKey, openSubkey, openUID);
         refresh_trust = function(item, type) {
             if (this.debug) console.log("refresh requested for type: " + type);
             if (type == 'private') {
-                webpg.jq("#dialog-modal:ui-dialog").dialog( "destroy" );
+                webpg.jq("#dialog-modal:ui-dialog").dialog("destroy");
                 return false;
             }
             if (item.parentNode.parentNode && item.parentNode.parentNode.nodeName == "H3") {
@@ -437,7 +440,7 @@ webpg.keymanager = {
                 var uidcontainer = item.parentNode.parentNode.children[1];
             }
             var uidlist = webpg.jq(uidcontainer).children('[class~=uid]');
-            var keylist = (!webpg.keymanager.public_built) ? webpg.keymanager.publickeylist : webpg.plugin.getPublicKeyList();
+            var keylist = (!webpg.keymanager.public_built) ? webpg.keymanager.pubkeylist : webpg.plugin.getPublicKeyList();
             if (!keylist) {
                 // if the parsing failed, create an empty keylist
                 var keylist = {};
@@ -466,6 +469,8 @@ webpg.keymanager = {
             var enabled_keys = webpg.preferences.enabled_keys.get();
         }
 
+        var keyobjs = document.createElement("span");
+
         if (!keylist) {
             if (type == 'public') {
                 var find = webpg.jq("#pubkey-search")[0].value;
@@ -477,7 +482,7 @@ webpg.keymanager = {
                         var keylist = webpg.plugin.getNamedKey(find);
                     }
                 } else {
-                    var keylist = (!webpg.keymanager.public_built) ? webpg.keymanager.publickeylist : webpg.plugin.getPublicKeyList();
+                    var keylist = (!webpg.keymanager.public_built) ? webpg.keymanager.pubkeylist : webpg.plugin.getPublicKeyList();
                 }
 
                 if (!keylist) {
@@ -513,7 +518,6 @@ webpg.keymanager = {
             webpg.jq(genkey_button).button().click(function(e){
                 webpg.keymanager.genkey_refresh = false;
                 webpg.jq("#genkey-dialog").dialog({
-                    "position": "top",
                     "buttons": [
                     {
                         'text': _("Create"),
@@ -612,9 +616,6 @@ webpg.keymanager = {
                                 webpg.keymanager.buildKeylistProxy(null, 'private');
                         }
                     }]
-                }).parent().animate({"top": window.scrollY}, 1, function() {
-                    webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                        / 3}, 1);
                 });
 
                 webpg.jq("#genkey-form").children('input').removeClass('input-error');
@@ -661,9 +662,6 @@ webpg.keymanager = {
                 'width': 630,
                 'modal': true,
                 'autoOpen': false
-            }).parent().animate({"top": window.scrollY}, 1, function() {
-                webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                    / 3}, 1);
             });
             webpg.jq('.passphrase').passwordStrength("#pass_repeat");
             genkey_div.appendChild(genkey_button);
@@ -682,12 +680,80 @@ webpg.keymanager = {
         if (!webpg.plugin.webpg_status.openpgp_detected)
             return false;
 
-        for (var key in current_keylist){
-            if (type == 'public') {
-                if (key in pkeylist) {
-                    continue;
-                }
-            } else {
+        var options_list = [];
+        var option = {};
+        if (type == "private") {
+            option = {
+                "command" : "trust",
+                "text" : _("Trust Assignment"),
+                "input_type" : "list",
+                "list_values" : [_("Unknown"), _("Never"), _("Marginal"), _("Full"), _("Ultimate")],
+                "type" : "trust"
+            }
+            options_list[options_list.length] = option;
+            var group_list = [_("None"), _("New group")];
+            group_list = group_list.concat(existing_groups);
+            option = {
+                "command" : "group",
+                "text" : _("Group Assignment"),
+                "input_type" : "list",
+                "list_values" : group_list,
+                "type" : "group"
+            }
+            options_list[options_list.length] = option;
+            option = {
+                "command" : "expire",
+                "text" : _("Change Expiration"),
+                "input_type" : "calendar"
+            }
+            options_list[options_list.length] = option;
+            option = {
+                "command" : "passphrase",
+                "text" : _("Change Passphrase"),
+                "input_type" : "button"
+            }
+            options_list[options_list.length] = option;
+            option = {
+                "command" : "addsubkey",
+                "text" : _("Add Subkey"),
+                "input_type" : "dialog"
+            }
+            options_list[options_list.length] = option;
+            option = {
+                "command" : "adduid",
+                "text" : _("Add UID"),
+                "input_type" : "dialog"
+            }
+            options_list[options_list.length] = option;
+            option = {
+                "command" : "addphoto",
+                "text" : _("Add Photo"),
+                "input_type" : "dialog"
+            }
+            options_list[options_list.length] = option;
+        } else {
+            option = {
+                "command" : "trust",
+                "text" : _("Trust Assignment"),
+                "input_type" : "list",
+                "list_values" : [_("Unknown"), _("Never"), _("Marginal"), _("Full"), _("Ultimate")],
+                "type" : "trust"
+            }
+            options_list[options_list.length] = option;
+            var group_list = [_("None"), _("New group")];
+            group_list = group_list.concat(existing_groups);
+            option = {
+                "command" : "group",
+                "text" : _("Group Assignment"),
+                "input_type" : "list",
+                "list_values" : group_list,
+                "type" : "group"
+            }
+            options_list[options_list.length] = option;
+        }
+
+        for (var key in current_keylist) {
+            if (type == 'private') {
                 var keyobj = document.createElement('div');
                 if (current_keylist[key].disabled)
                     keyobj.className = 'disabled';
@@ -709,7 +775,7 @@ webpg.keymanager = {
                 status = _("Disabled");
                 webpg.preferences.enabled_keys.remove(key);
             } else {
-                if (!webpg.preferences.enabled_keys.has(key))
+                if (type == "private" && !webpg.preferences.enabled_keys.has(key))
                     webpg.preferences.enabled_keys.add(key);
             }
             if (current_keylist[key].expired) {
@@ -741,144 +807,50 @@ webpg.keymanager = {
                     "<input class='enable-check' id='check-" + scrub(key) +"' type='checkbox' " + enabled + "/\><label class='enable-check-text' for='check-" + scrub(key) + "' style='z-index:100;height:29px;'>" + scrub(status_text) + "</label><input class='default-check' type='radio' name='default_key' " +
                     " id='default-" + scrub(key) + "' " + scrub(default_key) + "/\><label class='default-check' dir='ltr' style='z-index:0;margin-left:0px;height:29px;' for='default-" + scrub(key) + "'>Set as default</label></span></h3>");
             }
-            keylist_element.appendChild(keyobj);
-            webpg.jq(keyobj).find('.enable-check').click(function(e){
-                var checked_id = this.id.split("-")[1];
-                if (webpg.preferences.enabled_keys.has(checked_id) && 
-                    checked_id == webpg.preferences.default_key.get()){
-                    webpg.jq(this).next().addClass('ui-state-active');
-                    webpg.jq(this).parent().children('.keyoption-help-text').html("<span style=\"color:f6f;\">" + _("Cannot unset your default key") + "</span>");
-                    return false;
-                }
-                if (this.checked && !webpg.preferences.default_key.get()) {
-                    webpg.jq(this).next().next().click();
-                    webpg.jq(this).next().next().next().addClass('ui-state-active');
-                }
-                if (this.checked == true) {
-                    webpg.preferences.enabled_keys.add(checked_id);
-                    webpg.jq("#enable-private-" + checked_id).click();
-                } else {
-                    webpg.preferences.enabled_keys.remove(checked_id);
-                    webpg.jq("#disable-private-" + checked_id).click();
-                }
-//                (this.checked) ? webpg.preferences.enabled_keys.add(this.id.split("-")[1]) :
-//                    webpg.preferences.enabled_keys.remove(this.id.split("-")[1]);
-                (this.checked) ? webpg.jq(this).button('option', 'label', _('Enabled')) :
-                    webpg.jq(this).button('option', 'label', _('Disabled'));
-            });
-            webpg.jq(keyobj).find('.default-check').click(function(e){
-                var clicked_id = this.id.split("-")[1];
-                if (clicked_id == webpg.preferences.default_key.get()) {
-                    webpg.jq(this).parent().children('.keyoption-help-text').html("<span style=\"color:f6f;\">" + _("Cannot unset your default key") + "</span>");
-                }
-            });
-            current_keylist[key].nuids = 0;
-            for (var uid in current_keylist[key].uids) {
-                current_keylist[key].nuids += 1;
-            }
+            //keylist_element.appendChild(keyobj);
+            keyobjs.appendChild(keyobj);
             var uidlist = document.createElement('div');
             uidlist.setAttribute('class', 'uidlist');
             uidlist.setAttribute('id', scrub(key));
             var created_date = new Date(current_keylist[key].subkeys[0].created * 1000).toJSON().substring(0, 10);
             var expiry = (current_keylist[key].subkeys[0].expires == 0) ? 'Never' : new Date(current_keylist[key].subkeys[0].expires * 1000).toJSON();
             if (current_keylist[key].subkeys[0].expires > 0) {
-                expiry = (Math.round(new Date().getTime()/1000.0) > current_keylist[key].subkeys[0].expires) ? _("Expired") + " [" + expiry.substring(0, 10) + "]" : expiry.substring(0, 10);
+                expiry = (current_keylist[key].subkeys[0].expired == true) ? _("Expired") + " [" + expiry.substring(0, 10) + "]" : expiry.substring(0, 10);
             }
-            var options_list = [];
-            var option = {};
-            if (type == "private") {
-                option = {
-                    "command" : "trust",
-                    "text" : _("Trust Assignment"),
-                    "input_type" : "list",
-                    "list_values" : [_("Unknown"), _("Never"), _("Marginal"), _("Full"), _("Ultimate")],
-                    "type" : "trust"
-                }
-                options_list[options_list.length] = option;
-                var group_list = [_("None"), _("New group")];
-                group_list = group_list.concat(existing_groups);
-                option = {
-                    "command" : "group",
-                    "text" : _("Group Assignment"),
-                    "input_type" : "list",
-                    "list_values" : group_list,
-                    "type" : "group"
-                }
-                options_list[options_list.length] = option;
-                option = {
-                    "command" : "expire",
-                    "text" : _("Change Expiration"),
-                    "input_type" : "calendar"
-                }
-                options_list[options_list.length] = option;
-                option = {
-                    "command" : "passphrase",
-                    "text" : _("Change Passphrase"),
-                    "input_type" : "button"
-                }
-                options_list[options_list.length] = option;
-                option = {
-                    "command" : "adduid",
-                    "text" : _("Add UID"),
-                    "input_type" : "dialog"
-                }
-                options_list[options_list.length] = option;
-                option = {
-                    "command" : "addsubkey",
-                    "text" : _("Add Subkey"),
-                    "input_type" : "dialog"
-                }
-                options_list[options_list.length] = option;
-            } else {
-                option = {
-                    "command" : "trust",
-                    "text" : _("Trust Assignment"),
-                    "input_type" : "list",
-                    "list_values" : [_("Unknown"), _("Never"), _("Marginal"), _("Full"), _("Ultimate")],
-                    "type" : "trust"
-                }
-                options_list[options_list.length] = option;
-                var group_list = [_("None"), _("New group")];
-                group_list = group_list.concat(existing_groups);
-                option = {
-                    "command" : "group",
-                    "text" : _("Group Assignment"),
-                    "input_type" : "list",
-                    "list_values" : group_list,
-                    "type" : "group"
-                }
-                options_list[options_list.length] = option;
-            }
-            var compiled_option_list = "";
+
+            var compiled_option_list = [];
             for (var option_i in options_list){
                 option = options_list[option_i];
                 switch(option.input_type) {
                     case "button":
-                        compiled_option_list += "<span class='uid-options'><input class='" + 
-                            type + "-key-option-button' id='" + scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + 
-                                "' type='button' value='" + scrub(option.text) + "'/\></span>";
+                        compiled_option_list.push("<span class='uid-options'><input class='", 
+                            type, "-key-option-button' id='", scrub(option.command), "-", scrub(type),
+                            "-", scrub(key), "' type='button' value='", scrub(option.text),
+                            "'/\></span>");
                         break;
 
                     case "dialog":
-                        compiled_option_list += "<span class='uid-options'><input class='" + 
-                            type + "-key-option-button' id='" + scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + 
-                                "' type='button' value='" + scrub(option.text) + "'/\></span>";
+                        compiled_option_list.push("<span class='uid-options'><input class='", 
+                            type, "-key-option-button' id='", scrub(option.command), "-", scrub(type),
+                            "-", scrub(key), "' type='button' value='", scrub(option.text), "'/\></span>");
                         break;
 
                     case "calendar":
-                        compiled_option_list += "<span class='uid-options'><input class='" + 
-                            type + "-key-option-button' id='" + scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + 
-                                "' type='button' value='" + scrub(option.text) + "'/\></span>";
+                        compiled_option_list.push("<span class='uid-options'><input class='", 
+                            type, "-key-option-button' id='", scrub(option.command), "-",
+                            scrub(type), "-", scrub(key), "' type='button' value='",
+                            scrub(option.text), "'/\></span>");
                         break;
 
                     case "list":
                         var style = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
                             'position: relative; top: -16px;' : 'margin-top:-10px;';
-                        compiled_option_list += "<span class='uid-options' style='" + scrub(style) + "'>" +
-                            "<label for='" + scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + 
-                            "'>" + scrub(option.text) + "</label><select class='" + 
-                            scrub(type) + "-key-option-list ui-button ui-corner-all ui-button ui-widget ui-state-default' id='" + 
-                            scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + "' style=\"text-align:left; margin-right: 10px;\">";
+                        compiled_option_list.push("<span class='uid-options' style='", scrub(style), "'>",
+                            "<label for='", scrub(option.command), "-", scrub(type), "-", scrub(key), 
+                            "'>", scrub(option.text), "</label><select class='", scrub(type),
+                            "-key-option-list ui-button ui-corner-all ui-button ui-widget ui-state-default' id='",
+                            scrub(option.command), "-", scrub(type), "-", scrub(key), "' style=\"text-align:left;",
+                            " margin-right: 10px;\">");
                         for (var listitem in option.list_values) {
                             if (option.type == "trust") {
                                 if (option.list_values[listitem].toLowerCase() == current_keylist[key].owner_trust)
@@ -893,19 +865,20 @@ webpg.keymanager = {
                                 else
                                     var selected = "";
                             }
-                            compiled_option_list += "<option class=\"ui-state-default\" value=\"" + 
-                                option.list_values[listitem] + "\" " + 
-                                selected + ">" + option.list_values[listitem] + "</option>";
+                            compiled_option_list.push("<option class=\"ui-state-default\" value=\"", 
+                                option.list_values[listitem], "\" ", selected, ">", 
+                                option.list_values[listitem], "</option>");
                         }
-                        compiled_option_list += "</select></span>";
+                        compiled_option_list.push("</select></span>");
                         break;
 
                     case "multilist":
-                        compiled_option_list += "<span class='uid-options' style='margin-top:-10px;'>" +
-                            "<label for='" + scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + 
-                            "' style=\"display:block; margin-right: 24px;\">" + scrub(option.text) + "</label><input class='" + 
-                            scrub(type) + "-key-option-list ui-corner-all ui-widget ui-state-default' id='" + 
-                            scrub(option.command) + "-" + scrub(type) + "-" + scrub(key) + "' style=\"text-align:left;height:25px; margin-right: 10px;\"/></span>";
+                        compiled_option_list.push("<span class='uid-options' style='margin-top:-10px;'>",
+                            "<label for='", scrub(option.command), "-", scrub(type), "-", scrub(key),
+                            "' style=\"display:block; margin-right: 24px;\">", scrub(option.text),
+                            "</label><input class='", scrub(type), "-key-option-list ui-corner-all ",
+                            "ui-widget ui-state-default' id='", scrub(option.command), "-", scrub(type),
+                            "-", scrub(key), "' style=\"text-align:left;height:25px; margin-right: 10px;\"/></span>");
                         break;
                 }
             }
@@ -914,37 +887,45 @@ webpg.keymanager = {
             var key_option_button = "<span class='uid-options' style='font-size:12px;'><input class='" + 
                     scrub(type) + "-key-option-button' id='" + scrub(keystatus) + "-" + scrub(type) + "-" + scrub(key) + 
                         "' type='button' value='" + scrub(keystatus_text) + "'/\></span>";
-            var uidlist_innerHTML = "<div class='keydetails' style='text-align:" + (webpg.utils.isRTL() ? 'right' : 'left') + "'><span class='dh'>" + _("Key Details") + "</span><hr" + (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
-                "<span><h4>" + _("KeyID") + ":</h4> " + key.substr(-8) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
-                    scrub(created_date) + "</span><span><h4>" + _("Expires") + ":</h4> " + scrub(expiry) +
-                        "</span><span><h4>" + _("User IDs") + ":</h4> " + scrub(current_keylist[key].nuids) + "</span><br/\>" +
-                "<h4>" + _("Fingerprint") + ":</h4> " + scrub(current_keylist[key].fingerprint) + "<br/\>" +
-                "<span><h4>" + _("Status") + ":</h4> " + scrub(status) + "</span><span><h4>" + _("Key Algorithm") + ":</h4> " +
-                        scrub(current_keylist[key].subkeys[0].algorithm_name) + "</span>" +
-                "<span><h4>" + _("Validity") + ":</h4> " + scrub(current_keylist[key].uids[0].validity) + "</span>" +
-                "<br/\>" +
-                "<span class='dh'>" + _("Key Options") + "</span><hr" + (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
-                compiled_option_list + "<br/\>" + 
-                "<span class='dh'>" + _("Operations") + "</span><hr" + (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
-                    key_option_button + 
-                "<span class='uid-options'><input class='" + 
-                            scrub(type) + "-key-option-button key-operation-button-delete' id='delete-" + scrub(type) + "-" + scrub(key) + 
-                                "' type='button' value='" + _("Delete this Key") + "'/\></span>";
-            uidlist_innerHTML += "<span class='uid-options'><input class='" + 
-                scrub(type) + "-key-option-button key-operation-button-export' id='export-" + scrub(type) + "-" + scrub(key) + 
-                    "' type='button' value='" + _("Export this Key") + "'/\></span>";
+            var uidlist_innerHTML = [];
+            uidlist_innerHTML.push("<div class='keydetails' style='text-align:",
+                (webpg.utils.isRTL() ? 'right' : 'left'), "'><span class='dh'>",
+                _("Key Details"), "</span><hr", (webpg.utils.isRTL() ? ' class=\"rtl\"' : ''),
+                "/\>", "<span><h4>", _("KeyID"), ":</h4> ", key.substr(-8),
+                "</span><span><h4>", _("Key Created"), ":</h4> ", scrub(created_date),
+                "</span><span><h4>", _("Expires"), ":</h4> ", scrub(expiry),
+                "</span><span><h4>", _("User IDs"), ":</h4> ", scrub(current_keylist[key].nuids),
+                "</span><br/\>", "<h4>", _("Fingerprint"), ":</h4> ", scrub(current_keylist[key].fingerprint),
+                "<br/\>", "<span><h4>", _("Status"), ":</h4> ", scrub(status),
+                "</span><span><h4>", _("Key Algorithm"), ":</h4> ",
+                scrub(current_keylist[key].subkeys[0].algorithm_name), "</span>",
+                "<span><h4>", _("Validity"), ":</h4> ", scrub(current_keylist[key].uids[0].validity),
+                "</span>", "<br/\>", "<span class='dh'>", _("Key Options"),
+                "</span><hr", (webpg.utils.isRTL() ? ' class=\"rtl\"' : ''),
+                "/\>", compiled_option_list.join(''), "<br/\>", "<span class='dh'>",
+                _("Operations"), "</span><hr", (webpg.utils.isRTL() ? ' class=\"rtl\"' : ''),
+                "/\>", key_option_button, "<span class='uid-options'><input class='",
+                scrub(type), "-key-option-button key-operation-button-delete' id='delete-",
+                scrub(type), "-", scrub(key), "' type='button' value='",
+                _("Delete this Key"), "'/\></span>");
+            uidlist_innerHTML.push("<span class='uid-options'><input class='",
+                scrub(type), "-key-option-button key-operation-button-export' id='export-",
+                scrub(type), "-" + scrub(key), "' type='button' value='",
+                _("Export this Key"), "'/\></span>");
             if (type == "private") {
-                uidlist_innerHTML += "<span class='uid-options'><input class='" + 
-                    scrub(type) + "-key-option-button key-operation-button-publish' id='publish-" + scrub(type) + "-" + scrub(key) + 
-                        "' type='button' value='" + _("Publish to Keyserver") + "'/\></span>";
+                uidlist_innerHTML.push("<span class='uid-options'><input class='",
+                    scrub(type), "-key-option-button key-operation-button-publish' id='publish-",
+                    scrub(type), "-", scrub(key), "' type='button' value='",
+                    _("Publish to Keyserver"), "'/\></span>");
             }
-            uidlist_innerHTML += "<span class='uid-options'><input class='" + 
-                scrub(type) + "-key-option-button key-operation-button-refresh' id='refresh-" + scrub(type) + "-" + scrub(key) + 
-                    "' type='button' value='" + _("Refresh from Keyserver") + "'/\></span><br/\>" +
-                "</div>";
-            webpg.jq(uidlist).html(uidlist_innerHTML);
-            var subkey_info = "<span class='dh'>" + _("Subkeys") + "</span><hr"
-                + (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>";
+            uidlist_innerHTML.push("<span class='uid-options'><input class='",
+                scrub(type), "-key-option-button key-operation-button-refresh' id='refresh-",
+                scrub(type), "-", scrub(key), "' type='button' value='",
+                _("Refresh from Keyserver"), "'/\></span><br/\></div>");
+            webpg.jq(uidlist).html(uidlist_innerHTML.join(''));
+
+            var subkey_info = ["<span class='dh'>", _("Subkeys"), "</span><hr",
+                (webpg.utils.isRTL() ? ' class=\"rtl\"' : ''), "/\>"];
             for (var subkey in current_keylist[key].subkeys) {
                 var skey = current_keylist[key].subkeys[subkey];
                 var skey_status = _("Valid");
@@ -963,7 +944,7 @@ webpg.keymanager = {
                 var created_date = new Date(skey.created * 1000).toJSON().substring(0, 10);
                 var expiry = (skey.expires == 0) ? 'Never' : new Date(skey.expires * 1000).toJSON();
                 if (skey.expires > 0) {
-                    expiry = (Math.round(new Date().getTime()/1000.0) > skey.expires) ? _("Expired") : expiry.substring(0, 10);
+                    expiry = (skey.expired == true) ? _("Expired") : expiry.substring(0, 10);
                 }
                 var extraClass = "";
                 if (key == openKey && subkey == openSubkey) {
@@ -978,44 +959,52 @@ webpg.keymanager = {
                 var sign_flag = (skey.can_sign) ? flags.push(_("Sign")) : "";
                 var enc_flag = (skey.can_encrypt) ? flags.push(_("Encrypt")) : "";
                 var auth_flag = (skey.can_authenticate) ? flags.push(_("Authenticate")) : "";
-                subkey_info += "<div class=\"subkey" + extraClass + "\" id=\"" + 
-                    scrub(key) + '-s' + scrub(subkey) + "\"><h4 class='subkeylist'><a href='#'>" +
-                    "<span style='margin:0; width: 50%'>" + scrub(skey.size) + 
-                    webpg.constants.algoTypes[skey.algorithm_name] + "/" + scrub(skey.subkey.substr(-8)) + 
-                    "</span></a></h4><div class=\"subkey-info\">" +
-                    "<div class='keydetails' style='text-align:" +
-                        (webpg.utils.isRTL() ? 'right' : 'left') +
-                        "'><span class='dh'>" + _("Subkey Details") +
+                subkey_info.push("<div class=\"subkey", extraClass, "\" id=\"",
+                    scrub(key), '-s', scrub(subkey), "\"><h4 class='subkeylist'><a href='#'>",
+                    "<span style='margin:0; width: 50%'>", scrub(skey.size),
+                    webpg.constants.algoTypes[skey.algorithm_name], "/",
+                    scrub(skey.subkey.substr(-8)), "</span></a></h4>",
+                    "<div class=\"subkey-info\">",
+                    "<div class='keydetails' style='text-align:",
+                        (webpg.utils.isRTL() ? 'right' : 'left'),
+                        "'><span class='dh'>", _("Subkey Details"),
                         "</span><hr" + (webpg.utils.isRTL() ?
-                            ' class=\"rtl\"' : '') + "/\>" +
-                    "<span><h4>" + _("KeyID") + ":</h4> " + scrub(skey.subkey.substr(-8)) + "</span><span><h4>" + _("Key Created") + ":</h4> " + 
-                    scrub(created_date) + "</span><span><h4>" + _("Expires") + ":</h4> " + scrub(expiry) + "</span>" +
-                    "<br/\><h4>" + _("Fingerprint") + ":</h4> " + scrub(skey.subkey) + "<br/\>" +
-                    "<span><h4>" + _("Status") + ":</h4> " + scrub(skey_status) + "</span><span><h4>" + _("Key Algorithm") + ":</h4> " +
-                    scrub(skey.algorithm_name) + "</span><span><h4>" + _("Flags") + ":</h4> " + flags.toString().replace(/\,/g, ", ") + "</span>";
+                            ' class=\"rtl\"' : '') + "/\>",
+                    "<span><h4>", _("KeyID"), ":</h4> ",
+                    scrub(skey.subkey.substr(-8)), "</span><span><h4>",
+                    _("Key Created"), ":</h4> ", scrub(created_date) + "</span>",
+                    "<span><h4>", _("Expires"), ":</h4> ", scrub(expiry), "</span>",
+                    "<br/\><h4>", _("Fingerprint"), ":</h4> ", scrub(skey.subkey),
+                    "<br/\>", "<span><h4>", _("Status"), ":</h4> ",
+                    scrub(skey_status), "</span><span><h4>", _("Key Algorithm"),
+                    ":</h4> ", scrub(skey.algorithm_name), "</span><span><h4>",
+                    _("Flags"), ":</h4> ", flags.toString().replace(/\,/g, ", "),
+                    "</span>");
                 if (type == "private") {
-                    subkey_info += "<br/\>" +
-                        "<span class='dh'>" + _("Key Options") + "</span><hr" +
-                        (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
-                        "<span class='uid-options'><input class='" + 
-                        "sub-key-option-button' id='expire-subkey-" + scrub(key) + "-" + scrub(subkey) + 
-                        "' type='button' value='" + _("Change Expiration") + "'/\></span>" +
-                        "<br/\>" +
-                        "<span class='dh'>" + _("Operations") + "</span><hr" +
-                        (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') + "/\>" +
-                        "<span class='uid-options'><input class='" + 
-                        "sub-key-option-button' id='delete-subkey-" + scrub(key) + "-" + scrub(subkey) + 
-                        "' type='button' value='" + _("Delete this Subkey") + "'/\></span>" +
-                        "<span class='uid-options'><input class='" + 
-                        "sub-key-option-button' id='revoke-subkey-" + scrub(key) + "-" + scrub(subkey) + 
-                        "' type='button' value='" + _("Revoke this Subkey") + "'/\></span>"
+                    subkey_info.push("<br/\><span class='dh'>",
+                        _("Key Options"), "</span><hr",
+                        (webpg.utils.isRTL() ? ' class=\"rtl\"' : ''), "/\>",
+                        "<span class='uid-options'><input class='", 
+                        "sub-key-option-button' id='expire-subkey-", scrub(key),
+                        "-", scrub(subkey), "' type='button' value='",
+                        _("Change Expiration"), "'/\></span>", "<br/\>",
+                        "<span class='dh'>", _("Operations"), "</span><hr",
+                        (webpg.utils.isRTL() ? ' class=\"rtl\"' : ''), "/\>",
+                        "<span class='uid-options'><input class='", 
+                        "sub-key-option-button' id='delete-subkey-", scrub(key),
+                        "-", scrub(subkey), "' type='button' value='",
+                        _("Delete this Subkey"), "'/\></span>",
+                        "<span class='uid-options'><input class='",
+                        "sub-key-option-button' id='revoke-subkey-", scrub(key),
+                        "-" + scrub(subkey), "' type='button' value='",
+                        _("Revoke this Subkey"), "'/\></span>");
                 }
-                subkey_info += "</div></div></div>";
+                subkey_info.push("</div></div></div>");
             }
-            webpg.jq(uidlist).append(subkey_info);
-            webpg.jq(uidlist).append("<br/\><span class='dh'>" + _("User IDs") +
-                "</span><hr" + (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') +
-                "/\>");
+            webpg.jq(uidlist).append(subkey_info.join(''));
+            webpg.jq(uidlist).append(["<br/\><span class='dh'>", _("User IDs"),
+                "</span><hr", (webpg.utils.isRTL() ? ' class=\"rtl\"' : ''),
+                "/\>"].join(''));
             for (var uid in current_keylist[key].uids) {
                 var uidobj = document.createElement('div');
                 uidobj.setAttribute('class', 'uid');
@@ -1105,36 +1094,39 @@ webpg.keymanager = {
                             sig_class = "";
                             sig_image = "stock_signature.png";
                         }
-                        var sig_box = "<div id='sig-" + scrub(sig_keyid) + "-" + scrub(sig) + "' class='signature-box " + scrub(sig_class) + "'>" +
-                            "<img src='skin/images/badges/48x48/" + scrub(sig_image) + "'>" + 
-                            "<div class='signature-text-box'><span class='signature-uid'>" + 
-                            tpublic_keylist[sig_keyid].name + status + "</span><span class='signature-email'>" + 
-                            email + "</span><span class='signature-keyid'>" + sig_keyid + "</span>";
+                        var sig_box = ["<div id='sig-", scrub(sig_keyid), "-",
+                            scrub(sig), "' class='signature-box ", scrub(sig_class),
+                            "'><img src='skin/images/badges/48x48/", scrub(sig_image),
+                            "'><div class='signature-text-box'><span class='signature-uid'>",
+                            tpublic_keylist[sig_keyid].name, status, "</span><span class='signature-email'>",
+                            email, "</span><span class='signature-keyid'>", sig_keyid, "</span>"];
                         var date_created = (tpublic_keylist[key].uids[uid].signatures[sig].created == 0) ?
                             _('Unknown') : new Date(tpublic_keylist[key].uids[uid].signatures[sig].created * 1000).toJSON().substring(0, 10);
                         var date_expires = (tpublic_keylist[key].uids[uid].signatures[sig].expires == 0) ? 
                             _('Never') : new Date(tpublic_keylist[key].uids[uid].signatures[sig].expires * 1000).toJSON().substring(0, 10);
-                        sig_box += "<span class='signature-keyid'>" + _('Created') + ": " + scrub(date_created) + "</span>";
-                        sig_box += "<span class='signature-keyid'>" + _('Expires') + ": " + scrub(date_expires) + "</span>"
+                        sig_box.push("<span class='signature-keyid'>", _('Created'), ": ", scrub(date_created), "</span>");
+                        sig_box.push("<span class='signature-keyid'>", _('Expires'), ": ", scrub(date_expires), "</span>");
 
-                        sig_box += "<span class='signature-keyid'>";
+                        sig_box.push("<span class='signature-keyid'>");
                         if (sig_keyid == key) {
-                            sig_box += "[" + _("self-signature") + "]";
+                            sig_box.push("[", _("self-signature"), "]");
                         } else if (!current_keylist[key].uids[uid].signatures[sig].exportable) {
-                            sig_box += "[" + _("local") + ", " + _("non-exportable") + "]";
+                            sig_box.push("[", _("local"), ", ", _("non-exportable"), "]");
                         } else {
-                            sig_box += "[" + _("other signature") + "]";
+                            sig_box.push("[", _("other signature"), "]");
                         }
-                        sig_box += "</span></div>";
+                        sig_box.push("</span></div>");
 
                         if (signed && tpublic_keylist[key].uids[uid].signatures[sig].exportable && key != sig_keyid
                             && !tpublic_keylist[key].uids[uid].signatures[sig].revoked) {
-                            sig_box += "<input type='button' class='revsig-button' id='revsig-" + scrub(type) + "-" + 
-                                scrub(key) + "-" + scrub(uid) + "-" + scrub(rev_index) + "' value='" + _("Revoke") + "'/\>";
+                            sig_box.push("<input type='button' class='revsig-button' id='revsig-",
+                                scrub(type), "-", scrub(key), "-", scrub(uid),
+                                "-", scrub(rev_index), "' value='", _("Revoke"), "'/\>");
                         }
-                        sig_box += "<input type='button' class='delsig-button' id='delsig-" + scrub(type) + "-" + scrub(key) +
-                            "-" + scrub(uid) + "-" + scrub(sig) + "' value='" + _("Delete") + "'/\></div>";
-                        webpg.jq(uidobjbody).append(sig_box);
+                        sig_box.push("<input type='button' class='delsig-button' id='delsig-",
+                        scrub(type), "-", scrub(key), "-", scrub(uid), "-",
+                        scrub(sig), "' value='", _("Delete"), "'/\></div>");
+                        webpg.jq(uidobjbody).append(sig_box.join(''));
                     } else {
                         sigs_not_in_keyring[sig] = current_keylist[key].uids[uid].signatures[sig];
                     }
@@ -1149,6 +1141,38 @@ webpg.keymanager = {
             }
             keyobj.appendChild(uidlist);
         }
+        webpg.jq(keylist_element).append(keyobjs.innerHTML);
+
+        webpg.jq('.enable-check').click(function(e){
+            var checked_id = this.id.split("-")[1];
+            if (webpg.preferences.enabled_keys.has(checked_id) && 
+                checked_id == webpg.preferences.default_key.get()){
+                webpg.jq(this).next().addClass('ui-state-active');
+                webpg.jq(this).parent().children('.keyoption-help-text').html("<span style=\"color:f6f;\">" + _("Cannot unset your default key") + "</span>");
+                return false;
+            }
+            if (this.checked && !webpg.preferences.default_key.get()) {
+                webpg.jq(this).next().next().click();
+                webpg.jq(this).next().next().next().addClass('ui-state-active');
+            }
+            if (this.checked == true) {
+                webpg.preferences.enabled_keys.add(checked_id);
+                webpg.jq("#enable-private-" + checked_id).click();
+            } else {
+                webpg.preferences.enabled_keys.remove(checked_id);
+                webpg.jq("#disable-private-" + checked_id).click();
+            }
+//                (this.checked) ? webpg.preferences.enabled_keys.add(this.id.split("-")[1]) :
+//                    webpg.preferences.enabled_keys.remove(this.id.split("-")[1]);
+            (this.checked) ? webpg.jq(this).button('option', 'label', _('Enabled')) :
+                webpg.jq(this).button('option', 'label', _('Disabled'));
+        });
+        webpg.jq('.default-check').click(function(e){
+            var clicked_id = this.id.split("-")[1];
+            if (clicked_id == webpg.preferences.default_key.get()) {
+                webpg.jq(this).parent().children('.keyoption-help-text').html("<span style=\"color:f6f;\">" + _("Cannot unset your default key") + "</span>");
+            }
+        });
 
         // This allows us to toggle the "Enable" and "Default" buttons without activating the accordion
         webpg.jq('.trust').click(function(e){
@@ -1160,8 +1184,9 @@ webpg.keymanager = {
                                 'active': '.ui-accordion-left',
                                 'collapsible': true
                             }
+
         webpg.jq('#' + type + '_keylist').children('.primary_key').
-            accordion(pKeyAcOptions).children();
+            accordion(pKeyAcOptions);
 
         var subKeyAcOptions = {
                                 'header': 'h4.subkeylist', 'alwaysOpen': false,
@@ -1195,8 +1220,8 @@ webpg.keymanager = {
             }
         }
 
-        webpg.jq('#' + type + '_keylist').children('.open_key').
-            accordion("activate", 0)
+//        webpg.jq('#' + type + '_keylist').children('.open_key').
+//            accordion("activate", 0);
         webpg.jq('.open_uid').accordion('destroy').accordion().
             accordion("activate", 0).accordion("option", {'collapsible': true});
         webpg.jq('.open_subkey').accordion('destroy').accordion().
@@ -1290,7 +1315,10 @@ webpg.keymanager = {
             })
         });
 
-        webpg.jq('.private-key-option-button, .public-key-option-button, .sub-key-option-button').button().click(function(e){
+        webpg.jq('.private-key-option-button, .public-key-option-button, .sub-key-option-button').button();
+        webpg.jq('#' + type + '_keylist').off('click', '.private-key-option-button, .public-key-option-button, .sub-key-option-button');
+        webpg.jq('#' + type + '_keylist').on('click', '.private-key-option-button, .public-key-option-button, .sub-key-option-button',
+        function(e){
             var params = this.id.split('-');
             var refresh = false;
 
@@ -1312,9 +1340,8 @@ webpg.keymanager = {
                 case "expire":
                     webpg.jq("#keyexp-dialog").dialog({
                         'resizable': true,
-                        'height': 190,
+                        'height': 410,
                         'modal': true,
-                        'position': "top",
                         'open': function(event, ui) {
                             var key = webpg.plugin.getNamedKey(params[2])
                             webpg.jq("#keyexp-date-input").datepicker({
@@ -1332,6 +1359,8 @@ webpg.keymanager = {
                             if (key[params[2]].subkeys[subkey_idx].expires == 0) {
                                 webpg.jq("#keyexp-never")[0].checked = true;
                                 webpg.jq("#keyexp-date-input").hide();
+                                webpg.jq("#keyexp-dialog").dialog({ 'height': 190 });
+                                webpg.jq("#keyexp-dialog").dialog("refresh");
                             } else {
                                 webpg.jq("#keyexp-ondate")[0].checked = true;
                                 webpg.jq("#keyexp-date-input").show();
@@ -1347,6 +1376,7 @@ webpg.keymanager = {
                             webpg.jq("#keyexp-never").change(function(){
                                 webpg.jq("#keyexp-date-input").hide();
                                 webpg.jq("#keyexp-dialog").dialog({ 'height': 190 });
+                                webpg.jq("#keyexp-dialog").dialog("refresh");
                             })
 
                         },
@@ -1393,9 +1423,6 @@ webpg.keymanager = {
                                 },
                             }
                         ]
-                    }).parent().animate({"top": window.scrollY}, 1, function() {
-                        webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                            / 3}, 1);
                     });
                     break;
 
@@ -1410,7 +1437,6 @@ webpg.keymanager = {
                         'resizable': true,
                         'height': 168,
                         'modal': true,
-                        'position': "top",
                         'close': function() {
                             webpg.jq("#delete-key-dialog-confirm").dialog("destroy");
                         },
@@ -1450,9 +1476,7 @@ webpg.keymanager = {
                             }
                         }
                     ]
-                    }).parent().animate({"top": window.scrollY}, 1, function() {
-                            webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()}, 1);
-                        });
+                    });
                     break;
 
                 case "adduid":
@@ -1461,7 +1485,6 @@ webpg.keymanager = {
                         'height': 230,
                         'width': 550,
                         'modal': true,
-                        'position': "top",
                         'buttons': [
                         {
                             'text': _("Create"),
@@ -1470,28 +1493,28 @@ webpg.keymanager = {
                                 if (!webpg.jq("#adduid-status").length) {
                                     webpg.jq(form).parent().before("<div id=\"adduid-status\"> </div>");
                                 }
-                                var error = "";
+                                var error = [];
                                 if (!form.uid_0_name.value){
-                                    error += _("Name Required") + "<br>";
+                                    error.push(_("Name Required"), "<br>");
                                     webpg.jq(form.uid_0_name).addClass("ui-state-error");
                                 }
                                 if (form.uid_0_name.value.length < 5){
-                                    error += _("UID Names must be at least 5 characters") + "<br>";
+                                    error.push(_("UID Names must be at least 5 characters"), "<br>");
                                     webpg.jq(form.uid_0_name).addClass("ui-state-error");
                                 }
                                 if (!isNaN(form.uid_0_name.value[0])){
-                                    error += _("UID Names cannot begin with a number") + "<br>";
+                                    error.push(_("UID Names cannot begin with a number"), "<br>");
                                     webpg.jq(form.uid_0_name).addClass("ui-state-error");
                                 }
                                 if (form.uid_0_email.value && !webpg.utils.
                                     isValidEmailAddress(form.uid_0_email.value)){
-                                    error += _("Not a valid email address") + "<br>";
+                                    error.push(_("Not a valid email address"), "<br>");
                                     webpg.jq(form.uid_0_email).addClass("ui-state-error");
                                 } else {
                                     webpg.jq(form.uid_0_email).removeClass("ui-state-error");
                                 }
                                 if (error.length) {
-                                    webpg.jq("#adduid-status").html(error)[0].style.display="block";
+                                    webpg.jq("#adduid-status").html(error.join(''))[0].style.display="block";
                                     return false;
                                 }
                                 webpg.keymanager.adduid_waiting = true;
@@ -1516,10 +1539,7 @@ webpg.keymanager = {
                                 webpg.jq("#adduid-dialog").dialog("destroy");
                             }
                         }
-                    ]}).parent().animate({"top": window.scrollY}, 1, function() {
-                            webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                                / 2}, 1);
-                        });
+                    ]});
                     break;
 
                 case "addsubkey":
@@ -1530,7 +1550,6 @@ webpg.keymanager = {
                         'width': 300,
                         'modal': true,
                         'autoOpen': false,
-                        'position': "top",
                         'buttons': [
                         {
                             'text': _("Create"),
@@ -1583,10 +1602,7 @@ webpg.keymanager = {
                                     webpg.keymanager.buildKeylistProxy(null, 'private');
                             }
                         }
-                    ]}).parent().animate({"top": window.scrollY}, 1, function() {
-                            webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                                / 3}, 1);
-                    });
+                    ]});
                     webpg.jq("#subKey_flags").buttonset();
                     webpg.jq("#gensubkey-form").children('input').removeClass('input-error');
                     webpg.jq("#gensubkey-form")[0].reset();
@@ -1639,6 +1655,98 @@ webpg.keymanager = {
                     webpg.jq("#gensubkey-form").find(".open").trigger("click");
                     break;
 
+                case "addphoto":
+                    webpg.jq("#addphoto-dialog").dialog({
+                        'resizable': true,
+                        'height': 230,
+                        'width': 550,
+                        'modal': true,
+                        'buttons': [{
+                            'text': _("Add"),
+                            'click': function() {
+                                console.log(params, webpg.jq(this).find("#ap-photo_name")[0].value);
+                                var f = webpg.jq(this).find("#ap-photo_name")[0].files.item(0);
+                                var reader = new FileReader();
+                                var attempt = 0;
+                                reader.onload = (function(theFile) {
+                                    return function(e) {
+                                        if (e.target.error) {
+                                            webpg.jq("#list").html("<ul><li><strong><span class='error-text' style='padding-right:12px;'>" + 
+                                                _("Error") + ":</span>" + 
+                                                _("There was an error parsing this image file") + 
+                                                "</strong></li></ul>"
+                                            );
+                                            return false;
+                                        }
+                                        var result64 = btoa(e.target.result);
+                                        var result = {'error': true};
+                                        // We need to loop this a few times, because it often
+                                        //  fails for no apparent reason.
+                                        while (result.error == true && attempt < 3) {
+                                            result = webpg.plugin.gpgAddPhoto(params[2], f.name, result64);
+                                            attempt++;
+                                        }
+                                        if (result.error == true) {
+                                            console.log(result);
+                                            msg = ["<ul><li><strong><span class='error-text' style='padding-right:12px;'>", 
+                                                _("Error"), ":</span>", _("There was an error adding this image file"),
+                                                "</strong></li>"];
+                                            if (result.gpg_error_code == "1")
+                                                msg.push("<li>", _("It is possible the image contains EXIF data"),
+                                                    "</li>");
+                                            else  
+                                                msg.push("<li>", result.error_string, "</li>");
+                                            msg.push("</ul>");
+                                            webpg.jq("#list").html(msg.join(''));
+                                        } else {
+                                            webpg.jq("#ap-photo_name")[0].value = '';
+                                            webpg.jq("#addphoto-dialog").dialog("destroy");
+                                            webpg.keymanager.buildKeylistProxy(null, "private", params[2], null, null);
+                                        }
+                                            
+                                    }
+                                })(f);
+                                reader.readAsBinaryString(f);
+                            },
+                            'id': 'ap-add_button',
+                        }, {
+                            'text': _("Cancel"),
+                            'click': function() {
+                                webpg.jq(this).find("#ap-photo_name")[0].value = "";
+                                webpg.jq("#addphoto-dialog").dialog("destroy");
+                            }
+                        }
+                    ]}).parent().animate({"opacity": 1.0}, 1, function() {
+                            webpg.jq("#ap-add_button").attr("disabled", true);
+                            webpg.jq(this).find("#list").html("<ul><li><strong>" + 
+                                _("Please use the button above to select a JPEG (.jpg/.jpeg) photo") + 
+                                "</strong></li></ul>"
+                            );
+                            webpg.jq(this).find("#ap-photo_name")[0].addEventListener('change', function(e) {
+                                var files = e.target.files; // FileList object
+
+                                // files is a FileList of File objects. List some properties.
+                                var f = files[0];
+                                if (files.length == 1) {
+                                    if (f.type != "image/jpeg") {
+                                        e.target.value = "";
+                                        msg = ['<li class="error-text"><strong>', _("Only JPEG image files are supported"), '</li>'];
+                                    } else {
+                                        msg = ['<li>', (f.type || 'n/a'), ' - ', f.size, ' bytes</li>'];
+                                        if (f.size > 6144)
+                                            msg.push("<li style='padding-right:8px;'><strong><span class='error-text'>",
+                                            _("WARNING"), "</span>: ", parseFloat(f.size / 1000).toFixed(1), " kB ",
+                                            _("is quite large"), ". ", _("Consider using a smaller image"), "</li>");
+                                        webpg.jq("#ap-add_button").attr("disabled", false);
+                                    }
+                                } else {
+                                    msg = ['<li class="error-text"><strong>', _("Only one image can be added"), '</li>'];
+                                }
+                                webpg.jq(this).parent().find('#list').html('<ul>' + msg.join('') + '</ul>');
+                            }, false);
+                        });
+                    break;
+
                 case "export":
                     var export_result = webpg.plugin.gpgExportPublicKey(params[2]).result;
                     webpg.jq("#export-dialog-text").html(scrub(export_result));
@@ -1648,7 +1756,6 @@ webpg.keymanager = {
                         'height': 230,
                         'width': 536,
                         'modal': true,
-                        'position': "top",
                         'buttons': [
                         {
                             'text': _("Copy"),
@@ -1666,10 +1773,7 @@ webpg.keymanager = {
                                 webpg.jq("#export-dialog-msg")[0].style.display="none"
                             }
                         }
-                    ]}).parent().animate({"top": window.scrollY}, 1, function() {
-                            webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                                / 2}, 1);
-                        });
+                    ]});
                     break;
 
                 case "revoke":
@@ -1689,7 +1793,6 @@ webpg.keymanager = {
                         'width': 350,
                         'modal': true,
                         'autoOpen': false,
-                        'position': "top",
                         'close': function() {
                             webpg.jq("#revkey-confirm").dialog("destroy");
                         },
@@ -1711,10 +1814,7 @@ webpg.keymanager = {
                                 webpg.jq("#revkey-confirm").dialog("close");
                             }
                         }
-                    ]}).parent().animate({"top": window.scrollY}, 1, function() {
-                            webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                                / 2}, 1);
-                        });
+                    ]});
                     webpg.jq("#revkey-confirm").dialog('open');
                     break;
 
@@ -1726,7 +1826,6 @@ webpg.keymanager = {
                         'height': 230,
                         'width': 536,
                         'modal': true,
-                        'position': "top",
                         'buttons': [
                         {
                             'text': _("Publish"),
@@ -1762,10 +1861,7 @@ webpg.keymanager = {
                                 webpg.jq("#export-dialog-msg")[0].style.display="none"
                             }
                         }
-                    ]}).parent().animate({"top": window.scrollY}, 1, function() {
-                            webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                                / 2}, 1);
-                        });
+                    ]});
                     webpg.jq("#ui-dialog-title-export-dialog").text(_("Publish to Keyserver"));
                     break;
 
@@ -1808,7 +1904,9 @@ webpg.keymanager = {
                 webpg.jq(src).text(webpg.jq(src).parent()[0].getAttribute("text"))
             }
         );
-        webpg.jq('.uid-option-button').button().click(function(e){
+        webpg.jq('.uid-option-button').button();
+        webpg.jq('#' + type + '_keylist').off('click', '.uid-option-button');
+        webpg.jq('#' + type + '_keylist').on('click', '.uid-option-button', function(e){
             var params = this.id.split('-');
             var refresh = false;
             switch(params[0]) {
@@ -1817,7 +1915,6 @@ webpg.keymanager = {
                         'resizable': true,
                         'height': 180,
                         'modal': true,
-                        'position': "top",
                         'close': function() {
                             webpg.jq("#deluid-confirm").dialog("destroy");
                         },
@@ -1843,11 +1940,7 @@ webpg.keymanager = {
                                 webpg.jq(this).dialog("close");
                             }
                         }
-                    ]}).parent().animate({"top": window.scrollY}, 1,
-                        function() {
-                            webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                                / 2}, 1);
-                        });
+                    ]});
                     break;
 
                 case "primary":
@@ -1873,7 +1966,6 @@ webpg.keymanager = {
                         'width': 350,
                         'modal': true,
                         'autoOpen': false,
-                        'position': top,
                         'close': function() {
                             webpg.jq("#revuid-confirm").dialog("destroy");
                         },
@@ -1895,10 +1987,7 @@ webpg.keymanager = {
                                 webpg.jq("#revuid-confirm").dialog("close");
                             }
                         }
-                    ]}).parent().animate({"top": window.scrollY}, 1, function() {
-                            webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                                / 2}, 1);
-                        });
+                    ]});
                     webpg.jq("#revuid-confirm").dialog('open');
                     break;
 
@@ -1913,18 +2002,16 @@ webpg.keymanager = {
                 webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, params[3]);
             }
         });
-        webpg.jq('.uid-option-button-sign').button().click(function(e){
+        webpg.jq('.uid-option-button-sign').button();
+        webpg.jq('#' + type + '_keylist').off('click', '.uid-option-button-sign');
+        webpg.jq('#' + type + '_keylist').on('click', '.uid-option-button-sign', function(e){
             webpg.jq("#createsig-dialog").dialog({
                 'resizable': true,
                 'minHeight': 250,
                 'width': 630,
                 'modal': true,
-                'autoOpen': false,
-                'position': "top"
-            }).parent().animate({"top": window.scrollY}, 1, function() {
-                    webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                        / 3}, 1);
-                });
+                'autoOpen': false
+            });
             var params = this.id.split('-');
             var enabled_keys = webpg.preferences.enabled_keys.get();
             webpg.jq('#createsig-form').html("<p class='help-text'>" + _("Please select which of your keys to create the signature with") + ":</p>");
@@ -1946,27 +2033,36 @@ webpg.keymanager = {
                         _("please click here") + "</a> " + _("and generate a key to use with webpg"));
                 }
             }
-            for (idx in enabled_keys) {
-                var key = enabled_keys[idx];
+            for (var key in webpg.keymanager.pkeylist) {
+                if (webpg.keymanager.pkeylist[key].disabled == true
+                || webpg.keymanager.pkeylist[key].expired == true)
+                    continue;
                 var signed = (cursig.indexOf(key) != -1);
-                var status = signed? "<div style='width: 28px; display: inline;text-align:right;'><img style='height: 14px; padding: 2px 2px 0 4px;' id='img_" + key + "' " +
-                    "src='skin/images/badges/48x48/stock_signature.png' alt='" + _("Already signed with this key") + "'/\></div>" :
-                    "<div style='width: 28px; display: inline;text-align:right;'><img style='display:none; height: 14px; padding: 2px 2px 0 4px;' id='img_" + key + "' " +
-                    "src='skin/images/check.png' alt='" + _("Signature added using this key") + "'/\></div>";
+                var status = [];
                 if (signed)
-                    status += "<input style='display: none;' type='checkbox' id='sign_" + key + "' name='" + key + "' disabled/\>";
+                    status.push("<div style='width: 28px; display: inline;text-align:right;'>",
+                        "<img style='height: 14px; padding: 2px 2px 0 4px;' id='img_", key, "' ",
+                        "src='skin/images/badges/48x48/stock_signature.png' alt='",
+                        _("Already signed with this key"), "'/\></div>");
                 else
-                    status += "<input type='checkbox' id='sign_" + key + "' name='" + key + "'/\>";
-                webpg.jq('#createsig-form').append(status + "<label for='sign_" + key + "' id='lbl-sign_" + key + "' class='help-text'>" + webpg.keymanager.pkeylist[key].name + " (" + key + ")</label><div id='lbl-sign-err_" + key + "' style='display: none;'></div><br/\>");
+                    status.push("<div style='width: 28px; display: inline;text-align:right;'>",
+                        "<img style='display:none; height: 14px; padding: 2px 2px 0 4px;' id='img_",
+                        key, "' src='skin/images/check.png' alt='", _("Signature added using this key"), "'/\></div>");
+                if (signed)
+                    status.push("<input style='display: none;' type='checkbox' id='sign_", key, "' name='", key, "' disabled/\>");
+                else
+                    status.push("<input type='checkbox' id='sign_", key, "' name='", key, "'/\>");
+                status.push("<label for='sign_", key, "' id='lbl-sign_",key, "' class='help-text'>",
+                    webpg.keymanager.pkeylist[key].name, " (", key, ")", "</label><div id='lbl-sign-err_",
+                    key, "' style='display: none;'></div><br/\>");
+                webpg.jq('#createsig-form').append(status.join(''));
                 if (webpg.preferences.enabled_keys.length() == 1 && signed) {
                     webpg.jq(webpg.jq("button", webpg.jq("#createsig-dialog").parent()).children()[1]).hide();
                 }
             }
             var refresh = false;
             webpg.jq("#createsig-dialog").dialog({
-                'position': "top",
-                "buttons": [
-                    {
+                "buttons": [{
                         'text': _("Sign"),
                         'click': function() {
                             var checked = webpg.jq("#createsig-form").children("input:checked");
@@ -2009,13 +2105,46 @@ webpg.keymanager = {
                         }
                     }
                 ]
-            }).parent().animate({"top": window.scrollY}, 1, function() {
-                    webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                / 2}, 1)});
+            });
             if (webpg.preferences.enabled_keys.length() == 1 && cursig.indexOf(enabled_keys[0]) != -1) {
                 webpg.jq("button", webpg.jq("#createsig-dialog").parent()).first().hide()
             }
             webpg.jq("#createsig-dialog").dialog('open');
+        });
+        webpg.jq('#' + type + '_keylist').off('click', '.photo-option-button-delete');
+        webpg.jq('#' + type + '_keylist').on('click', '.photo-option-button-delete', function(e){
+            var params = this.id.split('-');
+            var refresh = false;
+            webpg.jq("#delphoto-confirm").dialog({
+                'resizable': true,
+                'height': 180,
+                'modal': true,
+                'close': function() {
+                    webpg.jq("#delphoto-confirm").dialog("destroy");
+                },
+                'buttons': [
+                {
+                    'text': _("Delete this Photo"),
+                    'click': function() {
+                        // Delete the Public Key
+                        var uid_idx = parseInt(params[3]);
+                        var result = webpg.plugin.gpgDeleteUID(params[2], uid_idx);
+                        console.log(result, params[2], uid_idx);
+                        webpg.jq(this).dialog("close");
+                        // Remove the Key-ID from the params array, since it
+                        //  no longer exists
+                        if (!result.error) {
+                            params[3] = null;
+                            webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
+                        }
+                    }
+                }, {
+                    'text': _("Cancel"),
+                    'click': function() {
+                        webpg.jq(this).dialog("close");
+                    }
+                }
+            ]});
         });
         if (!webpg.plugin.webpg_status.gpgconf_detected) {
             webpg.jq(".key-operation-button-publish").button({'disabled': true, 'label': _("Cannot Publish Keys without gpgconf utility installed")});
@@ -2026,7 +2155,9 @@ webpg.keymanager = {
         webpg.jq('.uid-option-button-sign.uid-revoked').button({'disabled': true, 'label': _("Cannot sign a revoked UID")});
         webpg.jq('.uid-option-button-primary.uid-revoked').button({'disabled': true, 'label': _("Cannot make a revoked UID primary")});
         webpg.jq('.uid-option-button-sign.key-expired').button({'disabled': true, 'label': _("Cannot sign an expired key")});
-        webpg.jq('.revsig-button').button().click(function(e){
+        webpg.jq('.revsig-button').button();
+        webpg.jq('#' + type + '_keylist').off('click', '.revisg-button');
+        webpg.jq('#' + type + '_keylist').on('click', '.revisg-button', function(e){
             var params = this.id.split('-');
             var calling_button = this;
             var sig_details = webpg.jq(calling_button).parent()[0].id.split('-');
@@ -2058,9 +2189,7 @@ webpg.keymanager = {
                         webpg.jq("#revsig-confirm").dialog("close");
                     }
                 }                
-            ]).parent().animate({"top": window.scrollY}, 1, function() {
-                webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                / 3}, 1)});
+            ]);
             webpg.jq("#revsig-confirm").dialog('open');
         });
         webpg.jq("#revsig-confirm").dialog({
@@ -2083,12 +2212,11 @@ webpg.keymanager = {
                     webpg.jq(this).dialog('close');
                 }
             }]
-        }).parent().animate({"top": window.scrollY}, 1, function() {
-            webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                / 2}, 1);
         });
 
-        webpg.jq('.delsig-button').button().click(function(e){
+        webpg.jq('.delsig-button').button();
+        webpg.jq('#' + type + '_keylist').off('click', '.delsig-button');
+        webpg.jq('#' + type + '_keylist').on('click', '.delsig-button', function(e){
             var params = this.id.split('-');
             var calling_button = this;
             var sig_details = webpg.jq(calling_button).parent()[0].id.split('-');
@@ -2116,11 +2244,7 @@ webpg.keymanager = {
                         webpg.jq("#delsig-confirm").dialog("close");
                     }
                 }
-            ])
-            .parent().animate({"top": window.scrollY}, 1, function() {
-                webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()
-                    / 2}, 1);
-            });
+            ]);
             webpg.jq("#delsig-confirm").dialog('open');
         });
         webpg.jq("#delsig-confirm").dialog({
@@ -2128,7 +2252,6 @@ webpg.keymanager = {
             'height': 200,
             'modal': true,
             'autoOpen': false,
-            'position': "top",
             'buttons': [
                 {
                     'text': _('Delete this Signature') + '?',
@@ -2142,11 +2265,134 @@ webpg.keymanager = {
                     }
                 }
             ]
-        }).parent().animate({"top": window.scrollY}, 1, function() {
-            webpg.jq(this).animate({"top": window.scrollY + webpg.jq(this).innerHeight()}, 1);
         });
 
-        webpg.jq('.public_keylist').click(function(e){
+        webpg.jq('#' + type + '_keylist').off('click', '.private_keylist, .public_keylist');
+        webpg.jq('#' + type + '_keylist').on('click', '.private_keylist, .public_keylist', function(e) {
+            var key = (webpg.jq(this).find('a').length > 0)
+                ? webpg.jq(this).find('a')[0].name
+                : null;
+            var type = (this.className.search('private') > -1) ? 'private' : 'public';
+            var element = this;
+            photo_info = webpg.plugin.gpgGetPhotoInfo(key);
+            if (key && this.className.search('active') > -1 && photo_info.photos_provided > 0) {
+                // When a primary key accordion header is clicked open, do the
+                //  following mess to get the associated image(s).
+                //  This would be a bit in depth for code comments, see the following
+                //  link for details about this process -
+                //  https://github.com/kylehuff/webpg-npapi/wiki/Photo-Support#displaying-photos
+                webpg.utils.extension.extensionURI(function(path) {
+                    if (window.navigator.platform.toLowerCase().indexOf("win") > -1)
+                        path += "skin\\images\\key_photos\\";
+                    else
+                        path += "skin/images/key_photos/";
+                    var count = photo_info.photos_provided;
+                    var index = current_keylist[key].nuids;
+                    var photo_viewer = [];
+                    var batch_name = "WEBPG_" + new Date().getTime() + ".bat";
+                    if (window.navigator.platform.toLowerCase().indexOf("win") > -1)
+                        photo_viewer.push("cmd /V:ON /E:ON /C @SETLOCAL & @ECHO OFF & ",
+                            "echo @SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION>!TEMP!\\", batch_name, " & ",
+                            "echo @ECHO OFF>>!TEMP!\\", batch_name, " & ",
+                            "echo :START>>!TEMP!\\", batch_name, " & ",
+                            "echo     set \"FILEPATH=%%%1\">>!TEMP!\\", batch_name, " & ",
+                            "echo     set \"FILEPATH=!FILEPATH:~1,-1!\">>!TEMP!\\", batch_name, " & ",
+                            "echo     set \"INDEX=%%%2\">>!TEMP!\\", batch_name, " & ",
+                            "echo     set \"PCOUNT=%%%3\">>!TEMP!\\", batch_name, " & ",
+                            "echo     set \"TEMPFILE=%%%4\">>!TEMP!\\", batch_name, " & ",
+                            "echo     set \"KEYID=%%%5\">>!TEMP!\\", batch_name, " & ",
+                            "echo     set \"BASEFILENAME=!FILEPATH!\\!KEYID!\">>!TEMP!\\", batch_name, " & ",
+                            "echo     IF NOT EXIST \"!FILEPATH!\\.\" (>>!TEMP!\\", batch_name, " & ",
+                            "echo         mkdir \"!FILEPATH!\"^>null>>!TEMP!\\", batch_name, " & ",
+                            "echo     )>>!TEMP!\\", batch_name, " & ",
+                            "echo     IF EXIST \"!BASEFILENAME!-*.jpg\" (>>!TEMP!\\", batch_name, " & ",
+                            "echo         del /Q \"!BASEFILENAME!-*.jpg\"^>null>>!TEMP!\\", batch_name, " & ",
+                            "echo     )>>!TEMP!\\", batch_name, " & ",
+                            "echo     copy \"!TEMPFILE!\" \"!BASEFILENAME!-latest.jpg\"^>null>>!TEMP!\\", batch_name, " & ",
+                            "echo     set \"CUR=0\">>!TEMP!\\", batch_name, " & ",
+                            "echo     GOTO :LOOP>>!TEMP!\\", batch_name, " & ",
+                            "echo :LOOP>>!TEMP!\\", batch_name, " & ",
+                            "echo     IF NOT EXIST \"!BASEFILENAME!-!CUR!-*.j\" (>>!TEMP!\\", batch_name, " & ",
+                            "echo         GOTO :END>>!TEMP!\\", batch_name, " & ",
+                            "echo     ) ELSE (>>!TEMP!\\", batch_name, " & ",
+                            "echo         set /A \"CUR+=1\">>!TEMP!\\", batch_name, " & ",
+                            "echo         GOTO :LOOP>>!TEMP!\\", batch_name, " & ",
+                            "echo     )>>!TEMP!\\", batch_name, " & ",
+                            "echo     GOTO :END>>!TEMP!\\", batch_name, " & ",
+                            "echo :END>>!TEMP!\\", batch_name, " & ",
+                            "echo     set /A \"POSITION=!PCOUNT!+!CUR!\">>!TEMP!\\", batch_name, " & ",
+                            "echo     copy \"!BASEFILENAME!-latest.jpg\" \"!BASEFILENAME!-!CUR!-!POSITION!.j\"^>null>>!TEMP!\\", batch_name, " & ",
+                            "echo     IF !CUR! equ !INDEX! (>>!TEMP!\\", batch_name, " & ",
+                            "echo         rename \"!BASEFILENAME!-*.j\" \"*.jpg\"^>null>>!TEMP!\\", batch_name, " & ",
+                            "echo     )>>!TEMP!\\", batch_name, " & ",
+                            "!TEMP!\\", batch_name, " \"", path, "\" ", index, " ", count, " \"%i\" %K & del /Q !TEMP!\\", batch_name)
+                    else
+                        photo_viewer.push("FILENAME=", path, "%K; ",
+                            "if [ ! -d '", path, "' ]; then mkdir '",
+                            path, "'; fi; rm -f $FILENAME-*.jpg; cat > $FILENAME-latest.jpg",
+                            "; CUR=`ls ", path, " | awk 'BEGIN { count=0; } $1 ~ /",
+                            key, ".*?j$/ { count++; } END { print count }'`; ",
+                            "cp $FILENAME-latest.jpg ", path, "%K-$CUR-$((",
+                            (index + 1), " + $CUR)).j; if [ $CUR -ge ", (count - 1),
+                            " ]; then for file in ", path, "*.j; do mv $file ${file}pg; done; fi;");
+
+                    webpg.plugin.setTempGPGOption("photo-viewer", 
+                        '"' + photo_viewer.join('') + '"');
+                    webpg.plugin.gpgShowPhoto(key);
+                    webpg.plugin.restoreGPGConfig();
+
+                    var uidlist = webpg.jq(element).parent().find('div.uidlist');
+                    uidlist.find('.photo').remove();
+                    webpg.jq(uidlist).append("<span class='photo'><br/\><span class='dh'>" + _("User Photos") +
+                        "</span><hr" + (webpg.utils.isRTL() ? ' class=\"rtl\"' : '') +
+                        "/\></span>");
+                    var photolist = document.createElement('div');
+                    photolist.setAttribute('class', 'photolist');
+                    for (var photo in photo_info.photos) {
+                        var photoobj = document.createElement('div');
+                        photoobj.setAttribute('class', 'photo');
+                        photoobj.setAttribute('id', scrub(key) + '-' + scrub(photo));
+                        webpg.jq(photoobj).html("<h4 class='photolist'><a href='#'><span style='margin:0; width: 50%;'>User Photo " + photo + "</span></a></h4>");
+                        var photoobjbody = document.createElement('div');
+                        webpg.jq(photoobjbody).html("<div class=\"uid-options uid-options-line\"><span class='uid-options'><input class='photo-option-button-delete' id='delete-" + scrub(type) + "-" + scrub(key) + "-" + scrub(photo_info.photos[photo].absolute_index) + "' type='button' value='" + _("Delete this Photo") + "'/\></span></div><br/>");
+                        var photo_box = "<div class='photo_img' id='photo-" + scrub(key) + "-" + scrub(photo) + "-" + scrub(photo_info.photos[photo].absolute_index) + "' class='photo-box'>" +
+                                "<img/></div>";
+                        webpg.jq(photoobjbody).append(photo_box);
+                        webpg.jq(photoobj).append(photoobjbody);
+                        photolist.appendChild(photoobj);
+                    }
+                    uidlist.append(photolist);
+
+                    var photoAcOptions = {
+                                            'header': 'h4.photolist', 'alwaysOpen': false,
+                                            'autoheight': false, 'clearStyle': true,
+                                            'active':'.ui-accordion-left',
+                                            'collapsible': true
+                                        }
+
+                    webpg.jq(".photolist").children('.photo').accordion(photoAcOptions);
+                    webpg.jq('.photo-option-button-delete').button();
+
+                    var user_photo = document.createElement('img');
+                    webpg.jq(user_photo).bind('error', function(event) {
+                        event.target.src = "skin/images/menumask.png";
+                    });
+                    user_photo.src = 'skin/images/key_photos/' + key + '-latest.jpg?' + new Date().getTime();
+                    user_photo.className = 'keyphoto';
+                    if (type == "private")
+                        webpg.jq(element).parent().find('.uidlist .keydetails').first().append(user_photo);
+                    else
+                        webpg.jq(element).parent().find('.uidlist .keydetails').first().prepend(user_photo);
+                    webpg.jq(element).parent().find('.photolist .photo_img').each(function() {
+                        webpg.jq(this).find('img').attr('src',
+                            'skin/images/key_photos/' + scrub(this.id.split('photo-')[1]) + '.jpg?' + new Date().getTime());
+                    });
+                });
+            }
+        });
+
+        webpg.jq('#public_keylist').off('click', '.public_keylist');
+        webpg.jq('#public_keylist').on('click', '.public_keylist', function(e){
             e.stopImmediatePropagation()
             e.preventDefault();
             e.stopPropagation();
@@ -2240,26 +2486,22 @@ webpg.keymanager = {
                     nkeylist = webpg.keymanager.pubkeylist;
 
                 webpg.jq("#dialog-modal").dialog()
-                .animate({"top": window.scrollY}, 1,
+                .animate({"opacity": 1.0}, 1,
                     function() {
                         webpg.jq('#dialog-msg').text(
                             (val.length > 0) ? _("Searching for") + " \"" + val
                             + "\"" : _("Please wait while we build the key list")
                         );
-                        webpg.jq(this).animate({"top": window.scrollY +
-                            webpg.jq(this).innerHeight() + 100}, 1,
-                        function() {
-                            webpg.keymanager.buildKeylist(
-                                nkeylist, 'public');
-                            webpg.jq("#dialog-modal:ui-dialog").dialog('destroy');
-                        }
-                    )
+                        webpg.keymanager.buildKeylist(
+                            nkeylist, 'public');
+                        webpg.jq("#dialog-modal:ui-dialog").dialog('destroy');
                 });
             })
         }
         if (window.navigator.platform.toLowerCase().indexOf("win") > -1) {
             webpg.jq("select").each(function() { this.style.backgroundImage = 'none'; });
         }
+        webpg.jq('.open_key').find('.private_keylist, .public_keylist').click();
     },
     /* end buildKeylist */
 }

@@ -65,17 +65,11 @@ webpg.background = {
             webpg.secret_keys = webpg.plugin.getPrivateKeyList();
             webpg.preferences.enabled_keys.clear();
             for (var sKey in webpg.secret_keys) {
-                webpg.preferences.enabled_keys.add(sKey);
+                if (webpg.secret_keys[sKey].disabled == false)
+                    webpg.preferences.enabled_keys.add(sKey);
                 webpg.secret_keys[sKey].default = (sKey == webpg.default_key);
             }
             webpg.enabled_keys = webpg.preferences.enabled_keys.get();
-//            var secret_keys = webpg.secret_keys;
-//            var enabled_keys = webpg.enabled_keys;
-//            for (var key in enabled_keys){
-//                if (enabled_keys[key] in secret_keys == false){
-//                    webpg.preferences.enabled_keys.remove(enabled_keys[key]);
-//                }
-//            }
             webpg.preferences.group.refresh_from_config();
             if (webpg.utils.detectedBrowser['vendor'] == 'mozilla'
             && webpg.utils.detectedBrowser['product'] != 'thunderbird') {
@@ -93,11 +87,30 @@ webpg.background = {
                     "line": -1,
                 }
             }
-            // Hide the plugin element or it will FUBAR the content window
-            //  on firefox.
-            if (webpg.utils.detectedBrowser["vendor"] == "mozilla")
+            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+                        .getService(Components.interfaces.nsIPrefService);
+                prefs = prefs.getBranch("plugins.");
+                if (prefs.getBoolPref("click_to_play") == true) {
+                    webpg.plugin.webpg_status = {
+                        "error": true,
+                        "gpg_error_code": -2,
+                        "error_string": _("WebPG Plugin failed to load"),
+                        "file": "background.js",
+                        "line": 100,
+                    }
+                }
+                // Hide the plugin element or it will FUBAR the content window
+                //  on firefox.
                 document.getElementById("webpgPlugin").style.display = "none";
-            webpg.utils.openNewTab(webpg.utils.resourcePath + "error.html");
+                webpg.appcontent = document.getElementById("appcontent") || document;
+                webpg.appcontent.addEventListener("DOMContentLoaded", function(aEvent) {
+                    webpg.utils.openNewTab(webpg.utils.resourcePath + "error.html");
+                    webpg.appcontent.removeEventListener(aEvent.type, arguments.callee, false);
+                }, false);
+            } else {
+                webpg.utils.openNewTab(webpg.utils.resourcePath + "error.html");
+            }
         }
     },
 
@@ -224,8 +237,8 @@ webpg.background = {
                         && request.signers.length > 0) ? request.signers : 
                         webpg.preferences.default_key.get() != ""
                             ? [webpg.preferences.default_key.get()] : [];
-                var sign_status = webpg.plugin.gpgSignText(signers,
-                    request.selectionData.selectionText, 2);
+                var sign_status = webpg.plugin.gpgSignText(request.selectionData.selectionText,
+                    signers, 2);
                 response = sign_status;
                 if (!sign_status.error && sign_status.data.length > 0) {
                     if (typeof(request.message_event)=='undefined' || !request.message_event == "gmail") {

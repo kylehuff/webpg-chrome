@@ -24,8 +24,10 @@ webpg.error = {
             error_html += "<ul>";
             if (error_map["gpg_error_code"] == -1) {
                 error_html += "<li>" + _("The plugin was unable to load") + "</li>";
-            }
-            if (error_map["gpg_error_code"] == "150") {
+            } else if (error_map["gpg_error_code"] == -2) {
+                error_html += "<li>" + _("The Firefox Click to Play feature is enabled") + "</li>" +
+                    "<li>" + _("WebPG cannot load the required plugin with this feature enabled") + "</li>";
+            } else if (error_map["gpg_error_code"] == "150") {
                 error_html += "<li>" + _("There might be a problem with the gpg installation");
                 if (window.navigator.platform.toLowerCase().indexOf("win") !== -1)
                     error_html += " " + _("consider reinstalling gpg4win") + " (<a href='http://gpg4win.org/'>gpg4win.org</a>)</li>";
