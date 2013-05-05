@@ -91,24 +91,27 @@ webpg.inline = {
                             console.log(err.message);
                         }
                         webpg.inline.PGPDataSearch(mutation.target.contentDocument, true, false, mutation.target);
+                    } else if (doc.location.host.indexOf("mail.google.com") > -1) {
+                        try {
+                            doc.querySelectorAll(".Bu.y3")[0].style.display = "none";
+                            doc.querySelectorAll(".AT")[0].style.display = "none";
+                        } catch (err) {
+                        }
+                        // check if gmail message appears
+                        if (webpg.jq(mutation.target).parent().is('.ii.gt.adP.adO')
+                        || webpg.jq(mutation.target).parent().is('.adn.ads')) {
+                            if (mutation.target.className.indexOf("webpg-") == -1
+                            && webpg.jq(mutation.target).find(".webpg-node-odata").length < 1) {
+                                if (webpg.jq(mutation.target).parent().is('.adn.ads'))
+                                    if (webpg.jq(mutation.target).find('.ii.gt.adP.adO').length < 1)
+                                        return false;
+                                webpg.inline.PGPDataSearch(doc, false, true, mutation.target);
+                            }
+                        }
                     } else {
-                        if (doc.location.host.indexOf("mail.google.com") > -1) {
-                            try {
-                                doc.querySelectorAll(".Bu.y3")[0].style.display = "none";
-                                doc.querySelectorAll(".AT")[0].style.display = "none";
-                            } catch (err) {
-                            }
-                            // check if gmail message appears
-                            if (webpg.jq(mutation.target).parent().is('.ii.gt.adP.adO')
-                            || webpg.jq(mutation.target).parent().is('.adn.ads')) {
-                                if (mutation.target.className.indexOf("webpg-") == -1
-                                && webpg.jq(mutation.target).find(".webpg-node-odata").length < 1) {
-                                    if (webpg.jq(mutation.target).parent().is('.adn.ads'))
-                                        if (webpg.jq(mutation.target).find('.ii.gt.adP.adO').length < 1)
-                                            return false;
-                                    webpg.inline.PGPDataSearch(doc, false, true, mutation.target);
-                                }
-                            }
+                        if (mutation.addedNodes.length > 0) {
+                            if (mutation.addedNodes[0].textContent.search(/-----BEGIN PGP.*?-----/gim) > -1)
+                                webpg.inline.PGPDataSearch(mutation.addedNodes[0].ownerDocument, true, false, mutation.target);
                         }
                     }
                 });
