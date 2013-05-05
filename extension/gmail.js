@@ -970,7 +970,7 @@ webpg.utils.sendRequest({
                                 //  not have the option to set the overlay by URL
                                 if (aEvent.originalTarget.location.host == "mail.google.com") {
                                     observer.disconnect();
-                                    observer.observe(aEvent.originalTarget.querySelector('body'), config);
+                                    observer.observe(webpg.gmail.getCanvasFrameDocument(), config);
                                 }
                             },
                         true
