@@ -836,18 +836,14 @@ webpg.gmail = {
             text - <str> The string to parse
     */
     clean: function(text) {
-        reg = new RegExp("<div[^>]*><br></div>", "gi");
+        var reg = new RegExp("<div[^>]*><br></div>", "gi");
         str = text.replace(reg, "\n");
 
         reg = new RegExp("<div[^>]*>(.*?)</div>", "gi");
         str = text.replace(reg, "\n$1");
 
-        var reg = new RegExp("<div[^>]*><br></div>", "gi");
-        str = str.replace(reg, "\n");
-
-        var space = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? "\n" : "";
         var reg = new RegExp("<br[^>]*>", "gi");
-        str = str.replace(reg,space);
+        str = str.replace(reg,"\n");
 
         reg = new RegExp("<wbr>", "gi");
         str = str.replace(reg,"\n");
