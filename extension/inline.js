@@ -58,7 +58,6 @@ webpg.inline = {
         webpg.inline.existing_iframes = [];
 
         var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-        // Retrieve a reference to the appropriate window object
         // Check if the MutationObserver is not present
         if (typeof(MutationObserver) == 'undefined') {
             console.log("Using depreciated DOMSubtreeModified");
@@ -82,15 +81,7 @@ webpg.inline = {
             console.log("Using MutationObserver");
             var observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
-                    if (doc.location.host.indexOf("mail.google.com") > -1) {
-                        try {
-                            doc.querySelectorAll(".Bu.y3")[0].style.display = "none";
-                            doc.querySelectorAll(".AT")[0].style.display = "none";
-                        } catch (err) {
-                        }
-                    }
-                    if (mutation.target.nodeName == "IFRAME" && mutation.target.className.indexOf("webpg-") == -1 &&
-                        webpg.inline.existing_iframes.indexOf(mutation.target) == -1) {
+                    if (mutation.target.nodeName == "IFRAME" && mutation.target.className.indexOf("webpg-") == -1) {
                         try {
                             mutation.target.contentDocument.documentElement.removeEventListener("contextmenu",
                                 webpg.overlay.contextHandler, true);
@@ -101,20 +92,22 @@ webpg.inline = {
                         }
                         webpg.inline.PGPDataSearch(mutation.target.contentDocument, true, false, mutation.target);
                     } else {
-                        if (doc.location.host.indexOf("mail.google.com") == -1) {
-                            if (mutation.addedNodes.length > 0)
-                                if (mutation.addedNodes[0].nodeName != "#text")
-                                    webpg.inline.PGPDataSearch(mutation.addedNodes[0].ownerDocument, true, false, mutation.target);
-                        }
-                        // check if gmail message appears
-                        if (webpg.jq(mutation.target).parent().is('.ii.gt.adP.adO')
-                        || webpg.jq(mutation.target).parent().is('.adn.ads')) {
-                            if (mutation.target.className.indexOf("webpg-") == -1
-                            && webpg.jq(mutation.target).find(".webpg-node-odata").length < 1) {
-                                if (webpg.jq(mutation.target).parent().is('.adn.ads'))
-                                    if (webpg.jq(mutation.target).find('.ii.gt.adP.adO').length < 1)
-                                        return false;
-                                webpg.inline.PGPDataSearch(doc, false, true, mutation.target);
+                        if (doc.location.host.indexOf("mail.google.com") > -1) {
+                            try {
+                                doc.querySelectorAll(".Bu.y3")[0].style.display = "none";
+                                doc.querySelectorAll(".AT")[0].style.display = "none";
+                            } catch (err) {
+                            }
+                            // check if gmail message appears
+                            if (webpg.jq(mutation.target).parent().is('.ii.gt.adP.adO')
+                            || webpg.jq(mutation.target).parent().is('.adn.ads')) {
+                                if (mutation.target.className.indexOf("webpg-") == -1
+                                && webpg.jq(mutation.target).find(".webpg-node-odata").length < 1) {
+                                    if (webpg.jq(mutation.target).parent().is('.adn.ads'))
+                                        if (webpg.jq(mutation.target).find('.ii.gt.adP.adO').length < 1)
+                                            return false;
+                                    webpg.inline.PGPDataSearch(doc, false, true, mutation.target);
+                                }
                             }
                         }
                     }
@@ -123,6 +116,7 @@ webpg.inline = {
 
             // configuration of the observer:
             var config = { 'childList': true, 'subtree': true, 'attributes': false, 'characterData': false };
+            // Retrieve a reference to the appropriate window object
             var doc = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.document :
                 (webpg.inline.doc) ? webpg.inline.doc : document;
 
