@@ -459,15 +459,27 @@ webpg.inline = {
 //                console.log("using html cleaned for gmail");
             } else {
                 if (gmail) {
-                    phtml = webpg.utils.linkify(phtml).replace(new RegExp("<div[^>]*></div>", "gim"), "")
-                        .replace(new RegExp("<div[^>]*>(.*?)</div>", "gim"), "$1")
-                        .replace(wbrReg, "");
+                    if (phtml.search(new RegExp("<[^>]+>", "gim")) == -1) {
+//                        console.log("using modified HTML as PHTML");
+                        phtml = html.replace(/<div[^>]*>(.*?[\s\S\n]*?)<\/div>/gim, "$1")
+                            .replace(/<div[^>]*>(.*?[\s\S\n]*?)<\/div>/gim, "$1")
+                            .replace(new RegExp("<div[^>]*></div>", "gim"), "")
+                            .replace(new RegExp("<div[^>]*>(.*?)</div>", "gim"), "$1")
+                            .replace(wbrReg, "")
+                            .replace(new RegExp("<br[^>]*>\n", "gim"), "\n")
+                            .replace(new RegExp("<br[^>]*>", "gim"), "\n");
+                    }
                     if (html.search(new RegExp("<div[^>]*><br><br>.*?-----BEGIN PGP.*?-----", "gim")) > -1
-                    && phtml.search(RegExp("\n\n.*?\n-----BEGIN PGP.*?-----", "gim")) > -1)
-                        phtml = phtml.replace(RegExp("\n(\n.*?\n-----BEGIN PGP.*?-----)", "gim"), "$1");
+                    && phtml.search(RegExp("^\n\n.*?\n-----BEGIN PGP.*?-----", "gim")) > -1) {
+                        phtml = phtml.replace(RegExp("^\n(\n.*?\n-----BEGIN PGP.*?-----)", "gim"), "$1");
+                    }
+                } else {
+                    phtml = phtml.replace(/<div[^>]*><br[^>]*>(.*?[\s\S\n]*?)<\/div>/gim, "<br>$1")
+                                .replace(/<div[^>]*>(.*?[\s\S\n]*?)<\/div>/gim, "$1\n");
                 }
 //                console.log("using phtml");
-                scontent = webpg.utils.linkify(phtml);
+                scontent = (phtml.search(new RegExp("&lt;a", "gim")) == 0)
+                    ? webpg.utils.linkify(phtml) : phtml;
             }
         } else {
             if (scontent.search(/^\s*?(-----BEGIN(\s|&nbsp;|\%20)PGP.*?)(\n|%0A)/gi) < 0) {

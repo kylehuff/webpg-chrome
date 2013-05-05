@@ -31,7 +31,7 @@ webpg.overlay = {
     toolbarBlacklist: [
         // google mail is already enhanced with WebPG
         "mail.google.com",
-        // Nothing against Mozilla Add-ons, but strange things happen
+        // Nothing against Mozilla Add-ons, but strange things happen; FIXME
         "addons.mozilla.org",
         // Micro PGP signatures don't exist yet
         "twitter.com",
@@ -45,6 +45,8 @@ webpg.overlay = {
         "hastebin.com",
         // I got the gist of it
         "gist.github.com",
+        // FIXME
+        "blogger.com",
     ],
 
     /*
