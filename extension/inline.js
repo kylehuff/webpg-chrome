@@ -938,15 +938,12 @@ webpg.inline = {
         offset = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
             1 : offset;
         toolbar.style.width = element.offsetWidth - 11 - offset + "px";
-        if (element.offsetHeight > element.scrollHeight)
-            element.style.width = (element.offsetWidth - 11 - offset) +
-                (element.offsetWidth - element.clientWidth) - 11 + "px";
-        else
-            element.style.width = toolbar.style.width;
 
         if (element.parentElement.offsetWidth < parseInt(toolbar.style.width))
             toolbar.style.width = element.parentElement.offsetWidth - 11 + "px";
-        
+
+        element.style.width = parseInt(toolbar.style.width) + 12 + offset + "px";
+
         element.style.paddingTop = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
             "28px" : "30px";
         element.style.marginTop = "1px";
