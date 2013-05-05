@@ -619,31 +619,6 @@ webpg.preferences = {
             webpg.localStorage.setItem('groups', '');
         },
     },
-
-    /*
-        Class: webpg.preferences.default_key
-            Provides methods to get/set the "default_key" preference
-    */
-    restore_click_to_play: {
-        /*
-            Function: get
-                Provides method to get the preference item
-        */
-        get: function() {
-            return webpg.localStorage.getItem('click_to_play');
-        },
-
-        /*
-            Function: set
-                Provides method to set the preference item
-
-            Parameters:
-                keyid - <str> The KeyID to add to the preference item
-        */
-        set: function(value) {
-            webpg.localStorage.setItem('click_to_play', value);
-        },
-    },
 };
 
 if (webpg.utils.detectedBrowser['product'] == "chrome") {

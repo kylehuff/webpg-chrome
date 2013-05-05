@@ -56,6 +56,9 @@
 	"Finished": {
 		"message": "Terminé"
 	},
+	"Translation_Status": {
+		"message": ""
+	},
 	"WebPG_Plugin_failed_to_load": {
 		"message": "Le greffon WebPG ne s'est pas chargé correctement"
 	},
@@ -131,6 +134,12 @@
 	"The_plugin_was_unable_to_load": {
 		"message": "Le greffon n'a pas pu se chargé"
 	},
+	"The_Firefox_Click_to_Play_feature_is_enabled": {
+		"message": ""
+	},
+	"WebPG_cannot_load_the_required_plugin_with_this_feature_enabled": {
+		"message": ""
+	},
 	"There_might_be_a_problem_with_the_gpg_installation": {
 		"message": "Il semble y avoir un problème avec l'installation de gpg"
 	},
@@ -188,6 +197,12 @@
 	"or": {
 		"message": ""
 	},
+	"Expired_keys_found_for": {
+		"message": ""
+	},
+	"and": {
+		"message": ""
+	},
 	"You_have_more_than_1_public_key_matching_that_address": {
 		"message": "Vous avez plus que 1 clé pour cette addresse"
 	},
@@ -211,6 +226,15 @@
 	},
 	"Do_not_use_WebPG_for_this_message": {
 		"message": "N'utiliser pas WebPG pour ce message"
+	},
+	"Sign_Only": {
+		"message": ""
+	},
+	"no_email_address_provided": {
+		"message": ""
+	},
+	"Use": {
+		"message": ""
 	},
 	"Decrypt": {
 		"message": ""
@@ -359,6 +383,9 @@
 	"Are_you_sure_you_want_to_permanently_delete_this_UID": {
 		"message": ""
 	},
+	"Are_you_sure_you_want_to_permanently_delete_this_Photo": {
+		"message": ""
+	},
 	"New_Expiration_Date": {
 		"message": ""
 	},
@@ -367,6 +394,12 @@
 	},
 	"Expiration_Date": {
 		"message": "Date d'Expiration"
+	},
+	"Building_Key_list": {
+		"message": ""
+	},
+	"Please_wait_while_we_build_the_key_list": {
+		"message": ""
 	},
 	"Click_to_generate_a_new_key": {
 		"message": ""
@@ -431,30 +464,6 @@
 	"key_generation_will_continue_in_the_background": {
 		"message": ""
 	},
-	"Enabled": {
-		"message": "Activé"
-	},
-	"Disabled": {
-		"message": "Désactivé"
-	},
-	"Valid": {
-		"message": "Valide"
-	},
-	"Expired": {
-		"message": "Expirée"
-	},
-	"Invalid": {
-		"message": "Non valide"
-	},
-	"Revoked": {
-		"message": "Révoquée"
-	},
-	"no_email_address_provided": {
-		"message": ""
-	},
-	"Cannot_unset_your_default_key": {
-		"message": ""
-	},
 	"Trust_Assignment": {
 		"message": ""
 	},
@@ -485,6 +494,27 @@
 	"Add_Subkey": {
 		"message": ""
 	},
+	"Add_Photo": {
+		"message": ""
+	},
+	"Enabled": {
+		"message": "Activé"
+	},
+	"Disabled": {
+		"message": "Désactivé"
+	},
+	"Valid": {
+		"message": "Valide"
+	},
+	"Expired": {
+		"message": "Expirée"
+	},
+	"Invalid": {
+		"message": "Non valide"
+	},
+	"Revoked": {
+		"message": "Révoquée"
+	},
 	"Enable_this_Key": {
 		"message": ""
 	},
@@ -498,6 +528,9 @@
 		"message": ""
 	},
 	"Expires": {
+		"message": ""
+	},
+	"User_IDs": {
 		"message": ""
 	},
 	"Fingerprint": {
@@ -542,9 +575,6 @@
 	"Revoke_this_Subkey": {
 		"message": ""
 	},
-	"User_IDs": {
-		"message": ""
-	},
 	"Make_primary": {
 		"message": ""
 	},
@@ -578,10 +608,13 @@
 	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
 		"message": ""
 	},
+	"Cannot_unset_your_default_key": {
+		"message": ""
+	},
 	"Calculating_Trust": {
 		"message": ""
 	},
-	"Please_wait_while_recalculate_the_trust_for_this_item": {
+	"Please_wait_while_we_calculate_the_trust_for_this_item": {
 		"message": ""
 	},
 	"Save": {
@@ -589,6 +622,36 @@
 	},
 	"Delete_this_key": {
 		"message": "Supprimer cette clé"
+	},
+	"Add": {
+		"message": ""
+	},
+	"There_was_an_error_parsing_this_image_file": {
+		"message": ""
+	},
+	"There_was_an_error_adding_this_image_file": {
+		"message": ""
+	},
+	"It_is_possible_the_image_contains_EXIF_data": {
+		"message": ""
+	},
+	"Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo": {
+		"message": ""
+	},
+	"Only_JPEG_image_files_are_supported": {
+		"message": ""
+	},
+	"WARNING": {
+		"message": ""
+	},
+	"is_quite_large": {
+		"message": ""
+	},
+	"Consider_using_a_smaller_image": {
+		"message": ""
+	},
+	"Only_one_image_can_be_added": {
+		"message": ""
 	},
 	"Copy": {
 		"message": "Copier"
@@ -671,6 +734,9 @@
 	"Signature_added_using_this_key": {
 		"message": ""
 	},
+	"Delete_this_Photo": {
+		"message": ""
+	},
 	"Cannot_Publish_Keys_without_gpgconf_utility_installed": {
 		"message": ""
 	},
@@ -701,19 +767,19 @@
 	"This_action_cannot_be_undone": {
 		"message": ""
 	},
-	"Enable_this_key_for_signing": {
+	"User_Photos": {
+		"message": ""
+	},
+	"Enable_this_key_for_GnuPG_operations": {
 		"message": ""
 	},
 	"This_is_your_default_key": {
 		"message": ""
 	},
-	"Make_this_the_default_key_for_encryption_operations": {
+	"Make_this_the_default_key_for_GnuPG_operations": {
 		"message": ""
 	},
 	"Searching_for": {
-		"message": ""
-	},
-	"Please_wait_while_we_build_the_key_list": {
 		"message": ""
 	},
 	"WebPG_Options": {
@@ -761,6 +827,9 @@
 	"Enable_Inline_formatting_of_PGP_Messages_and_Keys": {
 		"message": ""
 	},
+	"Inline_Options": {
+		"message": ""
+	},
 	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
 		"message": ""
 	},
@@ -770,7 +839,7 @@
 	"EXPERIMENTAL": {
 		"message": ""
 	},
-	"Sign_outgoing_messages_in_GMAIL": {
+	"Automatically_Sign_outgoing_messages_in_GMAIL": {
 		"message": ""
 	},
 	"GPGCONF_binary": {
@@ -780,6 +849,21 @@
 		"message": ""
 	},
 	"There_is_a_problem_with_your_configuration": {
+		"message": ""
+	},
+	"Inline_formatting_mode": {
+		"message": ""
+	},
+	"Window": {
+		"message": ""
+	},
+	"Icon": {
+		"message": ""
+	},
+	"Sample": {
+		"message": ""
+	},
+	"WebPG_Toolbar": {
 		"message": ""
 	},
 	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
@@ -803,22 +887,22 @@
 	"COPY_TO_CLIPBOARD": {
 		"message": ""
 	},
-	"Paste_Public_Key": {
-		"message": ""
-	},
-	"Clear_sign_this_text": {
-		"message": ""
-	},
-	"Import_this_Key": {
-		"message": ""
-	},
-	"Encrypt_this_text": {
+	"Verify_this_text": {
 		"message": ""
 	},
 	"Decrypt_this_text": {
 		"message": ""
 	},
-	"Verify_this_text": {
+	"Import_this_Key": {
+		"message": ""
+	},
+	"Clear_sign_this_text": {
+		"message": ""
+	},
+	"Encrypt_this_text": {
+		"message": ""
+	},
+	"Paste_Public_Key": {
 		"message": ""
 	},
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {

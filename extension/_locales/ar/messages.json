@@ -56,6 +56,9 @@
 	"Finished": {
 		"message": "منتهي"
 	},
+	"Translation_Status": {
+		"message": ""
+	},
 	"WebPG_Plugin_failed_to_load": {
 		"message": "فشل تحميل إضافة WebPG"
 	},
@@ -131,6 +134,12 @@
 	"The_plugin_was_unable_to_load": {
 		"message": "لم يتمكن من تحميل الاضافات"
 	},
+	"The_Firefox_Click_to_Play_feature_is_enabled": {
+		"message": ""
+	},
+	"WebPG_cannot_load_the_required_plugin_with_this_feature_enabled": {
+		"message": ""
+	},
 	"There_might_be_a_problem_with_the_gpg_installation": {
 		"message": "قد يكون هناك مشكلة في تثبيت GPG"
 	},
@@ -188,6 +197,12 @@
 	"or": {
 		"message": "أو"
 	},
+	"Expired_keys_found_for": {
+		"message": ""
+	},
+	"and": {
+		"message": ""
+	},
 	"You_have_more_than_1_public_key_matching_that_address": {
 		"message": "لديك أكثر من مفتاح عمومي مطابق لهذا العنوان"
 	},
@@ -206,8 +221,20 @@
 	"Sign_and_Encrypt": {
 		"message": "توقيع وتشفير"
 	},
+	"Symmetric_Encryption": {
+		"message": "تشفير متناسب"
+	},
 	"Do_not_use_WebPG_for_this_message": {
 		"message": "لا تستخدم WebPG لهذه الرسالة"
+	},
+	"Sign_Only": {
+		"message": ""
+	},
+	"no_email_address_provided": {
+		"message": "لم يُقدَّم أي عنوان بريد إلكتروني"
+	},
+	"Use": {
+		"message": ""
 	},
 	"Decrypt": {
 		"message": "فكّ التشفير"
@@ -356,6 +383,9 @@
 	"Are_you_sure_you_want_to_permanently_delete_this_UID": {
 		"message": "هل أنت متأكد أنك تريد حذف معرف المستخدم هذا بشكل دائم"
 	},
+	"Are_you_sure_you_want_to_permanently_delete_this_Photo": {
+		"message": ""
+	},
 	"New_Expiration_Date": {
 		"message": "تاريخ انتهاء الصلاحية الجديد"
 	},
@@ -364,6 +394,12 @@
 	},
 	"Expiration_Date": {
 		"message": "تاريخ انتهاء الصلاحية"
+	},
+	"Building_Key_list": {
+		"message": ""
+	},
+	"Please_wait_while_we_build_the_key_list": {
+		"message": "الرجاء الانتظار بينما نقوم ببناء قائمة المفاتيح"
 	},
 	"Click_to_generate_a_new_key": {
 		"message": "انقر لإنشاء مفتاح جديد"
@@ -428,30 +464,6 @@
 	"key_generation_will_continue_in_the_background": {
 		"message": "وسوف يستمر توليد المفتاح في الخلفية"
 	},
-	"Enabled": {
-		"message": "مفعّل"
-	},
-	"Disabled": {
-		"message": "معطّل"
-	},
-	"Valid": {
-		"message": "صالح"
-	},
-	"Expired": {
-		"message": "منتهي الصلاحية"
-	},
-	"Invalid": {
-		"message": "غير صالح"
-	},
-	"Revoked": {
-		"message": "ملغيّ"
-	},
-	"no_email_address_provided": {
-		"message": "لم يُقدَّم أي عنوان بريد إلكتروني"
-	},
-	"Cannot_unset_your_default_key": {
-		"message": "لا يمكنك إلغاء تحديد مفتاحك الافتراضي"
-	},
 	"Trust_Assignment": {
 		"message": "تعيين الثقة"
 	},
@@ -482,6 +494,27 @@
 	"Add_Subkey": {
 		"message": "إضافة مفتاح فرعي"
 	},
+	"Add_Photo": {
+		"message": ""
+	},
+	"Enabled": {
+		"message": "مفعّل"
+	},
+	"Disabled": {
+		"message": "معطّل"
+	},
+	"Valid": {
+		"message": "صالح"
+	},
+	"Expired": {
+		"message": "منتهي الصلاحية"
+	},
+	"Invalid": {
+		"message": "غير صالح"
+	},
+	"Revoked": {
+		"message": "ملغيّ"
+	},
 	"Enable_this_Key": {
 		"message": "تمكين هذا المفتاح"
 	},
@@ -496,6 +529,9 @@
 	},
 	"Expires": {
 		"message": "تاريخ انتهاء الصلاحية"
+	},
+	"User_IDs": {
+		"message": "معرِّفات المستخدمين"
 	},
 	"Fingerprint": {
 		"message": "البصمة"
@@ -539,9 +575,6 @@
 	"Revoke_this_Subkey": {
 		"message": "إلغاء هذا المفتاح الفرعي"
 	},
-	"User_IDs": {
-		"message": "معرِّفات المستخدمين"
-	},
 	"Make_primary": {
 		"message": "اجعله الرئيسي"
 	},
@@ -575,17 +608,50 @@
 	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
 		"message": "الخاصة"
 	},
+	"Cannot_unset_your_default_key": {
+		"message": "لا يمكنك إلغاء تحديد مفتاحك الافتراضي"
+	},
 	"Calculating_Trust": {
 		"message": "حساب مقدار الثقة"
 	},
-	"Please_wait_while_recalculate_the_trust_for_this_item": {
-		"message": "الرجاء الانتظار بينما نقوم بإعادة حساب مقدار الثقة لهذا العنصر"
+	"Please_wait_while_we_calculate_the_trust_for_this_item": {
+		"message": ""
 	},
 	"Save": {
 		"message": "حفظ"
 	},
 	"Delete_this_key": {
 		"message": "احذف هذا المفتاح"
+	},
+	"Add": {
+		"message": ""
+	},
+	"There_was_an_error_parsing_this_image_file": {
+		"message": ""
+	},
+	"There_was_an_error_adding_this_image_file": {
+		"message": ""
+	},
+	"It_is_possible_the_image_contains_EXIF_data": {
+		"message": ""
+	},
+	"Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo": {
+		"message": ""
+	},
+	"Only_JPEG_image_files_are_supported": {
+		"message": ""
+	},
+	"WARNING": {
+		"message": ""
+	},
+	"is_quite_large": {
+		"message": ""
+	},
+	"Consider_using_a_smaller_image": {
+		"message": ""
+	},
+	"Only_one_image_can_be_added": {
+		"message": ""
 	},
 	"Copy": {
 		"message": "نسخ"
@@ -668,6 +734,9 @@
 	"Signature_added_using_this_key": {
 		"message": "تمت إضافة التوقيع بهذا المفتاح"
 	},
+	"Delete_this_Photo": {
+		"message": ""
+	},
 	"Cannot_Publish_Keys_without_gpgconf_utility_installed": {
 		"message": "لا يمكن نشر المفاتيح دون تثبيت أداة pgpconf"
 	},
@@ -698,20 +767,20 @@
 	"This_action_cannot_be_undone": {
 		"message": "لا يمكن التراجع عن هذا الإجراء"
 	},
-	"Enable_this_key_for_signing": {
-		"message": "تمكين هذا المفتاح للتوقيع"
+	"User_Photos": {
+		"message": ""
+	},
+	"Enable_this_key_for_GnuPG_operations": {
+		"message": ""
 	},
 	"This_is_your_default_key": {
 		"message": "هذا هو مفتاحك الافتراضي"
 	},
-	"Make_this_the_default_key_for_encryption_operations": {
-		"message": "جعل هذا المفتاح الافتراضي لعمليات التشفير"
+	"Make_this_the_default_key_for_GnuPG_operations": {
+		"message": ""
 	},
 	"Searching_for": {
 		"message": "البحق عن"
-	},
-	"Please_wait_while_we_build_the_key_list": {
-		"message": "الرجاء الانتظار بينما نقوم ببناء قائمة المفاتيح"
 	},
 	"WebPG_Options": {
 		"message": "خيارات WebPG"
@@ -758,6 +827,9 @@
 	"Enable_Inline_formatting_of_PGP_Messages_and_Keys": {
 		"message": "تمكين التنسيق التلقائي لرسائل ومفاتيح PGP"
 	},
+	"Inline_Options": {
+		"message": ""
+	},
 	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
 		"message": "دائما قم بالتشفير لمفتاحك بالإضافة إلى المستلم"
 	},
@@ -767,8 +839,8 @@
 	"EXPERIMENTAL": {
 		"message": "تجريبي"
 	},
-	"Sign_outgoing_messages_in_GMAIL": {
-		"message": "توقيع الرسائل الصادرة في GMAIL"
+	"Automatically_Sign_outgoing_messages_in_GMAIL": {
+		"message": ""
 	},
 	"GPGCONF_binary": {
 		"message": "GPGCONF  ثنائي"
@@ -778,6 +850,21 @@
 	},
 	"There_is_a_problem_with_your_configuration": {
 		"message": "هناك مشكلة مع التكوين الخاص بك"
+	},
+	"Inline_formatting_mode": {
+		"message": ""
+	},
+	"Window": {
+		"message": ""
+	},
+	"Icon": {
+		"message": ""
+	},
+	"Sample": {
+		"message": ""
+	},
+	"WebPG_Toolbar": {
+		"message": ""
 	},
 	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
 		"message": "تكامل WebPG و GMAIL تكامل تجريبي"
@@ -800,23 +887,23 @@
 	"COPY_TO_CLIPBOARD": {
 		"message": "نسخ إلى الحافظة"
 	},
-	"Paste_Public_Key": {
-		"message": "لصق المفتاح العمومي"
-	},
-	"Clear_sign_this_text": {
-		"message": "واضحة توقيع هذه الرسالة"
-	},
-	"Import_this_Key": {
-		"message": "استيراد هذا المفتاح"
-	},
-	"Encrypt_this_text": {
-		"message": "تشفير هذا النص"
+	"Verify_this_text": {
+		"message": "التحقق من هذا النص"
 	},
 	"Decrypt_this_text": {
 		"message": "فك تشفير هذا النص"
 	},
-	"Verify_this_text": {
-		"message": "التحقق من هذا النص"
+	"Import_this_Key": {
+		"message": "استيراد هذا المفتاح"
+	},
+	"Clear_sign_this_text": {
+		"message": "واضحة توقيع هذه الرسالة"
+	},
+	"Encrypt_this_text": {
+		"message": "تشفير هذا النص"
+	},
+	"Paste_Public_Key": {
+		"message": "لصق المفتاح العمومي"
 	},
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
 		"message": "غير قادر على فك تشفير أو التحقق من هذه الرسالة"

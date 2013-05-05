@@ -56,6 +56,9 @@
 	"Finished": {
 		"message": "完成"
 	},
+	"Translation_Status": {
+		"message": ""
+	},
 	"WebPG_Plugin_failed_to_load": {
 		"message": "WebPG插件装载失败"
 	},
@@ -131,6 +134,12 @@
 	"The_plugin_was_unable_to_load": {
 		"message": "插件不能载入"
 	},
+	"The_Firefox_Click_to_Play_feature_is_enabled": {
+		"message": ""
+	},
+	"WebPG_cannot_load_the_required_plugin_with_this_feature_enabled": {
+		"message": ""
+	},
 	"There_might_be_a_problem_with_the_gpg_installation": {
 		"message": "GPG的安装可能有问题"
 	},
@@ -188,6 +197,12 @@
 	"or": {
 		"message": "或者"
 	},
+	"Expired_keys_found_for": {
+		"message": ""
+	},
+	"and": {
+		"message": ""
+	},
 	"You_have_more_than_1_public_key_matching_that_address": {
 		"message": "您有超过1个公匙配置那个地址"
 	},
@@ -211,6 +226,15 @@
 	},
 	"Do_not_use_WebPG_for_this_message": {
 		"message": "对于该讯息不使用WebPG"
+	},
+	"Sign_Only": {
+		"message": ""
+	},
+	"no_email_address_provided": {
+		"message": "没有提供电子邮件地址"
+	},
+	"Use": {
+		"message": ""
 	},
 	"Decrypt": {
 		"message": "解密"
@@ -359,6 +383,9 @@
 	"Are_you_sure_you_want_to_permanently_delete_this_UID": {
 		"message": "您确认您要永久删除该用户标识"
 	},
+	"Are_you_sure_you_want_to_permanently_delete_this_Photo": {
+		"message": ""
+	},
 	"New_Expiration_Date": {
 		"message": "新的有效期"
 	},
@@ -367,6 +394,12 @@
 	},
 	"Expiration_Date": {
 		"message": "过期时间"
+	},
+	"Building_Key_list": {
+		"message": ""
+	},
+	"Please_wait_while_we_build_the_key_list": {
+		"message": "在创建密匙列表时请等待"
 	},
 	"Click_to_generate_a_new_key": {
 		"message": "点击以便产生新密匙"
@@ -431,30 +464,6 @@
 	"key_generation_will_continue_in_the_background": {
 		"message": "密匙生成过程将在后台继续"
 	},
-	"Enabled": {
-		"message": "启用"
-	},
-	"Disabled": {
-		"message": "禁用"
-	},
-	"Valid": {
-		"message": "合法的"
-	},
-	"Expired": {
-		"message": "过期"
-	},
-	"Invalid": {
-		"message": "非法"
-	},
-	"Revoked": {
-		"message": "已回收"
-	},
-	"no_email_address_provided": {
-		"message": "没有提供电子邮件地址"
-	},
-	"Cannot_unset_your_default_key": {
-		"message": "未能取消您的默认密匙"
-	},
 	"Trust_Assignment": {
 		"message": "指定信任度"
 	},
@@ -485,6 +494,27 @@
 	"Add_Subkey": {
 		"message": "增加子密匙"
 	},
+	"Add_Photo": {
+		"message": ""
+	},
+	"Enabled": {
+		"message": "启用"
+	},
+	"Disabled": {
+		"message": "禁用"
+	},
+	"Valid": {
+		"message": "合法的"
+	},
+	"Expired": {
+		"message": "过期"
+	},
+	"Invalid": {
+		"message": "非法"
+	},
+	"Revoked": {
+		"message": "已回收"
+	},
 	"Enable_this_Key": {
 		"message": "启用该密匙"
 	},
@@ -499,6 +529,9 @@
 	},
 	"Expires": {
 		"message": "有效期"
+	},
+	"User_IDs": {
+		"message": "用户标识"
 	},
 	"Fingerprint": {
 		"message": "指纹"
@@ -542,9 +575,6 @@
 	"Revoke_this_Subkey": {
 		"message": "回收该子密匙"
 	},
-	"User_IDs": {
-		"message": "用户标识"
-	},
 	"Make_primary": {
 		"message": "设为主要"
 	},
@@ -578,17 +608,50 @@
 	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
 		"message": "由不在您的密匙环中的密匙所做签名会被忽略"
 	},
+	"Cannot_unset_your_default_key": {
+		"message": "未能取消您的默认密匙"
+	},
 	"Calculating_Trust": {
 		"message": "计算可信度"
 	},
-	"Please_wait_while_recalculate_the_trust_for_this_item": {
-		"message": "在重新计算该项的信任度时请等待"
+	"Please_wait_while_we_calculate_the_trust_for_this_item": {
+		"message": ""
 	},
 	"Save": {
 		"message": "保存"
 	},
 	"Delete_this_key": {
 		"message": "删除该密匙"
+	},
+	"Add": {
+		"message": ""
+	},
+	"There_was_an_error_parsing_this_image_file": {
+		"message": ""
+	},
+	"There_was_an_error_adding_this_image_file": {
+		"message": ""
+	},
+	"It_is_possible_the_image_contains_EXIF_data": {
+		"message": ""
+	},
+	"Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo": {
+		"message": ""
+	},
+	"Only_JPEG_image_files_are_supported": {
+		"message": ""
+	},
+	"WARNING": {
+		"message": ""
+	},
+	"is_quite_large": {
+		"message": ""
+	},
+	"Consider_using_a_smaller_image": {
+		"message": ""
+	},
+	"Only_one_image_can_be_added": {
+		"message": ""
 	},
 	"Copy": {
 		"message": "复制"
@@ -671,6 +734,9 @@
 	"Signature_added_using_this_key": {
 		"message": "通过使用该密匙已增加签名"
 	},
+	"Delete_this_Photo": {
+		"message": ""
+	},
 	"Cannot_Publish_Keys_without_gpgconf_utility_installed": {
 		"message": "未安装gpgconf工具的话将不能发布密匙"
 	},
@@ -701,20 +767,20 @@
 	"This_action_cannot_be_undone": {
 		"message": "该操作不能取消"
 	},
-	"Enable_this_key_for_signing": {
-		"message": "启用该密匙来签名"
+	"User_Photos": {
+		"message": ""
+	},
+	"Enable_this_key_for_GnuPG_operations": {
+		"message": ""
 	},
 	"This_is_your_default_key": {
 		"message": "这是您的默认密匙"
 	},
-	"Make_this_the_default_key_for_encryption_operations": {
-		"message": "设定该密匙为加密操作的默认密匙"
+	"Make_this_the_default_key_for_GnuPG_operations": {
+		"message": ""
 	},
 	"Searching_for": {
 		"message": "搜寻"
-	},
-	"Please_wait_while_we_build_the_key_list": {
-		"message": "在创建密匙列表时请等待"
 	},
 	"WebPG_Options": {
 		"message": "WebPG选项"
@@ -761,6 +827,9 @@
 	"Enable_Inline_formatting_of_PGP_Messages_and_Keys": {
 		"message": "启用PGP讯息与密匙的行内格式"
 	},
+	"Inline_Options": {
+		"message": ""
+	},
 	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
 		"message": "除指定签收人之外总是用您的默认密匙加密"
 	},
@@ -770,8 +839,8 @@
 	"EXPERIMENTAL": {
 		"message": "实验阶段"
 	},
-	"Sign_outgoing_messages_in_GMAIL": {
-		"message": "为GMail中的送出讯息签名"
+	"Automatically_Sign_outgoing_messages_in_GMAIL": {
+		"message": ""
 	},
 	"GPGCONF_binary": {
 		"message": ""
@@ -781,6 +850,21 @@
 	},
 	"There_is_a_problem_with_your_configuration": {
 		"message": "您的配置文件存在问题"
+	},
+	"Inline_formatting_mode": {
+		"message": ""
+	},
+	"Window": {
+		"message": ""
+	},
+	"Icon": {
+		"message": ""
+	},
+	"Sample": {
+		"message": ""
+	},
+	"WebPG_Toolbar": {
+		"message": ""
 	},
 	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
 		"message": "WebPG与GMail的整合属于实验性阶段"
@@ -803,23 +887,23 @@
 	"COPY_TO_CLIPBOARD": {
 		"message": "复制到黏切板"
 	},
-	"Paste_Public_Key": {
-		"message": "粘帖公匙"
-	},
-	"Clear_sign_this_text": {
-		"message": "为该文本做明文签名"
-	},
-	"Import_this_Key": {
-		"message": "注入该密匙"
-	},
-	"Encrypt_this_text": {
-		"message": "加密该文本"
+	"Verify_this_text": {
+		"message": "验证该文本"
 	},
 	"Decrypt_this_text": {
 		"message": "解密该文本"
 	},
-	"Verify_this_text": {
-		"message": "验证该文本"
+	"Import_this_Key": {
+		"message": "注入该密匙"
+	},
+	"Clear_sign_this_text": {
+		"message": "为该文本做明文签名"
+	},
+	"Encrypt_this_text": {
+		"message": "加密该文本"
+	},
+	"Paste_Public_Key": {
+		"message": "粘帖公匙"
 	},
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
 		"message": "无法解密或者校验该讯息"

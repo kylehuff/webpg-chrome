@@ -1,5 +1,7 @@
 # List of source files containing translatable strings.
 
+extension/XULContent/firefoxOverlay.xul
+extension/XULContent/thunderbird/composeOverlay.js
 extension/about.js
 extension/background.js
 extension/browser_action_menu.js
@@ -13,5 +15,3 @@ extension/options.js
 extension/utils.js
 extension/webpg_overlay.js
 extension/webpg_results.js
-extension/XULContent/firefoxOverlay.xul
-extension/XULContent/thunderbird/composeOverlay.js
