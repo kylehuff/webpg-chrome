@@ -571,7 +571,7 @@ webpg.gmail = {
                     '</li>' +
                     '<li class="webpg-action-btn">' +
                         '<a class="webpg-toolbar-sign" style="display:inline-block;">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_signature-ok.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_signature.png" class="webpg-li-icon"/>' +
                             _('Sign only') +
                         '</a>' +
                         '<ul class="webpg-toolbar-sign-callout" style="top:0;' +
@@ -685,6 +685,12 @@ webpg.gmail = {
             webpg.jq(esBtn).find(".webpg-current-action").find("img").attr({'src': newIcon.src});
             webpg.jq(esBtn).find(".webpg-action-text").text(webpg.utils.escape(newText));
             esBtn.firstStatusText = null;
+            var composeCSS = {
+                'background-image': 'none',
+                'background-repeat': 'no-repeat',
+                'background-position': 'bottom right'
+            }
+            var bgBasePath = webpg.utils.resourcePath + 'skin/images/badges/48x48/'
 
             switch (action) {
 
@@ -693,12 +699,14 @@ webpg.gmail = {
                     webpg.gmail.checkRecipients();
                     webpg.gmail.action = 1;
                     esBtn.attr('data-tooltip', _("Encrypt"));
+                    composeCSS['background-image'] = 'url(' + bgBasePath + 'stock_encrypted.png' + ')';
                     break;
 
                 case "sign":
                     webpg.gmail.removeStatusLine();
                     webpg.gmail.action = 2;
                     esBtn.attr('data-tooltip', _("Sign Only"));
+                    composeCSS['background-image'] = 'url(' + bgBasePath + 'stock_signature.png' + ')';
                     break;
 
                 case "cryptsign":
@@ -706,22 +714,29 @@ webpg.gmail = {
                     webpg.gmail.checkRecipients();
                     webpg.gmail.action = 3;
                     esBtn.attr('data-tooltip', _("Sign and Encrypt"));
+                    composeCSS['background-image'] = 'url(' + bgBasePath + 'stock_encrypted_signed.png' + ')';
                     break;
 
                 case "symcrypt":
                     webpg.gmail.removeStatusLine();
                     webpg.gmail.action = 4;
                     esBtn.attr('data-tooltip', _("Symmetric Encryption"));
+                    composeCSS['background-image'] = 'url(' + bgBasePath + 'stock_encrypted.png' + ')';
                     break;
 
                 default:
                     webpg.gmail.removeStatusLine();
                     webpg.gmail.action = 0;
                     esBtn.attr('data-tooltip', _("Do not use WebPG for this message"));
+                    composeCSS['background-image'] = 'none';
             }
 
             webpg.gmail.signers = (this.id.search("0x") == 0) ?
                     [e.currentTarget.id.substr(2)] : signers;
+
+            var msg_container = webpg.gmail.getCanvasFrame().find("*[g_editable='true']").first();
+            if (msg_container.length > 0)
+                msg_container.css(composeCSS);
 
             if (this.id.search("0x") == 0) {
                 webpg.jq(this).parent().parent().find('a img').css({'opacity': '0'});
@@ -873,13 +888,20 @@ webpg.gmail = {
     gmailChanges: function(e) {
         if (!e.target || e.target.nodeName !== "DIV")
             return;
-//        
-//        if (e.target.parentNode
-//        && (e.target.parentNode.className == undefined
-//        || e.target.parentNode.className == "aAU"))
-//            return;
+            
         if (e.target.ownerDocument.location.hash.search("#settings") !== -1)
             return;
+
+        if (webpg.gmail.action == 2) {
+            var composeCSS = {
+                'background-image': 'url(' + webpg.utils.resourcePath + 'skin/images/badges/48x48/stock_signature.png' + ')',
+                'background-repeat': 'no-repeat',
+                'background-position': 'bottom right'
+            }
+            var msg_container = webpg.gmail.getCanvasFrame().find("*[g_editable='true']").first();
+            if (msg_container.length > 0)
+                msg_container.css(composeCSS);
+        }
 
         if (e.target.parentElement &&
             typeof(e.target.parentElement.className)!="undefined" &&

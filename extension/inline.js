@@ -971,7 +971,7 @@ webpg.inline = {
                     '</li>' +
                     '<li class="webpg-action-btn">' +
                         '<a class="webpg-toolbar-sign" style="display:inline-block;">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_signature-ok.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_signature.png" class="webpg-li-icon"/>' +
                             _('Sign only') +
                         '</a>' +
                         '<ul class="webpg-toolbar-sign-callout" style="top:0;' +
