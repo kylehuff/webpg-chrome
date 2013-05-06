@@ -735,19 +735,23 @@ webpg.utils = {
     // Gmail replaces any text that looks like a link and encloses it with anchor tags.
     //  This replaces any links without tags with 
     linkify: function(inputText) {
-        var replacedText, replacePattern1, replacePattern2, replacePattern3;
+        var replacedText, regex;
+        
+        // URLs in <a> tags with or without other attributes
+        regex = /<a(.*?href=(["'])([^"']*)["'].*?)>/gim;
+        replacedText = inputText.replace(regex, '<a href=$2$3$2 target=$2_blank$2>');
 
         //URLs starting with http://, https://, or ftp://
-        replacePattern1 = /([^>|^"])(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-        replacedText = inputText.replace(replacePattern1, '$1<a href="$2" target="_blank">$2</a>');
+        regex = /([^>|^"|^'])(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+        replacedText = replacedText.replace(regex, '$1<a href="$2" target="_blank">$2</a>');
 
         //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
-        replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-        replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+        regex = /(^|[^\/|^"|^'|^>])(www\.[\S]+(\b|$))/gim;
+        replacedText = replacedText.replace(regex, '$1<a href="http://$2" target="_blank">$2</a>');
 
         //Change email addresses to mailto:: links.
-        replacePattern3 = /(\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b)/gim;
-        replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1" target="_blank">$1</a>');
+        regex = /(\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b)/gim;
+        replacedText = replacedText.replace(regex, '<a href="mailto:$1" target="_blank">$1</a>');
 
         return replacedText;
     },

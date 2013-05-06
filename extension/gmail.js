@@ -851,14 +851,17 @@ webpg.gmail = {
             text - <str> The string to parse
     */
     clean: function(text) {
-        var reg = new RegExp("<div[^>]*><br></div>", "gi");
-        str = text.replace(reg, "\n");
+        var reg = new RegExp("<br[^>]*?><div[^>]*?><br></div>", "gi");
+        str = text.replace(reg, "\n\n");
 
-        reg = new RegExp("<div[^>]*>(.*?)</div>", "gi");
-        str = text.replace(reg, "\n$1");
+        reg = new RegExp("<br[^>]*?>", "gi");
+        str = str.replace(reg, "\n");
 
-        var reg = new RegExp("<br[^>]*>", "gi");
-        str = str.replace(reg,"\n");
+        reg = new RegExp("<div[^>]*?><br></div>", "gi");
+        str = str.replace(reg, "\n");
+
+        reg = new RegExp("<div[^>]*?>(.*?)</div>", "gi");
+        str = str.replace(reg, "$1\n");
 
         reg = new RegExp("<wbr>", "gi");
         str = str.replace(reg,"\n");
@@ -874,6 +877,8 @@ webpg.gmail = {
 
         reg = new RegExp("&nbsp;", "g");
         str = str.replace(reg, " ");
+
+        str = str.substr(-1) == "\n" ? str.substr(0, str.length - 1) : str;
 
         return (str.indexOf("\n") == 0) ? str.substr(1) : str;
     },
