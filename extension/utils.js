@@ -741,13 +741,11 @@ webpg.utils = {
         regex = /<a(.*?href=(["'])([^"']*)["'].*?)>/gim;
         replacedText = inputText.replace(regex, '<a href=$2$3$2 target=$2_blank$2>');
 
-        //URLs starting with http://, https://, or ftp://
-        regex = /([^>|^"|^'])(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-        replacedText = replacedText.replace(regex, '$1<a href="$2" target="_blank">$2</a>');
-
-        //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
-        regex = /(^|[^\/|^"|^'|^>])(www\.[\S]+(\b|$))/gim;
-        replacedText = replacedText.replace(regex, '$1<a href="http://$2" target="_blank">$2</a>');
+        regex = /([^>|="|='|\/\/|\.]\b)((([a-z0-9]+):\/\/)?([a-z0-9/-]+\.)?([a-z0-9]+[\.]([a-z0-9/-]+)))/gi;
+        replacedText = replacedText.replace(regex, function(match_i, pretext, url, protocol) {
+            return pretext + "<a href=\"" + (proto = (protocol != undefined) ? "" : "http://") +
+                url + "\" target=\"_blank\">" + url + "</a>";
+        });
 
         //Change email addresses to mailto:: links.
         regex = /(\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b)/gim;
