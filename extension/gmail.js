@@ -765,10 +765,12 @@ webpg.gmail = {
                         msg_container = webpg.jq(this.contentDocument).find("*[g_editable='true']").first();
                 })
             }
-            message = (msg_container[0].nodeName == "TEXTAREA") ?
-                msg_container.val() : msg_container.html();
             if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
-                message = new XMLSerializer().serializeToString(msg_container[0]);
+                 message = (msg_container[0].nodeName == "TEXTAREA") ?
+                    msg_container.val() : webpg.utils.getInnerText(msg_container[0]);
+            else
+                message = (msg_container[0].nodeName == "TEXTAREA") ?
+                    msg_container.val() : msg_container[0].innerText;
         } else {
             var textarea = canvasFrame.find('textarea[name!=to]', editor).
                 filter("[name!=bcc]").filter("[name!=cc]");
@@ -781,7 +783,7 @@ webpg.gmail = {
             }
         }
 
-        message = webpg.gmail.clean(message);
+        message = message.trim();
 
         if (webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=nowrap]").val() != "1")
             message = webpg.utils.gmailWrapping(message);
@@ -841,46 +843,6 @@ webpg.gmail = {
                 textarea.val(message);
             }
         }
-    },
-
-    /*
-        Function: clean
-            Strips out or replaces extra HTML markup added by the editor
-
-        Parameters:
-            text - <str> The string to parse
-    */
-    clean: function(text) {
-        var reg = new RegExp("<br[^>]*?><div[^>]*?><br></div>", "gi");
-        str = text.replace(reg, "\n\n");
-
-        reg = new RegExp("<br[^>]*?>", "gi");
-        str = str.replace(reg, "\n");
-
-        reg = new RegExp("<div[^>]*?><br></div>", "gi");
-        str = str.replace(reg, "\n");
-
-        reg = new RegExp("<div[^>]*?>(.*?)</div>", "gi");
-        str = str.replace(reg, "$1\n");
-
-        reg = new RegExp("<wbr>", "gi");
-        str = str.replace(reg,"\n");
-
-        reg = new RegExp("<[^>]+>", "g");
-        str = str.replace(reg, "");
-
-        reg = new RegExp("&lt;", "g");
-        str = str.replace(reg, "<");
-
-        reg = new RegExp("&gt;", "g");
-        str = str.replace(reg, ">");
-
-        reg = new RegExp("&nbsp;", "g");
-        str = str.replace(reg, " ");
-
-        str = str.substr(-1) == "\n" ? str.substr(0, str.length - 1) : str;
-
-        return (str.indexOf("\n") == 0) ? str.substr(1) : str;
     },
 
     /*

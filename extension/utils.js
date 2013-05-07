@@ -237,6 +237,20 @@ webpg.utils = {
         });
     },
 
+    getInnerText: function(element) {
+        var text = "";
+        if (typeof window.getSelection != "undefined") {
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            var range = document.createRange();
+            range.selectNodeContents(element);
+            sel.addRange(range);
+            text = sel.toString();
+            sel.removeAllRanges();
+        }
+        return text;
+    },
+
     /*
         Function: clean
             Strips out or replaces extra HTML markup added by the page
