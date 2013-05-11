@@ -17,6 +17,13 @@ webpg.gmail = {
             navDiv - <obj> The navigation div from the gmail interface we will be working with
     */
     setup: function(navDiv) {
+        webpg.utils.sendRequest({
+            msg: "gmail_integration" },
+            function(response) {
+                if (response.result.gmail_integration == "true")
+                    webpg.gmail.sign_gmail = (response.result.sign_gmail == 'true');
+            }
+        );
         if (navDiv.find(".webpg-action-menu").length < 1) {
             // If we are running Mozilla, inject the CSS file
             if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
@@ -528,7 +535,7 @@ webpg.gmail = {
         //console.log("Add Send button");
         var _ = webpg.utils.i18n.gettext;
         // Set the default action according to the user preference
-        webpg.gmail.action = (webpg.gmail.sign_gmail=='true') ? 2 : 0;
+        webpg.gmail.action = (webpg.gmail.sign_gmail==true) ? 2 : 0;
 
         if (navDiv.find('#webpg-send-btn').length > 1)
             navDiv.find('#webpg-send-btn').remove();
@@ -910,7 +917,7 @@ webpg.utils.sendRequest({
     msg: "gmail_integration" },
     function(response) {
         if (response.result.gmail_integration == "true") {
-            webpg.gmail.sign_gmail = response.result.sign_gmail;
+            webpg.gmail.sign_gmail = (response.result.sign_gmail == 'true');
             var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
             // Retrieve a reference to the appropriate window object
             // Check if the MutationObserver is not present
