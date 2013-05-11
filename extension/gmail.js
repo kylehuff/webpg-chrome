@@ -749,7 +749,7 @@ webpg.gmail = {
             webpg.gmail.signers = (this.id.search("0x") == 0) ?
                     [e.currentTarget.id.substr(2)] : signers;
 
-            var msg_container = webpg.gmail.getCanvasFrame().find("*[g_editable='true']").first();
+            var msg_container = webpg.gmail.getEditor(webpg.gmail.getCanvasFrame().contents().find('form'));
             if (msg_container.length > 0)
                 msg_container.css(composeCSS);
 
@@ -758,7 +758,49 @@ webpg.gmail = {
                 webpg.jq(this).find('img').css({'opacity': '1.0'});
             }
         });
+
+        if (webpg.gmail.action == 2) {
+            var composeCSS = {
+                'background-image': 'url(' + webpg.utils.resourcePath + 'skin/images/badges/48x48/stock_signature.png' + ')',
+                'background-repeat': 'no-repeat',
+                'background-position': 'bottom right'
+            }
+            var msg_container = webpg.gmail.getEditor(webpg.gmail.getCanvasFrame().contents().find('form'));
+            if (msg_container.length > 0)
+                msg_container.css(composeCSS);
+        }
+
+        if (webpg.gmail.sign_gmail)
+            webpg.jq(esBtn).find(".webpg-current-action").find("img")
+                .attr({'src': webpg.utils.resourcePath +
+                    'skin/images/badges/48x48/stock_signature.png'});
     },
+
+    getEditor: function(editor) {
+        var canvasFrame = webpg.gmail.getCanvasFrame();
+        if (webpg.gmail.gmailComposeType == "inline") {
+            var msg_container = canvasFrame.find("*[g_editable='true']").first();
+            if (msg_container.length < 1) {
+                // The editor must be in an iframe
+                var iframes = canvasFrame.find("iframe");
+                iframes.each(function() {
+                    if (webpg.jq(this.contentDocument).find("*[g_editable='true']").length > 0)
+                        msg_container = webpg.jq(this.contentDocument).find("*[g_editable='true']").first();
+                });
+            }
+            return msg_container;
+        } else {
+            var textarea = canvasFrame.find('textarea[name!=to]', editor).
+                filter("[name!=bcc]").filter("[name!=cc]");
+            var iframe = webpg.jq('iframe', editor).contents().find('body');
+            if (iframe.length > 0) {
+                return iframe;
+            } else {
+                return textarea;
+            }
+        }
+    },
+    
 
     /*
         Function: getContents
@@ -872,7 +914,7 @@ webpg.gmail = {
                 'background-repeat': 'no-repeat',
                 'background-position': 'bottom right'
             }
-            var msg_container = webpg.gmail.getCanvasFrame().find("*[g_editable='true']").first();
+            var msg_container = webpg.gmail.getEditor(webpg.gmail.getCanvasFrame().contents().find('form'));
             if (msg_container.length > 0)
                 msg_container.css(composeCSS);
         }
@@ -975,5 +1017,4 @@ webpg.utils.sendRequest({
     }
 );
 
-webpg.gmail.watch_count = 0;
 /* ]]> */
