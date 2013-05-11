@@ -388,7 +388,7 @@ webpg.inline = {
             html = html.substring(0, html.lastIndexOf("\n")).replace(wbrReg, "");
         }
 
-        var scontent = webpg.utils.getPlainText(node.parentNode);
+        var scontent = webpg.utils.getInnerText(node.parentNode);
 
         if (scontent.search(/^\s*?(-----BEGIN PGP.*?)/gi) < 0)
             scontent = webpg.utils.clean(str);
@@ -470,6 +470,7 @@ webpg.inline = {
                     && phtml.search(RegExp("^\n\n.*?\n-----BEGIN PGP.*?-----", "gim")) > -1) {
                         phtml = phtml.replace(RegExp("^\n(\n.*?\n-----BEGIN PGP.*?-----)", "gim"), "$1");
                     }
+//                    phtml = webpg.utils.linkify(phtml);
                 } else {
                     phtml = phtml.replace(/<div[^>]*><br[^>]*>(.*?[\s\S\n]*?)<\/div>/gim, "<br>$1")
                                 .replace(/<div[^>]*>(.*?[\s\S\n]*?)<\/div>/gim, "$1\n");
