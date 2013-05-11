@@ -908,17 +908,6 @@ webpg.gmail = {
         if (e.target.ownerDocument.location.hash.search("#settings") !== -1)
             return;
 
-        if (webpg.gmail.action == 2) {
-            var composeCSS = {
-                'background-image': 'url(' + webpg.utils.resourcePath + 'skin/images/badges/48x48/stock_signature.png' + ')',
-                'background-repeat': 'no-repeat',
-                'background-position': 'bottom right'
-            }
-            var msg_container = webpg.gmail.getEditor(webpg.gmail.getCanvasFrame().contents().find('form'));
-            if (msg_container.length > 0)
-                msg_container.css(composeCSS);
-        }
-
         if (e.target.parentElement &&
             typeof(e.target.parentElement.className)!="undefined" &&
             e.target.parentElement.className.search("dW E") > -1) {
