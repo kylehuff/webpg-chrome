@@ -758,15 +758,15 @@ webpg.utils = {
         regex = /<a(.+?href=[\"|\']([^\"|^\']+?)[\"|\']+?)>/gim;
         replacedText = inputText.replace(regex, '<a href="$2" target="_blank">');
 
+        //Change email addresses to mailto:: links.
+        regex = /(\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b)/gim;
+        replacedText = replacedText.replace(regex, '<a href="mailto:$1" target="_blank">$1</a>');
+
         regex = new RegExp("(\\b((?:[a-z0-9]+):\\/\\/)?(?:[a-z0-9/-]+\\.)*?(?:[a-z0-9]+[\\.](?:(?:" + tldList + ")(?:\\/(?:[a-z0-9\\.]+)?)?)(?=\\s|>|\\||$)))", "gim");
         replacedText = replacedText.replace(regex, function(match_i, url, protocol) {
             return "<a href=\"" + ((!protocol) ? "http://" : "") +
                 url + "\" target=\"_blank\">" + url + "</a>";
         });
-
-        //Change email addresses to mailto:: links.
-        regex = /(\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b)/gim;
-        replacedText = replacedText.replace(regex, '<a href="mailto:$1" target="_blank">$1</a>');
 
         return replacedText;
     },
