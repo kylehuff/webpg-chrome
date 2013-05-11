@@ -738,10 +738,12 @@ webpg.inline = {
         webpg.jq(toolbar).find('.webpg-toolbar-sign-callout').css({
             'display': (webpg.inline.default_key() == undefined
                 || Object.keys(webpg.inline.secret_keys).length < 2) ? 'none' : 'inline-block',
+            'margin': '0', 'top': '0', 'right': '4px', 'width':'20px', 'position': 'absolute',
+            'padding': '0',
         });
         webpg.jq(toolbar).find('ul.webpg-action-list, ul.webpg-subaction-list').css({
             'position': 'absolute', 'top': '100%', 'left': '-2px',
-            'z-index': '4', 'float': 'left', 'display': 'none',
+            'z-index': '9999', 'float': 'left', 'display': 'none',
             'min-width': '200px', 'padding': '0', 'margin': '0',
             'list-style': 'none', 'background-color': '#ffffff',
             'border-color': '#ccc', 'border-color': 'rgba(0, 0, 0, 0.2)',
@@ -775,11 +777,12 @@ webpg.inline = {
             '-moz-border-radius': '4px 4px 4px 4px',
             'border-radius': '4px 4px 4px 4px',
             'border-color': 'transparent',
+            'margin-left': '0',
         });
         webpg.jq(toolbar).find('.webpg-action-list li, .webpg-subaction-list li').not('.webpg-action-divider').css({
             'font-size': '12px',
             'height': '28px',
-            'line-height': '24px',
+            'line-height': '24px !important',
             'position': 'relative',
             'padding': '0 6px 2px 6px',
             'display': 'block',
@@ -916,6 +919,10 @@ webpg.inline = {
         // Store the elements display setting in case modifying the dom
         //  puts the element into an order that would hide it.
         var original_display = element.style.display;
+        if (!original_display)
+            original_display = element.ownerDocument.defaultView
+                .getComputedStyle(element, '').getPropertyValue('display');
+
         element.style.whiteSpace = "pre";
         var doc = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.document :
             (webpg.inline.doc) ? webpg.inline.doc : document;
@@ -934,12 +941,13 @@ webpg.inline = {
                 element.offsetWidth - element.clientWidth - 1 : 0;
         offset = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
             1 : offset;
-        toolbar.style.width = element.offsetWidth - 11 - offset + "px";
+        toolbar.style.width = element.offsetWidth - 16 - offset + "px";
+        var pad = ((element.offsetWidth - element.clientWidth) > 0) ? 16 : 0;
 
         if (element.parentElement.offsetWidth < parseInt(toolbar.style.width))
-            toolbar.style.width = element.parentElement.offsetWidth - 11 + "px";
+            toolbar.style.width = element.parentElement.offsetWidth + "px";
 
-        element.style.width = parseInt(toolbar.style.width) + 12 + offset + "px";
+        element.style.width = parseInt(toolbar.style.width) + pad + offset + "px";
 
         element.style.paddingTop = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
             "28px" : "30px";
@@ -974,9 +982,7 @@ webpg.inline = {
                             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_signature.png" class="webpg-li-icon"/>' +
                             _('Sign only') +
                         '</a>' +
-                        '<ul class="webpg-toolbar-sign-callout" style="top:0;' +
-                            'right:4px;width:20px;display:inline-block;' +
-                            'position:absolute;padding:0;">' +
+                        '<ul class="webpg-toolbar-sign-callout">' +
                             '<li class="webpg-subaction-btn">' +
                                 '<span class="webpg-action-list-icon">' +
                                     '&nbsp;' +
@@ -992,7 +998,7 @@ webpg.inline = {
                             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
                             _('Sign and Encrypt') +
                         '</a>' +
-                        '<ul class="webpg-toolbar-sign-callout" style="top:0;right:4px;width:20px;display:inline-block;position:absolute;padding:0;">' +
+                        '<ul class="webpg-toolbar-sign-callout">' +
                             '<li class="webpg-subaction-btn">' +
                                 '<span class="webpg-action-list-icon">' +
                                     '&nbsp;' +

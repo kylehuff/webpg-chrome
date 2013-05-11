@@ -238,6 +238,9 @@ webpg.utils = {
     },
 
     getInnerText: function(element) {
+        if (webpg.utils.detectedBrowser['product'] == "chrome" && typeof(element) == 'object')
+            return element.innerText;
+
         var text = "";
         if (typeof window.getSelection != "undefined") {
             var sel = window.getSelection();
