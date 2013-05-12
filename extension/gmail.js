@@ -220,7 +220,8 @@ webpg.gmail = {
                     if (!send)
                         return;
                 }
-                message = webpg.utils.linkify(message).replace(/<(<.*?>)>/gim, "&lt;$1&gt;");
+                message = webpg.utils.linkify(message).replace(/<(<.*?>)>/gim, "&lt;$1&gt;").trim();
+                message += "\n\n";
                 webpg.utils.sendRequest({'msg': 'sign',
                     'signers': webpg.gmail.signers,
                     'message_event': 'gmail',

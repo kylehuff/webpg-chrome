@@ -390,8 +390,8 @@ webpg.inline = {
 
         var scontent = webpg.utils.getInnerText(node.parentNode);
 
-        if (scontent.search(/^\s*?(-----BEGIN PGP.*?)/gi) < 0)
-            scontent = webpg.utils.clean(str);
+//        if (scontent.search(/^\s*?(-----BEGIN PGP.*?)/gi) < 0)
+//            scontent = webpg.utils.clean(str);
 
         if (webpg.utils.detectedBrowser['product'] == 'thunderbird') {
             var tmp_scontent = str.replace(new RegExp("<[^>]+>", "gim"), "");
