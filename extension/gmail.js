@@ -905,7 +905,12 @@ webpg.gmail = {
     gmailChanges: function(e) {
         if (!e.target || e.target.nodeName !== "DIV")
             return;
-            
+
+        if (e.target.parentElement == null || (e.target.parentElement.className == undefined
+        || e.target.parentElement.className == ""
+        || e.target.parentElement.className == "gmail_quote"))
+            return;
+
         if (e.target.ownerDocument.location.hash.search("#settings") !== -1)
             return;
 
@@ -995,6 +1000,7 @@ webpg.utils.sendRequest({
                             if (aEvent.originalTarget.location.host == "mail.google.com") {
                                 observer.disconnect();
                                 observer.observe(webpg.gmail.getCanvasFrameDocument(), config);
+                                webpg.gmail.appcontent.removeEventListener("DOMContentLoaded", arguments.callee, true);
                             }
                         },
                         true
