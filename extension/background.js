@@ -47,8 +47,11 @@ webpg.background = {
                 console.log("Setting GPGCONF binary to user value: '" + gpgconf + "'");
             }
         }
-        
+
         if (webpg.plugin.valid && !webpg.plugin.webpg_status["error"]) {
+            // Regulates the display of the banner; increment to display welcome notice/version news
+            this.banner_version = "9.4";
+
             if (gnupghome.length > 0)
                 console.log("Setting GnuPG home directory to user value: '" + gnupghome + "'");
             if (webpg.plugin.webpg_status.openpgp_detected)
@@ -77,6 +80,21 @@ webpg.background = {
                 webpg.utils.tabListener.add();
             }
             console.log("WebPG background initialized");
+            // Display the welcome notice if appropriate
+            var banner_version = webpg.preferences.banner_version.get();
+            if (banner_version == 0 || !banner_version
+            || banner_version == "" || parseFloat(banner_version) < parseFloat(this.banner_version)) {
+                webpg.preferences.banner_version.set(this.banner_version);
+                if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                    webpg.appcontent = document.getElementById("appcontent") || document;
+                    webpg.appcontent.addEventListener("DOMContentLoaded", function(aEvent) {
+                        webpg.utils.openNewTab(webpg.utils.resourcePath + "notice.html");
+                        webpg.appcontent.removeEventListener(aEvent.type, arguments.callee, false);
+                    }, false);
+                } else {
+                    webpg.utils.openNewTab(webpg.utils.resourcePath + "notice.html");
+                }
+           }
         } else {
             if (webpg.plugin.valid == undefined) {
                 webpg.plugin.webpg_status = {

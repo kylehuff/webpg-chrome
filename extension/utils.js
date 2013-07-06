@@ -467,8 +467,12 @@ webpg.utils = {
                         gBrowser.selectedTab = gBrowser.addTab(url)
                     }
                 } else {
-                    var gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
-                    gBrowser.selectedTab = gBrowser.addTab(url);
+                    try {
+                        openTab("chromeTab", { 'chromePage': url });
+                    } catch (e) {
+                        var gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
+                        gBrowser.selectedTab = gBrowser.addTab(url);
+                    }
                 }
                 break;
 

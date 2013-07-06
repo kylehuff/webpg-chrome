@@ -619,6 +619,34 @@ webpg.preferences = {
             webpg.localStorage.setItem('groups', '');
         },
     },
+
+    /*
+        Class: webpg.preferences.banner_version
+            Provides methods to get/set the "banner_version" preference
+            
+    */
+    banner_version: {
+        /*
+            Function: get
+                Provides methods to get the preference item
+        */
+        get: function() {
+            var value = webpg.localStorage.getItem('banner_version');
+            return (value && value != -1) ? value : 0;
+        },
+
+        /*
+            Function: set
+                Provides method to set the preference item
+
+            Parameters:
+                value - <bool> The boolean value to set
+        */
+        set: function(value) {
+            webpg.localStorage.setItem('banner_version', value);
+        },
+    },
+
 };
 
 if (webpg.utils.detectedBrowser['product'] == "chrome") {
