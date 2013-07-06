@@ -331,7 +331,7 @@ webpg.thunderbird.compose = {
         try {
             var signKey = webpg.preferences.default_key.get();
             var signMode = (asAttachment == true) ? 1 : 2;
-            var signStatus = webpg.plugin.gpgSignText([signKey], msg, signMode);
+            var signStatus = webpg.plugin.gpgSignText(msg, [signKey], signMode);
             if (!signStatus.error)
                 if (asAttachment)
                     webpg.thunderbird.compose.setAttachment(msg, signStatus.data);
