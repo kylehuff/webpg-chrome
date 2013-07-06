@@ -1,0 +1,104 @@
+<html>
+<head>
+<title>WebPG</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="jquery/css/dot-luv/jquery-ui-1.8.22.custom.css" rel="stylesheet"/>
+<script type="text/javascript" src="jquery/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="jquery/js/jquery-ui-1.8.22.custom.min.js"></script>
+<script type="text/javascript" src="constants.js"></script>
+<script type="text/javascript" src="utils.js"></script>
+<script type="text/javascript" src="preferences.js"></script>
+<script type="text/javascript" src="notice.js"></script>
+<style>
+body{
+    font:62.5% "Trebuchet MS", sans-serif;
+    background-color:#000;
+    text-shadow:#000 1px 1px 1px;
+    margin:0;
+    padding:0;
+}
+#main_body {
+    min-height: 90%;
+}
+.webpg-info-box {
+    margin:auto;
+    padding:12px;
+    border-radius:4px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#fff;
+}
+.webpg-info-img {
+    float:left;
+    top:-1px;
+    position:relative;
+    margin:0 8px 0px 4px;
+    padding-right:4px;
+    border-radius:4px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    height:30px;
+}
+.webpg-info-title {
+    font-size:24px;
+}
+.webpg-info-version {
+    font-size:12px;
+    padding:6px 10px 0 0;
+    float:right;
+    margin-left:2px;
+}
+.webpg-info-text {
+}
+.webpg-title {
+    font-weight: bold;
+}
+.info-block {
+    margin-left: 16px;
+}
+#news {
+    display: inline-table;
+    margin:auto;
+    width:96%;
+}
+#news h3 {
+    margin-left: 8px;
+}
+#news div {
+    margin-left: 20px;
+}
+#news ul {
+    margin-left: 8px;
+}
+.news-item {
+    border: 1px solid #fff;
+    border-radius: 4px;
+    padding-right: 12px;
+    width: 100%;
+    background-color: #666;
+}
+.news-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+.news-desc {
+    font-size: 14px;
+}
+</style>
+</head>
+<body>
+    <div id="main_body" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <img class="webpg-info-img" src="../skin/images/webpg-64.png"/>
+            <span class="webpg-info-title">WebPG<span id="webpg-info-browser"></span>
+            <span class="webpg-info-version"><span id="webpg-info-version-string"></span>
+            </span><br/>
+        </div>
+        <div class="webpg-info-box">
+        </div>
+        <div id="news">
+            <h3>News</h3>
+        </div>
+    </div>
+</body>
+</html>
