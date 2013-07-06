@@ -503,8 +503,19 @@ webpg.inline = {
 //            console.log("using scontent");
         }
 
-        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
+        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
             scontent = scontent.replace(/([\"|>])\s(\b.*?)\s([\"|<])(?:\/)/gim, "$1$2$3");
+            scontent = scontent.replace(/<span class="moz-txt-citetags">[&gt;]+[\s]*<\/span>/gim, "")
+                .replace(/[\*]\b(.*?)[\*]/gim, "<b>$1</b>");
+        }
+
+        // REGEX to break out the parts of the PGP Message
+        var res = new RegExp("^(-----BEGIN PGP.*?-----)?([\\s\\S]*)(-----BEGIN PGP.*?-----)\\n([\\s\\S]*)(-----END PGP.*?-----)",
+            "gm").exec(scontent);
+
+        // Test if the PGP message has data between "BEGIN PGP" and "END PGP"
+        if (res && res.hasOwnProperty(4))
+            scontent = scontent.replace(res[4], res[4].replace(new RegExp("<[^>]+>", "gim"), ""))
 
         var fragment = range.extractContents();
 
