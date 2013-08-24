@@ -10,3 +10,7 @@ Features as of Version 0.8.3 -
 In order for this to operate you *must* have some software installed depending on your operating system; namely, GnuPG and a key agent.
 
 Keep in mind, this is beta software, it will probably have lots of bugs -- use at your own risk, and please inform me of any bugs/issues via webpg-bugs@curetheitch.com
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/kylehuff/webpg-chrome/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
