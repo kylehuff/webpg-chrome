@@ -32,6 +32,12 @@ webpg.background = {
         }
 
         webpg.plugin = document.getElementById("webpgPlugin");
+        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+            try {
+                webpg.plugin.QueryInterface(Components.interfaces.nsIObjectLoadingContent).playPlugin();
+            } catch (err) {
+            }
+        }
         console.log("WebPG NPAPI Plugin valid: " + webpg.plugin.valid + "; version " + webpg.plugin.version);
 
         // Set the users preferred option for the GnuPG binary
