@@ -566,7 +566,7 @@ webpg.gmail = {
 
         var action_menu = '' +
             '<span class="webpg-action-menu">' +
-                '<span class="webpg-current-action" style="line-height:24px;">' +
+                '<span class="webpg-current-action" style="line-height:inherit;">' +
                     '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + "skin/images/badges/32x32/webpg.png" + '" width="17" height="17"/>' +
                     '<span class="webpg-action-text">WebPG</span>' +
                 '</span>' +
