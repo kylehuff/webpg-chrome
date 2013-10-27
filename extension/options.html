@@ -9,6 +9,7 @@
 <script type="text/javascript" src="utils.js"></script>
 <script type="text/javascript" src="preferences.js"></script>
 <script type="text/javascript" src="options.js"></script>
+<script type="text/javascript" src="xoauth2.js"></script>
 <script type="text/javascript" src="inline.js"></script>
 <script type="text/javascript" src="webpg_overlay.js"></script>
 <style>
@@ -163,6 +164,18 @@ body{
 #inline-options-pgp-test, #toolbar-sample-textarea, #inline-sample-image {
     display:none;
 }
+.ident-list {
+    list-style: none;
+    font-size: 18px;
+    line-height: 30px;
+}
+.ident-photo {
+    padding-right: 18px;
+    height: 24px;
+    width: 24px;
+    position: relative;
+    top: 4px;
+}
 </style>
 </head>
 <body>
@@ -179,6 +192,11 @@ body{
             <span id='enable-gmail-integration' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='checkbox' id='enable-gmail-integration-check'/><label for='enable-gmail-integration-check'></label></span>
             <span id='gmail-action-sign' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;
                 <input type='checkbox' id='gmail-action-sign-check'/><label for='gmail-action-sign-check'></label>
+            </span>
+            <span id='gmail-linked-identities' class='webpg-options-group'>
+                <span class='webpg-options-text'></span><br/>
+                <ul class='ident-list'></ul>
+                <a style="padding-left:20px;text-decoration:underline;cursor:pointer;" id="link-gmail-identity"></a><br/><br/>
             </span>
             <a style="text-decoration:underline;cursor:pointer;" id="advanced-options-link"></a>
             <div id="advanced-options" style="display:none; padding:8px;">

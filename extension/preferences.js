@@ -647,6 +647,17 @@ webpg.preferences = {
         },
     },
 
+    xoauth2_data: {
+        get: function() {
+            var stored_data = webpg.localStorage.getItem('xoauth2_data');
+            return (stored_data && stored_data.length > 1) ? JSON.parse(stored_data) : {};
+        },
+
+        set: function(data) {
+            webpg.localStorage.setItem('xoauth2_data', JSON.stringify(data));
+        }
+    },
+
 };
 
 if (webpg.utils.detectedBrowser['product'] == "chrome") {

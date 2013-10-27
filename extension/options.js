@@ -124,10 +124,13 @@ webpg.options = {
                 if (webpg.utils.detectedBrowser['product'] == "thunderbird") {
                     webpg.jq("#enable-gmail-integration").hide();
                     webpg.jq("#gmail-action-sign").hide();
+                    webpg.jq("#gmail-linked-identities").hide();
                 }
 
-                if (webpg.preferences.gmail_integration.get() !== 'true')
+                if (webpg.preferences.gmail_integration.get() !== 'true') {
                     webpg.jq("#gmail-action-sign").hide();
+                    webpg.jq("#gmail-linked-identities").hide();
+                }
 
                 if ((webpg.utils.detectedBrowser['product'] == "chrome") &&
                     !chrome.app.getDetails().hasOwnProperty("content_scripts")) {
@@ -162,6 +165,17 @@ webpg.options = {
 
                 webpg.jq("#gmail-action-sign").find(".webpg-options-text").
                     text(_("Automatically Sign outgoing messages in GMAIL"));
+
+                webpg.jq("#gmail-linked-identities").find(".webpg-options-text").
+                    text(_("Linked GMAIL Identities"));
+                
+                webpg.jq("#link-gmail-identity").text(_("Link new GMAIL identity")).click(function() {
+                    webpg.xoauth2.requestCodeCallback = function() {
+                        webpg.xoauth2.requestCodeCallback = undefined;
+                        document.location.reload();
+                    }
+                    webpg.xoauth2.requestCode();
+                });
 
                 webpg.jq("#advanced-options-link").text(_("Advanced Options"));
 
@@ -310,8 +324,10 @@ webpg.options = {
                             webpg.jq("#toolbar-sample-textarea").hide();
                         }
                     });
+
                     if (webpg.preferences.render_toolbar.get() == "true")
                         webpg.jq("#toolbar-check").attr({'checked': 'checked'}).button("refresh");
+
                     webpg.jq("#options-dialog").dialog({
                         'resizable': true,
                         'height': 420,
@@ -362,10 +378,13 @@ webpg.options = {
                             webpg.preferences.gmail_integration.set(false)
                             : webpg.preferences.gmail_integration.set(true);
                         status = (webpg.preferences.gmail_integration.get() == 'true') ? _('Enabled') : _('Disabled')
-                        if (webpg.preferences.gmail_integration.get() == 'true')
+                        if (webpg.preferences.gmail_integration.get() == 'true') {
                             webpg.jq("#gmail-action-sign").show()
-                        else
+                            webpg.jq("#gmail-linked-identities").show()
+                        } else {
                             webpg.jq("#gmail-action-sign").hide();
+                            webpg.jq("#gmail-linked-identities").hide()
+                        }
                         webpg.jq(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.gmail_integration.get() == 'true');
                         webpg.jq(this).button('refresh');
@@ -384,6 +403,22 @@ webpg.options = {
                         webpg.jq(this).button('refresh');
                     }
                 );
+
+                for (ident in webpg.xoauth2.comp_data) {
+                    var id = webpg.xoauth2.comp_data[ident];
+                    var identli = "<li><img class='ident-photo' src='" + id.picture + "'/>" + ident + "<a id='" + ident + "' style='padding-left:20px;text-decoration:underline;cursor:pointer;font-size: 80.5%;text-transform:lowercase;'>[" + _("delete") + "]</a></li>";
+                    webpg.jq("#gmail-linked-identities").find(".ident-list").append(identli);
+                }
+
+                webpg.jq("#gmail-linked-identities").find(".ident-list").find("a").click(function() {
+                    if (webpg.xoauth2.comp_data.hasOwnProperty(this.id)) {
+                        delete webpg.xoauth2.comp_data[this.id];
+                        webpg.preferences.xoauth2_data.set(webpg.xoauth2.comp_data);
+                        console.log(webpg.xoauth2.comp_data);
+                        this.parentElement.remove();
+                    }
+                });
+                
 
                 webpg.jq("#gnupg-path-save").button().click(function(e) {
                     webpg.preferences.gnupghome.set(webpg.jq("#gnupg-path-input")[0].value);
