@@ -38,7 +38,7 @@ webpg.overlay = {
         // You can't pin me down
         "pintrist.com",
         // You have no friends anyway
-        "facebook.com",
+        //"facebook.com",
         // Lets not be so hasty
         "hastebin.com",
         // I got the gist of it
