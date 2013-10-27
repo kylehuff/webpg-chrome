@@ -871,7 +871,7 @@ webpg.utils = {
                     if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
                         var node = event.target, callback = node.getUserData("callback"), response = node.getUserData("response");
                     else
-                        var node = event.target, callback = webpg.jq(node).data("callback"), response = webpg.jqurey(node).data("response");
+                        var node = event.target, callback = webpg.jq(node).data("callback"), response = webpg.jq(node).data("response");
                     mozDoc.documentElement.removeChild(node);
                     mozDoc.removeEventListener("webpg-listener-response", arguments.callee, false);
                     return callback(response);

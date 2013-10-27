@@ -257,7 +257,14 @@ webpg.inline = {
                     || !node.textContent.search(/^.*?(-----END PGP.*?).*?(-----)/gim) < 0)
                         break;
 
-
+                    var nodeRect = node.parentNode.getBoundingClientRect();
+                    var isInViewport = (
+                        nodeRect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                        nodeRect.left >= 0
+                    );
+                    if (!isInViewport)
+                        break;
+                    
                     baseIdx = idx;
                     idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_KEY_BEGIN, baseIdx);
                     blockType = webpg.constants.PGPBlocks.PGP_KEY;
