@@ -775,6 +775,33 @@ webpg.utils = {
         return replacedText;
     },
 
+    quoted_printable_encode: function(str) {
+      var hexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'],
+      str = webpg.utils.wrapText(str, 71);
+      RFC2045Encode1IN = / \r\n|\r\n|[^!-<>-~ ]/gm,
+      RFC2045Encode1OUT = function (sMatch) {
+        // Encode space before CRLF sequence to prevent spaces from being stripped
+        // Keep hard line breaks intact; CRLF sequences
+        if (sMatch.length > 1) {
+          return sMatch.replace(' ', '=20');
+        }
+        // Encode matching character
+        var chr = sMatch.charCodeAt(0);
+        return '=' + hexChars[((chr >>> 4) & 15)] + hexChars[(chr & 15)];
+      },
+      RFC2045Encode2IN = /.{1,70}(?!\r\n)[^=]{0,3}/g,
+      RFC2045Encode2OUT = function (sMatch) {
+        if (sMatch.substr(sMatch.length - 2) === '\r\n') {
+          return sMatch;
+        }
+        return sMatch + '=\r\n';
+      };
+      console.log(RFC2045Encode2IN);
+      str = str.replace(RFC2045Encode1IN, RFC2045Encode1OUT).replace(RFC2045Encode2IN, RFC2045Encode2OUT);
+      // Strip last softline break
+      return str.substr(0, str.length - 3);
+    },
+
     /*
         Function: sendRequest
             Sends a request event to the background page or content script
