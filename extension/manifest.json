@@ -5,6 +5,9 @@
   "manifest_version": 2,
   "content_security_policy": "script-src 'self'; object-src 'self'",
   "default_locale": "en",
+  "homepage_url": "https://webpg.org/",
+  "update_url": "https://webpg.org/update.php",
+  "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCyvCGqktn/5p1rr/IFh9iF+cIKBahJzu+876zBPU3ikyItHXozXnu4acag25ldIo2+iGoCIlj5MWEshloBlYRnSrtIXm5MdOFFnnI4DVkOXoJTcrIZyopfkF/PJsr2IChFGZid7DlSMIwWZMLwQjNXMLYaiKkzUXmMa1hipf3CgQIDAQAB",
   "omnibox": { "keyword": "webpg" },
   "web_accessible_resources": [
       "webpg_results.html",
