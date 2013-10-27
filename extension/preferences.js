@@ -605,7 +605,8 @@ webpg.preferences = {
                     if (groups[rgroup] == "")
                         return;
                     var g_v = groups[rgroup].split(" = ");
-                    groups_json[g_v[0]] = g_v[1].split(" ");
+                    if (g_v.length > 1)
+                      groups_json[g_v[0]] = g_v[1].split(" ");
                 }
                 webpg.localStorage.setItem('groups', JSON.stringify(groups_json));
             }
