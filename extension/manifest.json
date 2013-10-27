@@ -61,7 +61,8 @@
        "tabs",
        "notifications",
        "contextMenus",
-       "background"
+       "webRequest",
+       "webNavigation"
   ],
   "content_scripts": [
     {
