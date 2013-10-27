@@ -58,7 +58,7 @@ webpg.notice = {
             notice.desc[webpg.notice.desc_key] +
             "</span>";
 
-        var newsURL = "http://webpg.org/rss/?product=webpg-extension&version=" + webpg.notice.version;
+        var newsURL = "https://webpg.org/rss/?product=webpg-extension&version=" + webpg.notice.version;
 
         webpg.jq.ajax({type: "GET", url: newsURL, success: xmlParser, dataType: 'xml'}).fail(function(e, a) { console.log(e, a) });
 
