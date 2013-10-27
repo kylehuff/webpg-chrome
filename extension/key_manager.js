@@ -61,7 +61,9 @@ webpg.keymanager = {
 
         webpg.jq('#tab-2-btn').text(_("Private Keys"));
         webpg.jq('#tab-3-btn').text(_("Public Keys"));
+        webpg.jq('#tab-4-btn').text(_("Import"));
         webpg.jq('#pubkey-search-lbl').text(_("Search/Filter") + ": ");
+        webpg.jq('#keyserver-search-lbl').text(_("Search for Keys on Keyserver") + ": ");
         webpg.jq("label[for=uid_0_name]", "#genkey-form").text(_("Your Name") + ":");
         webpg.jq("label[for=uid_0_email]", "#genkey-form").text(_("Your Email") + ":");
         webpg.jq("label[for=uid_0_comment]", "#genkey-form").text(_("Comment") + ":");
@@ -241,6 +243,86 @@ webpg.keymanager = {
                 }
             });
         });
+
+        webpg.jq("#keyserver-search").unbind("change").bind("change", function(e) {
+            // Sometimes the event is a duplicate, so check the
+            //  data object for "original_value"
+            if (webpg.jq(this).data("original_value") == this.value)
+                return
+            // This is an original event, so set the data object
+            //  "original_value"
+            webpg.jq(this).data('original_value', this.value);
+            // Set our keylist object to the current pubkeylist
+            var keylist = webpg.keymanager.pubkeylist;
+            // Retrieve the value of the serach field
+            var val = e.target.value.toLowerCase();
+
+//                var nkeylist = webpg.utils.keylistTextSearch(val, keylist);
+
+//                if (this.value == "")
+//                    nkeylist = webpg.keymanager.pubkeylist;
+            console.log(val);
+
+            webpg.jq("#dialog-modal").dialog()
+            .animate({"opacity": 1.0}, 1,
+                function() {
+                    webpg.jq('#dialog-msg').text(
+                        (val.length > 0) ? _("Searching for") + " \"" + val
+                        + "\"" : _("Please wait while we build the key list")
+                    );
+                    var sres = webpg.plugin.getExternalKey(val);
+                    if (Object.keys(sres).length == 0) {
+                        sres = {
+                            'UNDEFINED': {
+                                'name': _("Search string too ambiguous or not \
+                                    found on server")
+                            }
+                        }
+                    }
+                    console.log(sres);
+                    var keyd = webpg.jq(webpg.jq("<div>", {'class': 'signature-box2'}));
+                    for (var xkey in sres) {
+                        extraclass = (sres[xkey].expired || sres[xkey].invalid || sres[xkey].revoked) ? ' invalid-key' : '';
+                        keyd.append(
+                            webpg.jq("<span>", {
+                                'class': 'signature-box' + extraclass,
+                                'css': {
+                                    'display': 'block',
+                                    'padding-right': '34px',
+                                }
+                            }).append(
+                                webpg.jq("<span>", {
+                                    'class': 'keydetails',
+                                    'html': "<a style='color:#000;'>" + sres[xkey].name + "</a>",
+                                    'css': {
+                                        'color':'#000',
+                                        'font-size': '150%',
+                                        'width': '100%',
+                                        'left': '0',
+                                    },
+                                }),
+                                webpg.jq("<span>", {
+                                    'class': 'uid-options uid-options-line',
+                                    'text': "EMAIL: " + sres[xkey].email,
+                                })
+                            ).append(
+                                webpg.jq("<span>", {
+                                    'class': 'dh',
+                                    'html': (!key == "UNDEFINED") ? "<a>" + "IMPORT" + "</a>" : "",
+                                    'css': {
+                                        'color':'#000',
+                                        'font-size': '150%',
+                                        'width': '100%',
+                                        'left': '0',
+                                    },
+                                })
+                            )
+                        )
+                    }
+                    webpg.jq("#import-body").html(keyd);
+                    webpg.jq("#dialog-modal:ui-dialog").dialog('destroy');
+            });
+        })
     },
 
     /*
@@ -764,7 +846,7 @@ webpg.keymanager = {
                 if (current_keylist[key].revoked)
                     webpg.jq(keyobj).addClass('invalid-key');
                 keyobj.className += ' primary_key';
-                var enabled = (enabled_keys.indexOf(key) != -1) ? 'checked' : '';
+                var enabled = (current_keylist[key].disabled != true) ? 'checked' : '';
                 var status_text = (enabled) ? _("Enabled") : _("Disabled");
                 var default_key = (key == default_key_s) ? 'checked' : '';
             }
@@ -1220,8 +1302,8 @@ webpg.keymanager = {
             }
         }
 
-//        webpg.jq('#' + type + '_keylist').children('.open_key').
-//            accordion("activate", 0);
+        webpg.jq('#' + type + '_keylist').children('.open_key').
+            accordion("activate", 0);
         webpg.jq('.open_uid').accordion('destroy').accordion().
             accordion("activate", 0).accordion("option", {'collapsible': true});
         webpg.jq('.open_subkey').accordion('destroy').accordion().
@@ -1577,6 +1659,14 @@ webpg.keymanager = {
                                 webpg.jq(form)[0].style.display = "none";
                                 webpg.jq("#gensubkey-dialog")[0].style.height = "20";
                                 webpg.jq("#gensubkey-dialog")[0].style.display = "none";
+                                console.log("webpg.plugin.gpgGenSubKey(" + form.key_id.value + "," +
+                                    form.gs_subKey_algo.value + "," +
+                                    form.gs_subKey_size.value + "," +
+                                    form.key_expire.value + "," +
+                                    ((form.sign.checked) ? 1 : 0) + "," +
+                                    ((form.enc.checked) ? 1 : 0) + "," +
+                                    ((form.auth.checked) ? 1 : 0) + ");"
+                                )
                                 var response = webpg.plugin.gpgGenSubKey(form.key_id.value,
                                     form.gs_subKey_algo.value,
                                     form.gs_subKey_size.value,
