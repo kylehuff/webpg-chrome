@@ -744,7 +744,7 @@ webpg.utils = {
             }
             else
             {
-                result = result + text.substring(0, index) + "\n";
+                result = result + text.substring(0, index) + "\r\n";
                 text = text.substring(index + 1);
             }
         }
