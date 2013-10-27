@@ -529,13 +529,11 @@ webpg.keymanager = {
                                 error += _("Name Required") + "<br>";
                                 webpg.jq(form.uid_0_name).addClass("ui-state-error");
                             }
-                            if (form.uid_0_name.value.length < 5){
+                            else if (form.uid_0_name.value.length < 5){
                                 error += _("UID Names must be at least 5 characters") + "<br>";
                                 webpg.jq(form.uid_0_name).addClass("ui-state-error");
-                            } else {
-                                webpg.jq(form.uid_0_name).removeClass("ui-state-error");
                             }
-                            if (!isNaN(form.uid_0_name.value[0])){
+                            else if (!isNaN(form.uid_0_name.value[0])){
                                 error += _("UID Names cannot begin with a number") + "<br>";
                                 webpg.jq(form.uid_0_name).addClass("ui-state-error");
                             } else {
