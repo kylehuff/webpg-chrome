@@ -726,7 +726,7 @@ webpg.inline = {
         webpg.jq(toolbar).find('.webpg-action-menu .webpg-action-list-icon').css({
             'display': 'inline-block', 'width': '0',
             'height': '0', 'text-indent': '-9999px',
-            'position': 'relative', 'top': '-3px',
+            'position': 'relative', 'top': '28%',
             'border-left': '4px solid transparent',
             'border-right': '4px solid transparent',
             'border-top': '4px solid #000000',
@@ -946,7 +946,7 @@ webpg.inline = {
             "skin/images/menumask.png') repeat-x; border-collapse: separate;" +
             "color:#444; height:24px; margin: 1px 0 0 1px; display: block;" +
             "border: 1px solid gainsboro; top: 27px; clear: left; line-height: 12px;" +
-            "left: -1px; text-shadow: none; text-decoration: none;");
+            "left: -1px; text-shadow: none; text-decoration: none; overflow: visible;");
 
         toolbar.setAttribute("class", "webpg-toolbar");
         var offset = (element.scrollHeight < element.offsetHeight) ?
@@ -961,9 +961,11 @@ webpg.inline = {
 
         element.style.width = parseInt(toolbar.style.width) + pad + offset + "px";
 
-        element.style.paddingTop = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
+        var paddingTop = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ?
             "28px" : "30px";
+        element.style.cssText += 'padding-top:' + paddingTop + ' !important';
         element.style.marginTop = "1px";
+
         webpg.jq(toolbar).insertBefore(element);
         if (original_display)
             element.style.display = original_display;
@@ -1378,7 +1380,7 @@ webpg.inline = {
         iframe.style.boxShadow = "2px 2px 2px #000";
         iframe.style.margin = "auto";
         iframe.style.top = "0";
-        iframe.style.width = "100%";
+        iframe.style.width = "99%";
         iframe.style.minHeight = "220px";
         iframe.style.backgroundColor = "#efefef";
         iframe.style.zIndex = "9999";
