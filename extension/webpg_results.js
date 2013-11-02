@@ -285,7 +285,7 @@ webpg.inline_results = {
                             webpg.inline_results.missingKeys.push(request.verify_result.signatures[sig].fingerprint);
                             webpg.jq('#footer').addClass("signature_no_pubkey");
                             webpg.jq('#footer').html(_("THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY") + "<br/\>");
-                            webpg.jq('#footer').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a>");
+                            webpg.jq('#footer').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a> | ");
                             webpg.jq('#footer').append("<a class=\"refresh_key_link\">" + _("Refresh from Keyserver") + "</a>");
                         }
                         if (request.verify_result.signatures[sig].status == "NO_PUBKEY") {
@@ -535,8 +535,10 @@ webpg.inline_results = {
                                     webpg.jq('#footer').addClass("signature_no_pubkey");
                                     if (import_status.no_user_id > 0)
                                         webpg.jq("<span class='decrypt_status'>" + _("UNUSABLE KEY") + "; " + _("NO USER ID") + "<br/\></span>").insertBefore(webpg.jq(webpg.jq('#footer')[0].firstChild));
-                                    webpg.jq('#footer').append("<a class=\"import_key_link\">" + _("IMPORT THIS KEY") + "</a> | ");
+                                    if (import_status.considered == 0)
+                                        webpg.jq("<span class='decrypt_status'>" + _("UNUSABLE KEY") + "<br/\></span>").insertBefore(webpg.jq(webpg.jq('#footer')[0].firstChild));
                                     webpg.jq('#footer').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a>");
+                                    webpg.inline_results.doResize();
                                 }
                                 webpg.jq('#original_text').hide();
                                 webpg.inline_results.doResize();
@@ -654,7 +656,6 @@ webpg.inline_results = {
                 );
                 webpg.inline_results.doResize();
             });
-//            webpg.jq('.results-close-btn').find('a')[0].href = "#" + scrub(webpg.inline_results.qs.id);
             webpg.jq('.results-close-btn').find('a').off('click.webpg-link');
             webpg.jq('.results-close-btn').find('a').bind('click.webpg-link', function() {
                 webpg.utils.sendRequest({

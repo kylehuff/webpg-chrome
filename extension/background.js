@@ -365,8 +365,8 @@ webpg.background = {
                         // do nothing
                     }
                 }
-                if (import_status.error || !import_status.imports.hasOwnProperty(0)) {
-                    //console.log("NO IMPORT; Something failed", request, import_status);
+                if (import_status.error || !import_status.imports ||
+                    !import_status.imports.hasOwnProperty(0)) {
                     import_status['imports'] =
                         { 0 : {
                             'new_key': false,
