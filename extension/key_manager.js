@@ -881,11 +881,11 @@ webpg.keymanager = {
             if (type == "public") {
                 webpg.jq(keyobj).html("<h3 class='public_keylist'><a href='#' name='" + scrub(key) + "'><span class='uid-line'>" + scrub(current_keylist[key].name) + "</span><span>" + email + "</span><span class='trust' style='float:" + ((webpg.utils.isRTL()) ? "right" : "left") + "'></span></a></h3>");
             } else {
-                webpg.jq(keyobj).html("<h3 class='private_keylist' style='height: 29px;'><a href='#' name='" + scrub(key) + "'><span class='uid-line'>[" + key.substr(-8) + "] " + scrub(current_keylist[key].name) + 
+                webpg.jq(keyobj).html("<h3 class='private_keylist' style='height: 16px;'><a href='#' name='" + scrub(key) + "'><span class='uid-line'>[" + key.substr(-8) + "] " + scrub(current_keylist[key].name) + 
                     "</span><span>" + email + "</span></a><span class='trust' style='float:" + ((webpg.utils.isRTL()) ? "left" : "right") + "'>" +
                     "<span class='keyoption-help-text' style=\"margin: 0 14px;position:relative;top:2px;\">&nbsp;</span>" +
                     "<input class='enable-check' id='check-" + scrub(key) +"' type='checkbox' " + enabled + "/\><label class='enable-check-text' for='check-" + scrub(key) + "' style='z-index:100;height:29px;'>" + scrub(status_text) + "</label><input class='default-check' type='radio' name='default_key' " +
-                    " id='default-" + scrub(key) + "' " + scrub(default_key) + "/\><label class='default-check' dir='ltr' style='z-index:0;margin-left:0px;height:29px;' for='default-" + scrub(key) + "'>Set as default</label></span></h3>");
+                    " id='default-" + scrub(key) + "' " + scrub(default_key) + "/\><label class='default-check' dir='ltr' style='width:30px;z-index:0;margin-left:0px;height:29px;' for='default-" + scrub(key) + "'>Set as default</label></span></h3>");
             }
             //keylist_element.appendChild(keyobj);
             keyobjs.appendChild(keyobj);
@@ -1110,6 +1110,7 @@ webpg.keymanager = {
                 webpg.jq(uidobj).html("<h4 class='uidlist'><a href='#'><span style='margin:0; width: 50%;'>" + uid_string + "<span style='margin:0 15px;'>" + comment + "</span></span><span class='trust' style='text-decoration: none;float:" + ((webpg.utils.isRTL()) ? "left" : "right") + "'></span></a></h4>");
                 var signed = 0;
                 var uidobjbody = document.createElement('div');
+                uidobjbody.setAttribute('class', 'uid-info');
                 var primary_button = "";
                 var revoke_button = "";
 
@@ -1300,12 +1301,9 @@ webpg.keymanager = {
             }
         }
 
-        webpg.jq('#' + type + '_keylist').children('.open_key').
-            accordion("activate", 0);
-        webpg.jq('.open_uid').accordion('destroy').accordion().
-            accordion("activate", 0).accordion("option", {'collapsible': true});
-        webpg.jq('.open_subkey').accordion('destroy').accordion().
-            accordion("activate", 0).accordion("option", {'collapsible': true});
+        webpg.jq('#' + type + '_keylist').children('.open_key');
+        webpg.jq('.open_uid').accordion('destroy').accordion().accordion("option", {'collapsible': true});
+        webpg.jq('.open_subkey').accordion('destroy').accordion().accordion("option", {'collapsible': true});
         webpg.jq('.ui-add-hover').hover(
             function(){
                 webpg.jq(this).addClass("ui-state-hover");
@@ -2442,6 +2440,7 @@ webpg.keymanager = {
                         photoobj.setAttribute('id', scrub(key) + '-' + scrub(photo));
                         webpg.jq(photoobj).html("<h4 class='photolist'><a href='#'><span style='margin:0; width: 50%;'>User Photo " + photo + "</span></a></h4>");
                         var photoobjbody = document.createElement('div');
+                        photoobjbody.setAttribute('class', 'photo-info');
                         webpg.jq(photoobjbody).html("<div class=\"uid-options uid-options-line\"><span class='uid-options'><input class='photo-option-button-delete' id='delete-" + scrub(type) + "-" + scrub(key) + "-" + scrub(photo_info.photos[photo].absolute_index) + "' type='button' value='" + _("Delete this Photo") + "'/\></span></div><br/>");
                         var photo_box = "<div class='photo_img' id='photo-" + scrub(key) + "-" + scrub(photo) + "-" + scrub(photo_info.photos[photo].absolute_index) + "' class='photo-box'>" +
                                 "<img/></div>";
@@ -2467,10 +2466,7 @@ webpg.keymanager = {
                     });
                     user_photo.src = 'skin/images/key_photos/' + key + '-latest.jpg?' + new Date().getTime();
                     user_photo.className = 'keyphoto';
-                    if (type == "private")
-                        webpg.jq(element).parent().find('.uidlist .keydetails').first().append(user_photo);
-                    else
-                        webpg.jq(element).parent().find('.uidlist .keydetails').first().prepend(user_photo);
+                    webpg.jq(element).parent().find('.uidlist .keydetails').first().prepend(user_photo);
                     webpg.jq(element).parent().find('.photolist .photo_img').each(function() {
                         webpg.jq(this).find('img').attr('src',
                             'skin/images/key_photos/' + scrub(this.id.split('photo-')[1]) + '.jpg?' + new Date().getTime());

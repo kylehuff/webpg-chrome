@@ -2,9 +2,9 @@
 <head>
 <title>WebPG Key Manager</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link type="text/css" href="jquery/css/dot-luv/jquery-ui-1.8.22.custom.css" rel="stylesheet" />
-<script type="text/javascript" src="jquery/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="jquery/js/jquery-ui-1.8.22.custom.min.js"></script>
+<link type="text/css" href="jquery/css/dot-luv/jquery-ui-1.10.3.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="jquery/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="jquery/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript" src="constants.js"></script>
 <script type="text/javascript" src="utils.js"></script>
 <script type="text/javascript" src="preferences.js"></script>
@@ -81,6 +81,7 @@ body{
 }
 .uidlist, .subkeylist {
     padding-right:10px;
+    height: auto !important;
 }
 .ui-accordion .ui-accordion-content {
     overflow:visible;
@@ -124,8 +125,8 @@ span.uid-options label {
 .keyphoto {
     float: right;
     position: absolute;
-    right: 30px;
-    top: 51px;
+    right: 60px;
+    margin-top: 31px;
     height: 80px;
     max-width:120px;
     border: 2px solid gainsboro;
@@ -148,8 +149,8 @@ h3 {
 }
 h3 .trust {
     z-index:1000;
-    left: 4px;
-    top:-30px;
+    left: 10px;
+    top:-8px;
     height:22px;
 }
 .keydetails {
@@ -220,7 +221,7 @@ span.trust .ui-button-text {
         top:0;
     }
 }
-.default-check .ui-button-icon-primary{
+.ui-button-icon-primary {
     margin-left:0;
 }
 .signature-box {
@@ -379,6 +380,15 @@ ul.expand ul
     margin-right: -5px;
     background-color: #ff6600;
     min-width: 200px;
+}
+.subkey-info {
+  height: auto !important;
+}
+.uid-info {
+  height: auto !important;
+}
+.photo-info {
+  height: auto !important;
 }
 </style>
 </head>

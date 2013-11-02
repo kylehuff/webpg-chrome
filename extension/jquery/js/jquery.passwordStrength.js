@@ -30,7 +30,7 @@ webpg.jq.fn.passwordStrength = function(options) {
     webpg.jq(this).after("<span style=\"width: 30%; height: 15px; display: inline-block; padding-left: 0.9em;\"><span id=\"passwordStrength-text\"> </span><span id=\"passwordStrength-meter\"> </span></span>");
 
     /* Observe Key Up event display password Strength Result */
-    webpg.jq(this).live('keyup', function() {
+    webpg.jq(this).on('keyup', function() {
         var pass = webpg.jq.trim(webpg.jq(this).val());
         webpg.jq(this).removeClass('input-error');
         if (pass_repeat) {
@@ -110,7 +110,7 @@ webpg.jq.fn.passwordStrength = function(options) {
 
     if (webpg.jq(pass_repeat)) {
         webpg.jq(pass_repeat).after("<span style=\"display: inline-block; width: 30%; padding-left: 1em; font-size: 0.8em\"> </span>");
-        webpg.jq(pass_repeat).live('keyup', function() {
+        webpg.jq(pass_repeat).on('keyup', function() {
             var pass = webpg.jq.trim(webpg.jq(element).val());
             var rpass = webpg.jq.trim(webpg.jq(pass_repeat).val());
             if (webpg.jq(element).next().find("#passwordStrength-text").html() == "Passphrases do not match") {
