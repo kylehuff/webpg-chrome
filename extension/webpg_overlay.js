@@ -613,6 +613,6 @@ if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
     }
 } else {
     webpg.overlay.init();
-    webpg.jq(window).scroll(function(){webpg.overlay.init();});
+    window.addEventListener("scroll", webpg.overlay.init, true);
 }
 /* ]]> */
