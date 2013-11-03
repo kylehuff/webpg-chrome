@@ -153,6 +153,11 @@ h3 .trust {
     top:-8px;
     height:22px;
 }
+@-moz-document url-prefix() {
+  h3 .trust {
+    top:-24px;
+  }
+}
 .keydetails {
     font-size:14px;
     font-weight:bold;
@@ -210,6 +215,11 @@ span.trust .ui-button-text {
     margin:0;
     font-size:12px;
     z-index:800;
+}
+@-moz-document url-prefix() {
+  span.trust .ui-button-text {
+    padding-top: 6px;
+  }
 }
 .enable-check-text span {
     min-width: 50px;
