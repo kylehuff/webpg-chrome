@@ -33,7 +33,7 @@
       "64": "skin/images/webpg-64.png",
       "96": "skin/images/webpg-96.png",
       "128": "skin/images/webpg-128.png"
-   },
+  },
   "permissions": [
        "<all_urls>",
        "tabs",
@@ -47,7 +47,7 @@
       "matches": ["<all_urls>"],
       "js": [
         "jquery/js/jquery-1.10.2.min.js",
-        "jquery/js/jquery-ui-1.8.22.custom.min.js",
+        "jquery/js/jquery-ui-1.10.3.custom.min.js",
         "constants.js",
         "utils.js",
         "inline.js",
