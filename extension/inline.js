@@ -46,6 +46,7 @@ webpg.inline = {
                 return false;
             }
         }
+//        console.log("inline init");
 
         if (doc.location && doc.location.pathname.substr(-4) == ".pdf")
             return false;
@@ -78,7 +79,7 @@ webpg.inline = {
         } else {
             // Otherwise, use the MutationObserver
             // create an observer instance
-            console.log("Using MutationObserver");
+//            console.log("Using MutationObserver");
             var observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
                     if (mutation.target.nodeName == "IFRAME" && mutation.target.className.indexOf("webpg-") == -1) {

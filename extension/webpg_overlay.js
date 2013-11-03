@@ -601,12 +601,10 @@ webpg.overlay = {
 
 if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
     if (webpg.utils.detectedBrowser['product'] == "thunderbird") {
-        //window.addEventListener("load", webpg.overlay.init, false);
         if (document.location.href != "chrome://messenger/content/messengercompose/messengercompose.xul") {
             var messagepane = document.getElementById("messagepane"); // mail
-            if (messagepane) {
+            if (messagepane)
                 messagepane.addEventListener("load", webpg.overlay.init, true);
-            }
         }
     } else {
         webpg.appcontent = document.getElementById("appcontent") || document;
