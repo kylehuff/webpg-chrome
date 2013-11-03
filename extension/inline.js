@@ -528,7 +528,12 @@ webpg.inline = {
 
         var fragment = range.extractContents();
 
-        var results_frame = webpg.inline.addResultsFrame(range.commonAncestorContainer, range);
+        if (range.commonAncestorContainer.nodeName != "#text")
+            var commonAncestorContainer = node;
+        else
+            var commonAncestorContainer = range.commonAncestorContainer;
+
+        var results_frame = webpg.inline.addResultsFrame(commonAncestorContainer, range);
 
         var originalNodeData = doc.createElement("span");
         originalNodeData.setAttribute("class", "webpg-node-odata");
