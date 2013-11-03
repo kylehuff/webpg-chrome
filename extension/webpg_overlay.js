@@ -609,6 +609,7 @@ if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
     } else {
         webpg.appcontent = document.getElementById("appcontent") || document;
         webpg.appcontent.addEventListener("DOMContentLoaded", webpg.overlay.init, false);
+        webpg.appcontent.addEventListener("scroll", webpg.overlay.init, true);
     }
 } else {
     webpg.overlay.init();
