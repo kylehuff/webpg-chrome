@@ -263,7 +263,8 @@ webpg.inline = {
                         nodeRect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
                         nodeRect.left >= 0
                     );
-                    if (!isInViewport)
+                    if (webpg.utils.detectedBrowser['product'] != "thunderbird"
+                        && !isInViewport)
                         break;
                     
                     baseIdx = idx;
