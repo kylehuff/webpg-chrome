@@ -79,7 +79,7 @@ webpg.dialog = {
                             webpg.jq('.webpg-dialog-insert-btn, .webpg-dialog-export-btn').hide();
                         }
                         webpg.jq('#dialog-pubkey-search-fixed').css({
-                            'top': (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? '52px' : '53px', 
+                            'top': (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? '57px' : '58px', 
                         });
                         webpg.jq('#dialog-pubkey-search-lbl').text(_("Search/Filter") + ": ")
                             .parent().show().next().show();

@@ -276,6 +276,7 @@ webpg.overlay = {
                 if (request.decrypt_status.error)
                     request.decrypt_status.original_text = request.original_text;
                 if (!request.decrypt_status.error
+                && request.decrypt_status.signatures
                 && request.decrypt_status.signatures.hasOwnProperty("0"))
                     request.decrypt_status.block_type = webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
                 else if (!request.decrypt_status.error)
