@@ -171,7 +171,7 @@ webpg.preferences = {
         get: function() {
             encrypt_to = webpg.plugin.gpgGetPreference('encrypt-to').value
             default_key = webpg.plugin.gpgGetPreference('default-key').value
-            return (encrypt_to == default_key) ? true : false;
+            return (default_key != "" && encrypt_to == default_key) ? true : false;
         },
 
         /*
@@ -186,7 +186,7 @@ webpg.preferences = {
             if (!value) {
                 webpg.plugin.gpgSetPreference('encrypt-to', 'blank');
             } else {
-                default_key = webpg.plugin.gpgGetPreference('default-key').value
+                default_key = webpg.preferences.default_key.get();
                 webpg.plugin.gpgSetPreference('encrypt-to', default_key);
             }
         },
