@@ -748,8 +748,87 @@ webpg.keymanager = {
             document.getElementById('private_keylist').appendChild(genkey_div);
             // End key generation dialog
             webpg.keymanager.private_built = true;
+        } else {  // End key-generate button and dialog
+            var import_button = document.createElement('input');
+            import_button.setAttribute('value', _('Import from file'));
+            import_button.setAttribute('type', 'button');
+            import_button.setAttribute('id', 'import-key-btn');
+            webpg.jq(import_button).button().click(function(e){
+              webpg.jq("#importkey-dialog").dialog({
+                  'resizable': true,
+                  'height': 230,
+                  'width': 550,
+                  'modal': true,
+                  'buttons': [{
+                      'text': _("Import"),
+                      'click': function() {
+                          //console.log(params, webpg.jq(this).find("#importkey_name")[0].value);
+                          var f = webpg.jq(this).find("#importkey_name")[0].files.item(0);
+                          var reader = new FileReader();
+                          var attempt = 0;
+                          reader.onload = (function(theFile) {
+                              return function(e) {
+                                  if (e.target.error) {
+                                      webpg.jq("#import-list").html("<ul><li><strong><span class='error-text' style='padding-right:12px;'>" + 
+                                          _("Error") + ":</span>" + 
+                                          _("There was an error parsing this PGP file") + 
+                                          "</strong></li></ul>"
+                                      );
+                                      return false;
+                                  }
+                                  var result = {'error': true};
+                                  result = webpg.plugin.gpgImportKey(e.target.result);
+                                  if (result.considered < 1) {
+                                      console.log(result);
+                                      msg = ["<ul><li><strong><span class='error-text' style='padding-right:12px;'>", 
+                                          _("Error"), ":</span>", _("There was an error importing any keys in this file"),
+                                          "</strong></li>"];
+                                      msg.push("</ul>");
+                                      webpg.jq("#import-list").html(msg.join(''));
+                                  } else {
+                                      webpg.jq("#importkey_name")[0].value = '';
+                                      //webpg.jq("#importkey-dialog").dialog("destroy");
+                                      //webpg.keymanager.buildKeylistProxy(null, "public", null, null, null);
+                                  }
+                              }
+                          })(f);
+                          reader.readAsBinaryString(f);
+                      },
+                      'id': 'importkey_button',
+                  }, {
+                      'text': _("Cancel"),
+                      'click': function() {
+                          webpg.jq(this).find("#importkey_name")[0].value = "";
+                          webpg.jq("#importkey-dialog").dialog("destroy");
+                      }
+                  }
+              ]}).parent().animate({"opacity": 1.0}, 1, function() {
+                      webpg.jq("#importkey_button").attr("disabled", true);
+                      webpg.jq(this).find("#import-list").html("<ul><li><strong>" + 
+                          _("Please use the button above to open a key file (.asc/.txt)") + 
+                          "</strong></li></ul>"
+                      );
+                      webpg.jq(this).find("#importkey_name")[0].addEventListener('change', function(e) {
+                          var files = e.target.files; // FileList object
+
+                          // files is a FileList of File objects. List some properties.
+                          var f = files[0];
+                          if (files.length == 1) {
+                              console.log(f.type);
+                              if (f.type != "application/pgp-encrypted") {
+                                  e.target.value = "";
+                                  msg = ['<li class="error-text"><strong>', _("Only Text Files are supported"), '</li>'];
+                              } else {
+                                  msg = ['<li>', (f.type || 'n/a'), ' - ', f.size, ' bytes</li>'];
+                                  webpg.jq("#importkey_button").attr("disabled", false);
+                              }
+                          }
+                          webpg.jq(this).parent().find('#import-list').html('<ul>' + msg.join('') + '</ul>');
+                      }, false);
+                  });
+            });
+            webpg.jq("#tabs-3 .pubkey-search").prepend(import_button);
         }
-        // End key-generate button and dialog
 
         var prev_key = null;
         var current_keylist = (type == 'public')? keylist : pkeylist;

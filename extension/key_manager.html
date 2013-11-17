@@ -294,13 +294,12 @@ span.trust .ui-button-text {
 .error-text {
     color:#f20;
 }
-#list {
-    display:inline-table;
+#list, #import-list {
     padding-top:20px;
 }
-#list ul {
+#list ul, #import-list ul {
     list-style:none;
-    width: 100%;
+    width: 95%;
 }
 ul.expand { padding:0; margin:0; list-style:none; }
 ul.expand li { padding:0; margin:0; }
@@ -353,6 +352,10 @@ ul.expand ul
     margin-left:2px;
     display:inline;
     text-shadow:1px 1px 1px #000000;
+}
+#import-key-btn {
+    left: 22px;
+    height: 25px;
 }
 .pubkey-search {
     width: 100%;
@@ -604,6 +607,15 @@ ul.expand ul
             <input type='text' id='au-uid_0_email' name='uid_0_email'/><span class='help-text'>i.e.: john.smith@example.com</span><br/>
             <label for='au-uid_0_comment' style='display:inline-block;width:128px;'></label>
             <input type='text' id='au-uid_0_comment' name='uid_0_comment'/><span class='help-text'>i.e.: uid for XYZ only</span><br/>
+        </form>
+    </p>
+</div>
+<div id="importkey-dialog" style="display:none;" title="Import from file" style="font-size:14px;">
+    <p>
+        <span id='importkey-text'></span>
+        <form id="importkey-form" style="width:100%;">
+            <input type='file' id='importkey_name' name='importkey_name' style="float:left;left:30%;position:relative;"/><br/>
+            <div id="import-list"></div>
         </form>
     </p>
 </div>
