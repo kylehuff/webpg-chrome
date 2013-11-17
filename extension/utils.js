@@ -140,9 +140,12 @@ webpg.utils = {
           userAgent.search("conkeror") > -1 ||
           userAgent.search("seamonkey") > -1)
             return "chrome://webpg-firefox/content/";
-        else if (userAgent.search("chrome") > -1)
-            return chrome.extension.getURL("");
-        else if (userAgent.search("safari") > -1)
+        else if (userAgent.search("chrome") > -1) {
+            if (chrome && chrome.extension)
+              return chrome.extension.getURL("");
+            else
+              return "/";
+        } else if (userAgent.search("safari") > -1)
             return safari.extension.baseURI;
         else
             return "/";
@@ -1364,6 +1367,8 @@ webpg.utils = {
                     return res;
                 }
             } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+                if (!chrome.i18n)
+                  return msg;
                 var msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9]/g, '_');
                 var tmsg = chrome.i18n.getMessage(msgName);
                 if (tmsg.length == 0) {

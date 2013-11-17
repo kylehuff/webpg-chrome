@@ -1438,7 +1438,7 @@ webpg.keymanager = {
                                 webpg.jq("#keyexp-never")[0].checked = true;
                                 webpg.jq("#keyexp-date-input").hide();
                                 webpg.jq("#keyexp-dialog").dialog({ 'height': 190 });
-                                webpg.jq("#keyexp-dialog").dialog("refresh");
+//                                webpg.jq("#keyexp-dialog").dialog("refresh");
                             } else {
                                 webpg.jq("#keyexp-ondate")[0].checked = true;
                                 webpg.jq("#keyexp-date-input").show();
@@ -1449,12 +1449,12 @@ webpg.keymanager = {
                             webpg.jq("#keyexp-ondate").change(function(){
                                 webpg.jq("#keyexp-date-input").show();
                                 webpg.jq("#keyexp-dialog").dialog({ 'height': 410 });
-                                webpg.jq("#keyexp-dialog").dialog("refresh");
+//                                webpg.jq("#keyexp-dialog").dialog("refresh");
                             })
                             webpg.jq("#keyexp-never").change(function(){
                                 webpg.jq("#keyexp-date-input").hide();
                                 webpg.jq("#keyexp-dialog").dialog({ 'height': 190 });
-                                webpg.jq("#keyexp-dialog").dialog("refresh");
+//                                webpg.jq("#keyexp-dialog").dialog("refresh");
                             })
 
                         },
@@ -1839,7 +1839,8 @@ webpg.keymanager = {
                     webpg.jq("#export-dialog-copytext").html(scrub(export_result));
                     webpg.jq("#export-dialog").dialog({
                         'resizable': true,
-                        'height': 230,
+                        'height': 'auto',
+                        'maxHeight': window.innerHeight - 75 || document.documentElement.clientHeight - 75,
                         'width': 536,
                         'modal': true,
                         'buttons': [
@@ -1985,6 +1986,7 @@ webpg.keymanager = {
                     params[1] = "private";
                 webpg.keymanager.buildKeylistProxy(null, params[1], params[2], null, null);
             }
+            return false;
         }).parent().find('.ui-dialog-buttonpane').
             find(".ui-button-text").each(function(iter, src) {
                 webpg.jq(src).text(webpg.jq(src).parent()[0].getAttribute("text"))
@@ -1993,6 +1995,7 @@ webpg.keymanager = {
         webpg.jq('.uid-option-button').button();
         webpg.jq('#' + type + '_keylist').off('click', '.uid-option-button');
         webpg.jq('#' + type + '_keylist').on('click', '.uid-option-button', function(e){
+            e.preventDefault();
             var params = this.id.split('-');
             var refresh = false;
             switch(params[0]) {
@@ -2091,6 +2094,7 @@ webpg.keymanager = {
         webpg.jq('.uid-option-button-sign').button();
         webpg.jq('#' + type + '_keylist').off('click', '.uid-option-button-sign');
         webpg.jq('#' + type + '_keylist').on('click', '.uid-option-button-sign', function(e){
+            e.preventDefault();
             webpg.jq("#createsig-dialog").dialog({
                 'resizable': true,
                 'minHeight': 250,
@@ -2199,6 +2203,7 @@ webpg.keymanager = {
         });
         webpg.jq('#' + type + '_keylist').off('click', '.photo-option-button-delete');
         webpg.jq('#' + type + '_keylist').on('click', '.photo-option-button-delete', function(e){
+            e.preventDefault();
             var params = this.id.split('-');
             var refresh = false;
             webpg.jq("#delphoto-confirm").dialog({
@@ -2244,6 +2249,7 @@ webpg.keymanager = {
         webpg.jq('.revsig-button').button();
         webpg.jq('#' + type + '_keylist').off('click', '.revisg-button');
         webpg.jq('#' + type + '_keylist').on('click', '.revisg-button', function(e){
+            e.preventDefault();
             var params = this.id.split('-');
             var calling_button = this;
             var sig_details = webpg.jq(calling_button).parent()[0].id.split('-');
@@ -2303,6 +2309,7 @@ webpg.keymanager = {
         webpg.jq('.delsig-button').button();
         webpg.jq('#' + type + '_keylist').off('click', '.delsig-button');
         webpg.jq('#' + type + '_keylist').on('click', '.delsig-button', function(e){
+            e.preventDefault();
             var params = this.id.split('-');
             var calling_button = this;
             var sig_details = webpg.jq(calling_button).parent()[0].id.split('-');
@@ -2355,6 +2362,7 @@ webpg.keymanager = {
 
         webpg.jq('#' + type + '_keylist').off('click', '.private_keylist, .public_keylist');
         webpg.jq('#' + type + '_keylist').on('click', '.private_keylist, .public_keylist', function(e) {
+            e.preventDefault();
             var key = (webpg.jq(this).find('a').length > 0)
                 ? webpg.jq(this).find('a')[0].name
                 : null;
@@ -2552,6 +2560,7 @@ webpg.keymanager = {
         if (type == 'public') {
             // Setup the search input
             webpg.jq("#pubkey-search").unbind("change").bind("change", function(e) {
+                e.preventDefault();
                 // Sometimes the event is a duplicate, so check the
                 //  data object for "original_value"
                 if (webpg.jq(this).data("original_value") == this.value)
@@ -2580,6 +2589,7 @@ webpg.keymanager = {
                             nkeylist, 'public');
                         webpg.jq("#dialog-modal:ui-dialog").dialog('destroy');
                 });
+                return false;
             })
         }
         if (window.navigator.platform.toLowerCase().indexOf("win") > -1) {
