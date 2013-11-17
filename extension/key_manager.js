@@ -800,6 +800,8 @@ webpg.keymanager = {
                           var attempt = 0;
                           reader.onload = (function(theFile) {
                               return function(e) {
+                                  if (e.target.result.substr(0,15) != "-----BEGIN PGP")
+                                      e.target.error = true;
                                   if (e.target.error) {
                                       webpg.jq("#import-list").html("<ul><li><strong><span class='error-text' style='padding-right:12px;'>" + 
                                           _("Error") + ":</span>" + 
@@ -819,8 +821,8 @@ webpg.keymanager = {
                                       webpg.jq("#import-list").html(msg.join(''));
                                   } else {
                                       webpg.jq("#importkey_name")[0].value = '';
-                                      //webpg.jq("#importkey-dialog").dialog("destroy");
-                                      //webpg.keymanager.buildKeylistProxy(null, "public", null, null, null);
+                                      webpg.jq("#importkey-dialog").dialog("destroy");
+                                      webpg.keymanager.buildKeylistProxy(null, "public", null, null, null);
                                   }
                               }
                           })(f);
