@@ -61,7 +61,7 @@ webpg.keymanager = {
 
         webpg.jq('#tab-2-btn').text(_("Private Keys"));
         webpg.jq('#tab-3-btn').text(_("Public Keys"));
-        webpg.jq('#tab-4-btn').text(_("Import"));
+        webpg.jq('#tab-4-btn').text(_("Search Keyserver"));
         webpg.jq('#pubkey-search-lbl').text(_("Search/Filter") + ": ");
         webpg.jq('#keyserver-search-lbl').text(_("Search for Keys on Keyserver") + ": ");
         webpg.jq("label[for=uid_0_name]", "#genkey-form").text(_("Your Name") + ":");
@@ -282,44 +282,76 @@ webpg.keymanager = {
                     console.log(sres);
                     var keyd = webpg.jq(webpg.jq("<div>", {'class': 'signature-box2'}));
                     for (var xkey in sres) {
-                        extraclass = (sres[xkey].expired || sres[xkey].invalid || sres[xkey].revoked) ? ' invalid-key' : '';
-                        keyd.append(
-                            webpg.jq("<span>", {
-                                'class': 'signature-box' + extraclass,
-                                'css': {
-                                    'display': 'block',
-                                    'padding-right': '34px',
-                                }
-                            }).append(
-                                webpg.jq("<span>", {
-                                    'class': 'keydetails',
-                                    'html': "<a style='color:#000;'>" + sres[xkey].name + "</a>",
-                                    'css': {
-                                        'color':'#000',
-                                        'font-size': '150%',
-                                        'width': '100%',
-                                        'left': '0',
-                                    },
-                                }),
-                                webpg.jq("<span>", {
-                                    'class': 'uid-options uid-options-line',
-                                    'text': "EMAIL: " + sres[xkey].email,
-                                })
-                            ).append(
-                                webpg.jq("<span>", {
-                                    'class': 'dh',
-                                    'html': (!key == "UNDEFINED") ? "<a>" + "IMPORT" + "</a>" : "",
-                                    'css': {
-                                        'color':'#000',
-                                        'font-size': '150%',
-                                        'width': '100%',
-                                        'left': '0',
-                                    },
-                                })
-                            )
-                        )
+                      if (!xkey)
+                        continue;
+
+                      // Check if this key is already in our keyring, skip if it is
+                      if (!webpg.jq.isEmptyObject(webpg.utils.keylistTextSearch(xkey, webpg.keymanager.pubkeylist)))
+                        continue;
+
+                      extraclass = (sres[xkey].expired || sres[xkey].invalid || sres[xkey].revoked) ? ' invalid-key' : '';
+
+                      if (sres[xkey].name.length < 1)
+                        sres[xkey].name = sres[xkey].email;
+
+                      keyd.append(
+                          webpg.jq("<span>", {
+                              'class': 'signature-box' + extraclass,
+                              'css': {
+                                  'display': 'block',
+                                  'padding-right': '34px',
+                              }
+                          }).append(
+                              webpg.jq("<span>", {
+                                  'class': 'keydetails',
+                                  'html': "<a style='color:#000;'>" + sres[xkey].name + "</a>",
+                                  'css': {
+                                      'color':'#000',
+                                      'font-size': '150%',
+                                      'width': '100%',
+                                      'left': '0',
+                                  },
+                              }),
+                              webpg.jq("<span>", {
+                                  'class': 'uid-options uid-options-line',
+                                  'html': (xkey != "UNDEFINED") ? _("KeyID") + ": 0x" + xkey : "",
+                              }),
+                              webpg.jq("<span>", {
+                                'class': 'uid-options uid-options-line',
+                                'html': function() {
+                                    var uidlist = _("UIDs") + "<ul>";
+                                    for (uid in sres[xkey].uids) {
+                                        uidlist += "<li>";
+                                        if (sres[xkey].uids[uid].uid.length > 1)
+                                            uidlist += sres[xkey].uids[uid].uid + " - ";
+                                        if (sres[xkey].uids[uid].email.length > 1)
+                                            uidlist += sres[xkey].uids[uid].email;
+                                        uidlist += "</li>";
+                                    }
+                                    uidlist += "</ul>";
+                                    return uidlist;
+                                },
+                              })
+                          ).append(
+                              webpg.jq("<span>", {
+                                  'class': 'link_class',
+                                  'html': (xkey != "UNDEFINED") ? "<hr><a class='import-link' id='import-" + xkey + "' href='#'>" + _("IMPORT") + "</a>" : "",
+                                  'css': {
+                                      'color':'#000',
+                                      'font-size': '150%',
+                                      'text-transform': 'uppercase',
+                                      'width': '100%',
+                                      'left': '0',
+                                  },
+                              })
+                          )
+                      );
                     }
                     webpg.jq("#import-body").html(keyd);
+                    webpg.jq("#import-body .import-link").click(function(e){
+                      webpg.plugin.gpgImportExternalKey(this.id.split("-")[1]);
+                      webpg.jq(this).parent().parent().remove();
+                    }).css({ 'color': '#000'});
                     webpg.jq("#dialog-modal:ui-dialog").dialog('destroy');
             });
         })
