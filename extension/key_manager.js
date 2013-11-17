@@ -1962,7 +1962,7 @@ webpg.keymanager = {
                             'click': function() {
                                 webpg.jq("#export-dialog-copytext")[0].select();
                                 webpg.jq("#export-dialog-msg").html(
-                                    webpg.utils.copyToClipboard(window, document)
+                                    webpg.utils.copyToClipboard(window, document).msg
                                 );
                                 webpg.jq("#export-dialog-msg")[0].style.display="block"
                             },
