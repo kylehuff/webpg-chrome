@@ -848,8 +848,7 @@ webpg.keymanager = {
                           // files is a FileList of File objects. List some properties.
                           var f = files[0];
                           if (files.length == 1) {
-                              console.log(f.type);
-                              if (f.type != "application/pgp-encrypted") {
+                              if (f.type != "" || f.type != "application/pgp-encrypted") {
                                   e.target.value = "";
                                   msg = ['<li class="error-text"><strong>', _("Only Text Files are supported"), '</li>'];
                               } else {
