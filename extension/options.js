@@ -331,6 +331,8 @@ webpg.options = {
                     if (webpg.preferences.render_toolbar.get() == "true")
                         webpg.jq("#toolbar-check").attr({'checked': 'checked'}).button("refresh");
 
+                    webpg.jq("#options-dialog").attr("title", _("Inline Options"));
+
                     webpg.jq("#options-dialog").dialog({
                         'resizable': true,
                         'height': 420,
@@ -341,7 +343,9 @@ webpg.options = {
                         {
                             'text': _("Close"),
                             'click': function() {
+                                webpg.jq("#options-dialog").dialog("close");
                                 webpg.jq("#options-dialog").dialog("destroy");
+                                webpg.jq("#options-dialog").hide();
                             }
                         }
                     ]}).parent().animate({"top": window.scrollY}, 1, function() {

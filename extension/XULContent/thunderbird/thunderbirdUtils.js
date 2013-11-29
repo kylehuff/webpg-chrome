@@ -106,12 +106,12 @@ webpg.thunderbird.utils = {
         }
     },
 
-    // jQuery must be loaded via the onload handler, as doing so prior renders
+    // jQuery must be loaded via the onload handler, as loading it prior renders
     //  the context menu FUBAR
     loadjQuery: function(wnd) {
         var loader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
             .getService(Components.interfaces.mozIJSSubScriptLoader);
-        loader.loadSubScript("chrome://webpg-firefox/content/jquery/js/jquery-1.7.2.min.js", wnd);
+        loader.loadSubScript("chrome://webpg-firefox/content/jquery/js/jquery-1.10.2.min.js", wnd);
         var jQuery = wnd.jQuery.noConflict(true);
         return jQuery;
     },

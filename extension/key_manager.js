@@ -261,7 +261,6 @@ webpg.keymanager = {
 
 //                if (this.value == "")
 //                    nkeylist = webpg.keymanager.pubkeylist;
-            console.log(val);
 
             webpg.jq("#dialog-modal").dialog()
             .animate({"opacity": 1.0}, 1,
