@@ -420,6 +420,9 @@ webpg.options = {
                     webpg.jq("#gmail-linked-identities").find(".ident-list").append(identli);
                 }
 
+                // Hide the gmail linked identies feature (not yet implemented)
+                webpg.jq("#gmail-linked-identities").hide();
+
                 webpg.jq("#gmail-linked-identities").find(".ident-list").find("a").click(function() {
                     if (webpg.xoauth2.comp_data.hasOwnProperty(this.id)) {
                         delete webpg.xoauth2.comp_data[this.id];
