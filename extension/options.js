@@ -129,7 +129,7 @@ webpg.options = {
 
                 if (webpg.preferences.gmail_integration.get() !== 'true') {
                     webpg.jq("#gmail-action-sign").hide();
-                    webpg.jq("#gmail-linked-identities").hide();
+                    //webpg.jq("#gmail-linked-identities").hide();
                 }
 
                 if ((webpg.utils.detectedBrowser['product'] == "chrome") &&
@@ -390,7 +390,7 @@ webpg.options = {
                         status = (webpg.preferences.gmail_integration.get() == 'true') ? _('Enabled') : _('Disabled')
                         if (webpg.preferences.gmail_integration.get() == 'true') {
                             webpg.jq("#gmail-action-sign").show()
-                            webpg.jq("#gmail-linked-identities").show()
+                            //webpg.jq("#gmail-linked-identities").show()
                         } else {
                             webpg.jq("#gmail-action-sign").hide();
                             webpg.jq("#gmail-linked-identities").hide()
