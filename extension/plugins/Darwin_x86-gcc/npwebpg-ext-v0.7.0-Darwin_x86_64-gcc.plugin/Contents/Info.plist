@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>10K549</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>npwebpg-ext-v0.7.0-Darwin_x86_64-gcc</string>
+	<key>CFBundleGetInfoString</key>
+	<string>webpg 0.7.0, Copyright 2011-2013 CURE|THE|ITCH</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.webpgPluginLib.WebPG</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>BRPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.7.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>0.7.0</string>
+	<key>CFPlugInDynamicRegisterFunction</key>
+	<string></string>
+	<key>CFPlugInDynamicRegistration</key>
+	<string>NO</string>
+	<key>CFPlugInFactories</key>
+	<dict>
+		<key>00000000-0000-0000-0000-000000000000</key>
+		<string>MyFactoryFunction</string>
+	</dict>
+	<key>CFPlugInTypes</key>
+	<dict>
+		<key>00000000-0000-0000-0000-000000000000</key>
+		<array>
+			<string>00000000-0000-0000-0000-000000000000</string>
+		</array>
+	</dict>
+	<key>CFPlugInUnloadFunction</key>
+	<string></string>
+	<key>DTCompiler</key>
+	<string></string>
+	<key>DTPlatformBuild</key>
+	<string>4C199</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>10K549</string>
+	<key>DTSDKName</key>
+	<string>macosx10.6</string>
+	<key>DTXcode</key>
+	<string>0420</string>
+	<key>DTXcodeBuild</key>
+	<string>4C199</string>
+	<key>WebPluginDescription</key>
+	<string>A browser agnostic NPAPI interface to GnuPG</string>
+	<key>WebPluginMIMETypes</key>
+	<dict>
+		<key>application/x-webpg</key>
+		<dict>
+			<key>WebPluginExtensions</key>
+			<array>
+				<string></string>
+			</array>
+			<key>WebPluginTypeDescription</key>
+			<string>A browser agnostic NPAPI interface to GnuPG</string>
+		</dict>
+	</dict>
+	<key>WebPluginName</key>
+	<string>WebPG</string>
+</dict>
+</plist>
