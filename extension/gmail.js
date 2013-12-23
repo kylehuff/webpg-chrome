@@ -20,13 +20,13 @@ webpg.gmail = {
         webpg.utils.sendRequest({
             msg: "gmail_integration" },
             function(response) {
-                if (response.result.gmail_integration == "true")
-                    webpg.gmail.sign_gmail = (response.result.sign_gmail == 'true');
+                if (response.result.gmail_integration === "true")
+                    webpg.gmail.sign_gmail = (response.result.sign_gmail === 'true');
             }
         );
         if (navDiv.find(".webpg-action-menu").length < 1) {
             // If we are running Mozilla, inject the CSS file
-            if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+            if (webpg.utils.detectedBrowser.vendor === "mozilla") {
                 var sss = Components.classes["@mozilla.org/content/style-sheet-service;1"]
                     .getService(Components.interfaces.nsIStyleSheetService);
                 var ios = Components.classes["@mozilla.org/network/io-service;1"]
@@ -35,7 +35,7 @@ webpg.gmail = {
                 sss.loadAndRegisterSheet(uri, sss.USER_SHEET);
             }
 
-            var index = (webpg.gmail.gmailComposeType == "inline") ? 1 : 0;
+            var index = (webpg.gmail.gmailComposeType === "inline") ? 1 : 0;
 
             webpg.gmail.originalWrapValue = webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=nowrap]").val();
             webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=nowrap]").val(1);
@@ -52,7 +52,7 @@ webpg.gmail = {
             // Replace the "Send" button with our own
             this.oSendBtn.clone().insertBefore(this.oSendBtn)
                 .attr('id', 'webpg-send-btn')
-                .click(this.overrideSend)
+                .click(this.overrideSend);
 
             // Hide the original "Send" button
             this.oSendBtn.hide();
@@ -72,10 +72,10 @@ webpg.gmail = {
             webpg.gmail.getCanvasFrame().find(
                 'textarea, input'
                 ).blur(function(e) {
-                    if (webpg.gmail.action == 1 || webpg.gmail.action == 3)
+                    if (webpg.gmail.action === 1 || webpg.gmail.action === 3)
                         webpg.gmail.checkRecipients();
                 }).bind('mouseleave', function() {
-                    if (webpg.gmail.action == 1 || webpg.gmail.action == 3)
+                    if (webpg.gmail.action === 1 || webpg.gmail.action === 3)
                         webpg.gmail.checkRecipients();
                 });
         }
@@ -86,7 +86,7 @@ webpg.gmail = {
             Retrieves the gmail UI message editor iframe
     */
     getCanvasFrame: function() {
-        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+        if (webpg.utils.detectedBrowser.vendor === "mozilla")
             var cF = webpg.jq(content.document.getElementById("canvas_frame"))
                 .length > 0 ? webpg.jq(content.document.getElementById("canvas_frame")) :
                 webpg.jq(content.document);
@@ -108,7 +108,7 @@ webpg.gmail = {
         var cd =  webpg.gmail.getCanvasFrame()[0].contentDocument;
         
         return typeof(cd)!='undefined' ? cd :
-            (webpg.utils.detectedBrowser['vendor'] == "mozilla") ? content.document
+            (webpg.utils.detectedBrowser.vendor === "mozilla") ? content.document
                 : document;
     },
 
@@ -120,12 +120,12 @@ webpg.gmail = {
             e - <event> The HTML Event dispatched
     */
     refreshText: function(e) {
-        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+        if (webpg.utils.detectedBrowser.vendor === "mozilla")
             e.srcElement = e.target;
-        if (e.srcElement.getAttribute && e.srcElement.getAttribute("role") == "button") {
+        if (e.srcElement.getAttribute && e.srcElement.getAttribute("role") === "button") {
             if (e.srcElement.textContent && e.srcElement.textContent.length > 0) {
-                var btnType = (e.srcElement.textContent.search("Save") == 0 &&
-                    e.srcElement.id.search("webpg") == -1) ?
+                var btnType = (e.srcElement.textContent.search("Save") === 0 &&
+                    e.srcElement.id.search("webpg") === -1) ?
                     "Save" : "";
                 var prevSibling = e.srcElement.previousSibling;
                 if (btnType.length > 0 && prevSibling && prevSibling.textContent &&
@@ -154,7 +154,7 @@ webpg.gmail = {
 
         // Retrieve the contents of the message
         webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=ishtml]").val(1);
-        var message = (webpg.gmail.action == 0) ? "" :
+        var message = (webpg.gmail.action === 0) ? "" :
             webpg.gmail.getContents(webpg.gmail.getCanvasFrame().contents().find('form'));
 
         webpg.gmail.removeStatusLine();
@@ -183,9 +183,9 @@ webpg.gmail = {
                             users.push(recipKeys[keyItem][key].fingerprint.substr(-16));
                         }
                     }
-                    if (message.search("-----BEGIN PGP") == 0) {
-                        var send = confirm(_("This message already contains PGP data")
-                            + "\n\n" + _("Would you like to Encrypt anyway"));
+                    if (message.search("-----BEGIN PGP") === 0) {
+                        var send = confirm(_("This message already contains PGP data") +
+                            "\n\n" + _("Would you like to Encrypt anyway"));
                         if (!send)
                             return;
                     }
@@ -214,9 +214,9 @@ webpg.gmail = {
                 // Standard GnuPG Sign was selected; sign the plaintext
                 //  and populate the editor with the result and send
                 //  the email.
-                if (message.search("-----BEGIN PGP") == 0) {
-                    var send = confirm(_("This message already contains PGP data")
-                        + "\n\n" + _("Would you like to Sign anyway"));
+                if (message.search("-----BEGIN PGP") === 0) {
+                    var send = confirm(_("This message already contains PGP data") +
+                        "\n\n" + _("Would you like to Sign anyway"));
                     if (!send)
                         return;
                 }
@@ -247,9 +247,9 @@ webpg.gmail = {
                 //  recipients are valid, encrypt+sign the plaintext,
                 //  populate the editor with the result and send
                 //  the email.
-                if (message.search("-----BEGIN PGP") == 0) {
-                    var send = confirm(_("This message already contains PGP data")
-                        + "\n\n" + _("Would you like to Encrypt and Sign anyway"));
+                if (message.search("-----BEGIN PGP") === 0) {
+                    var send = confirm(_("This message already contains PGP data") +
+                        "\n\n" + _("Would you like to Encrypt and Sign anyway"));
                     if (!send)
                         return;
                 }
@@ -284,9 +284,9 @@ webpg.gmail = {
                 //  Symmetric encryption was selected; Encrypt the plaintext,
                 //  populate the editor with the result and send
                 //  the email.
-                if (message.search("-----BEGIN PGP") == 0) {
-                    var send = confirm(_("This message already contains PGP data")
-                        + "\n\n" + _("Would you like to Encrypt anyway"));
+                if (message.search("-----BEGIN PGP") === 0) {
+                    var send = confirm(_("This message already contains PGP data") +
+                        "\n\n" + _("Would you like to Encrypt anyway"));
                     if (!send)
                         return;
                 }
@@ -344,17 +344,17 @@ webpg.gmail = {
             }
             var notAllKeys = false;
             var missingKeys = [];
-            for (var u in users) {
+            for (u in users) {
                 if (!(users[u] in recipKeys) || recipKeys[users[u]].length < 1) {
                     notAllKeys = true;
                     missingKeys.push(users[u]);
                 }
             }
             // Check for expired keys that are not disabled and inform the user
-            var expiredKeys = []
-            for (var u in keys) {
-                for (var i in keys[u]) {
-                    for (var k in keys[u][i]) {
+            var expiredKeys = [];
+            for (u in keys) {
+                for (i in keys[u]) {
+                    for (k in keys[u][i]) {
                         if (!keys[u][i][k].disabled && keys[u][i][k].expired) {
                             expiredKeys.push(u);
                             notAllKeys = true;
@@ -391,21 +391,21 @@ webpg.gmail = {
     */
     displayStatusLine: function(message) {
         var canvasFrame = webpg.gmail.getCanvasFrame();
-        var status_line = (webpg.gmail.gmailComposeType == "inline") ?
+        var status_line = (webpg.gmail.gmailComposeType === "inline") ?
             canvasFrame.find(".Hp, .aDk") : canvasFrame.find(".fN");
         
-        if (!status_line.length > 0) {
+        if (status_line.length < 1) {
             canvasFrame.find(".webpg-status-line-holder").remove();
             status_line = webpg.jq("<span class='webpg-status-line-holder'></span>").insertBefore(webpg.gmail.getCanvasFrameDocument().querySelector("div>.nH.nH .ip.adB .I5 form"));
         }
         canvasFrame.find(".webpg-status-line").remove();
         var status_msg = webpg.gmail.getCanvasFrameDocument().createElement("span");
-        var cssClass = (webpg.gmail.gmailComposeType == "inline") ?
+        var cssClass = (webpg.gmail.gmailComposeType === "inline") ?
             "webpg-gmail-inline-status-line" :
             "webpg-gmail-status-line";
         status_msg.setAttribute("class", "webpg-status-line " + cssClass);
         webpg.jq(status_msg).html("<div style='margin-top:4px; max-height: 64px; overflow: auto; width: 100%;'>WebPG -- " + webpg.descript(message) + "</div>");
-        if (webpg.gmail.gmailComposeType == "inline") {
+        if (webpg.gmail.gmailComposeType === "inline") {
             var new_status = status_line.clone().addClass("webpg-status-line")
                 .addClass("webpg-gmail-status-line");
             new_status.css({'width': '100%'});
@@ -417,7 +417,7 @@ webpg.gmail = {
         status_line.find('.keylink').click(function() {
             webpg.utils.sendRequest({
                 'msg': "newtab",
-                'url': this.id,
+                'url': this.id
                 }
             );
         });
@@ -440,21 +440,22 @@ webpg.gmail = {
             recipKeys - <obj> The recipient keys found (if any)
     */
     handleFailure: function(result, recipKeys) {
-        var _ = webpg.utils.i18n.gettext;
-        if (result.gpg_error_code == "107") {
-            var status = result.error_string + ": " +
+        var _ = webpg.utils.i18n.gettext,
+            status = "";
+        if (result.gpg_error_code === 107) {
+            status = result.error_string + ": " +
                 result.data + "; " + _("You have more than 1 public key matching that address");
             webpg.gmail.displayStatusLine(status);
         } else if (typeof(result.data)!='undefined' && result.data.length > 0) {
             var invKeyFP = result.data;
             var shortKey = invKeyFP.substr(-16);
-            var status = "";
+            status = "";
             var url = webpg.utils.resourcePath +
                 "key_manager.html?auto_init=true" +
                 "&tab=-1&openkey=" + shortKey;
             for (var r in recipKeys) {
                 var fp = recipKeys[r].fingerprint;
-                if (fp == invKeyFP) {
+                if (fp === invKeyFP) {
                     status = _("The Key for") + " " + r + " " +
                     _("is invalid") + " [" + webpg.utils.escape(result.
                     error_string) + "] ";
@@ -468,7 +469,7 @@ webpg.gmail = {
                 }
             }
         } else {
-            var status = result.error_string;
+            status = result.error_string;
             webpg.gmail.displayStatusLine(status);
         }
     },
@@ -482,7 +483,7 @@ webpg.gmail = {
     */
     emulateMouseClick: function(button) {
         webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=ishtml]").val(0);
-        if (webpg.gmail.gmailComposeType == "inline") {
+        if (webpg.gmail.gmailComposeType === "inline") {
             button.click();
         } else {
             evt = button.ownerDocument.createEvent("MouseEvents");
@@ -492,7 +493,7 @@ webpg.gmail = {
             evt = button.ownerDocument.createEvent("MouseEvents");
             evt.initMouseEvent("mouseup", true, false, button.ownerDocument.defaultView, 0, 0, 0, 0, 0,
                 false, false, false, false, 0, null);
-            button.dispatchEvent(evt)
+            button.dispatchEvent(evt);
         }
     },
 
@@ -503,19 +504,19 @@ webpg.gmail = {
     getRecipients: function() {
         var emails = [];
         var canvasFrame = webpg.gmail.getCanvasFrame();
-        if (webpg.gmail.gmailComposeType == "inline") {
+        if (webpg.gmail.gmailComposeType === "inline") {
             canvasFrame.find('input[name="to"], input[name="cc"], input[name="bcc"]').each(function(i, e) {
                 emails.push(e.value);
             });
         } else {
-            var emails = canvasFrame.find('textarea[name="to"]').val()
+            emails = canvasFrame.find('textarea[name="to"]').val()
                 .replace(', ', ',').split(',');
             if (canvasFrame.find('textarea[name="cc"]').val().length)
                 emails = emails.concat(canvasFrame.find('textarea[name="cc"]').val().replace(', ', ',')
-                    .replace(' ', '').split(','))
+                    .replace(' ', '').split(','));
             if (canvasFrame.find('textarea[name="bcc"]').val().length)
                 emails = emails.concat(canvasFrame.find('textarea[name="bcc"]').val().replace(', ', ',')
-                    .replace(' ', '').split(','))
+                    .replace(' ', '').split(','));
         }
         var users = [];
         for (var r in emails) {
@@ -536,7 +537,7 @@ webpg.gmail = {
         //console.log("Add Send button");
         var _ = webpg.utils.i18n.gettext;
         // Set the default action according to the user preference
-        webpg.gmail.action = (webpg.gmail.sign_gmail==true) ? 2 : 0;
+        webpg.gmail.action = (webpg.gmail.sign_gmail===true) ? 2 : 0;
 
         if (navDiv.find('#webpg-send-btn').length > 1)
             navDiv.find('#webpg-send-btn').remove();
@@ -547,10 +548,10 @@ webpg.gmail = {
         sendBtn.show();
         var saveBtn = webpg.jq(navDiv.find('div')[1]);
         saveBtn.show();
-        var disBtn = webpg.jq(navDiv.find('div')[2])
+        var disBtn = webpg.jq(navDiv.find('div')[2]);
         disBtn.show();
 
-        var cssClass = (webpg.gmail.gmailComposeType == "inline") ?
+        var cssClass = (webpg.gmail.gmailComposeType === "inline") ?
                 "webpg-gmail-compose-inline" : "webpg-gmail-compose-normal";
 
         var esBtn = disBtn.clone().insertBefore(saveBtn.first())
@@ -634,7 +635,7 @@ webpg.gmail = {
                 '</ul>' +
             '</span>';
 
-        if (webpg.gmail.gmailComposeType == "inline") {
+        if (webpg.gmail.gmailComposeType === "inline") {
             esBtn.html(action_menu);
             var canvasFrame = webpg.gmail.getCanvasFrame();
             var action_list_el = webpg.gmail.getCanvasFrameDocument().createElement("span");
@@ -653,13 +654,13 @@ webpg.gmail = {
         }
 
         esBtn.click(function(e) {
-            if (e.target.className != "webpg-subaction-btn"
-            &&  e.target.parentElement.className != "webpg-subaction-btn") {
+            if (e.target.className != "webpg-subaction-btn" &&
+            e.target.parentElement.className != "webpg-subaction-btn") {
                 webpg.gmail.action_list.css({
-                    'display': (webpg.gmail.action_list[0].style.display == 'inline') ? 'none' : 'inline'
+                    'display': (webpg.gmail.action_list[0].style.display === 'inline') ? 'none' : 'inline'
                 });
                 webpg.gmail.action_list.find('.webpg-subaction-list').hide();
-                if (webpg.gmail.gmailComposeType == "inline") {
+                if (webpg.gmail.gmailComposeType === "inline") {
                     webpg.gmail.action_list.find('ul.webpg-subaction-list').css({'top': 'auto', 'bottom': '0'});
                 }
             }
@@ -674,10 +675,10 @@ webpg.gmail = {
 
             var signers = (this.id.indexOf("0x") > -1) ? null : [webpg.inline.default_key()];
 
-            if ((action == "sign"
-            || action == "cryptsign")
-            && this.id.indexOf("0x") == -1
-            && webpg.inline.default_key() == undefined) {
+            if ((action === "sign" ||
+            action === "cryptsign") &&
+            this.id.indexOf("0x") === -1 &&
+            webpg.inline.default_key() === undefined) {
                 e.stopImmediatePropagation();
                 e.preventDefault();
                 e.stopPropagation();
@@ -693,7 +694,7 @@ webpg.gmail = {
                 webpg.jq(this).parent().parent().parent().find('a').first().text() :
                 webpg.jq(this).text();
 
-            if (webpg.gmail.gmailComposeType == "inline") {
+            if (webpg.gmail.gmailComposeType === "inline") {
                 newText = "WebPG";
                 esBtn.click();
             }
@@ -705,8 +706,8 @@ webpg.gmail = {
                 'background-image': 'none',
                 'background-repeat': 'no-repeat',
                 'background-position': 'bottom right'
-            }
-            var bgBasePath = webpg.utils.resourcePath + 'skin/images/badges/48x48/'
+            };
+            var bgBasePath = webpg.utils.resourcePath + 'skin/images/badges/48x48/';
 
             switch (action) {
 
@@ -747,25 +748,25 @@ webpg.gmail = {
                     composeCSS['background-image'] = 'none';
             }
 
-            webpg.gmail.signers = (this.id.search("0x") == 0) ?
+            webpg.gmail.signers = (this.id.search("0x") === 0) ?
                     [e.currentTarget.id.substr(2)] : signers;
 
             var msg_container = webpg.gmail.getEditor(webpg.gmail.getCanvasFrame().contents().find('form'));
             if (msg_container.length > 0)
                 msg_container.css(composeCSS);
 
-            if (this.id.search("0x") == 0) {
+            if (this.id.search("0x") === 0) {
                 webpg.jq(this).parent().parent().find('a img').css({'opacity': '0'});
                 webpg.jq(this).find('img').css({'opacity': '1.0'});
             }
         });
 
-        if (webpg.gmail.action == 2) {
+        if (webpg.gmail.action === 2) {
             var composeCSS = {
                 'background-image': 'url(' + webpg.utils.resourcePath + 'skin/images/badges/48x48/stock_signature.png' + ')',
                 'background-repeat': 'no-repeat',
                 'background-position': 'bottom right'
-            }
+            };
             var msg_container = webpg.gmail.getEditor(webpg.gmail.getCanvasFrame().contents().find('form'));
             if (msg_container.length > 0)
                 msg_container.css(composeCSS);
@@ -779,7 +780,7 @@ webpg.gmail = {
 
     getEditor: function(editor) {
         var canvasFrame = webpg.gmail.getCanvasFrame();
-        if (webpg.gmail.gmailComposeType == "inline") {
+        if (webpg.gmail.gmailComposeType === "inline") {
             var msg_container = canvasFrame.find("*[g_editable='true']").first();
             if (msg_container.length < 1) {
                 // The editor must be in an iframe
@@ -811,9 +812,10 @@ webpg.gmail = {
             editor - <editor> The editor instance to use as the context
     */
     getContents: function(editor) {
-        var canvasFrame = webpg.gmail.getCanvasFrame();
-        var plaintext = (webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=ishtml]").val() != "1")
-        if (webpg.gmail.gmailComposeType == "inline") {
+        var canvasFrame = webpg.gmail.getCanvasFrame(),
+            plaintext = (webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=ishtml]").val() != "1"),
+            message = "";
+        if (webpg.gmail.gmailComposeType === "inline") {
             var msg_container = canvasFrame.find("*[g_editable='true']").first();
             if (msg_container.length < 1) {
                 // The editor must be in an iframe
@@ -821,19 +823,19 @@ webpg.gmail = {
                 iframes.each(function() {
                     if (webpg.jq(this.contentDocument).find("*[g_editable='true']").length > 0)
                         msg_container = webpg.jq(this.contentDocument).find("*[g_editable='true']").first();
-                })
+                });
             }
             webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=ishtml]").val(1);
-            message = (msg_container[0].nodeName == "TEXTAREA") ?
+            message = (msg_container[0].nodeName === "TEXTAREA") ?
                 msg_container.val() : webpg.utils.getInnerText(msg_container[0]);
         } else {
             var textarea = canvasFrame.find('textarea[name!=to]', editor).
                 filter("[name!=bcc]").filter("[name!=cc]");
             var iframe = webpg.jq('iframe', editor).contents().find('body');
             if (iframe.length > 0) {
-                var message = iframe.html();
+                message = iframe.html();
             } else {
-                var message = textarea.val();
+                message = textarea.val();
                 plaintext = true;
             }
         }
@@ -852,7 +854,7 @@ webpg.gmail = {
     */
     setContents: function(editor, message) {
         var canvasFrame = webpg.gmail.getCanvasFrame();
-        if (webpg.gmail.gmailComposeType == "inline") {
+        if (webpg.gmail.gmailComposeType === "inline") {
             var msg_container = canvasFrame.find("*[g_editable='true']").first();
             if (msg_container.length < 1) {
                 // The editor must be in an iframe
@@ -860,18 +862,18 @@ webpg.gmail = {
                 iframes.each(function() {
                     if (webpg.jq(this.contentDocument).find("*[g_editable='true']").length > 0)
                         msg_container = webpg.jq(this.contentDocument).find("*[g_editable='true']").first();
-                })
+                });
             }
             if (msg_container.length > 0) {
                 // Determine if we are in plaintext mode or inline mode
                 var plaintext = (webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=ishtml]").val() != "1");
                 //console.log((plaintext) ? "plaintext" : "richtext");
-                if (msg_container[0].nodeName == "TEXTAREA") {
+                if (msg_container[0].nodeName === "TEXTAREA") {
                     msg_container.val(message);
                 } else {
                     if (plaintext) {
                         //console.log("PLAINTEXT");
-                        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                        if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                             msg_container[0].innerHTML = message.replace(/\n/gim, "<br>").replace(/</gim, "&lt;").replace(/>/, "&gt;");
                         } else {
                             msg_container[0].innerText = message;
@@ -906,9 +908,10 @@ webpg.gmail = {
         if (!e.target || e.target.nodeName !== "DIV")
             return;
 
-        if (e.target.parentElement == null || (e.target.parentElement.className == undefined
-        || e.target.parentElement.className == ""
-        || e.target.parentElement.className == "gmail_quote"))
+        if (e.target.parentElement === null ||
+        (e.target.parentElement.className === undefined ||
+          e.target.parentElement.className === "" ||
+          e.target.parentElement.className === "gmail_quote"))
             return;
 
         if (e.target.ownerDocument.location.hash.search("#settings") !== -1)
@@ -928,6 +931,7 @@ webpg.gmail = {
 
         // A normal document load
         } else {
+            console.log("mutation event");
             var dW = webpg.gmail.getCanvasFrameDocument()
                 .querySelectorAll("div>.dW.E>.J-Jw, div>.nH.nH");
 
@@ -939,33 +943,33 @@ webpg.gmail = {
                     if (btn) {
                         webpg.jq(dW[i]).addClass("webpg-modified");
                         var navDiv = btn.parentElement;
-                        webpg.gmail.gmailComposeType = (navDiv.className == "J-J5-Ji") ? 'inline' : 'normal';
+                        webpg.gmail.gmailComposeType = (navDiv.className === "J-J5-Ji") ? 'inline' : 'normal';
                         if (navDiv)
                             webpg.gmail.setup(webpg.jq(navDiv));
                     }
                 }
            }
         }
-    },
-}
+    }
+};
 
 // Check if gmail_integration is enabled and set appropriate listeners.
 webpg.utils.sendRequest({
     msg: "gmail_integration" },
     function(response) {
-        if (response.result.gmail_integration == "true") {
-            webpg.gmail.sign_gmail = (response.result.sign_gmail == 'true');
+        if (response.result.gmail_integration === "true") {
+            webpg.gmail.sign_gmail = (response.result.sign_gmail === 'true');
             var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
             // Retrieve a reference to the appropriate window object
             // Check if the MutationObserver is not present
-            if (typeof(MutationObserver) == 'undefined') {
-                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+            if (typeof(MutationObserver) === 'undefined') {
+                if (webpg.utils.detectedBrowser.vendor === "mozilla") {
                     webpg.gmail.appcontent = document.getElementById("appcontent") || document;
                     webpg.gmail.appcontent.addEventListener("DOMContentLoaded",
                         function(aEvent) {
                             // We need to filter based on the URL for mozilla, as we do
                             //  not have the option to set the overlay by URL
-                            if (aEvent.originalTarget.location.host == "mail.google.com") {
+                            if (aEvent.originalTarget.location.host === "mail.google.com") {
                                 webpg.gmail.getCanvasFrameDocument()
                                 .addEventListener("DOMSubtreeModified",
                                     webpg.gmail.gmailChanges, false
@@ -979,8 +983,6 @@ webpg.utils.sendRequest({
                 }
             } else {
                 // Otherwise, use the MutationObserver
-                var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-
                 // create an observer instance
                 var observer = new MutationObserver(function(mutations) {
                     mutations.forEach(function(mutation) {
@@ -991,13 +993,13 @@ webpg.utils.sendRequest({
                 // configuration of the observer:
                 var config = { 'childList': true, 'subtree': true, 'attributes': false, 'characterData': false };
 
-                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                if (webpg.utils.detectedBrowser.vendor === "mozilla") {
                     webpg.gmail.appcontent = document.getElementById("appcontent") || document;
                     webpg.gmail.appcontent.addEventListener("DOMContentLoaded",
                         function(aEvent) {
                             // We need to filter based on the URL for mozilla, as we do
                             //  not have the option to set the overlay by URL
-                            if (aEvent.originalTarget.location.host == "mail.google.com") {
+                            if (aEvent.originalTarget.location.host === "mail.google.com") {
                                 observer.disconnect();
                                 observer.observe(webpg.gmail.getCanvasFrameDocument(), config);
                                 webpg.gmail.appcontent.removeEventListener("DOMContentLoaded", arguments.callee, true);

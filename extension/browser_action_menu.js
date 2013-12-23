@@ -37,7 +37,7 @@ var menuActions = {
         chrome.tabs.create({ 'url': url });
         return false;
     }
-}
+};
 
 // Listen for the creation of the buttons and assign their methods
 document.addEventListener('DOMContentLoaded', function () {

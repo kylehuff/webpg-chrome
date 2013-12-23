@@ -14,7 +14,7 @@ webpg.utils = {
             Initializes the webpg.utils object and setups up required overrides.
     */
     init: function() {
-        if (this.detectedBrowser['vendor'] == "mozilla") {
+        if (this.detectedBrowser.vendor === "mozilla") {
             if (webpg.constants.debug.LOG) {
                 // We are using Mozilla, so make `console.log` an alias to
                 //  something that provides more information than the standard
@@ -48,10 +48,10 @@ webpg.utils = {
                         for (var i=0; i<arguments.length; i++) {
                             // If the argument passed is an object, convert it
                             //  to a string
-                            if (typeof(arguments[i])=="undefined")
+                            if (typeof(arguments[i])==="undefined")
                                 arguments[i] = "<undefined>";
-                            else if (typeof(arguments[i]) == "object")
-                                if (arguments[i] == null) {
+                            else if (typeof(arguments[i]) === "object")
+                                if (arguments[i] === null) {
                                     arguments[i] = "<null>";
                                 } else {
                                     try {
@@ -65,11 +65,11 @@ webpg.utils = {
                         }
                         // Get the stack trace information so we can display the
                         //  calling function(s) name and line number(s)
-                        var stack = (new Error).stack.split("\n").slice(1);
-                        for (var i=0; i<stack.length - 1; i++) {
+                        var stack = new Error().stack.split("\n").slice(1);
+                        for (i=0; i<stack.length - 1; i++) {
                             var stack_i = stack[i].split("@");
                             var func = (stack[i].search("@") > 1) ? stack_i[0] + "@" : "";
-                            var fileAndLine = stack[i].split("/").pop()
+                            var fileAndLine = stack[i].split("/").pop();
                             var dp = (arguments.length > 0) ? arguments.length - 1 : 0;
                             arguments[dp] += "\n[" + func + fileAndLine + "]";
                         }
@@ -175,7 +175,7 @@ webpg.utils = {
             <obj> - An object containing the many various elements of a URL
     */
     parseUrl: function(url) {
-        var re = /^((\w+):\/\/\/?)?((\w+):?(\w+)?@)?([^\/\?:]+):?(\d+)?(\/?[^\?#;\|]+)?([;\|])?([^\?#]+)?\??([^#]+)?#?(\w*)/gi
+        var re = /^((\w+):\/\/\/?)?((\w+):?(\w+)?@)?([^\/\?:]+):?(\d+)?(\/?[^\?#;\|]+)?([;\|])?([^\?#]+)?\??([^#]+)?#?(\w*)/gi;
         result = re.exec(url);
         return { 'url': result[0],
             'proto_full': result[1],
@@ -185,15 +185,15 @@ webpg.utils = {
             'path': result[8],
             'query': result[11],
             'anchor': result[12]
-        }
+        };
     },
 
     formatSearchParameter: function(item) {
         var pParam = item.split(":")[0];
         var pValue = item.split(":")[1];
 
-        if (pValue != "true" && pValue != "false"
-        && isNaN(pValue)) {
+        if (pValue != "true" && pValue != "false" && 
+        isNaN(pValue)) {
             return item.replace(
                     new RegExp("(.*?):(.*)", "g"
                 ),
@@ -241,7 +241,7 @@ webpg.utils = {
     },
 
     getInnerText: function(element) {
-        if (webpg.utils.detectedBrowser['product'] == "chrome" && typeof(element) == 'object')
+        if (webpg.utils.detectedBrowser.product === "chrome" && typeof(element) === 'object')
             return element.innerText;
 
         var text = "";
@@ -265,19 +265,19 @@ webpg.utils = {
             text - <str> The string to parse
     */
     clean: function(text) {
-        reg = new RegExp("<div[^>]*><br></div>", "gi");
+        var reg = new RegExp("<div[^>]*><br></div>", "gi");
         str = text.replace(reg, "\n");
 
         reg = new RegExp("<div[^>]*>(.*?)</div>", "gi");
         str = text.replace(reg, "\n$1");
 
-        var reg = new RegExp("<div[^>]*><br></div>", "gi");
+        reg = new RegExp("<div[^>]*><br></div>", "gi");
         str = str.replace(reg, "\n");
 
-        var reg = new RegExp("</p>", "gi");
+        reg = new RegExp("</p>", "gi");
         str = str.replace(reg, "</p>\n");
 
-        var reg = new RegExp("<br[^>]*>", "gi");
+        reg = new RegExp("<br[^>]*>", "gi");
         str = str.replace(reg,"");
 
         reg = new RegExp("<wbr>", "gi");
@@ -295,7 +295,7 @@ webpg.utils = {
         reg = new RegExp("&nbsp;", "g");
         str = str.replace(reg, " ");
 
-        return (str.indexOf("\n") == 0) ? str.substr(1) : str;
+        return (str.indexOf("\n") === 0) ? str.substr(1) : str;
     },
 
     /*
@@ -306,50 +306,52 @@ webpg.utils = {
             id - <str> The unique ID of the frame to locate
     */
     getFrameById: function(id) {
-        if (webpg.utils.detectedBrowser['product'] == 'thunderbird') {
-            var iframes = content.document.getElementsByTagName("iframe");
-            for (var i=0; i < iframes.length; i++) {
-                if (iframes[i].id == id)
+        var iframes, i, x, browser;
+        if (webpg.utils.detectedBrowser.product === 'thunderbird') {
+            iframes = content.document.getElementsByTagName("iframe");
+            for (i=0; i < iframes.length; i++) {
+                if (iframes[i].id === id)
                     return iframes[i];
             }
             var mainWindow = webpg.utils.mozilla.getChromeWindow();
             var tabmail = mainWindow.document.getElementById("tabmail");
             for (var ti = 0; ti < tabmail.tabInfo.length; ti++) {
                 var tab = tabmail.tabInfo[ti];
-                if (tab.mode.name == "message") {
-                    var browser = tab.mode.getBrowser();
+                if (tab.mode.name === "message") {
+                    browser = tab.mode.getBrowser();
                     iframes = browser.querySelectorAll("iframe");
-                    for (var i=0; i < iframes.length; i++) {
-                        if (iframes[i].id == id)
+                    for (i=0; i < iframes.length; i++) {
+                        if (iframes[i].id === id)
                             return iframes[i];
                     }
                 }
             }
-        } else if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-            if (webpg.utils.detectedBrowser['product'] == 'conkeror')
-                var iframes = window.buffers.current.browser.contentDocument.getElementsByTagName("iframe");
+        } else if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+            if (webpg.utils.detectedBrowser.product === 'conkeror')
+                iframes = window.buffers.current.browser.contentDocument.getElementsByTagName("iframe");
             else
-                var iframes = gBrowser.contentDocument.getElementsByTagName("iframe");
-            for (var i=0; i < iframes.length; i++) {
-                if (iframes[i].id == id)
+                iframes = gBrowser.contentDocument.getElementsByTagName("iframe");
+            for (i=0; i < iframes.length; i++) {
+                if (iframes[i].id === id)
                     return iframes[i];
             }
             // Check for iframes within frame elements
             var browserWindow = webpg.utils.mozilla.getChromeWindow();
-            for (var i = 0; i < browserWindow.content.frames.length; i++) {
-                var iframes = browserWindow.content.frames[i].frameElement.contentDocument.getElementsByTagName("iframe");
-                for (var x=0; x < iframes.length; x++) {
-                    if (iframes[x].id == id)
+            for (i = 0; i < browserWindow.content.frames.length; i++) {
+                iframes = browserWindow.content.frames[i].frameElement.contentDocument.getElementsByTagName("iframe");
+                for (x=0; x < iframes.length; x++) {
+                    if (iframes[x].id === id)
                         return iframes[x];
                 }
             }
+            var currentTab;
             // Check all windows
-            if (webpg.utils.detectedBrowser['product'] == 'conkeror') {
-                for (var i = 0; i < window.buffers.container.childNodes.length; i++) {
-                    var currentTab = window.buffers.container.childNodes.item(i).conkeror_buffer_object;
-                    var iframes = currentTab.browser.contentDocument.getElementsByTagName("iframe");
-                    for (var x=0; x < iframes.length; x++) {
-                        if (iframes[x].id == id)
+            if (webpg.utils.detectedBrowser.product === 'conkeror') {
+                for (i = 0; i < window.buffers.container.childNodes.length; i++) {
+                    currentTab = window.buffers.container.childNodes.item(i).conkeror_buffer_object;
+                    iframes = currentTab.browser.contentDocument.getElementsByTagName("iframe");
+                    for (x=0; x < iframes.length; x++) {
+                        if (iframes[x].id === id)
                             return iframes[x];
                     }
                 }
@@ -361,13 +363,13 @@ webpg.utils = {
                    index++) {
 
                     // Get the next tab
-                    var currentTab = tabbrowser.tabContainer.childNodes[index];
+                    currentTab = tabbrowser.tabContainer.childNodes[index];
 
                     // Check if this tab contains the frame we are looking for
-                    var browser = tabbrowser.getBrowserAtIndex(index);
-                    var iframes = browser.contentDocument.getElementsByTagName("iframe");
-                    for (var x=0; x < iframes.length; x++) {
-                        if (iframes[x].id == id)
+                    browser = tabbrowser.getBrowserAtIndex(index);
+                    iframes = browser.contentDocument.getElementsByTagName("iframe");
+                    for (x=0; x < iframes.length; x++) {
+                        if (iframes[x].id === id)
                             return iframes[x];
                     }
                 }
@@ -393,17 +395,17 @@ webpg.utils = {
         var _ = webpg.utils.i18n.gettext;
         var status = {
             'msg': _("Text copied to clipboard"),
-            'success': true,
-        }
+            'success': true
+        };
         try {
-            doc.execCommand("Copy")
-        } catch(err) {
+            doc.execCommand("Copy");
+        } catch(cperr) {
             try {
                 if (win.getSelection && doc.activeElement){
                     ae = doc.activeElement;
-                    if (ae.nodeName == "TEXTAREA" ||
-                        (ae.nodeName == "INPUT" && 
-                        ae.getAttribute("type").toLowerCase() == "text")){
+                    if (ae.nodeName === "TEXTAREA" ||
+                        (ae.nodeName === "INPUT" && 
+                        ae.getAttribute("type").toLowerCase() === "text")){
                         userSelection = ae.textContent.substring(ae.selectionStart, ae.selectionEnd);
                     } else {
                         userSelection = win.getSelection();
@@ -414,8 +416,8 @@ webpg.utils = {
                 var gClipboardHelper = Components.classes["@mozilla.org/widget/clipboardhelper;1"].
                         getService(Components.interfaces.nsIClipboardHelper);
                 gClipboardHelper.copyString(userSelection);
-            } catch(err) {
-                console.log(err);
+            } catch(cliperr) {
+                console.log(cliperr);
                 status.success = false;
                 status.msg = _("There may have been a problem placing the data into the clipboard") + "; " + err;
             }
@@ -442,11 +444,12 @@ webpg.utils = {
     */
     openNewTab: function(url, tabIndex) {
         var _ = webpg.utils.i18n.gettext;
-        switch (webpg.utils.detectedBrowser['product']) {
+        switch (webpg.utils.detectedBrowser.product) {
             case "firefox":
             case "thunderbird":
             case "conkeror":
             case "seamonkey":
+                var gBrowser;
                 if (url.search("options.html") > -1)
                     url = url.replace("options.html", "XULContent/options.xul")
                         .replace("?", "?options_tab=0&");
@@ -463,17 +466,17 @@ webpg.utils = {
                     try {
                         openTab("chromeTab", { 'chromePage': url });
                     } catch (e) {
-                        if (webpg.utils.detectedBrowser['product'] == 'conkeror')
-                            var gBrowser = window.buffers.current.browser;
+                        if (webpg.utils.detectedBrowser.product === 'conkeror')
+                            gBrowser = window.buffers.current.browser;
                         else
-                            var gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
-                        gBrowser.selectedTab = gBrowser.addTab(url)
+                            gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
+                        gBrowser.selectedTab = gBrowser.addTab(url);
                     }
                 } else {
                     try {
                         openTab("chromeTab", { 'chromePage': url });
-                    } catch (e) {
-                        var gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
+                    } catch (e1) {
+                        gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
                         gBrowser.selectedTab = gBrowser.addTab(url);
                     }
                 }
@@ -482,7 +485,7 @@ webpg.utils = {
             case "chrome":
                 if (chrome.tabs) {
                     if (tabIndex) {
-                        chrome.tabs.create({'url': url, 'index': tabIndex})
+                        chrome.tabs.create({'url': url, 'index': tabIndex});
                     } else {
                         chrome.tabs.getSelected(null, function(tab) { 
                             chrome.tabs.create({'url': url, 'index': tab.index});
@@ -520,7 +523,7 @@ webpg.utils = {
 
         selectionTarget = (forcedElement) ? forcedElement : document.activeElement;
 
-        if (this.detectedBrowser['vendor'] == "mozilla") {
+        if (this.detectedBrowser.vendor === "mozilla") {
             try {
                 selectionObject = selectionTarget.contentWindow.document.getSelection();
                 selectionTarget = selectionTarget.contentWindow.document.activeElement;
@@ -532,7 +535,7 @@ webpg.utils = {
             selectionObject = window.getSelection();
         }
 
-        if (!selectionObject.toString().length > 0 && selectionTarget.nodeName == "IFRAME" &&
+        if (selectionObject.toString().length <= 0 && selectionTarget.nodeName === "IFRAME" &&
             selectionTarget.className.indexOf("webpg-result-frame") < 0 &&
             selectionTarget.className.indexOf("webpg-dialog") < 0) {
             if (this.debug) console.log(selectionTarget.className);
@@ -541,24 +544,24 @@ webpg.utils = {
             selectionTarget = selectionTarget.activeElement;
             selectionText = selectionObject.toString();
         } else {
-            if (selectionTarget.nodeName == "TEXTAREA" || selectionTarget.nodeName == "INPUT")
+            if (selectionTarget.nodeName === "TEXTAREA" || selectionTarget.nodeName === "INPUT")
                 selectionText = selectionTarget.value.substring(selectionTarget.selectionStart, selectionTarget.selectionEnd);
         }
 
         if (selectionObject && selectionObject.rangeCount > 0) {
             webpg.overlay.insert_range = selectionObject.getRangeAt(0);
-            if (webpg.overlay.insert_range.startOffset == webpg.overlay.insert_range.endOffset)
+            if (webpg.overlay.insert_range.startOffset === webpg.overlay.insert_range.endOffset)
                 webpg.overlay.insert_range = null;
         } else {
             webpg.overlay.insert_range = null;
         }
 
-        if ((!selectionText || !selectionText.length > 0) && selectionTarget) {
-            selectionText = (selectionTarget.nodeName == "TEXTAREA") ?
+        if ((!selectionText || selectionText.length <= 0) && selectionTarget) {
+            selectionText = (selectionTarget.nodeName === "TEXTAREA") ?
                 selectionTarget.value : selectionTarget.innerText;
-            if (this.detectedBrowser['vendor'] == "mozilla" && selectionTarget.nodeName != "TEXTAREA") {
+            if (this.detectedBrowser.vendor === "mozilla" && selectionTarget.nodeName != "TEXTAREA") {
                 var nodes = selectionTarget.childNodes;
-                var selectionText = "";
+                selectionText = "";
                 for (var i=0; i<nodes.length; i++) {
                     selectionText += nodes[i].textContent || "\n\n";
                 }
@@ -566,11 +569,11 @@ webpg.utils = {
         }
 
         if (selectionTarget && selectionText.length > 0) {
-            var textValue = (selectionTarget.nodeName == "TEXTAREA") ?
+            var textValue = (selectionTarget.nodeName === "TEXTAREA") ?
                 selectionTarget.value : selectionTarget.innerText;
-            if (selectionTarget.selectionStart != undefined
-            && selectionTarget.selectionStart > 0
-            && selectionTarget.selectionStart !== textValue.length) {
+            if (selectionTarget.selectionStart !== undefined &&
+            selectionTarget.selectionStart > 0 &&
+            selectionTarget.selectionStart !== textValue.length) {
                 preSelection = textValue.substr(0, selectionTarget.selectionStart);
                 postSelection = textValue.substr(selectionTarget.selectionEnd, textValue.length);
             }
@@ -583,7 +586,7 @@ webpg.utils = {
     },
 
     getPlainText: function(node) {
-        if (webpg.utils.detectedBrowser['product'] == "chrome" && typeof(node) == 'object')
+        if (webpg.utils.detectedBrowser.product === "chrome" && typeof(node) === 'object')
             return node.innerText;
 
 	    // used for testing:
@@ -597,39 +600,39 @@ webpg.utils = {
 				    .replace(/[ ]+$/gm, "")
 				    .replace(/^[ ]+/gm, "")
 				    .replace(/\n\n/g, "\n");
-	    }
+	    };
 	    var removeWhiteSpace = function(node) {
 		    // getting rid of empty text nodes
 		    var isWhite = function(node) {
 			    return !(/[^\t\n\r ]/.test(node.nodeValue));
-		    }
+		    };
 		    var ws = [];
 		    var findWhite = function(node){
 			    for(var i=0; i<node.childNodes.length; i++) {
 				    var n = node.childNodes[i];
 				    if (n.nodeType==3 && isWhite(n)){
-					    ws.push(n)
+					    ws.push(n);
 				    } else if (n.hasChildNodes()) {
 					    findWhite(n);
 				    }
 			    }
-		    }
+		    };
 		    findWhite(node);
 		    for(var i=0;i<ws.length; i++) {
-			    ws[i].parentNode.removeChild(ws[i])
+			    ws[i].parentNode.removeChild(ws[i]);
 		    }
 
-	    }
+	    };
 	    var sty = function(n, prop) {
 		    // Get the style of the node.
 		    // Assumptions are made here based on tagName.
 		    if(n.style[prop]) return n.style[prop];
 		    var s = n.currentStyle || n.ownerDocument.defaultView.getComputedStyle(n, null);
-		    if(n.tagName == "SCRIPT") return "none";
+		    if(n.tagName === "SCRIPT") return "none";
 		    if(!s[prop]) return "LI,P,TR".indexOf(n.tagName) > -1 ? "block" : n.style[prop];
 		    if(s[prop] =="block" && n.tagName=="TD") return "feaux-inline";
 		    return s[prop];
-	    }
+	    };
 
 	    var blockTypeNodes = "table-row,block,list-item";
 	    var isBlock = function(n) {
@@ -637,7 +640,7 @@ webpg.utils = {
 		    var s = sty(n, "display") || "feaux-inline";
 		    if(blockTypeNodes.indexOf(s) > -1) return true;
 		    return false;
-	    }
+	    };
 	    var recurse = function(n) {
 		    // Loop through all the child nodes
 		    // and collect the text, noting whether
@@ -649,20 +652,20 @@ webpg.utils = {
 			    return "";
 		    }
 		    var s = sty(n, "display");
-		    if(s == "none") return "";
+		    if(s === "none") return "";
 		    var gap = isBlock(n) ? "\n" : " ";
 		    t += gap;
 		    for(var i=0; i<n.childNodes.length; i++){
 			    var c = n.childNodes[i];
-			    if(c.nodeType == 3) t += c.nodeValue;
+			    if(c.nodeType === 3) t += c.nodeValue;
 			    if(c.childNodes.length) recurse(c);
 		    }
 		    t += gap;
 		    return t;
-	    }
+	    };
 
 	    // Use a copy because stuff gets changed
-	    if (typeof(node) == 'object') {
+	    if (typeof(node) === 'object') {
 	        node = node.cloneNode(true);
 	    } else {
 	        cloneNode = document.createElement('pre');
@@ -706,7 +709,7 @@ webpg.utils = {
             // gmail doesn't wrap lines with less than 81 characters
             // or lines that have been quoted from previous messages
             // in the usual way, so we don't bother either.
-            if (lines[i].length <= 80 || lines[i].substring(0,2) == "> ")
+            if (lines[i].length <= 80 || lines[i].substring(0,2) === "> ")
                 result = result + lines[i] + "\n";
             else
                 // If we're wrapping a line, each of the resulting
@@ -738,10 +741,10 @@ webpg.utils = {
         {
             var index = text.lastIndexOf(" ", limit);
             // If the first word is too long, look for the first space
-            if (index == -1)
+            if (index === -1)
                 index = text.indexOf(" ");
             // If there are no more spaces at all, give up.
-            if (index == -1)
+            if (index === -1)
             {
                 break;
             }
@@ -779,10 +782,10 @@ webpg.utils = {
     },
 
     quoted_printable_encode: function(str) {
-      var hexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'],
+      var hexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
       str = webpg.utils.wrapText(str, 71);
-      RFC2045Encode1IN = / \r\n|\r\n|[^!-<>-~ ]/gm,
-      RFC2045Encode1OUT = function (sMatch) {
+      var RFC2045Encode1IN = / \r\n|\r\n|[^!-<>-~ ]/gm;
+      var RFC2045Encode1OUT = function (sMatch) {
         // Encode space before CRLF sequence to prevent spaces from being stripped
         // Keep hard line breaks intact; CRLF sequences
         if (sMatch.length > 1) {
@@ -815,31 +818,32 @@ webpg.utils = {
             doc - <document> The document to add the listener to 
     */
     sendRequest: function(data, callback) { // analogue of chrome.extension.sendRequest
-        if (this.detectedBrowser['product'] == 'thunderbird') {
+        var tabID;
+        if (this.detectedBrowser.product === 'thunderbird') {
             var browserWindow = webpg.utils.mozilla.getChromeWindow();
 
-            var tabID = -1;
+            tabID = -1;
 
             try {
-                if (webpg.utils.detectedBrowser['product'] == 'conkeror')
-                    var tabID = window.getBrowser()._webpgTabID;
+                if (webpg.utils.detectedBrowser.product === 'conkeror')
+                    tabID = window.getBrowser()._webpgTabID;
                 else
-                    var tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
+                    tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
             } catch (err) {
                 // Do nothing
             }
 
             data.sender = {
-                'tab': { 'id': tabID },
-            }
+                'tab': { 'id': tabID }
+            };
 
             if (!callback)
-                callback = function() { return };
+                callback = function() { return; };
 
             browserWindow.webpg.background._onRequest(data, data.sender, callback);
             browserWindow.webpg.overlay._onRequest(data, data.sender, callback);
-        } else if (this.detectedBrowser['vendor'] == "mozilla" ||
-            this.detectedBrowser['product'] == "safari") {
+        } else if (this.detectedBrowser.vendor === "mozilla" ||
+            this.detectedBrowser.product === "safari") {
 
             if (!gBrowser) {
                 var browserWindow = webpg.utils.mozilla.getChromeWindow();
@@ -847,34 +851,40 @@ webpg.utils = {
             }
 
             try {
-                var tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
-            } catch (err) {
-                var tabID = -1;
+                tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
+            } catch (err1) {
+                tabID = -1;
             }
 
             data.sender = {
-                'tab': { 'id': tabID },
-            }
+                'tab': { 'id': tabID }
+            };
 
             var mozDoc = (content) ? content.document : document;
             var request = mozDoc.createTextNode("");
 
-            if (this.detectedBrowser['vendor'] == "mozilla")
+            if (this.detectedBrowser.vendor === "mozilla")
                 request.setUserData("data", data, null);
             else
                 webpg.jq(request).data("data", data);
 
             if (callback) {
-                if (this.detectedBrowser['vendor'] == "mozilla")
+                if (this.detectedBrowser.vendor === "mozilla")
                     request.setUserData("callback", callback, null);
                 else
                     webpg.jq(request).data("callback", callback);
 
                 mozDoc.addEventListener("webpg-listener-response", function(event) {
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
-                        var node = event.target, callback = node.getUserData("callback"), response = node.getUserData("response");
-                    else
-                        var node = event.target, callback = webpg.jq(node).data("callback"), response = webpg.jq(node).data("response");
+                    var node = event.target,
+                        callback,
+                        response;
+                    if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+                        callback = node.getUserData("callback");
+                        response = node.getUserData("response");
+                    } else {
+                        callback = webpg.jq(node).data("callback");
+                        response = webpg.jq(node).data("response");
+                    }
                     mozDoc.documentElement.removeChild(node);
                     mozDoc.removeEventListener("webpg-listener-response", arguments.callee, false);
                     return callback(response);
@@ -886,10 +896,10 @@ webpg.utils = {
             var sender = mozDoc.createEvent("HTMLEvents");
             sender.initEvent("webpg-listener-query", true, false);
             return request.dispatchEvent(sender);
-        } else if (this.detectedBrowser['vendor'] == "opera") {
+        } else if (this.detectedBrowser.vendor === "opera") {
             if (typeof(opera.extension)=='undefined') {
-                if (!typeof(window.frames.extension)!='undefined') {
-                    if (callback == null) {
+                if (typeof(window.frames.extension)!=='undefined') {
+                    if (callback === null) {
                         window.frames.extension.postMessage(data);
                     } else {
                         data.callback = callback.toString();
@@ -901,16 +911,16 @@ webpg.utils = {
                     );
                 }
             } else {
-                if (callback == null) {
+                if (callback === null) {
                     opera.extension.postMessage(data);
                 } else {
                     data.callback = callback.toString();
                     opera.extension.postMessage(data);
                 }
             }
-        } else if (this.detectedBrowser['vendor'] == "google") {
+        } else if (this.detectedBrowser.vendor === "google") {
             // Check if the callback is null, otherwise the chrome bindings will freak out.
-            if (callback == null)
+            if (callback === undefined || callback === null)
                 chrome.extension.sendRequest(data);
             else
                 chrome.extension.sendRequest(data, callback);
@@ -935,24 +945,24 @@ webpg.utils = {
                 callback - <func> The callback to be called upon completion
         */
         addListener: function(callback) { // analogue of chrome.extension.onRequest.addListener
-            if (webpg.utils.detectedBrowser['product'] == "safari" ||
-               (webpg.utils.detectedBrowser['vendor'] == "mozilla" &&
-               webpg.utils.detectedBrowser['product'] != "thunderbird")) {
+            if (webpg.utils.detectedBrowser.product === "safari" ||
+               (webpg.utils.detectedBrowser.vendor === "mozilla" &&
+               webpg.utils.detectedBrowser.product !== "thunderbird")) {
                 var mozDoc = (content) ? content.document : document;
                 return mozDoc.addEventListener("webpg-listener-query", function(event) {
 
                     var node = event.target, doc = node.ownerDocument;
 
-                    var userData = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
+                    var userData = (webpg.utils.detectedBrowser.vendor === "mozilla") ?
                         node.getUserData("data") : webpg.jq(node).data("data");
 
-                    var userCallback = (webpg.utils.detectedBrowser['vendor'] == "mozilla") ?
+                    var userCallback = (webpg.utils.detectedBrowser.vendor === "mozilla") ?
                         node.getUserData("callback") : webpg.jq(node).data("callback");
 
-                    if (webpg.utils.detectedBrowser['vendor'] != "mozilla" &&  !userData)
+                    if (webpg.utils.detectedBrowser.vendor !== "mozilla" &&  !userData)
                         userData = event.detail.data;
 
-                    if (webpg.utils.detectedBrowser['vendor'] != "mozilla" && !userCallback)
+                    if (webpg.utils.detectedBrowser.vendor !== "mozilla" && !userCallback)
                         userCallback = event.detail.callback;
 
                     return callback(userData, doc, function(data) {
@@ -964,7 +974,7 @@ webpg.utils = {
                             }
                         }
 
-                        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+                        if (webpg.utils.detectedBrowser.vendor === "mozilla")
                             node.setUserData("response", data, null);
                         else
                             webpg.jq(node).data("response", data);
@@ -974,20 +984,20 @@ webpg.utils = {
                         return node.dispatchEvent(listener);
                     });
                 }, false);
-            } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+            } else if (webpg.utils.detectedBrowser.product === "chrome") {
                 chrome.extension.onRequest.addListener(callback);
             }
             return false;
         },
 
         removeEventListener: function() {
-            if (webpg.utils.detectedBrowser['product'] == "safari" ||
-               (webpg.utils.detectedBrowser['vendor'] == "mozilla" &&
-               webpg.utils.detectedBrowser['product'] != "thunderbird")) {
+            if (webpg.utils.detectedBrowser.product === "safari" ||
+               (webpg.utils.detectedBrowser.vendor === "mozilla" &&
+               webpg.utils.detectedBrowser.product !== "thunderbird")) {
                 var mozDoc = (content) ? content.document : document;
                 mozDoc.removeEventListener("webpg-listener-query", arguments.callee, false);
             }
-        },
+        }
     },
 
 
@@ -1005,9 +1015,9 @@ webpg.utils = {
                 request - <json obj> A JSON object with parameters and data to send
         */
         sendRequest: function(target, request) {
-            if (webpg.utils.detectedBrowser['vendor'] == "mozilla" ||
-                webpg.utils.detectedBrowser['product'] == "safari") {
-                if (request.msg != "removeiframe" && request.msg != "resizeiframe" && request.msg != "insertIntoPrior") {
+            if (webpg.utils.detectedBrowser.vendor === "mozilla" ||
+                webpg.utils.detectedBrowser.product === "safari") {
+                if (request.msg !== "removeiframe" && request.msg !== "resizeiframe" && request.msg !== "insertIntoPrior") {
                     webpg.utils.sendRequest(request);
                 } else {
                     var iframe = webpg.utils.getFrameById(request.target_id);
@@ -1018,26 +1028,26 @@ webpg.utils = {
                         }, false);
                     }
                 }
-            } else if (webpg.utils.detectedBrowser['vendor'] == "opera") {
+            } else if (webpg.utils.detectedBrowser.vendor === "opera") {
                 data = {
                     "msg": "emit_event",
                     "event": "message",
                     "request": request
-                },
+                };
                 opera.extension.broadcastMessage(data);
-            } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+            } else if (webpg.utils.detectedBrowser.product === "chrome") {
                 chrome.tabs.sendRequest(target.id, request);
             }
         },
 
         pageAction: {
             setPopup: function(popupData) {
-                if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                if (webpg.utils.detectedBrowser.product === 'chrome') {
                     chrome.pageAction.setPopup(popupData);
-                } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                } else if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     var popup = document.getElementById("webpg-pageAction-popup");
                     var frameSource = webpg.utils.resourcePath + popupData.popup;
-        		    var dialogFrame = document.getElementById('webpg-pageAction-popup-frame');
+                    var dialogFrame = document.getElementById('webpg-pageAction-popup-frame');
                     var browserWindow = webpg.utils.mozilla.getChromeWindow();
 		            dialogFrame.addEventListener("load", function() {
 		                dialogFrame.removeEventListener("load", arguments.callee, false);
@@ -1050,59 +1060,59 @@ webpg.utils = {
             },
 
             setIcon: function(popupData) {
-                if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                if (webpg.utils.detectedBrowser.product === 'chrome') {
                     chrome.pageAction.setIcon(popupData);
-                } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                } else if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     var pageActionIcon = document.getElementById("webpg-pageAction-icon");
                     pageActionIcon.setAttribute('src', webpg.utils.resourcePath + popupData.path);
                 }
             },
 
             show: function(popupData) {
-                if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                if (webpg.utils.detectedBrowser.product === 'chrome') {
                     chrome.pageAction.show(popupData);
-                } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                } else if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     var icon = document.getElementById("webpg-pageAction-icon");
                     icon.setAttribute("collapsed", false);
                 }
             },
 
             hide: function(popupData) {
-                if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                if (webpg.utils.detectedBrowser.product === 'chrome') {
                     chrome.pageAction.hide(popupData.tabId);
-                } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                } else if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     var icon = document.getElementById("webpg-pageAction-icon");
                     icon.setAttribute("collapsed", true);
                 }
             },
 
             showPopup: function(popupData) {
-                if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                if (webpg.utils.detectedBrowser.product === 'chrome') {
                     chrome.pageAction.show(popupData);
-                } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                } else if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     var popup = document.getElementById("webpg-pageAction-popup");
                     popup.openPopup(document.getElementById("webpg-pageAction-icon"), "after_end", 1, 4, false, false);
                 }
             },
 
             closePopup: function(popup) {
-                if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                if (webpg.utils.detectedBrowser.product === 'chrome') {
                     popup.close();
-                } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                } else if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     popup.hidePopup();
                 }
             },
 
             toggle: function(popupData) {
 //                document.
-            },
+            }
 
         },
 
         getSelectedTab: function(tab, callback) {
-            if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+            if (webpg.utils.detectedBrowser.product === 'chrome') {
                 chrome.tabs.getSelected(tab, callback);
-            } else if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+            } else if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                 if (!gBrowser) {
                     webpg.utils.mozilla.getChromeWindow().gBrowser;
                 }
@@ -1112,9 +1122,9 @@ webpg.utils = {
         },
 
         executeScript: function(tabID, code) {
-            if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+            if (webpg.utils.detectedBrowser.product === 'chrome') {
                 chrome.tabs.executeScript(tabID, {'code': code});
-            } else if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+            } else if (webpg.utils.detectedBrowser.vendor === "mozilla") {
                 code();
             }
         }
@@ -1134,12 +1144,12 @@ webpg.utils = {
                 callback - <func> A function to execute when completed.
         */
         removeAll: function(callback) {
-            if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+            if (webpg.utils.detectedBrowser.vendor === "mozilla") {
                 webpg.jq(".context-menu-item").each(function(iter, element) {
                     element.hidden = true;
                 });
                 callback();
-            } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+            } else if (webpg.utils.detectedBrowser.product === "chrome") {
                 chrome.contextMenus.removeAll(callback);
             }
         },
@@ -1152,15 +1162,17 @@ webpg.utils = {
                 action - <int> The webpg.constants.overlayAction to add
         */
         add: function(action) {
-            var _ = webpg.utils.i18n.gettext;
+            var _ = webpg.utils.i18n.gettext,
+                item,
+                id;
             switch (action) {
                 case webpg.constants.overlayActions.VERIF:
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var item = document.querySelector(".webpg-menu-verif");
+                    if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+                        item = document.querySelector(".webpg-menu-verif");
                         if (item)
                             item.hidden = false;
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        var id = "webpg-context-verify";
+                    } else if (webpg.utils.detectedBrowser.product === "chrome") {
+                        id = "webpg-context-verify";
                         chrome.contextMenus.create({
                             "title" : _("Verify this text"),
                             "contexts" : ["selection", "editable"],
@@ -1169,7 +1181,7 @@ webpg.utils = {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
                                     "action": action,
-                                    "source": 'context-menu',
+                                    "source": 'context-menu'
                                 });
                             }
                         });
@@ -1177,12 +1189,12 @@ webpg.utils = {
                     break;
 
                 case webpg.constants.overlayActions.DECRYPT:
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var item = document.querySelector(".webpg-menu-decrypt");
+                    if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+                        item = document.querySelector(".webpg-menu-decrypt");
                         if (item)
                             item.hidden = false;
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        var id = "webpg-context-decrypt";
+                    } else if (webpg.utils.detectedBrowser.product === "chrome") {
+                        id = "webpg-context-decrypt";
                         chrome.contextMenus.create({
                             "title" : _("Decrypt this text"),
                             "contexts" : ["selection", "editable"],
@@ -1191,7 +1203,7 @@ webpg.utils = {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
                                     "action": action,
-                                    "source": 'context-menu',
+                                    "source": 'context-menu'
                                 });
                             }
                         });
@@ -1199,12 +1211,12 @@ webpg.utils = {
                     break;
 
                 case webpg.constants.overlayActions.IMPORT:
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var item = document.querySelector(".webpg-menu-import");
+                    if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+                        item = document.querySelector(".webpg-menu-import");
                         if (item)
                             item.hidden = false;
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        var id = "webpg-context-import";
+                    } else if (webpg.utils.detectedBrowser.product === "chrome") {
+                        id = "webpg-context-import";
                         chrome.contextMenus.create({
                             "title" : _("Import this Key"),
                             "contexts" : ["selection", "editable"],
@@ -1213,7 +1225,7 @@ webpg.utils = {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
                                     "action": action,
-                                    "source": 'context-menu',
+                                    "source": 'context-menu'
                                 });
                             }
                         });
@@ -1221,12 +1233,12 @@ webpg.utils = {
                     break;
 
                 case webpg.constants.overlayActions.PSIGN:
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var item = document.querySelector(".webpg-menu-sign");
+                    if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+                        item = document.querySelector(".webpg-menu-sign");
                         if (item)
                             item.hidden = false;
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        var id = "webpg-context-clearsign";
+                    } else if (webpg.utils.detectedBrowser.product === "chrome") {
+                        id = "webpg-context-clearsign";
                         chrome.contextMenus.create({
                             "title" : _("Clear-sign this text"),
                             "contexts" : ["selection", "editable"],
@@ -1235,7 +1247,7 @@ webpg.utils = {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
                                     "action": action,
-                                    "source": 'context-menu',
+                                    "source": 'context-menu'
                                 });
                             }
                         });
@@ -1243,12 +1255,12 @@ webpg.utils = {
                     break;
 
                 case webpg.constants.overlayActions.CRYPT:
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var item = document.querySelector(".webpg-menu-crypt");
+                    if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+                        item = document.querySelector(".webpg-menu-crypt");
                         if (item)
                             item.hidden = false;
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        var id = "webpg-context-encrypt";
+                    } else if (webpg.utils.detectedBrowser.product === "chrome") {
+                        id = "webpg-context-encrypt";
                         chrome.contextMenus.create({
                             "title" : _("Encrypt this text"),
                             "contexts" : ["editable", "selection"],
@@ -1257,7 +1269,7 @@ webpg.utils = {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
                                     "action": action,
-                                    "source": 'context-menu',
+                                    "source": 'context-menu'
                                 });
                             }
                         });
@@ -1265,12 +1277,12 @@ webpg.utils = {
                     break;
 
                 case webpg.constants.overlayActions.EXPORT:
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var item = document.querySelector(".webpg-menu-export");
+                    if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+                        item = document.querySelector(".webpg-menu-export");
                         if (item)
                             item.hidden = false;
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        var id = "webpg-context-insert-pubkey";
+                    } else if (webpg.utils.detectedBrowser.product === "chrome") {
+                        id = "webpg-context-insert-pubkey";
                         chrome.contextMenus.create({
                             "title" : _("Paste Public Key"),
                             "contexts" : ["editable", "frame", "selection"],
@@ -1279,7 +1291,7 @@ webpg.utils = {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
                                     "action": action,
-                                    "source": 'context-menu',
+                                    "source": 'context-menu'
                                 });
                             }
                         });
@@ -1287,12 +1299,12 @@ webpg.utils = {
                     break;
 
                 case webpg.constants.overlayActions.OPTS:
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var item = document.querySelector(".webpg-menu-options");
+                    if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+                        item = document.querySelector(".webpg-menu-options");
                         if (item)
                             item.hidden = false;
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        var id = "webpg-context-separator";
+                    } else if (webpg.utils.detectedBrowser.product === "chrome") {
+                        id = "webpg-context-separator";
                         chrome.contextMenus.create({
                             "type" : "separator",
                             "contexts" : ["all", "page"],
@@ -1300,83 +1312,86 @@ webpg.utils = {
                                 webpg.utils.tabs.sendRequest(tab, {
                                     "msg": "onContextCommand",
                                     "action": action,
-                                    "source": 'context-menu',
+                                    "source": 'context-menu'
                                 });
-                            },
+                            }
                         });
-                        var id = "webpg-context-options";
+                        id = "webpg-context-options";
                         chrome.contextMenus.create({
                             "title" : _("Options"),
                             "type" : "normal",
                             "contexts" : ["all", "page"],
                             "onclick" : function(info, tab) {
                                 var url = "options.html";
-                                if (webpg.utils.detectedBrowser['product'] == "chrome")
-                                    url += "?auto_init=true"
+                                if (webpg.utils.detectedBrowser.product === "chrome")
+                                    url += "?auto_init=true";
                                 webpg.utils.openNewTab(webpg.utils.resourcePath + url);
-                            },
+                            }
                         });
                     }
                     break;
 
                 case webpg.constants.overlayActions.MANAGER:
-                    if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                        var item = document.querySelector(".webpg-menu-manager");
+                    if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+                        item = document.querySelector(".webpg-menu-manager");
                         if (item)
                             item.hidden = false;
-                    } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                        var id = "webpg-context-manager";
+                    } else if (webpg.utils.detectedBrowser.product === "chrome") {
+                        id = "webpg-context-manager";
                         chrome.contextMenus.create({
                             "title" : _("Key Manager"),
                             "type" : "normal",
                             "contexts" : ["all", "page"],
                             "onclick" : function() {
                                 var url = "key_manager.html";
-                                if (webpg.utils.detectedBrowser['product'] == "chrome")
-                                    url += "?auto_init=true"
+                                if (webpg.utils.detectedBrowser.product === "chrome")
+                                    url += "?auto_init=true";
                                 webpg.utils.openNewTab(webpg.utils.resourcePath + url);
-                            },
+                            }
                         });
                     }
                     break;
             }
-        }, // end webpg.utils.contextMenus.add
+        } // end webpg.utils.contextMenus.add
     },
 
     i18n: {
         gettext: function(msg) {
-            if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+            var res,
+                msgName,
+                m;
+            if (webpg.utils.detectedBrowser.vendor === "mozilla") {
                 // Get the reference to the browser window
                 var mainWindow = webpg.utils.mozilla.getChromeWindow();
                 var stringBundle = mainWindow.document.getElementById("webpg-strings");
-                var msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9|^\.]/g, '_');
+                msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9|^\.]/g, '_');
                 try {
-                    var res = stringBundle.getString(msgName);
+                    res = stringBundle.getString(msgName);
                 } catch (e) {
-                    var res = msg;
+                    res = msg;
                 }
-                if (!res || res.length == 0) {
+                if (!res || res.length === 0) {
                     // msg names that begin with a number, i.e. "90 days", they
                     //  are stored as "n90 days"; the following detects this
                     //  conversion and removes the preceeding "n".
-                    var m = /^[n]([0-9].*)/g.exec(msg);
-                    if (m && m.length == 2)
+                    m = /^[n]([0-9].*)/g.exec(msg);
+                    if (m && m.length === 2)
                         msg = m[1];
                     return msg;
                 } else {
                     return res;
                 }
-            } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+            } else if (webpg.utils.detectedBrowser.product === "chrome") {
                 if (!chrome.i18n)
                   return msg;
-                var msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9]/g, '_');
+                msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9]/g, '_');
                 var tmsg = chrome.i18n.getMessage(msgName);
-                if (tmsg.length == 0) {
+                if (tmsg.length === 0) {
                     // msg names that begin with a number, i.e. "90 days", they
                     //  are stored as "n90 days"; the following detects this
                     //  conversion and removes the preceeding "n".
-                    var m = /^[n]([0-9].*)/g.exec(msg);
-                    if (m && m.length == 2)
+                    m = /^[n]([0-9].*)/g.exec(msg);
+                    if (m && m.length === 2)
                         msg = m[1];
                     return msg;
                 } else {
@@ -1386,12 +1401,12 @@ webpg.utils = {
                 // msg names that begin with a number, i.e. "90 days", they
                 //  are stored as "n90 days"; the following detects this
                 //  conversion and removes the preceeding "n".
-                var m = /^[n]([0-9].*)/g.exec(msg);
-                if (m && m.length == 2)
+                m = /^[n]([0-9].*)/g.exec(msg);
+                if (m && m.length === 2)
                     msg = m[1];
                 return msg;
             }
-        },
+        }
     },
 
     mozilla: {
@@ -1407,13 +1422,13 @@ webpg.utils = {
             if (!mainWindow) {
                 var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                        .getService(Components.interfaces.nsIWindowMediator);
-                var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
+                var winType = (webpg.utils.detectedBrowser.product === "thunderbird") ?
                     "mail:3pane" : "navigator:browser";
-                var mainWindow = wm.getMostRecentWindow(winType);
+                mainWindow = wm.getMostRecentWindow(winType);
             }
 
             return mainWindow;
-        },
+        }
     },
 
     extension: {
@@ -1460,9 +1475,9 @@ webpg.utils = {
 
     tabListener: {
         add: function(openListener, closeListener) {
-            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
-                if (!gBrowser) {
-                    var gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
+            if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
+                if (gBrowser===undefined) {
+                    gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
                 }
 
                 if (!gBrowser)
@@ -1472,7 +1487,7 @@ webpg.utils = {
                 container.addEventListener("TabOpen", webpg.utils.tabListener.openListener, false);
                 //container.addEventListener("TabSelect", webpg.utils.tabListener.selectListener, false);
                 container.addEventListener("TabClose", webpg.utils.tabListener.closeListener, false);
-            } else if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+            } else if (webpg.utils.detectedBrowser.product === 'chrome') {
                 chrome.tabs.onCreated.addListener(webpg.utils.tabListener.openListener);
                 //chrome.tabs.onActivated.addListener(webpg.utils.tabListener.selectListener);
                 chrome.tabs.onRemoved.addListener(webpg.utils.tabListener.closeListener);
@@ -1480,35 +1495,35 @@ webpg.utils = {
         },
 
         openListener: function(event) {
-            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+            if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                 var browser = gBrowser.getBrowserForTab(event.target);
                 browser._webpgTabID = ++webpg.background.tabIndex;
-            } else if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+            } else if (webpg.utils.detectedBrowser.product === 'chrome') {
                 if (this.debug) console.log("opened a new tab with id:", event.id);
             }
         },
 
         selectListener: function(event) {
-            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+            if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                 var browser = gBrowser.getBrowserForTab(event.target);
                 if (this.debug) console.log("checking for headers in tab: " + browser._webpgTabID);
                 if (browser._webpgDisplayAction)
                     webpg.utils.tabs.pageAction.show({'tabId': browser._webpgTabID});
                 else
                     webpg.utils.tabs.pageAction.hide({'tabId': browser._webpgTabID});
-            } else if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+            } else if (webpg.utils.detectedBrowser.product === 'chrome') {
                 if (this.debug) console.log("a tab has been selected with tab id:", event.tabId);
             }
         },
 
         closeListener: function(event) {
-            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+            if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                 var browser = gBrowser.getBrowserForTab(event.target);
                 if (this.debug) console.log("closing tab with id: " + browser._webpgTabID);
-            } else if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+            } else if (webpg.utils.detectedBrowser.product === 'chrome') {
                 if (this.debug) console.log("a tab has been closed with tab id:", event);
             }
-        },
+        }
     },
 
     keylistTextSearch: function(val, keylist) {
@@ -1518,13 +1533,16 @@ webpg.utils = {
                 replace(/\*/g, "\.*?");
         // Create an empty object that will hold the keys matching
         //  the search string
-        var searchResults = {}
+        var searchResults = {},
+            searchStrs, // Plural
+            searchStr, // Singular
+            locate;
         // Determine if this is a compound search
-        var compound = (val.search("&&") > -1)
+        var compound = (val.search("&&") > -1);
         if (compound)
-            var searchStrs = val.split(" && ");
+            searchStrs = val.split(" && ");
         else
-            var searchStrs = val.split(" & ");
+            searchStrs = val.split(" & ");
         // Iterate through the keys in the keylist to preform
         //  our search
         for (var key in keylist) {
@@ -1539,7 +1557,7 @@ webpg.utils = {
                 //  were located
                 var allfound = true;
                 // Iterate through each of the search words.
-                for (var searchStr in searchStrs) {
+                for (searchStr in searchStrs) {
                     // Determine if this search word is a
                     //  property:value item
                     if (searchStrs[searchStr].search(":") > -1) {
@@ -1551,17 +1569,17 @@ webpg.utils = {
                     } else {
                         searchStrM = false;
                     }
-                    var locate = (searchStrM) ? searchStrM
+                    locate = (searchStrM) ? searchStrM
                         : searchStrs[searchStr];
-                    if (keyobjStr.search(locate) > -1
-                    || keyobjStr.search(locate.replace(":\"", ":")) > -1) {
+                    if (keyobjStr.search(locate) > -1 ||
+                    keyobjStr.search(locate.replace(":\"", ":")) > -1) {
                         allfound = false;
                     }
                 }
                 if (allfound)
                     searchResults[key] = keyobj;
             } else {
-                for (var searchStr in searchStrs) {
+                for (searchStr in searchStrs) {
                     if (searchStrs[searchStr].search(":") > -1) {
                         // Format the property:value search item
                         //  to a compatible format
@@ -1571,10 +1589,10 @@ webpg.utils = {
                     } else {
                         searchStrM = false;
                     }
-                    var locate = (searchStrM) ? searchStrM
+                    locate = (searchStrM) ? searchStrM
                         : searchStrs[searchStr];
-                    if (keyobjStr.search(locate) > -1
-                    || keyobjStr.search(locate.replace(":\"", ":")) > -1) {
+                    if (keyobjStr.search(locate) > -1 ||
+                    keyobjStr.search(locate.replace(":\"", ":")) > -1) {
                         searchResults[key] = keyobj;
                         break;
                     }
@@ -1592,19 +1610,19 @@ webpg.utils = {
         for (var i = 0; i < 4; i++)
             statusText += validchars.charAt(Math.floor(Math.random() * validchars.length));
 
-        return statusText
+        return statusText;
     },
 
     setStatusBarText: function(statusText) {
-        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+        if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
             webpg.utils.sendRequest({'msg': 'updateStatusBar', 'statusText': statusText});
-        } else if (webpg.utils.detectedBrowser['vendor'] == 'google') {
+        } else if (webpg.utils.detectedBrowser.vendor === 'google') {
             webpg.utils.sendRequest({"msg": "setBadgeText", "badgeText": statusText});
         }
-    },
-}
+    }
+};
 
-webpg.descript = function(html) { return html.replace(/\<script(.|\n)*?\>(.|\n)*?\<\/script\>/g, "") };
+webpg.descript = function(html) { return html.replace(/\<script(.|\n)*?\>(.|\n)*?\<\/script\>/g, ""); };
 
 webpg.utils.init();
 /* ]]> */

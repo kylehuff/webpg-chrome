@@ -8,7 +8,7 @@ if (typeof(webpg)=='undefined') { webpg = {}; }
 webpg.constants = {
 
     debug: {
-        LOG: false
+        LOG: true
     },
 
     /*
@@ -56,7 +56,7 @@ webpg.constants = {
         MANAGER: 'MANAGER',
         OPTS: 'OPTS',
         EDITOR: 'EDITOR',
-        ABOUT: 'ABOUT',
+        ABOUT: 'ABOUT'
     },
 
     /*
@@ -100,7 +100,7 @@ webpg.constants = {
         PGP_PKEY: 2,
         PGP_SIGNED_MSG: 3,
         PGP_SIGNATURE: 4,
-        PGP_ENCRYPTED: 5,
+        PGP_ENCRYPTED: 5
     },
 
     /*
@@ -114,7 +114,7 @@ webpg.constants = {
     algoTypes: {
         "RSA": "R",
         "DSA": "D",
-        "ELG-E": "g",
+        "ELG-E": "g"
     }
-}
+};
 /* ]]> */

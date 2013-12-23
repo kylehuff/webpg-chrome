@@ -22,9 +22,9 @@ webpg.options = {
         var _ = webpg.utils.i18n.gettext;
         document.title = _("WebPG Options");
         document.dir = (webpg.utils.isRTL() ? 'rtl' : 'ltr');
-        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+        if (webpg.utils.detectedBrowser.vendor == "mozilla")
             webpg.plugin = browserWindow.webpg.plugin;
-        else if (webpg.utils.detectedBrowser['product'] == "chrome")
+        else if (webpg.utils.detectedBrowser.product == "chrome")
             webpg.plugin = chrome.extension.getBackgroundPage().webpg.plugin;
 
         webpg.jq('#step-1').ready(function() {
@@ -33,7 +33,7 @@ webpg.options = {
 
         function doSystemCheck() {
             var _ = webpg.utils.i18n.gettext;
-            if (webpg.utils.detectedBrowser['product'] == "chrome")
+            if (webpg.utils.detectedBrowser.product == "chrome")
                 pf = window.clientInformation.platform.substr(0,3);
             else
                 pf = navigator.oscpu.substr(0,3);
@@ -50,31 +50,31 @@ webpg.options = {
                     'NPAPI' : { 'error' : false, 'detail': _("The WebPG NPAPI Plugin is valid") + "; version " + webpg.plugin.version },
                     'openpgp' : { 'error' : false, 'detail' : _("OpenPGP was detected") + "; version " + webpg_status.OpenPGP.version },
                     'gpg_agent' : { 'error' : false, 'detail' : _("It appears you have a key-agent configured") },
-                    'gpgconf' : { 'error' : false, 'detail' : _("gpgconf was detected") + "; " +  _("you can use the signature methods") },
+                    'gpgconf' : { 'error' : false, 'detail' : _("gpgconf was detected") + "; " +  _("you can use the signature methods") }
                 };
 
                 if (!webpg_status.openpgp_detected) {
-                    errors['openpgp'] = {
+                    errors.openpgp = {
                         'error': true,
                         'detail': _("OpenPGP does not appear to be installed"),
-                        'link' : "http://gpgauth.org/projects/gpgauth-chrome/support-gpgconf",
-                    }
+                        'link' : "https://webpg.org/docs/webpg-userdocs/#!/guide/prerequisites"
+                    };
                 }
 
                 if (!webpg_status.gpg_agent_info) {
-                    errors['gpg_agent'] = {
+                    errors.gpg_agent = {
                         'error': true,
                         'detail': _("You do not appear to have a key-agent configured") + " " + _("A working key-agent is required"),
-                        'link' : "http://gpgauth.org/projects/gpgauth-chrome/gpgagent",
-                    }
+                        'link' : "https://webpg.org/docs/webpg-userdocs/#!/guide/prerequisites"
+                    };
                 }
 
                 if (!webpg_status.gpgconf_detected) {
-                    errors['gpgconf'] = {
+                    errors.gpgconf = {
                         'error': true,
                         'detail': _("gpgconf does not appear to be installed") + "; " + _("You will not be able to create signatures"),
-                        'link' : "http://gpgauth.org/projects/gpgauth-chrome/support-gpgconf",
-                    }
+                        'link' : "https://webpg.org/docs/webpg-userdocs/#!/guide/prerequisites-section-windows"
+                    };
                 }
 
             } else {
@@ -82,35 +82,35 @@ webpg.options = {
                 "NPAPI" : {
                         'error': true,
                         'detail': _("There was a problem loading the plugin") + "; " + _("the plugin might be incompatibly compiled for this architechture"),
-                        'link' : null,
+                        'link' : null
                     }
-                }
+                };
                 webpg.jq('#valid-options').hide();
-                console.log(errors['NPAPI']['detail']);
+                console.log(errors.NPAPI.detail);
             }
             errors_found = false;
-            for (error in errors) {
-                if (errors[error]['error']) {
+            for (var error in errors) {
+                if (errors[error].error) {
                     document.getElementById('system-good').style.display = 'none';
                     document.getElementById('system-error').style.display = 'block';
                     errors_found = true;
                 }
-                extra_class = (errors[error]['error'] && error != 'gpgconf') ? ' error' : '';
-                extra_class = (errors[error]['error'] && error == 'gpgconf') ? ' warning' : extra_class;
+                extra_class = (errors[error].error && error != 'gpgconf') ? ' error' : '';
+                extra_class = (errors[error].error && error == 'gpgconf') ? ' warning' : extra_class;
                 item_result = webpg.jq("<div></div>", {
                     'class': "trust-level-desc" + extra_class
                 }).append(webpg.jq("<span></span>", {
                         'class': "system-check",
                         'style': "margin-right: 8px"
                     }).append(webpg.jq("<img/>", {
-                            'src': (errors[error]['error']) ?
+                            'src': (errors[error].error) ?
                                 "skin/images/cancel.png" : "skin/images/check.png"
                         })
                     )
                 ).append(webpg.jq("<span></span>", {
                         'class': "trust-desc",
-                        'html': (errors[error]['error'] && errors[error]['link']) ? 
-                            errors[error]['detail'] + " - <a href=\"" + errors[error]['link'] + platform + "/\" target=\"new\">" + _("click here for help resolving this issue") + "</a>" : errors[error]['detail']
+                        'html': (errors[error].error && errors[error].link) ? 
+                            errors[error].detail + " - <a href=\"" + errors[error].link + platform + "/\" target=\"new\">" + _("click here for help resolving this issue") + "</a>" : errors[error].detail
                     })
                 );
                 webpg.jq('#status_result').append(item_result);
@@ -121,7 +121,7 @@ webpg.options = {
             } else {
                 // Only display the inline check if this is not the app version of webpg-chrome.
                 // and don't show the "GMAIL integration" option in Thunderbird
-                if (webpg.utils.detectedBrowser['product'] == "thunderbird") {
+                if (webpg.utils.detectedBrowser.product == "thunderbird") {
                     webpg.jq("#enable-gmail-integration").hide();
                     webpg.jq("#gmail-action-sign").hide();
                     webpg.jq("#gmail-linked-identities").hide();
@@ -132,14 +132,14 @@ webpg.options = {
                     //webpg.jq("#gmail-linked-identities").hide();
                 }
 
-                if ((webpg.utils.detectedBrowser['product'] == "chrome") &&
+                if ((webpg.utils.detectedBrowser.product == "chrome") &&
                     !chrome.app.getDetails().hasOwnProperty("content_scripts")) {
                         webpg.jq('#enable-decorate-inline').hide();
                 } else {
                     webpg.jq('#enable-decorate-inline-check')[0].checked = 
                         (webpg.preferences.decorate_inline.get() == 'true');
-                    if (!webpg.jq('#enable-decorate-inline-check')[0].checked
-                    || webpg.utils.detectedBrowser['product'] == "thunderbird")
+                    if (!webpg.jq('#enable-decorate-inline-check')[0].checked ||
+                    webpg.utils.detectedBrowser.product == "thunderbird")
                         webpg.jq("#inline-options-link").hide();
                 }
 
@@ -173,7 +173,7 @@ webpg.options = {
                     webpg.xoauth2.requestCodeCallback = function() {
                         webpg.xoauth2.requestCodeCallback = undefined;
                         document.location.reload();
-                    }
+                    };
                     webpg.xoauth2.requestCode();
                 });
 
@@ -182,7 +182,7 @@ webpg.options = {
                 webpg.jq("#gnupg-path-select").find(".webpg-options-text").
                     text(_("GnuPG home directory"));
 
-                webpg.jq("#gnupg-path-select").find("input:button").val(_("Save"))
+                webpg.jq("#gnupg-path-select").find("input:button").val(_("Save"));
 
                 webpg.jq("#gnupg-binary-select").find(".webpg-options-text").
                     text(_("GnuPG binary") + " (i.e. /usr/bin/gpg)");
@@ -206,7 +206,7 @@ webpg.options = {
                 webpg.jq('#enable-encrypt-to-self-check')[0].checked = 
                     (webpg.preferences.encrypt_to_self.get());
 
-                if (webpg.preferences.default_key.get() == "")
+                if (webpg.preferences.default_key.get() === "")
                     webpg.jq('#enable-encrypt-to-self-check')[0].disabled = true;
 
                 webpg.jq('#enable-gmail-integration-check')[0].checked = 
@@ -218,14 +218,15 @@ webpg.options = {
                 webpg.jq('#enable-decorate-inline-check').button({
                     'label': (webpg.preferences.decorate_inline.get() == 'true') ? _('Enabled') : _('Disabled')
                     }).click(function(e) {
+                        var status;
                         if (webpg.preferences.decorate_inline.get() == 'true') {
-                            webpg.preferences.decorate_inline.set(false)
-                            var status = _("Disabled");
+                            webpg.preferences.decorate_inline.set(false);
+                            status = _("Disabled");
                             this.checked = false;
                             webpg.jq("#inline-options-link").hide();
                         } else {
                             webpg.preferences.decorate_inline.set(true);
-                            var status = _("Enabled");
+                            status = _("Enabled");
                             this.checked = true;
                             webpg.jq("#inline-options-link").show();
                         }
@@ -235,7 +236,7 @@ webpg.options = {
                 );
 
                 webpg.jq("#inline-options-link").click(function() {
-                    if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                    if (webpg.utils.detectedBrowser.vendor == 'mozilla') {
                         webpg.jq("#options-dialog-content").html(
                             "<span class='webpg-options-text'>" + _("Inline formatting mode") + "&nbsp;&nbsp;</span>" +
                             "<div style='display:inline-block;' id='inline-format-options'>" +
@@ -287,7 +288,7 @@ webpg.options = {
                         });
                         webpg.jq("#toolbar-sample-link").click(function(e) {
                             webpg.jq("#toolbar-sample-textarea").html("<textarea style='width:100%;height:50%;'></textarea>").toggle("slide");
-                            webpg.inline.render_toolbar = (webpg.preferences.render_toolbar.get() == "true")
+                            webpg.inline.render_toolbar = (webpg.preferences.render_toolbar.get() === "true");
                             webpg.inline.PGPDataSearch(document, false, false);
                         });
                     }
@@ -296,11 +297,11 @@ webpg.options = {
                         .parent().buttonset("refresh").click(function(e) {
                         if (e.target.type == "radio") {
                             webpg.preferences.decorate_inline.mode(e.target.id);
-                            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
-                                webpg.jq("#inline-sample-image")[0].src = webpg.utils.resourcePath
-                                    + "skin/images/examples/inline-formatting-"
-                                    + webpg.preferences.decorate_inline.mode()
-                                    + ".png"
+                            if (webpg.utils.detectedBrowser.vendor == 'mozilla') {
+                                webpg.jq("#inline-sample-image")[0].src = webpg.utils.resourcePath +
+                                    "skin/images/examples/inline-formatting-" +
+                                    webpg.preferences.decorate_inline.mode() +
+                                    ".png";
                             } else {
                                 webpg.inline.mode = e.target.id;
                                 webpg.jq("#inline-options-pgp-test")[0].innerHTML = webpg.jq("#inline-options-pgp-test").text();
@@ -317,12 +318,12 @@ webpg.options = {
                         webpg.jq(this).button('option', 'label', status);
                         webpg.jq(this).button('refresh');
                         if (this.checked) {
-                            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
+                            if (webpg.utils.detectedBrowser.vendor == 'mozilla')
                                 webpg.jq("#toolbar-sample-link").show();
                             else
                                 webpg.inline.PGPDataSearch(document, false, false);
                         } else {
-                            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
+                            if (webpg.utils.detectedBrowser.vendor == 'mozilla')
                                 webpg.jq("#toolbar-sample-link").hide();
                             webpg.jq("#toolbar-sample-textarea").hide();
                         }
@@ -357,13 +358,14 @@ webpg.options = {
                 });
 
                 webpg.jq('#enable-encrypt-to-self-check').button({
-                    'label': (webpg.preferences.default_key.get() == "") ?
+                    'label': (webpg.preferences.default_key.get() === "") ?
                              _("No default key set") :
                                  (webpg.preferences.encrypt_to_self.get()) ?
                                  _('Enabled') : _('Disabled')
                     }).click(function(e) {
+                        var status;
                         if (webpg.preferences.encrypt_to_self.get()) {
-                            webpg.preferences.encrypt_to_self.set(false)
+                            webpg.preferences.encrypt_to_self.set(false);
                             this.checked = false;
                             status = _('Disabled');
                         } else {
@@ -379,21 +381,21 @@ webpg.options = {
                 webpg.jq('#enable-gmail-integration-check').button({
                     'label': (webpg.preferences.gmail_integration.get() == 'true') ? _('Enabled') : _('Disabled')
                     }).click(function(e) {
-                        if (webpg.preferences.gmail_integration.get() == null ||
-                            webpg.preferences.gmail_integration.get() == 'false') {
-                            alert(_("WebPG GMAIL integration is EXPERIMENTAL") + "; " + _("use at your own risk"))
+                        if (webpg.preferences.gmail_integration.get() === null ||
+                            webpg.preferences.gmail_integration.get() === 'false') {
+                            alert(_("WebPG GMAIL integration is EXPERIMENTAL") + "; " + _("use at your own risk"));
                         }
 
                         (webpg.preferences.gmail_integration.get() == 'true') ?
                             webpg.preferences.gmail_integration.set(false)
                             : webpg.preferences.gmail_integration.set(true);
-                        status = (webpg.preferences.gmail_integration.get() == 'true') ? _('Enabled') : _('Disabled')
+                        status = (webpg.preferences.gmail_integration.get() == 'true') ? _('Enabled') : _('Disabled');
                         if (webpg.preferences.gmail_integration.get() == 'true') {
-                            webpg.jq("#gmail-action-sign").show()
+                            webpg.jq("#gmail-action-sign").show();
                             //webpg.jq("#gmail-linked-identities").show()
                         } else {
                             webpg.jq("#gmail-action-sign").hide();
-                            webpg.jq("#gmail-linked-identities").hide()
+                            webpg.jq("#gmail-linked-identities").hide();
                         }
                         webpg.jq(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.gmail_integration.get() == 'true');
@@ -407,14 +409,14 @@ webpg.options = {
                         (webpg.preferences.sign_gmail.get() == 'true') ?
                             webpg.preferences.sign_gmail.set(false)
                             : webpg.preferences.sign_gmail.set(true);
-                        status = (webpg.preferences.sign_gmail.get() == 'true') ? _('Enabled') : _('Disabled')
+                        status = (webpg.preferences.sign_gmail.get() == 'true') ? _('Enabled') : _('Disabled');
                         webpg.jq(this).button('option', 'label', status);
                         this.checked = (webpg.preferences.sign_gmail.get() == 'true');
                         webpg.jq(this).button('refresh');
                     }
                 );
 
-                for (ident in webpg.xoauth2.comp_data) {
+                for (var ident in webpg.xoauth2.comp_data) {
                     var id = webpg.xoauth2.comp_data[ident];
                     var identli = "<li><img class='ident-photo' src='" + id.picture + "'/>" + ident + "<a id='" + ident + "' style='padding-left:20px;text-decoration:underline;cursor:pointer;font-size: 80.5%;text-transform:lowercase;'>[" + _("delete") + "]</a></li>";
                     webpg.jq("#gmail-linked-identities").find(".ident-list").append(identli);
@@ -455,7 +457,7 @@ webpg.options = {
                             else
                                 webpg.jq("#gnupg-path-save").hide();
                         }
-                    })
+                    });
                 })[0].value = webpg.preferences.gnupghome.get();
 
                 webpg.jq("#gnupg-path-input")[0].dir = "ltr";
@@ -483,7 +485,7 @@ webpg.options = {
                             else
                                 webpg.jq("#gnupg-binary-save").hide();
                         }
-                    })
+                    });
                 })[0].value = webpg.preferences.gnupgbin.get();
 
                 webpg.jq("#gnupg-binary-input")[0].dir = "ltr";
@@ -511,7 +513,7 @@ webpg.options = {
                             else
                                 webpg.jq("#gpgconf-binary-save").hide();
                         }
-                    })
+                    });
                 })[0].value = webpg.preferences.gpgconf.get();
 
                 webpg.jq("#gpgconf-binary-input")[0].dir = "ltr";
@@ -540,7 +542,7 @@ webpg.options = {
                             else
                                 webpg.jq("#gnupg-keyserver-save").hide();
                         }
-                    })
+                    });
                 })[0].value = webpg.plugin.gpgGetPreference("keyserver").value;
 
                 webpg.jq("#gnupg-keyserver-input")[0].dir = "ltr";
@@ -551,7 +553,7 @@ webpg.options = {
             }
         }
 
-        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+        if (webpg.utils.detectedBrowser.vendor == "mozilla")
             webpg.jq('#window_functions').hide();
 
         webpg.jq('#close').button().button("option", "label", _("Finished"))
@@ -563,7 +565,7 @@ webpg.options = {
             );
         });
     }
-}
+};
 webpg.jq(function() {
     if (webpg.utils.getParameterByName("auto_init") == "true")
         webpg.options.init();

@@ -24,7 +24,7 @@ webpg.overlay = {
         // Pasty bastard
         {"domain": "pastebin.com", "allow": ["\/raw.php"]},
         // Don't paste me bro!
-        {"domain": "dpaste.com", "allow": ["\/.*?\/plain\/", "\/.*?\/html\/"]},
+        {"domain": "dpaste.com", "allow": ["\/.*?\/plain\/", "\/.*?\/html\/"]}
     ],
 
     // Do not add toolbar item for the following domains
@@ -42,7 +42,7 @@ webpg.overlay = {
         // Lets not be so hasty
         "hastebin.com",
         // I got the gist of it
-        "gist.github.com",
+        "gist.github.com"
     ],
 
     /*
@@ -57,14 +57,14 @@ webpg.overlay = {
         webpg.doc = (aEvent && aEvent.originalTarget) ?
             aEvent.originalTarget : document;
 
-        if (webpg.utils.detectedBrowser['product'] == 'thunderbird'
-        || webpg.utils.detectedBrowser['product'] == 'seamonkey')
-            if (typeof(webpg.jq)=='undefined')
+        if (webpg.utils.detectedBrowser.product === 'thunderbird' ||
+        webpg.utils.detectedBrowser.product === 'seamonkey')
+            if (webpg.jq===undefined)
                 webpg.jq = webpg.thunderbird.utils.loadjQuery(window);
 
         // We don't want to run on certain things on certain pages
         
-        if (webpg.utils.detectedBrowser['vendor'] == 'google') {
+        if (webpg.utils.detectedBrowser.vendor === 'google') {
             webpg.overlay.insert_target = null;
             webpg.overlay.insert_range = null;
             webpg.overlay.block_target = null;
@@ -80,8 +80,8 @@ webpg.overlay = {
         webpg.jq(document).blur(hideContextmenu);
         webpg.jq(document).click(hideContextmenu);
 
-        if (webpg.utils.detectedBrowser['product'] != 'thunderbird'
-        && webpg.utils.detectedBrowser['product'] != 'conkeror')
+        if (webpg.utils.detectedBrowser.product !== 'thunderbird' &&
+        webpg.utils.detectedBrowser.product !== 'conkeror')
             document.addEventListener("contextmenu", webpg.overlay.contextHandler, true);
 
         // Setup a listener for making changes to the page
@@ -101,21 +101,21 @@ webpg.overlay = {
                 }
                 webpg.inline.default_key = function() {
                     for (var key in webpg.inline.secret_keys) {
-                        if (webpg.inline.secret_keys[key].default == true)
+                        if (webpg.inline.secret_keys[key]['default'] === true)
                             return key;
                     }
-                }
+                };
                 // Check if inline formatting is enabled and setup
                 //  required parsers
                 webpg.utils.sendRequest({
                     'msg': "decorate_inline" },
                     function(response) {
-                        if (response.result.decorate_inline == "true") {
+                        if (response.result.decorate_inline === 'true') {
                             var mode = response.result.mode;
                             var render_toolbar = response.result.render_toolbar;
-                            if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-                                if (!browserWindow)
-                                    var browserWindow = webpg.utils.mozilla.getChromeWindow();
+                            if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
+                                if (typeof(browserWindow)==='undefined')
+                                    browserWindow = webpg.utils.mozilla.getChromeWindow();
                                 if (!webpg.plugin)
                                     webpg.plugin = browserWindow.webpg.plugin;
                             }
@@ -140,14 +140,17 @@ webpg.overlay = {
                 response as the parameter
     */
     _onRequest: function(request, sender, sendResponse) {
-        var _ = webpg.utils.i18n.gettext;
-        var response = null;
+        var _ = webpg.utils.i18n.gettext,
+            response = null,
+            iframe,
+            contents,
+            target_value;
 
-        if (request.msg == "resizeiframe"
-        || (request.msg == "sendtoiframe"
-        && webpg.utils.detectedBrowser['vendor'] == 'mozilla')) {
+        if (request.msg === 'resizeiframe' ||
+        (request.msg === 'sendtoiframe' &&
+        webpg.utils.detectedBrowser.vendor === 'mozilla')) {
 
-            var iframe = webpg.utils.getFrameById(request.iframe_id)
+            iframe = webpg.utils.getFrameById(request.iframe_id);
             if (iframe) {
                 if (request.width)
                     iframe.style.width = width + "px";
@@ -157,21 +160,21 @@ webpg.overlay = {
             if (request.scrollTop) {
                 if (iframe) {
                     iframe.scrollIntoView();
-                    if (webpg.utils.detectedBrowser['vendor'] == 'mozilla'
-                    && iframe.contentWindow.parent !== content) {
+                    if (webpg.utils.detectedBrowser.vendor === 'mozilla' &&
+                    iframe.contentWindow.parent !== content) {
                         iframe.ownerDocument.body.scrollIntoView();
                     }
                 }
             }
-        } else if (request.msg == "removeiframe") {
-            if (request.dialog_type && request.dialog_type == "editor") {
+        } else if (request.msg === 'removeiframe') {
+            if (request.dialog_type && request.dialog_type === 'editor') {
                 webpg.overlay.prior_insert_target = null;
             }
             if (request.iframe_id) {
                 try {
-                    var doc = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content.document :
+                    var doc = (webpg.utils.detectedBrowser.vendor === 'mozilla') ? content.document :
                         document;
-                    var iframe = webpg.jq("#" + request.iframe_id, [doc, document]);
+                    iframe = webpg.jq("#" + request.iframe_id, [doc, document]);
                     if (iframe.length < 1)
                         iframe = webpg.jq(webpg.overlay.insert_target.ownerDocument).find("#" + request.iframe_id);
                     webpg.jq(iframe).remove();
@@ -180,24 +183,24 @@ webpg.overlay = {
                     webpg.jq(iframe).hide();
                 }
             }
-        } else if (request.msg == "insertEncryptedData") {
-            if (webpg.overlay.prior_insert_target != null)
+        } else if (request.msg === 'insertEncryptedData') {
+            if (webpg.overlay.prior_insert_target === null)
                 return false;
 
-            if (webpg.overlay.insert_target != null && request.data) {
-                if (webpg.overlay.insert_range != null
-                && (webpg.overlay.insert_target.nodeName != "TEXTAREA"
-                && webpg.overlay.insert_target.nodeName != "INPUT")) {
-                    var contents = webpg.overlay.insert_range.extractContents();
+            if (webpg.overlay.insert_target !== null && request.data) {
+                if (webpg.overlay.insert_range !== null &&
+                (webpg.overlay.insert_target.nodeName !== 'TEXTAREA' &&
+                webpg.overlay.insert_target.nodeName !== 'INPUT')) {
+                    contents = webpg.overlay.insert_range.extractContents();
                     contents.textContent = request.data;
                     webpg.overlay.insert_target.style.whiteSpace = "pre";
                     webpg.overlay.insert_range.insertNode(contents);
                 } else {
-                    var target_value = request.pre_selection +
+                    target_value = request.pre_selection +
                         request.data +
                         request.post_selection;
-                    if (webpg.overlay.insert_target.nodeName == "TEXTAREA" ||
-                        webpg.overlay.insert_target.nodeName == "INPUT") {
+                    if (webpg.overlay.insert_target.nodeName === 'TEXTAREA' ||
+                        webpg.overlay.insert_target.nodeName === 'INPUT') {
                         webpg.jq(webpg.overlay.insert_target).val(target_value);
                     } else {
                         webpg.overlay.insert_target.style.whiteSpace = "pre";
@@ -209,75 +212,75 @@ webpg.overlay = {
                 webpg.overlay._onRequest({"msg": "removeiframe",
                     "iframe_id": request.iframe_id});
             }
-            if (webpg.overlay.insert_target
-            && typeof(webpg.overlay.insert_target.updateElementValue) != 'undefined') {
+            if (webpg.overlay.insert_target &&
+            webpg.overlay.insert_target.updateElementValue !== undefined) {
                 webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
             }
             webpg.overlay.block_target = false;
-        } else if (request.msg == "insertPublicKey") {
-            if (webpg.overlay.insert_target != null) {
+        } else if (request.msg === 'insertPublicKey') {
+            if (webpg.overlay.insert_target !== null) {
                 webpg.jq(webpg.overlay.insert_target).val(request.data);
             }
             if (request.iframe_id) {
                 webpg.overlay._onRequest({"msg": "removeiframe",
                     "iframe_id": request.iframe_id});
             }
-            if (webpg.overlay.insert_target
-            && typeof(webpg.overlay.insert_target.updateElementValue) != 'undefined') {
+            if (webpg.overlay.insert_target &&
+            webpg.overlay.insert_target.updateElementValue !== undefined) {
                 webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
             }
             webpg.overlay.block_target = false;
-        } else if (request.msg == "insertSignedData") {
-            if (webpg.overlay.insert_range != null
-            && (webpg.overlay.insert_target.nodeName != "TEXTAREA"
-            && webpg.overlay.insert_target.nodeName != "INPUT")) {
-                var contents = webpg.overlay.insert_range.extractContents();
+        } else if (request.msg === 'insertSignedData') {
+            if (webpg.overlay.insert_range !== null &&
+            (webpg.overlay.insert_target.nodeName !== 'TEXTAREA' &&
+            webpg.overlay.insert_target.nodeName !== 'INPUT')) {
+                contents = webpg.overlay.insert_range.extractContents();
                 contents.textContent = request.data;
                 webpg.overlay.insert_target.style.whiteSpace = "pre";
                 webpg.overlay.insert_range.insertNode(contents);
             } else {
-                var target_value = request.pre_selection +
+                target_value = request.pre_selection +
                     request.data +
                     request.post_selection;
-                if (webpg.overlay.insert_target.nodeName == "TEXTAREA" ||
-                    webpg.overlay.insert_target.nodeName == "INPUT") {
+                if (webpg.overlay.insert_target.nodeName === 'TEXTAREA' ||
+                    webpg.overlay.insert_target.nodeName === 'INPUT') {
                     webpg.jq(webpg.overlay.insert_target).val(target_value);
                 } else {
                     webpg.overlay.insert_target.style.whiteSpace = "pre";
                     webpg.overlay.insert_target.textContent = target_value;
                 }
             }
-            if (webpg.overlay.insert_target
-            && typeof(webpg.overlay.insert_target.updateElementValue) != 'undefined') {
+            if (webpg.overlay.insert_target &&
+            webpg.overlay.insert_target.updateElementValue !== undefined) {
                 webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
             }
             webpg.overlay.block_target = false;
-        } else if (request.msg == "insertIntoPrior") {
-            if (webpg.overlay.prior_insert_target != null) {
+        } else if (request.msg === 'insertIntoPrior') {
+            if (webpg.overlay.prior_insert_target !== null) {
                 webpg.jq(webpg.overlay.prior_insert_target).val(request.data);
                 webpg.overlay.prior_insert_target = null;
             }
-            if (webpg.overlay.insert_target
-            && typeof(webpg.overlay.insert_target.updateElementValue) != 'undefined') {
+            if (webpg.overlay.insert_target &&
+            webpg.overlay.insert_target.updateElementValue !== undefined) {
                 webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
             }
             webpg.overlay.block_target = false;
-        } else if (request.msg == "insertDecryptedData") {
-            if (request.message_event == "editor") {
+        } else if (request.msg === 'insertDecryptedData') {
+            if (request.message_event === 'editor') {
                 if (!request.decrypt_status.error) {
                     webpg.overlay.insert_target.value = request.decrypt_status.data;
                 } else {
                     webpg.overlay.insert_target.value = _("UNABLE TO DECRYPT OR VERIFY THIS MESSAGE") +
                         ": " + request.decrypt_status.error_string;
                 }
-            } else if (webpg.overlay.insert_target != null) {
+            } else if (webpg.overlay.insert_target !== null) {
                 if (!request.decrypt_status.block_type)
                     request.decrypt_status.block_type = (request.block_type) ? request.block_type : webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
                 if (request.decrypt_status.error)
                     request.decrypt_status.original_text = request.original_text;
-                if (!request.decrypt_status.error
-                && request.decrypt_status.signatures
-                && request.decrypt_status.signatures.hasOwnProperty("0"))
+                if (!request.decrypt_status.error &&
+                request.decrypt_status.signatures &&
+                request.decrypt_status.signatures.hasOwnProperty("0"))
                     request.decrypt_status.block_type = webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
                 else if (!request.decrypt_status.error)
                     request.decrypt_status.block_type = webpg.constants.PGPBlocks.PGP_ENCRYPTED;
@@ -292,73 +295,72 @@ webpg.overlay = {
                     'message_event': request.message_type,
                     'message_type': "encrypted_message",
                     'noninline': true
-                }
-                if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+                };
+                if (webpg.utils.detectedBrowser.vendor === 'mozilla')
                     webpg.utils.sendRequest(params);
                 else
                     results_frame.onload = function() {
                         webpg.utils.sendRequest(params);
-                    }
+                    };
             }
-            if (webpg.overlay.insert_target
-            && typeof(webpg.overlay.insert_target.updateElementValue) != 'undefined') {
+            if (webpg.overlay.insert_target &&
+            typeof(webpg.overlay.insert_target.updateElementValue) != 'undefined') {
                 webpg.overlay.insert_target.updateElementValue(webpg.overlay.insert_target);
             }
             webpg.overlay.block_target = false;
-        } else if (request.msg == "openDialog") {
+        } else if (request.msg === 'openDialog') {
             var target = webpg.overlay.insert_target;
             var range = webpg.overlay.insert_range;
 
-            if (request.dialog_type == "editor")
+            if (request.dialog_type === 'editor')
                 webpg.overlay.prior_insert_target = target;
 
-            var theURL = webpg.utils.resourcePath + "dialog.html?dialog_type="
-                + request.dialog_type;
-            if (request.dialog_type == "encrypt" || request.dialog_type == "encryptsign")
+            var theURL = webpg.utils.resourcePath + "dialog.html?dialog_type=" +
+                request.dialog_type;
+            if (request.dialog_type === 'encrypt' || request.dialog_type === 'encryptsign')
                 theURL += "&encrypt_data=" + escape(request.data) +
                     "&pre_selection=" + escape(request.pre_selection) +
                     "&post_selection=" + escape(request.post_selection);
-            if (request.dialog_type == "import")
+            if (request.dialog_type === 'import')
                 theURL += "&import_data=" + escape(request.data);
-            if (request.dialog_type == "editor")
+            if (request.dialog_type === 'editor')
                 theURL += "&editor_data=" + escape(request.data);
-            if (request.signers != null)
+            if (request.signers !== null)
                 theURL += "&signers=" + escape(request.signers);
 
-            var win = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? content : window;
+            var win = (webpg.utils.detectedBrowser.vendor === 'mozilla') ? content : window;
             
             try {
                 win = webpg.overlay.insert_target.ownerDocument.defaultView;
-            } catch (err) {
+            } catch (err1) {
             }
 
-            var hOffset = (webpg.utils.detectedBrowser['vendor'] == 'mozilla') ? 160 : 60;
+            var hOffset = (webpg.utils.detectedBrowser.vendor === 'mozilla') ? 160 : 60;
 
-            if (request.dialog_type == "editor")
-                var iframe = webpg.inline.addDialogFrame(theURL,
+            if (request.dialog_type === 'editor')
+                iframe = webpg.inline.addDialogFrame(theURL,
                     request.dialog_type,
                     window.innerHeight - hOffset,
                     win.innerWidth - 60
                 );
             else
-                var iframe = webpg.inline.addDialogFrame(theURL, request.dialog_type);
+                iframe = webpg.inline.addDialogFrame(theURL, request.dialog_type);
 
             iframe.style.marginTop = "";
             iframe.style.marginLeft = "";
 
-            var posY = win.scrollY + (webpg.jq(iframe).innerHeight()
-                    / 3);
+            var posY = win.scrollY + (webpg.jq(iframe).innerHeight() / 3);
             var posX = (win.innerWidth / 2) - 
                     (iframe.offsetWidth / 2);
 
             posY = win.pageYOffset;
-            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+            if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                 posY = (window.self === window.top) ? win.pageYOffset : 0;
             }
             posY += 20;
 
             webpg.jq(iframe).animate({"top": posY, "left": posX}, 1);
-        } else if (request.msg == "onContextCommand") {
+        } else if (request.msg === 'onContextCommand') {
             var event = request.source || null;
             webpg.overlay.onContextCommand(event, request.action, sender);
         }
@@ -386,22 +388,22 @@ webpg.overlay = {
                 context_menuitems['import'] = true;
         } else if (selection.length > 0 && block_type && block_type[0] ==
             webpg.constants.PGPTags.PGP_ENCRYPTED_BEGIN) {
-                context_menuitems['decrypt'] = true;
+                context_menuitems.decrypt = true;
         } else if (selection.length > 0 && (block_type && block_type[0] ==
             webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN) ||
             (event.target.value && event.target.value.substr(event.target
             .selectionStart,
             webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN.length) ==
             webpg.constants.PGPTags.PGP_SIGNED_MSG_BEGIN)) {
-                context_menuitems['verify'] = true;
+                context_menuitems.verify = true;
         } else if (selection.length > 0) {
             // text to sign or encrypt
             if (event.target.textContent.substr(0, 5) != "-----") {
-                context_menuitems['sign'] = true;
-                context_menuitems['encrypt'] = true;
+                context_menuitems.sign = true;
+                context_menuitems.encrypt = true;
             }
-        } else if (!selection.length > 0) {
-            context_menuitems['paste'] = true;
+        } else if (selection.length <= 0) {
+            context_menuitems.paste = true;
         }
         webpg.utils.sendRequest({'msg': "create_menu", "context_menuitems":
             context_menuitems});
@@ -419,20 +421,21 @@ webpg.overlay = {
     */
     onContextCommand: function(event, action, sender, selection) {
         selection = selection || webpg.overlay.contextSelection;
+        var url;
 
         switch (action) {
             case webpg.constants.overlayActions.PSIGN:
-                if (event == "context-menu")
+                if (event === 'context-menu')
                     webpg.overlay.block_target = true;
                 webpg.utils.sendRequest({
                     "msg": "sign",
                     "selectionData": selection,
-                    "signers": sender.signers,
+                    "signers": sender.signers
                 });
                 break;
 
             case webpg.constants.overlayActions.VERIF:
-               if (event == "context-menu")
+               if (event === 'context-menu')
                    webpg.overlay.block_target = true;
                 webpg.utils.sendRequest({"msg": "verify",
                     "message_event": "context", "selectionData": selection},
@@ -456,23 +459,23 @@ webpg.overlay = {
             case webpg.constants.overlayActions.CRYPT:
                 if (!selection)
                     return false;
-                if (event == "context-menu")
+                if (event === 'context-menu')
                    webpg.overlay.block_target = true;
-                var dialog_type = (action == webpg.constants.overlayActions.CRYPTSIGN) ?
+                var dialog_type = (action === webpg.constants.overlayActions.CRYPTSIGN) ?
                     'encryptsign' : 'encrypt';
                 webpg.overlay._onRequest({'msg': 'openDialog',
                     'data': selection.selectionText,
                     'pre_selection': selection.pre_selection,
                     'post_selection': selection.post_selection,
                     'dialog_type': dialog_type,
-                    'signers': sender.signers,
+                    'signers': sender.signers
                 });
                 break;
 
             case webpg.constants.overlayActions.DECRYPT:
                 if (!selection)
                     break;
-                if (event == "context-menu")
+                if (event === 'context-menu')
                     webpg.overlay.block_target = true;
                 webpg.utils.sendRequest({
                     // WebPG found a PGP MESSAGE, but it could be signed. Lets gpgVerify first
@@ -489,7 +492,7 @@ webpg.overlay = {
                             'msg': "insertDecryptedData",
                             'block_type': blockType,
                             'decrypt_status': response.result,
-                            'message_event': (sender.source == "toolbar" && sender.dialog) ? 'editor' : 'context',
+                            'message_event': (sender.source === 'toolbar' && sender.dialog) ? 'editor' : 'context',
                             'original_text': selection.selectionText
                          });
                     }
@@ -497,7 +500,7 @@ webpg.overlay = {
                 break;
 
             case webpg.constants.overlayActions.SYMCRYPT:
-                if (event == "context-menu")
+                if (event === 'context-menu')
                     webpg.overlay.block_target = true;
                 webpg.utils.sendRequest({
                     'msg': 'symmetricEncrypt',
@@ -517,7 +520,7 @@ webpg.overlay = {
                 break;
 
             case webpg.constants.overlayActions.EXPORT:
-                if (event == "context-menu")
+                if (event === 'context-menu')
                    webpg.overlay.block_target = true;
                 webpg.utils.sendRequest({"msg": "enabled_keys"}, function(response) {
                     var enabled_keys = response.result;
@@ -535,11 +538,11 @@ webpg.overlay = {
                 break;
 
             case webpg.constants.overlayActions.MANAGER:
-                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
                         "XULContent/options.xul?options_tab=1");
-                } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                    var url = "key_manager.html?auto_init=true"
+                } else if (webpg.utils.detectedBrowser.product === 'chrome') {
+                    url = "key_manager.html?auto_init=true";
                     if (typeof(sender.tab)=='undefined') {
                         sender.tab = {'index': null };
                     } else {
@@ -550,11 +553,11 @@ webpg.overlay = {
                 break;
 
             case webpg.constants.overlayActions.OPTS:
-                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
                         "XULContent/options.xul?options_tab=0");
-                } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                    var url = "options.html?auto_init=true";
+                } else if (webpg.utils.detectedBrowser.product === 'chrome') {
+                    url = "options.html?auto_init=true";
                     if (typeof(sender.tab)=='undefined') {
                         sender.tab = {'index': null };
                     } else {
@@ -576,11 +579,11 @@ webpg.overlay = {
                 break;
 
             case webpg.constants.overlayActions.ABOUT:
-                if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+                if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
                         "XULContent/options.xul?options_tab=2");
-                } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
-                    var url = "about.html?auto_init=true";
+                } else if (webpg.utils.detectedBrowser.product === 'chrome') {
+                    url = "about.html?auto_init=true";
                     webpg.utils.openNewTab(webpg.utils.resourcePath + url, sender.tab.index + 1);
                 }
                 break;
@@ -596,12 +599,12 @@ webpg.overlay = {
     */
     listenerUnload: function(aEvent) {
         webpg.initialized = false;
-    },
+    }
 
 };
 
-if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-    if (webpg.utils.detectedBrowser['product'] == "thunderbird") {
+if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
+    if (webpg.utils.detectedBrowser.product === 'thunderbird') {
         if (document.location.href != "chrome://messenger/content/messengercompose/messengercompose.xul") {
             var messagepane = document.getElementById("messagepane"); // mail
             if (messagepane)

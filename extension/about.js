@@ -16,16 +16,16 @@ webpg.about = {
         var _ = webpg.utils.i18n.gettext;
         document.title = _("About WebPG");
         var browserString;
-        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
-            if (webpg.utils.detectedBrowser['product'] == "firefox")
+        if (webpg.utils.detectedBrowser.vendor == "mozilla") {
+            if (webpg.utils.detectedBrowser.product == "firefox")
                 browserString = "Firefox";
-            else if (webpg.utils.detectedBrowser['product'] == "thunderbird")
+            else if (webpg.utils.detectedBrowser.product == "thunderbird")
                 browserString = "Thunderbird";
-            else if (webpg.utils.detectedBrowser['product'] == "seamonkey")
+            else if (webpg.utils.detectedBrowser.product == "seamonkey")
                 browserString = "SeaMonkey";
             document.getElementById("webpg-info-browser").innerHTML += browserString;
             if (!browserWindow) {
-                var browserWindow = webpg.utils.mozilla.getChromeWindow();
+                browserWindow = webpg.utils.mozilla.getChromeWindow();
             }
             webpg.plugin = browserWindow.webpg.plugin;
         } else if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
@@ -38,7 +38,7 @@ webpg.about = {
         webpg.utils.extension.version(function(version) {
             webpg.jq("#webpg-info-version-string").text(
                 _("Version") + ": " + webpg.utils.escape(version)
-            )
+            );
         });
 
         webpg.jq(".webpg-info").each(function() {
@@ -48,13 +48,13 @@ webpg.about = {
                     webpg.jq(this).text(_("Extension Information"));
                     break;
                 case "extension-version-label":
-                    webpg.jq(this).text(_("Extension version"))
+                    webpg.jq(this).text(_("Extension version"));
                     break;
                 case "extension-version":
                     webpg.utils.extension.version(function(version) {
                         webpg.jq('.extension-version').text(
                             webpg.utils.escape(version)
-                        )
+                        );
                     });
                     break;
                 case "os-label":
@@ -116,11 +116,11 @@ webpg.about = {
                     break;
                 case "gnupg-homedir":
                     var homedir = webpg.preferences.gnupghome.get();
-                    if (homedir == "")
+                    if (homedir === "")
                         homedir = webpg.plugin.webpg_status.GNUPGHOMEDIR;
-                    if (homedir == "")
+                    if (homedir === "")
                         homedir = webpg.plugin.webpg_status.OpenPGP.home_dir;
-                    if (typeof(homedir) == 'undefined')
+                    if (typeof(homedir) === 'undefined')
                         homedir = _("default");
                     webpg.jq(this).text(homedir);
                     break;
@@ -141,7 +141,7 @@ webpg.about = {
                     break;
             }
         });
-        if (webpg.utils.detectedBrowser['vendor'] == "mozilla")
+        if (webpg.utils.detectedBrowser.vendor == "mozilla")
             webpg.jq('#window_functions').hide();
 
         webpg.jq('#close').button().button("option", "label", _("Finished"))
@@ -155,10 +155,10 @@ webpg.about = {
                     webpg.jq("#language-chart").find('tr').find('td:gt(2), th:gt(2)').hide();
                     webpg.jq("#language-chart").find('tr').find('td:gt(4), th:gt(4)').show();
                     webpg.jq("#language-chart").find('a').each(function() {
-                        this.href = this.href.replace(/.*?\:\/\/.*?\//, "https://translations.launchpad.net/")
+                        this.href = this.href.replace(/.*?\:\/\/.*?\//, "https://translations.launchpad.net/");
                     });
                     webpg.jq("#language-chart").find('img').each(function() {
-                        this.src = this.src.replace(/.*?\:\/\/.*?\//, "https://translations.launchpad.net/")
+                        this.src = this.src.replace(/.*?\:\/\/.*?\//, "https://translations.launchpad.net/");
                     });
                     webpg.jq("#language-chart").find('.sortkey').each(function() {
                         if (!webpg.jq(this).next()[0]) {
@@ -169,19 +169,19 @@ webpg.about = {
                             else
                                 webpg.jq(this).next().remove();
                         }
-                    })
+                    });
                     webpg.jq("#language-chart").css({
                         'text-align': 'left',
-                        'color': '#fff',
+                        'color': '#fff'
                     }).find('th').css({'border': '1px solid #F22'});
                 }
             });
         }).button().button("option", "label", _("Translation Status"));
    }
-}
+};
 
 webpg.jq(function() {
-    if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+    if (webpg.utils.detectedBrowser.vendor == 'mozilla') {
         if (webpg.utils.getParameterByName("auto_init") == "true")
             webpg.about.init();
     } else {

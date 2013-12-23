@@ -1,5 +1,5 @@
 /* <![CDATA[ */
-if (typeof(webpg)=='undefined') { webpg = {}; }
+if (typeof(webpg)==='undefined') { var webpg = {}; }
 
 /*
     Class: webpg.background
@@ -15,8 +15,7 @@ webpg.background = {
     init: function() {
         var _ = webpg.utils.i18n.gettext;
 
-        var gnupghome = (webpg.preferences.gnupghome.get() != -1 &&
-            webpg.preferences.gnupghome.get()) ? webpg.preferences.gnupghome.get() : "";
+        var gnupghome = webpg.preferences.gnupghome.get();
 
         // information and source code for the plugin can be found here:
         //      https://github.com/kylehuff/webpg-npapi
@@ -32,7 +31,7 @@ webpg.background = {
         }
 
         webpg.plugin = document.getElementById("webpgPlugin");
-        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+        if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
             try {
                 webpg.plugin.QueryInterface(Components.interfaces.nsIObjectLoadingContent).playPlugin();
             } catch (err) {
@@ -54,7 +53,7 @@ webpg.background = {
             }
         }
 
-        if (webpg.plugin.valid && !webpg.plugin.webpg_status["error"]) {
+        if (webpg.plugin.valid && !webpg.plugin.webpg_status.error) {
             // Regulates the display of the banner; increment to display welcome notice/version news
             this.banner_version = "9.4";
 
@@ -74,24 +73,25 @@ webpg.background = {
             webpg.secret_keys = webpg.plugin.getPrivateKeyList();
             webpg.preferences.enabled_keys.clear();
             for (var sKey in webpg.secret_keys) {
-                if (webpg.secret_keys[sKey].disabled == false)
+                if (webpg.secret_keys[sKey].disabled === false)
                     webpg.preferences.enabled_keys.add(sKey);
-                webpg.secret_keys[sKey].default = (sKey == webpg.default_key);
+                webpg.secret_keys[sKey].default = (sKey === webpg.default_key);
             }
             webpg.enabled_keys = webpg.preferences.enabled_keys.get();
             webpg.preferences.group.refresh_from_config();
-            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla'
-            && webpg.utils.detectedBrowser['product'] != 'thunderbird') {
+            if (webpg.utils.detectedBrowser.vendor === 'mozilla' &&
+              webpg.utils.detectedBrowser.product !== 'thunderbird') {
                 webpg.background.tabIndex = 100;
                 webpg.utils.tabListener.add();
             }
             console.log("WebPG background initialized");
             // Display the welcome notice if appropriate
             var banner_version = webpg.preferences.banner_version.get();
-            if (banner_version == 0 || !banner_version
-            || banner_version == "" || parseFloat(banner_version) < parseFloat(this.banner_version)) {
+            if (banner_version === 0 || !banner_version ||
+              banner_version === "" ||
+              parseFloat(banner_version) < parseFloat(this.banner_version)) {
                 webpg.preferences.banner_version.set(this.banner_version);
-                if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+                if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     webpg.appcontent = document.getElementById("appcontent") || document;
                     webpg.appcontent.addEventListener("DOMContentLoaded", function(aEvent) {
                         webpg.utils.openNewTab(webpg.utils.resourcePath + "notice.html");
@@ -102,27 +102,27 @@ webpg.background = {
                 }
            }
         } else {
-            if (webpg.plugin.valid == undefined) {
+            if (webpg.plugin.valid === undefined) {
                 webpg.plugin.webpg_status = {
                     "error": true,
                     "gpg_error_code": -1,
                     "error_string": _("WebPG Plugin failed to load"),
                     "file": "webpgPluginAPI.cpp",
                     "line": -1,
-                }
+                };
             }
-            if (webpg.utils.detectedBrowser['vendor'] == 'mozilla') {
+            if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                 var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                         .getService(Components.interfaces.nsIPrefService);
                 prefs = prefs.getBranch("plugins.");
-                if (prefs.getBoolPref("click_to_play") == true) {
+                if (prefs.getBoolPref("click_to_play") === true) {
                     webpg.plugin.webpg_status = {
                         "error": true,
                         "gpg_error_code": -2,
                         "error_string": _("WebPG Plugin failed to load"),
                         "file": "background.js",
-                        "line": 100,
-                    }
+                        "line": new Error().lineNumber,
+                    };
                 }
                 // Hide the plugin element or it will FUBAR the content window
                 //  on firefox.
@@ -145,46 +145,44 @@ webpg.background = {
     // Called when a message is passed.
     _onRequest: function(request, sender, sendResponse) {
         // refresh the value of gnupghome
-        var gnupghome = (webpg.preferences.gnupghome.get() != -1 &&
-            webpg.preferences.gnupghome.get()) ? webpg.preferences.gnupghome.get() : "";
+        var gnupghome = webpg.preferences.gnupghome.get(),
+            tabID = -1;
 
         // set the default response to null
         var response = null;
-        if (sender==undefined)
+        if (sender===undefined)
             sender = {};
 
-        if (webpg.utils.detectedBrowser['vendor'] == 'mozilla'
-        && webpg.utils.detectedBrowser['product'] != 'thunderbird') {
+        if (webpg.utils.detectedBrowser.vendor === 'mozilla' &&
+         webpg.utils.detectedBrowser.product !== 'thunderbird') {
 
             try {
-                if (webpg.utils.detectedBrowser['product'] == 'conkeror')
-                    var tabID = window.buffers.current.browser._webpgTabID;
+                if (webpg.utils.detectedBrowser.product === 'conkeror')
+                    tabID = window.buffers.current.browser._webpgTabID;
                 else
-                    var tabID = gBrowser.getBrowserForDocument(sender.defaultView.top.content.document)._webpgTabID;
+                    tabID = gBrowser.getBrowserForDocument(sender.defaultView.top.content.document)._webpgTabID;
             } catch (err) {
-            }
-
-            sender.tab = {
-                'id': tabID,
-                'selected': true,
             }
         }
 
-        if (!sender.tab)
-            sender.tab = {'id': -1}
+        if (!sender.tab) {
+            sender.tab = {
+                'id': tabID,
+                'selected': true,
+            };
+        }
 
         switch(request.msg) {
             // Show the page action for the tab that the sender (content script) was on.
             case 'enabled':
                 response = {'enabled': webpg.preferences.webpg_enabled.get() };
-                //console.log(response);
                 break;
 
             case 'decorate_inline':
                 response = {'decorate_inline':
                     webpg.preferences.decorate_inline.get(),
                     'mode': webpg.preferences.decorate_inline.mode(),
-                    'render_toolbar': (webpg.preferences.render_toolbar.get() == "true"),
+                    'render_toolbar': (webpg.preferences.render_toolbar.get() === "true"),
                 };
                 break;
 
@@ -213,7 +211,7 @@ webpg.background = {
 
             case 'newtab':
                 var index = null;
-                if (typeof(sender)!='undefined' && sender.tab) {
+                if (typeof(sender)!=='undefined' && sender.tab) {
                     index = sender.tab.index;
                 } else {
                     chrome.tabs.getSelected(null, function(tab) { 
@@ -247,25 +245,25 @@ webpg.background = {
             case 'decrypt':
                 //console.log("gpgDecrypt requested");
                 response = webpg.plugin.gpgDecrypt(request.data);
-                for (sig in response.signatures) {
-                    sig_fp = response.signatures[sig].fingerprint;
-                    key_request = webpg.plugin.getNamedKey(sig_fp);
+                for (var sig in response.signatures) {
+                    var sig_fp = response.signatures[sig].fingerprint;
+                    var key_request = webpg.plugin.getNamedKey(sig_fp);
                     response.signatures[sig].public_key = key_request;
                 }
                 response.original_text = request.data;
                 break;
 
             case 'sign':
-                var signers = (typeof(request.signers)!=undefined
-                        && request.signers != null
-                        && request.signers.length > 0) ? request.signers : 
-                        webpg.preferences.default_key.get() != ""
-                            ? [webpg.preferences.default_key.get()] : [];
+                var signers = (typeof(request.signers)!=='undefined' &&
+                        request.signers !== null &&
+                        request.signers.length > 0) ? request.signers : 
+                        webpg.preferences.default_key.get() !== "" ?
+                            [webpg.preferences.default_key.get()] : [];
                 var sign_status = webpg.plugin.gpgSignText(request.selectionData.selectionText,
                     signers, 2);
                 response = sign_status;
                 if (!sign_status.error && sign_status.data.length > 0) {
-                    if (typeof(request.message_event)=='undefined' || !request.message_event == "gmail") {
+                    if (typeof(request.message_event)==='undefined' || request.message_event !== "gmail") {
                         webpg.utils.tabs.sendRequest(sender.tab, {'msg': 'insertEncryptedData',
                             'data': sign_status.data,
                             'pre_selection' : request.selectionData.pre_selection,
@@ -278,14 +276,14 @@ webpg.background = {
             case 'verify':
                 if (request.data && request.data.length > 0) {
                     var content = request.data;
-                    lowerBlock = content.match(/(-----BEGIN PGP.*?)\n.*?\n\n/gim);
+                    var lowerBlock = content.match(/(-----BEGIN PGP.*?)\n.*?\n\n/gim);
                     if (lowerBlock && lowerBlock.length > 1) {
-                        content.substr(0, content.indexOf(lowerBlock[1]) + lowerBlock[1].length)
-                            + content.substr(content.indexOf(lowerBlock[1]) + lowerBlock[1].length, content.length).replace(/\n\n/gim, "\n");
+                        content.substr(0, content.indexOf(lowerBlock[1]) + lowerBlock[1].length) + 
+                            content.substr(content.indexOf(lowerBlock[1]) + lowerBlock[1].length, content.length).replace(/\n\n/gim, "\n");
                     }
                     request.data = content;
                 }
-                if (request.message_event && request.message_event == "context") {
+                if (request.message_event && request.message_event === "context") {
                     var content = (request.data) ? request.data :
                         request.selectionData.selectionText;
                     response = webpg.plugin.gpgVerify(content);
@@ -294,15 +292,15 @@ webpg.background = {
                     response = webpg.plugin.gpgVerify(request.data);
                     response.original_text = request.data;
                 }
-                for (sig in response.signatures) {
+                for (var sig in response.signatures) {
                     var sig_fp = response.signatures[sig].fingerprint;
                     var key_request = webpg.plugin.getNamedKey(sig_fp);
                     response.signatures[sig].public_key = key_request;
                 }
-                if (request.message_event && request.message_event == "context") {
-                    if (response.gpg_error_code == "11") {
+                if (request.message_event && request.message_event === "context") {
+                    if (response.gpg_error_code === 11) {
                         response = webpg.plugin.gpgDecrypt(content);
-                        for (sig in response.signatures) {
+                        for (var sig in response.signatures) {
                             var sig_fp = response.signatures[sig].fingerprint;
                             var key_request = webpg.plugin.getNamedKey(sig_fp);
                             response.signatures[sig].public_key = key_request;
@@ -313,30 +311,30 @@ webpg.background = {
 
             case 'async-gpgGenKey':
                 //console.log("async-gpgGenKey requested");
-                var result = webpg.plugin.gpgGenKey(
-                        request.data['publicKey_algo'],
-                        request.data['publicKey_size'],
-                        request.data['subKey_algo'],
-                        request.data['subKey_size'],
-                        request.data['uid_0_name'],
-                        request.data['uid_0_comment'],
-                        request.data['uid_0_email'],
-                        request.data['key_expire'],
-                        request.data['passphrase']
-                    );
+                webpg.plugin.gpgGenKey(
+                        request.data.publicKey_algo,
+                        request.data.publicKey_size,
+                        request.data.subKey_algo,
+                        request.data.subKey_size,
+                        request.data.uid_0_name,
+                        request.data.uid_0_comment,
+                        request.data.uid_0_email,
+                        request.data.key_expire,
+                        request.data.passphrase
+                );
                 response = "queued";
                 break;
 
             case 'async-gpgGenSubKey':
                 //console.log("async-gpgGenSubKey requested");
-                var result = webpg.plugin.gpgGenSubKey(
-                    request.data['key_id'],
-                    request.data['subKey_algo'],
-                    request.data['subKey_size'],
-                    request.data['key_expire'],
-                    request.data['sign_flag'],
-                    request.data['enc_flag'],
-                    request.data['auth_flag']
+                webpg.plugin.gpgGenSubKey(
+                    request.data.key_id,
+                    request.data.subKey_algo,
+                    request.data.subKey_size,
+                    request.data.key_expire,
+                    request.data.sign_flag,
+                    request.data.enc_flag,
+                    request.data.auth_flag
                 );
                 response = "queued";
                 break;
@@ -366,13 +364,13 @@ webpg.background = {
                     }
                 }
                 if (import_status.error || !import_status.imports ||
-                    !import_status.imports.hasOwnProperty(0)) {
-                    import_status['imports'] =
+                  !import_status.imports.hasOwnProperty(0)) {
+                    import_status.imports =
                         { 0 : {
                             'new_key': false,
                             'fingerprint': 'unknown',
                         }
-                    }
+                    };
                 }
                 if (request.temp_context) {
                     webpg.plugin.gpgSetHomeDir(gnupghome);
@@ -391,11 +389,11 @@ webpg.background = {
                 break;
 
             case 'encrypt':
-                var sign = (typeof(request.sign)=='undefined'
-                    || request.sign == false) ? 0 : 1;
-                var signers = (typeof(request.signers)!=undefined
-                        && request.signers != null
-                        && request.signers.length > 0) ? request.signers : [];
+                var sign = (typeof(request.sign)==='undefined' ||
+                      request.sign === false) ? 0 : 1;
+                var signers = (typeof(request.signers)!=='undefined' &&
+                        request.signers !== null &&
+                        request.signers.length > 0) ? request.signers : [];
                 if (request.recipients.length > 0) {
                     //console.log(request.data, request.recipients);
                     response = webpg.plugin.gpgEncrypt(request.data,
@@ -403,7 +401,7 @@ webpg.background = {
                 } else {
                     response = "";
                 }
-                if (typeof(request.message_event)=='undefined' || !request.message_event == "gmail")
+                if (typeof(request.message_event)==='undefined' || request.message_event !== "gmail")
                     webpg.utils.tabs.sendRequest(sender.tab, {
                         "msg": "insertEncryptedData",
                         "data": (response.data) ? response.data : null,
@@ -421,8 +419,8 @@ webpg.background = {
                 } else {
                     response = "";
                 }
-                if (typeof(request.message_event)=='undefined' ||
-                !request.message_event == "gmail" && 
+                if (typeof(request.message_event)==='undefined' ||
+                request.message_event !== "gmail" && 
                 response && !response.error)
                     webpg.utils.tabs.sendRequest(sender.tab, {
                         "msg": "insertEncryptedData", "data": response.data,
@@ -432,7 +430,7 @@ webpg.background = {
             case 'symmetricEncrypt':
                 //console.log("symmetric encryption requested");
                 response = webpg.plugin.gpgSymmetricEncrypt(request.data, 0, []);
-                if (request.message_event == "context" || request.message_event == "editor")
+                if (request.message_event === "context" || request.message_event === "editor")
                     webpg.utils.tabs.sendRequest(sender.tab, {
                         "msg": "insertEncryptedData",
                         "data": (response.data) ? response.data : null,
@@ -458,9 +456,9 @@ webpg.background = {
                         temp_path = "/tmp/.gnupg";
                     webpg.plugin.gpgSetHomeDir(temp_path);
                 }
-                if (request.key_type == 'public_key'){
+                if (request.key_type === 'public_key'){
                     response = webpg.plugin.gpgDeletePublicKey(request.key_id);
-                } else if (request.key_type == 'private_key'){
+                } else if (request.key_type === 'private_key'){
                     response = webpg.plugin.gpgDeletePrivateKey(request.key_id);
                 }
                 if (request.temp_context) {
@@ -479,12 +477,12 @@ webpg.background = {
                 response = webpg.plugin.getNamedKey(request.key_id);
                 if (request.temp_context) {
                     webpg.plugin.gpgSetHomeDir(gnupghome);
-                    real_keyring_items = webpg.plugin.getNamedKey(request.key_id);
-                    for (real_keyring_item in real_keyring_items) {
-                        for (subkey in real_keyring_items[real_keyring_item].subkeys) {
-                            subkey_id = real_keyring_items[real_keyring_item].
+                    var real_keyring_items = webpg.plugin.getNamedKey(request.key_id);
+                    for (var real_keyring_item in real_keyring_items) {
+                        for (var subkey in real_keyring_items[real_keyring_item].subkeys) {
+                            var subkey_id = real_keyring_items[real_keyring_item].
                                 subkeys[subkey].subkey;
-                            if (subkey_id == request.key_id) {
+                            if (subkey_id === request.key_id) {
                                 response[real_keyring_item].in_real_keyring = true;
                                 response[real_keyring_item].real_keyring_item =
                                     real_keyring_items[real_keyring_item];
@@ -584,7 +582,7 @@ webpg.background = {
             data - <str> The ASCII representation of the current operation status
     */
     gpgGenKeyProgress: function(data) {
-        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+        if (webpg.utils.detectedBrowser.vendor === "mozilla") {
             var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                        .getService(Components.interfaces.nsIWindowMediator);
             var enumerator = wm.getEnumerator(null);
@@ -616,10 +614,10 @@ webpg.background = {
                     doc.body.dispatchEvent(evtObj);
                 }
             }
-        } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+        } else if (webpg.utils.detectedBrowser.product === "chrome") {
             var port = chrome.extension.connect({name: "gpgGenKeyProgress"});
             port.postMessage({"type": "progress", "data": data});
-            port.disconnect()
+            port.disconnect();
         }
     },
 
@@ -635,11 +633,10 @@ webpg.background = {
         // Send the data to the GenKeyProgress method
         webpg.background.gpgGenKeyProgress(data);
 
-        var valid = (data == "complete") ?
-            true : false;
+        var valid = (data === "complete");
 
         // Notify the user
-        if (webpg.utils.detectedBrowser['vendor'] == "mozilla") {
+        if (webpg.utils.detectedBrowser.vendor === "mozilla") {
             var browserWindow = webpg.utils.mozilla.getChromeWindow();
             var message = (valid) ? 'WebPG - ' + _("Key Generation Complete") + '!' :
                 "WebPG " + _("Key Generation") + " " + data;
@@ -649,21 +646,21 @@ webpg.background = {
                 n.label = message;
             }
             var buttons = (browserWindow.content.document.location.href
-                .search(webpg.utils.resourcePath + "XULContent/options.xul") == -1) ?
+                .search(webpg.utils.resourcePath + "XULContent/options.xul") === -1) ?
                     [{
                         'label': _('Open Key Manager'),
                         'accessKey': 'O',
                         'popup': null,
                         'callback': function() {
                             webpg.utils.openNewTab(webpg.utils.resourcePath +
-                                    "XULContent/options.xul?options_tab=1")
+                                    "XULContent/options.xul?options_tab=1");
                         }
                     }] : [];
             var priority = nb.PRIORITY_INFO_MEDIUM;
             nb.appendNotification(message, 'keygen-complete',
                  'chrome://webpg-firefox/skin/images/badges/32x32/webpg.png',
                   priority, buttons);
-        } else if (webpg.utils.detectedBrowser['product'] == "chrome") {
+        } else if (webpg.utils.detectedBrowser.product === "chrome") {
             var title = (valid) ? "WebPG - " + _("Key Generation Complete") + "!" :
                 _("WebPG Key Generation Failed") + "!";
             var message = (valid) ? _("The generation of your new key is now complete") + "." :
@@ -677,9 +674,9 @@ webpg.background = {
         }
     },
 
-}
+};
 
-if (webpg.utils.detectedBrowser["product"] == "chrome") {
+if (webpg.utils.detectedBrowser.product === "chrome") {
 
     webpg.background.navigate = function(url) {
         chrome.tabs.getSelected(null, function(tab) {
@@ -690,7 +687,7 @@ if (webpg.utils.detectedBrowser["product"] == "chrome") {
     chrome.omnibox.onInputEntered.addListener(function(text) {
         var keylist = webpg.plugin.getNamedKey(text);
         var cnt = 0;
-        for (key in keylist) {
+        for (var key in keylist) {
             cnt++;
             webpg.background.navigate(webpg.utils.resourcePath + "key_manager.html" +
                  "?auto_init=true&tab=-1&openkey=" + keylist[key].fingerprint.substr(-16));
@@ -704,14 +701,14 @@ if (webpg.utils.detectedBrowser["product"] == "chrome") {
 }
 
 // Listen for the creation of the background DOM and then init webpg.background
-window.addEventListener("load", function load(event) {
+window.addEventListener("load", function load() {
     window.removeEventListener("load", load, false);
     webpg.background.init();
-    if (webpg.utils.detectedBrowser['product'] == 'thunderbird')
+    if (webpg.utils.detectedBrowser.product === 'thunderbird')
         webpg.utils._onRequest.addListener(webpg.background._onRequest);
 }, false);
 
 // Listen for the content script to send messages to the background page.
-if (webpg.utils.detectedBrowser['product'] != 'thunderbird')
+if (webpg.utils.detectedBrowser.product !== 'thunderbird')
     webpg.utils._onRequest.addListener(webpg.background._onRequest);
 /* ]]> */
