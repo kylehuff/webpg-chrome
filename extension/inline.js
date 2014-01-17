@@ -52,7 +52,7 @@ webpg.inline = {
             return false;
 
         webpg.inline.PGPDataSearch(doc);
-        
+
         if (webpg.utils.detectedBrowser.product === 'thunderbird')
             return;
 
@@ -171,14 +171,15 @@ webpg.inline = {
         }
 
         while ((node = tw.nextNode())) {
-            if (!webpg.inline.render_toolbar) {
+            if (!webpg.inline.render_toolbar)
                 break;
-            }
+
             var previousElement = node.previousSibling;
             if ((node.nodeName === "TEXTAREA" ||
                 node.getAttribute("contenteditable") === "true") &&
                 (!previousElement || previousElement.className != "webpg-toolbar")) {
-                if (node.style.display != "none" &&
+                if (webpg.jq(node).css('display') != "none" &&
+                    node.style.display != "none" &&
                     node.style.visibility != "hidden" &&
                     node.offsetWidth > 200 &&
                     node.offsetHeight > 30 &&
@@ -187,6 +188,12 @@ webpg.inline = {
                     proceed = webpg.overlay.toolbarBlacklist.every(function(bldomain) {
                         return (doc.location.host.indexOf(bldomain) === -1);
                     });
+
+                    if (node.className.search("crayon") !== -1)
+                      proceed = false;
+
+                    if (node.className.search("hidden") !== -1)
+                      proceed = false;
 
                     if (proceed)
                         webpg.inline.addWebPGMenuBar(node);
@@ -253,7 +260,7 @@ webpg.inline = {
                         if ("version" in topwinjs && topwinjs.version.title === "TiddlyWiki")
                             break; // It is, bail out
                     }
-                    
+
                     if (node.textContent.search(/^.*?(-----BEGIN PGP.*?).*?(-----)/gim) < 0 ||
                     !node.textContent.search(/^.*?(-----END PGP.*?).*?(-----)/gim) < 0)
                         break;
@@ -266,7 +273,7 @@ webpg.inline = {
                     if (webpg.utils.detectedBrowser.product != "thunderbird" && 
                         !isInViewport)
                         break;
-                    
+
                     baseIdx = idx;
                     idx = node.textContent.indexOf(webpg.constants.PGPTags.PGP_KEY_BEGIN, baseIdx);
                     blockType = webpg.constants.PGPBlocks.PGP_KEY;
@@ -689,7 +696,7 @@ webpg.inline = {
             webpg.inline.secret_keys[key].disabled === false) {
                 var keyObj = webpg.inline.secret_keys[key];
                 var email = (keyObj.email.length > 1) ?
-                    "&lt;" + webpg.utils.escape(keyObj.email) + "&gt;" :
+                    "<" + webpg.utils.escape(keyObj.email) + ">" :
                     "(" + _("no email address provided") + ")";
                 var detail = webpg.utils.escape(keyObj.subkeys[0].size) +
                     webpg.utils.escape(keyObj.subkeys[0].algorithm_name)[0].toUpperCase() +
@@ -718,7 +725,9 @@ webpg.inline = {
                 'background': '#aaa url(' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/menumask.png) repeat-x',
                 'border-radius': '0 4px 4px 0',
                 'display': 'inline-block',
-                'border-right': '1px solid #999'
+                'border-right': '1px solid #999',
+                'font': 'inherit',
+                'color': 'inherit'
             }).hover(
                 function(e) {
                     if (webpg.jq(toolbar).find('.webpg-action-list')[0].style.display != 'inline') {
@@ -744,7 +753,8 @@ webpg.inline = {
             'border-left': '4px solid transparent',
             'border-right': '4px solid transparent',
             'border-top': '4px solid #000000',
-            'opacity': '0.7', 'content': '\\2193'
+            'opacity': '0.7', 'content': '\\2193',
+            'cursor': 'pointer'
         });
         if (webpg.utils.detectedBrowser.vendor === 'mozilla' &&  gmail) {
              webpg.jq(toolbar).find('.webpg-action-menu .webpg-action-list-icon').css({
@@ -784,7 +794,8 @@ webpg.inline = {
             'background-clip': 'padding-box',
             '*border-right-width': '2px',
             '*border-bottom-width': '2px',
-            'text-align': 'left'
+            'text-align': 'left',
+            'font': 'inherit'
         });
         if (gmail) {
             if (webpg.gmail.gmailComposeType === "inline") {
@@ -802,7 +813,8 @@ webpg.inline = {
             '-moz-border-radius': '4px 4px 4px 4px',
             'border-radius': '4px 4px 4px 4px',
             'border-color': 'transparent',
-            'margin-left': '0'
+            'margin-left': '0',
+            'font': 'inherit'
         });
         webpg.jq(toolbar).find('.webpg-action-list li, .webpg-subaction-list li').not('.webpg-action-divider').css({
             'font-size': '12px',
@@ -834,17 +846,19 @@ webpg.inline = {
             'padding': '0 4px 0 4px',
             'margin': '0',
             'position': 'relative',
-            'top': '5px'
+            'top': '5px',
+            'cursor': 'pointer'
         });
         webpg.jq(toolbar).find('.webpg-subaction-btn').css({
             'top': '-1', 'padding': '0 8px 2px 8px', 'margin-right': '-5px',
             'border-style': 'solid', 'border-width': '1px',
             '-webkit-border-radius': '0 4px 4px 0',
             '-moz-border-radius': '0 4px 4px 0',
-            'border-radius': '0 4px 4px 0'
+            'border-radius': '0 4px 4px 0',
+            'cursor': 'pointer', 'font': 'inherit'
         });
         webpg.jq(toolbar).find('.webpg-subaction-list').css({
-            'top': '0', 'left': '100%'
+            'top': '0', 'left': '100%', 'font': 'inherit'
         });
         webpg.jq(toolbar).find('.webpg-action-divider').css({
             'border-width': '1px 0 0 0',
@@ -856,11 +870,14 @@ webpg.inline = {
         });
         webpg.jq(toolbar).find('img').css({
             'display': 'inline-block',
-            'margin': '0'
+            'margin': '0',
+            'cursor': 'pointer'
         });
         webpg.jq(toolbar).find('.webpg-action-btn img').css({
             'width': '20px',
-            'height': '20px'
+            'height': '20px',
+            'box-sizing': 'initial',
+            'cursor': 'pointer'
         });
         webpg.jq(toolbar).find('.webpg-action-list a').css({
             'display': 'block',
@@ -869,13 +886,17 @@ webpg.inline = {
             'position': 'relative',
             'height': '32px',
             'text-shadow': 'none',
+            'cursor': 'pointer !important',
+            'white-space': 'nowrap',
             'cursor': 'pointer',
-            'white-space': 'nowrap'
+            'font': 'inherit'
         });
         webpg.jq(toolbar).find('.webpg-subaction-list a').css({
             'padding-top': '3px',
             'line-height': '12px',
-            'padding-right': '30px'
+            'padding-right': '30px',
+            'cursor': 'pointer',
+            'font': 'inherit'
         });
 
         if (!gmail) {
@@ -953,13 +974,14 @@ webpg.inline = {
             (webpg.inline.doc) ? webpg.inline.doc : document;
         var toolbar = doc.createElement("div");
 
-        toolbar.setAttribute("style", "text-align:left; padding: 0; padding-right: 8px; font-weight: bold; " +
-            "font-family: arial,sans-serif; font-size: 11px; position:relative;" +
+        toolbar.setAttribute("style", "text-align:left; padding: 0; padding-right: 8px;" +
+            "font: normal normal bold 11px arial,sans-serif; font-weight: bold; position:relative;" +
             "background: #f1f1f1 url('" + webpg.utils.escape(webpg.utils.resourcePath) + 
             "skin/images/menumask.png') repeat-x; border-collapse: separate;" +
             "color:#444; height:24px; margin: 1px 0 0 1px; display: block;" +
             "border: 1px solid gainsboro; top: 27px; clear: left; line-height: 12px;" +
-            "left: -1px; text-shadow: none; text-decoration: none; overflow: visible;");
+            "left: -1px; text-shadow: none; text-decoration: none; overflow: visible;" +
+            "box-sizing: content-box;");
 
         toolbar.setAttribute("class", "webpg-toolbar");
         var offset = (element.scrollHeight < element.offsetHeight) ?
@@ -973,6 +995,8 @@ webpg.inline = {
             toolbar.style.width = element.parentElement.offsetWidth + "px";
 
         element.style.width = parseInt(toolbar.style.width) + pad + offset + "px";
+        element.style.minWidth = parseInt(toolbar.style.width) + pad + offset + "px";
+        element.style.maxWidth = parseInt(toolbar.style.width) + pad + offset + "px";
 
         var paddingTop = (webpg.utils.detectedBrowser.vendor === 'mozilla') ?
             "28px" : "30px";
@@ -985,7 +1009,7 @@ webpg.inline = {
 
         var action_menu = '' +
             '<span class="webpg-action-menu">' +
-                '<span class="webpg-current-action" style="line-height:24px;">' +
+                '<span class="webpg-current-action" style="line-height:24px; cursor: pointer; font: inherit; color: inherit;">' +
                     '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) +
                         "skin/images/badges/32x32/webpg.png" + '" style="position:relative; ' +
                         'top:4px; left:-4px; width:16px; height:16px;"/>' +
@@ -996,9 +1020,9 @@ webpg.inline = {
                     '&nbsp;' +
                 '</span>' +
             '</span>' +
-            '<span style="z-index:4;">' +
+            '<span style="z-index:4; font: inherit;">' +
                 '<ul class="webpg-action-list">' +
-                    '<li class="webpg-action-btn">' +
+                    '<li class="webpg-action-btn" style="font: inherit;">' +
                         '<a class="webpg-toolbar-encrypt">' +
                             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted.png" class="webpg-li-icon"/>' +
                             _('Encrypt') +
@@ -1090,7 +1114,7 @@ webpg.inline = {
             '</span>';
 
         webpg.jq(toolbar).append(action_menu);
-        webpg.jq(toolbar).append('<span class="webpg-toolbar-status" style="text-transform: uppercase; float:right; position:relative; top: 20%; line-height: 14px;"></span>');
+        webpg.jq(toolbar).append('<span class="webpg-toolbar-status" style="text-transform: uppercase; float:right; position:relative; top: 20%; line-height: 14px; font: inherit;"></span>');
         webpg.jq(toolbar.ownerDocument.defaultView).bind("resize", function() {
             detectElementValue(element);
         });
@@ -1122,28 +1146,20 @@ webpg.inline = {
         }
 
         function updateOffset(element) {
+            if (webpg.jq(element).css('display') === 'none')
+              toolbar.style.display = 'none';
+            else
+              toolbar.style.display = 'block';
+
             var offset = (element.scrollHeight > element.offsetHeight) ?
                 element.offsetWidth - element.clientWidth - 1 : 0;
             offset = (webpg.utils.detectedBrowser.vendor === 'mozilla') ?
                 1 : offset;
-//            if (element.parentElement
-//            && (element.parentElement.nodeName === 'DIV'
-//            || element.parentElement.nodeName === 'SPAN')
-//            && element.parentElement.offsetWidth > parseInt(toolbar.style.width)) 
-//                toolbar.style.width = element.parentElement.offsetWidth - 12 + "px";
-//            else
+
             toolbar.style.width = element.offsetWidth - 10 - offset + "px";
             if (element.parentElement.offsetWidth < parseInt(toolbar.style.width))
                 toolbar.style.width = element.parentElement.offsetWidth - 11 + "px";
 
-//            if (element.parentElement
-//            && (element.parentElement.nodeName === 'DIV'
-//            || element.parentElement.nodeName === 'SPAN')
-//            && webpg.jq(toolbar).prev().length > 0
-//            && webpg.jq(toolbar).prev() != webpg.jq(toolbar).parent()) {
-//                toolbar.style.top = '-1px';
-//                element.style.paddingTop = '0';
-//            }
         }
 
         webpg.jq([element, toolbar]).bind('change keydown keyup mousemove mouseover mouseenter mouseleave',
@@ -1231,7 +1247,6 @@ webpg.inline = {
                     'background-color': '#aaa'
                 });
             }
-  
         });
 
         webpg.jq(toolbar).find('.webpg-action-list a').click(function(e) {
@@ -1298,7 +1313,7 @@ webpg.inline = {
                         e.currentTarget.id &&
                         e.currentTarget.id.search("0x") === 0) ?
                     [e.currentTarget.id.substr(2)] : signers;
-                    
+
                 webpg.overlay.onContextCommand(null, action, {'source': 'toolbar', 'dialog': (isSecure(element) === true), 'signers': signers}, selection);
             }
 
