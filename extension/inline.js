@@ -974,14 +974,17 @@ webpg.inline = {
             (webpg.inline.doc) ? webpg.inline.doc : document;
         var toolbar = doc.createElement("div");
 
+        var position = (webpg.jq(element).css("position") === "absolute") ? "" :
+          "position: relative;";
+
         toolbar.setAttribute("style", "text-align:left; padding: 0; padding-right: 8px;" +
             "font: normal normal bold 11px arial,sans-serif; font-weight: bold; position:relative;" +
             "background: #f1f1f1 url('" + webpg.utils.escape(webpg.utils.resourcePath) + 
             "skin/images/menumask.png') repeat-x; border-collapse: separate;" +
-            "color:#444; height:24px; margin: 1px 0 0 1px; display: block;" +
+            "color:#444; height:24px; margin: 1px -1px 0 1px; display: block;" +
             "border: 1px solid gainsboro; top: 27px; clear: left; line-height: 12px;" +
             "left: -1px; text-shadow: none; text-decoration: none; overflow: visible;" +
-            "box-sizing: content-box;");
+            "box-sizing: content-box; white-space: normal;");
 
         toolbar.setAttribute("class", "webpg-toolbar");
         var offset = (element.scrollHeight < element.offsetHeight) ?
@@ -991,12 +994,12 @@ webpg.inline = {
         toolbar.style.width = element.offsetWidth - 16 - offset + "px";
         var pad = ((element.offsetWidth - element.clientWidth) > 0) ? 16 : 0;
 
-        if (element.parentElement.offsetWidth < parseInt(toolbar.style.width))
+
+        if (element.parentElement.offsetWidth > 0 &&
+            element.parentElement.offsetWidth < parseInt(toolbar.style.width))
             toolbar.style.width = element.parentElement.offsetWidth + "px";
 
         element.style.width = parseInt(toolbar.style.width) + pad + offset + "px";
-        element.style.minWidth = parseInt(toolbar.style.width) + pad + offset + "px";
-        element.style.maxWidth = parseInt(toolbar.style.width) + pad + offset + "px";
 
         var paddingTop = (webpg.utils.detectedBrowser.vendor === 'mozilla') ?
             "28px" : "30px";
@@ -1156,10 +1159,10 @@ webpg.inline = {
             offset = (webpg.utils.detectedBrowser.vendor === 'mozilla') ?
                 1 : offset;
 
-            toolbar.style.width = element.offsetWidth - 10 - offset + "px";
-            if (element.parentElement.offsetWidth < parseInt(toolbar.style.width))
-                toolbar.style.width = element.parentElement.offsetWidth - 11 + "px";
-
+            if (element.parentElement.offsetWidth - 10 <= element.offsetWidth - 10 - offset)
+                toolbar.style.width = element.parentElement.offsetWidth - 10 + "px";
+            else
+                toolbar.style.width = element.offsetWidth - 10 - offset + "px";
         }
 
         webpg.jq([element, toolbar]).bind('change keydown keyup mousemove mouseover mouseenter mouseleave',
@@ -1184,7 +1187,13 @@ webpg.inline = {
             var element_value = null;
 
             if (element.offsetLeft != toolbar.offsetLeft && element.style.display !== 'none') {
-                toolbar.style.marginLeft = element.offsetLeft - 9;
+                if (webpg.jq(element).css('position') === 'relative')
+                  toolbar.style.zIndex = '1';
+
+                if (webpg.jq(element).parent().css('position') === 'relative')
+                  toolbar.style.marginLeft = element.offsetLeft + 1;
+                else
+                  toolbar.style.marginLeft = element.offsetLeft - 9;
             }
 
             if (element.nodeName === "TEXTAREA")
