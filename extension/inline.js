@@ -79,20 +79,14 @@ webpg.inline = {
         } else {
             // Otherwise, use the MutationObserver
             // create an observer instance
-            //console.log("Using MutationObserver");
-            var observer = new MutationObserver(function(mutations) {
+            console.log("Using MutationObserver");
+
+            if (webpg.inline.observer !== undefined)
+              webpg.inline.observer.disconnect();
+
+            webpg.inline.observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
-                    if (mutation.target.nodeName === "IFRAME" && mutation.target.className.indexOf("webpg-") === -1) {
-                        try {
-                            mutation.target.contentDocument.documentElement.removeEventListener("contextmenu",
-                                webpg.overlay.contextHandler, true);
-                            mutation.target.contentDocument.documentElement.addEventListener("contextmenu",
-                                webpg.overlay.contextHandler, true);
-                        } catch (err) {
-                            console.log(err.message);
-                        }
-                        webpg.inline.PGPDataSearch(mutation.target.contentDocument, true, false, mutation.target);
-                    } else if (doc.location.host.indexOf("mail.google.com") > -1) {
+                    if (doc.location.host.indexOf("mail.google.com") > -1) {
                         try {
                             doc.querySelectorAll(".Bu.y3")[0].style.display = "none";
                             doc.querySelectorAll(".AT")[0].style.display = "none";
@@ -109,6 +103,16 @@ webpg.inline = {
                                 webpg.inline.PGPDataSearch(doc, false, true, mutation.target);
                             }
                         }
+                    } else if (mutation.target.nodeName === "IFRAME" && mutation.target.className.indexOf("webpg-") === -1) {
+                        try {
+                            mutation.target.contentDocument.documentElement.removeEventListener("contextmenu",
+                                webpg.overlay.contextHandler, true);
+                            mutation.target.contentDocument.documentElement.addEventListener("contextmenu",
+                                webpg.overlay.contextHandler, true);
+                        } catch (err) {
+                            console.log(err.message);
+                        }
+                        webpg.inline.PGPDataSearch(mutation.target.contentDocument, true, false, mutation.target);
                     } else {
                         if (mutation.addedNodes.length > 0) {
                             if (mutation.addedNodes[0].textContent.search(/-----BEGIN PGP.*?-----/gim) > -1)
@@ -124,12 +128,7 @@ webpg.inline = {
             var doc = (webpg.utils.detectedBrowser.vendor === 'mozilla') ? content.document :
                 (webpg.inline.doc) ? webpg.inline.doc : document;
 
-            try {
-                observer.disconnect();
-                observer.observe(doc, config);
-            } catch (err) {
-                console.log(err.message);
-            }
+            webpg.inline.observer.observe(doc, config);
         }
     },
 

@@ -931,7 +931,6 @@ webpg.gmail = {
 
         // A normal document load
         } else {
-            console.log("mutation event");
             var dW = webpg.gmail.getCanvasFrameDocument()
                 .querySelectorAll("div>.dW.E>.J-Jw, div>.nH.nH");
 
@@ -963,6 +962,7 @@ webpg.utils.sendRequest({
             // Retrieve a reference to the appropriate window object
             // Check if the MutationObserver is not present
             if (typeof(MutationObserver) === 'undefined') {
+                console.log("Using depreciated DOMSubtreeModified");
                 if (webpg.utils.detectedBrowser.vendor === "mozilla") {
                     webpg.gmail.appcontent = document.getElementById("appcontent") || document;
                     webpg.gmail.appcontent.addEventListener("DOMContentLoaded",
@@ -984,7 +984,11 @@ webpg.utils.sendRequest({
             } else {
                 // Otherwise, use the MutationObserver
                 // create an observer instance
-                var observer = new MutationObserver(function(mutations) {
+
+                if (webpg.gmail_observer !== undefined)
+                  webpg.gmail_observer.disconnect();
+
+                webpg.gmail_observer = new MutationObserver(function(mutations) {
                     mutations.forEach(function(mutation) {
                         webpg.gmail.gmailChanges(mutation);
                     });
@@ -1000,15 +1004,14 @@ webpg.utils.sendRequest({
                             // We need to filter based on the URL for mozilla, as we do
                             //  not have the option to set the overlay by URL
                             if (aEvent.originalTarget.location.host === "mail.google.com") {
-                                observer.disconnect();
-                                observer.observe(webpg.gmail.getCanvasFrameDocument(), config);
+                                webpg.gmail_observer.observe(webpg.gmail.getCanvasFrameDocument(), config);
                                 webpg.gmail.appcontent.removeEventListener("DOMContentLoaded", arguments.callee, true);
                             }
                         },
-                        true
+                        false
                     );
                 } else {
-                    observer.observe(document.querySelector('body'), config);
+                    webpg.gmail_observer.observe(document.querySelector('body'), config);
                 }
             }
         }
