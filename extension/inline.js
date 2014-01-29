@@ -86,7 +86,17 @@ webpg.inline = {
 
             webpg.inline.observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
-                    if (doc.location.host.indexOf("mail.google.com") > -1) {
+                    if (mutation.target.nodeName === "IFRAME" && mutation.target.className.indexOf("webpg-") === -1) {
+                        try {
+                            mutation.target.contentDocument.documentElement.removeEventListener("contextmenu",
+                                webpg.overlay.contextHandler, true);
+                            mutation.target.contentDocument.documentElement.addEventListener("contextmenu",
+                                webpg.overlay.contextHandler, true);
+                        } catch (err) {
+                            console.log(err.message);
+                        }
+                        webpg.inline.PGPDataSearch(mutation.target.contentDocument, true, false, mutation.target);
+                    } else if (doc.location.host.indexOf("mail.google.com") > -1) {
                         try {
                             doc.querySelectorAll(".Bu.y3")[0].style.display = "none";
                             doc.querySelectorAll(".AT")[0].style.display = "none";
@@ -103,16 +113,6 @@ webpg.inline = {
                                 webpg.inline.PGPDataSearch(doc, false, true, mutation.target);
                             }
                         }
-                    } else if (mutation.target.nodeName === "IFRAME" && mutation.target.className.indexOf("webpg-") === -1) {
-                        try {
-                            mutation.target.contentDocument.documentElement.removeEventListener("contextmenu",
-                                webpg.overlay.contextHandler, true);
-                            mutation.target.contentDocument.documentElement.addEventListener("contextmenu",
-                                webpg.overlay.contextHandler, true);
-                        } catch (err) {
-                            console.log(err.message);
-                        }
-                        webpg.inline.PGPDataSearch(mutation.target.contentDocument, true, false, mutation.target);
                     } else {
                         if (mutation.addedNodes.length > 0) {
                             if (mutation.addedNodes[0].textContent.search(/-----BEGIN PGP.*?-----/gim) > -1)
@@ -961,6 +961,16 @@ webpg.inline = {
 
     addWebPGMenuBar: function(element) {
         var _ = webpg.utils.i18n.gettext;
+
+        // Check is this element already has a MenuBar.
+        if (element.hasOwnProperty("webpgmenubar") === true)
+          return;
+
+        // Indicate that a menubar for this element has been added. This will
+        //  prevent WebPG from adding a MenuBar when an element is injected
+        //  as a sibling of the textarea.
+        element.webpgmenubar = true;
+
         // Store the elements display setting in case modifying the dom
         //  puts the element into an order that would hide it.
         var original_display = element.style.display;
