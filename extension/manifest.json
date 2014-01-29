@@ -15,7 +15,7 @@
       "dialog.html",
       "dialog.js",
       "skin/*",
-      "jquery/js/jquery-1.10.2.min.map"
+      "resources/jquery/js/jquery-1.10.2.min.map"
   ],
   "background": {
       "scripts": [
@@ -36,7 +36,6 @@
   },
   "permissions": [
        "<all_urls>",
-       "tabs",
        "notifications",
        "contextMenus",
        "webRequest",
@@ -46,8 +45,8 @@
     {
       "matches": ["<all_urls>"],
       "js": [
-        "jquery/js/jquery-1.10.2.min.js",
-        "jquery/js/jquery-ui-1.10.3.custom.min.js",
+        "resources/jquery/js/jquery-1.10.2.min.js",
+        "resources/jquery/js/jquery-ui-1.10.3.custom.min.js",
         "constants.js",
         "utils.js",
         "inline.js",
@@ -59,7 +58,6 @@
     {
       "matches": [ "https://mail.google.com/*", "http://mail.google.com/*" ],
       "js": [
-        "xoauth2.js",
         "gmail.js"
       ],
       "css": ["skin/gmail_overlay.css"],

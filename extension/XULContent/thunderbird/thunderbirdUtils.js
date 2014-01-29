@@ -111,7 +111,7 @@ webpg.thunderbird.utils = {
     loadjQuery: function(wnd) {
         var loader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
             .getService(Components.interfaces.mozIJSSubScriptLoader);
-        loader.loadSubScript("chrome://webpg-firefox/content/jquery/js/jquery-1.10.2.min.js", wnd);
+        loader.loadSubScript("chrome://webpg-firefox/content/resources/jquery/js/jquery-1.10.2.min.js", wnd);
         var jQuery = wnd.jQuery.noConflict(true);
         return jQuery;
     },

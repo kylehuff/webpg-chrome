@@ -1,6 +1,27 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
 
+webpg.globalTester = (function(){
+    var fields = {};
+    var before = function(w){
+        for(var field in w){
+            fields[field] = true;
+        };
+    };
+
+    var after = function(w){
+        for(var field in w){
+            if(!fields[field]){
+                 console.log(field + " has been added");
+            }            
+        };
+
+    };
+    return {before: before, after:after};
+}());
+
+webpg.globalTester.before(window);
+
 /*
     Class: webpg.constants
         Holds all of the contant variables required between pages

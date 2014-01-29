@@ -159,6 +159,9 @@ webpg.gmail = {
 
         webpg.gmail.removeStatusLine();
         
+        // Notification -
+        //  webpg.jq(".J-J5-Ji .vh").first().text("Your message has been sent using WebPG").css('visibility', 'visible')
+        
         // Cycle through the available actions until we find the selected
         //  action
         switch (webpg.gmail.action) {

@@ -169,8 +169,8 @@ webpg.preferences = {
                 Provides method to get the preference item
         */
         get: function() {
-            encrypt_to = webpg.plugin.gpgGetPreference('encrypt-to').value;
-            default_key = webpg.plugin.gpgGetPreference('default-key').value;
+            var encrypt_to = webpg.plugin.gpgGetPreference('encrypt-to').value;
+            var default_key = webpg.plugin.gpgGetPreference('default-key').value;
             return (default_key !== "" && encrypt_to === default_key) ? true : false;
         },
 
@@ -186,7 +186,7 @@ webpg.preferences = {
             if (!value) {
                 webpg.plugin.gpgSetPreference('encrypt-to', 'blank');
             } else {
-                default_key = webpg.preferences.default_key.get();
+                var default_key = webpg.preferences.default_key.get();
                 webpg.plugin.gpgSetPreference('encrypt-to', default_key);
             }
         }
@@ -591,6 +591,38 @@ webpg.preferences = {
 //            }
 
             return { 'error': false, 'group': group, 'modified': true};
+        },
+
+        delete_group: function(group) {
+          var gpg_groups = webpg.plugin.gpgGetPreference("group");
+          if (gpg_groups.value !== undefined)
+            groups = gpg_groups.value.split(", ");
+          else
+            return false;
+
+          // Clear all the groups, and we will add them back without the group
+          //  specified.
+          webpg.plugin.gpgSetPreference("group", "");
+
+          for (var rgroup in groups) {
+            // Break out the group name it's values
+            groups[rgroup].replace(
+              new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+              function($0, $1, $2, $3) {
+                // Set the new group value
+                if ($1.trim() !== group)
+                  webpg.plugin.gpgSetGroup($1.trim(), $3.trim());
+                else
+                  console.log("Removed '" + $1.trim() + "' from gpg.conf");
+              }
+            );
+          }
+          groups = JSON.parse(webpg.localStorage.getItem("groups"));
+          if (groups.hasOwnProperty(group)) {
+            delete groups[group];
+            webpg.localStorage.setItem("groups", JSON.stringify(groups));
+            console.log("Removed '" + group + "' from localStorage");
+          }
         },
 
         /*

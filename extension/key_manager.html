@@ -1,635 +1,321 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="webpg.keymanager">
 <head>
-<title>WebPG Key Manager</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link type="text/css" href="jquery/css/dot-luv/jquery-ui-1.10.3.custom.css" rel="stylesheet" />
-<script type="text/javascript" src="jquery/js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="jquery/js/jquery-ui-1.10.3.custom.min.js"></script>
-<script type="text/javascript" src="constants.js"></script>
-<script type="text/javascript" src="utils.js"></script>
-<script type="text/javascript" src="preferences.js"></script>
-<script type="text/javascript" src="key_manager.js"></script>
-<script type="text/javascript" src="jquery/js/jquery.passwordStrength.js"></script>
-<style>
-body{
-    font:62.5% "Trebuchet MS", sans-serif;
-    min-width:750px;
-    margin:0;
-    padding:0;
-    background-color:#000;
-}
-#tabs {
-    min-height: 90%;
-}
-.ui-tabs .ui-tabs-hide {
-     display:none;
-}
-.ui-datepicker {
- z-index:9999 !important;
-}
-#tabs {
-    margin: 0;
-}
-#header-image {
-    height:48px;
-    display:none;
-    width:48px;
-    padding-right:6px;
-}
-#private_keylist {
-    min-height:400px;
-}
-
-.trust-level-desc {
-    min-height:30px;
-    border:1px solid #ddd;
-    font-family:sans-serif;
-    color:white;
-    padding:10px;
-    text-shadow:#999 1px 1px 1px;
-    border-radius:8px;
-    -moz-border-radius:8px;
-    -webkit-border-radius:8px;
-    background:#0078a3  url('skin/images/menumask.png') repeat-x;
-    width:600px;
-}
-.trust-level-desc:hover {
-    background-color:#1C1;
-}
-#trust-level-desc .selected {
-    background-color:#F58400;
-}
-#trust-level-desc .selected .trust-level {
-    color:#000;
-    text-shadow:#FFE 1px 1px 1px;
-}
-.trust-level {
-    font-size:32px;
-    padding-right:6px;
-    float:left;
-}
-.trust-desc {
-    clear:right;
-}
-.invalid-key .ui-accordion-header a span, .disabled .ui-accordion-header a span {
-    text-decoration:line-through;
-    color:#E31;
-}
-
-.keyoption-help-text {
-    text-decoration:none;
-}
-.uidlist, .subkeylist {
-    padding-right:10px;
-    height: auto !important;
-}
-.ui-accordion .ui-accordion-content {
-    overflow:visible;
-}
-.uid, .subkey {
-    width:100%;
-}
-.uid-line {
-    margin:0;
-    width:25%;
-    min-width:200px;
-    display:inline-table;
-}
-.signature-text-box {
-    float:left;
-    clear:right;
-    width:80%;
-    white-space:nowrap;
-}
-div.uid-options {
-    background-color:#eee;
-    border-radius:6px 6px 0 0;
-    -moz-border-radius:6px 6px 0 0;
-    -webkit-border-radius:6px 6px 0 0;
-    box-shadow:1px 1px 10px #888;
-    -moz-box-shadow:1px 1px 10px #888;
-    -webkit-box-shadow:1px 1px 10px #888;
-}
-span.uid-options {
-    font-size:12px;
-    display:inline-table;
-    margin-top: 9px;
-}
-.uid-options-line span.uid-options {
-    display:inline;
-}
-span.uid-options label {
-    display: block;
-    margin-left: 2px;
-}
-.keyphoto {
-    float: right;
-    position: absolute;
-    right: 60px;
-    margin-top: 31px;
-    height: 80px;
-    max-width:120px;
-    border: 2px solid gainsboro;
-    box-shadow:#666 2px 2px 2px;
-    -moz-box-shadow:#666 2px 2px 2px;
-    -webkit-box-shadow:#666 2px 2px 2px;
-}
-.private-key-option-list, .public-key-option-list {
-    padding:2px;
-}
-.trust {
-    right:0;
-    float:right;
-    position:relative;
-    text-decoration:none;
-    clear:right;
-}
-h3 {
-    white-space: nowrap;  
-}
-h3 .trust {
-    z-index:1000;
-    left: 10px;
-    top:-8px;
-    height:22px;
-}
-@-moz-document url-prefix() {
-  h3 .trust {
-    top:-24px;
-  }
-}
-.keydetails {
-    font-size:14px;
-    font-weight:bold;
-    width:100%;
-    border:solid 1px #181;
-    padding:4px 0 4px 8px;
-    margin:2px 2px 12px -2px;
-    background:#0078a3  url('skin/images/menumask.png') repeat-x;
-    text-align:left;
-    color:#ffffff;
-    overflow-x:hidden;
-}
-.invalid-key .keydetails, .disabled .keydetails, .sig-revoked {
-    background-color:#F31;
-    border:solid 1px #F11;
-}
-.keydetails .dh {
-    color:#000;
-    font-size:14px;
-    display:inline-table;
-    padding-top: 8px;
-}
-.keydetails .dh:first-child {
-    padding-top: 0;
-}
-.keydetails hr {
-    margin:0;
-    margin-top: 10px;
-    right:0;
-    position:relative;
-    top:-10px;
-    padding:0;
-}
-.keydetails hr.rtl {
-    margin:0;
-}
-.keydetails h4 {
-    color:#fff;
-    margin:0;
-    display:inline;
-    text-shadow:#000 1px 1px 1px;
-}
-.keydetails span {
-    margin-right:16px;
-    padding-right:8px;
-}
-.keydetails span.ui-button-text {
-    font-size:12px;
-    text-align:center;
-    margin-right:0;
-}
-span.trust .ui-button-text {
-    padding:4px;
-    text-align:left;
-    margin:0;
-    font-size:12px;
-    z-index:800;
-}
-@-moz-document url-prefix() {
-  span.trust .ui-button-text {
-    padding-top: 6px;
-  }
-}
-.enable-check-text span {
-    min-width: 50px;
-    position: relative;
-    top: 2px;
-}
-@-moz-document url-prefix() {
-    .enable-check-text span {
-        top:0;
-    }
-}
-.ui-button-icon-primary {
-    margin-left:0;
-}
-.signature-box {
-    color:#000;
-    font-family:sans-serif;
-    margin-top:5px;
-    background:#fff;
-    min-width:240px;
-    font-size:10px;
-    display:inline-block;
-    padding:8px;
-    margin-right:20px;
-    border-radius:4px;
-    -moz-border-radius:4px;
-    -webkit-border-radius:4px;
-    box-shadow:#666 2px 2px 2px;
-    -moz-box-shadow:#666 2px 2px 2px;
-    -webkit-box-shadow:#666 2px 2px 2px;
-}
-.sign-revoked {
-    background:#f8f;
-}
-.signature-box img {
-    margin-top:20px;
-    float:left;
-    height:32px;
-}
-.signature-box input {
-    float:right;
-    position:relative;
-    bottom:0;
-}
-.signature-box span {
-    font-size:120%;
-    margin-left:10px;
-    clear:both;
-    display:block;
-}
-.signature-keyid {
-
-}
-.help-text {
-    padding:0 0 0 12px;
-    font-size:12px;
-}
-#genkey-form input[type=text], input[type=password] {
-    width:250px;
-}
-#genkey-status, #gensubkey-status, #adduid-status, #export-dialog-msg {
-    padding:2px 0 2px 12px;
-    display:none;
-    width:98.2%;
-    background-color:#FFAF0F;
-    color:#000;
-}
-.input-error {
-    border:2px solid #f20;
-}
-.error-text {
-    color:#f20;
-}
-#list, #import-list {
-    padding-top:20px;
-}
-#list ul, #import-list ul {
-    list-style:none;
-    width: 95%;
-}
-ul.expand { padding:0; margin:0; list-style:none; }
-ul.expand li { padding:0; margin:0; }
-ul.expand li.trigger.top { margin-top:0; }
-ul.expand li.trigger
-{
-    background:url(skin/images/expand-collapse.gif) 0 3px no-repeat;
-    cursor:pointer;
-    padding:0 0 0 15px;
-    margin:7px 0 0 0;
-}
-ul.expand li.trigger h4
-{
-    color:#666;
-}
-ul.expand li.trigger.open h4
-{
-    color:inherit;
-}
-ul.expand li.trigger.open
-{
-    background-position:0 -997px;
-}
-ul.expand ul
-{
-    list-style:disc inside;
-    line-height:18px;
-    padding:0 0 6px 10px;
-}
-.option ul {
-    padding:0;
-    list-style:none;
-}
-.ui-add-hover, .ui-add-hover option {
-    cursor:pointer;
-}
-.ui-datepicker-calendar th {
-    color:#fff;
-}
-.subkey-algo {
-    text-align: center;
-}
-#keyexp-buttonset {
-    text-align: center;
-}
-.webpg-info-version {
-    font-size:12px;
-    padding:6px 10px 0 0;
-    float:right;
-    margin-left:2px;
-    display:inline;
-    text-shadow:1px 1px 1px #000000;
-}
-#import-key-btn {
-    left: 22px;
-    height: 25px;
-}
-.pubkey-search {
-    width: 100%;
-}
-.pubkey-search label {
-    position:absolute;
-    right:328px;
-    margin-top:4px;
-    font-size:1em;
-    font-weight:bold;
-}
-.pubkey-search input {
-    position:absolute;
-    right:20px;
-    width:300px;
-}
-#window_functions {
-    width:100%;
-    text-align:right;
-    clear:left;
-}
-#error_help {
-    text-align: center;
-    display: inline;
-    text-shadow: #000 1px 1px 1px;
-    color: #fff;
-    font-size: 12px;
-}
-#help_text {
-    display: block;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    z-index: 10;
-    padding: 8px 5px 8px 5px;
-    margin-right: -5px;
-    background-color: #ff6600;
-    min-width: 200px;
-}
-.subkey-info {
-  height: auto !important;
-}
-.uid-info {
-  height: auto !important;
-}
-.photo-info {
-  height: auto !important;
-}
-</style>
+  <title>WebPG Key Manager</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link type="text/css" href="skin/keymanager.css" rel="stylesheet" />
+  <link type="text/css" href="resources/jquery/css/dot-luv/jquery-ui-1.10.3.custom.css" rel="stylesheet" />
+  <link type="text/css" href="resources/jquery/css/jquery.multiselect.css" rel="stylesheet" />
+  <link type="text/css" href="resources/jquery/css/jquery.multiselect.filter.css" rel="stylesheet" />
+  <script type="text/javascript" src="resources/jquery/js/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="resources/jquery/js/jquery-ui-1.10.3.custom.min.js"></script>
+  <script type="text/javascript" src="resources/jquery/js/jquery.passwordStrength.js"></script>
+  <script type="text/javascript" src="resources/jquery/js/jquery.multiselect.js"></script>
+  <script type="text/javascript" src="resources/jquery/js/jquery.multiselect.filter.js"></script>
+  <script type="text/javascript" src="resources/angularjs/angular.min.js"></script>
+  <script type="text/javascript" src="resources/angularjs/angular-ui.min.js"></script>
+  <script type="text/javascript" src="constants.js"></script>
+  <script type="text/javascript" src="utils.js"></script>
+  <script type="text/javascript" src="preferences.js"></script>
+  <script type="text/javascript" src="key_manager.js"></script>
 </head>
-<body>
-<div id="tabs">
+
+<body ng-controller="keymanagerCtrl">
+<!--  <div style="height: 64px; witdth:100%; background-color:#fff; border: 2px solid #18f;">&nbsp;</div>-->
+  <div data-keymanager-tabs id="tabs">
     <ul>
-        <li><a id="tab-2-btn" href="#tabs-2"></a></li>
-        <li><a id="tab-3-btn" href="#tabs-3"></a></li>
-        <li><a id="tab-4-btn" href="#tabs-4"></a></li>
-        <span class="webpg-info-version"><span id="webpg-info-version-string"></span>
+      <li><a id="tab-privatekeys" href="#tabs-2"></a></li>
+      <li><a id="tab-publickeys" href="#tabs-3"></a></li>
+      <li><a id="tab-search" href="#tabs-4"></a></li>
+      <span class="webpg-info-version"><span id="webpg-info-version-string"></span>
     </ul>
-    <div id="tabs-2">
-        <div id="private_keylist">
-            <div class="ui-accordion-left"></div>
-        </div>
-    </div>
-    <div id="tabs-3">
+    <div id="tabs-2" ng-init="type='private'">
+      <div id="private_keylist" ng-controller="keylistCtrl">
         <div class='pubkey-search'>
-            <label id="pubkey-search-lbl" for="pubkey-search"></label>
-            <input class="ui-corner-all ui-widget ui-state-default" id="pubkey-search"/><br/><br/>
+          <label class="pubkey-search-lbl" for="prikey-search"></label>
+          <input type="search" ng-model="query" ng-change="search()" class="ui-corner-all ui-widget ui-state-default" id="prikey-search" placeholder="i.e. 'John Doe' or 'size:4096'" />
+          <br/>
+          <br/>
         </div>
-        <div id="public_keylist">
-            <div class="ui-accordion-left"></div>
+
+        <div class="primary_key" ng-class="[key.revoked?'invalid-key':key.expired?'invalid-key':key.disabled?'invalid-key':'',openkey===key.id?'openkey':'']"  ng-repeat="key in pagedItems[currentPage] track by $index | orderBy:sortingOrder:reverse">
+          <primarykey/>
         </div>
+
+        <div class="pagination pull-right">
+          <ul>
+            <li ng-class="{disabled: currentPage == 0}">
+              <a href ng-click="prevPage()">Prev</a>
+            </li>
+            <li ng-repeat="n in range(pagedItems.length)" ng-class="{'active': n == currentPage}" ng-click="setPage()">
+              <a href ng-bind="n + 1">1</a>
+            </li>
+            <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+              <a href ng-click="nextPage()">Next</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+    <div id="tabs-3" ng-init="type='public'">
+      <div id="public_keylist" ng-controller="keylistCtrl">
+        <div class='pubkey-search'>
+          <label class="pubkey-search-lbl" for="pubkey-search"></label>
+          <input type="search" ng-model="query" ng-change="search()" class="ui-corner-all ui-widget ui-state-default" id="pubkey-search" placeholder="i.e. 'John Doe' or 'size:4096'" />
+          <br/>
+          <br/>
+        </div>
+
+        <div class="primary_key" ng-class="[key.revoked?'invalid-key': key.expired?'invalid-key': key.disabled?'invalid-key':'']" ng-repeat="key in pagedItems[currentPage] track by $index | orderBy:sortingOrder:reverse">
+          <primarykey/>
+        </div>
+
+        <div class="pagination pull-right">
+          <ul>
+            <li ng-class="{disabled: currentPage == 0}">
+              <a href ng-click="prevPage()">Prev</a>
+            </li>
+            <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()">
+              <a href ng-class="{'active': n != currentPage}" ng-bind="n + 1">1</a>
+            </li>
+            <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+              <a href ng-click="nextPage()">Next</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
     </div>
     <div id="tabs-4">
-        <div class='pubkey-search'>
-            <label id="keyserver-search-lbl" for="keyserver-search"></label>
-            <input class="ui-corner-all ui-widget ui-state-default" id="keyserver-search"/><br/><br/>
-        </div>
-        <div id="import-body">
-            <div class="ui-accordion-left"></div>
-        </div>
+      <div class='pubkey-search'>
+        <label id="keyserver-search-lbl" for="keyserver-search"></label>
+        <input class="ui-corner-all ui-widget ui-state-default" id="keyserver-search" />
+        <br/>
+        <br/>
+      </div>
+      <div id="import-body">
+        <div class="ui-accordion-left"></div>
+      </div>
     </div>
-    <br/>
-    <div id="window_functions">
-        <br/><br/><input type='button' id='close' value='Finished'>
-    </div>
-</div>
-<div id="revkey-confirm" style="display:none;" title="Revoke this Key?">
-    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revkey-text'></span></p>
-</div>
-<div id="revuid-confirm" style="display:none;" title="Revoke this UID?">
-    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revuid-text'></span></p>
-</div>
-<div id="revsig-confirm" style="display:none;" title="Revoke this Signature?">
-    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revsig-text'></span></p>
-</div>
-<div id="delsig-confirm" style="display:none;" title="Delete this Signature?">
-    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='delsig-text'></span></p>
-</div>
-<div id="deluid-confirm" style="display:none;" title="Delete this UID?">
-    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='deluid-text'></span></p>
-</div>
-<div id="delphoto-confirm" style="display:none;" title="Delete this Photo?">
-    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='delphoto-text'></span></p>
-</div>
-<div id="keyexp-dialog" style="display:none;" title="Change Key Expiration">
-    <p><span class="ui-icon ui-icon-calendar" style="float:left; margin:0 7px 20px 0;"></span><span id='keyexp-text'></span>
-    <div id="keyexp-buttonset" style="margin-bottom:4px;">
-        <input type="radio" name="keyexp-type-radio" id="keyexp-never"/><label id="keyexp-never" for="keyexp-never"></label>
-        <input type="radio" name="keyexp-type-radio" id="keyexp-ondate"/><label id="keyexp-ondate" for="keyexp-ondate"></label>
-    </div>
-    <div style="margin:0 32px;"><div id="keyexp-date-input"></div></div></p>
-</div>
-<div id="delete-key-dialog-confirm" style="display:none;" title="Delete this key?">
-	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><span id="delete-key-confirm-text"></span></p>
-</div>
-<div id="createsig-dialog" style="display:none;" title="Sign this UID">
-    <form id="createsig-form" style="width:100%; height:100px;">
-
-    </form>
-</div>
-<div id="genkey-dialog" style="display:none;" title="Key Details" style="font-size:14px;">
-    <p>
-        <span id='genkey-text'>
-        </span>
-        <form id="genkey-form" style="width:100%; height:100px;">
-             <label for='uid_0_name' style='display:inline-block;width:128px;'></label>
-             <input type='text' class="ui-corner-all ui-widget ui-state-default" id='uid_0_name' name='uid_0_name'/><span class='help-text'>i.e.: John Smith</span><br/>
-            <label for='uid_0_email' style='display:inline-block;width:128px;'></label>
-            <input type='text' class="ui-corner-all ui-widget ui-state-default" id='uid_0_email' name='uid_0_email'/><span class='help-text'>i.e.: john.smith@example.com</span><br/>
-            <label for='uid_0_comment' style='display:inline-block;width:128px;'></label>
-            <input type='text' class="ui-corner-all ui-widget ui-state-default" id='uid_0_comment' name='uid_0_comment'/><span class='help-text'>i.e.: for XYZ use only</span><br/>
-            <label for='passphrase'  style='display:inline-block;width:132px;' ></label><input class="passphrase ui-corner-all ui-widget ui-state-default" type=password name="passphrase" id="passphrase"/><br/>
-            <label for='pass_repeat' style='display:inline-block;width:132px;'></label><input class="pass_repeat ui-corner-all ui-widget ui-state-default" type=password name="pass_repeat" id="pass_repeat"/>
-            <ul class="expand">
-                <li class="trigger"><h4><strong></strong></h4></li>
-                <li>
-                    <ul>
-                        <li class='option'>
-                            <label for='publicKey_algo'></label>
-                            <select id='publicKey_algo' class="key-algo ui-add-hover ui-corner-all ui-widget ui-state-default">
-                                <option value="DSA" class="ui-state-default">DSA</option>
-                                <option value="RSA" class="ui-state-default" selected>RSA</option>
-                            </select>
-                        </li>
-                        <li class='option'>
-                            <label for='publicKey_size'></label>
-                            <select id='publicKey_size' class="key-size ui-add-hover ui-corner-all ui-widget ui-state-default">
-                                <option valud="512" class="ui-state-default">512</option>
-                                <option value="1024" class="ui-state-default">1024</option>
-                                <option value="2048" class="ui-state-default" selected>2048</option>
-                                <option value="3072" class="ui-state-default">3072</option>
-                                <option value="4096" class="ui-state-default">4096</option>
-                            </select>
-                        </li>
-                        <hr>
-                        <li class='option'>
-                            <label for='subKey_algo'></label>
-                            <select id='subKey_algo' class="key-algo ui-add-hover ui-corner-all ui-widget ui-state-default">
-                                <option value="DSA" class="ui-state-default">DSA</option>
-                                <option value="RSA" class="ui-state-default" selected>RSA</option>
-                                <option value="ELG-E" class="ui-state-default">ElGamel</option>
-                            </select>
-                        </li>
-                        <li class='option'>
-                            <label for='subKey_size'></label>
-                            <select id='subKey_size' class="key-size ui-add-hover ui-button ui-corner-all ui-widget ui-state-default">
-                                <option value="512" class="ui-state-default">512</option>
-                                <option value="1024" class="ui-state-default">1024</option>
-                                <option value="2048" class="ui-state-default" selected>2048</option>
-                                <option value="3072" class="ui-state-default">3072</option>
-                                <option value="4096" class="ui-state-default">4096</option>
-                            </select>
-                        </li>
-                        <hr>
-                        <li class='option'>
-                            <label for='key_expire'></label>
-                            <select id='key_expire' class="key-expire ui-add-hover ui-corner-all ui-widget ui-state-default">
-                                <option value="0" class="ui-state-default">Never</option>
-                                <option value="30" class="ui-state-default">30 days</option>
-                                <option value="90" class="ui-state-default" selected>90 days</option>
-                                <option value="365" class="ui-state-default">1 year</option>
-                            </select>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </form>
+  </div>
+  <div id="revkey-confirm" style="display:none;" title="Revoke this Key?">
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revkey-text'></span>
     </p>
-</div>
-<div id="gensubkey-dialog" style="display:none;" title="Key Details" style="font-size:14px;">
+  </div>
+  <div id="revuid-confirm" style="display:none;" title="Revoke this UID?">
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revuid-text'></span>
+    </p>
+  </div>
+  <div id="revsig-confirm" style="display:none;" title="Revoke this Signature?">
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='revsig-text'></span>
+    </p>
+  </div>
+  <div id="delsig-confirm" style="display:none;" title="Delete this Signature?">
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='delsig-text'></span>
+    </p>
+  </div>
+  <div id="deluid-confirm" style="display:none;" title="Delete this UID?">
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='deluid-text'></span>
+    </p>
+  </div>
+  <div id="delphoto-confirm" style="display:none;" title="Delete this Photo?">
+    <p><span class="ui-icon ui-icon-help" style="float:left; margin:0 7px 20px 0;"></span><span id='delphoto-text'></span>
+    </p>
+  </div>
+  <div id="keyexp-dialog" style="display:none;" title="Change Key Expiration">
+    <p><span class="ui-icon ui-icon-calendar" style="float:left; margin:0 7px 20px 0;"></span><span id='keyexp-text'></span>
+      <div id="keyexp-buttonset" style="margin-bottom:4px;">
+        <input type="radio" name="keyexp-type-radio" id="keyexp-never" />
+        <label id="keyexp-never" for="keyexp-never"></label>
+        <input type="radio" name="keyexp-type-radio" id="keyexp-ondate" />
+        <label id="keyexp-ondate" for="keyexp-ondate"></label>
+      </div>
+      <div style="margin:0 32px;">
+        <div id="keyexp-date-input"></div>
+      </div>
+    </p>
+  </div>
+  <div id="delete-key-dialog-confirm" style="display:none;" title="Delete this key?">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><span id="delete-key-confirm-text"></span>
+    </p>
+  </div>
+  <div id="createsig-dialog" style="display:none;" title="Sign this UID">
+    <form id="createsig-form" style="width:100%; height:100px;"></form>
+  </div>
+  <div id="genkey-dialog" style="display:none;" title="Key Details" style="font-size:14px;">
     <p>
-        <span id='gensubkey-text'>
+      <span id='genkey-text'>
         </span>
-        <form id="gensubkey-form" style="width:100%; height:100px;">
+      <form id="genkey-form" style="width:100%; height:100px;">
+        <label for='uid_0_name' style='display:inline-block;width:128px;'></label>
+        <input type='text' class="ui-corner-all ui-widget ui-state-default" id='uid_0_name' name='uid_0_name' /><span class='help-text'>i.e.: John Smith</span>
+        <br/>
+        <label for='uid_0_email' style='display:inline-block;width:128px;'></label>
+        <input type='text' class="ui-corner-all ui-widget ui-state-default" id='uid_0_email' name='uid_0_email' /><span class='help-text'>i.e.: john.smith@example.com</span>
+        <br/>
+        <label for='uid_0_comment' style='display:inline-block;width:128px;'></label>
+        <input type='text' class="ui-corner-all ui-widget ui-state-default" id='uid_0_comment' name='uid_0_comment' /><span class='help-text'>i.e.: for XYZ use only</span>
+        <br/>
+        <label for='passphrase' style='display:inline-block;width:132px;'></label>
+        <input class="passphrase ui-corner-all ui-widget ui-state-default" type=password name="passphrase" id="passphrase" />
+        <br/>
+        <label for='pass_repeat' style='display:inline-block;width:132px;'></label>
+        <input class="pass_repeat ui-corner-all ui-widget ui-state-default" type=password name="pass_repeat" id="pass_repeat" />
+        <ul class="expand">
+          <li class="trigger">
             <h4><strong></strong></h4>
-
-            <input type="hidden" name="key_id" id="key_id" class="hidden"/>
-            <label for='gs_subKey_algo'></label>
-            <div style="width:100%;text-align:center;">
-                <select id='gs_subKey_algo' class="subkey-algo ui-add-hover ui-corner-all ui-widget ui-state-default">
-                    <option value="3" class="ui-state-default">DSA (sign only)</option>
-                    <option value="4" class="ui-state-default">RSA (sign only)</option>
-                    <option value="5" class="ui-state-default">Elgamal (encrypt only)</option>
-                    <option value="6" class="ui-state-default">RSA (encrypt only)</option>
-                    <option value="7" class="ui-state-default">DSA (set your own capabilities)</option>
-                    <option value="8" class="ui-state-default" selected>RSA (set your own capabilities)</option>
+          </li>
+          <li>
+            <ul>
+              <li class='option'>
+                <label for='publicKey_algo'></label>
+                <select id='publicKey_algo' class="key-algo ui-add-hover ui-corner-all ui-widget ui-state-default">
+                  <option value="DSA" class="ui-state-default">DSA</option>
+                  <option value="RSA" class="ui-state-default" selected>RSA</option>
                 </select>
-            <div>
+              </li>
+              <li class='option'>
+                <label for='publicKey_size'></label>
+                <select id='publicKey_size' class="key-size ui-add-hover ui-corner-all ui-widget ui-state-default">
+                  <option valud="512" class="ui-state-default">512</option>
+                  <option value="1024" class="ui-state-default">1024</option>
+                  <option value="2048" class="ui-state-default" selected>2048</option>
+                  <option value="3072" class="ui-state-default">3072</option>
+                  <option value="4096" class="ui-state-default">4096</option>
+                </select>
+              </li>
+              <hr>
+              <li class='option'>
+                <label for='subKey_algo'></label>
+                <select id='subKey_algo' class="key-algo ui-add-hover ui-corner-all ui-widget ui-state-default">
+                  <option value="DSA" class="ui-state-default">DSA</option>
+                  <option value="RSA" class="ui-state-default" selected>RSA</option>
+                  <option value="ELG-E" class="ui-state-default">ElGamel</option>
+                </select>
+              </li>
+              <li class='option'>
+                <label for='subKey_size'></label>
+                <select id='subKey_size' class="key-size ui-add-hover ui-button ui-corner-all ui-widget ui-state-default">
+                  <option value="512" class="ui-state-default">512</option>
+                  <option value="1024" class="ui-state-default">1024</option>
+                  <option value="2048" class="ui-state-default" selected>2048</option>
+                  <option value="3072" class="ui-state-default">3072</option>
+                  <option value="4096" class="ui-state-default">4096</option>
+                </select>
+              </li>
+              <hr>
+              <li class='option'>
+                <label for='key_expire'></label>
+                <select id='key_expire' class="key-expire ui-add-hover ui-corner-all ui-widget ui-state-default">
+                  <option value="0" class="ui-state-default">Never</option>
+                  <option value="30" class="ui-state-default">30 days</option>
+                  <option value="90" class="ui-state-default" selected>90 days</option>
+                  <option value="365" class="ui-state-default">1 year</option>
+                </select>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </form>
+    </p>
+  </div>
+  <div id="gensubkey-dialog" style="display:none;" title="Key Details" style="font-size:14px;">
+    <p>
+      <span id='gensubkey-text'></span>
+      <form id="gensubkey-form" style="width:100%; height:100px;">
+        <h4><strong></strong></h4>
+
+        <input type="hidden" name="key_id" id="key_id" class="hidden" />
+        <label for='gs_subKey_algo'></label>
+        <div style="width:100%;text-align:center;">
+          <select id='gs_subKey_algo' name='gs_subKey_algo' class="subkey-algo ui-add-hover ui-corner-all ui-widget ui-state-default">
+            <option value="3" class="ui-state-default">DSA (sign only)</option>
+            <option value="4" class="ui-state-default">RSA (sign only)</option>
+            <option value="5" class="ui-state-default">Elgamal (encrypt only)</option>
+            <option value="6" class="ui-state-default">RSA (encrypt only)</option>
+            <option value="7" class="ui-state-default">DSA (set your own capabilities)</option>
+            <option value="8" class="ui-state-default" selected>RSA (set your own capabilities)</option>
+          </select>
+          <div>
             <div id='subKey_flags' style="text-align:center;">
-                <br/>
-                <input type="checkbox" id="sign" name="sign" checked/><label for="sign"></label>
-                <input type="checkbox" id="enc" name="enc" checked/><label for="enc"></label>
-                <input type="checkbox" id="auth" name="auth" checked/><label for="auth"></label>
-                <br/><br/>
+              <br/>
+              <input type="checkbox" id="subkey-sign-flag" name="subkey_flags" checked/>
+              <label for="subkey-sign-flag"></label>
+              <input type="checkbox" id="subkey-enc-flag" name="subkey_flags" checked/>
+              <label for="subkey-enc-flag"></label>
+              <input type="checkbox" id="subkey-auth-flag" name="subkey_flags" checked/>
+              <label for="subkey-auth-flag"></label>
+              <br/>
+              <br/>
             </div>
             <label for='gs_subKey_size'>Private Key Size</label>
-            <select id='gs_subKey_size' name="subKey_size" class="key-size ui-add-hover ui-button ui-corner-all ui-widget ui-state-default">
-                <option value="512" class="ui-state-default">512</option>
-                <option value="1024" class="ui-state-default">1024</option>
-                <option value="2048" class="ui-state-default" selected>2048</option>
-                <option value="3072" class="ui-state-default">3072</option>
-                <option value="4096" class="ui-state-default">4096</option>
+            <select id='gs_subKey_size' name='gs_subKey_size' class="key-size ui-add-hover ui-button ui-corner-all ui-widget ui-state-default">
+              <option value="512" class="ui-state-default">512</option>
+              <option value="1024" class="ui-state-default">1024</option>
+              <option value="2048" class="ui-state-default" selected>2048</option>
+              <option value="3072" class="ui-state-default">3072</option>
+              <option value="4096" class="ui-state-default">4096</option>
             </select>
             <br/>
-            <label for='gs_key_expire'>Expire in </label>
+            <label for='gs_key_expire'>Expire in</label>
             <select id='gs_key_expire' name="key_expire" class="key-expire ui-add-hover ui-corner-all ui-widget ui-state-default">
-                <option value="0" class="ui-state-default" selected>Never</option>
-                <option value="30" class="ui-state-default">30 days</option>
-                <option value="90" class="ui-state-default">90 days</option>
-                <option value="365" class="ui-state-default">1 year</option>
+              <option value="0" class="ui-state-default" selected>Never</option>
+              <option value="30" class="ui-state-default">30 days</option>
+              <option value="90" class="ui-state-default">90 days</option>
+              <option value="365" class="ui-state-default">1 year</option>
             </select>
-        </form>
+          </div>
+        </div>
+      </form>
     </p>
-</div>
-<div id="export-dialog" style="display:none;" title="Export Public Key" style="font-size:14px;">
-    <p>
-        <span style="margin-top:-18px; margin-left:-8px; width:100%;" id="export-dialog-msg"></span>
+    </div>
+    <div id="export-dialog" style="display:none;" title="Export Public Key" style="font-size:14px;">
+      <p style="display:inline">
+        <span style="margin-top:-8px; margin-left:-2px; position:absolute; left:0;" id="export-dialog-msg"></span>
         <textarea id="export-dialog-copytext" style="margin-top:-35px; margin-left:-500px;"></textarea>
         <pre id="export-dialog-text"></pre>
-    </p>
-</div>
-<div id="adduid-dialog" style="display:none;" title="Add UID" style="font-size:14px;">
-    <p>
+      </p>
+    </div>
+    <div id="adduid-dialog" style="display:none;" style="font-size:14px;">
+      <p>
         <span id='adduid-text'></span>
         <form id="adduid-form" style="width:100%;">
-            <label for='au-uid_0_name' style='display:inline-block;width:128px;'></label>
-            <input type='text' id='au-uid_0_name' name='uid_0_name'/><span class='help-text'>i.e.: John Smith</span><br/>
-            <label for='au-uid_0_email' style='display:inline-block;width:128px;'></label>
-            <input type='text' id='au-uid_0_email' name='uid_0_email'/><span class='help-text'>i.e.: john.smith@example.com</span><br/>
-            <label for='au-uid_0_comment' style='display:inline-block;width:128px;'></label>
-            <input type='text' id='au-uid_0_comment' name='uid_0_comment'/><span class='help-text'>i.e.: uid for XYZ only</span><br/>
+          <label for='au-uid_0_name' style='display:inline-block;width:128px;'></label>
+          <input type='text' id='au-uid_0_name' name='uid_0_name' class="ui-corner-all ui-widget ui-state-default"/><span class='help-text'>i.e.: John Smith</span>
+          <br/>
+          <label for='au-uid_0_email' style='display:inline-block;width:128px;'></label>
+          <input type='text' id='au-uid_0_email' name='uid_0_email' class="ui-corner-all ui-widget ui-state-default"/><span class='help-text'>i.e.: john.smith@example.com</span>
+          <br/>
+          <label for='au-uid_0_comment' style='display:inline-block;width:128px;'></label>
+          <input type='text' id='au-uid_0_comment' name='uid_0_comment' class="ui-corner-all ui-widget ui-state-default"/><span class='help-text'>i.e.: uid for XYZ only</span>
+          <br/>
         </form>
-    </p>
-</div>
-<div id="importkey-dialog" style="display:none;" title="Import from file" style="font-size:14px;">
-    <p>
+      </p>
+    </div>
+    <div id="importkey-dialog" style="display:none;" title="Import from file" style="font-size:14px;">
+      <p>
         <span id='importkey-text'></span>
         <form id="importkey-form" style="width:100%;">
-            <input type='file' id='importkey_name' name='importkey_name' style="float:left;left:30%;position:relative;"/><br/>
-            <div id="import-list"></div>
+          <input type='file' id='importkey_name' name='importkey_name' style="float:left;left:30%;position:relative;" />
+          <br/>
+          <div id="import-list"></div>
         </form>
-    </p>
-</div>
-<div id="addphoto-dialog" style="display:none;" title="Add Photo" style="font-size:14px;">
-    <p>
+      </p>
+    </div>
+    <div id="addphoto-dialog" style="display:none;" title="Add Photo" style="font-size:14px;">
+      <p>
         <span id='addphoto-text'></span>
         <form id="addphoto-form" style="width:100%;">
-            <input type='file' id='ap-photo_name' name='ap-photo_name' style="float:left;left:30%;position:relative;"/><br/>
-            <output id="list"></output>
+          <input type='file' id='ap-photo_name' name='ap-photo_name' style="float:left;left:30%;position:relative;" />
+          <br/>
+          <output id="list"></output>
         </form>
-    </p>
-</div>
-<div id="dialog-modal" title="">
-    <div id="dialog-msg"></div>
-</div>
+      </p>
+    </div>
+    <div id="dialog-modal" title="">
+      <div id="dialog-msg"></div>
+    </div>
 </body>
+
 </html>

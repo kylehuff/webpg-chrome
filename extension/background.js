@@ -66,10 +66,12 @@ webpg.background = {
             webpg.plugin.gpgSetHomeDir(gnupghome);
             webpg.plugin.addEventListener("keygenprogress", webpg.background.gpgGenKeyProgress, false);
             webpg.plugin.addEventListener("keygencomplete", webpg.background.gpgGenKeyComplete, false);
+            webpg.plugin.addEventListener("statusprogress", webpg.background.keylistProgress, false);
 
             /* Check to make sure all of the enabled_keys are private keys 
                 this would occur if the key was enabled and then the secret key was deleted. */
             webpg.default_key = webpg.preferences.default_key.get();
+            webpg.public_keys = {};
             webpg.secret_keys = webpg.plugin.getPrivateKeyList();
             webpg.preferences.enabled_keys.clear();
             for (var sKey in webpg.secret_keys) {
@@ -477,25 +479,24 @@ webpg.background = {
                 response = webpg.plugin.getNamedKey(request.key_id);
                 if (request.temp_context) {
                     webpg.plugin.gpgSetHomeDir(gnupghome);
-                    var real_keyring_items = webpg.plugin.getNamedKey(request.key_id);
-                    for (var real_keyring_item in real_keyring_items) {
-                        for (var subkey in real_keyring_items[real_keyring_item].subkeys) {
-                            var subkey_id = real_keyring_items[real_keyring_item].
-                                subkeys[subkey].subkey;
-                            if (subkey_id === request.key_id) {
-                                response[real_keyring_item].in_real_keyring = true;
-                                response[real_keyring_item].real_keyring_item =
-                                    real_keyring_items[real_keyring_item];
-                            }
+                    var real_keyring_item = webpg.plugin.getNamedKey(request.key_id);
+                    for (var subkey in real_keyring_item.subkeys) {
+                        var subkey_id = real_keyring_item.
+                            subkeys[subkey].subkey;
+//                        console.log(response);
+                        if (subkey_id === request.key_id) {
+                            response.in_real_keyring = true;
+                            response.real_keyring_item =
+                                real_keyring_item;
                         }
                     }
                 }
                 break;
 
             case 'getNamedKeys':
-                var userKeys = {};
-                var users = request.users;
-                var key;
+                var userKeys = {},
+                    users = request.users,
+                    key;
                 for (var u=0; u < users.length; u++) {
                     // Pull keys by named user
                     userKeys[users[u]] = [];
@@ -572,6 +573,54 @@ webpg.background = {
         }
         // Return the response and let the connection be cleaned up.
         sendResponse({'result': response});
+        delete request, response;
+    },
+
+    keylistProgress: function(data) {
+      var msgType = (data.substr(2, 6) === "status") ? "progress" : "key";
+      if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+          var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                     .getService(Components.interfaces.nsIWindowMediator);
+          var enumerator = wm.getEnumerator(null);
+
+          while(enumerator.hasMoreElements()) {
+              var win = enumerator.getNext().QueryInterface(
+                  Components.interfaces.nsIDOMChromeWindow
+              );
+
+              if (win.content && win.content.document.location.href.search(
+              "chrome://webpg-firefox/content/key_manager.html") > -1) {
+                  var contentWindow = win.content;
+                  var doc = win.content.document;
+
+                  // Attempt to remove the old listener
+                  try {
+                      doc.body.removeEventListener('gpgkeylistprogress', contentWindow.webpg.keymanager.keylistprogress);
+                  } catch (err) {
+                      // We don't really care if it didn't already exist
+                      console.log(err.message);
+                  } finally { 
+                      // Add the listener
+                      doc.body.addEventListener('gpgkeylistprogress', contentWindow.webpg.keymanager.keylistprogress);
+                  }
+
+                  var evtObj = doc.createEvent('CustomEvent');
+                  evtObj.initCustomEvent("gpgkeylistprogress", true, true, {'type': msgType, 'data': data});
+                  doc.body.dispatchEvent(evtObj);
+              }
+          }
+          delete data, evtObj;
+      } else if (webpg.utils.detectedBrowser.product === "chrome") {
+        try {
+          webpg.background.keylistProgressPort.postMessage({"type": msgType, "data": data});
+        } catch (e) {
+          if (webpg.background.keylistProgressPort !== undefined)
+            webpg.background.keylistProgressPort.disconnect();
+          webpg.background.keylistProgressPort = chrome.runtime.connect({name: "gpgKeyListProgress"});
+          webpg.background.keylistProgressPort.postMessage({"type": msgType, "data": data});
+        }
+        delete data;
+      }
     },
 
     /*
@@ -685,13 +734,10 @@ if (webpg.utils.detectedBrowser.product === "chrome") {
     };
 
     chrome.omnibox.onInputEntered.addListener(function(text) {
-        var keylist = webpg.plugin.getNamedKey(text);
-        var cnt = 0;
-        for (var key in keylist) {
-            cnt++;
-            webpg.background.navigate(webpg.utils.resourcePath + "key_manager.html" +
-                 "?auto_init=true&tab=-1&openkey=" + keylist[key].fingerprint.substr(-16));
-        }
+        var key = webpg.plugin.getNamedKey(text);
+        if (Object.keys(key) > 0)
+          webpg.background.navigate(webpg.utils.resourcePath + "key_manager.html" +
+             "?auto_init=true&tab=-1&openkey=" + key.fingerprint.substr(-16));
     });
 
     chrome.omnibox.setDefaultSuggestion({

@@ -3,7 +3,7 @@
 <?xml-stylesheet href="chrome://webpg-firefox/skin/overlay.css" type="text/css"?>
 <!DOCTYPE prefwindow SYSTEM "chrome://webpg-firefox/locale/webpg.dtd">
 <prefwindow onunload="webpg.firefoxOptions.restoreAnimateFadeIn()" id="optionsforwebpg" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-    <script src="../jquery/js/jquery-1.10.2.min.js"/>
+    <script src="../resources/jquery/js/jquery-1.10.2.min.js"/>
     <script type="text/javascript">
         if (typeof(webpg)=='undefined') { webpg = {}; }
         // Enforce jQuery.noConflict if not already performed

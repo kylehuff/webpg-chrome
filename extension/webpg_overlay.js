@@ -81,11 +81,24 @@ webpg.overlay = {
         webpg.jq(document).click(hideContextmenu);
 
         if (webpg.utils.detectedBrowser.product !== 'thunderbird' &&
-        webpg.utils.detectedBrowser.product !== 'conkeror')
-            document.addEventListener("contextmenu", webpg.overlay.contextHandler, true);
+        webpg.utils.detectedBrowser.product !== 'conkeror') {
+            try {
+              document.removeEventListener("contextmenu", webpg.overlay.contextHandler, true);
+            } catch (err) {
+              // don't care
+            } finally {
+              document.addEventListener("contextmenu", webpg.overlay.contextHandler, true);
+            }
+        }
 
-        // Setup a listener for making changes to the page
-        webpg.utils._onRequest.addListener(webpg.overlay._onRequest);
+        try {
+          webpg.utils._onRequest.removeEventListener();
+        } catch (err) {
+          // don't care
+        } finally {
+          // Setup a listener for making changes to the page
+          webpg.utils._onRequest.addListener(webpg.overlay._onRequest);
+        }
 
         // Retrieve the users secret keys
         webpg.utils.sendRequest({
@@ -555,7 +568,7 @@ webpg.overlay = {
             case webpg.constants.overlayActions.MANAGER:
                 if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
-                        "XULContent/options.xul?options_tab=1");
+                        "key_manager.html?auto_init=true");
                 } else if (webpg.utils.detectedBrowser.product === 'chrome') {
                     url = "key_manager.html?auto_init=true";
                     if (typeof(sender.tab)=='undefined') {
@@ -570,7 +583,7 @@ webpg.overlay = {
             case webpg.constants.overlayActions.OPTS:
                 if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
-                        "XULContent/options.xul?options_tab=0");
+                        "options.html?auto_init=true");
                 } else if (webpg.utils.detectedBrowser.product === 'chrome') {
                     url = "options.html?auto_init=true";
                     if (typeof(sender.tab)=='undefined') {
@@ -596,7 +609,7 @@ webpg.overlay = {
             case webpg.constants.overlayActions.ABOUT:
                 if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                     webpg.utils.openNewTab(webpg.utils.resourcePath +
-                        "XULContent/options.xul?options_tab=2");
+                        "about.html?auto_init=true");
                 } else if (webpg.utils.detectedBrowser.product === 'chrome') {
                     url = "about.html?auto_init=true";
                     webpg.utils.openNewTab(webpg.utils.resourcePath + url, sender.tab.index + 1);

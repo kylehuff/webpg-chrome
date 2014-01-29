@@ -1,0 +1,6 @@
+.ui-multiselect-hasfilter ul { position:relative; top:2px }
+.ui-multiselect-filter { margin-right:14px; margin-left:-6px; font-size:11px; padding-top:20px; }
+.ui-multiselect-filter input { width:100px; font-size:10px; margin-left:5px; height:15px; padding:2px; border:1px solid #292929; -webkit-appearance:textfield; -webkit-box-sizing:content-box; }
+.ui-multiselect-filter-create input { display:none; }
+li.ui-multiselect-filter-create { padding-right:0; }
+.ui-multiselect-filter-create label { text-align:center; }

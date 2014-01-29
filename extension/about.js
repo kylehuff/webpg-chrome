@@ -181,11 +181,16 @@ webpg.about = {
 };
 
 webpg.jq(function() {
-    if (webpg.utils.detectedBrowser.vendor == 'mozilla') {
-        if (webpg.utils.getParameterByName("auto_init") == "true")
-            webpg.about.init();
-    } else {
-        webpg.about.init();
+    var browserWindow = null;
+    if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
+      browserWindow = webpg.utils.mozilla.getChromeWindow();
+    if (browserWindow.webpg.plugin === undefined) {
+      var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+             .getService(Components.interfaces.nsIWindowMediator);
+      var winType = (webpg.utils.detectedBrowser['product'] == "thunderbird") ?
+          "mail:3pane" : "navigator:browser";
+      browserWindow = wm.getMostRecentWindow(winType);
     }
+    webpg.about.init(browserWindow);
 });
 /* ]]> */

@@ -21,9 +21,6 @@ webpg.inline = {
         // Initialize webpg.doc
         this.doc = doc;
 
-//        this.mode = mode;
-//        this.render_toolbar = render_toolbar;
-
         this.action_selected = false;
 
         // Determine if inline decoration has been disabled for this page
@@ -46,7 +43,6 @@ webpg.inline = {
                 return false;
             }
         }
-//        console.log("inline init");
 
         if (doc.location && doc.location.pathname.substr(-4) === '.pdf')
             return false;
@@ -61,7 +57,7 @@ webpg.inline = {
         var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
         // Check if the MutationObserver is not present
         if (MutationObserver === undefined) {
-            console.log("Using depreciated DOMSubtreeModified");
+//            console.log("Using depreciated DOMSubtreeModified");
             window.addEventListener("DOMSubtreeModified", function(e) {
                 if (e.target.nodeName === "IFRAME" && e.target.className.indexOf("webpg-") === -1 &&
                     webpg.inline.existing_iframes.indexOf(e.target) === -1) {
@@ -79,7 +75,7 @@ webpg.inline = {
         } else {
             // Otherwise, use the MutationObserver
             // create an observer instance
-            console.log("Using MutationObserver");
+//            console.log("Using MutationObserver");
 
             if (webpg.inline.observer !== undefined)
               webpg.inline.observer.disconnect();
@@ -703,9 +699,9 @@ webpg.inline = {
                 var opacity = (keyObj['default'] === true) ? 1.0 : 0;
                 submenu += '' +
                     '<li class="webpg-action-btn">' +
-                        '<a class="webpg-toolbar-' + action + '" id="0x' + key + '" style="padding-top:2px;">' +
-                            keyObj.name + '&nbsp;' + "(" + detail + ")<br/>" + email +
-                            '<img style="position: absolute;top: 4px;right: 4px;opacity:' + opacity + ';" src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/check-small.png"/>' +
+                        '<a class="webpg-toolbar-' + webpg.utils.escape(action) + '" id="0x' + webpg.utils.escape(key) + '" style="padding-top:2px;">' +
+                            webpg.utils.escape(keyObj.name) + '&nbsp;' + "(" + webpg.utils.escape(detail) + ")<br/>" + webpg.utils.escape(email) +
+                            '<img style="vertical-align: baseline !important; position: absolute;top: 4px;right: 4px;opacity:' + opacity + ';" src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/check-small.png"/>' +
                         '</a>' +
                     '</li>';
             }
@@ -934,12 +930,12 @@ webpg.inline = {
                     var key = webpg.jq(this).find('a')[0].id.substr(2);
                     var keyObj = webpg.inline.secret_keys[key];
                     if (keyObj) {
-                        var detail = webpg.utils.escape(keyObj.subkeys[0].size) +
-                                webpg.utils.escape(keyObj.subkeys[0].algorithm_name)[0].toUpperCase() +
+                        var detail = keyObj.subkeys[0].size +
+                                keyObj.subkeys[0].algorithm_name[0].toUpperCase() +
                                 "/" + key.substr(-8);
-                        var keyText = (keyObj.email.length > 0) ? webpg.utils.escape(keyObj.email) :
-                            webpg.utils.escape(keyObj.name);
-                        keyText += " (" + detail + ")";
+                        var keyText = (keyObj.email.length > 0) ? keyObj.email :
+                            keyObj.name;
+                        keyText += " (" + webpg.utils.escape(detail) + ")";
                         this.newStatusText = _("Use") + " " + keyText;
                         toolbarStatus.text(this.newStatusText);
                     }
@@ -963,7 +959,7 @@ webpg.inline = {
         var _ = webpg.utils.i18n.gettext;
 
         // Check is this element already has a MenuBar.
-        if (element.hasOwnProperty("webpgmenubar") === true)
+        if (element.webpgmenubar === true)
           return;
 
         // Indicate that a menubar for this element has been added. This will
@@ -993,7 +989,8 @@ webpg.inline = {
             "color:#444; height:24px; margin: 1px -1px 0 1px; display: block;" +
             "border: 1px solid gainsboro; top: 27px; clear: left; line-height: 12px;" +
             "left: -1px; text-shadow: none; text-decoration: none; overflow: visible;" +
-            "box-sizing: content-box; white-space: normal;");
+            "box-sizing: content-box !important; -moz-box-sizing: content-box !important;" +
+            "-webkit-box-sizing: content-box !important; white-space: normal;");
 
         toolbar.setAttribute("class", "webpg-toolbar");
         var offset = (element.scrollHeight < element.offsetHeight) ?
@@ -1009,6 +1006,18 @@ webpg.inline = {
             toolbar.style.width = element.parentElement.offsetWidth + "px";
 
         element.style.width = parseInt(toolbar.style.width) + pad + offset + "px";
+        
+        if (webpg.utils.detectedBrowser['product'] === 'mozilla')
+          element.style.MozBoxSizing = "border-box !important";
+        else
+          element.style.webkitBoxSizing = "border-box !important";
+        element.style.boxSizing = "border-box !important";
+
+//        var computedWidth = element.ownerDocument.defaultView
+//                .getComputedStyle(element, '').getPropertyValue('width');
+
+//        if (computedWidth.length > 0)
+//          toolbar.style.width = computedWidth;
 
         var paddingTop = (webpg.utils.detectedBrowser.vendor === 'mozilla') ?
             "28px" : "30px";
@@ -1024,7 +1033,7 @@ webpg.inline = {
                 '<span class="webpg-current-action" style="line-height:24px; cursor: pointer; font: inherit; color: inherit;">' +
                     '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) +
                         "skin/images/badges/32x32/webpg.png" + '" style="position:relative; ' +
-                        'top:4px; left:-4px; width:16px; height:16px;"/>' +
+                        'top:4px; left:-4px; width:16px; height:16px; vertical-align: baseline !important;"/>' +
                     'WebPG' +
                 '</span>' +
                 '&nbsp;' +
@@ -1036,13 +1045,13 @@ webpg.inline = {
                 '<ul class="webpg-action-list">' +
                     '<li class="webpg-action-btn" style="font: inherit;">' +
                         '<a class="webpg-toolbar-encrypt">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
                             _('Encrypt') +
                         '</a>' +
                     '</li>' +
                     '<li class="webpg-action-btn">' +
                         '<a class="webpg-toolbar-sign" style="display:inline-block;">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_signature.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_signature.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
                             _('Sign only') +
                         '</a>' +
                         '<ul class="webpg-toolbar-sign-callout">' +
@@ -1058,7 +1067,7 @@ webpg.inline = {
                     '</li>' +
                     '<li class="webpg-action-btn">' +
                         '<a class="webpg-toolbar-cryptsign">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted_signed.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
                             _('Sign and Encrypt') +
                         '</a>' +
                         '<ul class="webpg-toolbar-sign-callout">' +
@@ -1074,31 +1083,31 @@ webpg.inline = {
                     '</li>' +
                     '<li class="webpg-action-btn">' +
                         '<a class="webpg-toolbar-symcrypt">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
                             _('Symmetric Encryption') +
                         '</a>' +
                     '</li>' +
                     '<li class="webpg-action-btn webpg-pgp-crypttext">' +
                         '<a class="webpg-toolbar-decrypt">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_decrypted.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_decrypted.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
                             _('Decrypt') +
                         '</a>' +
                     '</li>' +
                     '<li class="webpg-action-btn webpg-pgp-import">' +
                         '<a class="webpg-toolbar-import">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_keypair.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_keypair.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
                             _('Import') +
                         '</a>' +
                     '</li>' +
                     '<li class="webpg-action-btn webpg-pgp-export">' +
                         '<a class="webpg-toolbar-export">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_keypair.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_keypair.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
                             _('Export') +
                         '</a>' +
                     '</li>' +
                     '<li class="webpg-action-btn webpg-pgp-signtext">' +
                         '<a class="webpg-toolbar-verify">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_signature-ok.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_signature-ok.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
                             _('Verify') +
                         '</a>' +
                     '</li>' +
@@ -1106,19 +1115,19 @@ webpg.inline = {
                     '</li>' +
                     '<li class="webpg-action-btn webpg-option-item webpg-secure-editor">' +
                         '<a class="webpg-toolbar-secure-editor">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/secure_editor.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/secure_editor.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
                             _('Secure Editor') +
                         '</a>' +
                     '</li>' +
                     '<li class="webpg-action-btn webpg-option-item webpg-keymanager-link">' +
                         '<a class="webpg-toolbar-keymanager-link">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_keypair.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_keypair.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
                             _('Key Manager') +
                         '</a>' +
                     '</li>' +
                     '<li class="webpg-action-btn webpg-option-item webpg-options-link">' +
                         '<a class="webpg-toolbar-options-link">' +
-                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/32x32/webpg.png" class="webpg-li-icon"/>' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/32x32/webpg.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
                             _('Options') +
                         '</a>' +
                     '</li>' +
@@ -1366,7 +1375,7 @@ webpg.inline = {
         badge.setAttribute("class", "webpg-badge-toggle");
 
         badge.innerHTML = "<a style='border:none;' class='webpg-badge-toggle-link'><img style='opacity:0.5;width:28px;height:28px;' src='" +
-                webpg.utils.resourcePath + "skin/images/badges/32x32/webpg.png'/></a>";
+                webpg.utils.escape(webpg.utils.resourcePath) + "skin/images/badges/32x32/webpg.png'/></a>";
 
         webpg.jq(badge).find('img').hover(
             function() {

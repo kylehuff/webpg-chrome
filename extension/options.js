@@ -567,7 +567,9 @@ webpg.options = {
     }
 };
 webpg.jq(function() {
-    if (webpg.utils.getParameterByName("auto_init") == "true")
-        webpg.options.init();
+    var browserWindow = null;
+    if (webpg.utils.detectedBrowser['vendor'] == 'mozilla')
+      browserWindow = webpg.utils.mozilla.getChromeWindow();
+    webpg.options.init(browserWindow);
 });
 /* ]]> */
