@@ -110,9 +110,10 @@ webpg.overlay = {
                 webpg.utils.sendRequest({
                     'msg': "decorate_inline" },
                     function(response) {
-                        if (response.result.decorate_inline === 'true') {
-                            var mode = response.result.mode;
-                            var render_toolbar = response.result.render_toolbar;
+                        webpg.overlay.decorate_inline = response.result.decorate_inline;
+                        if (webpg.overlay.decorate_inline === 'true') {
+                            webpg.inline.mode = response.result.mode;
+                            webpg.inline.render_toolbar = response.result.render_toolbar;
                             if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                                 if (typeof(browserWindow)==='undefined')
                                     browserWindow = webpg.utils.mozilla.getChromeWindow();
@@ -120,12 +121,26 @@ webpg.overlay = {
                                     webpg.plugin = browserWindow.webpg.plugin;
                             }
                             // Begin parsing the document for PGP Data
-                            webpg.inline.init(webpg.doc, mode, render_toolbar);
+                            webpg.inline.init(webpg.doc);
                         }
                     }
                 );
             }
         );
+    },
+
+
+    executeInline: function(aEvent) {
+      webpg.doc = (aEvent && aEvent.originalTarget) ?
+          aEvent.originalTarget : document;
+
+      // Check if inline formatting is enabled and parse
+      if (webpg.doc.location && webpg.doc.location.href.search(
+        "chrome://webpg-firefox/content/key_manager.html") === -1 &&
+        webpg.overlay.decorate_inline === 'true') {
+        // Parse the document for PGP Data
+        webpg.inline.PGPDataSearch(webpg.doc);
+      }
     },
 
 
@@ -613,10 +628,10 @@ if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
     } else {
         webpg.appcontent = document.getElementById("appcontent") || document;
         webpg.appcontent.addEventListener("DOMContentLoaded", webpg.overlay.init, false);
-        webpg.appcontent.addEventListener("scroll", webpg.overlay.init, true);
+        webpg.appcontent.addEventListener("scroll", webpg.overlay.executeInline, true);
     }
 } else {
     webpg.overlay.init();
-    window.addEventListener("scroll", webpg.overlay.init, true);
+    window.addEventListener("scroll",webpg.overlay.executeInline, true);
 }
 /* ]]> */

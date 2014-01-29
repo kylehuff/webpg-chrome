@@ -17,12 +17,12 @@ webpg.inline = {
         Parameters:
             doc - <document> The document object to parse
     */
-    init: function(doc, mode, render_toolbar) {
+    init: function(doc) {
         // Initialize webpg.doc
         this.doc = doc;
 
-        this.mode = mode;
-        this.render_toolbar = render_toolbar;
+//        this.mode = mode;
+//        this.render_toolbar = render_toolbar;
 
         this.action_selected = false;
 
