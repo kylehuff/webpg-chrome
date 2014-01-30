@@ -800,7 +800,7 @@ webpg.inline = {
                 });
                 webpg.jq("*[g_editable='true']").focus();
             }
-            webpg.jq('.webpg-subaction-btn .webpg-action-list-icon').css({ 'top': '0' });
+//            webpg.jq('.webpg-subaction-btn .webpg-action-list-icon').css({ 'top': '0' });
         }
         webpg.jq(toolbar).find('.webpg-action-list li').css({
             'border-style': 'solid', 'border-width': '1px',
