@@ -1274,7 +1274,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
 
           }
 
-          if (key.photos_provided > 0) {
+          if (key.photos_provided > 0 && webpg.jq(e.target).hasClass("photo") === false) {
             // When a primary key accordion header is clicked open, do the
             //  following mess to get the associated image(s).
             //  This would be a bit in depth for code comments, see the following
@@ -1321,7 +1321,8 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                   "echo :END>>!TEMP!\\", batch_name, " & ",
                   "echo   set /A \"POSITION=!PCOUNT!+!CUR!\">>!TEMP!\\", batch_name, " & ",
                   "echo   copy \"!BASEFILENAME!-latest.jpg\" \"!BASEFILENAME!-!CUR!-!POSITION!.j\"^>null>>!TEMP!\\", batch_name, " & ",
-                  "echo   IF !CUR! equ !INDEX! (>>!TEMP!\\", batch_name, " & ",
+                  "echo   set /A \"FIN=!CUR!+!INDEX!\">>!TEMP!\\", batch_name, " & ",
+                  "echo   IF !FIN! equ !PCOUNT! (>>!TEMP!\\", batch_name, " & ",
                   "echo     rename \"!BASEFILENAME!-*.j\" \"*.jpg\"^>null>>!TEMP!\\", batch_name, " & ",
                   "echo   )>>!TEMP!\\", batch_name, " & ",
                   "!TEMP!\\", batch_name, " \"", path, "\" ", index, " ", count, " \"%i\" %K & del /Q !TEMP!\\", batch_name);
@@ -1363,8 +1364,10 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                       'text': _("Delete this Photo"),
                       'click': function() {
                         // Delete the Photo
-                        var uid_idx = parseInt(params[3], 10);
+                        var uid_idx = parseInt(params[3], 10) +
+                          webpg.public_keys[params[2]].nuids + 1;
                         var result = webpg.plugin.gpgDeleteUID(params[2], uid_idx);
+                        console.log(result);
                         webpg.jq(this).dialog("close");
                         if (!result.error) {
                           if (params[1] === 'private') {
@@ -1388,12 +1391,13 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                     }
                   ]});
               });
+          }
 
+          if (key.photos_provided > 0) {
             webpg.jq(this).find('img.photo_img').each(function(e) {
               webpg.jq(this).attr('src',
                 '../skin/images/key_photos/' + scrub(this.parentElement.id.split('photo-')[1]) + '.jpg?' + new Date().getTime());
             });
-
           }
 
           scope.search();
