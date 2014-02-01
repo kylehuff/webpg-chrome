@@ -26,27 +26,49 @@ body{
 #private_keylist {
     min-height:400px;
 }
-#keymanager-buttonbar {
-  z-index:9999;
+#webpg-buttonbar {
   margin: 0 0 0 30px;
   padding: 0 2px 0 4px;
   display:inline-block;
   background-color:transparent;
   border:none;
   background-image:none;
+  position:absolute;
+  left:350px;
 }
-#keymanager-buttonbar button {
+@-moz-document url-prefix() {
+  #webpg-buttonbar {
+    padding-top:3px;
+  }
+}
+#webpg-buttonbar button {
   padding-right:4px;
 }
 /* support: IE7 */
-*+html #keymanager-buttonbar {
+*+html #webpg-buttonbar {
   display: inline;
 }
-#keymanager-buttonbar button>.ui-button-text {
+#webpg-buttonbar button>.ui-button-text {
   height:14px;
   margin-right:-2px;
   padding-right:0;
 }
+.keylist-progress {
+  width:100%;
+  display:none;
+  margin-bottom:2px;
+  float:left;
+  z-index:9999;
+  position:relative;
+}
+.progress-label {
+    position: relative;
+    float:left;
+    left: 40%;
+    top: 4px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #000;
+  }
 .trust-level-desc {
     min-height:30px;
     border:1px solid #ddd;
@@ -267,7 +289,7 @@ span.keydetails .ui-button-text {
     margin-right:0;
 }
 span.trust .ui-button-text {
-    padding:4px;
+    padding:5px;
     text-align:left;
     margin:0;
     font-size:12px;

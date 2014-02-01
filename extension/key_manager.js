@@ -131,7 +131,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
           webpg.keymanager.genkey_waiting = false;
           webpg.jq(dialog + "-status").html("Generation " +
             webpg.utils.escape(data));
-          webpg.jq(dialog + "-dialog").dialog("option", "buttons", [{ 
+          webpg.jq(dialog + "-dialog").dialog("option", "buttons", [{
             'text': _("Close"),
             'click': function() {
               if (dialog === "#gensubkey")
@@ -523,7 +523,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
           webpg.jq("#gensubkey-dialog").dialog({
             'resizable': true,
             'minHeight': 300,
-            'draggable': false,
+            'draggable': true,
             'width': 300,
             'modal': true,
             'autoOpen': false,
@@ -628,7 +628,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
           webpg.jq("#addphoto-dialog").dialog({
             'resizable': true,
             'height': 230,
-            'draggable': false,
+            'draggable': true,
             'width': 550,
             'modal': true,
             'buttons': [{

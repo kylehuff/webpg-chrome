@@ -18,6 +18,7 @@
   <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="preferences.js"></script>
   <script type="text/javascript" src="key_manager.js"></script>
+  <script type="text/javascript" src="buttonbar.js"></script>
 </head>
 
 <body ng-controller="keymanagerCtrl">
@@ -27,9 +28,9 @@
       <li><a id="tab-privatekeys" href="#tabs-2"></a></li>
       <li><a id="tab-publickeys" href="#tabs-3"></a></li>
       <li><a id="tab-search" href="#tabs-4"></a></li>
-      <span id="keymanager-buttonbar" class="webpg-keymanager-buttonbar ui-widget-header ui-corner-all">
-        <button id="genkeybutton"></button>
+      <span id="webpg-buttonbar" class="webpg-buttonbar ui-widget-header ui-corner-all">
         <button id="importbutton"></button>
+        <button id="genkeybutton"></button>
         <button id="optionsbutton"></button>
         <button id="aboutbutton"></button>
       </span>
@@ -37,6 +38,7 @@
     </ul>
     <div id="tabs-2" ng-init="type='private'">
       <div id="private_keylist" ng-controller="keylistCtrl">
+        <span id="private_progressbar" class="keylist-progress"><span class="progress-label"></span></span>
         <div class='pubkey-search'>
           <label class="pubkey-search-lbl" for="prikey-search"></label>
           <input type="search" ng-model="query" ng-change="search()" class="ui-corner-all ui-widget ui-state-default" id="prikey-search" placeholder="i.e. 'John Doe' or 'size:4096'" />
@@ -66,6 +68,7 @@
     </div>
     <div id="tabs-3" ng-init="type='public'">
       <div id="public_keylist" ng-controller="keylistCtrl">
+        <span id="public_progressbar" class="keylist-progress"><span class="progress-label"></span></span>
         <div class='pubkey-search'>
           <label class="pubkey-search-lbl" for="pubkey-search"></label>
           <input type="search" ng-model="query" ng-change="search()" class="ui-corner-all ui-widget ui-state-default" id="pubkey-search" placeholder="i.e. 'John Doe' or 'size:4096'" />

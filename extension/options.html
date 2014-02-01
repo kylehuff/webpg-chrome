@@ -12,6 +12,7 @@
 <script type="text/javascript" src="xoauth2.js"></script>
 <script type="text/javascript" src="inline.js"></script>
 <script type="text/javascript" src="webpg_overlay.js"></script>
+<script type="text/javascript" src="buttonbar.js"></script>
 <style>
 body{
     font:62.5% "Trebuchet MS", sans-serif;
@@ -22,6 +23,30 @@ body{
 }
 .ui-tabs .ui-tabs-hide {
      display:none;
+}
+#webpg-buttonbar {
+  z-index:9999;
+  margin: 0 0 0 30px;
+  padding: 0 2px 0 4px;
+  display:inline-block;
+  background-color:transparent;
+  border:none;
+  background-image:none;
+  position:absolute;
+  top:6px;
+  left:350px;
+}
+#webpg-buttonbar button {
+  padding-right:4px;
+}
+/* support: IE7 */
+*+html #webpg-buttonbar {
+  display: inline;
+}
+#webpg-buttonbar button>.ui-button-text {
+  height:14px;
+  margin-right:-2px;
+  padding-right:0;
 }
 .ui-add-hover, .ui-add-hover option {
     cursor:pointer;
@@ -34,7 +59,6 @@ body{
     padding-top:16px;
     display:inline-block;
 }
-
 .bound-box p {
     color:#fff;
 }
@@ -124,7 +148,7 @@ body{
     color:#fff;
 }
 .webpg-options-title {
-    font-size:24px;
+    font-size:22px;
 }
 .webpg-options-img {
     float:left;
@@ -183,6 +207,11 @@ body{
     <div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
         <img class="webpg-options-img" src="skin/images/webpg-64.png"/>
         <span class="webpg-options-title">WebPG Options</span>
+        <span id="webpg-buttonbar" class="webpg-buttonbar ui-widget-header ui-corner-all">
+          <button id="genkeybutton"></button>
+          <button id="optionsbutton"></button>
+          <button id="aboutbutton"></button>
+        </span>
         <span class="webpg-info-version" id="webpg-info-version-string"></span>
     </div>
     <div class="webpg-options-box">

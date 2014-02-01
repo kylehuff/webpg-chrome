@@ -9,6 +9,7 @@
 <script type="text/javascript" src="utils.js"></script>
 <script type="text/javascript" src="preferences.js"></script>
 <script type="text/javascript" src="about.js"></script>
+<script type="text/javascript" src="buttonbar.js"></script>
 <style>
 body{
     font:62.5% "Trebuchet MS", sans-serif;
@@ -16,6 +17,30 @@ body{
     text-shadow:#000 1px 1px 1px;
     margin:0;
     padding:0;
+}
+#webpg-buttonbar {
+  z-index:9999;
+  margin: 0 0 0 30px;
+  padding: 0 2px 0 4px;
+  display:inline-block;
+  background-color:transparent;
+  border:none;
+  background-image:none;
+  position:absolute;
+  top:6px;
+  left:350px;
+}
+#webpg-buttonbar button {
+  padding-right:4px;
+}
+/* support: IE7 */
+*+html #webpg-buttonbar {
+  display: inline;
+}
+#webpg-buttonbar button>.ui-button-text {
+  height:14px;
+  margin-right:-2px;
+  padding-right:0;
 }
 .webpg-info-box {
     margin:auto;
@@ -37,7 +62,7 @@ body{
     height:30px;
 }
 .webpg-info-title {
-    font-size:24px;
+    font-size:22px;
 }
 .webpg-info-version {
     font-size:12px;
@@ -59,9 +84,14 @@ body{
     <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
         <div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
             <img class="webpg-info-img" src="skin/images/webpg-64.png"/>
-            <span class="webpg-info-title">WebPG for <span id="webpg-info-browser"></span>
+            <span class="webpg-info-title">WebPG for <span id="webpg-info-browser"></span></span>
+            <span id="webpg-buttonbar" class="webpg-buttonbar ui-widget-header ui-corner-all">
+              <button id="genkeybutton"></button>
+              <button id="optionsbutton"></button>
+              <button id="aboutbutton"></button>
+            </span>
             <span class="webpg-info-version"><span id="webpg-info-version-string"></span>
-            </span><br/>
+            <br/>
         </div>
         <div class="webpg-info-box">
             <span class="webpg-info-text">
