@@ -72,9 +72,11 @@ webpg.background = {
                 this would occur if the key was enabled and then the secret key was deleted. */
             webpg.default_key = webpg.preferences.default_key.get();
             webpg.public_keys = {};
-            webpg.secret_keys = webpg.plugin.getPrivateKeyList();
+            webpg.secret_keys = webpg.plugin.getPrivateKeyList(true);
+            webpg.secret_keycount = 0;
             webpg.preferences.enabled_keys.clear();
             for (var sKey in webpg.secret_keys) {
+                webpg.secret_keycount++;
                 if (webpg.secret_keys[sKey].disabled === false)
                     webpg.preferences.enabled_keys.add(sKey);
                 webpg.secret_keys[sKey].default = (sKey === webpg.default_key);

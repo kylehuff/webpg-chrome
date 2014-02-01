@@ -11,15 +11,19 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
     if (webpg.utils.detectedBrowser.vendor === "mozilla") {
       webpg.background = webpg.utils.mozilla.getChromeWindow();
       webpg.plugin = webpg.background.webpg.plugin;
-      webpg.public_keys = {};
-      webpg.secret_keys = webpg.plugin.getPrivateKeyList();
     } else if (webpg.utils.detectedBrowser.product === "chrome") {
       webpg.plugin = webpg.background.webpg.plugin;
-      webpg.public_keys = {};
-      webpg.secret_keys = webpg.plugin.getPrivateKeyList();
     }
+
+    webpg.secret_keycount = webpg.background.webpg.secret_keycount;
+    webpg.current_seckey = 0;
+    if (webpg.secret_keys === undefined)
+      webpg.secret_keys = {};
+    if (webpg.public_keys === undefined)
+      webpg.public_keys = {};
     webpg.default_key = webpg.preferences.default_key.get();
-    if (webpg.default_key !== null)
+
+    if (webpg.secret_keys.hasOwnProperty(webpg.default_key))
       webpg.secret_keys[webpg.default_key].default = true;
 
     if (webpg.utils.detectedBrowser.product === "chrome") {
@@ -31,7 +35,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
       });
     }
 
-    webpg.plugin.getPublicKeyList(true, true);
+    webpg.plugin.getPrivateKeyList(true, true);
 
     webpg.utils.extension.version(function(version) {
       webpg.jq("#webpg-info-version-string").text(
@@ -67,19 +71,44 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
       var data = (webpg.utils.detectedBrowser.vendor === "mozilla") ? evt.detail : evt;
       if (data.type == "key") {
         key = JSON.parse(data.data);
-        // Make the public part of secret keys appear as public keys
-        //  in the public keylist.
-        key.secret = false;
-        webpg.public_keys[key.id] = key;
-        webpg.public_scope.currentItem++;
-        if (webpg.public_scope.currentItem >= webpg.public_scope.itemsPerPage) {
-          webpg.public_scope.search(webpg.public_scope.currentPage);
-          webpg.public_scope.$apply();
-          webpg.public_scope.currentItem = 0;
+        if (key.secret === true) {
+          webpg.current_seckey++;
+          webpg.jq("#private_progressbar")
+            .progressbar({'value':(webpg.current_seckey/webpg.secret_keycount)*100})
+            .css({'display': 'inline-block', 'margin-right':'-200px'})
+            .find('.progress-label')
+              .text(_("Loading keys") + "... [" + key.id + "]");
+          if (webpg.default_key !== null && key.id === webpg.default_key)
+            key.default = true;
+          webpg.secret_keys[key.id] = key;
+//          webpg.private_scope.search(webpg.private_scope.currentPage);
+//          webpg.private_scope.$apply();
+        } else {
+          webpg.jq("#public_progressbar")
+            .progressbar({'value': Math.floor(Math.random() * 100)})
+            .css({'display': 'inline-block'})
+            .find('.progress-label')
+              .text(_("Loading keys") + "... [" + key.id + "]");
+          webpg.public_keys[key.id] = key;
+          webpg.public_scope.currentItem++;
+          if (webpg.public_scope.currentItem >= webpg.public_scope.itemsPerPage) {
+            webpg.public_scope.search(webpg.public_scope.currentPage);
+            webpg.public_scope.$apply();
+            webpg.public_scope.currentItem = 0;
+          }
         }
       } else {
         if (port)
           port.disconnect();
+        if (webpg.current_seckey/webpg.secret_keycount >= 1) {
+          webpg.jq("#private_progressbar").css({'display': 'none'});
+          webpg.current_seckey = 0;
+        } else {
+          webpg.jq("#public_progressbar").css({'display': 'none'});
+        }
+        webpg.background.webpg.secret_keys = webpg.secret_keys;
+        webpg.private_scope.search(webpg.private_scope.currentPage);
+        webpg.private_scope.$apply();
         webpg.public_scope.search(webpg.public_scope.currentPage);
         webpg.public_scope.$apply();
       }
@@ -106,7 +135,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
           webpg.keymanager.genkey_refresh = true;
           webpg.keymanager.genkey_waiting = false;
           var gen_dialog = dialog + "-dialog";
-          var new_pkeylist = webpg.plugin.getPrivateKeyList();
+          var new_pkeylist = webpg.plugin.getPrivateKeyList(true);
           var generated_key = (dialog === "#gensubkey") ?
               webpg.jq(gen_dialog).find("#gensubkey-form")[0].key_id.value
                   : null;
@@ -159,6 +188,8 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
     webpg.jq('#tab-publickeys')
       .text(_("Public Keys"))
       .click(function() {
+        if (Object.keys(webpg.public_keys).length < 1)
+          webpg.plugin.getPublicKeyList(true, true);
         webpg.public_scope.search(webpg.public_scope.currentPage);
         webpg.public_scope.$apply();
       });
@@ -777,7 +808,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                 var desc = webpg.jq('#revkey-desc')[0].value;
                 var revkey_result = webpg.plugin.gpgRevokeKey(params[2],
                     parseInt(params[3], 10), parseInt(reason, 10), desc);
-                webpg.secret_keys = webpg.plugin.getPrivateKeyList();
+                webpg.secret_keys = webpg.plugin.getPrivateKeyList(true, true);
                 webpg.private_scope.search(webpg.private_scope.currentPage);
                 webpg.private_scope.$apply();
                 webpg.jq("#revkey-confirm").dialog("close");
@@ -933,7 +964,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                         var revuid_result = webpg.plugin.gpgRevokeUID(params[2],
                             parseInt(params[3], 10) + 1, parseInt(reason, 10), desc);
                         if (params[1] === 'private') {
-                          webpg.secret_keys = webpg.plugin.getPrivateKeyList();
+                          webpg.secret_keys = webpg.plugin.getPrivateKeyList(true, true);
                           webpg.private_scope.search(webpg.private_scope.currentPage);
                           webpg.private_scope.$apply();
                         }
@@ -1036,7 +1067,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                     } else {
                       refresh = true;
                       if (params[1] === 'private') {
-                        webpg.secret_keys = webpg.plugin.getPrivateKeyList();
+                        webpg.secret_keys = webpg.plugin.getPrivateKeyList(true, true);
                         webpg.private_scope.search();
                         webpg.private_scope.$apply();
                       }
@@ -1077,7 +1108,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
       console.log(".*-key-option-button pressed..", params);
       if (refresh) {
         if (params[1] === 'private') {
-          webpg.secret_keys = webpg.plugin.getPrivateKeyList();
+          webpg.secret_keys = webpg.plugin.getPrivateKeyList(true, true);
           webpg.private_scope.search(webpg.private_scope.currentPage);
           webpg.private_scope.$apply();
         } else {
@@ -1215,268 +1246,8 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
         scope.openkey = webpg.keymanager.qs.openkey;
         scope.opensubkey = parseInt(webpg.keymanager.qs.opensubkey, 10);
         webpg.jq(elm[0]).tabs({'active': selected_tab, 'selected': selected_tab});
-
-        webpg.jq('#genkeybutton')
-          .button({
-            'icons': {
-              'primary':'ui-icon-key'
-            },
-          })
-          .val(_("Generate New Key"))
-          .click(function(e) {
-            webpg.jq("#genkey-dialog").dialog({
-              'resizable': true,
-              'minHeight': 300,
-              'width': 630,
-              'modal': true,
-              "buttons": [{
-                'text': _("Create"),
-                'click': function() {
-                  var form = webpg.jq("#genkey-form")[0];
-                  webpg.jq(form).parent().before("<div id=\"genkey-status\"> </div>");
-                  var error = "";
-                  if (!form.uid_0_name.value){
-                    error += _("Name Required") + "<br>";
-                    webpg.jq(form.uid_0_name).addClass("ui-state-error");
-                  }
-                  else if (form.uid_0_name.value.length < 5){
-                    error += _("UID Names must be at least 5 characters") + "<br>";
-                    webpg.jq(form.uid_0_name).addClass("ui-state-error");
-                  }
-                  else if (!isNaN(form.uid_0_name.value[0])){
-                    error += _("UID Names cannot begin with a number") + "<br>";
-                    webpg.jq(form.uid_0_name).addClass("ui-state-error");
-                  } else {
-                    webpg.jq(form.uid_0_name).removeClass("ui-state-error");
-                  }
-                  if (form.uid_0_email.value && !webpg.utils.
-                    isValidEmailAddress(form.uid_0_email.value)){
-                    error += _("Not a valid email address") + "<br>";
-                    webpg.jq(form.uid_0_email).addClass("ui-state-error");
-                  } else {
-                    webpg.jq(form.uid_0_email).removeClass("ui-state-error");
-                  }
-                  if (form.passphrase.value != form.pass_repeat.value){
-                    webpg.jq(form.passphrase).addClass("ui-state-error");
-                    webpg.jq(form.pass_repeat).addClass("ui-state-error");
-                    webpg.jq(form.passphrase).next()
-                      .find("#passwordStrength-text")
-                      .html(_("Passphrases do not match"))
-                      .css({"color": "#f00"});
-                    error += _("Passphrases do not match") + "<br>";
-                  } else {
-                    webpg.jq(form.passphrase).removeClass("ui-state-error");
-                    webpg.jq(form.pass_repeat).removeClass("ui-state-error");
-                  }
-                  if (error.length) {
-                    webpg.jq("#genkey-status").html(error)[0].style.display="block";
-                    webpg.jq("#genkey-dialog").dialog("option", "minHeight", 350);
-                    return false;
-                  }
-                  webpg.keymanager.genkey_waiting = true;
-                  if (webpg.utils.detectedBrowser.product === "chrome") {
-                    chrome.extension.onConnect.addListener(function(port) {
-                      port.onMessage.addListener(webpg.keymanager.progressMsg);
-                    });
-                  }
-                  webpg.jq("#genkey-form").find(".open").trigger("click");
-                  webpg.jq("#genkey-dialog").dialog("option", "minHeight", 300);
-                  webpg.jq("#genkey-status").html(error)[0].style.display="block";
-                  webpg.jq("#genkey-status").html(_("Building key, please wait"));
-                  webpg.jq("#genkey-status").after("<div id='genkey-status_detail' style=\"font-size: 12px; color:#fff;padding: 20px;\">" + _("This may take a long time (5 minutes or more) to complete") + ". " + _("Please be patient while the key is created") + ". " + _("It is safe to close this window") + ", " + _("key generation will continue in the background") + ".<br><br><div id='genkey_progress' style='height:auto;display:block;'></div></div>");
-                  webpg.jq(form)[0].style.display = "none";
-                  webpg.jq("#genkey-dialog")[0].style.height = "20";
-                  webpg.jq("#genkey-dialog")[0].style.display = "none";
-                  response = webpg.plugin.gpgGenKey(form.publicKey_algo.value,
-                    form.publicKey_size.value,
-                    form.subKey_algo.value,
-                    form.subKey_size.value,
-                    form.uid_0_name.value,
-                    form.uid_0_comment.value,
-                    form.uid_0_email.value,
-                    form.key_expire.value,
-                    form.passphrase.value
-                  );
-                  if (response === "queued") {
-                    webpg.jq("#genkey-dialog").dialog("option", "buttons", [{ 
-                      'text': _("Close"),
-                      'click': function() {
-                        webpg.jq("#genkey-dialog").dialog("close");
-                      }
-                    }]);
-                  }
-                }
-              }, {
-                'text': _("Cancel"),
-                'click': function() {
-                  webpg.jq("#genkey-dialog").dialog("destroy");
-                }
-              }]
-            });
-
-            webpg.jq("#genkey-form").children('input').removeClass('input-error');
-            webpg.jq("#genkey-form")[0].reset();
-            webpg.jq('.key-algo').each(function(){
-              //webpg.jq(this)[0].options.selectedIndex = webpg.jq(this)[0].options.length - 1;
-              if (webpg.jq(this).parent().next().find('.key-size').length) {
-                webpg.jq(this).parent().next().find('.key-size')[0].children[0].disabled = true;
-                webpg.jq(webpg.jq(this).parent().next().find('.key-size')[0].children[0]).hide();
-              }
-            }).change(function(){
-              if (webpg.jq(this)[0].options.selectedIndex === 0){
-                // DSA Selected
-                webpg.jq(this).parent().next().find('.key-size')[0].children[0].disabled = false;
-                webpg.jq(webpg.jq(this).parent().next().find('.key-size')[0].children[0]).show();
-                webpg.jq(this).parent().next().find('.key-size')[0].children[4].disabled = true;
-                webpg.jq(webpg.jq(this).parent().next().find('.key-size')[0].children[4]).hide();
-                webpg.jq(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
-              } else if(webpg.jq(this)[0].options.selectedIndex === 1){
-                // RSA Selected
-                webpg.jq(this).parent().next().find('.key-size')[0].children[0].disabled = true;
-                webpg.jq(webpg.jq(this).parent().next().find('.key-size')[0].children[0]).hide();
-                webpg.jq(this).parent().next().find('.key-size')[0].children[4].disabled = false;
-                webpg.jq(webpg.jq(this).parent().next().find('.key-size')[0].children[4]).show();
-                webpg.jq(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
-              } else {
-                // Elgamal Selected
-                webpg.jq(this).parent().next().find('.key-size')[0].children[0].disabled = false;
-                webpg.jq(webpg.jq(this).parent().next().find('.key-size')[0].children[0]).show();
-                webpg.jq(this).parent().next().find('.key-size')[0].children[4].disabled = false;
-                webpg.jq(webpg.jq(this).parent().next().find('.key-size')[0].children[4]).show();
-                webpg.jq(this).parent().next().find('.key-size')[0].options.selectedIndex = 2;
-              }
-            });
-            webpg.jq("#genkey-form").find(".open").trigger("click");
-            webpg.jq('.passphrase').passwordStrength("#pass_repeat");
-            webpg.jq(this).blur();
-          });
-
-        webpg.jq('#importbutton')
-          .button({
-            'icons': {
-              'primary':'ui-icon-note'
-            },
-          })
-          .val(_("Import from File"))
-          .click(function(e) {
-            webpg.jq("#importkey-dialog").dialog({
-              'resizable': true,
-              'height': 230,
-              'width': 550,
-              'modal': true,
-              'buttons': [{
-                'text': _("Import"),
-                'click': function() {
-                  //console.log(params, webpg.jq(this).find("#importkey_name")[0].value);
-                  var f = webpg.jq(this).find("#importkey_name")[0].files.item(0);
-                  var reader = new FileReader();
-                  var attempt = 0;
-                  reader.onload = (function(theFile) {
-                    return function(e) {
-                      if (e.target.result.substr(0,15) != "-----BEGIN PGP")
-                        e.target.error = true;
-                      if (e.target.error) {
-                        webpg.jq("#import-list").html("<ul><li><strong><span class='error-text' style='padding-right:12px;'>" + 
-                          _("Error") + ":</span>" + 
-                          _("There was an error parsing this PGP file") + 
-                          "</strong></li></ul>"
-                        );
-                        return false;
-                      }
-                      var result = {'error': true};
-                      result = webpg.plugin.gpgImportKey(e.target.result);
-                      if (result.considered < 1) {
-                        console.log(result);
-                        msg = ["<ul><li><strong><span class='error-text' style='padding-right:12px;'>", 
-                          _("Error"), ":</span>", _("There was an error importing any keys in this file"),
-                          "</strong></li>"];
-                        msg.push("</ul>");
-                        webpg.jq("#import-list").html(msg.join(''));
-                      } else {
-                        webpg.jq("#importkey_name")[0].value = '';
-                        webpg.jq("#importkey-dialog").dialog("destroy");
-                        webpg.private_scope.search();
-                        webpg.private_scope.$apply();
-                        webpg.public_scope.search();
-                        webpg.public_scope.$apply();
-                      }
-                    };
-                  })(f);
-                  reader.readAsBinaryString(f);
-                },
-                'id': 'importkey_button'
-              }, {
-                'text': _("Cancel"),
-                'click': function() {
-                  webpg.jq(this).find("#importkey_name")[0].value = "";
-                  webpg.jq("#importkey-dialog").dialog("destroy");
-                }
-              }
-            ]})
-            .parent()
-              .animate({"opacity": 1.0}, 1, function() {
-                webpg.jq("#importkey_button").attr("disabled", true);
-                webpg.jq(this).find("#import-list").html("<ul><li><strong>" + 
-                  _("Please use the button above to open a key file (.asc/.txt)") + 
-                  "</strong></li></ul>"
-                );
-                webpg.jq(this).find("#importkey_name")[0].addEventListener('change', function(e) {
-                  var files = e.target.files; // FileList object
-
-                  // files is a FileList of File objects. List some properties.
-                  var f = files[0];
-                  if (files.length === 1) {
-                    msg = ['<li>', (f.type || 'n/a'), ' - ', f.size, ' bytes</li>'];
-                    webpg.jq("#importkey_button").attr("disabled", false);
-                  }
-                  webpg.jq(this).parent().find('#import-list').html('<ul>' + msg.join('') + '</ul>');
-                }, false);
-              });
-            webpg.jq(this).blur();
-          });
-
-        webpg.jq('#optionsbutton')
-          .button({
-            'icons': {
-              'primary':'ui-icon-wrench'
-            },
-          })
-          .val(_("Options"))
-          .click(function(e) {
-            window.open(webpg.utils.resourcePath + "options.html?auto_init=true", '_blank');
-            webpg.jq(this).blur();
-          });
-
-        webpg.jq('#aboutbutton')
-          .button({
-            'icons': {
-              'primary':'ui-icon-info'
-            },
-          })
-          .val(_("About WebPG"))
-          .click(function(e) {
-            window.open(webpg.utils.resourcePath + "about.html?auto_init=true", '_blank');
-            webpg.jq(this).blur();
-          }).val(_("About WebPG"));
-
-        webpg.jq("#keymanager-buttonbar")
-          .mouseleave(
-            function(e) {
-              webpg.jq(this)
-                .find(".ui-button-text")
-                  .text("")
-                  .css({'padding-right': '0'});
-            }
-          )
-          .find("button")
-            .mouseenter(
-              function(e) {
-                webpg.jq(this)
-                  .find(".ui-button-text")
-                    .text(this.value)
-                    .css({'padding-right': '6px'});
-              }
-            );
+        if (selected_tab == 1)
+          webpg.plugin.getPublicKeyList(true, true);
       }
     };
   })
@@ -1762,14 +1533,14 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
       replace: true,
       template: '\
           <span class="keylist-accordion">\
-            <h3 class="keylist" style="height:16px;" id="primary_{{key.secret? \'sec\' : \'pub\'}}key-{{key.id}}">\
+            <h3 class="keylist" style="height:16px;" id="primary_{{ktype? \'private\' : \'public\'}}key-{{key.id}}">\
               <a href="#" name="{{key.id}}">\
                 <span class="uid-line">[{{key.id.substr(-8)}}] {{key.name}}</span>\
                 <span>{{key.email}}</span>\
               </a>\
               <span class="trust" style="float:right;">\
                 <span class="keyoption-help-text">&nbsp;</span>\
-                <div class="private-key-buttons" ng-if="key.secret" ng-init="opt=secret"></div>\
+                <div class="private-key-buttons" ng-if="ktype===\'private\'" ng-init="opt=secret"></div>\
               </span>\
             </h3>\
             <div class="uidlist" id="{{key.id}}">\
@@ -1961,7 +1732,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
       template: "<span>" +
                   "<input class='enable-check' type='checkbox' name='enable-{{key.id}}' id='enable-{{key.id}}' ng-checked='!key.disabled' />" +
                   "<label class='enable-check' for='enable-{{key.id}}'>&nbsp;</label>" +
-                  "<input class='default-check' type='radio' name='default_check' id='default-{{key.id}}' ng-checked='key.default'/>" +
+                  "<input class='default-check' type='radio' name='default_check' id='default-{{key.id}}' ng-checked='key.default===true'/>" +
                   "<label class='default-check' for='default-{{key.id}}'>Set Default Key</label>" +
                 "</span>",
       link: function(scope, elm, attrs) {
@@ -2290,7 +2061,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                             gpgDeleteUIDSign(params[2], parseInt(params[3], 10) + 1,
                             parseInt(params[4], 10) + 1);
                         if (params[1] === 'private') {
-                          webpg.secret_keys = webpg.plugin.getPrivateKeyList();
+                          webpg.secret_keys = webpg.plugin.getPrivateKeyList(true, true);
                           webpg.private_scope.search(webpg.private_scope.currentPage);
                           webpg.private_scope.$apply();
                         }
@@ -2333,16 +2104,17 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
   .controller('keylistCtrl', ['$scope', '$filter', function($scope, $filter) {
     if ($scope.type === 'private') {
       $scope.ktype = 'private';
+      $scope.sortingOrder = ['default', 'name', 'email', 'id'];
       webpg.private_scope = $scope;
     } else if ($scope.type === 'public') {
       $scope.ktype = 'public';
+      $scope.sortingOrder = ['name', 'email', 'id'];
       webpg.public_scope = $scope;
       webpg.public_scope.currentItem = 0;
     }
 
-    $scope.public_list = Object.keys(webpg.public_keys);
+//    $scope.public_list = Object.keys(webpg.public_keys);
 
-    $scope.sortingOrder = '';
     $scope.reverse = false;
     $scope.filteredItems = [];
     $scope.groupedItems = [];
@@ -2365,16 +2137,11 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
 
       if ($scope.ktype === 'private') {
         for(key in webpg.secret_keys) {
-          tkey = webpg.secret_keys[key];
-          tkey.secret = true;
           array.push(webpg.secret_keys[key]);
         }
       } else {
-        var tkey;
         for(key in webpg.public_keys) {
-          tkey = webpg.public_keys[key];
-          tkey.secret = false;
-          array.push(tkey);
+          array.push(webpg.public_keys[key]);
         }
       }
 
