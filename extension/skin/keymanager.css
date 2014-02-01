@@ -26,7 +26,27 @@ body{
 #private_keylist {
     min-height:400px;
 }
-
+#keymanager-buttonbar {
+  z-index:9999;
+  margin: 0 0 0 30px;
+  padding: 0 2px 0 4px;
+  display:inline-block;
+  background-color:transparent;
+  border:none;
+  background-image:none;
+}
+#keymanager-buttonbar button {
+  padding-right:4px;
+}
+/* support: IE7 */
+*+html #keymanager-buttonbar {
+  display: inline;
+}
+#keymanager-buttonbar button>.ui-button-text {
+  height:14px;
+  margin-right:-2px;
+  padding-right:0;
+}
 .trust-level-desc {
     min-height:30px;
     border:1px solid #ddd;
