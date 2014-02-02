@@ -7,7 +7,9 @@ webpg.jq(function() {
     var _ = webpg.utils.i18n.gettext;
     var href = window.location.href;
     var page = (href.indexOf('key_manager.html') > 0) ? 'keymanager' :
-               (href.indexOf('options.html') > 0) ? 'options' : 'about';
+               (href.indexOf('options.html') > 0) ? 'options' :
+               (href.indexOf('about.html') > 0) ? 'about' :
+               (href.indexOf('userdocs.html') > 0) ? 'docs' : '_unknown';
 
     webpg.jq('#genkeybutton')
       .button({
@@ -254,7 +256,19 @@ webpg.jq(function() {
       .click(function(e) {
         window.location = webpg.utils.resourcePath + "about.html?auto_init=true";
         webpg.jq(this).blur();
-      }).val(_("About WebPG"));
+      });
+
+    webpg.jq('#docsbutton')
+      .button({
+        'icons': {
+          'primary':'ui-icon-help'
+        },
+      })
+      .val(_("User Guide"))
+      .click(function(e) {
+        window.location = webpg.utils.resourcePath + "userdocs.html";
+        webpg.jq(this).blur();
+      });
 
     webpg.jq("#webpg-buttonbar")
       .mouseleave(
@@ -274,5 +288,9 @@ webpg.jq(function() {
                 .css({'padding-right': '6px'});
           }
         );
+
+    // Hide the currently active page-button
+    webpg.jq("#" + page + "button")
+      .hide();
 });
 /* ]]> */

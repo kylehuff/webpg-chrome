@@ -1,0 +1,110 @@
+<html>
+<head>
+<title>WebPG User Documentation/Guides</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="resources/jquery/css/dot-luv/jquery-ui-1.10.3.custom.css" rel="stylesheet"/>
+<script type="text/javascript" src="resources/jquery/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="resources/jquery/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="constants.js"></script>
+<script type="text/javascript" src="utils.js"></script>
+<script type="text/javascript" src="preferences.js"></script>
+<script type="text/javascript" src="userdocs.js"></script>
+<script type="text/javascript" src="buttonbar.js"></script>
+<style>
+body{
+    font:62.5% "Trebuchet MS", sans-serif;
+    background-color:#000;
+    text-shadow:#000 1px 1px 1px;
+    margin:0;
+    padding:0;
+}
+#webpg-buttonbar {
+  z-index:9999;
+  margin: 0 0 0 30px;
+  padding: 0 2px 0 4px;
+  display:inline-block;
+  background-color:transparent;
+  border:none;
+  background-image:none;
+  position:absolute;
+  top:6px;
+  left:350px;
+}
+#webpg-buttonbar button {
+  padding-right:4px;
+}
+/* support: IE7 */
+*+html #webpg-buttonbar {
+  display: inline;
+}
+#webpg-buttonbar button>.ui-button-text {
+  height:14px;
+  margin-right:-2px;
+  padding-right:0;
+}
+.webpg-info-box {
+    margin:auto;
+    padding:12px 0 0 0;
+    border-radius:4px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#fff;
+}
+.webpg-info-img {
+    float:left;
+    top:-1px;
+    position:relative;
+    margin:0 8px 0px 4px;
+    padding-right:4px;
+    border-radius:4px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    height:30px;
+}
+.webpg-info-title {
+    font-size:22px;
+}
+.webpg-info-version {
+    font-size:12px;
+    padding:6px 10px 0 0;
+    float:right;
+    margin-left:2px;
+}
+.webpg-info-text {
+}
+.webpg-title {
+    font-weight: bold;
+}
+.info-block {
+    margin-left: 16px;
+}
+iframe {
+  border:none;
+  height:87%;
+  width:100%;
+  border-radius:4px;
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+}
+</style>
+</head>
+<body>
+    <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <div class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <img class="webpg-info-img" src="skin/images/webpg-64.png"/>
+            <span class="webpg-info-title"></span>
+            <span id="webpg-buttonbar" class="webpg-buttonbar ui-widget-header ui-corner-all">
+              <button id="genkeybutton"></button>
+              <button id="optionsbutton"></button>
+              <button id="aboutbutton"></button>
+              <button id="docsbutton"></button>
+            </span>
+            <span class="webpg-info-version"><span id="webpg-info-version-string"></span></span>
+            <br/>
+        </div>
+        <div class="webpg-info-box">
+          <iframe src="https://webpg.org/docs/webpg-userdocs/index.html"></iframe>
+        </div>
+    </div>
+</body>
+</html>
