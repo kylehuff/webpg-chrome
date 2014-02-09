@@ -65,7 +65,7 @@ webpg.notice = {
                 item = "<h3 class='news-title'>" + $this.find("title").text() + "</h3>" +
                     "<div class='news-desc'>" + $this.find("description").text() + "</div>";
                 webpg.jq("#news").append("<div class='news-item'>" + item + "</div>");
-                webpg.jq(".news-desc").find("li[class!=feed-all]|li[class!=feed-extension]|li[class!=feed-" + webpg.utils.detectedBrowser.product + "]|li[class!=feed-" + webpg.utils.detectedBrowser.vendor + "]").css({'display': 'none'});
+                webpg.jq(".news-desc").find("li[class!=feed-all][class!=feed-extension][class!=feed-" + webpg.utils.detectedBrowser.product + "][class!=feed-" + webpg.utils.detectedBrowser.vendor + "]").css({'display': 'none'});
             });
         }
 

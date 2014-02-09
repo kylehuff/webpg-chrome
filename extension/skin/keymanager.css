@@ -34,7 +34,6 @@ body{
   border:none;
   background-image:none;
   position:absolute;
-  left:350px;
 }
 @-moz-document url-prefix() {
   #webpg-buttonbar {

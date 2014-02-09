@@ -541,6 +541,7 @@ webpg.inline_results = {
                                 }
                                 webpg.jq('#original_text').hide();
                                 webpg.inline_results.doResize();
+                                webpg.jq('.import_key_link').off("click");
                                 webpg.jq('.import_key_link').click(function(){
                                     console.log("import link clicked...");
                                     webpg.utils.sendRequest({
@@ -657,7 +658,7 @@ webpg.inline_results = {
                 );
                 webpg.inline_results.doResize();
             });
-            webpg.inline_results.doResize(true);
+            webpg.inline_results.doResize(false);
             webpg.jq('.results-close-btn').find('a').off('click.webpg-link');
             webpg.jq('.results-close-btn').find('a').bind('click.webpg-link', function() {
                 webpg.utils.sendRequest({
