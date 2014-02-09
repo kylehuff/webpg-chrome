@@ -504,7 +504,7 @@ webpg.background = {
                     userKeys[users[u]] = [];
                     key = webpg.plugin.getNamedKey(users[u]);
                     if (JSON.stringify(key) !== "{}")
-                        userKeys[users[u]] = userKeys[users[u]].concat(key);
+                        userKeys[users[u]] = key;
                     // Pull keys by named group
                     var group_result = webpg.preferences.group.get(users[u]);
                     for (var group=0; group < group_result.length; group++) {

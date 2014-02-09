@@ -182,9 +182,7 @@ webpg.gmail = {
                 webpg.gmail.checkRecipients(function(recipKeys) {
                     var users = [];
                     for (var keyItem in recipKeys) {
-                        for (var key in recipKeys[keyItem]) {
-                            users.push(recipKeys[keyItem][key].fingerprint.substr(-16));
-                        }
+                        users.push(recipKeys[keyItem].fingerprint.substr(-16));
                     }
                     if (message.search("-----BEGIN PGP") === 0) {
                         var send = confirm(_("This message already contains PGP data") +
@@ -259,9 +257,7 @@ webpg.gmail = {
                 webpg.gmail.checkRecipients(function(recipKeys) {
                     var users = [];
                     for (var keyItem in recipKeys) {
-                        for (var key in recipKeys[keyItem]) {
-                            users.push(recipKeys[keyItem][key].fingerprint.substr(-16));
-                        }
+                        users.push(recipKeys[keyItem].fingerprint.substr(-16));
                     }
                     webpg.utils.sendRequest({'msg': 'encryptSign',
                             'data': message,
@@ -327,7 +323,8 @@ webpg.gmail = {
             callback - <func> The function to execute when completed
     */
     checkRecipients: function(callback) {
-        var _ = webpg.utils.i18n.gettext;
+        var _ = webpg.utils.i18n.gettext,
+            status;
         webpg.gmail.removeStatusLine();
         var users = webpg.gmail.getRecipients();
         // Get the keys for the named users/groups
@@ -337,13 +334,7 @@ webpg.gmail = {
             var recipKeys = {};
             var keys = response.result.keys;
             for (var u in keys) {
-                recipKeys[u] = [];
-                for (var i in keys[u]) {
-                    for (var k in keys[u][i]) {
-                        if (!keys[u][i][k].disabled)
-                            recipKeys[u] = recipKeys[u].concat(keys[u][i][k]);
-                    }
-                }
+                recipKeys[u] = keys[u];
             }
             var notAllKeys = false;
             var missingKeys = [];
@@ -356,14 +347,10 @@ webpg.gmail = {
             // Check for expired keys that are not disabled and inform the user
             var expiredKeys = [];
             for (u in keys) {
-                for (i in keys[u]) {
-                    for (k in keys[u][i]) {
-                        if (!keys[u][i][k].disabled && keys[u][i][k].expired) {
-                            expiredKeys.push(u);
-                            notAllKeys = true;
-                        }
-                    }
-                }
+              if (keys[u].disabled !== true && keys[u].expired === true) {
+                expiredKeys.push(u);
+                notAllKeys = true;
+              }
             }
 
             if (notAllKeys) {
@@ -396,7 +383,7 @@ webpg.gmail = {
         var canvasFrame = webpg.gmail.getCanvasFrame();
         var status_line = (webpg.gmail.gmailComposeType === "inline") ?
             canvasFrame.find(".Hp, .aDk") : canvasFrame.find(".fN");
-        
+
         if (status_line.length < 1) {
             canvasFrame.find(".webpg-status-line-holder").remove();
             status_line = webpg.jq("<span class='webpg-status-line-holder'></span>").insertBefore(webpg.gmail.getCanvasFrameDocument().querySelector("div>.nH.nH .ip.adB .I5 form"));
