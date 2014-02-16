@@ -11,6 +11,23 @@ webpg.jq(function() {
                (href.indexOf('about.html') > 0) ? 'about' :
                (href.indexOf('userdocs.html') > 0) ? 'docs' : '_unknown';
 
+    webpg.jq('#refreshbutton')
+      .button({
+        'icons': {
+          'primary':'ui-icon-refresh'
+        },
+      })
+      .val(_("Refresh Key List"))
+      .click(function(e) {
+        if (webpg.jq("#tabs").tabs("option", "active") < 1) {
+          webpg.seckeylist_built = false;
+          webpg.jq('#tab-privatekeys').click();
+        } else {
+          webpg.pubkeylist_built = false;
+          webpg.jq('#tab-publickeys').click();
+        }
+      });
+
     webpg.jq('#genkeybutton')
       .button({
         'icons': {

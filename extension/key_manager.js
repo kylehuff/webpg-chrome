@@ -103,8 +103,10 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
         if (webpg.current_seckey/webpg.secret_keycount >= 1) {
           webpg.jq("#private_progressbar").css({'display': 'none'});
           webpg.current_seckey = 0;
+          webpg.seckeylist_built = true;
         } else {
           webpg.jq("#public_progressbar").css({'display': 'none'});
+          webpg.pubkeylist_built = true;
         }
         webpg.background.webpg.secret_keys = webpg.secret_keys;
         webpg.private_scope.search(webpg.private_scope.currentPage);
@@ -181,6 +183,8 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
     webpg.jq('#tab-privatekeys')
       .text(_("Private Keys"))
       .click(function() {
+        if (webpg.seckeylist_built !== true)
+          webpg.plugin.getPrivateKeyList(true, true);
         webpg.private_scope.search(webpg.private_scope.currentPage);
         webpg.private_scope.$apply();
       });
@@ -188,7 +192,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
     webpg.jq('#tab-publickeys')
       .text(_("Public Keys"))
       .click(function() {
-        if (Object.keys(webpg.public_keys).length < 1)
+        if (webpg.pubkeylist_built !== true)
           webpg.plugin.getPublicKeyList(true, true);
         webpg.public_scope.search(webpg.public_scope.currentPage);
         webpg.public_scope.$apply();
