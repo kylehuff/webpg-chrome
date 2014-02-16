@@ -11,7 +11,6 @@
         padding: 6px;
         margin: 0;
         border: 0;
-        background: transparent url('skin/images/menumask.png') repeat-x;
     }
     .pgp_block_container {
         display:block;
@@ -22,12 +21,31 @@
         font-size: smaller;
         font-weight: bold;
         text-transform: uppercase;
+        font-size: smaller;
+        font-weight: bold;
+        position: absolute;
+        left:10px;
+        right:10px;
+        margin: auto;
+        top: 0;
+        width: auto;
+        padding-left:60px;
+        height:32px;
+        border-radius: 0 0 6px 6px;
+        box-shadow: 1px 1px 10px #000;
+        background: transparent url('skin/images/menumask.png') repeat-x;
     }
-    .signed_text_header a {
+    .signed_text_header .footer_icon {
+      bottom:auto;
+    }
+    .signed_text_header .title {
+      display: block;
+    }
+    .signed_text_header .title a {
         color: #000;
         text-decoration: none;
     }
-    .signed_text_header a:hover {
+    .signed_text_header .title a:hover {
         cursor: text;
         color: #000;
         text-decoration: none;
@@ -36,11 +54,11 @@
         float: right;
     }
     .signed_text, .original_text {
-        padding-top: 10px;
+        padding: 14px 0 44px 10px;
         display: block;
         margin-bottom: 45px;
-        padding-left: 6px;
         white-space: pre-wrap;
+        margin-top: 35px;
     }
     .signed_text.rtl {
         text-align: right;
@@ -61,8 +79,9 @@
         padding-left: 60px;
         margin: auto;
         bottom: 0;
-        width: 75%;
-        left: 9%;
+        left:10px;
+        right:10px;
+        width: auto;
         border-radius: 6px 6px 0 0;
         box-shadow: 1px 1px 10px #000;
         background: #1c1 url('skin/images/menumask.png') repeat-x;
@@ -157,20 +176,35 @@
         text-transform:uppercase;
     }
     .results-control {
-        float: right;
+        position:absolute;
+        right:20px;
+        top:2px;
+        z-index:9999;
     }
     .results-control.rtl {
-        float: left;
+        left:24px;
     }
     .webpg-results-trusted-hover {
-        position: absolute;
-        top: 6px;
-        right: 40px;
+        margin-right:8px;
+        background-color: #d00;
+        border-radius: 4px;
+        border: 1px solid #000;
+        color:#fff;
+        font-weight:bold;
+        font-size:12px;
+        -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+        -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+    }
+    .webpg-results-trusted-hover:empty {
+      border:none;
     }
     .webpg-results-trusted-hover.rtl {
-        position: absolute;
-        top: 6px;
-        left: 40px;
+        left: 60px;
+    }
+    .results-close-btn {
+        top:4px;
+        position:relative;
     }
     .results-close-btn img {
         width: 20px;
@@ -190,6 +224,17 @@
     a:hover {
         color: rgb(17, 85, 155);
     }
+    .watermark {
+        position: absolute;
+        bottom:45px;
+        opacity: 0.15;
+        text-shadow: 1px 1px 1px #FF0000;
+        font-size: 24px;
+        width: 100%;
+        text-align: center;
+        z-index: 1000;
+        text-transform: uppercase;
+    }
 </style>
 </head>
 <body>
@@ -199,10 +244,18 @@
             <span class="results-close-btn"><a><img src="skin/images/cancel.png"/></a></span>
         </span>
         <textarea cols="3" rows="3" id="clipboard_input" style="float:left; margin-left: -500px; margin-top: -50px;"></textarea>
-        <div id="header" class="signed_text_header"></div>
+        <div id="header" class="signed_text_header">
+          <span class="icon"></span>
+          <span class="title"></span>
+          <span class="content"></span>
+        </div>
+        <span class="watermark"></span>
         <div id="signature_text" class="signed_text"></div>
         <pre id="original_text" class="original_text"></pre>
-        <div id="footer" class="footer"></div>
+        <div id="footer" class="footer">
+          <span class="icon"></span>
+          <span class="content"></span>
+        </div>
     </div>
 </body>
 </html>
