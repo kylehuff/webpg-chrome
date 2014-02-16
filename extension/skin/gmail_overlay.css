@@ -45,20 +45,38 @@
     background: #fff;
 }
 .webpg-status-line {
-    color:#f11;
-    font-size:13px;
+    color:#000;
+    font-size:10.5px;
     text-shadow:#886 0.5px 1px 1px;
-    border-radius:3px;
 }
 .webpg-gmail-status-line {
-    float:left;
-    position:relative;
-    top:-8px;
-    padding:2px;
+    height:auto !important;
+    min-height:30px !important;
+    margin: -2px 10px 0 10px !important;
+    padding:0 6px 0 6px !important;
+    background-color: rgb(239, 239, 239);
 }
-div.webpg-gmail-status-line {
-    display: inline-table;
-    margin: 4px 0 0 8px;
+.webpg-gmail-status-line>td {
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border: 1px solid rgba(127, 127, 127, 0.5);
+}
+.webpg-gmail-status-line>span {
+    height:30px !important;
+}
+.webpg-gmail-status-line .stat-hold {
+    padding:4px 4px 2px 6px;
+    vertical-align:middle !important;
+    line-height:30px !important;
+}
+.webpg-gmail-status-line .stat-hold:nth-child(1) {
+    border-right: 1px solid rgba(127, 127, 127, 0.5);
+    padding:3px 4px 0 0;
+    float:left;
+    line-height:inherit !important;
+}
+.webpg-gmail-status-line span img {
 }
 .webpg-status-line a {
     text-shadow:none;

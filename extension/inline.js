@@ -47,6 +47,46 @@ webpg.inline = {
         if (doc.location && doc.location.pathname.substr(-4) === '.pdf')
             return false;
 
+        if (window.location.host === "mail.google.com") {
+          var globals_eventID = "webpg_globals_" + new Date().getTime();
+          document.addEventListener(globals_eventID, function(e) {
+            if (webpg.gmail !== undefined)
+              webpg.gmail.GLOBALS = e.detail;
+            document.removeEventListener(globals_eventID);
+          });
+          var actualCode = ["setTimeout(function() {",
+                            "if (typeof(GLOBALS) !== 'undefined')",
+                            "  document.dispatchEvent(",
+                            "    new CustomEvent('" + globals_eventID + "',",
+                            "      { detail: GLOBALS }));",
+                            "    },",
+                            "  0",
+                            ");"].join('\n');
+          var script = document.createElement('script');
+          script.textContent = actualCode;
+          (document.head||document.documentElement).appendChild(script);
+          script.parentNode.removeChild(script);
+
+          var view_eventID = "webpg_view_" + new Date().getTime();
+          document.addEventListener(view_eventID, function(e) {
+            if (webpg.gmail !== undefined)
+              webpg.gmail.VIEW_DATA = e.detail;
+            document.removeEventListener(view_eventID);
+          });
+          var actualCode = ["setTimeout(function() {",
+                            "if (typeof(VIEW_DATA) !== 'undefined')",
+                            "  document.dispatchEvent(",
+                            "    new CustomEvent('" + view_eventID + "',",
+                            "      { detail: VIEW_DATA }));",
+                            "    },",
+                            "  0",
+                            ");"].join('\n');
+          var script = document.createElement('script');
+          script.textContent = actualCode;
+          (document.head||document.documentElement).appendChild(script);
+          script.parentNode.removeChild(script);
+        }
+
         webpg.inline.PGPDataSearch(doc);
 
         if (webpg.utils.detectedBrowser.product === 'thunderbird')
@@ -101,7 +141,7 @@ webpg.inline = {
                         // check if gmail message appears
                         if (webpg.jq(mutation.target).parent().is('.ii.gt.adP.adO') ||
                         webpg.jq(mutation.target).parent().is('.adn.ads')) {
-                            if (mutation.target.className.indexOf("webpg-") === -1 && 
+                            if (mutation.target.className.indexOf("webpg-") === -1 &&
                             webpg.jq(mutation.target).find(".webpg-node-odata").length < 1) {
                                 if (webpg.jq(mutation.target).parent().is('.adn.ads'))
                                     if (webpg.jq(mutation.target).find('.ii.gt.adP.adO').length < 1)
@@ -248,7 +288,7 @@ webpg.inline = {
                     if (node.parentNode && node.parentNode.nodeName === 'PRE' &&
                     node.parentNode.parentNode &&
                     node.parentNode.parentNode.parentNode &&
-                    typeof node.parentNode.parentNode.parentNode.getAttribute === 'function' && 
+                    typeof node.parentNode.parentNode.parentNode.getAttribute === 'function' &&
                     node.parentNode.parentNode.parentNode.getAttribute('id') === 'storeArea') {
                         // Possible TidyWiki document
                         var topwinjs = node.ownerDocument.defaultView.parent.wrappedJSObject;
@@ -265,7 +305,7 @@ webpg.inline = {
                         nodeRect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
                         nodeRect.left >= 0
                     );
-                    if (webpg.utils.detectedBrowser.product != "thunderbird" && 
+                    if (webpg.utils.detectedBrowser.product != "thunderbird" &&
                         !isInViewport)
                         break;
 
@@ -382,26 +422,31 @@ webpg.inline = {
             blockType - <int> The type of webpg.constants.PGPBlocks found
     */
     PGPBlockParse: function(range, node, blockType, gmail) {
+        var scontent,
+            phtml,
+            html,
+            msgObj,
+            displayData = '',
+            doc = (webpg.utils.detectedBrowser.vendor === 'mozilla') ? content.document :
+              (webpg.inline.doc) ? webpg.inline.doc : document;
+
         var s = new XMLSerializer(),
             d = range.cloneContents(),
             str = s.serializeToString(d),
             xmlnsReg = new RegExp(" xmlns=\"http://www.w3.org/1999/xhtml\"", "gi"),
             wbrReg = new RegExp("\<wbr\>", "gi"),
             phtml;
-        var doc = (webpg.utils.detectedBrowser.vendor === 'mozilla') ? content.document :
-            (webpg.inline.doc) ? webpg.inline.doc : document;
 
         str = str.replace(xmlnsReg, "");
         str = str.replace(wbrReg, "\n");
 
-        var html = node.parentNode.innerHTML;
+        html = node.parentNode.innerHTML;
 
         while (html.lastIndexOf("\n") + 1 === html.length) {
             html = html.substring(0, html.lastIndexOf("\n")).replace(wbrReg, "");
         }
 
         var scontent = webpg.utils.getInnerText(node.parentNode);
-
 //        if (scontent.search(/^\s*?(-----BEGIN PGP.*?)/gi) < 0)
 //            scontent = webpg.utils.clean(str);
 
@@ -541,7 +586,7 @@ webpg.inline = {
         originalNodeData.setAttribute("class", "webpg-node-odata");
         originalNodeData.setAttribute("style", "white-space: pre;");
         originalNodeData.setAttribute("id", "webpg-node-odata-" + results_frame.id);
-        originalNodeData.textContent = scontent;
+        originalNodeData.textContent = (displayData.length !== 0) ? displayData : scontent;
 
         range.insertNode(originalNodeData);
 
@@ -984,7 +1029,7 @@ webpg.inline = {
 
         toolbar.setAttribute("style", "text-align:left; padding: 0; padding-right: 8px;" +
             "font: normal normal bold 11px arial,sans-serif; font-weight: bold; position:relative;" +
-            "background: #f1f1f1 url('" + webpg.utils.escape(webpg.utils.resourcePath) + 
+            "background: #f1f1f1 url('" + webpg.utils.escape(webpg.utils.resourcePath) +
             "skin/images/menumask.png') repeat-x; border-collapse: separate;" +
             "color:#444; height:24px; margin: 1px -1px 0 1px; display: block;" +
             "border: 1px solid gainsboro; top: 27px; clear: left; line-height: 12px;" +
@@ -1006,7 +1051,7 @@ webpg.inline = {
             toolbar.style.width = element.parentElement.offsetWidth + "px";
 
         element.style.width = parseInt(toolbar.style.width) + pad + offset + "px";
-        
+
         if (webpg.utils.detectedBrowser['product'] === 'mozilla')
           element.style.MozBoxSizing = "border-box !important";
         else
@@ -1142,8 +1187,8 @@ webpg.inline = {
         detectElementValue(element);
 
         function setActive(e) {
-            if (e.target && e.target.parentElement && 
-            (e.target.parentElement.className === "webpg-subaction-list" || 
+            if (e.target && e.target.parentElement &&
+            (e.target.parentElement.className === "webpg-subaction-list" ||
               (e.target.parentElement.parentElement &&
                 e.target.parentElement.parentElement.className === "webpg-subaction-list")))
                 return;
@@ -1318,7 +1363,7 @@ webpg.inline = {
                 (link_class === "webpg-toolbar-export") ?
                 webpg.constants.overlayActions.EXPORT :
                 (link_class === "webpg-toolbar-verify") ?
-                webpg.constants.overlayActions.VERIF : 
+                webpg.constants.overlayActions.VERIF :
                 (link_class === "webpg-toolbar-options-link") ?
                 webpg.constants.overlayActions.OPTS :
                 (link_class === "webpg-toolbar-keymanager-link") ?

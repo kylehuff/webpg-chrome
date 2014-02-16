@@ -21,7 +21,7 @@ webpg.utils = {
                 //  console logging utility.
 
                 // TODO: This is ugly and buggy; we should consider replacing
-                //  with something a little more elegant and reliable. 
+                //  with something a little more elegant and reliable.
 
                 // Set the console.log method to use the factory console
                 if (typeof(Application.console.log)!='undefined') {
@@ -163,7 +163,7 @@ webpg.utils = {
                         .exec(window.location.search);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     },
- 
+
     /*
         Function: parseUrl
             Returns an object containing the many various elements of a URL
@@ -192,7 +192,7 @@ webpg.utils = {
         var pParam = item.split(":")[0];
         var pValue = item.split(":")[1];
 
-        if (pValue != "true" && pValue != "false" && 
+        if (pValue != "true" && pValue != "false" &&
         isNaN(pValue)) {
             return item.replace(
                     new RegExp("(.*?):(.*)", "g"
@@ -395,7 +395,7 @@ webpg.utils = {
                 if (win.getSelection && doc.activeElement){
                     ae = doc.activeElement;
                     if (ae.nodeName === "TEXTAREA" ||
-                        (ae.nodeName === "INPUT" && 
+                        (ae.nodeName === "INPUT" &&
                         ae.getAttribute("type").toLowerCase() === "text")){
                         userSelection = ae.textContent.substring(ae.selectionStart, ae.selectionEnd);
                     } else {
@@ -478,7 +478,7 @@ webpg.utils = {
                     if (tabIndex) {
                         chrome.tabs.create({'url': url, 'index': tabIndex});
                     } else {
-                        chrome.tabs.getSelected(null, function(tab) { 
+                        chrome.tabs.getSelected(null, function(tab) {
                             chrome.tabs.create({'url': url, 'index': tab.index});
                         });
                     }
@@ -712,6 +712,29 @@ webpg.utils = {
         return result;
     },
 
+    gmailNotify: function(text, timeout) {
+      timeout = (timeout===undefined) ? 3000 : timeout;
+
+      webpg.jq(".J-J5-Ji .vh")
+        .first()
+          .text(text)
+          .css('visibility', 'visible');
+
+      setTimeout(function(e) {
+        webpg.jq(".J-J5-Ji .vh")
+          .first()
+            .text('')
+            .css('visibility', 'hidden');
+      }, timeout);
+    },
+
+    gmailCancelNotify: function() {
+      webpg.jq(".J-J5-Ji .vh")
+        .first()
+          .text('')
+          .css('visibility', 'hidden');
+    },
+
     /*
         Function: wrap
 
@@ -750,11 +773,11 @@ webpg.utils = {
     },
 
     // Gmail replaces any text that looks like a link and encloses it with anchor tags.
-    //  This replaces any links without tags with 
+    //  This replaces any links without tags with
     linkify: function(inputText) {
         var tldList = "(asia|biz|cat|coop|edu|info|eu.int|int|gov|jobs|mil|mobi|name|tel|travel|aaa.pro|aca.pro|acct.pro|avocat.pro|bar.pro|cpa.pro|jur.pro|law.pro|med.pro|eng.pro|pro|ar.com|br.com|cn.com|de.com|eu.com|gb.com|hu.com|jpn.com|kr.com|no.com|qc.com|ru.com|sa.com|se.com|uk.com|us.com|uy.com|za.com|com|ab.ca|bc.ca|mb.ca|nb.ca|nf.ca|nl.ca|ns.ca|nt.ca|nu.ca|on.ca|pe.ca|qc.ca|sk.ca|yk.ca|gc.ca|ca|gb.net|se.net|uk.net|za.net|net|ae.org|za.org|org|[^\.\/]+\.uk|act.edu.au|nsw.edu.au|nt.edu.au|qld.edu.au|sa.edu.au|tas.edu.au|vic.edu.au|wa.edu.au|act.gov.au|nt.gov.au|qld.gov.au|sa.gov.au|tas.gov.au|vic.gov.au|wa.gov.au|[^\.\/]+\.au|de|dk|tv|com.ly|net.ly|gov.ly|plc.ly|edu.ly|sch.ly|med.ly|org.ly|id.ly|ly|xn--55qx5d.hk|xn--wcvs22d.hk|xn--lcvr32d.hk|xn--mxtq1m.hk|xn--gmqw5a.hk|xn--ciqpn.hk|xn--gmq050i.hk|xn--zf0avx.hk|xn--io0a7i.hk|xn--mk0axi.hk|xn--od0alg.hk|xn--od0aq3b.hk|xn--tn0ag.hk|xn--uc0atv.hk|xn--uc0ay4a.hk|com.hk|edu.hk|gov.hk|idv.hk|net.hk|org.hk|hk|ac.cn|com.cn|edu.cn|gov.cn|net.cn|org.cn|mil.cn|xn--55qx5d.cn|xn--io0a7i.cn|xn--od0alg.cn|ah.cn|bj.cn|cq.cn|fj.cn|gd.cn|gs.cn|gz.cn|gx.cn|ha.cn|hb.cn|he.cn|hi.cn|hl.cn|hn.cn|jl.cn|js.cn|jx.cn|ln.cn|nm.cn|nx.cn|qh.cn|sc.cn|sd.cn|sh.cn|sn.cn|sx.cn|tj.cn|xj.cn|xz.cn|yn.cn|zj.cn|hk.cn|mo.cn|tw.cn|cn|edu.tw|gov.tw|mil.tw|com.tw|net.tw|org.tw|idv.tw|game.tw|ebiz.tw|club.tw|xn--zf0ao64a.tw|xn--uc0atv.tw|xn--czrw28b.tw|tw|aichi.jp|akita.jp|aomori.jp|chiba.jp|ehime.jp|fukui.jp|fukuoka.jp|fukushima.jp|gifu.jp|gunma.jp|hiroshima.jp|hokkaido.jp|hyogo.jp|ibaraki.jp|ishikawa.jp|iwate.jp|kagawa.jp|kagoshima.jp|kanagawa.jp|kawasaki.jp|kitakyushu.jp|kobe.jp|kochi.jp|kumamoto.jp|kyoto.jp|mie.jp|miyagi.jp|miyazaki.jp|nagano.jp|nagasaki.jp|nagoya.jp|nara.jp|niigata.jp|oita.jp|okayama.jp|okinawa.jp|osaka.jp|saga.jp|saitama.jp|sapporo.jp|sendai.jp|shiga.jp|shimane.jp|shizuoka.jp|tochigi.jp|tokushima.jp|tokyo.jp|tottori.jp|toyama.jp|wakayama.jp|yamagata.jp|yamaguchi.jp|yamanashi.jp|yokohama.jp|ac.jp|ad.jp|co.jp|ed.jp|go.jp|gr.jp|lg.jp|ne.jp|or.jp|jp|co.in|firm.in|net.in|org.in|gen.in|ind.in|nic.in|ac.in|edu.in|res.in|gov.in|mil.in|in)";
         var replacedText, regex;
-        
+
         // URLs in <a> tags with or without other attributes
         regex = /<a(.+?href=[\"|\']([^\"|^\']+?)[\"|\']+?)>/gim;
         replacedText = inputText.replace(regex, '<a href="$2" target="_blank">');
@@ -770,6 +793,124 @@ webpg.utils = {
         });
 
         return replacedText;
+    },
+
+    parseMailMessage: function(msg) {
+      var parsedMsg = {},       // The return object
+          boundary,             // The boundary used
+          parts,                // All of the separate parts of the message
+          headers = {},         // Stores all of the header items
+          regex = new RegExp(), // Reusable RegExp Object
+          h;                    // Temporary var to hold the current header item
+
+      // Regex to capture the boundary string
+      regex.compile(/\bboundary=(?:["'])?(.+?)(?:["';\r\n\s])(?:$)?/igm);
+
+      msg = msg.replace(/\r\n/gm, '\n').trim();
+      parsedMsg.multipart = regex.test(msg);
+
+      if (parsedMsg.multipart) {
+        // Recompile the RegExp, because test() messes it up
+        regex.compile(/\bboundary=(?:["'])?(.+?)(?:["';\r\n\s])(?:$)?/igm);
+
+        // Define the boundary
+        boundary = regex.exec(msg)[1];
+
+        // Create a regex that splits the boundaries
+        regex = new RegExp("--" + boundary + "(?!-)", "gm");
+        // Split the boundaries
+        parts = msg.split("--" + boundary);
+      } else {
+        regex.compile(/(?:\b)?[\r\n][\r\n]/gm);
+        parts = msg.split(regex);
+      }
+
+
+      // Remove the header and keep a reference to it for parsing
+      var theaders = parts.splice(0, 1);
+
+      // An inline method to parse the headers of a MIME part
+      parseHeaders = function(theaders) {
+        var headers = {},
+            regex = new RegExp();
+
+        // Regex to capture all of the headers+values (TODO: not perfect yet)
+        regex.compile(/^(\w*?(?:(?:-\w*?)+)?):(?:\s)?(.*(?:(?:[\r\n][\ |\t]+.+)?)+)/gm);
+
+        // Loop through the header items
+        while (h = regex.exec(theaders)) {
+          var key = h[1].toLowerCase().replace(/-/g, '_'),
+              value = h[2];
+
+          if (key === 'content_type' || key === 'content_disposition' ) {
+            headers[key] = {};
+            value.split(/[;|\r\n]/g).every(function(x) {
+              if (x.length > 0) {
+                if (x.search('=') > 0) {
+                  var vstr = x.trim().replace(/[\"|;]/g, ''),
+                      vpair = [];
+                  vpair.push(vstr.slice(0, vstr.indexOf("=")));
+                  vpair.push(vstr.slice(vstr.indexOf("=")+1));
+                  headers[key][vpair[0]] = vpair[1];
+                } else {
+                  var type = (key === 'content_disposition') ?
+                    'disposition' : 'type';
+                  headers[key][type] = x.trim();
+                }
+              }
+              return true;
+            });
+          } else {
+            headers[key] = h[2];
+          }
+        }
+        return headers;
+      }
+
+      parsedMsg.headers = parseHeaders(theaders);
+
+      parsedMsg.parts = [];
+
+      if (parsedMsg.multipart === false) {
+        parsedMsg.parts.push({'content': parts.join('\r\n\r\n')});
+      } else {
+        for (var msgPart in parts) {
+          if (parts[msgPart] !== '--') {
+            var part = {},
+                headerEnd = parts[msgPart].search(/[\r\n][\r\n]/gm),
+                content = parts[msgPart].substr(headerEnd);
+            part.headers = parseHeaders(parts[msgPart].slice(0, headerEnd));
+            part.headers.full_headers = parts[msgPart].slice(0, headerEnd);
+            part.content = content;
+            part.body = content.split('--'+boundary)[0].trim();
+            regex.compile(/\bboundary=(?:["'])?(.+?)(?:["';\r\n\s])(?:$)?/igm);
+            part.multipart = regex.test(parts[msgPart]);
+            if (part.multipart)
+              parsedMsg.parts.push(webpg.utils.parseMailMessage(parts[msgPart]));
+            else
+              parsedMsg.parts.push(part);
+          }
+        }
+      }
+
+      return parsedMsg;
+    },
+
+    getPGPMimeMsg: function(msg) {
+      if (JSON.stringify(msg.headers).search("multipart/(signed|encrypted)") !== -1)
+        return msg
+      var pgpmsg = null;
+      for (msgp in msg.parts) {
+        if (msg.parts[msgp].hasOwnProperty('headers') &&
+            JSON.stringify(msg.parts[msgp].headers).search("multipart/(signed|encrypted)") !== -1) {
+          pgpmsg = msg.parts[msgp];
+        } else if (msg.parts[msgp].hasOwnProperty('parts')) {
+          pgpmsg = this.getPGPMimeMsg(msg.parts[msgp]);
+        }
+        if (pgpmsg !== null)
+          return pgpmsg;
+     }
+     return pgpmsg;
     },
 
     quoted_printable_encode: function(str) {
@@ -799,6 +940,18 @@ webpg.utils = {
       return str.substr(0, str.length - 3);
     },
 
+    quoted_printable_decode: function(str) {
+      var RFC2045Decode1 = /=\r\n/gm,
+        // Decodes all equal signs followed by two hex digits
+        RFC2045Decode2IN = /=([0-9A-F]{2})/gim,
+        // the RFC states against decoding lower case encodings, but following apparent PHP behavior
+        // RFC2045Decode2IN = /=([0-9A-F]{2})/gm,
+        RFC2045Decode2OUT = function (sMatch, sHex) {
+          return String.fromCharCode(parseInt(sHex, 16));
+        };
+      return str.replace(RFC2045Decode1, '').replace(RFC2045Decode2IN, RFC2045Decode2OUT);
+    },
+
     /*
         Function: sendRequest
             Sends a request event to the background page or content script
@@ -806,7 +959,7 @@ webpg.utils = {
         Parameters:
             data - <json obj> A JSON object with parameters and data to pass
             callback - <func> The callback to be called upon completion
-            doc - <document> The document to add the listener to 
+            doc - <document> The document to add the listener to
     */
     sendRequest: function(data, callback) { // analogue of chrome.extension.sendRequest
         var tabID;
@@ -1461,7 +1614,7 @@ webpg.utils = {
                 }
             }
         }
-        
+
     },
 
     tabListener: {
@@ -1610,7 +1763,8 @@ webpg.utils = {
         } else if (webpg.utils.detectedBrowser.vendor === 'google') {
             webpg.utils.sendRequest({"msg": "setBadgeText", "badgeText": statusText});
         }
-    }
+    },
+
 };
 
 webpg.descript = function(html) { return html.replace(/\<script(.|\n)*?\>(.|\n)*?\<\/script\>/g, ""); };

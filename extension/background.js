@@ -281,22 +281,26 @@ webpg.background = {
                 break;
 
             case 'verify':
+                var content,
+                    plaintext = (request.plaintext!==undefined) ?
+                      request.plaintext : null;
                 if (request.data && request.data.length > 0) {
-                    var content = request.data;
+                    content = request.data.replace(/^([-]+)(?=[\r\n]|\s\n)/gm, '\\$1');
                     var lowerBlock = content.match(/(-----BEGIN PGP.*?)\n.*?\n\n/gim);
                     if (lowerBlock && lowerBlock.length > 1) {
-                        content.substr(0, content.indexOf(lowerBlock[1]) + lowerBlock[1].length) + 
+                        content.substr(0, content.indexOf(lowerBlock[1]) + lowerBlock[1].length) +
                             content.substr(content.indexOf(lowerBlock[1]) + lowerBlock[1].length, content.length).replace(/\n\n/gim, "\n");
                     }
                     request.data = content;
                 }
                 if (request.message_event && request.message_event === "context") {
-                    var content = (request.data) ? request.data :
+                    content = (request.data) ? request.data :
                         request.selectionData.selectionText;
-                    response = webpg.plugin.gpgVerify(content);
+                    content = content.replace(/^([-]+)(?=[\r\n]|\s\n)/gm, '\\$1');
+                    response = webpg.plugin.gpgVerify(content, plaintext);
                     response.original_text = content;
                 } else {
-                    response = webpg.plugin.gpgVerify(request.data);
+                    response = webpg.plugin.gpgVerify(request.data, plaintext);
                     response.original_text = request.data;
                 }
                 for (var sig in response.signatures) {
