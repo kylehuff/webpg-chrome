@@ -983,7 +983,7 @@ webpg.gmail = {
 
         } else if (e.target &&
             e.target.className === 'gs') {
-            webpg.node = e.previousSibling;
+            webpg.utils.gmailNotify("WebPG is checking this message for signatures", 8000);
             // A message is being displayed
             var node = e.previousSibling,
                 msgObj,
@@ -998,7 +998,6 @@ webpg.gmail = {
           // Check if the PGP data is already present for this message
           if (hasPGPData === true || (hasPGPData === false && hasAttachment === true)) {
             // Notify the user something is going on
-            webpg.utils.gmailNotify("WebPG is checking this message for signatures", 5000);
             // lets get information about the current email message
             if (webpg.utils.detectedBrowser['vendor'] === 'mozilla') {
               var GLOBALS = node.ownerDocument.defaultView.wrappedJSObject.GLOBALS;
@@ -1082,15 +1081,21 @@ webpg.gmail = {
                 'async': true
               });
             }
+          } else {
+            webpg.utils.gmailCancelNotify();
           }
         // A normal document load
         } else {
+            if (e.target.getAttribute && e.target.getAttribute("role") !== null)
+                return;
+
             var dW = webpg.gmail.getCanvasFrameDocument()
                 .querySelectorAll("div>.dW.E>.J-Jw, div>.nH.nH");
 
             for (var i in dW) {
-                if (typeof(dW[i])!="object")
+                if (typeof(dW[i])!=="object")
                     break;
+
                 if (dW[i].querySelectorAll("[id*='webpg-send-btn']").length < 1) {
                     var btn = dW[i].querySelector('div>.dW.E>.J-Jw>.T-I.J-J5-Ji.Bq.T-I-ax7.L3, div>.nH.nH .T-I.J-J5-Ji.aoO.T-I-atl');
                     if (btn) {

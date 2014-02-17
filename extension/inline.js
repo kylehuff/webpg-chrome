@@ -47,7 +47,8 @@ webpg.inline = {
         if (doc.location && doc.location.pathname.substr(-4) === '.pdf')
             return false;
 
-        if (window.location.host === "mail.google.com") {
+        if (window.location.host === "mail.google.com" &&
+            webpg.utils.detectedBrowser.vendor !== "mozilla") { // Get the GLOBALS page variable
           var globals_eventID = "webpg_globals_" + new Date().getTime();
           document.addEventListener(globals_eventID, function(e) {
             if (webpg.gmail !== undefined)
@@ -295,6 +296,10 @@ webpg.inline = {
                         if ("version" in topwinjs && topwinjs.version.title === "TiddlyWiki")
                             break; // It is, bail out
                     }
+
+                    if (doc.location.host === "mail.google.com" &&
+                        node.parentNode.getAttribute("role") === "textbox") // This is a reply or draft in GMAIL, don't parse
+                        break;
 
                     if (node.textContent.search(/^.*?(-----BEGIN PGP.*?).*?(-----)/gim) < 0 ||
                     !node.textContent.search(/^.*?(-----END PGP.*?).*?(-----)/gim) < 0)

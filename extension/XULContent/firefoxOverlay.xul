@@ -96,7 +96,7 @@
     <script src="../background.js"/>
     <script src="../inline.js"/>
     <script src="../webpg_overlay.js"/>
-    <script src="../gmail.js"/>
+    <script src="../webmail/gmail/gmail.js"/>
     <stringbundleset id="stringbundleset">
         <stringbundle id="webpg-strings" src="chrome://webpg-firefox/locale/webpg.properties"/>
     </stringbundleset>
