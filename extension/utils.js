@@ -715,24 +715,30 @@ webpg.utils = {
     gmailNotify: function(text, timeout) {
       timeout = (timeout===undefined) ? 3000 : timeout;
 
-      webpg.jq(".J-J5-Ji .vh")
-        .first()
-          .text(text)
-          .css('visibility', 'visible');
+      var doc = webpg.gmail.getCanvasFrameDocument();
+
+      webpg.jq(doc)
+        .find(".J-J5-Ji .vh")
+          .first()
+            .text(text)
+            .css('visibility', 'visible');
 
       setTimeout(function(e) {
-        webpg.jq(".J-J5-Ji .vh")
-          .first()
-            .text('')
-            .css('visibility', 'hidden');
+        webpg.jq(doc)
+          .find(".J-J5-Ji .vh")
+            .first()
+              .text('')
+              .css('visibility', 'hidden');
       }, timeout);
     },
 
     gmailCancelNotify: function() {
-      webpg.jq(".J-J5-Ji .vh")
-        .first()
-          .text('')
-          .css('visibility', 'hidden');
+      var doc = webpg.gmail.getCanvasFrameDocument();
+      webpg.jq(doc)
+        .find(".J-J5-Ji .vh")
+          .first()
+            .text('')
+            .css('visibility', 'hidden');
     },
 
     /*

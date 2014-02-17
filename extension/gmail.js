@@ -375,12 +375,14 @@ webpg.gmail = {
                       webpg.gmail.action === 3) {
                     status += " - Only ";
 
-                    if (webpg.gmail.encrypt_to_self === true)
-                      status += "<span style='text-decoration:underline;'>you</span>";
-
                     var keylines = [];
 
+                    if (webpg.gmail.encrypt_to_self === true)
+                      keylines.push("<span style='text-decoration:underline;'>you</span>");
+
                     for (var k in recipKeys) {
+                      if (k === 0 && keylines.length === 1)
+                        keylines.push(',');
                       var key = recipKeys[k];
                       keylines.push(key.uids[0].uid + " (" + key.subkeys[0].algorithm_name + "/" + key.subkeys[0].size + ")");
                     }
@@ -999,7 +1001,7 @@ webpg.gmail = {
             webpg.utils.gmailNotify("WebPG is checking this message for signatures", 5000);
             // lets get information about the current email message
             if (webpg.utils.detectedBrowser['vendor'] === 'mozilla') {
-              var GLOBALS = node.ownerDocument.window.GLOBALS;
+              var GLOBALS = node.ownerDocument.defaultView.wrappedJSObject.GLOBALS;
             } else {
               var GLOBALS = webpg.gmail.GLOBALS;
             }
@@ -1015,7 +1017,7 @@ webpg.gmail = {
                 userEmail = regRes[1];
                 gmailID = GLOBALS[GLOBALS.indexOf(userEmail) - 1];
               }
-              msgLink = window.location.href.split("#")[0] + "?ui=2&ik=" + gmailID + "&view=om&th=" + msgID.substr(1);
+              msgLink = node.ownerDocument.location.href.split("#")[0] + "?ui=2&ik=" + gmailID + "&view=om&th=" + msgID.substr(1);
               webpg.jq.ajax({
                 'url': msgLink,
                 'success': function(data, status) {
@@ -1061,18 +1063,18 @@ webpg.gmail = {
                                 signedMsg = signedMsg.replace(/\b(hash:\s)\w+\b/gi, "\$1" + hash);
                               }
                             }
-                            node.firstChild.innerText = signedMsg;
+                            webpg.jq(node.firstChild).text(signedMsg);
                             webpg.utils.gmailCancelNotify();
                           }
                         );
                       } else if (msgObj.headers.content_type.type === "multipart/encrypted") {
-                        node.firstChild.innerText = msgObj.parts[1].body;
+                        webpg.jq(node.firstChild).text(msgObj.parts[1].body);
                         webpg.utils.gmailCancelNotify();
                       }
                     } else if (msgObj.hasOwnProperty('parts') === true &&
                                msgObj.parts.hasOwnProperty(0) === true &&
                                msgObj.parts[0].content.length > 1) {
-                      node.firstChild.innerText = msgObj.parts[0].content;
+                      webpg.jq(node.firstChild).text(msgObj.parts[0].content);
                       webpg.utils.gmailCancelNotify();
                     }
                   }
@@ -1103,7 +1105,7 @@ webpg.gmail = {
         }
     }
 };
-if (document.location.host === "mail.google.com") {
+
 // Check if gmail_integration is enabled and set appropriate listeners.
 webpg.utils.sendRequest({
     msg: "gmail_integration" },
@@ -1170,6 +1172,5 @@ webpg.utils.sendRequest({
         }
     }
 );
-}
 
 /* ]]> */

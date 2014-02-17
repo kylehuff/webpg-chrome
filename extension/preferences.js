@@ -169,9 +169,15 @@ webpg.preferences = {
                 Provides method to get the preference item
         */
         get: function() {
-            var encrypt_to = webpg.plugin.gpgGetPreference('encrypt-to').value;
-            var default_key = webpg.plugin.gpgGetPreference('default-key').value;
-            return (default_key !== "" && encrypt_to === default_key) ? true : false;
+            try {
+                var encrypt_to = webpg.plugin.gpgGetPreference('encrypt-to').value;
+                var default_key = webpg.plugin.gpgGetPreference('default-key').value;
+                var encrypt_to_self = (default_key !== "" && encrypt_to === default_key) ? 'true' : 'false';
+                webpg.localStorage.setItem('encrypt_to_self', encrypt_to_self);
+                return encypt_to_self;
+            } catch (e) {
+                return webpg.localStorage.getItem('encrypt_to_self');
+            }
         },
 
         /*
