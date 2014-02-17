@@ -283,7 +283,7 @@ webpg.inline_results = {
                                     }
                                 }
                             }
-                            webpg.jq('#footer .content').append(_("THIS MESSAGE WAS SIGNED WITH KEY") + " " + sigkey_link + "<br/>");
+                            webpg.jq('#footer .content').html(_("THIS MESSAGE WAS SIGNED WITH KEY") + " " + sigkey_link + "<br/>");
                             webpg.jq('#footer .content, #header .content').append("<a class=\"original_text_link\">" + _("DISPLAY ORIGINAL") + "</a> | <a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a>");
                         }
                         if (request.verify_result.signatures[sig].status === "GOOD_EXPKEY") {
@@ -568,7 +568,7 @@ webpg.inline_results = {
                     webpg.jq('#signature_text').hide();
                     webpg.jq('#original_text').show();
                     webpg.jq('.original_text_link').text(_("HIDE ORIGINAL"));
-                    webpg.inline_results.doResize();
+                    webpg.inline_results.doResize((this.parentElement.parentElement.id !== 'header'));
                 } else {
                     webpg.jq('.original_text_link').text(_("DISPLAY ORIGINAL"));
                     webpg.jq('#signature_text').show();
