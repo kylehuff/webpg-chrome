@@ -140,16 +140,16 @@ webpg.inline = {
                         } catch (err) {
                         }
                         // check if gmail message appears
-                        if (webpg.jq(mutation.target).parent().is('.ii.gt.adP.adO') ||
-                        webpg.jq(mutation.target).parent().is('.adn.ads')) {
-                            if (mutation.target.className.indexOf("webpg-") === -1 &&
-                            webpg.jq(mutation.target).find(".webpg-node-odata").length < 1) {
-                                if (webpg.jq(mutation.target).parent().is('.adn.ads'))
-                                    if (webpg.jq(mutation.target).find('.ii.gt.adP.adO').length < 1)
-                                        return false;
-                                webpg.inline.PGPDataSearch(doc, false, true, mutation.target);
-                            }
-                        }
+//                        if (webpg.jq(mutation.target).parent().is('.ii.gt.adP.adO') ||
+//                        webpg.jq(mutation.target).parent().is('.adn.ads')) {
+//                            if (mutation.target.className.indexOf("webpg-") === -1 &&
+//                            webpg.jq(mutation.target).find(".webpg-node-odata").length < 1) {
+//                                if (webpg.jq(mutation.target).parent().is('.adn.ads'))
+//                                    if (webpg.jq(mutation.target).find('.ii.gt.adP.adO').length < 1)
+//                                        return;
+//                                webpg.inline.PGPDataSearch(doc, false, true, mutation.target);
+//                            }
+//                        }
                     } else {
                         if (mutation.addedNodes.length > 0) {
                             if (mutation.addedNodes[0].textContent.search(/-----BEGIN PGP.*?-----/gim) > -1)
@@ -451,7 +451,7 @@ webpg.inline = {
             html = html.substring(0, html.lastIndexOf("\n")).replace(wbrReg, "");
         }
 
-        var scontent = webpg.utils.getInnerText(node.parentNode);
+        var scontent = webpg.jq(d).text()
 //        if (scontent.search(/^\s*?(-----BEGIN PGP.*?)/gi) < 0)
 //            scontent = webpg.utils.clean(str);
 

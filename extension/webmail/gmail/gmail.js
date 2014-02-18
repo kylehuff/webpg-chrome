@@ -1077,6 +1077,7 @@ webpg.gmail = {
                       webpg.jq(node.firstChild).text(msgObj.parts[0].content);
                       webpg.utils.gmailCancelNotify();
                     }
+                    webpg.inline.PGPDataSearch(webpg.inline.doc, false, true, node);
                   }
                 },
                 'async': true
