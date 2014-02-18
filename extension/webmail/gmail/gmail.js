@@ -1034,13 +1034,14 @@ webpg.gmail = {
                         if (msgObj.parts[0].multipart === true) {
                           signature = msgObj.parts[1].body;
                           data = msgObj.parts[0].parts[0].headers.full_headers + msgObj.parts[0].parts[0].content;
-                          encoding = msgObj.parts[0].parts[0].headers.content_transfer_encoding
+                          encoding = (msgObj.parts[0].parts[0].headers.content_transfer_encoding || "").toLowerCase()
                         } else {
                           signature = msgObj.parts[1].body;
                           data = msgObj.parts[0].headers.full_headers + msgObj.parts[0].content;
-                          encoding = msgObj.parts[0].headers.content_transfer_encoding;
+                          encoding = (msgObj.parts[0].headers.content_transfer_encoding || "").toLowerCase()
                         }
-                        if (encoding === 'quoted_printable') {
+                        if (encoding === 'quoted_printable' ||
+                            encoding === 'quoted-printable') {
                           data = webpg.utils.quoted_printable_decode(data);
                           signature = webpg.utils.quoted_printable_decode(signature);
                         }
