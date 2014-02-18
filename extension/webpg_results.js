@@ -314,7 +314,8 @@ webpg.inline_results = {
                             webpg.jq('#footer .content, #header .content').append("<a class=\"copy_to_clipboard\">" + _("COPY TO CLIPBOARD") + "</a> | ");
                             webpg.jq('#footer .content, #header .content').append("<a class=\"refresh_key_link\">" + _("SEARCH FOR KEYS ON KEYSERVER") + "</a>");
                         }
-                        if (request.verify_result.signatures[sig].status === "BAD_SIG") {
+                        if (request.verify_result.signatures[sig].status === "BAD_SIG" ||
+                            request.verify_result.signatures[sig].status === "INVALID") {
                             descText = _("THE SIGNATURE ON THIS MESSAGE FAILED") + "; " + _("THE MESSAGE MAY BE TAMPERED WITH");
                             webpg.jq('#footer, #header').addClass("signature_bad_sig");
                             icon.src = "skin/images/badges/48x48/stock_signature-bad.png";
