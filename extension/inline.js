@@ -451,7 +451,8 @@ webpg.inline = {
             html = html.substring(0, html.lastIndexOf("\n")).replace(wbrReg, "");
         }
 
-        var scontent = webpg.jq(d).text()
+        var scontent = (webpg.utils.detectedBrowser.product === 'chrome') ?
+              webpg.jq(d).text() : webpg.utils.getInnerText(node.parentNode);
 //        if (scontent.search(/^\s*?(-----BEGIN PGP.*?)/gi) < 0)
 //            scontent = webpg.utils.clean(str);
 
