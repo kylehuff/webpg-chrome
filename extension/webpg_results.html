@@ -29,7 +29,8 @@
         top: 0;
         width: auto;
         padding-left:60px;
-        height:32px;
+        min-height:32px;
+        max-height:48px;
         border-radius: 0 0 6px 6px;
         box-shadow: 1px 1px 10px #000;
         background: transparent url('skin/images/menumask.png') repeat-x;
@@ -40,11 +41,11 @@
     .signed_text_header .title {
       display: block;
     }
-    .signed_text_header .title a {
+    .signed_text_header .title a.mark {
         color: #000;
         text-decoration: none;
     }
-    .signed_text_header .title a:hover {
+    .signed_text_header .title a.mark:hover {
         cursor: text;
         color: #000;
         text-decoration: none;

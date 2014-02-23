@@ -781,7 +781,6 @@ webpg.utils = {
     // Gmail replaces any text that looks like a link and encloses it with anchor tags.
     //  This replaces any links without tags with
     linkify: function(inputText) {
-        var tldList = "(asia|biz|cat|coop|edu|info|eu.int|int|gov|jobs|mil|mobi|name|tel|travel|aaa.pro|aca.pro|acct.pro|avocat.pro|bar.pro|cpa.pro|jur.pro|law.pro|med.pro|eng.pro|pro|ar.com|br.com|cn.com|de.com|eu.com|gb.com|hu.com|jpn.com|kr.com|no.com|qc.com|ru.com|sa.com|se.com|uk.com|us.com|uy.com|za.com|com|ab.ca|bc.ca|mb.ca|nb.ca|nf.ca|nl.ca|ns.ca|nt.ca|nu.ca|on.ca|pe.ca|qc.ca|sk.ca|yk.ca|gc.ca|ca|gb.net|se.net|uk.net|za.net|net|ae.org|za.org|org|[^\.\/]+\.uk|act.edu.au|nsw.edu.au|nt.edu.au|qld.edu.au|sa.edu.au|tas.edu.au|vic.edu.au|wa.edu.au|act.gov.au|nt.gov.au|qld.gov.au|sa.gov.au|tas.gov.au|vic.gov.au|wa.gov.au|[^\.\/]+\.au|de|dk|tv|com.ly|net.ly|gov.ly|plc.ly|edu.ly|sch.ly|med.ly|org.ly|id.ly|ly|xn--55qx5d.hk|xn--wcvs22d.hk|xn--lcvr32d.hk|xn--mxtq1m.hk|xn--gmqw5a.hk|xn--ciqpn.hk|xn--gmq050i.hk|xn--zf0avx.hk|xn--io0a7i.hk|xn--mk0axi.hk|xn--od0alg.hk|xn--od0aq3b.hk|xn--tn0ag.hk|xn--uc0atv.hk|xn--uc0ay4a.hk|com.hk|edu.hk|gov.hk|idv.hk|net.hk|org.hk|hk|ac.cn|com.cn|edu.cn|gov.cn|net.cn|org.cn|mil.cn|xn--55qx5d.cn|xn--io0a7i.cn|xn--od0alg.cn|ah.cn|bj.cn|cq.cn|fj.cn|gd.cn|gs.cn|gz.cn|gx.cn|ha.cn|hb.cn|he.cn|hi.cn|hl.cn|hn.cn|jl.cn|js.cn|jx.cn|ln.cn|nm.cn|nx.cn|qh.cn|sc.cn|sd.cn|sh.cn|sn.cn|sx.cn|tj.cn|xj.cn|xz.cn|yn.cn|zj.cn|hk.cn|mo.cn|tw.cn|cn|edu.tw|gov.tw|mil.tw|com.tw|net.tw|org.tw|idv.tw|game.tw|ebiz.tw|club.tw|xn--zf0ao64a.tw|xn--uc0atv.tw|xn--czrw28b.tw|tw|aichi.jp|akita.jp|aomori.jp|chiba.jp|ehime.jp|fukui.jp|fukuoka.jp|fukushima.jp|gifu.jp|gunma.jp|hiroshima.jp|hokkaido.jp|hyogo.jp|ibaraki.jp|ishikawa.jp|iwate.jp|kagawa.jp|kagoshima.jp|kanagawa.jp|kawasaki.jp|kitakyushu.jp|kobe.jp|kochi.jp|kumamoto.jp|kyoto.jp|mie.jp|miyagi.jp|miyazaki.jp|nagano.jp|nagasaki.jp|nagoya.jp|nara.jp|niigata.jp|oita.jp|okayama.jp|okinawa.jp|osaka.jp|saga.jp|saitama.jp|sapporo.jp|sendai.jp|shiga.jp|shimane.jp|shizuoka.jp|tochigi.jp|tokushima.jp|tokyo.jp|tottori.jp|toyama.jp|wakayama.jp|yamagata.jp|yamaguchi.jp|yamanashi.jp|yokohama.jp|ac.jp|ad.jp|co.jp|ed.jp|go.jp|gr.jp|lg.jp|ne.jp|or.jp|jp|co.in|firm.in|net.in|org.in|gen.in|ind.in|nic.in|ac.in|edu.in|res.in|gov.in|mil.in|in)";
         var replacedText, regex;
 
         // URLs in <a> tags with or without other attributes
@@ -792,8 +791,8 @@ webpg.utils = {
         regex = /(\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b)/gim;
         replacedText = replacedText.replace(regex, '<a href="mailto:$1" target="_blank">$1</a>');
 
-        regex = new RegExp("(\\b((?:[a-z0-9]+):\\/\\/)?(?:[a-z0-9/-]+\\.)*?(?:[a-z0-9]+[\\.](?:(?:" + tldList + ")(?:\\/(?:[a-z0-9\\.]+)?)?)(?=\\s|>|\\||$)))", "gim");
-        replacedText = replacedText.replace(regex, function(match_i, url, protocol) {
+        regex = new RegExp("(\\b([a-z\\-]+:\\/\\/)?((?:(?:(?:[a-z\\d]+(?:[a-z\\d\\-@]{1,2}[a-z\\d]){1,10}\\.))+[a-z]{2,4}(?![\\\"|\\'|@|<]|[\\/][\\\"])|(?:(?:\\d{1,3}\\.){3}\\d{1,3}))(?:\\:\\d+)?(?:\\/[\\-a-z\\d%_.~+]{1,10})*(?:\\?[;&a-z\\d%_.~+=\\-]+)?(?:\\#[\\-a-z\\d_]+)?)\\b)", "gim");
+        replacedText = replacedText.replace(regex, function(match_i, url, protocol, a) {
             return "<a href=\"" + ((!protocol) ? "http://" : "") +
                 url + "\" target=\"_blank\">" + url + "</a>";
         });
@@ -824,13 +823,13 @@ webpg.utils = {
 
         // Create a regex that splits the boundaries
         regex = new RegExp("--" + boundary + "(?!-)", "gm");
+
         // Split the boundaries
         parts = msg.split("--" + boundary);
       } else {
         regex.compile(/(?:\b)?[\r\n][\r\n]/gm);
         parts = msg.split(regex);
       }
-
 
       // Remove the header and keep a reference to it for parsing
       var theaders = parts.splice(0, 1);
@@ -858,7 +857,7 @@ webpg.utils = {
                   vpair.push(vstr.slice(0, vstr.indexOf("=")));
                   vpair.push(vstr.slice(vstr.indexOf("=")+1));
                   headers[key][vpair[0]] = vpair[1];
-                } else {
+                } else if (x.trim().length > 0) {
                   var type = (key === 'content_disposition') ?
                     'disposition' : 'type';
                   headers[key][type] = x.trim();
@@ -874,6 +873,8 @@ webpg.utils = {
       }
 
       parsedMsg.headers = parseHeaders(theaders);
+      parsedMsg.headers.full_headers = (theaders[0] || theaders);
+      parsedMsg.content = parts.join('\r\n\r\n').split(/[\r\n]{4}/)[0].trim();
 
       parsedMsg.parts = [];
 
@@ -903,7 +904,9 @@ webpg.utils = {
     },
 
     getPGPMimeMsg: function(msg) {
-      if (JSON.stringify(msg.headers).search("multipart/(signed|encrypted)") !== -1)
+      var msgHeadersStr = JSON.stringify(msg.headers).toLowerCase();
+      if (msgHeadersStr.search("multipart/(signed|encrypted)") !== -1 &&
+          msgHeadersStr.search("application/pgp-(signature|signed|encrypted)") !== -1)
         return msg
       var pgpmsg = null;
       for (msgp in msg.parts) {
@@ -912,7 +915,13 @@ webpg.utils = {
           pgpmsg = msg.parts[msgp];
         } else if (msg.parts[msgp].hasOwnProperty('parts')) {
           pgpmsg = this.getPGPMimeMsg(msg.parts[msgp]);
+        } else if (msg.parts[msgp].hasOwnProperty('content') &&
+                   msg.parts[msgp].content.search(
+                    /(^\s*?)?(-----BEGIN PGP.*?)/gi) !== -1
+                  ) {
+          pgpmsg = msg.parts[msgp];
         }
+
         if (pgpmsg !== null)
           return pgpmsg;
      }
@@ -940,7 +949,6 @@ webpg.utils = {
         }
         return sMatch + '=\r\n';
       };
-      console.log(RFC2045Encode2IN);
       str = str.replace(RFC2045Encode1IN, RFC2045Encode1OUT).replace(RFC2045Encode2IN, RFC2045Encode2OUT);
       // Strip last softline break
       return str.substr(0, str.length - 3);
@@ -956,6 +964,45 @@ webpg.utils = {
           return String.fromCharCode(parseInt(sHex, 16));
         };
       return str.replace(RFC2045Decode1, '').replace(RFC2045Decode2IN, RFC2045Decode2OUT);
+    },
+
+    base64_decode: function(data) {
+      var b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+      var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
+        ac = 0,
+        dec = "",
+        tmp_arr = [];
+
+      if (!data) {
+        return data;
+      }
+
+      data += '';
+
+      do { // unpack four hexets into three octets using index points in b64
+        h1 = b64.indexOf(data.charAt(i++));
+        h2 = b64.indexOf(data.charAt(i++));
+        h3 = b64.indexOf(data.charAt(i++));
+        h4 = b64.indexOf(data.charAt(i++));
+
+        bits = h1 << 18 | h2 << 12 | h3 << 6 | h4;
+
+        o1 = bits >> 16 & 0xff;
+        o2 = bits >> 8 & 0xff;
+        o3 = bits & 0xff;
+
+        if (h3 == 64) {
+          tmp_arr[ac++] = String.fromCharCode(o1);
+        } else if (h4 == 64) {
+          tmp_arr[ac++] = String.fromCharCode(o1, o2);
+        } else {
+          tmp_arr[ac++] = String.fromCharCode(o1, o2, o3);
+        }
+      } while (i < data.length);
+
+      dec = tmp_arr.join('');
+
+      return dec;
     },
 
     /*

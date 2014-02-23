@@ -88,7 +88,8 @@ webpg.inline = {
           script.parentNode.removeChild(script);
         }
 
-        webpg.inline.PGPDataSearch(doc);
+        if (window.location.host !== "mail.google.com")
+            webpg.inline.PGPDataSearch(doc);
 
         if (webpg.utils.detectedBrowser.product === 'thunderbird')
             return;
@@ -596,7 +597,7 @@ webpg.inline = {
 
         range.insertNode(originalNodeData);
 
-        var posX = webpg.jq(originalNodeData).width() - 60;
+        var posX = webpg.jq(originalNodeData).width() + 20;
 
         var badge = webpg.inline.addElementBadge(doc, posX, results_frame.id, originalNodeData);
 
@@ -1408,20 +1409,39 @@ webpg.inline = {
 
     },
 
-    addElementBadge: function(doc, posX, id, control) {
+    addElementBadge: function(doc, posX, id, control, scrollElement) {
 
         var badge = doc.createElement("span");
-        var posY = "-6";
+        var posY = control.offsetTop;
+
+        scrollElement = (scrollElement !== undefined) ? scrollElement :
+          webpg.jq(control).parent().attr('role') === 'document' ?
+          webpg.jq(control).parent().offsetParent().offsetParent() :
+            doc.defaultView;
+
+        webpg.jq(scrollElement).scroll(function(e) {
+          if (badge.style.display === "none")
+            return;
+
+          var pos = (scrollElement !== undefined) ?
+            webpg.jq(scrollElement).scrollTop() : badge.ownerDocument.defaultView.pageYOffset;
+
+          if (pos < (badge.parentElement.offsetTop +
+                     badge.parentElement.offsetHeight)) {
+            pos = (pos < badge.parentElement.offsetTop) ?
+                badge.parentElement.offsetTop : pos;
+            webpg.jq(badge).css({'top': pos});
+          }
+        });
 
         if (control.nodeName.toLowerCase() === "textarea") {
             posX = "-50";
-        } else {
-            posY = "-34";
         }
 
-        badge.setAttribute("style", "width:30px;" +
-            "display:inline-block;position:relative;top:" + posY + "px;left:" + posX + "px;" +
-            "padding:1px 2px 3px 0;border-radius: 70px; z-index:1;");
+        badge.setAttribute("style", "width:30px; display:inline-block;" +
+            "float:left; position:absolute; top:" + posY + "px;" +
+            "left:" + posX + "px;" + "padding:1px 2px 3px 0;" +
+            "border-radius:70px; z-index:1;");
         badge.setAttribute("id", "webpg-badge-toggle-" + id);
         badge.setAttribute("class", "webpg-badge-toggle");
 
@@ -1447,14 +1467,13 @@ webpg.inline = {
             webpg.jq(control).hide();
             webpg.jq(this).parent().hide();
             webpg.jq(this.ownerDocument.getElementById(target_id)).show();
-            if (webpg.inline.mode === "icon") {
-                webpg.utils.sendRequest({
-                    'msg': 'sendtoiframe',
-                    'msg_to_pass': 'resizeiframe',
-                    'target_id': target_id,
-                    'iframe_id': target_id
-                });
-            }
+            webpg.utils.sendRequest({
+                'msg': 'sendtoiframe',
+                'msg_to_pass': 'resizeiframe',
+                'target_id': target_id,
+                'iframe_id': target_id,
+                'scrollTop': true
+            });
         });
 
         return badge;
@@ -1501,7 +1520,10 @@ webpg.inline = {
                             parentNode = parentNode.parentNode;
                         }
                         webpg.jq(parentNode).find('.webpg-node-odata').toggle();
-                        webpg.jq(parentNode).find("#webpg-badge-toggle-" + iframe.id).toggle();
+                        webpg.jq(parentNode)
+                          .find("#webpg-badge-toggle-" + iframe.id)
+                            .toggle()
+                            .css({'top': parentNode.offsetTop + 'px'});
                         webpg.jq(iframe).toggle();
                     }
                 } catch (err) {
@@ -1522,7 +1544,10 @@ webpg.inline = {
             }
         });
         if (range) {
-            range.insertNode(iframe);
+            if (range.constructor.toString().search("Range") !== -1)
+              range.insertNode(iframe);
+            else // not a range...
+              range.appendChild(iframe);
             var theURL = webpg.utils.resourcePath + "webpg_results.html?id=" + id;
             if (webpg.utils.detectedBrowser.vendor === "mozilla")
                 iframe.contentWindow.location.href = theURL;

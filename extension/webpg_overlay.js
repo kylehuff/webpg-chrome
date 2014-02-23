@@ -63,7 +63,7 @@ webpg.overlay = {
                 webpg.jq = webpg.thunderbird.utils.loadjQuery(window);
 
         // We don't want to run on certain things on certain pages
-        
+
         if (webpg.utils.detectedBrowser.vendor === 'google') {
             webpg.overlay.insert_target = null;
             webpg.overlay.insert_range = null;
@@ -148,9 +148,10 @@ webpg.overlay = {
           aEvent.originalTarget : document;
 
       // Check if inline formatting is enabled and parse
-      if (webpg.doc.location && webpg.doc.location.href.search(
-        "chrome://webpg-firefox/content/key_manager.html") === -1 &&
-        webpg.overlay.decorate_inline === 'true') {
+      if (webpg.overlay.decorate_inline === 'true' &&
+          webpg.doc.location &&
+          webpg.doc.location.host !== "mail.google.com" &&
+          webpg.doc.location.href.search("chrome://webpg-firefox/content/key_manager.html") === -1) {
         // Parse the document for PGP Data
         webpg.inline.PGPDataSearch(webpg.doc);
       }
@@ -357,7 +358,7 @@ webpg.overlay = {
                 theURL += "&signers=" + escape(request.signers);
 
             var win = (webpg.utils.detectedBrowser.vendor === 'mozilla') ? content : window;
-            
+
             try {
                 win = webpg.overlay.insert_target.ownerDocument.defaultView;
             } catch (err1) {
@@ -378,7 +379,7 @@ webpg.overlay = {
             iframe.style.marginLeft = "";
 
             var posY = win.scrollY + (webpg.jq(iframe).innerHeight() / 3);
-            var posX = (win.innerWidth / 2) - 
+            var posX = (win.innerWidth / 2) -
                     (iframe.offsetWidth / 2);
 
             posY = win.pageYOffset;
@@ -617,7 +618,7 @@ webpg.overlay = {
                 break;
         }
     },
-    
+
     /*
         Function: listenerUnload
             This function unloads then event listener when the window/tab is closed.
@@ -645,6 +646,6 @@ if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
     }
 } else {
     webpg.overlay.init();
-    window.addEventListener("scroll",webpg.overlay.executeInline, true);
+    window.addEventListener("scroll", webpg.overlay.executeInline, true);
 }
 /* ]]> */

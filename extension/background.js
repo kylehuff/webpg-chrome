@@ -269,12 +269,15 @@ webpg.background = {
                 var sign_status = webpg.plugin.gpgSignText(request.selectionData.selectionText,
                     signers, 2);
                 response = sign_status;
+                console.log(request.selectionData.selectionText);
                 if (!sign_status.error && sign_status.data.length > 0) {
-                    if (typeof(request.message_event)==='undefined' || request.message_event !== "gmail") {
+                    if (typeof(request.message_event)==='undefined' ||
+                        request.message_event !== "gmail" ||
+                        request.message_event !== "roundcube") {
                         webpg.utils.tabs.sendRequest(sender.tab, {'msg': 'insertEncryptedData',
                             'data': sign_status.data,
-                            'pre_selection' : request.selectionData.pre_selection,
-                            'post_selection' : request.selectionData.post_selection,
+                            'pre_selection' : (request.selectionData.pre_selection || ""),
+                            'post_selection' : (request.selectionData.post_selection || ""),
                             "iframe_id": request.iframe_id});
                     }
                 }
@@ -492,7 +495,6 @@ webpg.background = {
                     for (var subkey in real_keyring_item.subkeys) {
                         var subkey_id = real_keyring_item.
                             subkeys[subkey].subkey;
-//                        console.log(response);
                         if (subkey_id === request.key_id) {
                             response.in_real_keyring = true;
                             response.real_keyring_item =

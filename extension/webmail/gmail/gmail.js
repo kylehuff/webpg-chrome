@@ -983,10 +983,14 @@ webpg.gmail = {
 
         } else if (e.target &&
             e.target.className === 'gs') {
+
+            if (e.addedNodes &&
+                e.addedNodes[0].className.search('webpg') !== -1)
+              return;
+
             webpg.utils.gmailNotify("WebPG is checking this message for signatures", 8000);
             // A message is being displayed
             var node = e.previousSibling,
-                msgObj,
                 msgClassList,
                 userEmail,
                 gmailID,
@@ -1019,66 +1023,134 @@ webpg.gmail = {
               msgLink = node.ownerDocument.location.href.split("#")[0] + "?ui=2&ik=" + gmailID + "&view=om&th=" + msgID.substr(1);
               webpg.jq.ajax({
                 'url': msgLink,
-                'success': function(data, status) {
-                  msgObj = webpg.utils.parseMailMessage(data);
+                'success': function(msgData, status) {
+                  var msgObj = null,
+                      signature = null,
+                      data,
+                      encoding,
+                      dataEncoding,
+                      plaintextHeaders = [],
+                      blockType,
+                      dataEnd = "";
+
+                  msgObj = webpg.utils.parseMailMessage(msgData);
+
                   if (msgObj && msgObj.multipart === true)
                     msgObj = webpg.utils.getPGPMimeMsg(msgObj);
 
                   if (node && msgObj) {
                     if (msgObj.multipart === true && msgObj.parts.length !== 0) {
                       if (msgObj.headers.content_type.type === "multipart/signed") {
-                        var data,
-                            signature,
-                            signedMsg,
-                            encoding;
                         if (msgObj.parts[0].multipart === true) {
+                          dataEnd = '\n';
+                          data = msgObj.content;
+                          dataEncoding = msgObj.parts[0].headers.content_transfer_encoding;
                           signature = msgObj.parts[1].body;
-                          data = msgObj.parts[0].parts[0].headers.full_headers + msgObj.parts[0].parts[0].content;
-                          encoding = (msgObj.parts[0].parts[0].headers.content_transfer_encoding || "").toLowerCase()
+                          encoding = (msgObj.parts[0].headers.content_transfer_encoding || "").toLowerCase()
                         } else {
+                          dataEnd = '\n\n';
                           signature = msgObj.parts[1].body;
                           data = msgObj.parts[0].headers.full_headers + msgObj.parts[0].content;
-                          encoding = (msgObj.parts[0].headers.content_transfer_encoding || "").toLowerCase()
+                          dataEncoding = msgObj.parts[0].headers.content_transfer_encoding;
+                          encoding = (msgObj.parts[1].headers.content_transfer_encoding || "").toLowerCase();
+                          plaintextHeaders = msgObj.parts[1].headers.full_headers;
                         }
-                        if (encoding === 'quoted_printable' ||
-                            encoding === 'quoted-printable') {
-                          data = webpg.utils.quoted_printable_decode(data);
-                          signature = webpg.utils.quoted_printable_decode(signature);
-                        }
-                        signedMsg = "-----BEGIN PGP SIGNED MESSAGE-----\nHash: SHA1\n" +
-                          data + signature;
-
-                        // Attempt to gpgVerify to get correct hash
-                        //  TODO: We ought to be able to identify the hash used
-                        //  without invoking verify.
-                        webpg.utils.sendRequest({
-                          'msg': "verify",
-                          'data': signature,
-                          'plaintext': data },
-                          function(response) {
-                            if (response.result.error === false) {
-                              if (response.result.signatures.hasOwnProperty(0) &&
-                                  response.result.signatures[0].pubkey_algo !== 0) {
-                                var hash = response.result.signatures[0].hash_algo_name;
-                                signedMsg = signedMsg.replace(/\b(hash:\s)\w+\b/gi, "\$1" + hash);
-                              }
-                            }
-                            webpg.jq(node.firstChild).text(signedMsg);
-                            webpg.utils.gmailCancelNotify();
-                          }
-                        );
                       } else if (msgObj.headers.content_type.type === "multipart/encrypted") {
-                        webpg.jq(node.firstChild).text(msgObj.parts[1].body);
-                        webpg.utils.gmailCancelNotify();
+                        data = msgObj.parts[1].body;
                       }
                     } else if (msgObj.hasOwnProperty('parts') === true &&
                                msgObj.parts.hasOwnProperty(0) === true &&
                                msgObj.parts[0].content.length > 1) {
-                      webpg.jq(node.firstChild).text(msgObj.parts[0].content);
-                      webpg.utils.gmailCancelNotify();
+                        data = msgObj.parts[0].content;
+                        encoding = (msgObj.parts[0].headers && msgObj.parts[0].headers.content_transfer_encoding || "").toLowerCase()
+                    } else if (msgObj.hasOwnProperty('content') === true) {
+                        data = msgObj.content;
                     }
+
+                    if (dataEncoding === 'quoted_printable' ||
+                        dataEncoding === 'qouted-printable')
+                      data = webpg.utils.quoted_printable_decode(data);
+                    else if (dataEncoding === 'base64')
+                      data = webpg.utils.base64_decode(data);
+
+                    if (encoding === 'quoted_printable' ||
+                        encoding === 'quoted-printable')
+                      signature = (webpg.utils.quoted_printable_decode(signature) || null);
+                    else if (encoding === 'base64')
+                      signature = (webpg.utils.base64(signature) || null);
+
                     var doc = (node.ownerDocument || webpg.inline.doc || content.document || document);
-                    webpg.inline.PGPDataSearch(doc, false, true, node);
+
+                    var pgpData = (signature || data); // If this is signed data, the PGP data is the signature
+                    if (pgpData === null || pgpData.length < 1)
+                      return;
+
+                    webpg.jq(node.firstChild).hide(); // Hide the gmail message content
+                    var results_frame = webpg.inline.addResultsFrame(node, node);
+
+                    var originalNodeData = doc.createElement("span");
+                    originalNodeData.setAttribute("class", "webpg-node-odata");
+                    originalNodeData.setAttribute("style", "white-space: pre;");
+                    originalNodeData.setAttribute("id", "webpg-node-odata-" + results_frame.id);
+                    originalNodeData.textContent = data;
+
+                    webpg.jq(originalNodeData).insertBefore(results_frame);
+
+                    var posX = webpg.jq(originalNodeData).width() - 60;
+                    var scrollElement = webpg.jq(originalNodeData).parents().find(".Tm.aeJ");
+
+                    var badge = webpg.inline.addElementBadge(doc, posX, results_frame.id, originalNodeData, scrollElement);
+                    originalNodeData.appendChild(badge);
+
+                    plaintext = (signature === null) ? null : (data.substr(0, data.length).trim() + dataEnd || ""); // If this is a detached signature, the plaintext will be data
+
+                    webpg.utils.sendRequest({
+                        'msg': 'verify',
+                        'data': pgpData,
+                        'plaintext': plaintext,
+                        'target_id': results_frame.id},
+                        function(response) {
+                            if (response.result.message_type === "detached_signature" ||
+                                (response.result.signatures && response.result.data))
+                                blockType = webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
+                            else
+                                blockType = webpg.constants.PGPBlocks.PGP_ENCRYPTED;
+
+                            if (plaintext !== null) {
+                              response.result.original_text = plaintext + '\n' + pgpData;
+                              response.result.data = (plaintextHeaders.length > 0 ? plaintext.split(/[\r\n][\r\n]/)[1] : plaintext || plaintext);
+                            }
+                            webpg.utils.sendRequest({
+                                'msg': "sendtoiframe",
+                                'block_type': blockType,
+                                'target_id': results_frame.id,
+                                'verify_result': response.result
+                            });
+                            if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+                                webpg.utils.sendRequest({
+                                    'msg': "sendtoiframe",
+                                    'block_type': blockType,
+                                    'target_id': results_frame.id,
+                                    'verify_result': response.result
+                                });
+                            } else {
+                                results_frame.onload = function() {
+                                    webpg.utils.sendRequest({
+                                        'msg': "sendtoiframe",
+                                        'block_type': blockType,
+                                        'target_id': results_frame.id,
+                                        'verify_result': response.result
+                                    });
+                                };
+                            }
+                            webpg.utils.gmailCancelNotify();
+                        }
+                    );
+
+                    if (webpg.inline.mode === "window") {
+                        webpg.jq(originalNodeData).hide();
+                        webpg.jq(badge).hide();
+                    }
                   } else {
                     webpg.utils.gmailCancelNotify();
                   }
@@ -1091,6 +1163,14 @@ webpg.gmail = {
           }
         // A normal document load
         } else {
+            if (e.target.getAttribute && e.target.getAttribute("role") === "document") {
+              if (e.addedNodes && e.addedNodes.length > 0 &&
+                  e.addedNodes[0].data !== undefined &&
+                  e.addedNodes[0].data.search("-----BEGIN PGP") === 0) {
+                webpg.inline.PGPDataSearch(e.target.ownerDocument, true, false, e.target);
+              }
+              return;
+            }
             if (e.target.getAttribute && e.target.getAttribute("role") !== null)
                 return;
 
