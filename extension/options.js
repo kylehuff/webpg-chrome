@@ -364,7 +364,7 @@ webpg.options = {
                                  _('Enabled') : _('Disabled')
                     }).click(function(e) {
                         var status;
-                        if (webpg.preferences.encrypt_to_self.get()) {
+                        if (webpg.preferences.encrypt_to_self.get() === "true") {
                             webpg.preferences.encrypt_to_self.set(false);
                             this.checked = false;
                             status = _('Disabled');

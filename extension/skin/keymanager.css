@@ -165,10 +165,15 @@ div.uid-options {
 span.uid-options {
     font-size:12px;
     display:inline-table;
+    float:left;
     margin-top: 11px;
 }
+
+div.keydetails br {
+    clear:both;
+}
 span.uid-options.select {
-    margin-top: -10px;
+    margin-top: -2px;
 }
 @-moz-document url-prefix() {
   span.uid-options.select {
@@ -182,6 +187,8 @@ span.uid-options.select {
     display:inline;
     margin-right:0;
     padding-right:0;
+    margin-top:-5px;
+    padding-bottom:5px;
 }
 span.uid-options label {
     display: block;
@@ -209,6 +216,9 @@ span.uid-options select {
     box-shadow:#666 2px 2px 2px;
     -moz-box-shadow:#666 2px 2px 2px;
     -webkit-box-shadow:#666 2px 2px 2px;
+}
+.photo_img {
+    clear:both;
 }
 .private-key-option-list, .public-key-option-list {
     padding:2px;

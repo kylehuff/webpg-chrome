@@ -444,8 +444,6 @@ webpg.inline_results = {
                                             webpg.jq('#header .title').append(" (" + scrub(keyobj.subkeys[0].size) + scrub(key_algo.abbr) + "/" + keyobj.fingerprint.substr(-8) + ")<br/>");
                                             created = new Date();
                                             created.setTime(keyobj.subkeys[0].created*1000);
-//                                                expires = new Date();
-//                                                expires.setTime(keyobj.subkeys[0].expires*1000);
                                             webpg.jq('#signature_text').append(_("Created") + ": " + created.toUTCString() + "<br/>");
                                             var expires = (keyobj.subkeys[0].expires === 0) ? 'Never' : new Date(keyobj.subkeys[0].expires * 1000).toUTCString();
                                             webpg.jq('#signature_text').append(_("Expires") + ": " + expires + "<br/>");

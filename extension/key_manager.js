@@ -1727,6 +1727,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                     </span>\
                     <span class="missing-signature-text" ng-if="uid.missing_signatures">* ' + _("Signatures made with keys not in your keyring are omitted") + '.</span>\
                   </div>\
+                  <br style="clear:both"/>\
                   <div id="sig-{{key.id}}-{{$index}}" ng-repeat="sig in uid.signatures track by $index" class="signature-box" ng-class="sig.revoked? \'sig-revoked\': sig.invalid? \'sig-invalid\' : \'sig-good\'">\
                     <img src="../skin/images/menumask.png" width="0" height="0"/>\
                     <div class="signature-text-box">\

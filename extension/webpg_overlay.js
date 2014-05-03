@@ -216,7 +216,8 @@ webpg.overlay = {
             if (webpg.overlay.prior_insert_target === null)
                 return false;
 
-            if (webpg.overlay.insert_target !== null && request.data) {
+            if (webpg.overlay.insert_target !== undefined &&
+                webpg.overlay.insert_target !== null && request.data) {
                 if (webpg.overlay.insert_range !== null &&
                 (webpg.overlay.insert_target.nodeName !== 'TEXTAREA' &&
                 webpg.overlay.insert_target.nodeName !== 'INPUT')) {

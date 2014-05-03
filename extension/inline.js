@@ -69,7 +69,7 @@ webpg.inline = {
           document.addEventListener(view_eventID, function(e) {
             if (webpg.gmail !== undefined)
               webpg.gmail.VIEW_DATA = e.detail;
-            document.removeEventListener(view_eventID);
+            document.removeEventListener(view_eventID, arguments.callee);
           });
           var actualCode = ["setTimeout(function() {",
                             "if (typeof(VIEW_DATA) !== 'undefined')",

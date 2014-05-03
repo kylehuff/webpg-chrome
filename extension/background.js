@@ -366,7 +366,6 @@ webpg.background = {
                 var sign_status = webpg.plugin.gpgSignText(request.selectionData.selectionText,
                     signers, 2);
                 response = sign_status;
-                console.log(request.selectionData.selectionText);
                 if (!sign_status.error && sign_status.data.length > 0) {
                     if (typeof(request.message_event)==='undefined' ||
                         request.message_event !== "gmail" ||
