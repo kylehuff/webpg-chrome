@@ -1,16 +1,112 @@
 /* <![CDATA[ */
+/**
+  @property {Object} port A Chrome/Chromium communications port
+  @abstract
+*/
+/**
+* @docauthor Kyle L. Huff
+* @class webpg
+* webpg is main logic controller for WebPG. It runs within the context
+* of the browser instance and listens for requests from the WebPG content
+* scripts, popups and dialogs.
+*
+* The background script is the only provider for the WebPG NPAPI plugin object.
+*/
 if (typeof(webpg)==='undefined') { var webpg = {}; }
+/**
+  @property {Object} plugin The backend binary component that provides interaction with GnuPG
+  @property {Object} plugin.webpg_status The reported status of the NPAPI Plugin object, GnuPG and associated libraries
+  @property {Object} plugin.webpg_status.Assuan Information about the detected Assuan installation.
+  @property {String} plugin.webpg_status.Assuan.file_name
+  @property {String} plugin.webpg_status.Assuan.home_dir
+  @property {String} plugin.webpg_status.Assuan.req_version
+  @property {String} plugin.webpg_status.Assuan.version
+  @property {String} plugin.webpg_status.GNUPGBIN The currently defined GnuPG binary.
+  @property {String} plugin.webpg_status.GNUPGHOME The currently dfeined GnuPG home directory.
+  @property {Object} plugin.webpg_status.GPGCONF Information about the detected GPGCONF installation
+  @property {String} plugin.webpg_status.GPGCONF.file_name The currently defined GPGCONF binary
+  @property {String} plugin.webpg_status.GPGCONF.req_version
+  @property {String} plugin.webpg_status.GPGCONF.version
+  @property {String} plugin.webpg_status.GPGCONFBIN The currently defined GPGCONF binary
+  @property {String} plugin.webpg_status.GPGCONFHOME The currently defined GPGCONF home directory
+  @property {Object} plugin.webpg_status.OpenPGP Information about the detected OpenPGP installation
+  @property {Object} [plugin.webpg_status.UISERVER] Information about the detected UISERVER installation
+  @property {Boolean} plugin.webpg_status.error True if an error was detected in loading the plugin or GnuPG
+  @property {String} [plugin.webpg_status.extension] The currently detected extension host browser
+  @property {Boolean} plugin.webpg_status.extensionize
+  @property {String} plugin.webpg_status.gpg_agent_info
+  @property {Boolean} plugin.webpg_status.gpgconf_detected
+  @property {String} plugin.webpg_status.gpgme_version
+  @property {Boolean} plugin.webpg_status.openpgp_detected
+  @property {Object} plugin.webpg_status.plugin WebPG NPAPI Plugin Library Information
+  @property {Object} plugin.webpg_status.plugin.params Parameters used to initialize the Plugin Object
+  @property {String} plugin.webpg_status.plugin.params.id The DOM Element ID of the Plugin Object
+  @property {String} plugin.webpg_status.plugin.params.type The MimeType used to load the Plugin Object
+  @property {String} plugin.webpg_status.plugin.path The absolute path to the Plugin Object Library
+  @property {String} plugin.webpg_status.plugin.source_url The absolute URL to the page that loaded the Plugin Object
+  @property {Object} plugin.webpg_status.plugin.version The current version of the Plugin Object
 
-/*
-    Class: webpg.background
+  @property plugin.webpg_status.Example An Example of webpg_status contents
+
+      {
+       "Assuan": {
+        "file_name": "/run/user/1000/keyring-HpYEFj/gpg",
+        "home_dir": "!GPG_AGENT",
+        "req_version": "1.0",
+        "version": "1.0"
+       },
+       "GNUPGBIN": "",
+       "GNUPGHOME": "",
+       "GPGCONF": {
+        "file_name": "/usr/bin/gpgconf",
+        "req_version": "2.0.4",
+        "version": "2.0.20"
+       },
+       "GPGCONFBIN": "",
+       "GPGCONFHOME": "",
+       "OpenPGP": {
+        "file_name": "/usr/bin/gpg",
+        "req_version": "1.4.0",
+        "version": "1.4.14"
+       },
+       "UISERVER": {
+        "file_name": "/home/kylehuff/.gnupg/S.uiserver",
+        "req_version": "1.0",
+        "version": "1.0"
+       },
+       "error": false,
+       "extension": "chrome",
+       "extensionize": true,
+       "gpg_agent_info": "/run/user/1000/keyring-HpYEFj/gpg:0:1",
+       "gpgconf_detected": true,
+       "gpgme_version": "1.4.2",
+       "openpgp_detected": true,
+       "plugin": {
+        "params": {
+         "id": "webpgPlugin",
+         "type": "application/x-webpg"
+        },
+        "path": "/devel/webpg-chrome/extension/plugins/Linux_x86_64-gcc/npwebpg-ext-v0.7.0-Linux_x86_64-gcc.so",
+        "source_url": "chrome-extension://hhaopbphlojhnmbomffjcbnllcenbnih/_generated_background_page.html",
+        "version": "0.7.0"
+       }
+      }
+
+  @member webpg
+
+*/
+
+/**
+    @property {webpg.background} background
         The background page runs within the context of the browser and handles
         communication between privileged pages/content and unprivileged pages.
 */
 webpg.background = {
 
-    /*
-        Function: init
+    /**
+        @method
             Sets up the NPAPI plugin and initializes WebPG
+        @member webpg.background
     */
     init: function() {
         var _ = webpg.utils.i18n.gettext;
@@ -142,9 +238,10 @@ webpg.background = {
         }
     },
 
-    /*
-        Function: _onRequest
+    /**
+        @method _onRequest
             Called when a message is passed to the page
+        @member webpg.background
     */
     // Called when a message is passed.
     _onRequest: function(request, sender, sendResponse) {
@@ -587,6 +684,14 @@ webpg.background = {
         delete request, response;
     },
 
+    /**
+        @method keylistProgress
+            Called by webpg-npapi when a given key generation event is emitted
+
+        @param {String} data The ASCII representation of the current operation status
+
+        @member webpg.background
+    */
     keylistProgress: function(data) {
       var msgType = (data.substr(2, 6) === "status") ? "progress" : "key";
       if (webpg.utils.detectedBrowser.vendor === "mozilla") {
@@ -654,12 +759,13 @@ webpg.background = {
       }
     },
 
-    /*
-        Function: gpgGenKeyProgress
+    /**
+        @method gpgGenKeyProgress
             Called by webpg-npapi to update the current status of the key generation operation
 
-        Parameters:
-            data - <str> The ASCII representation of the current operation status
+        @param {String} data The ASCII representation of the current operation status
+
+        @member webpg.background
     */
     gpgGenKeyProgress: function(data) {
         if (webpg.utils.detectedBrowser.vendor === "mozilla") {
@@ -701,12 +807,13 @@ webpg.background = {
         }
     },
 
-    /*
-        Function: gpgGenKeyComplete
+    /**
+        @method gpgGenKeyComplete
             Called by webpg-npapi when a given key generation option has completed
 
-        Parameters:
-            data - <str> The ASCII representation of the current operation status
+        @param {String} data The ASCII representation of the current operation status
+
+        @member webpg.background
     */
     gpgGenKeyComplete: function(data) {
         var _ = webpg.utils.i18n.gettext;

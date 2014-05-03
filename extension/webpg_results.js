@@ -3,9 +3,9 @@ if (typeof(webpg)=='undefined') { webpg = {}; }
 // Enforce jQuery.noConflict if not already performed
 if (typeof(jQuery)!='undefined') { webpg.jq = jQuery.noConflict(true); }
 
-/*
-   Class: webpg.inline_results
-    This class implements the inline results iframe
+/**
+    @class webpg.inline_results
+      This class implements the inline results iframe
 */
 webpg.inline_results = {
 
@@ -42,13 +42,12 @@ webpg.inline_results = {
         );
     },
 
-    /*
-        Function: doResize
+    /**
+        @method doResize
             Resizes the parent iframe by sending a request to the listener of
             the webpg.background object
 
-        Parameters:
-            scrollTop - <bool> Indicates if the parent window should scroll to the top of the frame
+        @param {Boolean} scrollTop Indicates if the parent window should scroll to the top of the frame
     */
     doResize: function(scrollTop) {
         if (webpg.utils.isRTL()) {
@@ -74,13 +73,12 @@ webpg.inline_results = {
         });
     },
 
-    /*
-        Function: createSignatureBox
+    /**
+        @method createSignatureBox
             Creates an HTML element with information concerning a signature
 
-        Parameters:
-            sigObj - <obj> An object with information about a signature
-            sigIdx - <int> The index of the signature within the keyring
+        @param {Object} sigObj An object with information about the signature
+        @param {Integer} sigIdx The index of the signature within the keyring
     */
     // TODO: Maybe move this to some place generic so we can use the same
     //  generator on the key manager

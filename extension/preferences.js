@@ -1,15 +1,15 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
 
-/*
-    Class: webpg.preferences
+/**
+    @class webpg.preferences
         Provides unified getter/setter methods for storing the user/global
         preference items
 */
 webpg.preferences = {
 
-    /*
-        Function: init
+    /**
+        @method: init
             Ensures the definition of webpg.background is available to the
             webpg.preferences class
     */
@@ -18,56 +18,67 @@ webpg.preferences = {
             webpg.background = browserWindow;
     },
 
-    /*
-        Class: webpg.preferences.webpg_enabled
+    /**
+        @property {webpg.preferences.webpg_enabled} webpg_enabled
             Provides methods to get/set the "enabled" preference
+        @member webpg.preferences
     */
     webpg_enabled: {
-        /*
-            Function: get
-                Provides methods to get the preference item
+        /**
+            @method get
+                Provides method to get the preference item
+            @member webpg.preferences.webpg_enabled
         */
         get: function() {
             return webpg.localStorage.getItem('enabled');
         },
 
-        /*
-            Function: set
+        /**
+            @method set
                 Provides method to set the preference item
 
-            Parameters:
-                value - <bool> The boolean value to set
+            @param {Boolean} value The boolean value to set
+            @member webpg.preferences.webpg_enabled
         */
         set: function(value) {
             webpg.localStorage.setItem('enabled', value);
         }
     },
 
-    /*
-        Class: webpg.preferences.decorate_inline
+    /**
+        @property {webpg.preferences.decorate_inline} decroate_inline
             Provides methods to get/set the "decorate_inline" preference
     */
     decorate_inline: {
-        /*
-            Function: get
-                Provides methods to get the preference item
+        /**
+            @method get
+                Provides method to get the preference item
+
+            @member webpg.preferences.decorate_inline
         */
         get: function() {
             var value = webpg.localStorage.getItem('decorate_inline');
             return (value === null) ? "true" : value;
         },
 
-        /*
-            Function: set
+        /**
+            @method set
                 Provides method to set the preference item
 
-            Parameters:
-                value - <bool> The boolean value to set
+            @param {Boolean} value The boolean value to set
+            @member webpg.preferences.decorate_inline
         */
         set: function(value) {
             webpg.localStorage.setItem('decorate_inline', value);
         },
 
+        /**
+            @method mode
+                Provides method to get or set the mode preference item
+
+            @param {String} value The value to set - either "window" or "icon"
+            @member webpg.preferences.decorate_inline
+        */
         mode: function(value) {
             if (typeof(value)!="undefined") {
                 webpg.localStorage.setItem('decorate_mode', value);
@@ -78,81 +89,93 @@ webpg.preferences = {
         }
     },
 
+    /**
+        @property {webpg.preferences.render_toolbar} render_toolbar
+            Provides methods to get/set the "render_toolbar" preference
+    */
     render_toolbar: {
-        /*
-            Function: get
-                Provides methods to get the preference item
+        /**
+            @method get
+                Provides method to get the preference item
+
+            @member webpg.preferences.render_toolbar
         */
         get: function() {
             var value = webpg.localStorage.getItem('render_toolbar');
             return (value === null) ? true : value;
         },
 
-        /*
-            Function: set
+        /**
+            @method set
                 Provides method to set the preference item
 
-            Parameters:
-                value - <bool> The boolean value to set
+            @param {String} value The value to set - "true" "false"
+            @member webpg.preferences.render_toolbar
         */
         set: function(value) {
             webpg.localStorage.setItem('render_toolbar', value);
         }
     },
 
-    /*
-        Class: webpg.preferences.gmail_integration
+    /**
+        @property {webpg.preferences.gmail_integration} gmail_integration
             Provides methods to get/set the "gmail_integration" preference
     */
     gmail_integration: {
-        /*
-            Function: get
-                Provides methods to get the preference item
+        /**
+            @method get
+                Provides method to get the preference item
+
+            @return {String} 'true'|'false'
+            @member webpg.preferences.gmail_integration
         */
         get: function() {
             var value = webpg.localStorage.getItem('gmail_integration');
             return (value && value != -1) ? value : 'false';
         },
 
-        /*
-            Function: set
+        /**
+            @method set
                 Provides method to set the preference item
 
-            Parameters:
-                value - <bool> The boolean value to set
+            @param {String} value 'true'|'false'
+            @member webpg.preferences.gmail_integration
         */
         set: function(value) {
             webpg.localStorage.setItem('gmail_integration', value);
         }
     },
 
-    /*
-        Class: webpg.preferences.gmail_action
-            Provides methods to get/set the "gmail_action" preference
-            
-        0: Do not use WebPG by default for gmail messages
-        1: Encrypt by default for gmail messages
-        2: Sign by default for gmail messages
-        3: Sign & Encrypt by default for gmail messages
-        4: Symmetric Encryption by default for gmail messages
-        
+    /**
+        @property {webpg.preferences.gmail_action} gmail_action
+            Provides methods to get/set the "gmail_action" preference.
     */
     sign_gmail: {
-        /*
-            Function: get
-                Provides methods to get the preference item
+        /**
+            @method get
+                Provides method to get the preference item.
+
+            @return {Number}
+
+                0: Do not use WebPG by default for gmail messages
+                1: Encrypt by default for gmail messages
+                2: Sign by default for gmail messages
+                3: Sign & Encrypt by default for gmail messages
+                4: Symmetric Encryption by default for gmail messages
+
+            @member webpg.preferences.gmail_action
         */
         get: function() {
             var value = webpg.localStorage.getItem('sign_gmail');
             return (value && value != -1) ? value : 'false';
         },
 
-        /*
-            Function: set
-                Provides method to set the preference item
+        /**
+            @method set
+                Provides method to set the preference item.
 
-            Parameters:
-                value - <bool> The boolean value to set
+            @param {Number} value
+            @member webpg.preferences.gmail_action
         */
         set: function(value) {
             webpg.localStorage.setItem('sign_gmail', value);
@@ -493,17 +516,17 @@ webpg.preferences = {
 
             Parameters:
                 group - <str> The group to add the recipient to
-                recipient - <str> The recipient to add to the group  
+                recipient - <str> The recipient to add to the group
         */
         add: function(group, recipient) {
             if (!group && !recipient)
                 return "usage: add('group', 'recipient')";
-            
+
             // Get the currently defined group object (if any) and convert it
             //  to an object
             var groups = webpg.localStorage.getItem('groups');
             groups = (groups && groups.length > 1) ? JSON.parse(groups) : {};
-            
+
             groups = (groups !== null) ? groups : {};
 
             // Check if the groups object contains the named group, if not
@@ -520,9 +543,9 @@ webpg.preferences = {
 
             // Convert the groups object back to a string and store it
             webpg.localStorage.setItem('groups', JSON.stringify(groups));
-            
+
             // Set the group via gpgconf
-            var groupstr = 
+            var groupstr =
                 this.get(group).toString().replace(RegExp(",", "g"), " ");
 
             webpg.plugin.gpgSetGroup(group, groupstr);
@@ -536,7 +559,7 @@ webpg.preferences = {
 
             Parameters:
                 group - <str> The group to remove the recipient from
-                recipient - <str> The recipient to remove from the group  
+                recipient - <str> The recipient to remove from the group
         */
         remove: function(group, recipient) {
             // Get the currently defined group object (if any) and convert it
@@ -662,7 +685,7 @@ webpg.preferences = {
     /*
         Class: webpg.preferences.banner_version
             Provides methods to get/set the "banner_version" preference
-            
+
     */
     banner_version: {
         /*

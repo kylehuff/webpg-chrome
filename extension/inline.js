@@ -3,19 +3,16 @@ if (typeof(webpg)=='undefined') { webpg = {}; }
 // Enforce jQuery.noConflict if not already performed
 if (typeof(jQuery)!='undefined') { webpg.jq = jQuery.noConflict(true); }
 
-/*
-    Class: webpg.inline
+/**
+    @class webpg.inline
         Handles all inline GPG/PGP data found on content pages
 */
 webpg.inline = {
-
-    /*
-        Function: init
+    /**
+        @method init
             Sets up the context and calls the PGPDataSearch method to find
             PGP data in the page.
-
-        Parameters:
-            doc - <document> The document object to parse
+        @param {Object} doc The document object to parse
     */
     init: function(doc) {
         // Initialize webpg.doc
@@ -170,15 +167,13 @@ webpg.inline = {
         }
     },
 
-    /*
-        Function: PGPDataSearch
+    /**
+        @method PGPDataSearch
             Searches the document for elements that contain PGP Data blocks.
             Calls the PGPBlockParse method if PGP data is found
-
-        Parameters:
-            doc - <document> The document to search
-            onchange - <bool> re-walk the DOM since this is a change
-            gmail - <bool> This is a gmail message
+        @param {Object} doc The document to search
+        @param {Boolean} onchange re-parse the DOM since this is a change
+        @param {Boolean} gmail This is a gmail message
     */
     PGPDataSearch: function(doc, onchange, gmail, root) {
         var node, range, idx, search, baseIdx, tw, proceed;
@@ -377,14 +372,12 @@ webpg.inline = {
         }
     },
 
-    /*
-        Function: ignoreInners
+    /**
+        @method ignoreInners
             Avoids detection of PGP blocks found inside of other PGP blocks.
-
-        Parameters:
-            idx - <int> The current position of the block detected
-            end - <int> The last position of the block detected
-            node - <object> The node we are currently working on
+        @param {Integer} idx The current position of the block detected
+        @param {Integer} end The last position of the block detected
+        @param {Object} node The node we are currently working on
     */
     ignoreInners: function(idx, end, node) {
         if  (end === -1)
@@ -416,16 +409,15 @@ webpg.inline = {
         ) + 6;
     },
 
-    /*
-        Function: PGPBlockParse
+    /**
+        @method PGPBlockParse
             Parses range contents and sends the appropriate request for
             the PGP blocks discovered. Calls the addResultsFrame method
             for any matching PGP blocks.
 
-        Parameters:
-            range - <range> The range containing the identified PGP block
-            node - <obj> The node that PGP data was discovered in
-            blockType - <int> The type of webpg.constants.PGPBlocks found
+        @param {Range} range The range containing the indentified PGP block
+        @param {Object} node The node that PGP data was discovered in
+        @param {Integer} blockType The type of webpg.constants.PGPBlocks found
     */
     PGPBlockParse: function(range, node, blockType, gmail) {
         var scontent,
@@ -733,6 +725,13 @@ webpg.inline = {
         }
     },
 
+    /**
+        @method createSecretKeySubmenu
+            Builds the HTML SecretKeySubmenu callout
+
+        @param {String} purpose The type of action proposed
+        @param {String} action The action proposed
+    */
     createSecretKeySubmenu: function(purpose, action) {
         var _ = webpg.utils.i18n.gettext;
         var submenu = "";
@@ -761,6 +760,13 @@ webpg.inline = {
         return submenu;
     },
 
+    /**
+        @method createWebPGActionMenu
+            Builds the WebPG Action Menu
+
+        @param {Object} toolbar The toolbar to associated with the new menu
+        @param {Boolean} gmail This is a gmail message
+    */
     createWebPGActionMenu: function(toolbar, gmail) {
         var _ = webpg.utils.i18n.gettext;
 
@@ -1007,6 +1013,12 @@ webpg.inline = {
 
     },
 
+    /**
+        @method addWebPGMenuBar
+            Adds a WebPG menu bar to a given element
+
+        @param {Object} element The element that will contain the menu bar
+    */
     addWebPGMenuBar: function(element) {
         var _ = webpg.utils.i18n.gettext;
 
@@ -1409,6 +1421,16 @@ webpg.inline = {
 
     },
 
+    /**
+        @method addElementBadge
+            Adds a badge to PGP blocks
+
+        @param {Object} doc The document object
+        @param {Integer} posX The X position of the block
+        @param {String} The id of the controlling iframe
+        @param {Object} The control object
+        @param {Object} The scroll element
+    */
     addElementBadge: function(doc, posX, id, control, scrollElement) {
 
         var badge = doc.createElement("span");
@@ -1479,13 +1501,12 @@ webpg.inline = {
         return badge;
     },
 
-    /*
-        Function: addResultsFrame
+    /**
+        @method addResultsFrame
             Creates the results container(s) and iframe for the inline formatting
 
-        Parameters:
-            node - <obj> The node that PGP data was discovered in
-            range - <range> The range containing the identified PGP block
+        @param {Object} node The node that PGP data was discovered in
+        @param {Range} The range containing the identified PGP block
     */
     addResultsFrame: function(node, range) {
         var doc = (webpg.utils.detectedBrowser.vendor === 'mozilla') ? content.document :
@@ -1557,13 +1578,13 @@ webpg.inline = {
         return iframe;
     },
 
-    /*
-        Function: addResultsReplacementFrame
+    /**
+        @method addResultsReplacementFrame
             Creates a results iframe that replaces the element that contained
             the original PGP data
 
-        Parameters:
-            element - The HTML element that contained the PGP Data
+        @param {Object} element The element to add the replacement to
+        @param {Boolean} noninline Indicates if inline mode
     */
     addResultsReplacementFrame: function(element, noninline) {
         var iframe = this.addResultsFrame();
@@ -1594,6 +1615,15 @@ webpg.inline = {
         return iframe;
     },
 
+    /**
+        @method addDialogFrame
+            Creates a frame to contain the dialog
+
+        @param {String} theURL The URL to load within in the dilaog
+        @param {String} The dialog type
+        @param {Integer} The desired height of the dialog
+        @param {Integer} The desired width of the dialog
+    */
     addDialogFrame: function(theURL, dialogType, height, width) {
         if (!height)
             height = 400;

@@ -70,7 +70,7 @@ webpg.overlay = {
             webpg.overlay.block_target = null;
         }
 
-        function hideContextmenu(e){
+        function hideContextmenu(e) {
             if (!(e.which === 3 || e.button === 2))
                 webpg.overlay.isContextMenuOpen = false;
         }

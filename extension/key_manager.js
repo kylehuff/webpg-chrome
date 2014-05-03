@@ -5,6 +5,12 @@ if (typeof(jQuery)!='undefined') { webpg.jq = jQuery.noConflict(true); }
 
 "use strict"
 
+/**
+  @class webpg.keymanager
+    The keymanager class provides all of the setup and functions for the WebPG
+    Key Manager.
+
+*/
 webpg.keymanager = angular.module("webpg.keymanager", [])
   .controller('keymanagerCtrl', function($scope) {
     var _ = webpg.utils.i18n.gettext;
@@ -64,7 +70,19 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
         new RegExp("([^?=&]+)(=([^&]*))?", "g"),
         function($0, $1, $2, $3) { webpg.keymanager.qs[$1] = $3; }
     );
+    /**
+      @property port a chrome port object
+    */
 
+    /**
+      @method keylistprogress
+        Listens for threaded keylist progress events
+
+      @param {Event} evt The event object
+      @param {Object} [port] The port (only available in chrome/chromium)
+
+      @extends webpg.keymanager
+    */
     webpg.keymanager.keylistprogress = function(evt, port) {
       var _ = webpg.utils.i18n.gettext,
           key;
@@ -117,6 +135,14 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
       delete data, evt, key;
     }
 
+    /**
+      @method progressMsg
+        Listens for key generation progress events
+
+      @param {Event} evt The event object
+
+      @extends webpg.keymanager
+    */
     webpg.keymanager.progressMsg = function(evt) {
       var _ = webpg.utils.i18n.gettext;
       var msg = (webpg.utils.detectedBrowser.vendor === "mozilla") ? evt.detail : evt;
@@ -325,6 +351,14 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
       });
     });
 
+    /**
+      @method keyaction
+        Decides the correct action to perform based on the keyaction button clicked
+
+      @param {Event} e The event object
+
+      @extends webpg.keymanager
+    */
     webpg.keymanager.keyaction = function(e) {
       var params = webpg.jq(this).parent()[0].id.split('-'),
           refresh = false,
@@ -1123,6 +1157,15 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
         }
       }
     };
+
+    /**
+      @event change
+        tied to the keyserver-search input box
+
+      @param {Event} e The event object
+
+      @extends webpg.keymanager
+    */
     webpg.jq("#keyserver-search").unbind("change").bind("change", function(e) {
       // Sometimes the event is a duplicate, so check the
       //  data object for "original_value"
