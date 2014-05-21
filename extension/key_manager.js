@@ -41,7 +41,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
       });
     }
 
-    webpg.plugin.getPrivateKeyList(true, true);
+    webpg.plugin.getPrivateKeyList(false, true);
 
     webpg.utils.extension.version(function(version) {
       webpg.jq("#webpg-info-version-string").text(
@@ -210,7 +210,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
       .text(_("Private Keys"))
       .click(function() {
         if (webpg.seckeylist_built !== true)
-          webpg.plugin.getPrivateKeyList(true, true);
+          webpg.plugin.getPrivateKeyList(false, true);
         webpg.private_scope.search(webpg.private_scope.currentPage);
         webpg.private_scope.$apply();
       });
@@ -846,7 +846,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                 var desc = webpg.jq('#revkey-desc')[0].value;
                 var revkey_result = webpg.plugin.gpgRevokeKey(params[2],
                     parseInt(params[3], 10), parseInt(reason, 10), desc);
-                webpg.secret_keys = webpg.plugin.getPrivateKeyList(true, true);
+                webpg.secret_keys = webpg.plugin.getPrivateKeyList(false, true);
                 webpg.private_scope.search(webpg.private_scope.currentPage);
                 webpg.private_scope.$apply();
                 webpg.jq("#revkey-confirm").dialog("close");
@@ -1002,7 +1002,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                         var revuid_result = webpg.plugin.gpgRevokeUID(params[2],
                             parseInt(params[3], 10) + 1, parseInt(reason, 10), desc);
                         if (params[1] === 'private') {
-                          webpg.secret_keys = webpg.plugin.getPrivateKeyList(true, true);
+                          webpg.secret_keys = webpg.plugin.getPrivateKeyList(false, true);
                           webpg.private_scope.search(webpg.private_scope.currentPage);
                           webpg.private_scope.$apply();
                         }
@@ -1105,7 +1105,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                     } else {
                       refresh = true;
                       if (params[1] === 'private') {
-                        webpg.secret_keys = webpg.plugin.getPrivateKeyList(true, true);
+                        webpg.secret_keys = webpg.plugin.getPrivateKeyList(false, true);
                         webpg.private_scope.search();
                         webpg.private_scope.$apply();
                       }
@@ -1146,7 +1146,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
       console.log(".*-key-option-button pressed..", params);
       if (refresh) {
         if (params[1] === 'private') {
-          webpg.secret_keys = webpg.plugin.getPrivateKeyList(true, true);
+          webpg.secret_keys = webpg.plugin.getPrivateKeyList(false, true);
           webpg.private_scope.search(webpg.private_scope.currentPage);
           webpg.private_scope.$apply();
         } else {
@@ -2109,7 +2109,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                             gpgDeleteUIDSign(params[2], parseInt(params[3], 10) + 1,
                             parseInt(params[4], 10) + 1);
                         if (params[1] === 'private') {
-                          webpg.secret_keys = webpg.plugin.getPrivateKeyList(true, true);
+                          webpg.secret_keys = webpg.plugin.getPrivateKeyList(false, true);
                           webpg.private_scope.search(webpg.private_scope.currentPage);
                           webpg.private_scope.$apply();
                         }
