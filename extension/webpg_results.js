@@ -239,7 +239,8 @@ webpg.inline_results = {
                         webpg.jq('#signature_text')[0].textContent = request.verify_result.original_text;
                     } else {
                         var contents = webpg.utils.linkify(webpg.descript((request.verify_result.data || "")))
-                              .replace(/(<|<\/)(textarea|button|input|iframe|frame)(.*?)(>)/gm, "&lt;$2$3&gt;");
+                              .replace(/(<|<\/)(textarea|button|input|iframe|frame)(.*?)(>)/gm, "&lt;$2$3&gt;")
+                              .replace(/\r\n/gm, "<br>");
                         webpg.jq('#signature_text').html(contents);
                     }
                     webpg.jq('#clipboard_input')[0].textContent = request.verify_result.original_text;
@@ -608,7 +609,10 @@ webpg.inline_results = {
                                 webpg.jq("<span class='decrypt_status'>" + _("DECRYPTION FAILED") + "; " + _("BAD PASSPHRASE") + "<br/></span>").insertBefore(webpg.jq(webpg.jq('#footer .content')[0].firstChild));
                             }
                         } else {
-                            webpg.jq('#signature_text').html(webpg.descript(response.result.data));
+                            var contents = webpg.utils.linkify(webpg.descript((response.result.data || "")))
+                                  .replace(/(<|<\/)(textarea|button|input|iframe|frame)(.*?)(>)/gm, "&lt;$2$3&gt;")
+                                  .replace(/\n/gm, "<br>");
+                            webpg.jq('#signature_text').html(contents);
                             if ((request.verify_result &&
                             request.verify_result.signatures &&
                             response.result.signatures.hasOwnProperty(0))
