@@ -1029,8 +1029,7 @@ webpg.gmail = {
                       encoding,
                       dataEncoding,
                       plaintextHeaders = [],
-                      blockType,
-                      dataEnd = "";
+                      blockType;
 
                   msgObj = webpg.utils.parseMailMessage(msgData);
 
@@ -1041,13 +1040,11 @@ webpg.gmail = {
                     if (msgObj.multipart === true && msgObj.parts.length !== 0) {
                       if (msgObj.headers.content_type.type === "multipart/signed") {
                         if (msgObj.parts[0].multipart === true) {
-                          dataEnd = '\n';
                           data = msgObj.content;
                           dataEncoding = msgObj.parts[0].headers.content_transfer_encoding;
                           signature = msgObj.parts[1].body;
                           encoding = (msgObj.parts[0].headers.content_transfer_encoding || "").toLowerCase()
                         } else {
-                          dataEnd = '\n\n';
                           signature = msgObj.parts[1].body;
                           data = msgObj.parts[0].headers.full_headers + msgObj.parts[0].content;
                           dataEncoding = msgObj.parts[0].headers.content_transfer_encoding;
@@ -1101,11 +1098,11 @@ webpg.gmail = {
                     var badge = webpg.inline.addElementBadge(doc, posX, results_frame.id, originalNodeData, scrollElement);
                     originalNodeData.appendChild(badge);
 
-                    plaintext = (signature === null) ? null : (data.substr(0, data.length).trim() + dataEnd || ""); // If this is a detached signature, the plaintext will be data
+                    plaintext = (signature === null) ? null : (data.slice(1, -1) || ""); // If this is a detached signature, the plaintext will be data
 
                     webpg.utils.sendRequest({
                         'msg': 'verify',
-                        'data': pgpData,
+                        'data': pgpData.trim(),
                         'plaintext': plaintext,
                         'target_id': results_frame.id},
                         function(response) {

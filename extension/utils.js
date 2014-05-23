@@ -879,7 +879,7 @@ webpg.utils = {
 
       parsedMsg.headers = parseHeaders(theaders);
       parsedMsg.headers.full_headers = (theaders[0] || theaders);
-      parsedMsg.content = parts.join('\r\n\r\n').split(/[\r\n]{4}/)[0].trim();
+      parsedMsg.content = parts.join('\r\n\r\n').split(/[\r\n]{4}\b/)[0].slice(0, -1);
 
       parsedMsg.parts = [];
 
