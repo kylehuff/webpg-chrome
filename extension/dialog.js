@@ -137,7 +137,6 @@ webpg.dialog = {
                           'fastlistmode': true,
                           'threaded': true,
                           'iframe_id': window.name}, function(response) {
-                            console.log(response.result);
                         });
                     } else if (webpg.dialog.qs.dialog_type === "export") {
                         webpg.pubkeylist = webpg.background.webpg.plugin.getPrivateKeyList();
@@ -275,7 +274,8 @@ webpg.keymanager = {
                 data.detail.type === "key") {
                 port = "port";
                 data = data.detail;
-          } else if (Object.keys(data).length < 1) {
+          } else if (typeof(data) === "object" &&
+                     Object.keys(data).length < 2) {
             return;
           }
         }
@@ -287,7 +287,11 @@ webpg.keymanager = {
         } else { // Single key
             if (data && data.hasOwnProperty('type') && data.type === "key" &&
                 data.data !== undefined) {
-              var key = JSON.parse(data.data);
+              try {
+                var key = JSON.parse(data.data);
+              } catch (e) {
+                return;
+              }
             } else if (data === null || data === undefined) {
               return;
             } else { // Key object passed
