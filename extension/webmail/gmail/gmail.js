@@ -152,8 +152,10 @@ webpg.gmail = {
     overrideSend: function() {
         var _ = webpg.utils.i18n.gettext;
 
-        // Retrieve the contents of the message
+        // Set the message format to HTML
         webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=ishtml]").val(1);
+
+        // Retrieve the contents of the message
         var message = (webpg.gmail.action === 0) ? "" :
             webpg.gmail.getContents(webpg.gmail.getCanvasFrame().contents().find('form'));
 
@@ -215,13 +217,14 @@ webpg.gmail = {
                 // Standard GnuPG Sign was selected; sign the plaintext
                 //  and populate the editor with the result and send
                 //  the email.
+                // For signing, word-wrap the message to preserve integrity.
+                message = webpg.utils.gmailWrapping(message);
                 if (message.search("-----BEGIN PGP") === 0) {
                     var send = confirm(_("This message already contains PGP data") +
                         "\n\n" + _("Would you like to Sign anyway"));
                     if (!send)
                         return;
                 }
-//                message = webpg.utils.linkify(message).replace(/<(<.*?>)>/gim, "&lt;$1&gt;").trim();
                 message += "\n\n";
                 webpg.utils.sendRequest({'msg': 'sign',
                     'signers': webpg.gmail.signers,
@@ -439,10 +442,6 @@ webpg.gmail = {
               .first()
                 .append(status_msg);
 
-//          status_msg = status_line
-//              .clone()
-//                .addClass("webpg-status-line")
-//                .addClass("webpg-gmail-status-line");
         } else {
           status_msg = status_line;
         }
@@ -892,7 +891,6 @@ webpg.gmail = {
             }
         }
 
-        message = webpg.utils.gmailWrapping(message);
         return message;
     },
 
@@ -982,26 +980,27 @@ webpg.gmail = {
             //  button creation in an inline compose window
 
         } else if (e.target &&
-            e.target.className === 'gs') {
+          e.target.className === 'gs') {
 
-            if (e.addedNodes &&
-                e.addedNodes[0].className.search('webpg') !== -1)
-              return;
+          if (e.addedNodes &&
+              e.addedNodes[0].className.search('webpg') !== -1)
+            return;
 
-            webpg.utils.gmailNotify("WebPG is checking this message for signatures", 8000);
-            // A message is being displayed
-            var node = e.previousSibling,
-                msgClassList,
-                userEmail,
-                gmailID,
-                msgID,
-                hasPGPData = (webpg.jq(node).text().search(/(^\s*?)?(-----BEGIN PGP.*?)/gi) !== -1),
-                hasAttachment = (webpg.jq(node.parentElement).html().search("download_url=") !== -1 ||
-                                 webpg.jq(node.parentElement).find('.f.gW').length > 0);
+          // Notify the user something is going on
+          webpg.utils.gmailNotify("WebPG is checking this message for signatures", 8000);
+
+          // A message is being displayed
+          var node = e.previousSibling,
+              msgClassList,
+              userEmail,
+              gmailID,
+              msgID,
+              hasPGPData = (webpg.jq(node).text().search(/(^\s*?)?(-----BEGIN PGP.*?)/gi) !== -1),
+              hasAttachment = (webpg.jq(node.parentElement).html().search("download_url=") !== -1 ||
+                               webpg.jq(node.parentElement).find('.f.gW').length > 0);
 
           // Check if the PGP data is already present for this message
           if (hasPGPData === true || (hasPGPData === false && hasAttachment === true)) {
-            // Notify the user something is going on
             // lets get information about the current email message
             if (webpg.utils.detectedBrowser['vendor'] === 'mozilla') {
               var GLOBALS = node.ownerDocument.defaultView.wrappedJSObject.GLOBALS;
@@ -1118,7 +1117,7 @@ webpg.gmail = {
 
                             if (plaintext !== null) {
                               response.result.original_text = plaintext + '\n' + pgpData;
-                              response.result.data = (plaintextHeaders.length > 0 ? plaintext.split(/[\r\n][\r\n]/)[1] : plaintext || plaintext);
+                              response.result.data = (plaintextHeaders.length > 0 ? plaintext.substr(plaintext.indexOf("\n\n")).trim() : plaintext || plaintext);
                             }
                             webpg.utils.sendRequest({
                                 'msg': "sendtoiframe",
