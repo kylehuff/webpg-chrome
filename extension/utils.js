@@ -787,11 +787,16 @@ webpg.utils = {
         regex = /<a(.+?href=[\"|\']([^\"|^\']+?)[\"|\']+?)>/gim;
         replacedText = inputText.replace(regex, '<a href="$2" target="_blank">');
 
-        //Change email addresses to mailto:: links.
-        regex = /(\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b)/gim;
-        replacedText = replacedText.replace(regex, '<a href="mailto:$1" target="_blank">$1</a>');
+        // Change email addresses to mailto:: links.
+        regex = /((\:)?\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b)/gim;
+        replacedText = replacedText.replace(regex, function(match_i, email, prefix) {
+          if (prefix === undefined)
+            return '<a href="mailto:' + email + '" target="_blank">' + email + '</a>';
+          else
+            return match_i
+        });
 
-        regex = new RegExp("(\\b([a-z\\-]+:\\/\\/)?((?:(?:(?:[a-z\\d]+(?:[a-z\\d\\-@]{1,2}[a-z\\d]){1,10}\\.))+[a-z]{2,4}(?![\\\"|\\'|@|<]|[\\/][\\\"])|(?:(?:\\d{1,3}\\.){3}\\d{1,3}))(?:\\:\\d+)?(?:\\/[\\-a-z\\d%_.~+]{1,10})*(?:\\?[;&a-z\\d%_.~+=\\-]+)?(?:\\#[\\-a-z\\d_]+)?)\\b)", "gim");
+        regex = new RegExp("(\\b([a-z\\-]+:\\/\\/)?(?:(?:(?:[a-z\\d]+[\:]?(?:[a-z\\d\\-@]{1,2}[a-z\\d]){1,10}\\.))+[a-z]{2,4}(?![\\\"|\\'|@|<]|[\\/][\\\"])|(?:(?:\\d{1,3}\\.){3}\\d{1,3}))(?:\\:\\d+)?(?:\\/[\\-a-z\\d%_.~+]{1,20})*(?:\\?[;\\&a-z\\d\\%_\\.~+=\\-]+)?(?:#[\\-a-z\\d_]+)?)\\b", "gim");
         replacedText = replacedText.replace(regex, function(match_i, url, protocol, a) {
             return "<a href=\"" + ((!protocol) ? "http://" : "") +
                 url + "\" target=\"_blank\">" + url + "</a>";
