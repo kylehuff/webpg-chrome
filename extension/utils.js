@@ -1634,6 +1634,14 @@ webpg.utils = {
     },
 
     extension: {
+        id: function(callback) {
+            if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
+                return (callback) ? callback(chrome.app.getDetails().id) : chrome.app.getDetails().id;
+            } else {
+                return "webpg-mozilla@webpg.org";
+            }
+        },
+
         version: function(callback) {
             if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
                 callback(chrome.app.getDetails().version);

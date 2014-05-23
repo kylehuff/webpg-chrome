@@ -109,6 +109,7 @@ webpg.background = {
         @member webpg.background
     */
     init: function() {
+        webpg.extensionid = webpg.utils.extension.id();
         var _ = webpg.utils.i18n.gettext;
 
         var gnupghome = webpg.preferences.gnupghome.get();
@@ -245,6 +246,10 @@ webpg.background = {
     */
     // Called when a message is passed.
     _onRequest: function(request, sender, sendResponse) {
+        if (webpg.utils.detectedBrowser.vendor === 'google' &&
+            sender.id !== webpg.extensionid)
+          return;
+
         // refresh the value of gnupghome
         var gnupghome = webpg.preferences.gnupghome.get(),
             tabID = -1;
