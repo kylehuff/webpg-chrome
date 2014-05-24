@@ -45,49 +45,75 @@ webpg.xoauth2 = {
     // Get the stored XOAUTH2 data from localStorage (if any)
     webpg.xoauth2.comp_data = webpg.preferences.xoauth2_data.get();
 
-    // FIXME: there must be a way to do this without a webNavigation listener...
-    // Listen for the response back about the XOAUTH2 CODE request
-    chrome.webNavigation.onCompleted.addListener(function(details) {
-      chrome.tabs.get(details.tabId, function(tab) {
-        // If the window that belongs to this webNavigation event is the
-        //  one from our request, store the access_code and close the
-        //  window
-        if (webpg.xoauth2.popup && webpg.xoauth2.popup.id === tab.windowId) {
-          if (!webpg.xoauth2.comp_data.hasOwnProperty(webpg.xoauth2.current_identity))
-            webpg.xoauth2.comp_data[webpg.xoauth2.current_identity] = {}
-          webpg.xoauth2.comp_data[webpg.xoauth2.current_identity].access_code = tab.title.split("=") ? tab.title.split("=")[1] : undefined;
-          webpg.preferences.xoauth2_data.set(webpg.xoauth2.comp_data);
-          // The window.close method is not available in chrome, so
-          //  instead just remove the tab, thus destroying the window
-          chrome.tabs.remove(tab.id);
+    webpg.utils.requestListener.add(function(details) {
+      webpg.xoauth2.connectAccount(details);
+    });
+  },
 
-          // Request the access token
-          webpg.xoauth2.requestToken(webpg.xoauth2.current_identity, function() {
-            webpg.xoauth2.getUserInfo(webpg.xoauth2.current_identity, function(data) {
-              if (webpg.xoauth2.comp_data.hasOwnProperty('tempid')) {
-                webpg.xoauth2.comp_data[data.email] = webpg.xoauth2.comp_data['tempid'];
-                delete webpg.xoauth2.comp_data.tempid;
-                webpg.xoauth2.current_identity = data.email;
-              }
-              webpg.xoauth2.comp_data[data.email] = {
-                id: data.id,
-                email: data.email,
-                picture: data.picture,
-                access_code: webpg.xoauth2.comp_data[data.email].access_code,
-                refresh_token: webpg.xoauth2.comp_data[data.email].refresh_token,
-                access_token: webpg.xoauth2.comp_data[data.email].access_token,
-                token_type: webpg.xoauth2.comp_data[data.email].token_type,
-                expires_in: webpg.xoauth2.comp_data[data.email].expires_in,
-                expires_on: webpg.xoauth2.comp_data[data.email].expires_on
-              }
-              webpg.preferences.xoauth2_data.set(webpg.xoauth2.comp_data);
-              if (webpg.xoauth2.requestCodeCallback)
-                webpg.xoauth2.requestCodeCallback();
-            })
-          });
+  connectAccount: function(details) {
+    var URL = (details.url.spec || details.url).split("?")[0];
+
+    if (URL === XOAUTH2.APPROVAL_URL[PROVIDER]) {
+      processRequest = function(details, tab) {
+        if (!webpg.xoauth2.comp_data.hasOwnProperty(webpg.xoauth2.current_identity))
+          webpg.xoauth2.comp_data[webpg.xoauth2.current_identity] = {}
+        webpg.xoauth2.comp_data[webpg.xoauth2.current_identity].access_code =
+            tab.title.split("=") ? tab.title.split("=")[1] : undefined;
+        webpg.preferences.xoauth2_data.set(webpg.xoauth2.comp_data);
+
+        if (webpg.utils.detectedBrowser['vendor'] === "google") {
+            // The window.close method is not available in chrome, so
+            //  instead just remove the tab, thus destroying the window
+            chrome.tabs.remove(tab.id);
+        } else {
+            webpg.xoauth2.popup.close();
         }
-      });
-    }, {url: [{urlMatches: XOAUTH2.APPROVAL_URL[PROVIDER]}]})
+
+        // Request the access token
+        webpg.xoauth2.requestToken(webpg.xoauth2.current_identity, function() {
+          webpg.xoauth2.getUserInfo(webpg.xoauth2.current_identity, function(data) {
+            if (webpg.xoauth2.comp_data.hasOwnProperty('tempid')) {
+              webpg.xoauth2.comp_data[data.email] = webpg.xoauth2.comp_data['tempid'];
+              delete webpg.xoauth2.comp_data.tempid;
+              webpg.xoauth2.current_identity = data.email;
+            }
+            webpg.xoauth2.comp_data[data.email] = {
+              id: data.id,
+              email: data.email,
+              picture: data.picture,
+              access_code: webpg.xoauth2.comp_data[data.email].access_code,
+              refresh_token: webpg.xoauth2.comp_data[data.email].refresh_token,
+              access_token: webpg.xoauth2.comp_data[data.email].access_token,
+              token_type: webpg.xoauth2.comp_data[data.email].token_type,
+              expires_in: webpg.xoauth2.comp_data[data.email].expires_in,
+              expires_on: webpg.xoauth2.comp_data[data.email].expires_on
+            }
+            webpg.preferences.xoauth2_data.set(webpg.xoauth2.comp_data);
+            if (webpg.xoauth2.requestCodeCallback)
+              webpg.xoauth2.requestCodeCallback();
+          })
+        });
+      };
+
+      if (webpg.utils.detectedBrowser['vendor'] === 'google') {
+        chrome.tabs.get(details.tabId, function(tab) {
+          // If the window that belongs to this webRequest event is the
+          //  one from our request, store the access_code and close the
+          //  window
+          if (webpg.xoauth2.popup && webpg.xoauth2.popup.id === tab.windowId) {
+            processRequest(details, tab);
+          }
+        });
+      } else {
+        //if (webpg.xoauth2.popup.document.location.href.split("?")[0] === XOAUTH2.APPROVAL_URL[PROVIDER])
+        if (webpg.xoauth2.popup.content.document.readyState === "complete" &&
+            webpg.xoauth2.popup.content.document.location.href.split("?")[0] === XOAUTH2.APPROVAL_URL[PROVIDER]) {
+          processRequest(details, webpg.xoauth2.popup.document);
+        } else {
+          setTimeout(function() { webpg.xoauth2.connectAccount(details) }, 500);
+        }
+      }
+    }
   },
 
   /*
@@ -133,11 +159,27 @@ webpg.xoauth2 = {
   requestToken: function(identity, callback) {
     var result = "queued";
     identity = (identity || webpg.xoauth2.current_identity);
-    webpg.jq.post(XOAUTH2.TOKEN_URL[PROVIDER], {
-      code: webpg.xoauth2.comp_data[identity].access_code,
-      client_id: XOAUTH2.CLIENT_ID[PROVIDER], client_secret: XOAUTH2.CLIENT_KEY[PROVIDER],
-      redirect_uri: XOAUTH2.REDIRECT_URI[PROVIDER], grant_type: "authorization_code" },
-      function(data) {
+
+    data = {
+        code: webpg.xoauth2.comp_data[identity].access_code,
+        client_id: XOAUTH2.CLIENT_ID[PROVIDER],
+        client_secret: XOAUTH2.CLIENT_KEY[PROVIDER],
+        redirect_uri: XOAUTH2.REDIRECT_URI[PROVIDER],
+        grant_type: "authorization_code"
+    };
+
+    webpg.jq.ajax({
+      method: 'POST',
+      async: (callback !== undefined),
+      url: XOAUTH2.TOKEN_URL[PROVIDER],
+      data: {
+        code: webpg.xoauth2.comp_data[identity].access_code,
+        client_id: XOAUTH2.CLIENT_ID[PROVIDER],
+        client_secret: XOAUTH2.CLIENT_KEY[PROVIDER],
+        redirect_uri: XOAUTH2.REDIRECT_URI[PROVIDER],
+        grant_type: "authorization_code"
+      },
+      success: function(data) {
         webpg.xoauth2.comp_data[identity]['access_token'] = data.access_token,
         webpg.xoauth2.comp_data[identity]['token_type'] = data.token_type,
         webpg.xoauth2.comp_data[identity]['expires_in'] = data.expires_in,
@@ -147,8 +189,13 @@ webpg.xoauth2 = {
           callback(data);
         else
           result = data;
+      },
+      error: function(data) {
+          console.log(data);
+          console.log(identity);
+          console.log(webpg.xoauth2.comp_data[identity].access_code);
       }
-    );
+    });
     return result;
   },
 

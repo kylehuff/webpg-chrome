@@ -1,7 +1,7 @@
 /* <![CDATA[ */
-if (typeof(webpg)=='undefined') { webpg = {}; }
+if (typeof(webpg)==='undefined') { webpg = {}; }
 // Enforce jQuery.noConflict if not already performed
-if (typeof(jQuery)!='undefined') { webpg.jq = jQuery.noConflict(true); }
+if (typeof(jQuery)!=='undefined') { webpg.jq = jQuery.noConflict(true); }
 
 /*
     Class: webpg.options
@@ -392,7 +392,7 @@ webpg.options = {
                         status = (webpg.preferences.gmail_integration.get() == 'true') ? _('Enabled') : _('Disabled');
                         if (webpg.preferences.gmail_integration.get() == 'true') {
                             webpg.jq("#gmail-action-sign").show();
-                            //webpg.jq("#gmail-linked-identities").show()
+                            webpg.jq("#gmail-linked-identities").show()
                         } else {
                             webpg.jq("#gmail-action-sign").hide();
                             webpg.jq("#gmail-linked-identities").hide();
@@ -422,14 +422,10 @@ webpg.options = {
                     webpg.jq("#gmail-linked-identities").find(".ident-list").append(identli);
                 }
 
-                // Hide the gmail linked identies feature (not yet implemented)
-                webpg.jq("#gmail-linked-identities").hide();
-
                 webpg.jq("#gmail-linked-identities").find(".ident-list").find("a").click(function() {
                     if (webpg.xoauth2.comp_data.hasOwnProperty(this.id)) {
                         delete webpg.xoauth2.comp_data[this.id];
                         webpg.preferences.xoauth2_data.set(webpg.xoauth2.comp_data);
-                        console.log(webpg.xoauth2.comp_data);
                         this.parentElement.remove();
                     }
                 });
