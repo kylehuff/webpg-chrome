@@ -153,14 +153,16 @@ webpg.utils = {
 
     /*
         Function: getParameterByName
-            Searches the location.search query string for a named parameter
+            Searches the query string for a named parameter
 
         Parameters:
             parameterName - The name of the parameter to return
+            queryString - optional querystring to parse
     */
-    getParameterByName: function(parameterName) {
+    getParameterByName: function(parameterName, queryString) {
+        queryString = (queryString || window.location.search);
         var match = RegExp('[?&]' + parameterName + '=([^&]*)')
-                        .exec(window.location.search);
+                        .exec(queryString);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     },
 
@@ -1316,7 +1318,7 @@ webpg.utils = {
                 chrome.tabs.getSelected(tab, callback);
             } else if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                 if (!gBrowser) {
-                    webpg.utils.mozilla.getChromeWindow().gBrowser;
+                    var gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
                 }
                 var tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
                 callback({'url': content.document.location.href, 'id': tabID});
@@ -1683,8 +1685,86 @@ webpg.utils = {
 
     },
 
+    requestListener: {
+        supported: function() {
+            return webpg.utils.detectedBrowser['product'] == 'chrome' ?
+                typeof(chrome.webNavigation)!=='undefined' : true;
+        },
+
+        add: function(callback) {
+            if (!callback)
+                return "No callback provided";
+
+            if (webpg.utils.detectedBrowser['product'] == 'chrome') {
+                chrome.webNavigation.onCompleted.addListener(function(details) {
+                    callback(details);
+                });
+            } else {
+                var httpRequestObserver = {
+                    observe: function(subject, topic, data) {
+                        if (topic == "http-on-examine-response") {
+                            subject.QueryInterface(Components.interfaces.nsIHttpChannel);
+                            var details = {
+                              url: subject.URI,
+                              domain: subject.URI.host,
+                              protocol: subject.URI.scheme,
+                              tabId: webpg.utils.requestListener.getTabIDfromDOM(subject, subject),
+                              headers: {},
+                            };
+
+                            subject.visitResponseHeaders(
+                                function(header) {
+                                    details.headers[header] = subject.getResponseHeader(header);
+                                }
+                            );
+                            callback(details);
+                        }
+                    },
+
+                    get observerService() {
+                        return Components.classes["@mozilla.org/observer-service;1"]
+                            .getService(Components.interfaces.nsIObserverService);
+                    },
+
+                    register: function() {
+                        this.observerService.addObserver(this, "http-on-examine-response", false);
+                    },
+
+                    unregister: function() {
+                        this.observerService.removeObserver(this, "http-on-examine-response");
+                    }
+                };
+
+                httpRequestObserver.register();
+            }
+        },
+
+        getTabIDfromDOM : function(aChannel, aSubject) {
+            try {
+                var notificationCallbacks =
+                    aChannel.notificationCallbacks ? aChannel.notificationCallbacks : aSubject.loadGroup.notificationCallbacks;
+
+                if (!notificationCallbacks)
+                    return null;
+
+                var callback = notificationCallbacks.getInterface(Components.interfaces.nsIDOMWindow);
+
+                return callback.top.document ? gBrowser.getBrowserForDocument(callback.top.document)._webpgTabID : null;
+
+             } catch(e) {
+                return null;
+             }
+       },
+
+    },
+
     tabListener: {
         add: function(openListener, closeListener) {
+            if (openListener === undefined)
+              openListener = webpg.utils.tabListener.openListener;
+            if (closeListener === undefined)
+              closeListener = webpg.utils.tabListener.closeListener;
+
             if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                 if (gBrowser===undefined) {
                     gBrowser = webpg.utils.mozilla.getChromeWindow().gBrowser;
@@ -1694,13 +1774,15 @@ webpg.utils = {
                     return;
 
                 var container = gBrowser.tabContainer;
-                container.addEventListener("TabOpen", webpg.utils.tabListener.openListener, false);
+                container.addEventListener("TabOpen", openListener, false);
                 //container.addEventListener("TabSelect", webpg.utils.tabListener.selectListener, false);
-                container.addEventListener("TabClose", webpg.utils.tabListener.closeListener, false);
+                if (closeListener !== null)
+                  container.addEventListener("TabClose", closeListener, false);
             } else if (webpg.utils.detectedBrowser.product === 'chrome') {
-                chrome.tabs.onCreated.addListener(webpg.utils.tabListener.openListener);
+                chrome.tabs.onCreated.addListener(openListener);
                 //chrome.tabs.onActivated.addListener(webpg.utils.tabListener.selectListener);
-                chrome.tabs.onRemoved.addListener(webpg.utils.tabListener.closeListener);
+                if (closeListener !== null)
+                  chrome.tabs.onRemoved.addListener(closeListener);
             }
         },
 
