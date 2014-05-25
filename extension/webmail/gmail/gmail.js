@@ -19,6 +19,10 @@ webpg.gmail = {
             navDiv - <obj> The navigation div from the gmail interface we will be working with
     */
     setup: function(navDiv) {
+        if (webpg.utils.detectedBrowser['vendor'] === 'mozilla')
+          this.GLOBALS = (window.content.wrappedJSObject.GLOBALS ||
+                          navDiv.ownerDocument.defaultView.wrappedJSObject.GLOBALS);
+
         var userInfo = webpg.gmail.getUserInfo();
 
         // Collect some user preferences
@@ -417,7 +421,7 @@ webpg.gmail = {
           var sp = webpg.gmail.getCanvasFrame().find(".aNI");
           status_line = sp.clone().removeClass();
           status_line[0].id = "webpg-status-line";
-          status_line.insertAfter(webpg.jq('input[name=subjectbox]').parent());
+          status_line.insertAfter(webpg.gmail.getCanvasFrame().find('input[name=subjectbox]').parent());
           status_line.children().removeClass();
           status_line.addClass("webpg-status-line").addClass("webpg-gmail-status-line").addClass("webpg-gmail-abs");
         }
@@ -807,7 +811,7 @@ webpg.gmail = {
                     break;
 
                 case "sign":
-                    webpg.gmail.displayStatusLine(_("This message will be Signed") + "  (" + webpg.gmail.signers.toString() + ")", "webpg");
+                    webpg.gmail.displayStatusLine(_("This message will be Signed") + "  (" + signers.toString() + ")", "webpg");
                     webpg.gmail.action = 2;
                     esBtn.attr('data-tooltip', _("Sign Only"));
                     iconPath += 'stock_signature.png';
@@ -863,7 +867,7 @@ webpg.gmail = {
         });
 
         if (webpg.gmail.action === 2) {
-            webpg.gmail.signers = [webpg.inline.default_key()];
+            webpg.gmail.signers = [webpg.gmail.signers || webpg.inline.default_key()];
             var composeCSS = {
                 'margin-top': (webpg.jq("table.IG").length > 0) ? '0' : '24px'
             };
@@ -889,15 +893,19 @@ webpg.gmail = {
     getEditor: function(editor) {
         var canvasFrame = webpg.gmail.getCanvasFrame();
         if (webpg.gmail.gmailComposeType === "inline") {
-            var msg_container = canvasFrame.find("*[g_editable='true']").first();
-//            if (msg_container.length < 1) {
-//                // The editor must be in an iframe
-//                var iframes = canvasFrame.find("iframe");
-//                iframes.each(function() {
-//                    if (webpg.jq(this.contentDocument).find("*[g_editable='true']").length > 0)
-//                        msg_container = webpg.jq(this.contentDocument).find("*[g_editable='true']").first();
-//                });
-//            }
+            var msg_container = canvasFrame.find("*[g_editable='true']").first()
+            try {
+              if (msg_container.length < 1) {
+                  // The editor must be in an iframe
+                  var iframes = canvasFrame.find("iframe");
+                  iframes.each(function() {
+                      if (webpg.jq(this.contentDocument).find("*[g_editable='true']").length > 0)
+                          msg_container = webpg.jq(this.contentDocument).find("*[g_editable='true']").first();
+                  });
+              }
+            } catch (e) {
+              return canvasFrame.find("*[g_editable='true']").first();
+            }
             return msg_container;
         } else {
             var textarea = canvasFrame.find('textarea[name!=to]', editor).
@@ -1064,7 +1072,7 @@ webpg.gmail = {
               msgClassList,
               userInfo,
               msgID,
-              hasPGPData = (webpg.jq(node).text().search(/(^\s*?)?(-----BEGIN PGP.*?)/gi) !== -1),
+              hasPGPData = (webpg.jq(node).text().search(/(\b\s*?)?(-----BEGIN PGP.*?)/gi) !== -1),
               hasAttachment = (webpg.jq(node.parentElement).html().search("download_url=") !== -1 ||
                                webpg.jq(node.parentElement).find('.f.gW').length > 0);
 
@@ -1072,9 +1080,8 @@ webpg.gmail = {
           if (hasPGPData === true || (hasPGPData === false && hasAttachment === true)) {
             // lets get information about the current email message
             if (webpg.utils.detectedBrowser['vendor'] === 'mozilla') {
-              var GLOBALS = node.ownerDocument.defaultView.wrappedJSObject.GLOBALS;
-            } else {
-              var GLOBALS = webpg.gmail.GLOBALS;
+              webpg.gmail.GLOBALS = node.ownerDocument.defaultView.wrappedJSObject.GLOBALS ||
+                            window.content.wrappedJSObject.GLOBALS;
             }
             // Obtain the class list (which contains the msg ID)
             msgClassList = node.className.split(" ");
