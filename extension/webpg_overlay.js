@@ -530,14 +530,17 @@ webpg.overlay = {
                 break;
 
             case webpg.constants.overlayActions.SYMCRYPT:
+            case webpg.constants.overlayActions.SYMCRYPTSIGN:
                 if (event === 'context-menu')
                     webpg.overlay.block_target = true;
+
                 webpg.utils.sendRequest({
                     'msg': 'symmetricEncrypt',
                     'data': selection.selectionText,
                     'pre_selection': selection.pre_selection,
                     'post_selection': selection.post_selection,
                     'message_event': 'context',
+                    "signers": (action === webpg.constants.overlayActions.SYMCRYPTSIGN) ? sender.signers : [],
                     'dialog_type': 'symcrypt'}
                 );
                 break;

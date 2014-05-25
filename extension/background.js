@@ -544,7 +544,11 @@ webpg.background = {
 
             case 'symmetricEncrypt':
                 //console.log("symmetric encryption requested");
-                response = webpg.plugin.gpgSymmetricEncrypt(request.data, 0, []);
+                var signers = (typeof(request.signers)!=='undefined' &&
+                        request.signers !== null &&
+                        request.signers.length > 0) ? request.signers : [];
+                var sign = (signers.length > 0) ? 1 : 0;
+                response = webpg.plugin.gpgSymmetricEncrypt(request.data, sign, signers);
                 if (request.message_event === "context" || request.message_event === "editor")
                     webpg.utils.tabs.sendRequest(sender.tab, {
                         "msg": "insertEncryptedData",

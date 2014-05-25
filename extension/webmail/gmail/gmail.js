@@ -283,6 +283,7 @@ webpg.gmail = {
                 break;
 
             case 4:
+            case 5:
                 //  Symmetric encryption was selected; Encrypt the plaintext,
                 //  populate the editor with the result and send
                 //  the email.
@@ -368,7 +369,9 @@ webpg.gmail = {
                 }
                 webpg.gmail.displayStatusLine(status, "about");
             } else {
-                if (webpg.gmail.action !== 0) {
+                if (webpg.gmail.action !== 0 &&
+                    webpg.gmail.action !== 4 &&
+                    webpg.gmail.action !== 5) {
                   if (webpg.gmail.action === 1)
                     status = _("This message will be Encrypted");
                   else if (webpg.gmail.action === 3)
@@ -680,6 +683,24 @@ webpg.gmail = {
                             _('Symmetric Encryption') +
                         '</a>' +
                     '</li>' +
+
+                    '<li class="webpg-action-btn">' +
+                        '<a class="webpg-toolbar-symcryptsign">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted_signed.png" class="webpg-li-icon"/>' +
+                            _('Signed Symmetric Encryption') +
+                        '</a>' +
+                        '<ul class="webpg-toolbar-sign-callout" style="top:0;right:4px;width:20px;display:inline-block;position:absolute;padding:0;">' +
+                            '<li class="webpg-subaction-btn">' +
+                                '<span class="webpg-action-list-icon">' +
+                                    '&nbsp;' +
+                                '</span>' +
+                            '</li>' +
+                        '</ul>' +
+                        '<ul class="webpg-subaction-list">' +
+                            webpg.inline.createSecretKeySubmenu('sign', 'symcryptsign') +
+                        '</ul>' +
+                    '</li>' +
+
                     '<li class="webpg-action-btn webpg-none-btn">' +
                         '<a class="webpg-toolbar-btn-none">' +
                             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_decrypted-signature-bad.png" class="webpg-li-icon"/>' +
@@ -730,7 +751,8 @@ webpg.gmail = {
             var signers = (this.id.indexOf("0x") > -1) ? null : [webpg.inline.default_key()];
 
             if ((action === "sign" ||
-            action === "cryptsign") &&
+            action === "cryptsign" ||
+            action === "symcryptsign") &&
             this.id.indexOf("0x") === -1 &&
             webpg.inline.default_key() === undefined) {
                 e.stopImmediatePropagation();
@@ -790,6 +812,13 @@ webpg.gmail = {
                     webpg.gmail.displayStatusLine(_("This message will be Encrypted using Symmetric Encryption"), "webpg");
                     webpg.gmail.action = 4;
                     esBtn.attr('data-tooltip', _("Symmetric Encryption"));
+                    composeCSS['background-image'] = 'url(' + bgBasePath + 'stock_encrypted.png' + ')';
+                    break;
+
+                case "symcryptsign":
+                    webpg.gmail.displayStatusLine(_("This message will be Signed and Encrypted using Symmetric Encryption"), "webpg");
+                    webpg.gmail.action = 5;
+                    esBtn.attr('data-tooltip', _("Signed Symmetric Encryption"));
                     composeCSS['background-image'] = 'url(' + bgBasePath + 'stock_encrypted.png' + ')';
                     break;
 

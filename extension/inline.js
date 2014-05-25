@@ -832,7 +832,7 @@ webpg.inline = {
         webpg.jq(toolbar).find('ul.webpg-action-list, ul.webpg-subaction-list').css({
             'position': 'absolute', 'top': '100%', 'left': '-2px',
             'z-index': '9999', 'float': 'left', 'display': 'none',
-            'min-width': '200px', 'padding': '0', 'margin': '0',
+            'min-width': '234px', 'padding': '0', 'margin': '0',
             'list-style': 'none', 'background-color': '#ffffff',
             'border-color': '#ccc', 'border-color': 'rgba(0, 0, 0, 0.2)',
             'border-style': 'solid', 'border-width': '1px',
@@ -1151,6 +1151,22 @@ webpg.inline = {
                             _('Symmetric Encryption') +
                         '</a>' +
                     '</li>' +
+                    '<li class="webpg-action-btn">' +
+                        '<a class="webpg-toolbar-symcryptsign">' +
+                            '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_encrypted_signed.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
+                            _('Signed Symmetric Encryption') +
+                        '</a>' +
+                        '<ul class="webpg-toolbar-sign-callout">' +
+                            '<li class="webpg-subaction-btn">' +
+                                '<span class="webpg-action-list-icon">' +
+                                    '&nbsp;' +
+                                '</span>' +
+                            '</li>' +
+                        '</ul>' +
+                        '<ul class="webpg-subaction-list">' +
+                            webpg.inline.createSecretKeySubmenu('sign', 'symcryptsign') +
+                        '</ul>' +
+                    '</li>' +
                     '<li class="webpg-action-btn webpg-pgp-crypttext">' +
                         '<a class="webpg-toolbar-decrypt">' +
                             '<img src="' + webpg.utils.escape(webpg.utils.resourcePath) + 'skin/images/badges/20x20/stock_decrypted.png" class="webpg-li-icon" style="vertical-align: baseline !important;"/>' +
@@ -1355,7 +1371,8 @@ webpg.inline = {
             var signers = (this.id.indexOf("0x") > -1) ? null : [webpg.inline.default_key()];
 
             if ((link_class === "webpg-toolbar-sign" ||
-            link_class === "webpg-toolbar-cryptsign") &&
+            link_class === "webpg-toolbar-cryptsign" ||
+             link_class === "webpg-toolbar-symcryptsign") &&
             this.id.indexOf("0x") === -1 &&
             webpg.inline.default_key() === undefined) {
                 e.stopImmediatePropagation();
@@ -1373,6 +1390,8 @@ webpg.inline = {
                 webpg.constants.overlayActions.DECRYPT :
                 (link_class === "webpg-toolbar-symcrypt") ?
                 webpg.constants.overlayActions.SYMCRYPT :
+                (link_class === "webpg-toolbar-symcryptsign") ?
+                webpg.constants.overlayActions.SYMCRYPTSIGN :
                 (link_class === "webpg-toolbar-sign") ?
                 webpg.constants.overlayActions.PSIGN :
                 (link_class === "webpg-toolbar-decrypt") ?

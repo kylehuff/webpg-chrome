@@ -54,6 +54,7 @@ webpg.constants = {
         webpg.constants.overlayActions.VERIF - 'VERIF'
         webpg.constants.overlayActions.CRYPT - 'CRYPT'
         webpg.constants.overlayActions.SYMCRYPT - 'SYMCRYPT'
+        webpg.constants.overlayActions.SYMCRYPTSIGN - 'SYMCRYPTSIGN'
         webpg.constants.overlayActions.CRYPTSIGN - 'CRYPTSIGN'
         webpg.constants.overlayActions.DECRYPT - 'DECRYPT'
         webpg.constants.overlayActions.IMPORT - 'IMPORT'
@@ -70,6 +71,7 @@ webpg.constants = {
         VERIF: 'VERIF',
         CRYPT: 'CRYPT',
         SYMCRYPT: 'SYMCRYPT',
+        SYMCRYPTSIGN: 'SYMCRYPTSIGN',
         CRYPTSIGN: 'CRYPTSIGN',
         DECRYPT: 'DECRYPT',
         IMPORT: 'IMPORT',
