@@ -723,14 +723,12 @@ webpg.utils = {
         .find(".J-J5-Ji .vh")
           .first()
             .text(text)
-            .css('visibility', 'visible');
+              .parent()
+                .parent()
+                  .css('top', '');
 
       setTimeout(function(e) {
-        webpg.jq(doc)
-          .find(".J-J5-Ji .vh")
-            .first()
-              .text('')
-              .css('visibility', 'hidden');
+        webpg.utils.gmailCancelNotify();
       }, timeout);
     },
 
@@ -740,7 +738,9 @@ webpg.utils = {
         .find(".J-J5-Ji .vh")
           .first()
             .text('')
-            .css('visibility', 'hidden');
+              .parent()
+                .parent()
+                  .css({'position': 'relative', 'top': '-10000px'});
     },
 
     /*
@@ -1915,7 +1915,7 @@ webpg.utils = {
 
 };
 
-webpg.descript = function(html) { return html.replace(/\<script(.|\n)*?\>(.|\n)*?\<\/script\>/g, ""); };
+webpg.descript = function(html) { return (html || "").replace(/\<script(.|\n)*?\>(.|\n)*?\<\/script\>/g, ""); };
 
 webpg.utils.init();
 

@@ -284,6 +284,20 @@ webpg.background = {
                 response = {'enabled': webpg.preferences.webpg_enabled.get() };
                 break;
 
+            case 'preferences':
+                response = {'error': false};
+                if (webpg.preferences.hasOwnProperty(request.item) === false) {
+                    response.error = true;
+                    response.result = "No preference matching " + request.action;
+                } else {
+                  if (request.action === 'set') {
+                      response.result = webpg.preferences[request.item].set(request.value || '');
+                  } else if (request.action === 'get') {
+                      response = webpg.preferences[request.item].get(request.param);
+                  }
+                }
+                break;
+
             case 'decorate_inline':
                 response = {'decorate_inline':
                     webpg.preferences.decorate_inline.get(),
@@ -684,6 +698,10 @@ webpg.background = {
 
             case 'delete_menu':
                 chrome.contextMenus.removeAll();
+                break;
+
+            case 'sendPGPMIMEMessage':
+                response = webpg.plugin.sendMessage(request.params);
                 break;
 
         }

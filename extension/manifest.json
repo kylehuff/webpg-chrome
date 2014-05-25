@@ -58,6 +58,7 @@
     {
       "matches": [ "https://mail.google.com/*", "http://mail.google.com/*" ],
       "js": [
+        "xoauth2.js",
         "webmail/gmail/gmail.js"
       ],
       "css": ["skin/gmail_overlay.css"],

@@ -174,6 +174,7 @@ webpg.options = {
                         webpg.xoauth2.requestCodeCallback = undefined;
                         document.location.reload();
                     };
+                    // Initiate the request to link an account
                     webpg.xoauth2.requestCode();
                 });
 
@@ -418,6 +419,8 @@ webpg.options = {
 
                 for (var ident in webpg.xoauth2.comp_data) {
                     var id = webpg.xoauth2.comp_data[ident];
+                    if (ident === "tempid")
+                        continue;
                     var identli = "<li><img class='ident-photo' src='" + id.picture + "'/>" + ident + "<a id='" + ident + "' style='padding-left:20px;text-decoration:underline;cursor:pointer;font-size: 80.5%;text-transform:lowercase;'>[" + _("delete") + "]</a></li>";
                     webpg.jq("#gmail-linked-identities").find(".ident-list").append(identli);
                 }

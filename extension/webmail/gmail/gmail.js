@@ -3,6 +3,8 @@ if (typeof(webpg)=='undefined') { webpg = {}; }
 // Enforce jQuery.noConflict if not already performed
 if (typeof(jQuery)!='undefined') { webpg.jq = jQuery.noConflict(true); }
 
+const HOST_URL = "smtp://smtp.gmail.com:587"
+
 /*
     Class: webpg.gmail
         Adds WebPG functionality to gmail
@@ -17,6 +19,9 @@ webpg.gmail = {
             navDiv - <obj> The navigation div from the gmail interface we will be working with
     */
     setup: function(navDiv) {
+        var userInfo = webpg.gmail.getUserInfo();
+
+        // Collect some user preferences
         webpg.utils.sendRequest({
             msg: "gmail_integration" },
             function(response) {
@@ -24,6 +29,13 @@ webpg.gmail = {
                     webpg.gmail.sign_gmail = (response.result.sign_gmail === 'true');
             }
         );
+
+        // Check for a linked account, if not present or PGPMIME is disabled, do not use it.
+        if (webpg.gmail.PGPMIME === false ||
+            webpg.xoauth2.comp_data.hasOwnProperty(userInfo.email) === false) {
+              webpg.gmail.PGPMIME = false;
+        }
+
         if (navDiv.find(".webpg-action-menu").length < 1) {
             // If we are running Mozilla, inject the CSS file
             if (webpg.utils.detectedBrowser.vendor === "mozilla") {
@@ -37,17 +49,18 @@ webpg.gmail = {
 
             var index = (webpg.gmail.gmailComposeType === "inline") ? 1 : 0;
 
-            webpg.gmail.originalWrapValue = webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=nowrap]").val();
-            webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=nowrap]").val(1);
+            this.originalWrapValue = this.getCanvasFrame().contents().find('form').find("input[name=nowrap]").val();
+            this.getCanvasFrame().contents().find('form').find("input[name=nowrap]").val(1);
 
             // Create a persistant reference to the Gmail "Send" button
             this.oSendBtn = webpg.jq(navDiv.find('div')[index]);
 
-            // Create a persistant reference to the Gmail "Save" button
-            this.oSaveBtn = webpg.jq(navDiv.find('div')[index + 1]);
-
+            // Create a persistant reference to the Gmail "Formatting" button
+            this.oFontBtn = navDiv.parent().parent().find('div[role=button]')[index++];
+            // Create a persistant reference to the Gmail "Attach" button
+            this.oAttachBtn = navDiv.parent().parent().find('div[role=button]')[index++];
             // Create a persistant reference to the Gmail "Discard" button
-            this.oDisBtn = webpg.jq(navDiv.find('div')[index + 2]);
+            this.oDisBtn = navDiv.parent().parent().find('div[role=button]')[index++];
 
             // Replace the "Send" button with our own
             this.oSendBtn.clone().insertBefore(this.oSendBtn)
@@ -57,20 +70,13 @@ webpg.gmail = {
             // Hide the original "Send" button
             this.oSendBtn.hide();
 
-            // Replace the "Save" (draft) button with our own
-            this.oSaveBtn.clone().insertBefore(this.oSaveBtn)
-                .attr('id', 'webpg-save-btn').click(this.overrideSave);
-
-            // Hide the original "Save" button
-            this.oSaveBtn.hide();
-
             // Add the WebPG Options list to the actions menu
             this.addSendOptionBtn(navDiv);
 
             // Watch for when the mouse exits the TO, CC and BCC fields so we
             //  can check the recipients listed therein
-            webpg.gmail.getCanvasFrame().find(
-                'textarea, input'
+            this.getCanvasFrame().find(
+                  'textarea, input'
                 ).blur(function(e) {
                     if (webpg.gmail.action === 1 || webpg.gmail.action === 3)
                         webpg.gmail.checkRecipients();
@@ -145,6 +151,115 @@ webpg.gmail = {
         webpg.gmail.emulateMouseClick(webpg.gmail.oSaveBtn[0]);
     },
 
+    sendEmail: function(xoauth_data) {
+        var recipients = this.getRecipients(),
+            username = this.getUserInfo().email;
+            subject = this.getMsgSubject(),
+            body = this.getContents(),
+            keys = [],
+            pgpMimeParams = {
+              'host_url': HOST_URL,
+              'username': username,
+              'bearer': xoauth_data.access_token,
+              'subject': subject,
+              'message': body
+            },
+            request = {
+              'data': body,
+              'message_event': 'gmail'
+            };
+        delete recipients.all;
+        
+
+        if (webpg.gmail.action === 1 ||
+            webpg.gmail.action === 3 ||
+            webpg.gmail.action === 4 ||
+            webpg.gmail.action === 5) {
+            webpg.gmail.checkRecipients(function(recipKeys) {
+                for (var keyItem in recipKeys) {
+                    if (recipKeys[keyItem].fingerprint !== undefined)
+                      keys.push(recipKeys[keyItem].fingerprint.substr(-16));
+                }
+                recipients.keys = keys;
+                request.recipients = recipients.keys;
+
+                if (webpg.gmail.action === 1) {
+                  request.msg = 'encrypt';
+                } else if (webpg.gmail.action === 3) {
+                  request.msg = 'encryptSign';
+                  request.signers = webpg.gmail.signers;
+                  pgpMimeParams.signers = webpg.gmail.signers;
+                } else if (webpg.gmail.action === 4) {
+                  request.msg = 'symmetricEncrypt';
+                  delete request.recipients;
+                  delete recipients.keys;
+                  request.signers = webpg.gmail.signers;
+                } else if (webpg.gmail.action === 5) {
+                  request.msg = 'symmetricEncrypt';
+                  delete request.recipients;
+                  delete recipients.keys;
+                  request.signers = webpg.gmail.signers;
+                  pgpMimeParams.signers = webpg.gmail.signers;
+                }
+
+                if (webpg.gmail.PGPMIME === false) {
+                    webpg.utils.sendRequest(request,
+                        function(response) {
+                            if (!response.result.error && response.result.data) {
+                                webpg.gmail.setContents(webpg.gmail.getCanvasFrame().
+                                    contents().find('form'),
+                                    response.result.data
+                                );
+                                webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
+                            } else {
+                                webpg.gmail.handleFailure(response.result, recipKeys);
+                            }
+                        }
+                    );
+                } else {
+                    // Send using PGP/MIME
+                    pgpMimeParams.recipients = recipients;
+                    pgpMimeParams.messagetype = 1;
+                    webpg.utils.sendRequest({
+                      'msg': 'sendPGPMIMEMessage',
+                      'params': pgpMimeParams
+                    }, function(response) {
+                      if (response.result.error === true)
+                        webpg.gmail.handleFailure(response.result);
+                      else {
+                        webpg.gmail.emulateMouseClick(webpg.gmail.oDisBtn);
+                        webpg.utils.gmailNotify("Your message has been sent using WebPG", 8000);
+                      }
+                    });
+                }
+            });
+        } else if (webpg.gmail.action === 2) {
+            if (webpg.gmail.PGPMIME === false) {
+                request.data = webpg.utils.gmailWrapping(body);
+                request.msg = 'sign';
+                request.selectionData = {
+                    'selectionText': request.data + "\n\n"
+                };
+            } else {
+                // Send using PGP/MIME
+                pgpMimeParams.recipients = recipients;
+                pgpMimeParams.signers = webpg.gmail.signers;
+                pgpMimeParams.messagetype = 2;
+                webpg.utils.sendRequest({
+                  'msg': 'sendPGPMIMEMessage',
+                  'params': pgpMimeParams
+                }, function(response) {
+                  if (response.result.error === true)
+                    webpg.gmail.handleFailure(response.result);
+                  else {
+                    webpg.gmail.emulateMouseClick(webpg.gmail.oDisBtn);
+                    webpg.utils.gmailNotify("Your message has been sent using WebPG", 8000);
+                  }
+                });
+            }
+        }
+    },
+
     /*
         Function: overrideSend
             Modifies the behavior of the gmail SEND button to perform certain tasks prior to sending the email
@@ -159,7 +274,6 @@ webpg.gmail = {
         var message = (webpg.gmail.action === 0) ? "" :
             webpg.gmail.getContents(webpg.gmail.getCanvasFrame().contents().find('form'));
 
-        webpg.gmail.removeStatusLine();
 
         // Notification -
         //  webpg.jq(".J-J5-Ji .vh").first().text("Your message has been sent using WebPG").css('visibility', 'visible')
@@ -167,154 +281,30 @@ webpg.gmail = {
         // Cycle through the available actions until we find the selected
         //  action
         switch (webpg.gmail.action) {
+          case 1: // Standard GnuPG Encryption was selected
+          case 2: // Standard GnuPG Sign was selected
+          case 3: // GnuPG Encrypt & Sign was selected
+          case 4: // Symmetric encryption was selected;
+          case 5: // Signed Symmetric encryption was selected
+            if (message.search("-----BEGIN PGP") === 0) {
+              var send = confirm(_("This message already contains PGP data") +
+                "\n\n" + _("Would you like to Encrypt anyway"));
+              if (!send)
+                return false;
+            }
+            if (webpg.gmail.PGPMIME !== false)
+              webpg.xoauth2.getTokenInfo(webpg.gmail.getUserInfo().email, function(details) {
+                  webpg.gmail.sendEmail(details);
+              });
+            break;
 
-            case 0:
-                // No webpg action was selected by the user, simply send
-                //  the email without modifying the contents
-                webpg.gmail.getCanvasFrame().contents().find('form')
-                    .find("input[name=nowrap]").val(webpg.gmail.originalWrapValue);
-                webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
-                break;
-
-            case 1:
-                // Standard GnuPG Encryption was selected; verify the
-                //  recipients are valid, encrypt the plaintext and
-                //  populate the editor with the result and send
-                //  the email.
-                webpg.gmail.checkRecipients(function(recipKeys) {
-                    var users = [];
-                    for (var keyItem in recipKeys) {
-                        users.push(recipKeys[keyItem].fingerprint.substr(-16));
-                    }
-                    if (message.search("-----BEGIN PGP") === 0) {
-                        var send = confirm(_("This message already contains PGP data") +
-                            "\n\n" + _("Would you like to Encrypt anyway"));
-                        if (!send)
-                            return;
-                    }
-                    webpg.utils.sendRequest({'msg': 'encrypt',
-                            'data': message,
-                            'recipients': users,
-                            'message_event': 'gmail'
-                        },
-                        function(response) {
-                            if (!response.result.error && response.result.data) {
-                                webpg.gmail.setContents(webpg.gmail.getCanvasFrame().
-                                    contents().find('form'),
-                                    response.result.data
-                                );
-                                webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
-                            } else {
-                                var result = response.result;
-                                webpg.gmail.handleFailure(result, recipKeys);
-                            }
-                        }
-                    );
-                });
-                break;
-
-           case 2:
-                // Standard GnuPG Sign was selected; sign the plaintext
-                //  and populate the editor with the result and send
-                //  the email.
-                // For signing, word-wrap the message to preserve integrity.
-                message = webpg.utils.gmailWrapping(message);
-                if (message.search("-----BEGIN PGP") === 0) {
-                    var send = confirm(_("This message already contains PGP data") +
-                        "\n\n" + _("Would you like to Sign anyway"));
-                    if (!send)
-                        return;
-                }
-                message += "\n\n";
-                webpg.utils.sendRequest({'msg': 'sign',
-                    'signers': webpg.gmail.signers,
-                    'message_event': 'gmail',
-                    'selectionData': {
-                        'selectionText': message
-                    }
-                }, function(response) {
-                    if (!response.result.error && response.result.data) {
-                        webpg.gmail.setContents(webpg.gmail.getCanvasFrame().
-                            contents().find('form'),
-                            response.result.data
-                        );
-                        webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
-                    } else {
-                        var result = response.result;
-                        webpg.gmail.handleFailure(result);
-                    }
-                });
-                break;
-
-            case 3:
-                // GnuPG Encrypt & Sign was selected; verify the
-                //  recipients are valid, encrypt+sign the plaintext,
-                //  populate the editor with the result and send
-                //  the email.
-                if (message.search("-----BEGIN PGP") === 0) {
-                    var send = confirm(_("This message already contains PGP data") +
-                        "\n\n" + _("Would you like to Encrypt and Sign anyway"));
-                    if (!send)
-                        return;
-                }
-                webpg.gmail.checkRecipients(function(recipKeys) {
-                    var users = [];
-                    for (var keyItem in recipKeys) {
-                        users.push(recipKeys[keyItem].fingerprint.substr(-16));
-                    }
-                    webpg.utils.sendRequest({'msg': 'encryptSign',
-                            'data': message,
-                            'recipients': users,
-                            'signers': webpg.gmail.signers,
-                            'message_event': 'gmail'
-                    }, function(response) {
-                        if (!response.result.error && response.result.data) {
-                            webpg.gmail.setContents(webpg.gmail.getCanvasFrame().
-                                contents().find('form'),
-                                response.result.data
-                            );
-                            webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
-                        } else {
-                            var result = response.result;
-                            webpg.gmail.handleFailure(result, recipKeys);
-                        }
-                    });
-                });
-                break;
-
-            case 4:
-            case 5:
-                //  Symmetric encryption was selected; Encrypt the plaintext,
-                //  populate the editor with the result and send
-                //  the email.
-                if (message.search("-----BEGIN PGP") === 0) {
-                    var send = confirm(_("This message already contains PGP data") +
-                        "\n\n" + _("Would you like to Encrypt anyway"));
-                    if (!send)
-                        return;
-                }
-                webpg.utils.sendRequest({'msg': 'symmetricEncrypt',
-                        'data': message,
-                        'message_event': 'gmail'
-                }, function(response) {
-                    if (!response.result.error && response.result.data) {
-                        webpg.gmail.setContents(webpg.gmail.getCanvasFrame().
-                            contents().find('form'),
-                            response.result.data
-                        );
-                        webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
-                    } else {
-                        var result = response.result;
-                        webpg.gmail.handleFailure(result);
-                    }
-                });
-                break;
-
-            default:
-                // No webpg action was selected by the user, simply send
-                //  the email without modifications
-                webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
-                break;
+          default:
+            // No webpg action was selected by the user, restore the
+            //  wrap setting and simply send the email without modifications
+            webpg.gmail.getCanvasFrame().contents().find('form')
+                .find("input[name=nowrap]").val(webpg.gmail.originalWrapValue);
+            webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
+            break;
 
         }
     },
@@ -328,8 +318,8 @@ webpg.gmail = {
     */
     checkRecipients: function(callback) {
         var _ = webpg.utils.i18n.gettext,
+            users = webpg.gmail.getRecipients().all,
             status;
-        var users = webpg.gmail.getRecipients();
         // Get the keys for the named users/groups
         webpg.utils.sendRequest({'msg': 'getNamedKeys',
             'users': users
@@ -356,7 +346,9 @@ webpg.gmail = {
               }
             }
 
-            if (notAllKeys) {
+            if (notAllKeys &&
+                (webpg.gmail.action === 1 ||
+                 webpg.gmail.action === 3)) {
                 status = "";
                 if (missingKeys.length > 0) {
                     status += _("You do not have any keys for") + " " +
@@ -418,9 +410,19 @@ webpg.gmail = {
             status_line,
             status_msg;
 
-        status_line = webpg.gmail.getCanvasFrame().find(".webpg-status-line");
+        if (webpg.gmail.getCanvasFrame().find(".webpg-status-line").length > 0 ||
+            webpg.jq("table.IG").length > 0) {
+            status_line = webpg.gmail.getCanvasFrame().find(".webpg-status-line");
+        } else if (webpg.gmail.getCanvasFrame().find(".aNI").length > 0) {
+          var sp = webpg.gmail.getCanvasFrame().find(".aNI");
+          status_line = sp.clone().removeClass();
+          status_line[0].id = "webpg-status-line";
+          status_line.insertAfter(webpg.jq('input[name=subjectbox]').parent());
+          status_line.children().removeClass();
+          status_line.addClass("webpg-status-line").addClass("webpg-gmail-status-line").addClass("webpg-gmail-abs");
+        }
 
-        if (status_line.length < 1) {
+        if (status_line && status_line.length < 1) {
           //status_line = webpg.gmail.getMsgSubjectElement().parent().find("input[name='composeid']").prev();
           status_line = webpg.gmail.getMsgSubjectElement().parent().find("table").first();
 
@@ -452,17 +454,16 @@ webpg.gmail = {
         status_msg
           .children()
             .first()
-            .html("<span style='width:100%'>" +
+            .html(
               "<span class='stat-hold'><img alt='WebPG' title='WebPG' src='" +
               webpg.utils.resourcePath + "skin/images/badges/24x24/" +
               icon + ".png'/></span><span class='stat-hold'><span>" + webpg.descript(message) +
-              "</span></span></span>");
+              "</span></span>");
 
-        if (webpg.gmail.gmailComposeType === "inline") {
+        if (webpg.gmail.gmailComposeType === "inline")
             status_msg.show();
-        } else {
+        else
             webpg.jq(status_msg).insertBefore(status_line.children(0)).show();
-        }
 
         status_line.find('.keylink').click(function() {
             webpg.utils.sendRequest({
@@ -519,8 +520,9 @@ webpg.gmail = {
                 }
             }
         } else {
-            status = result.error_string;
-            webpg.gmail.displayStatusLine(status, "about");
+            status = result.error_string || result.result;
+            if (status.length > 0)
+              webpg.gmail.displayStatusLine(status, "about");
         }
     },
 
@@ -548,6 +550,14 @@ webpg.gmail = {
     },
 
     /*
+        Function: getMsgSubject
+            Retrieves the message subject
+    */
+    getMsgSubject: function() {
+        return webpg.gmail.getCanvasFrame().find('input[name="subjectbox"]').val();
+    },
+
+    /*
         Function: getMsgSubjectElement
             Retrieves the element that contains the Subject element
     */
@@ -560,28 +570,31 @@ webpg.gmail = {
             Retrieves the recipients in the TO, CC and BCC fields
     */
     getRecipients: function() {
-        var emails = [];
-        var canvasFrame = webpg.gmail.getCanvasFrame();
-        if (webpg.gmail.gmailComposeType === "inline") {
-            canvasFrame.find('input[name="to"], input[name="cc"], input[name="bcc"]').each(function(i, e) {
-                emails.push(e.value);
-            });
-        } else {
-            emails = canvasFrame.find('textarea[name="to"]').val()
-                .replace(', ', ',').split(',');
-            if (canvasFrame.find('textarea[name="cc"]').val().length)
-                emails = emails.concat(canvasFrame.find('textarea[name="cc"]').val().replace(', ', ',')
-                    .replace(' ', '').split(','));
-            if (canvasFrame.find('textarea[name="bcc"]').val().length)
-                emails = emails.concat(canvasFrame.find('textarea[name="bcc"]').val().replace(', ', ',')
-                    .replace(' ', '').split(','));
+        var emails = {'to': [], 'cc': [], 'bcc': [], 'all': []},
+            canvasFrame = this.getCanvasFrame(),
+            input = (this.gmailComposeType === "inline") ? "input" : "textarea";
+
+        canvasFrame.find(input + '[name="to"]').each(function(i, e) {
+            emails.to.push((e.value || "").replace(/((.*)<(.*)>)/g,'$3'));
+        });
+        canvasFrame.find(input + '[name="cc"]').each(function(i, e) {
+            emails.cc.push((e.value || "").replace(/((.*)<(.*)>)/g,'$3'));
+        });
+        canvasFrame.find(input + '[name="bcc"]').each(function(i, e) {
+            emails.bcc.push((e.value || "").replace(/((.*)<(.*)>)/g,'$3'));
+        });
+        emails.from = (canvasFrame.find(input + '[name="from"]').val() || "")
+          .replace(/((.*)<(.*)>)/g,'$3');
+
+        for (var type in emails) {
+            if (type !== 'all') {
+              for (var email in emails[type]) {
+                  if (emails[type][email].length > 1)
+                      emails.all.push(emails[type][email].replace(/((.*)<(.*)>)/g,'$3'));
+              }
+            }
         }
-        var users = [];
-        for (var r in emails) {
-            if (emails[r].length > 1)
-                users.push(emails[r].replace(/((.*)<(.*)>)/g,'$3'));
-        }
-        return users;
+        return emails;
     },
 
     /*
@@ -779,11 +792,10 @@ webpg.gmail = {
             webpg.jq(esBtn).find(".webpg-action-text").text(webpg.utils.escape(newText));
             esBtn.firstStatusText = null;
             var composeCSS = {
-                'background-image': 'none',
-                'background-repeat': 'no-repeat',
-                'background-position': 'bottom right'
+                'margin-top': (webpg.jq("table.IG").length > 0) ? '0' : '24px'
             };
             var bgBasePath = webpg.utils.resourcePath + 'skin/images/badges/48x48/';
+            var iconPath = bgBasePath;
 
             switch (action) {
 
@@ -791,50 +803,58 @@ webpg.gmail = {
                     webpg.gmail.checkRecipients();
                     webpg.gmail.action = 1;
                     esBtn.attr('data-tooltip', _("Encrypt"));
-                    composeCSS['background-image'] = 'url(' + bgBasePath + 'stock_encrypted.png' + ')';
+                    iconPath += 'stock_encrypted.png';
                     break;
 
                 case "sign":
-                    webpg.gmail.displayStatusLine(_("This message will be Signed"), "webpg");
+                    webpg.gmail.displayStatusLine(_("This message will be Signed") + "  (" + webpg.gmail.signers.toString() + ")", "webpg");
                     webpg.gmail.action = 2;
                     esBtn.attr('data-tooltip', _("Sign Only"));
-                    composeCSS['background-image'] = 'url(' + bgBasePath + 'stock_signature.png' + ')';
+                    iconPath += 'stock_signature.png';
                     break;
 
                 case "cryptsign":
                     webpg.gmail.checkRecipients();
                     webpg.gmail.action = 3;
                     esBtn.attr('data-tooltip', _("Sign and Encrypt"));
-                    composeCSS['background-image'] = 'url(' + bgBasePath + 'stock_encrypted_signed.png' + ')';
+                    iconPath += 'stock_encrypted_signed.png';
                     break;
 
                 case "symcrypt":
                     webpg.gmail.displayStatusLine(_("This message will be Encrypted using Symmetric Encryption"), "webpg");
                     webpg.gmail.action = 4;
                     esBtn.attr('data-tooltip', _("Symmetric Encryption"));
-                    composeCSS['background-image'] = 'url(' + bgBasePath + 'stock_encrypted.png' + ')';
+                    iconPath += 'stock_encrypted.png';
                     break;
 
                 case "symcryptsign":
                     webpg.gmail.displayStatusLine(_("This message will be Signed and Encrypted using Symmetric Encryption"), "webpg");
                     webpg.gmail.action = 5;
                     esBtn.attr('data-tooltip', _("Signed Symmetric Encryption"));
-                    composeCSS['background-image'] = 'url(' + bgBasePath + 'stock_encrypted.png' + ')';
+                    iconPath += 'stock_encrypted_signed.png';
                     break;
 
                 default:
                     webpg.gmail.removeStatusLine();
                     webpg.gmail.action = 0;
                     esBtn.attr('data-tooltip', _("Do not use WebPG for this message"));
-                    composeCSS['background-image'] = 'none';
+                    composeCSS['margin-top'] = '0';
+                    iconPath += 'stock_decrypted-signature-bad.png';
             }
 
             webpg.gmail.signers = (this.id.search("0x") === 0) ?
                     [e.currentTarget.id.substr(2)] : signers;
+            webpg.gmail.getCanvasFrame().contents().find('.webpg-gmail-status-icon').remove();
 
             var msg_container = webpg.gmail.getEditor(webpg.gmail.getCanvasFrame().contents().find('form'));
             if (msg_container.length > 0)
                 msg_container.css(composeCSS);
+
+            var iconSlot = webpg.gmail.getCanvasFrame().contents().find('.oG').clone().removeClass('oG');
+            iconSlot.addClass('webpg-gmail-status-icon');
+            iconSlot.css({'margin':'7px -4px 0 10px', 'opacity': '0.7', 'float':'right', 'width':'25px'});
+            iconSlot.insertBefore(webpg.gmail.getCanvasFrame().contents().find('.oG'));
+            iconSlot.html("<img src='" + iconPath + "' style='width:22px;'/>");
 
             if (this.id.search("0x") === 0) {
                 webpg.jq(this).parent().parent().find('a img').css({'opacity': '0'});
@@ -843,14 +863,21 @@ webpg.gmail = {
         });
 
         if (webpg.gmail.action === 2) {
+            webpg.gmail.signers = [webpg.inline.default_key()];
             var composeCSS = {
-                'background-image': 'url(' + webpg.utils.resourcePath + 'skin/images/badges/48x48/stock_signature.png' + ')',
-                'background-repeat': 'no-repeat',
-                'background-position': 'bottom right'
+                'margin-top': (webpg.jq("table.IG").length > 0) ? '0' : '24px'
             };
             var msg_container = webpg.gmail.getEditor(webpg.gmail.getCanvasFrame().contents().find('form'));
             if (msg_container.length > 0)
                 msg_container.css(composeCSS);
+
+            var iconSlot = webpg.gmail.getCanvasFrame().contents().find('.oG').clone().removeClass('oG');
+            var iconPath = webpg.utils.resourcePath + 'skin/images/badges/48x48/stock_signature.png';
+            iconSlot.addClass('webpg-gmail-status-icon');
+            iconSlot.css({'margin':'7px -4px 0 10px', 'opacity': '0.7', 'float':'right', 'width':'25px'});
+            iconSlot.insertBefore(webpg.gmail.getCanvasFrame().contents().find('.oG'));
+            iconSlot.html("<img src='" + iconPath + "' style='width:22px;'/>");
+            webpg.gmail.displayStatusLine(_("This message will be Signed") + "  (" + webpg.gmail.signers.toString() + ")", "webpg");
         }
 
         if (webpg.gmail.sign_gmail)
@@ -863,14 +890,14 @@ webpg.gmail = {
         var canvasFrame = webpg.gmail.getCanvasFrame();
         if (webpg.gmail.gmailComposeType === "inline") {
             var msg_container = canvasFrame.find("*[g_editable='true']").first();
-            if (msg_container.length < 1) {
-                // The editor must be in an iframe
-                var iframes = canvasFrame.find("iframe");
-                iframes.each(function() {
-                    if (webpg.jq(this.contentDocument).find("*[g_editable='true']").length > 0)
-                        msg_container = webpg.jq(this.contentDocument).find("*[g_editable='true']").first();
-                });
-            }
+//            if (msg_container.length < 1) {
+//                // The editor must be in an iframe
+//                var iframes = canvasFrame.find("iframe");
+//                iframes.each(function() {
+//                    if (webpg.jq(this.contentDocument).find("*[g_editable='true']").length > 0)
+//                        msg_container = webpg.jq(this.contentDocument).find("*[g_editable='true']").first();
+//                });
+//            }
             return msg_container;
         } else {
             var textarea = canvasFrame.find('textarea[name!=to]', editor).
@@ -976,6 +1003,20 @@ webpg.gmail = {
         }
     },
 
+    getUserInfo: function() {
+      var emailRegex = new RegExp(/sx_mrsp_(.*?)\,/igm),
+          regRes = emailRegex.exec(this.GLOBALS),
+          result = {'email': null, 'gmailID': null};
+
+      // If the address was found, use it to find the gmail user ID
+      if (regRes && regRes.hasOwnProperty(1)) {
+        result.email = regRes[1];
+        result.gmailID = this.GLOBALS[this.GLOBALS.indexOf(result.email) - 1];
+      }
+
+      return result;
+    },
+
     /*
         Function: gmailChanges
             Called when the DOM changes. Watches for our queue in DOM modifications to add the webpg related controls
@@ -1021,8 +1062,7 @@ webpg.gmail = {
           // A message is being displayed
           var node = e.previousSibling,
               msgClassList,
-              userEmail,
-              gmailID,
+              userInfo,
               msgID,
               hasPGPData = (webpg.jq(node).text().search(/(^\s*?)?(-----BEGIN PGP.*?)/gi) !== -1),
               hasAttachment = (webpg.jq(node.parentElement).html().search("download_url=") !== -1 ||
@@ -1041,14 +1081,8 @@ webpg.gmail = {
             if (msgClassList.hasOwnProperty(2)) {
               msgID = msgClassList[2];
               // Obtain the users email address
-              var emailRegex = new RegExp(/sx_mrsp_(.*?)\,/igm);
-              var regRes = emailRegex.exec(GLOBALS);
-              // If the address was found, use it to find the gmail user ID
-              if (regRes && regRes.hasOwnProperty(1)) {
-                userEmail = regRes[1];
-                gmailID = GLOBALS[GLOBALS.indexOf(userEmail) - 1];
-              }
-              msgLink = node.ownerDocument.location.href.split("#")[0] + "?ui=2&ik=" + gmailID + "&view=om&th=" + msgID.substr(1);
+              userInfo = webpg.gmail.getUserInfo();
+              msgLink = node.ownerDocument.location.href.split("#")[0].split("?")[0] + "?ui=2&ik=" + userInfo.gmailID + "&view=om&th=" + msgID.substr(1);
               webpg.jq.ajax({
                 'url': msgLink,
                 'success': function(msgData, status) {
@@ -1092,17 +1126,18 @@ webpg.gmail = {
                         data = msgObj.content;
                     }
 
-                    if (dataEncoding === 'quoted_printable' ||
-                        dataEncoding === 'qouted-printable')
-                      data = webpg.utils.quoted_printable_decode(data);
-                    else if (dataEncoding === 'base64')
-                      data = webpg.utils.base64_decode(data);
+// FIXME: the qp decodeder doesn't work well.
+//                    if (dataEncoding === 'quoted_printable' ||
+//                        dataEncoding === 'quoted-printable')
+//                      data = webpg.utils.quoted_printable_decode(data);
+//                    else if (dataEncoding === 'base64')
+//                      data = webpg.utils.base64_decode(data);
 
-                    if (encoding === 'quoted_printable' ||
-                        encoding === 'quoted-printable')
-                      signature = (webpg.utils.quoted_printable_decode(signature) || null);
-                    else if (encoding === 'base64')
-                      signature = (webpg.utils.base64(signature) || null);
+//                    if (encoding === 'quoted_printable' ||
+//                        encoding === 'quoted-printable')
+//                      signature = (webpg.utils.quoted_printable_decode(signature) || null);
+//                    else if (encoding === 'base64')
+//                      signature = (webpg.utils.base64(signature) || null);
 
                     var doc = (node.ownerDocument || webpg.inline.doc || content.document || document);
 
