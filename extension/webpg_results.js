@@ -165,9 +165,9 @@ webpg.inline_results = {
                         webpg.jq('#footer .content').html(descText + "<br/>");
                     }
                     if (request.verify_result.error) {
-                        webpg.jq('#signature_text')[0].textContent = request.verify_result.original_text;
+                        webpg.jq('#signature_text')[0].textContent = request.verify_result.original_text.trim();
                     } else {
-                        webpg.jq('#signature_text')[0].textContent = request.verify_result.data;
+                        webpg.jq('#signature_text')[0].textContent = request.verify_result.data.trim();
                     }
                     if (request.message_event === "manual" &&
                     request.verify_result.original_text.substr(0,5) === "-----") {
