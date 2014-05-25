@@ -765,7 +765,7 @@ webpg.gmail = {
         webpg.gmail.action_list.find('a').click(function(e) {
             var action = this.className.split("-")[2];
 
-            var signers = (this.id.indexOf("0x") > -1) ? null : [webpg.inline.default_key()];
+            var signers = (this.id.search("0x") === 0) ? [e.currentTarget.id.substr(2)] : [webpg.inline.default_key()];
 
             if ((action === "sign" ||
             action === "cryptsign" ||
