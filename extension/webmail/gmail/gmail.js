@@ -173,7 +173,6 @@ webpg.gmail = {
               'message_event': 'gmail'
             };
         delete recipients.all;
-        
 
         if (webpg.gmail.action === 1 ||
             webpg.gmail.action === 3 ||
@@ -222,6 +221,7 @@ webpg.gmail = {
                     );
                 } else {
                     // Send using PGP/MIME
+                    webpg.utils.gmailNotify(_("WebPG is preparing the email"), 8000);
                     pgpMimeParams.recipients = recipients;
                     pgpMimeParams.messagetype = 1;
                     webpg.utils.sendRequest({
@@ -246,6 +246,7 @@ webpg.gmail = {
                 };
             } else {
                 // Send using PGP/MIME
+                webpg.utils.gmailNotify("WebPG is preparing the email", 8000);
                 pgpMimeParams.recipients = recipients;
                 pgpMimeParams.signers = webpg.gmail.signers;
                 pgpMimeParams.messagetype = 2;
@@ -497,6 +498,7 @@ webpg.gmail = {
     handleFailure: function(result, recipKeys) {
         var _ = webpg.utils.i18n.gettext,
             status = "";
+        webpg.utils.gmailCancelNotify();
         if (result.gpg_error_code === 107) {
             status = result.error_string + ": " +
                 result.data + "; " + _("You have more than 1 public key matching that address");
