@@ -589,7 +589,8 @@ webpg.gmail = {
         canvasFrame.find(input + '[name="bcc"]').each(function(i, e) {
             emails.bcc.push((e.value || "").replace(/((.*)<(.*)>)/g,'$3'));
         });
-        emails.from = (canvasFrame.find(input + '[name="from"]').val() || "")
+        emails.from = (canvasFrame.find(input + '[name="from"]').val() ||
+          webpg.gmail.getUserInfo().email || "")
           .replace(/((.*)<(.*)>)/g,'$3');
 
         for (var type in emails) {
