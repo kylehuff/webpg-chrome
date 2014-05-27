@@ -15,6 +15,14 @@ webpg.dialog = {
         this.qs = {};
 
         webpg.dialog.selectedKeys = [];
+        var aux = [];
+        aux = webpg.preferences.selectedKeys.get();
+        if(aux) {
+        	webpg.dialog.selectedKeys = aux;
+        } else {
+        	webpg.dialog.selectedKeys = [];
+        }
+
         var _ = webpg.utils.i18n.gettext;
 
         webpg.pubkeylist = {};
@@ -199,6 +207,8 @@ webpg.dialog = {
                     var signers = (webpg.dialog.qs.signers!==undefined && 
                         unescape(webpg.dialog.qs.signers)!==null) ?
                         [unescape(webpg.dialog.qs.signers)] : null;
+
+                    webpg.preferences.selectedKeys.set(webpg.dialog.selectedKeys);
 
                     webpg.utils.sendRequest({"msg": "encrypt",
                         "data": unescape(webpg.dialog.qs.encrypt_data),
