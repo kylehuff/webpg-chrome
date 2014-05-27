@@ -1137,17 +1137,17 @@ webpg.gmail = {
                     }
 
 // FIXME: the qp decodeder doesn't work well.
-//                    if (dataEncoding === 'quoted_printable' ||
-//                        dataEncoding === 'quoted-printable')
-//                      data = webpg.utils.quoted_printable_decode(data);
-//                    else if (dataEncoding === 'base64')
-//                      data = webpg.utils.base64_decode(data);
+                    if (dataEncoding === 'quoted_printable' ||
+                        dataEncoding === 'quoted-printable')
+                      data = webpg.utils.quoted_printable_decode(data);
+                    else if (dataEncoding === 'base64')
+                      data = webpg.utils.base64_decode(data);
 
-//                    if (encoding === 'quoted_printable' ||
-//                        encoding === 'quoted-printable')
-//                      signature = (webpg.utils.quoted_printable_decode(signature) || null);
-//                    else if (encoding === 'base64')
-//                      signature = (webpg.utils.base64(signature) || null);
+                    if (encoding === 'quoted_printable' ||
+                        encoding === 'quoted-printable')
+                      signature = (webpg.utils.quoted_printable_decode(signature) || null);
+                    else if (encoding === 'base64')
+                      signature = (webpg.utils.base64(signature) || null);
 
                     var doc = (node.ownerDocument || webpg.inline.doc || content.document || document);
 
