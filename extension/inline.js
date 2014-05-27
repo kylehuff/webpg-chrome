@@ -1054,7 +1054,7 @@ webpg.inline = {
             "border: 1px solid gainsboro; top: 27px; clear: left; line-height: 12px;" +
             "left: -1px; text-shadow: none; text-decoration: none; overflow: visible;" +
             "box-sizing: content-box !important; -moz-box-sizing: content-box !important;" +
-            "-webkit-box-sizing: content-box !important; white-space: normal;");
+            "-webkit-box-sizing: content-box !important; white-space: normal; z-index: +1;");
 
         toolbar.setAttribute("class", "webpg-toolbar");
         var offset = (element.scrollHeight < element.offsetHeight) ?
