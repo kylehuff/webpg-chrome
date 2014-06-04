@@ -156,15 +156,16 @@ webpg.gmail = {
     },
 
     sendEmail: function(xoauth_data) {
-        var recipients = this.getRecipients(),
-            username = this.getUserInfo().email;
+        var _ = webpg.utils.i18n.gettext,
+            recipients = this.getRecipients(),
+            username = this.getUserInfo().email,
             subject = this.getMsgSubject(),
             body = this.getContents(),
             keys = [],
             pgpMimeParams = {
               'host_url': HOST_URL,
               'username': username,
-              'bearer': xoauth_data.access_token,
+              'bearer': (xoauth_data !== undefined) ? xoauth_data.access_token : '',
               'subject': subject,
               'message': body
             },
@@ -244,6 +245,19 @@ webpg.gmail = {
                 request.selectionData = {
                     'selectionText': request.data + "\n\n"
                 };
+                webpg.utils.sendRequest(request,
+                    function(response) {
+                        if (!response.result.error && response.result.data) {
+                            webpg.gmail.setContents(webpg.gmail.getCanvasFrame().
+                                contents().find('form'),
+                                response.result.data
+                            );
+                            webpg.gmail.emulateMouseClick(webpg.gmail.oSendBtn[0]);
+                        } else {
+                            webpg.gmail.handleFailure(response.result, recipKeys);
+                        }
+                    }
+                );
             } else {
                 // Send using PGP/MIME
                 webpg.utils.gmailNotify("WebPG is preparing the email", 8000);
@@ -297,10 +311,13 @@ webpg.gmail = {
               if (!send)
                 return false;
             }
-            if (webpg.gmail.PGPMIME !== false)
+            if (webpg.gmail.PGPMIME !== false) {
               webpg.xoauth2.getTokenInfo(webpg.gmail.getUserInfo().email, function(details) {
                   webpg.gmail.sendEmail(details);
               });
+            } else {
+              webpg.gmail.sendEmail();
+            }
             break;
 
           default:
@@ -1023,6 +1040,9 @@ webpg.gmail = {
       if (regRes && regRes.hasOwnProperty(1)) {
         result.email = regRes[1];
         result.gmailID = this.GLOBALS[this.GLOBALS.indexOf(result.email) - 1];
+      } else {
+        result.email = this.GLOBALS[10];
+        result.gmailID = this.GLOBALS[9];
       }
 
       return result;
