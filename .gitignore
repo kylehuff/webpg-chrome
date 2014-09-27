@@ -6,3 +6,4 @@ changelog-*.txt
 *.patch
 *~
 gh-pages/
+extension/skin/images/key_photos/

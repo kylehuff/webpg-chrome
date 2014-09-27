@@ -2,9 +2,9 @@
 <head>
 <title>WebPG Options</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link type="text/css" href="resources/jquery/css/dot-luv/jquery-ui-1.10.3.custom.css" rel="stylesheet"/>
-<script type="text/javascript" src="resources/jquery/js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="resources/jquery/js/jquery-ui-1.10.3.custom.min.js"></script>
+<link type="text/css" href="resources/jquery/css/dot-luv/jquery-ui-1.11.0.min.css" rel="stylesheet"/>
+<script type="text/javascript" src="resources/jquery/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="resources/jquery/js/jquery-ui-1.11.0.js"></script>
 <script type="text/javascript" src="constants.js"></script>
 <script type="text/javascript" src="utils.js"></script>
 <script type="text/javascript" src="preferences.js"></script>
@@ -190,13 +190,52 @@ body{
     list-style: none;
     font-size: 18px;
     line-height: 30px;
+    color: #fff;
+    border-spacing: 0;
+    border-collapse: separate;
+
+}
+.ident-list tr {
+    padding-bottom:5px;
+}
+.ident-list tr:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.ident-list tr td:first-child { border-top-left-radius: 4px; }
+.ident-list tr td:last-child { border-top-right-radius: 4px; }
+.ident-list tr td:first-child { border-bottom-left-radius: 4px; }
+.ident-list tr td:last-child { border-bottom-right-radius: 4px; }
+.ident-list td {
+    font-size: 0.7em;
+    padding: 5px;
+    border:none;
 }
 .ident-photo {
     padding-right: 18px;
+    padding-left: 4px;
     height: 24px;
     width: 24px;
     position: relative;
-    top: 4px;
+    top: 6px;
+}
+.small-button {
+   font-size: .8em !important;
+}
+.small-button .ui-button-text {
+   font-size: inherit !important;
+} 
+#advanced-options input {
+    height:20px;
+}
+.webpg-option-group input[type=buttoan] {
+  float:right;
+  
+}
+.webpg-option-group input[type=texta] {
+  float:right;
+  left:-40%;
+  position:relative;
+  min-width:250px;
 }
 </style>
 </head>
@@ -223,15 +262,15 @@ body{
             </span>
             <span id='gmail-linked-identities' class='webpg-options-group'>
                 <span class='webpg-options-text'></span><br/>
-                <ul class='ident-list'></ul>
+                <table class='ident-list'></table><br/>
                 <a style="padding-left:20px;text-decoration:underline;cursor:pointer;" id="link-gmail-identity"></a><br/><br/>
             </span>
             <a style="text-decoration:underline;cursor:pointer;" id="advanced-options-link"></a>
             <div id="advanced-options" style="display:none; padding:8px;">
-                <span id='gnupg-path-select' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-path-input' class="ui-state-default ui-widget ui-state-default ui-corner-all" style="width:200px;"/><label for='gnupg-path-input'></label><input type="button" id="gnupg-path-save" value="Save" style="display:none;"/></span>
-                <span id='gnupg-binary-select' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-binary-input' class="ui-state-default ui-widget ui-state-default ui-corner-all"/><label for='gnupg-binary-input'></label><input type="button" id="gnupg-binary-save" value="Save" style="display:none;"/></span>
-                <span id='gpgconf-binary-select' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gpgconf-binary-input' class="ui-state-default ui-widget ui-state-default ui-corner-all"/><label for='gpgconf-binary-input'></label><input type="button" id="gpgconf-binary-save" value="Save" style="display:none;"/></span>
-                <span id='gnupg-keyserver-select' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-keyserver-input' class="ui-state-default ui-widget ui-state-default ui-corner-all" style="width:200px;"/><label for='gnupg-keyserver-input'></label><input type="button" id="gnupg-keyserver-save" value="Save" style="display:none;"/></span>
+                <span id='gnupg-path-select' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-path-input' class="ui-state-default ui-widget ui-state-default ui-corner-all"/><label for='gnupg-path-input'></label><input type="button" id="gnupg-path-save" class="small-button" value="Save"/></span>
+                <span id='gnupg-binary-select' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-binary-input' class="ui-state-default ui-widget ui-state-default ui-corner-all"/><label for='gnupg-binary-input'></label><input type="button" id="gnupg-binary-save" class="small-button" value="Save"/></span>
+                <span id='gpgconf-binary-select' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gpgconf-binary-input' class="ui-state-default ui-widget ui-state-default ui-corner-all"/><label for='gpgconf-binary-input'></label><input type="button" id="gpgconf-binary-save" class="small-button" value="Save"/></span>
+                <span id='gnupg-keyserver-select' class='webpg-option-group'><span class='webpg-options-text'></span>&nbsp;&nbsp;<input type='text' id='gnupg-keyserver-input' class="ui-state-default ui-widget ui-state-default ui-corner-all"/><label for='gnupg-keyserver-input'></label><input type="button" id="gnupg-keyserver-save" class="small-button" value="Save"/></span>
             </div>
         </div>
         <div id="step-1" style="text-align:center;">

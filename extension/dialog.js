@@ -23,7 +23,7 @@ webpg.dialog = {
             webpg.overlay.init();
 
         if (webpg.utils.detectedBrowser.product === "chrome") {
-          chrome.extension.onConnect.addListener(function(port) {
+          chrome.runtime.onConnect.addListener(function(port) {
             port.onMessage.addListener(function(data) {
               webpg.keymanager.keylistprogress(data, port);
             });
@@ -136,8 +136,7 @@ webpg.dialog = {
                         webpg.utils.sendRequest({"msg": "public_keylist",
                           'fastlistmode': true,
                           'threaded': true,
-                          'iframe_id': window.name}, function(response) {
-                        });
+                          'iframe_id': window.name});
                     } else if (webpg.dialog.qs.dialog_type === "export") {
                         webpg.pubkeylist = webpg.background.webpg.plugin.getPrivateKeyList();
                     } else if (webpg.dialog.qs.dialog_type === "import") {
@@ -162,7 +161,12 @@ webpg.dialog = {
                     webpg.keymanager.keylistprogress(webpg.pubkeylist);
                 } else if (webpg.utils.detectedBrowser.product === "chrome") {
                     if (webpg.dialog.qs.dialog_type === "encrypt" || webpg.dialog.qs.dialog_type === "encryptsign") {
-                        webpg.utils.sendRequest({"msg": "public_keylist", 'fastlistmode': true, 'threaded': true});
+                        webpg.utils.sendRequest({
+                          "msg": "public_keylist",
+                          'fastlistmode': true,
+                          'threaded': true
+                        }
+                        );
                     } else if (webpg.dialog.qs.dialog_type === "export") {
                         webpg.utils.sendRequest({"msg": "private_keylist"}, function(response) {
                             webpg.pubkeylist = response.result;
@@ -266,6 +270,9 @@ webpg.dialog = {
 
 webpg.keymanager = {
     keylistprogress: function(data, port) {
+        data = (data.hasOwnProperty('data')) ? data.data : data;
+        if (data.status && data.status === "complete")
+          return;
         // Check if we recieved a key, or a key list
         //  keylists need to be converted to individual keys and recall this
         //  this method.

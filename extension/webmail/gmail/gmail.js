@@ -239,8 +239,11 @@ webpg.gmail = {
                 }
             });
         } else if (webpg.gmail.action === 2) {
+            request.data = webpg.utils.gmailWrapping(body);
+            request.data = request.data.replace(/\r?\n|\r/g, function() {
+                return "\r\n";
+            });
             if (webpg.gmail.PGPMIME === false) {
-                request.data = webpg.utils.gmailWrapping(body);
                 request.msg = 'sign';
                 request.selectionData = {
                     'selectionText': request.data + "\n\n"
@@ -346,6 +349,7 @@ webpg.gmail = {
         webpg.utils.sendRequest({'msg': 'getNamedKeys',
             'users': users
         }, function(response) {
+            console.log(response);
             var recipKeys = {};
             var keys = response.result.keys;
             for (var u in keys) {
@@ -1032,20 +1036,10 @@ webpg.gmail = {
     },
 
     getUserInfo: function() {
-      var emailRegex = new RegExp(/sx_mrsp_(.*?)\,/igm),
-          regRes = emailRegex.exec(this.GLOBALS),
-          result = {'email': null, 'gmailID': null};
-
-      // If the address was found, use it to find the gmail user ID
-      if (regRes && regRes.hasOwnProperty(1)) {
-        result.email = regRes[1];
-        result.gmailID = this.GLOBALS[this.GLOBALS.indexOf(result.email) - 1];
-      } else {
-        result.email = this.GLOBALS[10];
-        result.gmailID = this.GLOBALS[9];
-      }
-
-      return result;
+      return {
+        'email': this.GLOBALS[10],
+        'gmailID': this.GLOBALS[9]
+      };
     },
 
     /*
@@ -1087,8 +1081,10 @@ webpg.gmail = {
               e.addedNodes[0].className.search('webpg') !== -1)
             return;
 
+          var _ = webpg.utils.i18n.gettext;
+
           // Notify the user something is going on
-          webpg.utils.gmailNotify("WebPG is checking this message for signatures", 8000);
+          webpg.utils.gmailNotify(_("WebPG is checking this message for signatures"), 8000);
 
           // A message is being displayed
           var node = e.previousSibling,
@@ -1112,6 +1108,10 @@ webpg.gmail = {
               msgID = msgClassList[2];
               // Obtain the users email address
               userInfo = webpg.gmail.getUserInfo();
+              if (userInfo.email.search("@") === -1) {
+                webpg.utils.gmailNotify(_("Detected email address is invalid.") + " WebPG recieved: '" + userInfo.email + "'", 50000);
+                return;
+              }
               msgLink = node.ownerDocument.location.href.split("#")[0].split("?")[0] + "?ui=2&ik=" + userInfo.gmailID + "&view=om&th=" + msgID.substr(1);
               webpg.jq.ajax({
                 'url': msgLink,
@@ -1194,15 +1194,30 @@ webpg.gmail = {
 
                     plaintext = (signature === null) ? null : (data.slice(1, -1) || ""); // If this is a detached signature, the plaintext will be data
 
+                    blockType = (pgpData.indexOf(webpg.constants.PGPTags.PGP_KEY_BEGIN) > -1) ?
+                        webpg.constants.PGPBlocks.PGP_KEY:
+                        webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
+
+                    var action = (blockType === webpg.constants.PGPBlocks.PGP_KEY) ? "sendtoiframe" : "verify";
+
                     webpg.utils.sendRequest({
-                        'msg': 'verify',
+                        'msg': action,
                         'data': pgpData.trim(),
                         'plaintext': plaintext,
-                        'target_id': results_frame.id},
+                        'target_id': results_frame.id,
+                        'block_type': blockType},
                         function(response) {
+                            if (!response.result) {
+                              response.result = {'message_type': 'public_key',
+                                'block_type': blockType,
+                                'data': pgpData.trim(),
+                              }
+                            }
                             if (response.result.message_type === "detached_signature" ||
                                 (response.result.signatures && response.result.data))
                                 blockType = webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
+                            else if (response.result.message_type === 'public_key')
+                                blockType = webpg.constants.PGPBlocks.PGP_KEY;
                             else
                                 blockType = webpg.constants.PGPBlocks.PGP_ENCRYPTED;
 
@@ -1214,14 +1229,16 @@ webpg.gmail = {
                                 'msg': "sendtoiframe",
                                 'block_type': blockType,
                                 'target_id': results_frame.id,
-                                'verify_result': response.result
+                                'verify_result': response.result,
+                                'original_text': pgpData.trim()
                             });
                             if (webpg.utils.detectedBrowser.vendor === "mozilla") {
                                 webpg.utils.sendRequest({
                                     'msg': "sendtoiframe",
                                     'block_type': blockType,
                                     'target_id': results_frame.id,
-                                    'verify_result': response.result
+                                    'verify_result': response.result,
+                                    'original_text': pgpData.trim()
                                 });
                             } else {
                                 results_frame.onload = function() {
@@ -1229,7 +1246,8 @@ webpg.gmail = {
                                         'msg': "sendtoiframe",
                                         'block_type': blockType,
                                         'target_id': results_frame.id,
-                                        'verify_result': response.result
+                                        'verify_result': response.result,
+                                        'original_text': pgpData.trim()
                                     });
                                 };
                             }

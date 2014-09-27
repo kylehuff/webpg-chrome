@@ -214,7 +214,7 @@ webpg.overlay = {
             }
         } else if (request.msg === 'insertEncryptedData') {
             if (webpg.overlay.prior_insert_target === null)
-                return false;
+                return true;
 
             if (webpg.overlay.insert_target !== undefined &&
                 webpg.overlay.insert_target !== null && request.data) {
@@ -394,6 +394,7 @@ webpg.overlay = {
             var event = request.source || null;
             webpg.overlay.onContextCommand(event, request.action, sender);
         }
+        return true;
     },
 
     /*

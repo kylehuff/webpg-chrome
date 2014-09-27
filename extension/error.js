@@ -29,6 +29,8 @@ webpg.error = {
             } else if (error_map.gpg_error_code === -2) {
                 error_html += "<li>" + _("The Firefox Click to Play feature is enabled") + "</li>" +
                     "<li>" + _("WebPG cannot load the required plugin with this feature enabled") + "</li>";
+            } else if (error_map.gpg_error_code === -3) {
+                error_html += "<li>" + _("The WebPG Native Messaging Host was unreachable") + "</li>";
             } else if (error_map.gpg_error_code === "150") {
                 error_html += "<li>" + _("There might be a problem with the gpg installation");
                 if (window.navigator.platform.toLowerCase().indexOf("win") !== -1)
@@ -43,13 +45,15 @@ webpg.error = {
             systemInfoHTML += _("Error Code") + ": " + webpg.utils.escape(error_map.gpg_error_code) + "<br/>";
             systemInfoHTML += _("Error String") + ": " + webpg.utils.escape(error_map.error_string) + "<br/>";
             var file = error_map.file;
-            if (window.navigator.platform.toLowerCase().indexOf("win") !== -1) {
-                file = file.substr(error_map.file.lastIndexOf("\\") + 1);
-            } else {
-                file = file.substr(error_map.file.lastIndexOf("/") + 1);
+            if (file) {
+              if (window.navigator.platform.toLowerCase().indexOf("win") !== -1) {
+                  file = file.substr(error_map.file.lastIndexOf("\\") + 1);
+              } else {
+                  file = file.substr(error_map.file.lastIndexOf("/") + 1);
+              }
+              systemInfoHTML += _("File") + ": " + webpg.utils.escape(file) + "<br/>";
+              systemInfoHTML += _("Line") + ": " + webpg.utils.escape(error_map.line) + "<br/>";
             }
-            systemInfoHTML += _("File") + ": " + webpg.utils.escape(file) + "<br/>";
-            systemInfoHTML += _("Line") + ": " + webpg.utils.escape(error_map.line) + "<br/>";
         } else {
             error_html = "<p>" + _("Unknown Error") + "</p>";
         }

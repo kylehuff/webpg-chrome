@@ -4,25 +4,25 @@
   <title>WebPG Key Manager</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link type="text/css" href="skin/keymanager.css" rel="stylesheet" />
-  <link type="text/css" href="resources/jquery/css/dot-luv/jquery-ui-1.10.3.custom.css" rel="stylesheet" />
+  <link type="text/css" href="resources/jquery/css/dot-luv/jquery-ui-1.11.0.min.css" rel="stylesheet" />
   <link type="text/css" href="resources/jquery/css/jquery.multiselect.css" rel="stylesheet" />
   <link type="text/css" href="resources/jquery/css/jquery.multiselect.filter.css" rel="stylesheet" />
-  <script type="text/javascript" src="resources/jquery/js/jquery-1.10.2.min.js"></script>
-  <script type="text/javascript" src="resources/jquery/js/jquery-ui-1.10.3.custom.min.js"></script>
+  <script type="text/javascript" src="resources/jquery/js/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="resources/jquery/js/jquery-ui-1.11.0.js"></script>
   <script type="text/javascript" src="resources/jquery/js/jquery.passwordStrength.js"></script>
   <script type="text/javascript" src="resources/jquery/js/jquery.multiselect.js"></script>
   <script type="text/javascript" src="resources/jquery/js/jquery.multiselect.filter.js"></script>
+  <script type="text/javascript" src="resources/jquery/js/jquery.notify.js"></script>
   <script type="text/javascript" src="resources/angularjs/angular.min.js"></script>
-  <script type="text/javascript" src="resources/angularjs/angular-ui.min.js"></script>
   <script type="text/javascript" src="constants.js"></script>
   <script type="text/javascript" src="utils.js"></script>
+  <script type="text/javascript" src="API/libwebpg/nativeMessaging.js"></script>
   <script type="text/javascript" src="preferences.js"></script>
   <script type="text/javascript" src="key_manager.js"></script>
   <script type="text/javascript" src="buttonbar.js"></script>
 </head>
 
 <body ng-controller="keymanagerCtrl">
-<!--  <div style="height: 64px; witdth:100%; background-color:#fff; border: 2px solid #18f;">&nbsp;</div>-->
   <div data-keymanager-tabs id="tabs">
     <ul>
       <li><a id="tab-privatekeys" href="#tabs-2"></a></li>

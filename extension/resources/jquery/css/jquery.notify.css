@@ -1,0 +1,31 @@
+.notifyjs-webpg-base {
+  opacity: 0.85;
+  width: auto;
+  background: #F5F5F5;
+  padding: 5px;
+  border-radius: 10px;
+  height:auto;
+  min-height:20px;
+}
+
+.notifyjs-webpg-base .title {
+  width: 100px;
+  float: left;
+  margin: 10px 0 0 10px;
+  text-align: right;
+}
+
+.notifyjs-webpg-base .buttons {
+  width: 70px;
+  float: right;
+  font-size: 9px;
+  padding: 5px;
+  margin: 2px;
+}
+
+.notifyjs-webpg-base button {
+  font-size: 9px;
+  padding: 5px;
+  margin: 2px;
+  width: 60px;
+}

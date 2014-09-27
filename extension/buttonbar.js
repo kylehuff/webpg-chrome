@@ -47,9 +47,10 @@ webpg.jq(function() {
             "buttons": [{
               'text': _("Create"),
               'click': function() {
-                var form = webpg.jq("#genkey-form")[0];
+                var form = webpg.jq("#genkey-form")[0],
+                    error = "",
+                    response;
                 webpg.jq(form).parent().before("<div id=\"genkey-status\"> </div>");
-                var error = "";
                 if (!form.uid_0_name.value){
                   error += _("Name Required") + "<br>";
                   webpg.jq(form.uid_0_name).addClass("ui-state-error");
@@ -98,11 +99,12 @@ webpg.jq(function() {
                 webpg.jq("#genkey-dialog").dialog("option", "minHeight", 300);
                 webpg.jq("#genkey-status").html(error)[0].style.display="block";
                 webpg.jq("#genkey-status").html(_("Building key, please wait"));
-                webpg.jq("#genkey-status").after("<div id='genkey-status_detail' style=\"font-size: 12px; color:#fff;padding: 20px;\">" + _("This may take a long time (5 minutes or more) to complete") + ". " + _("Please be patient while the key is created") + ". " + _("It is safe to close this window") + ", " + _("key generation will continue in the background") + ".<br><br><div id='genkey_progress' style='height:auto;display:block;'></div></div>");
+                webpg.jq("#genkey-status").after("<div id='genkey-status_detail' style=\"font-size: 12px; color:#fff;padding: 20px;\">" + _("This may take a long time (5 minutes or more) to complete") + ". " + _("Please be patient while the key is created") + ". " + _("It is safe to close this window") + ", " + _("key generation will continue in the background") + ".<br><br><div id='genkey_progress' style='height:auto;display:block;'><span class='progress-label'></span></div></div>");
                 webpg.jq(form)[0].style.display = "none";
                 webpg.jq("#genkey-dialog")[0].style.height = "20";
                 webpg.jq("#genkey-dialog")[0].style.display = "none";
-                response = webpg.plugin.gpgGenKey(form.publicKey_algo.value,
+                response = webpg.plugin.gpgGenKey(
+                  form.publicKey_algo.value,
                   form.publicKey_size.value,
                   form.subKey_algo.value,
                   form.subKey_size.value,
@@ -110,16 +112,19 @@ webpg.jq(function() {
                   form.uid_0_comment.value,
                   form.uid_0_email.value,
                   form.key_expire.value,
-                  form.passphrase.value
+                  form.passphrase.value,
+                  webpg.keymanager.progressMsg
                 );
-                if (response === "queued") {
-                  webpg.jq("#genkey-dialog").dialog("option", "buttons", [{ 
-                    'text': _("Close"),
-                    'click': function() {
-                      webpg.jq("#genkey-dialog").dialog("close");
-                    }
-                  }]);
-                }
+                webpg.jq("#genkey-dialog").dialog("option", "buttons", [{ 
+                  'text': _("Close"),
+                  'click': function() {
+                    webpg.jq("#genkey-dialog").dialog("close");
+                  }
+                }]);
+                webpg.jq("#genkey_progress")
+                  .progressbar({'value': false})
+                  .css({'height': 24})
+                  .find('.progress-label');
               }
             }, {
               'text': _("Cancel"),

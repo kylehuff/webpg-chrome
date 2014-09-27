@@ -220,9 +220,9 @@ webpg.xoauth2 = {
           result = data;
       },
       error: function(data) {
-          console.log(data);
-          console.log(identity);
-          console.log(webpg.xoauth2.comp_data[identity].access_code);
+          webpg.utils.log(data);
+          webpg.utils.log(identity);
+          webpg.utils.log(webpg.xoauth2.comp_data[identity].access_code);
       }
     });
     return result;

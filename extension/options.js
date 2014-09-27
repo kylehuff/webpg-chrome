@@ -129,7 +129,7 @@ webpg.options = {
 
                 if (webpg.preferences.gmail_integration.get() !== 'true') {
                     webpg.jq("#gmail-action-sign").hide();
-                    //webpg.jq("#gmail-linked-identities").hide();
+                    webpg.jq("#gmail-linked-identities").hide();
                 }
 
                 if ((webpg.utils.detectedBrowser.product == "chrome") &&
@@ -211,10 +211,15 @@ webpg.options = {
                     webpg.jq('#enable-encrypt-to-self-check')[0].disabled = true;
 
                 webpg.jq('#enable-gmail-integration-check')[0].checked =
-                    (webpg.preferences.gmail_integration.get() == 'true');
+                    (webpg.preferences.gmail_integration.get() === 'true');
 
                 webpg.jq('#gmail-action-sign-check')[0].checked =
-                    (webpg.preferences.sign_gmail.get() == 'true');
+                    (webpg.preferences.sign_gmail.get() === 'true');
+
+                if (webpg.preferences.gmail_integration.get() === 'true')
+                  webpg.jq("#gmail-linked-identities").show();
+                else
+                  webpg.jq("#gmail-linked-identities").hide();
 
                 webpg.jq('#enable-decorate-inline-check').button({
                     'label': (webpg.preferences.decorate_inline.get() == 'true') ? _('Enabled') : _('Disabled')
@@ -421,21 +426,50 @@ webpg.options = {
                     var id = webpg.xoauth2.comp_data[ident];
                     if (ident === "tempid")
                         continue;
-                    var identli = "<li><img class='ident-photo' src='" + id.picture + "'/>" + ident + "<a id='" + ident + "' style='padding-left:20px;text-decoration:underline;cursor:pointer;font-size: 80.5%;text-transform:lowercase;'>[" + _("delete") + "]</a></li>";
+                    var identli = "<tr><td><img class='ident-photo' src='" + id.picture + "'/>" + ident + "</td><td><input class='ident-pgpmime-check' type='checkbox' id='" + ident + "-enable' name='pgpmime-radio' " + ((id.usePGPMIME !== false) ? 'checked' : '') + "/><label for='" + ident + "-enable'> " + _("PGP/MIME Enabled") + "</label></td><td><input type='button' class='ident-pgpmime-delete' id='" + ident + "-delete'/></td></tr>";
                     webpg.jq("#gmail-linked-identities").find(".ident-list").append(identli);
                 }
 
-                webpg.jq("#gmail-linked-identities").find(".ident-list").find("a").click(function() {
-                    if (webpg.xoauth2.comp_data.hasOwnProperty(this.id)) {
-                        delete webpg.xoauth2.comp_data[this.id];
-                        webpg.preferences.xoauth2_data.set(webpg.xoauth2.comp_data);
-                        this.parentElement.remove();
+                webpg.jq(".ident-pgpmime-check").button().click(function() {
+                    var id = this.id.match(/(\S*)\-enable$/),
+                        id = (id.length > 1) ? id[1] : "fail"
+                    webpg.xoauth2.comp_data[id].usePGPMIME = (this.checked);
+                    if (this.checked) {
+                      webpg.jq(this).button({'label': _("PGP/MIME Enabled")});
+                      webpg.jq(this)
+                        .parent()
+                          .prev().css({'opacity': ''})
+                    } else {
+                      webpg.jq(this).button({'label': _("PGP/MIME Disabled")});
+                      webpg.jq(this)
+                        .parent()
+                          .prev().css({'opacity': '0.5'})
                     }
+                    webpg.jq(this).blur();
+                    webpg.preferences.xoauth2_data.set(webpg.xoauth2.comp_data);
                 });
+
+                webpg.jq(".ident-pgpmime-delete").button({'label': _("delete")}).click(function() {
+                    var id = this.id.match(/(\S*)\-delete$/),
+                        id = (id.length > 1) ? id[1] : "fail"
+                    if (webpg.xoauth2.comp_data.hasOwnProperty(id)) {
+                        delete webpg.xoauth2.comp_data[id];
+                        webpg.preferences.xoauth2_data.set(webpg.xoauth2.comp_data);
+                        this.parentElement.parentElement.remove();
+                    }
+                }).hover(
+                  function() {
+                    webpg.jq(this).parent().parent().css({
+                      'background':'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQALvGRjqGWF8EEeQgaERLADjgNiMyByQAADsOwdzJYecCgAAAABJRU5ErkJggg==")'
+                    });
+                  },
+                  function() {
+                    webpg.jq(this).parent().parent().css({'background': ''});
+                  }
+                );
 
                 webpg.jq("#gnupg-path-save").button().click(function(e) {
                     webpg.preferences.gnupghome.set(webpg.jq("#gnupg-path-input")[0].value);
-                    webpg.jq(this).hide();
                 });
 
                 webpg.jq("#gnupg-path-input").each(function() {
@@ -491,7 +525,6 @@ webpg.options = {
                 webpg.jq("#gpgconf-binary-save").button().click(function(e) {
                     webpg.preferences.gpgconf.set(webpg.jq("#gpgconf-binary-input")[0].value);
                     window.top.document.location.reload();
-                    webpg.jq(this).hide();
                 });
 
                 webpg.jq("#gpgconf-binary-input").each(function() {
@@ -517,31 +550,37 @@ webpg.options = {
                 webpg.jq("#gpgconf-binary-input")[0].dir = "ltr";
 
                 webpg.jq("#gnupg-keyserver-save").button().click(function(e) {
+                  console.log("save", webpg.plugin.webpg_status.gpgconf_detected, webpg.jq("#gnupg-keyserver-input")[0].value);
                     if (!webpg.plugin.webpg_status.gpgconf_detected)
                         return false;
-                    webpg.plugin.gpgSetPreference("keyserver", webpg.jq("#gnupg-keyserver-input")[0].value);
-                    webpg.jq(this).hide();
+                    webpg.plugin.gpgSetPreference("keyserver", webpg.jq("#gnupg-keyserver-input")[0].value, function(x) { console.log(x);});
+//                    webpg.jq(this).hide();
                 });
 
-                webpg.jq("#gnupg-keyserver-input").each(function() {
-                    // Save current value of element
-                    webpg.jq(this).data('oldVal', webpg.jq(this).val());
+//                webpg.jq("#gnupg-keyserver-input").each(function() {
+//                    // Save current value of element
+//                    webpg.jq(this).data('origiVal', webpg.jq(this).val());
 
-                    // Look for changes in the value
-                    webpg.jq(this).bind("change propertychange keyup input paste", function(event) {
-                        // If value has changed...
-                        if (webpg.jq(this).data('oldVal') != webpg.jq(this).val()) {
-                            // Updated stored value
-                            webpg.jq(this).data('oldVal', webpg.jq(this).val());
-
-                            // Show save dialog
-                            if (webpg.jq(this).val() != webpg.plugin.gpgGetPreference("keyserver").value)
-                                webpg.jq("#gnupg-keyserver-save").show();
-                            else
-                                webpg.jq("#gnupg-keyserver-save").hide();
-                        }
-                    });
-                })[0].value = webpg.plugin.gpgGetPreference("keyserver").value;
+//                    // Look for changes in the value
+//                    webpg.jq(this).bind("change propertychange keyup input paste", function(event) {
+//                        // If value has changed...
+//                        if (webpg.jq(this).data('origVal') != webpg.jq(this).val()) {
+//                            // Show save dialog
+////                            if (webpg.jq(this).val() != webpg.jq(this).data('oldVal'))
+//                                webpg.jq(this).next().next().show();
+////                            else
+////                                webpg.jq(this).next().next().hide();
+//                            // Updated stored value
+////                            webpg.jq(this).data('origVal', webpg.jq(this).val());
+//                        }  else {
+//                          webpg.jq(this).next().next().hide();
+//                        }
+//                    });
+//                });
+                
+                webpg.plugin.gpgGetPreference("keyserver", function(res) {
+                  webpg.jq("#gnupg-keyserver-input").val(res.value);
+                });
 
                 webpg.jq("#gnupg-keyserver-input")[0].dir = "ltr";
 

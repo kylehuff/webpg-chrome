@@ -177,6 +177,7 @@ webpg.inline_results = {
                             icon.src = "skin/images/badges/48x48/stock_decrypted-signature.png";
                             var sig_ok = true;
                             var sig_boxes = "<div class='signature-container'>";
+                            webpg.utils.log(request.verify_result);
                             for (var sig in request.verify_result.signatures) {
                                 if (request.verify_result.signatures[sig].status != "GOOD") {
                                     sig_ok = false;
@@ -351,10 +352,10 @@ webpg.inline_results = {
                     webpg.jq('#signature_text').append(sig_boxes);
                     webpg.jq('.refresh_key_link').click(function(){
                         webpg.utils.sendRequest({
-                            "temp_context": true,
-                            "external": true,
-                            "key_array": webpg.inline_results.missingKeys,
-                            "msg": "doKeyImport"
+                            'temp_context': true,
+                            'external': true,
+                            'key_array': webpg.inline_results.missingKeys,
+                            'msg': "doKeyImport"
                         }, function(response) {
                             if (response.result.import_status.error)
                                 window.location.href = "#searched";
@@ -384,7 +385,7 @@ webpg.inline_results = {
                     webpg.utils.sendRequest({
                         'msg': 'doKeyImport',
                         'data': request.original_text,
-                        'temp_context': true,
+                        'temp_context': true
                     },
                         function(response) {
                             var fpsi = {};
@@ -500,7 +501,7 @@ webpg.inline_results = {
                                                 }
                                             });
                                             webpg.jq('.import_key_link').click(function(){
-                                                console.log("import link clicked...");
+                                                webpg.utils.log("import link clicked...");
                                                 webpg.utils.sendRequest({
                                                     'msg': 'doKeyImport',
                                                     'data': request.original_text },
@@ -556,7 +557,7 @@ webpg.inline_results = {
                                 webpg.inline_results.doResize();
                                 webpg.jq('.import_key_link').off("click");
                                 webpg.jq('.import_key_link').click(function(){
-                                    console.log("import link clicked...");
+                                    webpg.utils.log("import link clicked...");
                                     webpg.utils.sendRequest({
                                         'msg': 'doKeyImport',
                                         'data': request.original_text },

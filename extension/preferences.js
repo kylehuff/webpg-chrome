@@ -193,9 +193,9 @@ webpg.preferences = {
         */
         get: function() {
             try {
-                var encrypt_to = webpg.plugin.gpgGetPreference('encrypt-to').value;
-                var default_key = webpg.plugin.gpgGetPreference('default-key').value;
-                var encrypt_to_self = (default_key !== "" && encrypt_to === default_key) ? 'true' : 'false';
+                var encrypt_to = webpg.plugin.gpgGetPreference('encrypt-to').value,
+                    default_key = webpg.plugin.gpgGetPreference('default-key').value,
+                    encrypt_to_self = (default_key !== "" && encrypt_to === default_key) ? 'true' : 'false';
                 webpg.localStorage.setItem('encrypt_to_self', encrypt_to_self);
                 return encypt_to_self;
             } catch (e) {
@@ -242,7 +242,7 @@ webpg.preferences = {
             Parameters:
                 value - <str> The string value for GNUPGHOME
         */
-        set: function(value) {
+        set: function(value, callback) {
             webpg.localStorage.setItem('gnupghome', value);
             webpg.plugin.gpgSetHomeDir(value);
             (webpg.background.hasOwnProperty("webpg")) ?
@@ -250,6 +250,7 @@ webpg.preferences = {
                 webpg.background.init();
             webpg.plugin = (webpg.plugin.valid) ? webpg.plugin :
                 webpg.background.webpg.plugin;
+            callback();
         },
 
         /*
@@ -446,8 +447,8 @@ webpg.preferences = {
             Function: get
                 Provides method to get the preference item
         */
-        get: function() {
-            return webpg.plugin.gpgGetPreference('default-key').value;
+        get: function(callback) {
+            webpg.plugin.gpgGetPreference('default-key', callback);
         },
 
         /*
@@ -659,8 +660,11 @@ webpg.preferences = {
                 Provides method to retrieve the group item(s) in gpg.conf
         */
         refresh_from_config: function() {
-            if (!webpg.plugin.gpgGetPreference("group").error) {
-                var groups = webpg.plugin.gpgGetPreference("group").value.split(", ");
+          webpg.plugin.gpgGetPreference("group", function(res) {
+            if (typeof(res)==="string")
+              res = JSON.parse(res);
+            if (!res.error) {
+                var groups = res.value.split(", ");
                 var groups_json = {};
                 for (var rgroup in groups) {
                     if (groups[rgroup] === "")
@@ -671,6 +675,7 @@ webpg.preferences = {
                 }
                 webpg.localStorage.setItem('groups', JSON.stringify(groups_json));
             }
+          });
         },
 
         /*
