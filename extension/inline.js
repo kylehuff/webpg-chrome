@@ -214,7 +214,7 @@ webpg.inline = {
                     node.style.display != "none" &&
                     node.style.visibility != "hidden" &&
                     node.offsetWidth > 200 &&
-                    node.offsetHeight > 30 &&
+                    node.offsetHeight > 60 &&
                     node.offsetLeft >= node.offsetParent.scrollLeft) {
 
                     proceed = webpg.overlay.toolbarBlacklist.every(function(bldomain) {
