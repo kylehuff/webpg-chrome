@@ -40,7 +40,21 @@ webpg.gmail = {
               webpg.gmail.PGPMIME = false;
         }
 
+        // Override the CTRL+Enter keypress to not bypass the WebPG send method
+        document.addEventListener('keydown', function(event) {
+          if (event.ctrlKey && event.keyCode === 13) {
+            console.log(webpg.gmail.PGPMIME, webpg.gmail.action);
+            if (webpg.gmail.PGPMIME !== false && webpg.gmail.action !== 0) {
+              webpg.utils.log("Overriding send event");
+              event.stopPropagation();
+              webpg.gmail.overrideSend();
+              return false;
+            }
+          }
+        }, true);
+
         if (navDiv.find(".webpg-action-menu").length < 1) {
+            webpg.navdiv = navDiv;
             // If we are running Mozilla, inject the CSS file
             if (webpg.utils.detectedBrowser.vendor === "mozilla") {
                 var sss = Components.classes["@mozilla.org/content/style-sheet-service;1"]
@@ -60,11 +74,11 @@ webpg.gmail = {
             this.oSendBtn = webpg.jq(navDiv.find('div')[index]);
 
             // Create a persistant reference to the Gmail "Formatting" button
-            this.oFontBtn = navDiv.parent().parent().find('div[role=button]')[index++];
+            this.oFontBtn = navDiv.parent().parent().find('div[role=button]').not('[command]')[index++];
             // Create a persistant reference to the Gmail "Attach" button
-            this.oAttachBtn = navDiv.parent().parent().find('div[role=button]')[index++];
+//            this.oAttachBtn = navDiv.parent().parent().find('div[role=button]').not('[command]')[index++];
             // Create a persistant reference to the Gmail "Discard" button
-            this.oDisBtn = navDiv.parent().parent().find('div[role=button]')[index++];
+            this.oDisBtn = navDiv.parent().parent().find('div[role=button]').not('[command]')[index++];
 
             // Replace the "Send" button with our own
             this.oSendBtn.clone().insertBefore(this.oSendBtn)

@@ -418,7 +418,7 @@ webpg.utils = {
                 break;
         }
     },
-    
+
     logger: function() {
       var stack = (new Error());
       return stack;
