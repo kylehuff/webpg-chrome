@@ -122,6 +122,7 @@ div.uidlist {
 }
 .keylist-accordion .ui-accordion-header {
     margin:0;
+    outline: none;
 }
 .uid, .subkey {
     width:100%;
