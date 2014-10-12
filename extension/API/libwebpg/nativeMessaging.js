@@ -182,6 +182,8 @@ webpg.plugin = {
       function(res) {
         if (res)
           webpg.plugin.webpg_status = res;
+        else
+          webpg.plugin.testValid();
         if (callback)
           callback(res);
       }
