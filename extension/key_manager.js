@@ -1591,7 +1591,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
               //  https://github.com/kylehuff/webpg-npapi/wiki/Photo-Support#displaying-photos
               webpg.utils.extension.extensionURI(function(path) {
                 if (window.navigator.platform.toLowerCase().indexOf("win") > -1)
-                  path += "skin\\images\\key_photos\\";
+                  path += "\\key_photos\\";
                 else
                   path += "/key_photos/";
                 var count = key.photos_provided;
@@ -1652,7 +1652,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                       webpg.plugin.restoreGPGConfig();
                       jqueryElm.find('.keyphoto')
                         .first()
-                          .attr('src', 'file:///tmp/key_photos/' + scope.key.id + '-latest.jpg?' + new Date().getTime());
+                          .attr('src', 'file:///' + photo_info.photos_path + '/key_photos/' + scope.key.id + '-latest.jpg?' + new Date().getTime());
                     });
                   }
                 );
