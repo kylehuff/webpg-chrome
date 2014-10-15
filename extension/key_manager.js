@@ -1582,6 +1582,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
           webpg.plugin.gpgGetPhotoInfo(key.id, function(photo_info) {
             key.photos_provided = photo_info.photos_provided;
             key.photos = photo_info.photos;
+            key.photos_path = photo_info.photos_path;
 
             if (key.photos_provided > 0 && webpg.jq(e.target).hasClass("photo") === false) {
               // When a primary key accordion header is clicked open, do the
@@ -1617,6 +1618,10 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                     "echo     del /Q \"!BASEFILENAME!-*.jpg\"^>null>>!TEMP!\\", batch_name, " & ",
                     "echo   )>>!TEMP!\\", batch_name, " & ",
                     "echo   copy \"!TEMPFILE!\" \"!BASEFILENAME!-latest.jpg\"^>null>>!TEMP!\\", batch_name, " & ",
+                    "echo   IF !PCOUNT! equ 1 (>>!TEMP!\\", batch_name, " & ",
+                    "echo     set /A \"INDEX=!INDEX!+1\">>!TEMP!\\", batch_name, " & ",
+                    "echo     set /A \"PCOUNT=!PCOUNT!+1\">>!TEMP!\\", batch_name, " & ",
+                    "echo   )>>!TEMP!\\", batch_name, " & ",
                     "echo   set \"CUR=0\">>!TEMP!\\", batch_name, " & ",
                     "echo   GOTO :LOOP>>!TEMP!\\", batch_name, " & ",
                     "echo :LOOP>>!TEMP!\\", batch_name, " & ",
@@ -1710,7 +1715,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
             if (key.photos_provided > 0) {
               jqueryElm.find('img.photo_img').each(function(e) {
                 webpg.jq(this).attr('src',
-                  'file:///tmp/key_photos/' + scrub(this.parentElement.id.split('photo-')[1]) + '.jpg?' + new Date().getTime());
+                  'file://' + key.photos_path + '/key_photos/' + scrub(this.parentElement.id.split('photo-')[1]) + '.jpg?' + new Date().getTime());
               });
             }
             scope.$apply();
