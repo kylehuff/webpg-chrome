@@ -139,6 +139,12 @@ webpg.about = {
                 case "assuan-version":
                     webpg.jq(this).text((typeof(webpg.plugin.webpg_status.Assuan)=='undefined') ? _("not detected") : webpg.plugin.webpg_status.Assuan.version);
                     break;
+                case "agent-label":
+                    webpg.jq(this).text(_("Key Agent"));
+                    break;
+                case "agent-info":
+                    webpg.jq(this).text((typeof(webpg.plugin.webpg_status.gpg_agent_info)=='undefined') ? _("not detected") : webpg.plugin.webpg_status.gpg_agent_info);
+                    break;
             }
         });
         if (webpg.utils.detectedBrowser.vendor == "mozilla")
