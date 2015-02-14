@@ -71,33 +71,5 @@
     "default_icon": "skin/images/badges/32x32/webpg.png",
     "default_title": "WebPG",
     "default_popup": "browser_action_menu.html"
-  },
-  "requirements": {
-    "plugins": {
-      "npapi": false
-    }
-  },
-  "plugins": [
-      { "path": "plugins/Darwin_x86-gcc/npwebpg-ext-v0.7.0-Darwin_x86_64-gcc.plugin", "public": false },
-      { "path": "plugins/Linux_x86_64-gcc/npwebpg-ext-v0.7.0-Linux_x86_64-gcc.so", "public": false },
-      { "path": "plugins/Linux_x86-gcc/npwebpg-ext-v0.7.0-Linux_x86-gcc.so", "public": false },
-      { "path": "plugins/WINNT_x86-msvc/npwebpg-ext-v0.7.0-WINNT_x86-msvc.dll", "public": false }
-  ],
-  "platforms": [
-    {
-      "nacl_arch": "x86-64",
-      "sub_package_path": "_platform_specific/x86-64/"
-    },
-    {
-      "nacl_arch": "x86-32",
-      "sub_package_path": "_platform_specific/x86-32/"
-    },
-    {
-      "nacl_arch": "arm",
-      "sub_package_path": "_platform_specific/arm/"
-    },
-    {
-      "sub_package_path": "_platform_specific/all/"
-    }
-  ]
+  }
 }
