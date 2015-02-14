@@ -96,6 +96,12 @@ webpg.about = {
                 case "plugin-path":
                     webpg.jq(this).text(webpg.plugin.webpg_status.plugin.path);
                     break;
+                case "plugin-type-label":
+                    webpg.jq(this).text("Plugin Type");
+                    break;
+                case "plugin-type":
+                    webpg.jq(this).text(webpg.plugin.webpg_status.plugin.type);
+                    break;
                 case "gnupg-title":
                     webpg.jq(this).text(_("GnuPG Information"));
                     break;
