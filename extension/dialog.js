@@ -232,7 +232,7 @@ webpg.dialog = {
                 'class': 'webpg-dialog-insert-btn',
                 'click': function() {
                     if (!webpg.inline.action_selected) {
-                        console.log("no action has been selected");
+                        webpg.utils.log()("no action has been selected");
                         webpg.jq('#dialog-pubkey-search-lbl').appendTo(
                             webpg.jq(".ui-dialog-buttonpane")).css({
                                 'color': '#f11',
@@ -241,7 +241,7 @@ webpg.dialog = {
                             }).text(_("no action has been selected")).show();
                         return false;
                     } else if (webpg.inline.before_action_value.selectionText === webpg.jq('#webpg-dialog-editor').val()) {
-                        console.log("no action has been successful");
+                        webpg.utils.log()("no action has been successful");
                         webpg.jq('#dialog-pubkey-search-lbl').appendTo(
                             webpg.jq(".ui-dialog-buttonpane")).css({
                                 'color': '#f11',

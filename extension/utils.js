@@ -424,15 +424,30 @@ webpg.utils = {
       return stack;
     },
 
-    log: function() {
+    log: function(level) {
+        if (!level)
+          level = webpg.constants.LOG_LEVEL.INFO;
+
         if (!webpg.constants.debug.LOG)
             return function() { return false };
 
-        var context = "WebPG:";
+        var context = "WebPG || " + webpg.constants.LOG_LEVEL[level] + ":";
 
-        return Function.prototype.bind.call(console.log, console, context);
+        switch (level) {
+          case 'INFO':
+            return Function.prototype.bind.call(console.info, console, context);
+          case 'WARN':
+            return Function.prototype.bind.call(console.warn, console, context);
+          case 'ERROR':
+            return Function.prototype.bind.call(console.error, console, context);
+          default:
+            return Function.prototype.bind.call(console.log, console, context);
+        }
+    },
 
-    }(),
+    logLevel: function(level) {
+      return webpg.constants.LOG_LEVEL[level];
+    },
 
     debug: function() {
         if (!webpg.constants.debug.LOG)

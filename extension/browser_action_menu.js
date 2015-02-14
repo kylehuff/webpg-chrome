@@ -18,21 +18,21 @@ var _ = webpg.utils.i18n.gettext;
 
 var menuActions = {
     options: function(){
-        console.log("options was selected");
+        webpg.utils.log("INFO")("options was selected");
         url = chrome.extension.getURL('options.html') + "?auto_init=true&tab=0";
         chrome.tabs.create({ 'url': url });
         return false;
     },
 
     key_manager: function(){
-        console.log("key mangager was selected");
+        webpg.utils.log("INFO")("key mangager was selected");
         url = chrome.extension.getURL('key_manager.html') + "?auto_init=true&tab=0";
         chrome.tabs.create({ 'url': url });
         return false;
     },
 
     about: function(){
-        console.log("about was selected");
+        webpg.utils.log("INFO")("about was selected");
         url = chrome.extension.getURL('about.html');
         chrome.tabs.create({ 'url': url });
         return false;

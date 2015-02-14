@@ -43,7 +43,7 @@ webpg.gmail = {
         // Override the CTRL+Enter keypress to not bypass the WebPG send method
         document.addEventListener('keydown', function(event) {
           if (event.ctrlKey && event.keyCode === 13) {
-            console.log(webpg.gmail.PGPMIME, webpg.gmail.action);
+            webpg.utils.log("INFO")(webpg.gmail.PGPMIME, webpg.gmail.action);
             if (webpg.gmail.PGPMIME !== false && webpg.gmail.action !== 0) {
               webpg.utils.log("Overriding send event");
               event.stopPropagation();
@@ -363,7 +363,7 @@ webpg.gmail = {
         webpg.utils.sendRequest({'msg': 'getNamedKeys',
             'users': users
         }, function(response) {
-            console.log(response);
+            webpg.utils.log("INFO")(response);
             var recipKeys = {};
             var keys = response.result.keys;
             for (var u in keys) {
@@ -1019,19 +1019,19 @@ webpg.gmail = {
             if (msg_container.length > 0) {
                 // Determine if we are in plaintext mode or inline mode
                 var plaintext = (webpg.gmail.getCanvasFrame().contents().find('form').find("input[name=ishtml]").val() != "1");
-                //console.log((plaintext) ? "plaintext" : "richtext");
+                //webpg.utils.log("INFO")(plaintext) ? "plaintext" : "richtext");
                 if (msg_container[0].nodeName === "TEXTAREA") {
                     msg_container.val(message);
                 } else {
                     if (plaintext) {
-                        //console.log("PLAINTEXT");
+                        //webpg.utils.log("INFO")("PLAINTEXT");
                         if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
                             msg_container[0].innerHTML = message.replace(/\n/gim, "<br>").replace(/</gim, "&lt;").replace(/>/, "&gt;");
                         } else {
                             msg_container[0].innerText = message;
                         }
                     } else {
-                        //console.log("RICHTEXT");
+                        //webpg.utils.log("INFO")("RICHTEXT");
                         msg_container.html(message.replace(/\n/gim, "<br>"));
                     }
                 }
@@ -1329,7 +1329,7 @@ webpg.utils.sendRequest({
             // Retrieve a reference to the appropriate window object
             // Check if the MutationObserver is not present
             if (typeof(MutationObserver) === 'undefined') {
-                console.log("Using depreciated DOMSubtreeModified");
+                webpg.utils.log("WARN")("Using depreciated DOMSubtreeModified");
                 if (webpg.utils.detectedBrowser.vendor === "mozilla") {
                     webpg.gmail.appcontent = document.getElementById("appcontent") || document;
                     webpg.gmail.appcontent.addEventListener("DOMContentLoaded",

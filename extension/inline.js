@@ -36,7 +36,7 @@ webpg.inline = {
                     return false;
                 }
             } catch (err) {
-                console.log(err.message);
+                webpg.utils.log("ERROR")(err.message);
                 return false;
             }
         }
@@ -96,7 +96,7 @@ webpg.inline = {
         var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
         // Check if the MutationObserver is not present
         if (MutationObserver === undefined) {
-//            console.log("Using depreciated DOMSubtreeModified");
+//            webpg.utils.log("WARN")("Using depreciated DOMSubtreeModified");
             window.addEventListener("DOMSubtreeModified", function(e) {
                 if (e.target.nodeName === "IFRAME" && e.target.className.indexOf("webpg-") === -1 &&
                     webpg.inline.existing_iframes.indexOf(e.target) === -1) {
@@ -106,7 +106,7 @@ webpg.inline = {
                         e.target.contentDocument.documentElement.addEventListener("contextmenu",
                             webpg.overlay.contextHandler, true);
                     } catch (err) {
-                        console.log(err.message);
+                        webpg.utils.log("ERROR")(err.message);
                     }
                     webpg.inline.PGPDataSearch(e.target.contentDocument, true);
                 }
@@ -114,7 +114,7 @@ webpg.inline = {
         } else {
             // Otherwise, use the MutationObserver
             // create an observer instance
-//            console.log("Using MutationObserver");
+//            webpg.utils.log("INFO")("Using MutationObserver");
 
             if (webpg.inline.observer !== undefined)
               webpg.inline.observer.disconnect();
@@ -128,7 +128,7 @@ webpg.inline = {
                             mutation.target.contentDocument.documentElement.addEventListener("contextmenu",
                                 webpg.overlay.contextHandler, true);
                         } catch (err) {
-                            console.log(err.message);
+                            webpg.utils.log("ERROR")(err.message);
                         }
                         webpg.inline.PGPDataSearch(mutation.target.contentDocument, true, false, mutation.target);
                     } else if (doc.location.host.indexOf("mail.google.com") > -1) {
@@ -482,16 +482,16 @@ webpg.inline = {
                 scontent = phtml;
         }
 
-//        console.log("scontent:\n" + scontent);
-//        console.log("phtml:\n" + phtml);
-//        console.log("html:\n" + html);
+//        webpg.utils.log("DEBUG")("scontent:\n" + scontent);
+//        webpg.utils.log("DEBUG")("phtml:\n" + phtml);
+//        webpg.utils.log("DEBUG")("html:\n" + html);
 
         if (html.search(/^\s*?(-----BEGIN PGP.*?)/gi) > -1 &&
         html.search(/^.*?(-----BEGIN PGP.*?<br>)/gim) === -1 &&
         html.search(/^.*?(<br>-----BEGIN PGP.*?)/gim) === -1 &&
         html.search(/^.*?(<br>Version.*?)/gim) === -1 &&
         html.search(new RegExp("(&(.){1,4};)", "g")) === -1) {
-//            console.log("using html");
+//            webpg.utils.log("DEBUG")("using html");
             scontent = html;
         } else if ((html.search(/.*?(-----BEGIN PGP.*?-----<br>)/gim) > -1 ||
         html.search(/^.*?(<br>-----BEGIN PGP.*?)/gim) > -1 ||
@@ -508,11 +508,11 @@ webpg.inline = {
                     .replace(new RegExp("<div[^>]*>(.*?)</div>", "gim"), "$1")
                     .replace(/<br>/gim, "\n")
                     .replace(wbrReg, "");
-//                console.log("using html cleaned for gmail");
+//                webpg.utils.log("DEBUG")("using html cleaned for gmail");
             } else {
                 if (gmail) {
                     if (phtml.search(new RegExp("<[^>]+>", "gim")) === -1) {
-//                        console.log("using modified HTML as PHTML");
+//                        webpg.utils.log("DEBUG")("using modified HTML as PHTML");
                         phtml = html.replace(/<div[^>]*>(.*?[\s\S\n]*?)<\/div>/gim, "$1")
                             .replace(/<div[^>]*>(.*?[\s\S\n]*?)<\/div>/gim, "$1")
                             .replace(new RegExp("<div[^>]*></div>", "gim"), "")
@@ -530,7 +530,7 @@ webpg.inline = {
                     phtml = phtml.replace(/<div[^>]*><br[^>]*>(.*?[\s\S\n]*?)<\/div>/gim, "<br>$1")
                                 .replace(/<div[^>]*>(.*?[\s\S\n]*?)<\/div>/gim, "$1\n");
                 }
-//                console.log("using phtml");
+//                webpg.utils.log("DEBUG")("using phtml");
                 scontent = (phtml.search(new RegExp("&lt;a", "gim")) === 0) ?
                     webpg.utils.linkify(phtml) : phtml;
             }
@@ -555,7 +555,7 @@ webpg.inline = {
             scontent.search(RegExp("\n\n.*?\n-----BEGIN PGP.*?-----", "gim")) > -1)
                 scontent = scontent.replace(RegExp("\n(\n.*?\n-----BEGIN PGP.*?-----)", "gim"), "$1");
 
-//            console.log("using scontent");
+//            webpg.utils.log("DEBUG")("using scontent");
         }
 
         if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
@@ -603,15 +603,15 @@ webpg.inline = {
         switch(blockType) {
             case webpg.constants.PGPBlocks.PGP_SIGNED_MSG:
                 // check for the required PGP BLOCKS
-                console.log("WebPG found a signed message");
+                webpg.utils.log("INFO")("WebPG found a signed message");
                 if (scontent.indexOf(webpg.constants.PGPTags.PGP_DATA_BEGIN) != -1 &&
                     scontent.indexOf("\n" + webpg.constants.PGPTags.PGP_SIGNATURE_BEGIN) != -1 &&
                     scontent.indexOf("\n" + webpg.constants.PGPTags.PGP_SIGNATURE_END) != -1 ) {
                 } else {
                     if (scontent.indexOf(" " + webpg.constants.PGPTags.PGP_SIGNATURE_END) != -1) {
-                        console.log("WebPG found a signed message with bad formatting");
+                        webpg.utils.log("ERROR")("WebPG found a signed message with bad formatting");
                     } else {
-                        console.log("WebPG found an incomplete signed message");
+                        webpg.utils.log("ERROR")("WebPG found an incomplete signed message");
                     }
                 }
                 webpg.utils.sendRequest({
@@ -646,14 +646,14 @@ webpg.inline = {
                             webpg.jq(results_frame).hide();
                             webpg.jq(element).children(".original").show();
                             webpg.jq(element).children(".pretext, .postext").hide();
-                            console.log("error processing signed message", response.result);
+                            webpg.utils.log("ERROR")("error processing signed message", response.result);
                         }
                     }
                 );
                 break;
 
             case webpg.constants.PGPBlocks.PGP_ENCRYPTED:
-                console.log("WebPG found an encrypted or signed message");
+                webpg.utils.log("INFO")("WebPG found an encrypted or signed message");
                 webpg.utils.sendRequest({
                     // WebPG found a PGP MESSAGE, but it could be a signed. Lets gpgVerify first
                     'msg': 'verify',
@@ -692,7 +692,7 @@ webpg.inline = {
                 break;
 
             case webpg.constants.PGPBlocks.PGP_KEY:
-                console.log("WebPG found a public key");
+                webpg.utils.log("INFO")("WebPG found a public key");
                 if (webpg.utils.detectedBrowser.vendor === "mozilla") {
                     webpg.utils.sendRequest({
                         'msg': "sendtoiframe",
@@ -713,13 +713,13 @@ webpg.inline = {
                 break;
 
             case webpg.constants.PGPBlocks.PGP_PKEY:
-                console.log("WebPG found a private key, which is scary when you think about it... exiting");
+                webpg.utils.log("WARN")("WebPG found a private key, which is scary when you think about it... exiting");
                 break;
 
             case webpg.constants.PGPBlocks.PGP_SIGNATURE:
                 // This should never be reached, because our parser should
                 //  normally catch both the text, and the detached sig
-                console.log("WebPG found a detached signature, but we don't have the file - exiting");
+                webpg.utils.log("WARN")("WebPG found a detached signature, but we don't have the file - exiting");
                 break;
 
         }
@@ -1567,7 +1567,7 @@ webpg.inline = {
                         webpg.jq(iframe).toggle();
                     }
                 } catch (err) {
-//                    console.log(err);
+//                    webpg.utils.log("ERROR")(err);
                     return;
                 }
             } else if (request.msg === "show") {
@@ -1578,7 +1578,7 @@ webpg.inline = {
                         webpg.jq(iframe).show();
                     }
                 } catch (err) {
-//                    console.log(err);
+//                    webpg.utils.log("ERROR")(err);
                     return;
                 }
             }

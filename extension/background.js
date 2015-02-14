@@ -144,19 +144,19 @@ webpg.background = {
 
         webpg.plugin.get_webpg_status(function(res) {
           webpg.plugin.webpg_status = res;
-          webpg.utils.log("WebPG NPAPI Plugin valid: " + webpg.plugin.valid + "; version " + webpg.plugin.version);
+          webpg.utils.log('INFO')("WebPG NPAPI Plugin valid: " + webpg.plugin.valid + "; version " + webpg.plugin.version);
 
           // Set the users preferred option for the GnuPG binary
           if (webpg.plugin.valid) {
               var gnupgbin = webpg.preferences.gnupgbin.get();
               if (gnupgbin.length > 1) {
                   webpg.plugin.gpgSetBinary(gnupgbin);
-                  webpg.utils.log("Setting GnuPG binary to user value: '" + gnupgbin + "'");
+                  webpg.utils.log('INFO')("Setting GnuPG binary to user value: '" + gnupgbin + "'");
               }
               var gpgconf = webpg.preferences.gpgconf.get();
               if (gpgconf.length > 1) {
                   webpg.plugin.gpgSetGPGConf(gpgconf);
-                  webpg.utils.log("Setting GPGCONF binary to user value: '" + gpgconf + "'");
+                  webpg.utils.log('INFO')("Setting GPGCONF binary to user value: '" + gpgconf + "'");
               }
           }
 
@@ -165,11 +165,11 @@ webpg.background = {
             this.banner_version = "9.4";
 
             if (gnupghome.length > 0)
-                webpg.utils.log("Setting GnuPG home directory to user value: '" + gnupghome + "'");
+                webpg.utils.log('INFO')("Setting GnuPG home directory to user value: '" + gnupghome + "'");
             if (webpg.plugin.webpg_status.openpgp_detected)
-                webpg.utils.log("Protocol OpenPGP is valid; v" + webpg.plugin.webpg_status.OpenPGP.version);
+                webpg.utils.log('INFO')("Protocol OpenPGP is valid; v" + webpg.plugin.webpg_status.OpenPGP.version);
             if (webpg.plugin.webpg_status.gpgconf_detected)
-                webpg.utils.log("Protocol GPGCONF is valid; v" + webpg.plugin.webpg_status.GPGCONF.version);
+                webpg.utils.log('INFO')("Protocol GPGCONF is valid; v" + webpg.plugin.webpg_status.GPGCONF.version);
             //webpg.plugin.gpgSetHomeDir(gnupghome);
             webpg.plugin.addEventListener("keygenprogress", webpg.background.gpgGenKeyProgress, false);
             webpg.plugin.addEventListener("keygencomplete", webpg.background.gpgGenKeyComplete, false);
@@ -199,7 +199,7 @@ webpg.background = {
                   webpg.background.tabIndex = 100;
                   webpg.utils.tabListener.add();
               }
-              webpg.utils.log("WebPG background initialized");
+              webpg.utils.log('INFO')("WebPG background initialized");
             });
             // Display the welcome notice if appropriate
             var banner_version = webpg.preferences.banner_version.get();
@@ -374,7 +374,7 @@ webpg.background = {
                 try {
                     chrome.browserAction.setBadgeText({'text': request.badgeText, 'tabId': sender.tab.id});
                 } catch (err) {
-                    webpg.utils.log(err.message);
+                    webpg.utils.log('ERROR')(err.message);
                 }
                 break;
 
@@ -387,7 +387,7 @@ webpg.background = {
                 break;
 
             case 'decrypt':
-                webpg.utils.log("gpgDecrypt requested");
+                webpg.utils.log('INFO')("gpgDecrypt requested");
                 webpg.plugin.gpgDecrypt(request.data, function(response) {
                   response.original_text = request.data;
                   if (response.error === true)
@@ -505,7 +505,7 @@ webpg.background = {
                 break;
 
             case 'async-gpgGenKey':
-                webpg.utils.log("async-gpgGenKey requested");
+                webpg.utils.log('INFO')("async-gpgGenKey requested");
                 webpg.plugin.gpgGenKey(
                         request.data.publicKey_algo,
                         request.data.publicKey_size,
@@ -521,7 +521,7 @@ webpg.background = {
                 break;
 
             case 'async-gpgGenSubKey':
-                webpg.utils.log("async-gpgGenSubKey requested");
+                webpg.utils.log('INFO')("async-gpgGenSubKey requested");
                 webpg.plugin.gpgGenSubKey(
                     request.data.key_id,
                     request.data.subKey_algo,
@@ -535,7 +535,7 @@ webpg.background = {
                 break;
 
             case 'doKeyImport':
-                webpg.utils.log("doKeyImport requested");
+                webpg.utils.log('INFO')("doKeyImport requested");
                 request.bypassSendResult = true;
                 function processResult(import_status) {
                   if (import_status.error || !import_status.imports ||
@@ -560,7 +560,7 @@ webpg.background = {
                           webpg.plugin.gpgImportKey(request.data, processResult);
                         }
                       } catch (err) {
-                          webpg.utils.log(err);
+                          webpg.utils.log('ERROR')(err);
                       }
                 };
                 if (request.temp_context) {
@@ -595,14 +595,14 @@ webpg.background = {
                         request.signers !== null &&
                         request.signers.length > 0) ? request.signers : [];
                 if (request.recipients.length > 0) {
-                    webpg.utils.log(request.data, request.recipients);
+                    webpg.utils.log('INFO')(request.data, request.recipients);
                     webpg.plugin.gpgEncrypt(
                         request.data,
                         request.recipients,
                         sign,
                         signers,
                         function(response) {
-                          webpg.utils.log(response);
+                          webpg.utils.log('INFO')(response);
                           if (typeof(request.message_event)==='undefined' || request.message_event !== "gmail")
                               webpg.utils.tabs.sendRequest(sender.tab, {
                                   "msg": "insertEncryptedData",
@@ -621,7 +621,7 @@ webpg.background = {
                 break;
 
             case 'encryptSign':
-                webpg.utils.log("encrypt requested");
+                webpg.utils.log('INFO')("encrypt requested");
                 if (request.recipients && request.recipients.length > 0) {
                     response = webpg.plugin.gpgEncrypt(request.data,
                         request.recipients, 1, request.signers);
@@ -637,13 +637,13 @@ webpg.background = {
                 break;
 
             case 'symmetricEncrypt':
-                webpg.utils.log("symmetric encryption requested");
+                webpg.utils.log('INFO')("symmetric encryption requested");
                 var signers = (typeof(request.signers)!=='undefined' &&
                         request.signers !== null &&
                         request.signers.length > 0) ? request.signers : [];
                 var sign = (signers.length > 0) ? 1 : 0;
                 webpg.plugin.gpgSymmetricEncrypt(request.data, sign, signers, function(response) {
-                  webpg.utils.log(request);
+                  webpg.utils.log('INFO')(request);
                   if (request.message_event === "context" || request.message_event === "editor")
                       webpg.utils.tabs.sendRequest(sender.tab, {
                           "msg": "insertEncryptedData",
@@ -664,7 +664,7 @@ webpg.background = {
                 break;
 
             case 'deleteKey':
-                webpg.utils.log("deleteKey requested");
+                webpg.utils.log('INFO')("deleteKey requested");
                 if (request.temp_context) {
                     temp_path = webpg.plugin.getTemporaryPath();
                     if (!temp_path)
@@ -682,7 +682,7 @@ webpg.background = {
                 break;
 
             case 'getNamedKey':
-                webpg.utils.log("getNamedKey requested");
+                webpg.utils.log('INFO')("getNamedKey requested");
                 request.bypassSendResult = true;
                 function getNamedKey() {
                   webpg.plugin.getNamedKey(request.key_id, false, false, function(response) {
@@ -791,7 +791,7 @@ webpg.background = {
 
             case 'log':
                 response = null;
-                webpg.utils.log("Remote log request recieved; ", request.data);
+                webpg.utils.log('INFO')("Remote log request recieved; ", request.data);
                 break;
 
             case 'create_menu':
@@ -824,7 +824,7 @@ webpg.background = {
                 break;
 
             case 'sendPGPMIMEMessage':
-                webpg.utils.log(request);
+                webpg.utils.log('INFO')(request);
                 webpg.plugin.sendMessage(request.params, function(response) {
                   sendResponse({'result': response});
                 });
@@ -886,7 +886,7 @@ webpg.background = {
                   doc.body.removeEventListener('gpgkeylistprogress', contentWindow.webpg.keymanager.keylistprogress);
               } catch (err) {
                   // We don't really care if it didn't already exist
-                  webpg.utils.log(err);
+                  webpg.utils.log('INFO')(err);
               } finally {
                   // Add the listener
                   doc.body.addEventListener('gpgkeylistprogress', contentWindow.webpg.keymanager.keylistprogress);
@@ -947,7 +947,7 @@ webpg.background = {
                         doc.body.removeEventListener('progress', contentWindow.webpg.keymanager.progressMsg);
                     } catch (err) {
                         // We don't really care if it didn't already exist
-                        webpg.utils.log(err.message);
+                        webpg.utils.log('ERROR')(err.message);
                     } finally {
                         // Add the listener
                         doc.body.addEventListener('progress', contentWindow.webpg.keymanager.progressMsg);

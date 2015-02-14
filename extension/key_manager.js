@@ -794,7 +794,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                     //  fails for no apparent reason.
 //                    while (result.error === true && attempt < 3) {
                     function processResult(result) {
-                      console.log(result);
+                      webpg.utils.log()(result);
                       if (result.error === true) {
                         msg = ["<ul><li><strong><span class='error-text' style='padding-right:12px;'>",
                           _("Error"), ":</span>", _("There was an error adding this image file"),
@@ -888,7 +888,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
               }
               webpg.jq("#export-dialog-copytext").text(webpg.jq("#export-dialog-text").text())
               end = new Date().getTime();
-//              console.log("It took: " + (end - webpg.start) + "ms to process")
+//              webpg.utils.log()("It took: " + (end - webpg.start) + "ms to process")
               webpg.jq("#export-dialog").dialog({
                 'resizable': true,
                 'height': 'auto',
@@ -914,7 +914,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
               });
             } else if (result.type == "export-progress") {
               var data = JSON.parse(result.data);
-//              console.log("parsed chunk " + data.chunk[0] + " out of " + data.chunk[1]);
+//              webpg.utils.log()("parsed chunk " + data.chunk[0] + " out of " + data.chunk[1]);
               export_chunks[data.chunk[0]-1] = data.result;
             }
           });
@@ -1064,7 +1064,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
 
                         function processResult(result) {
                           if (result.error) { //FIXME
-                            console.log(result);
+                            webpg.utils.log("ERROR")(result);
                             return;
                           }
                           webpg.plugin.setTempGPGOption('no-auto-check-trustdb', null, function(res2) {
@@ -1095,7 +1095,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
 //                            webpg.public_scope.search();
 //                            webpg.public_scope.$apply();
 //                        } else {
-//                          console.log(result);
+//                          webpg.utils.log()(result);
 //                        }
                     }
                 }, {
@@ -1339,12 +1339,12 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
           break;
 
         default:
-          console.log("we don't know what to do with ourselves...");
+          webpg.utils.log("WARN")("we don't know what to do with ourselves...");
           alert("You attempted to activate " + params[0] +
             ", but this is not yet implemented...");
           break;
       }
-      console.log(".*-key-option-button pressed..", params);
+      webpg.utils.log()(".*-key-option-button pressed..", params);
       if (refresh) {
         refresh(params);
       }
@@ -1583,6 +1583,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
             key.photos_provided = photo_info.photos_provided;
             key.photos = photo_info.photos;
             key.photos_path = photo_info.photos_path;
+            console.log(photo_info);
 
             if (key.photos_provided > 0 && webpg.jq(e.target).hasClass("photo") === false) {
               // When a primary key accordion header is clicked open, do the
@@ -1590,7 +1591,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
               //  This would be a bit in depth for code comments, see the following
               //  link for details about this process -
               //  https://github.com/kylehuff/webpg-npapi/wiki/Photo-Support#displaying-photos
-              webpg.utils.extension.extensionURI(function(path) {
+              webpg.plugin.getTemporaryPath(function(path) {
                 if (window.navigator.platform.toLowerCase().indexOf("win") > -1)
                   path += "\\key_photos\\";
                 else
@@ -1684,7 +1685,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                             webpg.public_keys[params[2]].nuids + 1;
                             function processResult(result) {
                               if (result.error) { //FIXME
-                                console.log(result);
+                                webpg.utils.log("ERROR")(result);
                                 return;
                               }
                               webpg.plugin.setTempGPGOption('no-auto-check-trustdb', null, function(res2) {
@@ -2073,7 +2074,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                   webpg.preferences.enabled_keys.remove(checked_id);
                   webpg.jq("#disable-private-" + checked_id).click();
                 }
-                console.log(scope.key);
+                webpg.utils.log()(scope.key);
                 scope.key.disabled = (this.checked === false);
 //                webpg.private_scope.search(webpg.private_scope.currentPage);
                 webpg.private_scope.$apply();

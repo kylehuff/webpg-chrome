@@ -188,7 +188,7 @@ webpg.jq(function() {
           'buttons': [{
             'text': _("Import"),
             'click': function() {
-              //console.log(params, webpg.jq(this).find("#importkey_name")[0].value);
+              //webpg.utils.log("INFO")(params, webpg.jq(this).find("#importkey_name")[0].value);
               var f = webpg.jq(this).find("#importkey_name")[0].files.item(0);
               var reader = new FileReader();
               var attempt = 0;
@@ -207,7 +207,7 @@ webpg.jq(function() {
                   var result = {'error': true};
                   result = webpg.plugin.gpgImportKey(e.target.result);
                   if (result.considered < 1) {
-                    console.log(result);
+                    webpg.utils.log("INFO")(result);
                     msg = ["<ul><li><strong><span class='error-text' style='padding-right:12px;'>", 
                       _("Error"), ":</span>", _("There was an error importing any keys in this file"),
                       "</strong></li>"];

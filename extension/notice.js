@@ -69,7 +69,7 @@ webpg.notice = {
             });
         }
 
-        webpg.jq.ajax({type: "GET", url: newsURL, success: xmlParser, dataType: 'xml'}).fail(function(e, a) { console.log(e, a); });
+        webpg.jq.ajax({type: "GET", url: newsURL, success: xmlParser, dataType: 'xml'}).fail(function(e, a) { webpg.utils.log("ERROR")(e, a); });
 
         webpg.jq("#main_body .webpg-info-box").first().html(desc);
     }

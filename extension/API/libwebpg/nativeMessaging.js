@@ -151,8 +151,8 @@ webpg.plugin = {
     window.addEventListener("message", function(event) {
       if (event.data.data.type === eventName ||
           event.data.data.type === "on" + eventName) {
-        console.log("calling " + eventName + " type event for event type: " + event.data.data.type);
-        console.log(event.data.data);
+        webpg.utils.log()("calling " + eventName + " type event for event type: " + event.data.data.type);
+        webpg.utils.log()(event.data.data);
         callback(event.data.data);
       }
     }, useCapture);
@@ -164,6 +164,9 @@ webpg.plugin = {
     @member webpg.nativeMessaging
   */
   get_version: function() {
+    if (navigator.userAgent.toLowerCase().search("chrome") === -1)
+      return;
+
     webpg.nativeMessaging.sendMessage(
                           {"func": "get_version"},
                           function(res) {
@@ -605,12 +608,12 @@ webpg.plugin = {
   },
 
   gpgEnableKey: function(keyid, callback) {
-    console.log(params);
+    webpg.utils.log()(params);
     var args = {
       "func": "gpgEnableKey",
       "params": [keyid]
     }
-    console.log(args);
+    webpg.utils.log()(args);
     return webpg.nativeMessaging.nativeFunction(args, callback);
   },
 

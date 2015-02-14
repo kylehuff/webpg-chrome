@@ -32,6 +32,12 @@ webpg.constants = {
         LOG: true
     },
 
+    LOG_LEVEL: {
+      INFO: 'INFO',
+      WARN: 'WARN',
+      ERROR: 'ERROR'
+    },
+
     /*
        Constants: ff_prefTypes - Mozilla preference value type
 

@@ -86,7 +86,7 @@ webpg.options = {
                     }
                 };
                 webpg.jq('#valid-options').hide();
-                console.log(errors.NPAPI.detail);
+                webpg.utils.log("ERROR")(errors.NPAPI.detail);
             }
             errors_found = false;
             for (var error in errors) {
@@ -550,10 +550,10 @@ webpg.options = {
                 webpg.jq("#gpgconf-binary-input")[0].dir = "ltr";
 
                 webpg.jq("#gnupg-keyserver-save").button().click(function(e) {
-                  console.log("save", webpg.plugin.webpg_status.gpgconf_detected, webpg.jq("#gnupg-keyserver-input")[0].value);
+                  webpg.utils.log()("save", webpg.plugin.webpg_status.gpgconf_detected, webpg.jq("#gnupg-keyserver-input")[0].value);
                     if (!webpg.plugin.webpg_status.gpgconf_detected)
                         return false;
-                    webpg.plugin.gpgSetPreference("keyserver", webpg.jq("#gnupg-keyserver-input")[0].value, function(x) { console.log(x);});
+                    webpg.plugin.gpgSetPreference("keyserver", webpg.jq("#gnupg-keyserver-input")[0].value, function(x) { webpg.utils.log()(x);});
 //                    webpg.jq(this).hide();
                 });
 

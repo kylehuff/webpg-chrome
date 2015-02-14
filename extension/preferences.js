@@ -643,7 +643,7 @@ webpg.preferences = {
                 if ($1.trim() !== group)
                   webpg.plugin.gpgSetGroup($1.trim(), $3.trim());
                 else
-                  console.log("Removed '" + $1.trim() + "' from gpg.conf");
+                  webpg.utils.log("INFO")("Removed '" + $1.trim() + "' from gpg.conf");
               }
             );
           }
@@ -651,7 +651,7 @@ webpg.preferences = {
           if (groups.hasOwnProperty(group)) {
             delete groups[group];
             webpg.localStorage.setItem("groups", JSON.stringify(groups));
-            console.log("Removed '" + group + "' from localStorage");
+            webpg.utils.log("INFO")("Removed '" + group + "' from localStorage");
           }
         },
 
