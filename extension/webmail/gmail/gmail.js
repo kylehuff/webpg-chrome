@@ -450,42 +450,30 @@ webpg.gmail = {
             status_line,
             status_msg;
 
-        if (webpg.gmail.getCanvasFrame().find(".webpg-status-line").length > 0 ||
-            webpg.jq("table.IG").length > 0) {
+        if (webpg.gmail.getCanvasFrame().find(".webpg-status-line").length > 0) {
             status_line = webpg.gmail.getCanvasFrame().find(".webpg-status-line");
-        } else if (webpg.gmail.getCanvasFrame().find(".aNI").length > 0) {
-          var sp = webpg.gmail.getCanvasFrame().find(".aNI");
-          status_line = sp.clone().removeClass();
-          status_line[0].id = "webpg-status-line";
-          status_line.insertAfter(webpg.gmail.getCanvasFrame().find('input[name=subjectbox]').parent());
-          status_line.children().removeClass();
-          status_line.addClass("webpg-status-line").addClass("webpg-gmail-status-line").addClass("webpg-gmail-abs");
         }
 
-        if (status_line && status_line.length < 1) {
-          //status_line = webpg.gmail.getMsgSubjectElement().parent().find("input[name='composeid']").prev();
+        if (!status_line || status_line.length > 1) {
           status_line = webpg.gmail.getMsgSubjectElement().parent().find("table").first();
-
 
           status_msg = status_line
             .find("tr")
             .last()
               .clone()
                 .addClass("webpg-status-line")
-                .addClass("webpg-gmail-status-line");
 
           status_msg
             .children()
               .first()
                 .next()
+                  .addClass("webpg-gmail-status-line")
                   .prop("colspan", 2)
                 .prev()
                   .remove();
 
-          status_line
-            .children()
-              .first()
-                .append(status_msg);
+          //webpg.jq("<table class='webpg-status-table'>").append(status_msg).insertAfter(webpg.gmail.getCanvasFrame().find('input[name=subjectbox]').parent().parent());
+          webpg.gmail.getCanvasFrame().find("#webpg-send-btn").parent().parent().parent().parent().parent().prepend(status_msg);
 
         } else {
           status_msg = status_line;
@@ -834,7 +822,7 @@ webpg.gmail = {
             webpg.jq(esBtn).find(".webpg-action-text").text(webpg.utils.escape(newText));
             esBtn.firstStatusText = null;
             var composeCSS = {
-                'margin-top': (webpg.jq("table.IG").length > 0) ? '0' : '24px'
+//                'margin-top': (webpg.jq("table.IG").length > 0) ? '0' : '28px'
             };
             var bgBasePath = webpg.utils.resourcePath + 'skin/images/badges/48x48/';
             var iconPath = bgBasePath;
@@ -907,7 +895,7 @@ webpg.gmail = {
         if (webpg.gmail.action === 2) {
             webpg.gmail.signers = [webpg.gmail.signers || webpg.inline.default_key()];
             var composeCSS = {
-                'margin-top': (webpg.jq("table.IG").length > 0) ? '0' : '24px'
+//                'margin-top': (webpg.jq("table.IG").length > 0) ? '0' : '28px'
             };
             var msg_container = webpg.gmail.getEditor(webpg.gmail.getCanvasFrame().contents().find('form'));
             if (msg_container.length > 0)
