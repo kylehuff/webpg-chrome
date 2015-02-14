@@ -1683,10 +1683,7 @@ webpg.utils = {
 
         extensionURI: function(callback) {
             if (navigator.userAgent.toLowerCase().search("chrome") > -1) {
-//                if (webpg.plugin.webpg_status.plugin.path)
-//                  callback(webpg.plugin.webpg_status.plugin.path.split("plugins")[0]);
-//                else
-                  webpg.plugin.getTemporaryPath(callback);
+                webpg.plugin.getTemporaryPath(callback);
             } else {
                 var id = "webpg-firefox@curetheitch.com";
                 try {
