@@ -937,41 +937,13 @@ webpg.utils = {
     },
 
     quoted_printable_encode: function(str) {
-      var hexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
-      str = webpg.utils.wrapText(str, 71);
-      var RFC2045Encode1IN = / \r\n|\r\n|[^!-<>-~ ]/gm;
-      var RFC2045Encode1OUT = function (sMatch) {
-        // Encode space before CRLF sequence to prevent spaces from being stripped
-        // Keep hard line breaks intact; CRLF sequences
-        if (sMatch.length > 1) {
-          return sMatch.replace(' ', '=20');
-        }
-        // Encode matching character
-        var chr = sMatch.charCodeAt(0);
-        return '=' + hexChars[((chr >>> 4) & 15)] + hexChars[(chr & 15)];
-      },
-      RFC2045Encode2IN = /.{1,70}(?!\r\n)[^=]{0,3}/g,
-      RFC2045Encode2OUT = function (sMatch) {
-        if (sMatch.substr(sMatch.length - 2) === '\r\n') {
-          return sMatch;
-        }
-        return sMatch + '=\r\n';
-      };
-      str = str.replace(RFC2045Encode1IN, RFC2045Encode1OUT).replace(RFC2045Encode2IN, RFC2045Encode2OUT);
-      // Strip last softline break
-      return str.substr(0, str.length - 3);
+      return s.replace(/=/g, "=3D").replace(/[^ -~\r\n\t]/g,
+        function(v) { return "=" + v.charCodeAt(0).toString(16); });
     },
 
     quoted_printable_decode: function(str) {
-      var RFC2045Decode1 = /=\r\n/gm,
-        // Decodes all equal signs followed by two hex digits
-        RFC2045Decode2IN = /=([0-9A-F]{2})/gim,
-        // the RFC states against decoding lower case encodings, but following apparent PHP behavior
-        // RFC2045Decode2IN = /=([0-9A-F]{2})/gm,
-        RFC2045Decode2OUT = function (sMatch, sHex) {
-          return String.fromCharCode(parseInt(sHex, 16));
-        };
-      return str.replace(RFC2045Decode1, '').replace(RFC2045Decode2IN, RFC2045Decode2OUT);
+      return str.replace(/=[\r\n]+/g, "").replace(/=[0-9A-F]{2}/gi,
+        function(v){ return String.fromCharCode(parseInt(v.substr(1),16)); });
     },
 
     base64_decode: function(data) {
