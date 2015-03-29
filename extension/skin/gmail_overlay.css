@@ -18,6 +18,12 @@
     position:relative;
     top:-3px;
 }
+.webpg-file-upload {
+    visibility:hidden;
+    position:absolute;
+    top:0;
+    width:0;
+}
 .webpg-action-list-icon {
     display:inline-block;
     width:0;
