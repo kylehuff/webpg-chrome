@@ -75,10 +75,14 @@ webpg.gmail = {
 
             // Create a persistant reference to the Gmail "Formatting" button
             this.oFontBtn = navDiv.parent().parent().find('div[role=button]').not('[command]')[index++];
-            // Create a persistant reference to the Gmail "Attach" button
-//            this.oAttachBtn = navDiv.parent().parent().find('div[role=button]').not('[command]')[index++];
             // Create a persistant reference to the Gmail "Discard" button
             this.oDisBtn = navDiv.parent().parent().find('div[role=button]').not('[command]')[index++];
+
+            // Create a persistant reference to the Gmail "Image" button
+            this.oImageBtn = navDiv.parent().parent().find('div[command=image]');
+
+            // Create a persistant reference to the Gmail "Attach" button
+            this.oAttachBtn = navDiv.parent().parent().find('div[command=Files]');
 
             // Replace the "Send" button with our own
             this.oSendBtn.clone().insertBefore(this.oSendBtn)
@@ -101,7 +105,26 @@ webpg.gmail = {
                 }).bind('mouseleave', function() {
                     if (webpg.gmail.action === 1 || webpg.gmail.action === 3)
                         webpg.gmail.checkRecipients();
-                });
+                }
+            );
+
+            // Replace the "Image" button with our own
+            this.oImageBtn.clone().insertBefore(this.oImageBtn)
+                .attr('id', 'webpg-image-btn')
+                .click(this.overrideAttach);
+
+            // Hide the original "Image" button
+            this.oImageBtn.hide();
+
+            // Replace the "Attach" button with our own
+            this.oAttachBtn.clone().insertBefore(this.oAttachBtn)
+                .attr('id', 'webpg-attach-btn')
+                .click(this.overrideAttach);
+
+            // Hide the original "Attach" button
+            this.oAttachBtn.hide();
+
+            webpg.gmail.drafts = [];
         }
     },
 
@@ -181,7 +204,8 @@ webpg.gmail = {
               'username': username,
               'bearer': (xoauth_data !== undefined) ? xoauth_data.access_token : '',
               'subject': subject,
-              'message': body
+              'message': body,
+              'attachments': this.getAttachments(),
             },
             request = {
               'data': body,
@@ -346,6 +370,58 @@ webpg.gmail = {
             break;
 
         }
+    },
+
+    /*
+        Function: overrideAttach
+            Modifies the behavior of the gmail Attach button to perform certains tasks when saved
+    */
+    overrideAttach: function(e) {
+        var fileElement = webpg.jq('.webpg-file-upload').first();
+        if (fileElement.length == 0) {
+            fileElement = webpg.jq(this).parent()
+                .append("<input class='webpg-file-upload' type='file'>")
+                    .find('.webpg-file-upload');
+        }
+
+        fileElement.change(function(e) {
+            var f = this.files.item(0),
+                reader = new FileReader(),
+                draftId = webpg.gmail.getDraftId();
+            webpg.gmail.drafts = webpg.gmail.drafts || [];
+
+            if (!webpg.gmail.drafts.hasOwnProperty(draftId)) {
+              webpg.gmail.drafts[draftId] = {
+                'attachments': webpg.gmail.getAttachments()
+              };
+            }
+
+            if (f) {
+                reader.onload = (function(theFile) {
+                    return function(e) {
+                        if (e.target.error) {
+                            console.log(e.target.error);
+                            return false;
+                        }
+                        var result64 = btoa(e.target.result),
+                            type = f.type.split("/")[0],
+                            subtype = f.type.split("/")[1];
+                        webpg
+                          .gmail
+                            .drafts[draftId]
+                              .attachments
+                                .push({
+                                  'filename': f.name,
+                                  'type': type,
+                                  'subtype': subtype,
+                                  'data': result64
+                                });
+                    }
+                })(f);
+                reader.readAsBinaryString(f);
+            }
+        });
+        fileElement.trigger('click');
     },
 
     /*
@@ -1044,6 +1120,23 @@ webpg.gmail = {
       };
     },
 
+    getDraftId: function() {
+      return webpg
+              .gmail
+                .getCanvasFrame()
+                  .contents()
+                    .find('form>input[name=draft]')
+                      .val();
+    },
+
+    getAttachments: function() {
+      var draftId = this.getDraftId();
+      if (draftId && this.drafts.hasOwnProperty(draftId))
+        return this.drafts[draftId].attachments;
+      else
+        return [];
+    },
+
     /*
         Function: gmailChanges
             Called when the DOM changes. Watches for our queue in DOM modifications to add the webpg related controls
@@ -1158,19 +1251,6 @@ webpg.gmail = {
                         data = msgObj.content;
                     }
 
-// FIXME: the qp decodeder doesn't work well.
-                    if (dataEncoding === 'quoted_printable' ||
-                        dataEncoding === 'quoted-printable')
-                      data = webpg.utils.quoted_printable_decode(data);
-                    else if (dataEncoding === 'base64')
-                      data = webpg.utils.base64_decode(data);
-
-                    if (encoding === 'quoted_printable' ||
-                        encoding === 'quoted-printable')
-                      signature = (webpg.utils.quoted_printable_decode(signature) || null);
-                    else if (encoding === 'base64')
-                      signature = (webpg.utils.base64(signature) || null);
-
                     var doc = (node.ownerDocument || webpg.inline.doc || content.document || document);
 
                     var pgpData = (signature || data); // If this is signed data, the PGP data is the signature
@@ -1224,6 +1304,18 @@ webpg.gmail = {
                                 blockType = webpg.constants.PGPBlocks.PGP_ENCRYPTED;
 
                             if (plaintext !== null) {
+                              if (dataEncoding === 'quoted_printable' ||
+                                  dataEncoding === 'quoted-printable')
+                                plaintext = webpg.utils.quoted_printable_decode(plaintext);
+                              else if (dataEncoding === 'base64')
+                                plaintext = webpg.utils.base64_decode(plaintext);
+
+                              if (encoding === 'quoted_printable' ||
+                                  encoding === 'quoted-printable')
+                                signature = (webpg.utils.quoted_printable_decode(signature) || null);
+                              else if (encoding === 'base64')
+                                signature = (webpg.utils.base64(signature) || null);
+
                               response.result.original_text = plaintext + '\n' + pgpData;
                               response.result.data = (plaintextHeaders.length > 0 ? plaintext.substr(plaintext.indexOf("\n\n")).trim() : plaintext || plaintext);
                             }
