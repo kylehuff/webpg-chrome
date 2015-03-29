@@ -633,5 +633,21 @@ webpg.plugin = {
     return webpg.nativeMessaging.nativeFunction(args, callback);
   },
 
+  quotedPrintableDecode: function(params, callback) {
+    var args = {
+      "func": "quotedPrintableDecode",
+      "params": [params]
+    }
+    return webpg.nativeMessaging.nativeFunction(args, callback);
+  },
+
+  verifyPGPMimeMessage: function(params, callback) {
+    var args = {
+      "func": "verifyPGPMimeMessage",
+      "params": [params]
+    }
+    return webpg.nativeMessaging.nativeFunction(args, callback);
+  },
+
 };
 //webpg.nativeMessaging.init();
