@@ -831,7 +831,7 @@ webpg.inline = {
         });
         webpg.jq(toolbar).find('ul.webpg-action-list, ul.webpg-subaction-list').css({
             'position': 'absolute', 'top': '100%', 'left': '-2px',
-            'z-index': '9999', 'float': 'left', 'display': 'none',
+            'z-index': 'auto', 'float': 'left', 'display': 'none',
             'min-width': '234px', 'padding': '0', 'margin': '0',
             'list-style': 'none', 'background-color': '#ffffff',
             'border-color': '#ccc', 'border-color': 'rgba(0, 0, 0, 0.2)',
@@ -1548,7 +1548,7 @@ webpg.inline = {
         iframe.style.width = "99%";
         iframe.style.minHeight = "220px";
         iframe.style.backgroundColor = "#efefef";
-        iframe.style.zIndex = "9999";
+        iframe.style.zIndex = "auto";
         if (this.mode === "icon")
             iframe.style.display = 'none';
         webpg.utils._onRequest.addListener(function(request) {
