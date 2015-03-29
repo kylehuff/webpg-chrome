@@ -41,7 +41,8 @@
        "contextMenus",
        "tabs",
        "webNavigation",
-       "nativeMessaging"
+       "nativeMessaging",
+       "clipboardWrite"
   ],
   "content_scripts": [
     {

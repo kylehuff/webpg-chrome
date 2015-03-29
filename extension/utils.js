@@ -327,7 +327,8 @@ webpg.utils = {
             'success': true
         };
         try {
-            doc.execCommand("Copy");
+            if (doc.execCommand("Copy") === false)
+              throw "access denied";
         } catch(cperr) {
             try {
                 if (win.getSelection && doc.activeElement){
