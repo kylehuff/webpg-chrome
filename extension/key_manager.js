@@ -1596,60 +1596,71 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                   path += "\\key_photos\\";
                 else
                   path += "/key_photos/";
-                var count = key.photos_provided;
-                var index = key.nuids;
+                path = webpg.utils.escape(path);
+                var count = webpg.utils.escape(key.photos_provided);
+                var index = webpg.utils.escape(key.nuids);
                 var photo_viewer = [];
-                var batch_name = "WEBPG_" + new Date().getTime() + ".bat";
-                if (window.navigator.platform.toLowerCase().indexOf("win") > -1)
-                  photo_viewer.push("cmd /V:ON /E:ON /C @SETLOCAL & @ECHO OFF & ",
-                    "echo @SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION>!TEMP!\\", batch_name, " & ",
-                    "echo @ECHO OFF>>!TEMP!\\", batch_name, " & ",
-                    "echo :START>>!TEMP!\\", batch_name, " & ",
-                    "echo   set \"FILEPATH=%%%1\">>!TEMP!\\", batch_name, " & ",
-                    "echo   set \"FILEPATH=!FILEPATH:~1,-1!\">>!TEMP!\\", batch_name, " & ",
-                    "echo   set \"INDEX=%%%2\">>!TEMP!\\", batch_name, " & ",
-                    "echo   set \"PCOUNT=%%%3\">>!TEMP!\\", batch_name, " & ",
-                    "echo   set \"TEMPFILE=%%%4\">>!TEMP!\\", batch_name, " & ",
-                    "echo   set \"KEYID=%%%5\">>!TEMP!\\", batch_name, " & ",
-                    "echo   set \"BASEFILENAME=!FILEPATH!\\!KEYID!\">>!TEMP!\\", batch_name, " & ",
-                    "echo   IF NOT EXIST \"!FILEPATH!\\.\" (>>!TEMP!\\", batch_name, " & ",
-                    "echo     mkdir \"!FILEPATH!\"^>null>>!TEMP!\\", batch_name, " & ",
-                    "echo   )>>!TEMP!\\", batch_name, " & ",
-                    "echo   IF EXIST \"!BASEFILENAME!-*.jpg\" (>>!TEMP!\\", batch_name, " & ",
-                    "echo     del /Q \"!BASEFILENAME!-*.jpg\"^>null>>!TEMP!\\", batch_name, " & ",
-                    "echo   )>>!TEMP!\\", batch_name, " & ",
-                    "echo   copy \"!TEMPFILE!\" \"!BASEFILENAME!-latest.jpg\"^>null>>!TEMP!\\", batch_name, " & ",
-                    "echo   IF !PCOUNT! equ 1 (>>!TEMP!\\", batch_name, " & ",
-                    "echo     set /A \"INDEX=!INDEX!+1\">>!TEMP!\\", batch_name, " & ",
-                    "echo     set /A \"PCOUNT=!PCOUNT!+1\">>!TEMP!\\", batch_name, " & ",
-                    "echo   )>>!TEMP!\\", batch_name, " & ",
-                    "echo   set \"CUR=0\">>!TEMP!\\", batch_name, " & ",
-                    "echo   GOTO :LOOP>>!TEMP!\\", batch_name, " & ",
-                    "echo :LOOP>>!TEMP!\\", batch_name, " & ",
-                    "echo   IF NOT EXIST \"!BASEFILENAME!-!CUR!-*.j\" (>>!TEMP!\\", batch_name, " & ",
-                    "echo     GOTO :END>>!TEMP!\\", batch_name, " & ",
-                    "echo   ) ELSE (>>!TEMP!\\", batch_name, " & ",
-                    "echo     set /A \"CUR+=1\">>!TEMP!\\", batch_name, " & ",
-                    "echo     GOTO :LOOP>>!TEMP!\\", batch_name, " & ",
-                    "echo   )>>!TEMP!\\", batch_name, " & ",
-                    "echo   GOTO :END>>!TEMP!\\", batch_name, " & ",
-                    "echo :END>>!TEMP!\\", batch_name, " & ",
-                    "echo   set /A \"POSITION=!PCOUNT!+!CUR!\">>!TEMP!\\", batch_name, " & ",
-                    "echo   copy \"!BASEFILENAME!-latest.jpg\" \"!BASEFILENAME!-!CUR!-!POSITION!.j\"^>null>>!TEMP!\\", batch_name, " & ",
-                    "echo   set /A \"FIN=!CUR!+!INDEX!\">>!TEMP!\\", batch_name, " & ",
-                    "echo   IF !FIN! equ !PCOUNT! (>>!TEMP!\\", batch_name, " & ",
-                    "echo     rename \"!BASEFILENAME!-*.j\" \"*.jpg\"^>null>>!TEMP!\\", batch_name, " & ",
-                    "echo   )>>!TEMP!\\", batch_name, " & ",
-                    "!TEMP!\\", batch_name, " \"", path, "\" ", index, " ", count, " \"%i\" %K & del /Q !TEMP!\\", batch_name);
-                else
-                  photo_viewer.push("FILENAME=", path, "%K; ",
-                    "if [ ! -d '", path, "' ]; then mkdir -p '",
-                    path, "'; fi; rm -f $FILENAME-*.jpg; cat > $FILENAME-latest.jpg",
-                    "; CUR=`ls ", path, " | awk 'BEGIN { count=0; } $1 ~ /",
-                    scope.key.id, ".*?j$/ { count++; } END { print count }'`; ",
-                    "cp $FILENAME-latest.jpg ", path, "%K-$CUR-$((",
-                    (index + 1), " + $CUR)).j; if [ $CUR -ge ", (count - 1),
-                    " ]; then for file in ", path, "*.j; do mv $file ${file}pg; done; fi;");
+                if (webpg.background.webpg.plugin.webpg_status.plugin.type !== "NATIVEHOST") {
+                  var batch_name = "WEBPG_" + new Date().getTime() + ".bat";
+                  if (window.navigator.platform.toLowerCase().indexOf("win") > -1)
+                    photo_viewer.push("cmd /V:ON /E:ON /C @SETLOCAL & @ECHO OFF & ",
+                      "echo @SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION>!TEMP!\\", batch_name, " & ",
+                      "echo @ECHO OFF>>!TEMP!\\", batch_name, " & ",
+                      "echo :START>>!TEMP!\\", batch_name, " & ",
+                      "echo   set \"FILEPATH=%%%1\">>!TEMP!\\", batch_name, " & ",
+                      "echo   set \"FILEPATH=!FILEPATH:~1,-1!\">>!TEMP!\\", batch_name, " & ",
+                      "echo   set \"INDEX=%%%2\">>!TEMP!\\", batch_name, " & ",
+                      "echo   set \"PCOUNT=%%%3\">>!TEMP!\\", batch_name, " & ",
+                      "echo   set \"TEMPFILE=%%%4\">>!TEMP!\\", batch_name, " & ",
+                      "echo   set \"KEYID=%%%5\">>!TEMP!\\", batch_name, " & ",
+                      "echo   set \"BASEFILENAME=!FILEPATH!\\!KEYID!\">>!TEMP!\\", batch_name, " & ",
+                      "echo   IF NOT EXIST \"!FILEPATH!\\.\" (>>!TEMP!\\", batch_name, " & ",
+                      "echo     mkdir \"!FILEPATH!\"^>null>>!TEMP!\\", batch_name, " & ",
+                      "echo   )>>!TEMP!\\", batch_name, " & ",
+                      "echo   IF EXIST \"!BASEFILENAME!-*.jpg\" (>>!TEMP!\\", batch_name, " & ",
+                      "echo     del /Q \"!BASEFILENAME!-*.jpg\"^>null>>!TEMP!\\", batch_name, " & ",
+                      "echo   )>>!TEMP!\\", batch_name, " & ",
+                      "echo   copy \"!TEMPFILE!\" \"!BASEFILENAME!-latest.jpg\"^>null>>!TEMP!\\", batch_name, " & ",
+                      "echo   IF !PCOUNT! equ 1 (>>!TEMP!\\", batch_name, " & ",
+                      "echo     set /A \"INDEX=!INDEX!+1\">>!TEMP!\\", batch_name, " & ",
+                      "echo     set /A \"PCOUNT=!PCOUNT!+1\">>!TEMP!\\", batch_name, " & ",
+                      "echo   )>>!TEMP!\\", batch_name, " & ",
+                      "echo   set \"CUR=0\">>!TEMP!\\", batch_name, " & ",
+                      "echo   GOTO :LOOP>>!TEMP!\\", batch_name, " & ",
+                      "echo :LOOP>>!TEMP!\\", batch_name, " & ",
+                      "echo   IF NOT EXIST \"!BASEFILENAME!-!CUR!-*.j\" (>>!TEMP!\\", batch_name, " & ",
+                      "echo     GOTO :END>>!TEMP!\\", batch_name, " & ",
+                      "echo   ) ELSE (>>!TEMP!\\", batch_name, " & ",
+                      "echo     set /A \"CUR+=1\">>!TEMP!\\", batch_name, " & ",
+                      "echo     GOTO :LOOP>>!TEMP!\\", batch_name, " & ",
+                      "echo   )>>!TEMP!\\", batch_name, " & ",
+                      "echo   GOTO :END>>!TEMP!\\", batch_name, " & ",
+                      "echo :END>>!TEMP!\\", batch_name, " & ",
+                      "echo   set /A \"POSITION=!PCOUNT!+!CUR!\">>!TEMP!\\", batch_name, " & ",
+                      "echo   copy \"!BASEFILENAME!-latest.jpg\" \"!BASEFILENAME!-!CUR!-!POSITION!.j\"^>null>>!TEMP!\\", batch_name, " & ",
+                      "echo   set /A \"FIN=!CUR!+!INDEX!\">>!TEMP!\\", batch_name, " & ",
+                      "echo   IF !FIN! equ !PCOUNT! (>>!TEMP!\\", batch_name, " & ",
+                      "echo     rename \"!BASEFILENAME!-*.j\" \"*.jpg\"^>null>>!TEMP!\\", batch_name, " & ",
+                      "echo   )>>!TEMP!\\", batch_name, " & ",
+                      "!TEMP!\\", batch_name, " \"", path, "\" ", index, " ", count, " \"%i\" %K & del /Q !TEMP!\\", batch_name);
+                  else
+                    photo_viewer.push("FILENAME=", path, "%K; ",
+                      "if [ ! -d '", path, "' ]; then mkdir -p '",
+                      path, "'; fi; rm -f $FILENAME-*.jpg; cat > $FILENAME-latest.jpg",
+                      "; CUR=`ls ", path, " | awk 'BEGIN { count=0; } $1 ~ /",
+                      scope.key.id, ".*?j$/ { count++; } END { print count }'`; ",
+                      "cp $FILENAME-latest.jpg ", path, "%K-$CUR-$((",
+                      (index + 1), " + $CUR)).j; if [ $CUR -ge ", (count - 1),
+                      " ]; then for file in ", path, "*.j; do mv $file ${file}pg; done; fi;");
+                } else { // using Native Host; have webpg-native-host handle the image(s)
+                  photo_viewer = [
+                    webpg.background.webpg.plugin.webpg_status.plugin.path,
+                    ' "{\\"func\\": \\"showPhotoCallback\\", \\"params\\": {\
+                        \\"keyid\\": \\"%K\\", \\"path\\": \\"' + path + '\\",\
+                        \\"extension\\": \\"%t\\", \
+                        \\"index\\": ' + index + ', \\"count\\": ' + count + '}}"'
+                  ];
+                }
 
                 webpg.plugin.setTempGPGOption("photo-viewer",
                   photo_viewer.join(''),
@@ -1658,7 +1669,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                       webpg.plugin.restoreGPGConfig();
                       jqueryElm.find('.keyphoto')
                         .first()
-                          .attr('src', 'file:///' + photo_info.photos_path + '/key_photos/' + scope.key.id + '-latest.jpg?' + new Date().getTime());
+                          .attr('src', 'file:///' + webpg.utils.escape(photo_info.photos_path) + '/key_photos/' + webpg.utils.escape(scope.key.id) + '-latest.jpg?' + new Date().getTime());
                     });
                   }
                 );
