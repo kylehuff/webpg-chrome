@@ -412,13 +412,13 @@ webpg.inline_results = {
                                                     'temp_context': true, }
                                                 );
                                             }
-                                            keyobj = fpsi.keys_found[0];
+                                            var keyobj = fpsi.keys_found[0];
+                                            var new_public_key = true;
                                             if (keyobj.in_real_keyring) {
-                                                var new_public_key = false;
-                                                var keyobj = keyobj.real_keyring_item;
-                                            } else {
-                                                var new_public_key = true;
+                                                false;
+                                                keyobj = keyobj.real_keyring_item;
                                             }
+                                            console.log("New key?", new_public_key, fpsi, keyobj, "?");
                                             webpg.jq('#signature_text').html(_("Names/UIDs on Key") + ":");
                                             if (keyobj.revoked || keyobj.expired) {
                                                 descText = (keyobj.revoked) ? _('REVOKED') :

@@ -267,7 +267,7 @@ webpg.background = {
           return true;
 
         // refresh the value of gnupghome
-        var gnupghome = webpg.preferences.gnupghome.get(),
+        var gnupghome = webpg.preferences.gnupghome.get() || null,
             tabID = -1,
             bypassSendResult = false;
 
@@ -565,11 +565,18 @@ webpg.background = {
                           }
                       };
                   }
-                  if (request.temp_context)
-                      webpg.plugin.gpgSetHomeDir(gnupghome);
-                  sendResponse({'result': {'import_status': import_status}});
+                  function processResultCallback(res) {
+                    sendResponse({'result': {'import_status': import_status}});
+                  }
+                  if (request.temp_context) {
+                      if (webpg.plugin.webpg_status.plugin.type !== "NATIVEHOST") {
+                        webpg.plugin.gpgSetHomeDir(gnupghome);
+                      } else {
+                        webpg.plugin.gpgSetHomeDir(gnupghome, processResultCallback);
+                      }
+                  }
                 };
-                function attemptImport() {
+                function attemptImport(original_homedir) {
                       try {
                         if (webpg.plugin.webpg_status.plugin.type !== "NATIVEHOST") {
                           var import_status = webpg.plugin.gpgImportKey(request.data);
