@@ -649,5 +649,13 @@ webpg.plugin = {
     return webpg.nativeMessaging.nativeFunction(args, callback);
   },
 
+  checkForUpdate: function(params, callback) {
+    var args = {
+      "func": "checkForUpdate",
+      "params": [params]
+    }
+    return webpg.nativeMessaging.nativeFunction(args, callback);
+  },
+
 };
 //webpg.nativeMessaging.init();
