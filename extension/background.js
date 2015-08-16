@@ -794,18 +794,41 @@ webpg.background = {
 
             case 'export':
                 if (request.keyid) {
-                    response = webpg.plugin.gpgExportPublicKey(request.keyid).result;
+                    webpg.plugin.gpgExportPublicKey(request.keyid, function(res) {
+                        if (res.type && res.type === "export-progress") {
+                            var data = JSON.parse(res.data);
+                            webpg.utils.tabs.sendRequest(sender.tab, {
+                                "msg": "insertPublicKey", "data": data.result,
+                                "iframe_id": request.iframe_id
+                            });
+                        }
+                    });
+                    break;
                 } else if (request.recipients) {
                     response = "";
-                    for (var keyid in request.recipients)
-                        response += webpg.plugin.gpgExportPublicKey(
-                            request.recipients[keyid]).result + "\n";
+                    for (var keyid in request.recipients) {
+                        webpg.plugin.gpgExportPublicKey(
+                            request.recipients[keyid],
+                            function(res) {
+                                if (res.type && res.type === "export-progress") {
+                                    var data = JSON.parse(res.data);
+                                    response += data.result + "\n";
+                                } else if (res === "complete") {
+                                    webpg.utils.tabs.sendRequest(sender.tab, {
+                                        "msg": "insertPublicKey", "data": response,
+                                        "iframe_id": request.iframe_id
+                                    });
+                                }
+                            }
+                        );
+                    }
                 } else {
                     response = "";
+                    webpg.utils.tabs.sendRequest(sender.tab, {
+                        "msg": "insertPublicKey", "data": response,
+                        "iframe_id": request.iframe_id
+                    });
                 }
-                webpg.utils.tabs.sendRequest(sender.tab, {
-                    "msg": "insertPublicKey", "data": response,
-                    "iframe_id": request.iframe_id});
                 break;
 
             case 'removeiframe':
