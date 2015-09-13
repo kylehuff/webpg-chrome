@@ -1027,8 +1027,10 @@ webpg.utils = {
                 var gBrowser = browserWindow.gBrowser;
             }
 
+            var mozDoc = (content) ? content.document : (contentDocument) ? contentDocument : (contentWindow) ? contentWindow.document : document;
+
             try {
-                tabID = gBrowser.getBrowserForDocument(content.document)._webpgTabID;
+                tabID = gBrowser.getBrowserForDocument(mozDoc)._webpgTabID;
             } catch (err1) {
                 tabID = -1;
             }
@@ -1037,7 +1039,7 @@ webpg.utils = {
                 'tab': { 'id': tabID }
             };
 
-            var mozDoc = (content) ? content.document : document;
+
             var request = mozDoc.createTextNode("");
 
             if (this.detectedBrowser.vendor === "mozilla")
@@ -1594,13 +1596,17 @@ webpg.utils = {
 
     mozilla: {
         getChromeWindow: function() {
-            var mainWindow = window
+            var mainWindow = null;
+            try {
+                mainWindow = window
                     .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                     .getInterface(Components.interfaces.nsIWebNavigation)
                     .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
                     .rootTreeItem
                     .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                     .getInterface(Components.interfaces.nsIDOMWindow);
+            } catch(ex) {
+            }
 
             if (!mainWindow) {
                 var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
