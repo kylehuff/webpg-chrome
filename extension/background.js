@@ -444,31 +444,6 @@ webpg.background = {
                 var content,
                     plaintext = (request.plaintext!==undefined) ?
                       request.plaintext : null;
-                function cleanData(data, content) {
-                  if (data && data.length > 0) {
-                      content = data.replace(/^([-]+)(?=[\r\n]|\s\n)/gm, '\\$1');
-                      var lowerBlock = content.match(/(-----BEGIN PGP.*?)\n.*?\n\n/gim);
-                      if (lowerBlock && lowerBlock.length > 1) {
-                          content.substr(0, content.indexOf(lowerBlock[1]) + lowerBlock[1].length) +
-                              content.substr(content.indexOf(lowerBlock[1]) + lowerBlock[1].length, content.length).replace(/\n\n/gim, "\n");
-                      }
-                      request.data = content;
-                  }
-                  processMessage();
-                };
-                if (request.hasOwnProperty('encoding')) {
-                  console.log(request);
-                  if (request.encoding === 'quoted-printable')
-                    webpg.plugin.quotedPrintableDecode(request.data, function(res) {
-                      cleanData(res, content);
-                    });
-                  else if (request.encoding === 'base64')
-                    webpg.plugin.base64Decode(request.data, function(res) {
-                      cleanData(res, content);
-                    });
-                } else {
-                  cleanData(request.data, content);
-                }
                 function checkSignatures(response) {
                   if (response.signatures === null) {
                     sendResponse({'result': response});
@@ -518,6 +493,31 @@ webpg.background = {
                   } else {
                       webpg.plugin.gpgVerify(request.data, plaintext, responseMethod);
                   }
+                }
+                function cleanData(data, content) {
+                  if (data && data.length > 0) {
+                      content = data.replace(/^([-]+)(?=[\r\n]|\s\n)/gm, '\\$1');
+                      var lowerBlock = content.match(/(-----BEGIN PGP.*?)\n.*?\n\n/gim);
+                      if (lowerBlock && lowerBlock.length > 1) {
+                          content.substr(0, content.indexOf(lowerBlock[1]) + lowerBlock[1].length) +
+                              content.substr(content.indexOf(lowerBlock[1]) + lowerBlock[1].length, content.length).replace(/\n\n/gim, "\n");
+                      }
+                      request.data = content;
+                  }
+                  processMessage();
+                };
+                if (request.hasOwnProperty('encoding')) {
+                  console.log(request);
+                  if (request.encoding === 'quoted-printable')
+                    webpg.plugin.quotedPrintableDecode(request.data, function(res) {
+                      cleanData(res, content);
+                    });
+                  else if (request.encoding === 'base64')
+                    webpg.plugin.base64Decode(request.data, function(res) {
+                      cleanData(res, content);
+                    });
+                } else {
+                  cleanData(request.data, content);
                 }
                 return true;
                 break;
