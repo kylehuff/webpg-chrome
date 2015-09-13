@@ -660,6 +660,7 @@ webpg.inline = {
                     'data': scontent,
                     'target_id': results_frame.id },
                     function(response) {
+                        webpg.utils.log("DEBUG")(response);
                         if (response.result.signatures && response.result.data)
                             blockType = webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
                         else
@@ -780,7 +781,13 @@ webpg.inline = {
                 'display': 'inline-block',
                 'border-right': '1px solid #999',
                 'font': 'inherit',
-                'color': 'inherit'
+                'color': 'inherit',
+                '-webkit-touch-callout': 'none',
+                '-webkit-user-select': 'none',
+                '-khtml-user-select': 'none',
+                '-moz-user-select': 'none',
+                '-ms-user-select': 'none',
+                'user-select': 'none',
             }).hover(
                 function(e) {
                     if (webpg.jq(toolbar).find('.webpg-action-list')[0].style.display != 'inline') {
@@ -1051,7 +1058,7 @@ webpg.inline = {
             "background: #f1f1f1 url('" + webpg.utils.escape(webpg.utils.resourcePath) +
             "skin/images/menumask.png') repeat-x; border-collapse: separate;" +
             "color:#444; height:24px; margin: 1px -1px 0 1px; display: block;" +
-            "border: 1px solid gainsboro; top: 27px; clear: left; line-height: 12px;" +
+            "border: 1px solid gainsboro; clear: left; line-height: 12px;" +
             "left: -1px; text-shadow: none; text-decoration: none; overflow: visible;" +
             "box-sizing: content-box !important; -moz-box-sizing: content-box !important;" +
             "-webkit-box-sizing: content-box !important; white-space: normal; z-index: 999;");
@@ -1069,7 +1076,7 @@ webpg.inline = {
             element.parentElement.offsetWidth < parseInt(toolbar.style.width))
             toolbar.style.width = element.parentElement.offsetWidth + "px";
 
-        element.style.width = parseInt(toolbar.style.width) + pad + offset + "px";
+        //element.style.width = parseInt(toolbar.style.width) + pad + offset + "px";
 
         if (webpg.utils.detectedBrowser['product'] === 'mozilla')
           element.style.MozBoxSizing = "border-box !important";
@@ -1085,7 +1092,9 @@ webpg.inline = {
 
         var paddingTop = (webpg.utils.detectedBrowser.vendor === 'mozilla') ?
             "28px" : "30px";
-        element.style.cssText += 'padding-top:' + paddingTop + ' !important';
+        element.style.cssText += 'padding-top:' + paddingTop + ' !important;';
+        element.style.cssText += 'position: relative; top: -27px;';
+        element.style.cssText += 'margin-bottom: -27px;';
         element.style.marginTop = "1px";
 
         webpg.jq(toolbar).insertBefore(element);
@@ -1215,7 +1224,7 @@ webpg.inline = {
             '</span>';
 
         webpg.jq(toolbar).append(action_menu);
-        webpg.jq(toolbar).append('<span class="webpg-toolbar-status" style="text-transform: uppercase; float:right; position:relative; top: 20%; line-height: 14px; font: inherit;"></span>');
+        webpg.jq(toolbar).append('<span class="webpg-toolbar-status" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -moz-user-select: none; user-select: none; text-transform: uppercase; float:right; position:relative; top: 20%; line-height: 14px; font: inherit;"></span>');
         webpg.jq(toolbar.ownerDocument.defaultView).bind("resize", function() {
             detectElementValue(element);
         });
@@ -1286,7 +1295,7 @@ webpg.inline = {
 
             if (element.offsetLeft != toolbar.offsetLeft && element.style.display !== 'none') {
                 if (webpg.jq(element).css('position') === 'relative')
-                  toolbar.style.zIndex = '1';
+                  toolbar.style.zIndex = webpg.jq(element).css('z-index') + 1;
 
                 if (webpg.jq(element).parent().css('position') === 'relative')
                   toolbar.style.marginLeft = element.offsetLeft + 1;
@@ -1306,12 +1315,15 @@ webpg.inline = {
                 webpg.jq(toolbar).find('.webpg-action-btn').hide();
                 webpg.jq(toolbar).find('.webpg-pgp-signtext').show();
                 webpg.jq(toolbar).find('.webpg-toolbar-status').text(_("PGP Signed Message"));
+                webpg.jq(toolbar).find('.webpg-action-btn.webpg-option-item.webpg-secure-editor').show();
             } else if (element_value.length > 1 && element_value.indexOf(
                 webpg.constants.PGPTags.PGP_ENCRYPTED_BEGIN) > -1) {
                 // Decrypt
                 webpg.jq(toolbar).find('.webpg-action-btn').hide();
                 webpg.jq(toolbar).find('.webpg-pgp-crypttext').show();
                 webpg.jq(toolbar).find('.webpg-toolbar-status').text(_("PGP ENCRYPTED OR SIGNED MESSAGE"));
+                if (isSecure(element) !== true)
+                    webpg.jq(toolbar).find('.webpg-action-btn.webpg-option-item.webpg-secure-editor').show();
             } else if (element_value.length > 1 && element_value.indexOf(
                 webpg.constants.PGPTags.PGP_KEY_BEGIN) > -1) {
                 // Import
@@ -1338,6 +1350,7 @@ webpg.inline = {
                 }
                 webpg.jq(toolbar).find('.webpg-toolbar-status').text(elementTitle);
             }
+            //webpg.jq(toolbar).find('.webpg-action-btn.webpg-option-item.webpg-secure-editor').show();
             webpg.jq(toolbar).find('.webpg-keymanager-link').show();
             webpg.jq(toolbar).find('.webpg-options-link').hide();
             updateOffset(element);
@@ -1434,7 +1447,7 @@ webpg.inline = {
         });
 
         if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
-            webpg.jq(toolbar).css({ 'top': '28px' });
+            //webpg.jq(toolbar).css({ 'top': '28px' });
             webpg.jq(toolbar).find('.webpg-action-menu .webpg-action-list-icon').css({ 'top': '6px' });
         }
 
