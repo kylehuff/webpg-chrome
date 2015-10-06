@@ -268,6 +268,37 @@ webpg.preferences = {
         }
     },
 
+    selectedKeys: {
+        get: function() {
+            var qtd = webpg.localStorage.getItem('howManySelectedKeys');
+            if(qtd && qtd > 0) {
+            	var result = new Array(qtd);
+            	for(var i = 0; i < qtd; i++) {
+            		result[i] = webpg.localStorage.getItem(i+'SelectedKeys');
+            	}
+            	return result;
+            } else {
+            	return '';
+            }
+        },
+
+        set: function(value1) {
+        	var value = [];
+        	value = value1;
+        	var size = 0;
+        	size = value.length;
+        	var i = 0;
+        	for(; i < size; i++) {
+        		webpg.localStorage.setItem(i+'SelectedKeys', value[i]);
+        	}
+        	webpg.localStorage.setItem('howManySelectedKeys', size);
+        },
+
+        clear: function(){
+            webpg.localStorage.setItem('howManySelectedKeys', '');
+        }
+    },
+
     /*
         Class: webpg.preferences.gnupgbin
             Provides methods to get/set the GnuPG binary execututable
