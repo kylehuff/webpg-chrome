@@ -58,6 +58,16 @@
       "all_frames": true
     },
     {
+      "matches": [ "https://inbox.google.com/*"],
+      "js": [
+        "xoauth2.js",
+        "webmail/gmail/inbox.js"
+      ],
+      "css": ["skin/gmail_overlay.css"],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
       "matches": [ "https://mail.google.com/*", "http://mail.google.com/*" ],
       "js": [
         "xoauth2.js",

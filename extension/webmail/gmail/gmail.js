@@ -1416,7 +1416,8 @@ webpg.utils.sendRequest({
                         function(aEvent) {
                             // We need to filter based on the URL for mozilla, as we do
                             //  not have the option to set the overlay by URL
-                            if (aEvent.originalTarget.location.host === "mail.google.com") {
+                            if (aEvent.originalTarget.location.host === "mail.google.com" ||
+                                aEvent.originalTarget.location.host === "inbox.google.com") {
                                 webpg.gmail.getCanvasFrameDocument()
                                 .addEventListener("DOMSubtreeModified",
                                     webpg.gmail.gmailChanges, false
@@ -1450,7 +1451,8 @@ webpg.utils.sendRequest({
                         function(aEvent) {
                             // We need to filter based on the URL for mozilla, as we do
                             //  not have the option to set the overlay by URL
-                            if (aEvent.originalTarget.location.host === "mail.google.com") {
+                            if (aEvent.originalTarget.location.host === "mail.google.com" ||
+                                aEvent.originalTarget.location.host === "inbox.google.com") {
                                 webpg.gmail_observer.observe(webpg.gmail.getCanvasFrameDocument(), config);
                                 webpg.gmail.appcontent.removeEventListener("DOMContentLoaded", arguments.callee, true);
                             }
