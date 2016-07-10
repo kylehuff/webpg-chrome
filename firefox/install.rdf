@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!-- Firefox -->
+  <RDF:Description RDF:about="rdf:#$g5s0x"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="13.0"
+                   em:maxVersion="43.*" />
+  <!-- Thunderbird -->
+  <RDF:Description RDF:about="rdf:#$g5s0r"
+                   em:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
+                   em:minVersion="13.0"
+                   em:maxVersion="43.*" />
+  <!-- SeaMonkey -->
+  <RDF:Description RDF:about="rdf:#$g5s0l"
+                   em:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
+                   em:minVersion="2.1"
+                   em:maxVersion="2.39" />
+  <!-- Conkeror -->
+  <RDF:Description RDF:about="rdf:#$g5s0i"
+                   em:id="{a79fe89b-6662-4ff4-8e88-09950ad4dfde}"
+                   em:minVersion="0.1"
+                   em:maxVersion="9.9" />
+
+  <!-- WebPG Extension master/default description -->
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="webpg-firefox@curetheitch.com"
+                   em:version="0.9.5"
+                   em:type="2"
+                   em:name="WebPG for Mozilla"
+                   em:optionsType="3"
+                   em:description="An extension which provides GnuPG/GPG/PGP related functions to Mozilla Firefox, SeaMonkey and Thunderbird"
+                   em:creator="Kyle L. Huff"
+                   em:homepageURL="https://webpg.org"
+                   em:optionsURL="chrome://webpg-firefox/content/options.html"
+                   em:aboutURL="chrome://webpg-firefox/content/about.html"
+                   em:iconURL="chrome://webpg-firefox/skin/images/badges/48x48/webpg.png"
+                   em:icon64URL="chrome://webpg-fireofx/skin/images/webpg-64.png"
+                  >
+
+    <!-- Localizations -->
+    <!-- TODO: stubs created for supported translations; need translations for description field -->
+    <em:localized>
+        <RDF:Description
+            em:locale="ar"
+            em:description="امتداد الذي يوفر GnuPG / GPG / PGP المهام ذات لموزيلا فايرفوكس و ثندربيرد"
+           >
+        </RDF:Description>
+    </em:localized>
+    <em:localized>
+        <RDF:Description
+            em:locale="de"
+           >
+        </RDF:Description>
+    </em:localized>
+    <em:localized>
+        <RDF:Description
+            em:locale="pl"
+           >
+        </RDF:Description>
+    </em:localized>
+
+    <em:targetApplication RDF:resource="rdf:#$g5s0x"/>
+    <em:targetApplication RDF:resource="rdf:#$g5s0r"/>
+    <em:targetApplication RDF:resource="rdf:#$g5s0l"/>
+    <em:targetApplication RDF:resource="rdf:#$g5s0i"/>
+    <!-- Unpack required due to NPAPI plugin inclusion -->
+    <em:unpack>true</em:unpack>
+  </RDF:Description>
+</RDF:RDF>
