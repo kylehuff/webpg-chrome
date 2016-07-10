@@ -115,15 +115,17 @@ zip -r ../$APP_NAME.xpi * -x '*.svn*'
 cd "$ROOT_DIR"
 
 echo "Cleanup..."
-if [ $CLEAN_UP = 0 ] && [ $CREATE_JAR = 1]; then
-  # save the jar file
-  mv $TMP_DIR/chrome/$APP_NAME.jar .
+if [ $CLEAN_UP = 0 ]; then
+  if [ $CREATE_JAR = 1]; then
+    # save the jar file
+    mv $TMP_DIR/chrome/$APP_NAME.jar .
+  fi
 else
   rm ./files
+  rm -rf $TMP_DIR
 fi
 
 # remove the working files
-rm -rf $TMP_DIR
 echo "Done!"
 
 GPGME_DEBUG=0 $AFTER_BUILD
