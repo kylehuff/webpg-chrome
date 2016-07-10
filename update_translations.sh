@@ -9,14 +9,13 @@ PROJECT_NAME=webpg
 BUGSADDR=$PROJECT_NAME-translations@$PROJECT_NAME.org
 ORGANIZATION=CURETHEITCH
 AUTHOR="Kyle L. Huff"
-SRCDIR=../extension
+SRCDIR=extension
 PODIR=po
 POTFILE=$PROJECT_NAME.pot
 
 # Obtain the project version number and set the locale directory
-PROJECT=$PROJECT_NAME-chrome
-LOCALEDIR="_locales"
-VERSION=`sed -n 's/.*\"version\"\:.\"\(.*\)\",.*/\1/p' ../extension/manifest.json`
+PROJECT=$PROJECT_NAME
+VERSION=`sed -n 's/.*\"version\"\:.\"\(.*\)\",.*/\1/p' extension/manifest.json`
 
 LOCALES=('ar' 'bg' 'ca' 'ca' 'cs' 'da' 'de' 'el' 'en' 'en_GB' 'en_US' 'es' 'es_419' 'et' 'fi' 'fil' 'fr' 'he' 'hi' 'hr' 'hu' 'id' 'it' 'ja' 'ko' 'lt' 'lv' 'nl' 'np' 'pl' 'pt_BR' 'pt_PT' 'ro' 'ru' 'sk' 'sl' 'sr' 'sv' 'th' 'tr' 'uk' 'vi' 'zh_CN' 'zh_TW')
 
@@ -28,8 +27,10 @@ fi
 # Extract the translatable strings from the source files
 pybabel extract -F $PROJECT_NAME-babel.cfg --copyright-holder=$ORGANIZATION --msgid-bugs-address=$BUGSADDR --project=$PROJECT --version=$VERSION $SRCDIR > $PODIR/$POTFILE
 
-# Extract the translatable strings from the chrome manifest.json file
-gawk 'match($0, /__MSG_(.*)__/, a) {printf("#: %s:%d\nmsgid \"%s\"\nmsgstr \"\"\n\n", FILENAME, NR, a[1])}' ../extension/manifest.json >> $PODIR/$POTFILE
+# Extract the translatable strings from the XUL files
+gawk 'match($0, /label=\"&(.*)\;\"/, a) {if (!x[a[1]]++) printf("#: %s:%d\nmsgid \"%s\"\nmsgstr \"\"\n\n", FILENAME, NR, a[1])}' extension/XULContent/firefoxOverlay.xul extension/XULContent/thunderbird/composeOverlay.xul extension/XULContent/thunderbird/thunderbirdOverlay.xul >> $PODIR/$POTFILE
+# Extract the translatable strings from the mainifes.json file
+gawk 'match($0, /__MSG_(.*)__/, a) {printf("#: %s:%d\nmsgid \"%s\"\nmsgstr \"\"\n\n", FILENAME, NR, a[1])}' extension/manifest.json >> $PODIR/$POTFILE
 
 # Iterate through the configured locales and create the necessary files
 for locale in "${LOCALES[@]}"
@@ -43,10 +44,21 @@ do
     fi
 done
 
-# Create the chrome i18n locale files in JSON format [i.e. _locales/en_US/messages.json]
 for locale in "${LOCALES[@]}"
 do
     if [ -f $PODIR/$locale.po ]; then
+        # Create the firefox i18n locale files in DTN format
+        LOCALEDIR="firefox/locale"
+        if [ ! -d "$LOCALEDIR/$locale" ]; then
+            mkdir -p $LOCALEDIR/$locale
+        fi
+        echo "Creating $LOCALEDIR/$locale/$PROJECT_NAME.dtd"
+        gawk 'BEGIN{ FS="\n"; RS="";} match($0, /msgid.*(\"(.*)\")$/, b) && match(b[0], /msgid.*(\"(.*)\")(\n)?msgstr.*(\".*\")(\n)?/, a) { if (a[2]!="") printf("<!ENTITY %s %s>\n", gensub(/([[:punct:]|[:space:]])/, "_", "g", a[2]), a[4]) }' $PODIR/$locale.po > $LOCALEDIR/$locale/$PROJECT_NAME.dtd
+        echo "Creating $LOCALEDIR/$locale/$PROJECT_NAME.properties"
+        gawk 'BEGIN{ FS="\n"; RS="";} match($0, /msgid.*(\"(.*)\")$/, b) && match(b[0], /msgid.*(\"(.*)\")(\n)?msgstr.*(\"(.*)\")(\n)?/, a) { if (a[2]!="") printf("%s=%s\n", gensub(/([[:punct:]|[:space:]])/, "_", "g", a[2]), a[5]) }' $PODIR/$locale.po > $LOCALEDIR/$locale/$PROJECT_NAME.properties
+
+        # Create the chrome i18n locale files in JSON format [i.e. _locales/en_US/messages.json]
+        LOCALEDIR="chrome/_locales"
         if [ ! -d "$LOCALEDIR/$locale" ]; then
             mkdir -p $LOCALEDIR/$locale
         fi
@@ -62,4 +74,3 @@ echo "Creating POTFILES.in"
 echo -e "# List of source files containing translatable strings." > $PODIR/POTFILES.in
 gawk 'BEGIN{ FS="\n"; RS="";} match($1, /#: (.*[:])/, a) split(a[1], x, ":") {print x[1]}' $PODIR/$POTFILE | awk '!($0 in x){x[$0];print}' | sort >> $PODIR/POTFILES.in
 echo ".. done."
-
