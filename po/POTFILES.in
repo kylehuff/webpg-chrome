@@ -5,13 +5,16 @@ extension/XULContent/thunderbird/composeOverlay.js
 extension/about.js
 extension/background.js
 extension/browser_action_menu.js
+extension/buttonbar.js
 extension/dialog.js
 extension/error.js
-extension/gmail.js
 extension/inline.js
 extension/key_manager.js
 extension/manifest.json
+extension/notice.js
 extension/options.js
+extension/userdocs.js
 extension/utils.js
+extension/webmail/gmail/gmail.js
 extension/webpg_overlay.js
 extension/webpg_results.js
