@@ -1,4 +1,5 @@
 // Native messaging
+
 /**
     @property {webpg.nativeMessaging} nativeMessaging
         The nativeMessaging object provides helper methods for communicating
@@ -11,7 +12,7 @@ webpg.nativeMessaging = {
     @member webpg.nativeMessaging
   */
   init: function() {
-    // Any init steps needed?
+    this.is_initialized = true;
   },
 
   /**
@@ -21,10 +22,167 @@ webpg.nativeMessaging = {
     @member webpg.nativeMessaging
   */
   portConstructor: function() {
-    try {
-      this.port.disconnect();
-    } catch (e) { }; // Do nothing if disconnect fails
-    var port = chrome.extension.connectNative("org.webpg.nativehost");
+    //try {
+    //  if (webpg.nativeMessaging.current_port)
+    //    webpg.nativeMessaging.current_port.disconnect();
+    //} catch (e) {}; // Do nothing if disconnect fails
+
+    if (webpg.utils.detectedBrowser.product === "chrome") {
+      var port = chrome.extension.connectNative("org.webpg.nativehost");
+      port.process = {
+        killed: false,
+        exitCode: undefined,
+      };
+      port.onDisconnect.addListener(function() {
+        //webpg.utils.debug("disconnect");
+        port.process.killed = true;
+      });
+    } else {
+      let env_vars = {
+        'GNUPGHOME': webpg.utils.env.GNUPGHOME,
+        'GPG_AGENT_INFO': webpg.utils.env.GPG_AGENT_INFO,
+        'HOME': webpg.utils.env.HOME,
+        'USERPROFILE': webpg.utils.env.USERPROFILE,
+        'HOMEDRIVE': webpg.utils.env.HOMEDRIVE,
+        'HOMEPATH': webpg.utils.env.HOMEPATH,
+        'TMP': webpg.utils.env.TMP,
+        'TEMP': webpg.utils.env.TEMP,
+        'TMPDIR': webpg.utils.env.TMPDIR
+      };
+      // delete any keys with undefined values
+      for (k in env_vars) { if (env_vars[k] === undefined) delete env_vars[k]; }
+      let options = {
+        encoding: null,
+        env: env_vars
+      };
+      this.process = webpg.utils.child_process.spawn(
+          '/home/kylehuff/webpgNativeHost/webpg-native-host',
+          ["chrome://webpg-firefox/?system=child_process"],
+          options
+      );
+      var process = this.process,
+          port    = this;
+      var _appendUint8Array = function(buffer1, buffer2) {
+        var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
+        tmp.set(new Uint8Array(buffer1), 0);
+        tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
+        return tmp;
+      };
+      this.buffer = "";
+      this.data = [];
+      this.onMessage = Object();
+      this.disconnect = function() {
+        webpg.utils.emit(process.stdin, "end");
+      };
+      this.bytes = 0;
+      this.intToBytes = function(int) {
+          let byteString='';
+          for (let i=0;i<=3;i++) {
+            byteString+=String.fromCharCode((int>>(8*i))&255);
+          }
+          return byteString;
+      };
+      this.parse = function(data, callback) {
+        var size = 0,
+            begin = [];
+
+        if (data.length < 5 && this.bytes < 1) {
+          webpg.utils.debug("got a short message...", webpg.utils.utf8_decoder.decode(data));
+          this.data = data;
+          return;
+        } else if (this.data.length > 0) {
+          webpg.utils.debug("assmbling previous short message", webpg.utils.utf8_decoder.decode(data));
+          data = _appendUint8Array(this.data.buffer, data.buffer);
+          this.data = [];
+        }
+
+        if (this.bytes > 0) {
+          webpg.utils.debug("still need to collect", port.bytes, "bytes... this message is", data.length, webpg.utils.utf8_decoder.decode(data));
+          //webpg.utils.debug(data.length, port.bytes);
+          this.buffer += webpg.utils.utf8_decoder.decode(data.slice(0, this.bytes));
+          begin = data.slice(this.bytes);
+          this.bytes -= data.length;
+        } else {
+          size = (
+            (data[0]) |
+            (data[1] << 8) |
+            (data[2] << 16) |
+            (data[3] << 24)
+          );
+          webpg.utils.debug("gathering message of ", size, "bytes.", webpg.utils.utf8_decoder.decode(data.slice(4)));
+          this.buffer = webpg.utils.utf8_decoder.decode(data.slice(4, size + 4));
+          this.bytes = size - data.slice(4).length;
+          if (size < data.slice(4).length) {
+            webpg.utils.debug("we should get the beginning of the next message", size, data.slice(4).length, this.bytes);
+            begin = data.slice(this.bytes);
+          }
+        }
+
+        if (this.bytes < 1) {
+          webpg.utils.debug("message is complete, sending message.");
+          let msg = this.buffer;
+          this.buffer = "";
+          this.bytes = 0;
+
+          if (callback)
+            callback(JSON.parse(msg))
+
+          if (begin.length && webpg.utils.utf8_decoder.decode(begin) !== '\n') {
+            webpg.utils.debug("got another message embedded", webpg.utils.utf8_decoder.decode(begin));
+            this.parse(begin, callback);
+          }
+
+        }
+      };
+      this.onMessage.addListener = function(callback) {
+        //webpg.utils.debug("adding listener");
+        process.stdout.on('data', function (data) {
+          let data_array = Uint8Array.from(data, (c) => c.charCodeAt(0));
+          port.parse(data_array, callback);
+        });
+
+        //process.stderr.on('data', function (data) {
+          //webpg.utils.info(data);
+        //});
+
+        process.on('close', function(code) {
+          webpg.utils.debug("pid", process.pid, "closed with exit code", process.exitCode);
+        });
+
+        process.on('error', function(err) {
+          webpg.utils.error(err);
+        });
+      };
+
+      this.postMessage = function(msg) {
+        let msg_string = JSON.stringify(msg)
+        let msg_array = Uint8Array.from(msg_string, (c) => c.charCodeAt(0));
+        let msg_length = this.intToBytes(msg_array.byteLength);
+
+        webpg.utils.debug("posting data to pid:", process.pid, 'for function:', msg_string);
+
+        webpg.utils.emit(process.stdin, 'data', msg_length);
+        webpg.utils.emit(process.stdin, 'data', msg_string);
+      };
+    }
+
+    port.callbacks = {};
+
+    port.callbackRouter = function(result) {
+      let func = result.func || result.type || undefined;
+      if (func === "onkeygencomplete")
+        func = "onkeygenprogress";
+      if (func !== undefined) {
+        let cb = port.callbacks[func] || undefined;
+        delete result.func;
+        if (cb) {
+          cb(result);
+          if (func !== "onstatusprogress" && (func !== "onkeygenprogress" && result.type !== "onkeygencomplete"))
+            delete port.callbacks[func];
+        }
+      }
+    };
+
     return port;
   },
 
@@ -34,7 +192,12 @@ webpg.nativeMessaging = {
     @member webpg.nativeMessaging
   */
   port: function() {
-    return this.portConstructor();
+    if (!this.current_port || (this.current_port.process.killed || this.current_port.process.exitCode !== undefined)) {
+      this.current_port = new webpg.nativeMessaging.portConstructor();
+      this.current_port.onMessage.addListener(this.current_port.callbackRouter);
+    }
+
+    return this.current_port;
   },
 
   /**
@@ -44,7 +207,19 @@ webpg.nativeMessaging = {
     @member webpg.nativeMessaging
   */
   sendMessage: function(msg, callback) {
-    chrome.runtime.sendNativeMessage('org.webpg.nativehost', msg, callback);
+    if (webpg.utils.detectedBrowser.product === "chrome") {
+      chrome.runtime.sendNativeMessage('org.webpg.nativehost', msg, callback);
+    } else {
+      var port = new webpg.nativeMessaging.portConstructor();
+      var cb = function(res) {
+        if (callback)
+          callback(res);
+        port.disconnect();
+      }
+      port.onMessage.addListener(cb);
+      //webpg.nativeMessaging.addListener(port, cb);
+      port.postMessage(msg);
+    }
   },
 
   /**
@@ -55,17 +230,26 @@ webpg.nativeMessaging = {
   addListener: function(port, callback) {
     port.onMessage.addListener(function(msg, port) {
       var result;
+
       try {
         result = JSON.parse(msg);
-      } catch (e) { 
+      } catch (e) {
         if (msg === "queued")
           result = {"status": "queued"};
-        else
-          result = (msg.type === "onstatusprogress") ? JSON.parse(msg.data) : msg;
+        else {
+          try {
+            result = (msg.type === "onstatusprogress") ? JSON.parse(msg.data) : msg;
+          } catch (e) {
+            webpg.utils.error(msg);
+          }
+        }
       }
       callback(result);
+      //webpg.utils.debug(result);
       if (result.status === "complete")// "{\"status\": \"complete\"}")
-        port.disconnect();
+        try {
+          port.disconnect();
+        } catch (e) {};
       return true;
     });
   },
@@ -77,6 +261,22 @@ webpg.nativeMessaging = {
     @member webpg.nativeMessaging
   */
   nativeFunction: function(args, callback) {
+    var port = webpg.nativeMessaging.port(),
+        func = (
+          args.func.search(/get.*Key.*/) > -1 &&
+          (args.params && args.params.async == true)
+        ) ? "onstatusprogress" : args.func,
+        func = (
+          args.func.search(/gpgGen.*Key/) > -1 &&
+          (
+            (args.params && args.params.async == true) ||
+            (args && args.async == true)
+          )
+        ) ? "onkeygenprogress" : func
+
+    port.callbacks[func] = callback;
+    port.postMessage(args);
+    /*return;
     if (callback && (args.async===true || (args.params && args.params.async))) {
       var port = webpg.nativeMessaging.port();
       webpg.nativeMessaging.addListener(port, callback);
@@ -84,16 +284,18 @@ webpg.nativeMessaging = {
     } else {
       webpg.nativeMessaging.sendMessage(args,
         function(res) {
-          if (callback && typeof(callback) === "function")
-            if (chrome.runtime.lastError)
+          if (callback && typeof(callback) === "function") {
+            if (webpg.utils.detectedBrowser.product === "chrome" && chrome.runtime.lastError)
               callback(chrome.runtime.lastError);
             else
               callback(res);
-          else
             return res;
+          } else {
+            return res;
+          }
         }
       );
-    }
+    }*/
   },
 
   getFunctionName: function() {
@@ -119,31 +321,37 @@ webpg.plugin = {
     @member webpg.nativeMessaging
   */
   testValid: function() {
-    // Check if the native messaging port is valid
-    try {
-      chrome.runtime.sendNativeMessage("org.webpg.nativehost", {},
-        function(response) {
-          if (chrome.runtime.lastError) {
-            webpg.plugin.valid = false;
-            var stack = new Error().stack.split("\n").slice(1);
-            var stack_i = stack[0].split("@");
-            var func = (stack[0].search("@") > 1) ? stack_i[0] + "@" : "";
-            var fileAndLine = stack[0].split("/").pop();
-            webpg.plugin.webpg_status = {
-              'valid': false,
-              'error': true,
-              'gpg_error_code': -3,
-              'error_string': chrome.runtime.lastError.message,
-              'file': fileAndLine.split(":")[0],
-              'line': fileAndLine.split(":")[1]
-            };
-          } else {
-            webpg.plugin.valid = true;
+    if (navigator.userAgent.toLowerCase().search("chrome") === -1) {
+      webpg.nativeMessaging.sendMessage({"func": "get_webpg_status"}, function(res) {
+        webpg.plugin.valid = (res && res.plugin && !res.error) ? true : false;
+      });
+    } else {
+      // Check if the native messaging port is valid
+      try {
+        chrome.runtime.sendNativeMessage("org.webpg.nativehost", {},
+          function(response) {
+            if (chrome.runtime.lastError) {
+              webpg.plugin.valid = false;
+              var stack = new Error().stack.split("\n").slice(1);
+              var stack_i = stack[0].split("@");
+              var func = (stack[0].search("@") > 1) ? stack_i[0] + "@" : "";
+              var fileAndLine = stack[0].split("/").pop();
+              webpg.plugin.webpg_status = {
+                'valid': false,
+                'error': true,
+                'gpg_error_code': -3,
+                'error_string': chrome.runtime.lastError.message,
+                'file': fileAndLine.split(":")[0],
+                'line': fileAndLine.split(":")[1]
+              };
+            } else {
+              webpg.plugin.valid = true;
+            }
           }
-        }
-      );
-    } catch (e) {
-      webpg.plugin.valid = false;
+        );
+      } catch (e) {
+        webpg.plugin.valid = false;
+      }
     }
   },
 
@@ -151,8 +359,8 @@ webpg.plugin = {
     window.addEventListener("message", function(event) {
       if (event.data.data.type === eventName ||
           event.data.data.type === "on" + eventName) {
-        webpg.utils.log()("calling " + eventName + " type event for event type: " + event.data.data.type);
-        webpg.utils.log()(event.data.data);
+        webpg.utils.debug("calling " + eventName + " type event for event type: " + event.data.data.type);
+        webpg.utils.debug(event.data.data);
         callback(event.data.data);
       }
     }, useCapture);
@@ -163,14 +371,16 @@ webpg.plugin = {
         Requests the version string from the Native Messaging host
     @member webpg.nativeMessaging
   */
-  get_version: function() {
-    if (navigator.userAgent.toLowerCase().search("chrome") === -1)
-      return;
+  get_version: function(callback) {
+    //if (navigator.userAgent.toLowerCase().search("chrome") === -1)
+    //  return;
 
     webpg.nativeMessaging.sendMessage(
                           {"func": "get_version"},
                           function(res) {
-                            webpg.plugin.version = res;
+                            webpg.plugin.version = res.version || "unknown";
+                            if (callback)
+                              callback(res);
                           })
     return "value for webpg.plugin.get_version placed into webpg.plugin.version";
   }(),
@@ -181,7 +391,7 @@ webpg.plugin = {
     @member webpg.nativeMessaging
   */
   get_webpg_status: function(callback) {
-    webpg.nativeMessaging.sendMessage({"func": "get_webpg_status"},
+    webpg.nativeMessaging.nativeFunction({"func": "get_webpg_status"},
       function(res) {
         if (res)
           webpg.plugin.webpg_status = res;
@@ -199,8 +409,8 @@ webpg.plugin = {
     @member webpg.nativeMessaging
   */
   gpgSetBinary: function(gnupgbin, callback) {
-    webpg.nativeMessaging.sendMessage({"func": "gpgSetBinary",
-      params: gnupgbin},
+    webpg.nativeMessaging.nativeFunction({"func": "gpgSetBinary",
+      params: [gnupgbin]},
       function(res) {
         if (callback)
           callback(res);
@@ -285,7 +495,7 @@ webpg.plugin = {
   gpgSetSubkeyExpire: function(keyid, subkey_idx, subkey_expire, callback) {
     var args = {
       "func": "gpgSetSubkeyExpire",
-      "params": [keyid, subkey_idx, subkey_expire]
+      "params": [keyid, parseInt(subkey_idx, 10), parseInt(subkey_expire, 10)]
     }
     return webpg.nativeMessaging.nativeFunction(args, callback);
   },
@@ -346,6 +556,7 @@ webpg.plugin = {
     @member webpg.nativeMessaging
   */
   getNamedKey: function(name, fastListMode, async, callback) {
+    name = name || "";
     fastListMode = (fastListMode === true) ? true : false;
     async = (async === true) ? true : false;
     var args = {
@@ -396,12 +607,12 @@ webpg.plugin = {
         Requests for <text> to be Symmetrically encypted, and optionally signed with <signers>
     @member webpg.nativeMessaging
   */
-  gpgSymmetricEncrypt: function(text, sign, signers, callback) {
+  gpgSymmetricEncrypt: function(text, signers, callback) {
     var args = {
       "func": "gpgSymmetricEncrypt",
       "params": {
         "text": text,
-        "sign": sign,
+        "sign": (signers && signers.length),
         "signers": signers
       }
     };
@@ -413,13 +624,29 @@ webpg.plugin = {
         Requests for <text> to be Encrypted with <recipient> keys and optionally signed with <signers>
     @member webpg.nativeMessaging
   */
-  gpgEncrypt: function(text, recipients, sign, signers, callback) {
+  gpgEncrypt: function(text, recipients, callback) {
     var args = {
       "func": "gpgEncrypt",
       "params": {
         "text": text,
+        "async": true,
         "recipients": recipients,
-        "sign": sign,
+      }
+    };
+    return webpg.nativeMessaging.nativeFunction(args, callback);
+  },
+
+  /**
+    @method
+        Requests for <text> to be Encrypted with <recipient> keys and signed with <signers>
+    @member webpg.nativeMessaging
+  */
+  gpgEncryptSign: function(text, recipients, signers, callback) {
+    var args = {
+      "func": "gpgEncryptSign",
+      "params": {
+        "text": text,
+        "recipients": recipients,
         "signers": signers
       }
     };
@@ -485,7 +712,7 @@ webpg.plugin = {
     return webpg.nativeMessaging.nativeFunction(args, callback);
   },
 
-  restoreGPGConfig: function(option, value, callback) {
+  restoreGPGConfig: function(callback) {
     var args = {
       "func": "restoreGPGConfig"
     }
@@ -508,7 +735,7 @@ webpg.plugin = {
     }
     return webpg.nativeMessaging.nativeFunction(args, callback);
   },
-  
+
   gpgImportExternalKey: function(name, callback) {
     var args = {
       "func": "gpgImportExternalKey",
@@ -578,7 +805,7 @@ webpg.plugin = {
   gpgAddPhoto: function(keyid, filename, data, callback) {
     var args = {
       "func": "gpgAddPhoto",
-      "params": [keyid, filename, data]
+      "params": {'keyid': keyid, 'filename': filename, 'data': data}
     }
     return webpg.nativeMessaging.nativeFunction(args, callback);
   },
@@ -608,22 +835,39 @@ webpg.plugin = {
   },
 
   gpgEnableKey: function(keyid, callback) {
-    webpg.utils.log()(params);
     var args = {
       "func": "gpgEnableKey",
       "params": [keyid]
     }
-    webpg.utils.log()(args);
     return webpg.nativeMessaging.nativeFunction(args, callback);
   },
 
-  gpgDisableKey: function(params, callback) {
+  gpgDisableKey: function(keyid, callback) {
     var args = {
       "func": "gpgDisableKey",
       "params": [keyid]
     }
     return webpg.nativeMessaging.nativeFunction(args, callback);
   },
+
+  gpgSignUID: function(...args) {
+    var callback = args.pop(-1);
+    var args = {
+      "func": "gpgSignUID",
+      "params": args
+    }
+    return webpg.nativeMessaging.nativeFunction(args, callback);
+  },
+
+  gpgDeleteUIDSign: function(...args) {
+    var callback = args.pop(-1);
+    var args = {
+      "func": "gpgDeleteUIDSign",
+      "params": args
+    }
+    return webpg.nativeMessaging.nativeFunction(args, callback);
+  },
+
 
   sendMessage: function(params, callback) {
     var args = {
@@ -655,6 +899,12 @@ webpg.plugin = {
       "params": [params]
     }
     return webpg.nativeMessaging.nativeFunction(args, callback);
+  },
+
+  deinit: function(callback) {
+    webpg.nativeMessaging.current_port.disconnect();
+    if (callback)
+      callback()
   },
 
 };

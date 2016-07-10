@@ -138,7 +138,7 @@ webpg.dialog = {
                           'threaded': true,
                           'iframe_id': window.name});
                     } else if (webpg.dialog.qs.dialog_type === "export") {
-                        webpg.pubkeylist = webpg.background.webpg.plugin.getPrivateKeyList();
+                        webpg.pubkeylist = webpg.background.webpg.secret_keys;
                     } else if (webpg.dialog.qs.dialog_type === "import") {
                         var import_data = unescape(webpg.dialog.qs.import_data);
                         var pubkeys = import_data.split(webpg.constants.PGPTags.PGP_KEY_END);
@@ -159,14 +159,13 @@ webpg.dialog = {
                         webpg.inline.PGPDataSearch(document, false, false, webpg.jq("#keylist_form")[0]);
                     }
                     webpg.keymanager.keylistprogress(webpg.pubkeylist);
-                } else if (webpg.utils.detectedBrowser.product === "chrome") {
+                } else if (webpg.utils.detectedBrowser.product === "chrome" || webpg.utils.detectedBrowser.product === "firefox") {
                     if (webpg.dialog.qs.dialog_type === "encrypt" || webpg.dialog.qs.dialog_type === "encryptsign") {
                         webpg.utils.sendRequest({
                           "msg": "public_keylist",
                           'fastlistmode': true,
                           'threaded': true
-                        }
-                        );
+                        });
                     } else if (webpg.dialog.qs.dialog_type === "export") {
                         webpg.utils.sendRequest({"msg": "private_keylist"}, function(response) {
                             webpg.pubkeylist = response.result;
@@ -199,12 +198,15 @@ webpg.dialog = {
                     var post_selection = unescape(webpg.dialog.qs.post_selection) || "";
 
                     var iframe_id = window.name;
-                    
-                    var signers = (webpg.dialog.qs.signers!==undefined && 
+
+                    var signers = (webpg.dialog.qs.dialog_type==="encryptsign" &&
+                        webpg.dialog.qs.signers!==undefined &&
                         unescape(webpg.dialog.qs.signers)!==null) ?
                         [unescape(webpg.dialog.qs.signers)] : null;
 
-                    webpg.utils.sendRequest({"msg": "encrypt",
+                    var msg = (webpg.dialog.qs.dialog_type === "encryptsign") ? "encryptSign" : "encrypt";
+
+                    webpg.utils.sendRequest({"msg": msg,
                         "data": unescape(webpg.dialog.qs.encrypt_data),
                         "pre_selection": pre_selection,
                         "post_selection": post_selection,
@@ -273,6 +275,7 @@ webpg.keymanager = {
         data = (data.hasOwnProperty('data')) ? data.data : data;
         if (data.status && data.status === "complete")
           return;
+
         // Check if we recieved a key, or a key list
         //  keylists need to be converted to individual keys and recall this
         //  this method.
@@ -280,12 +283,12 @@ webpg.keymanager = {
             if (data.detail !== undefined &&
                 data.detail.type === "key") {
                 port = "port";
-                data = data.detail;
-          } else if (typeof(data) === "object" &&
-                     Object.keys(data).length < 2) {
-            return;
+                data = data.detail.data;
+          } else if (data.protocol && data.protocol === "OpenPGP") {
+            port = "port";
           }
         }
+
         if (port === undefined) {
             webpg.jq("ul#keylist").empty();
             for (var idx in data) {

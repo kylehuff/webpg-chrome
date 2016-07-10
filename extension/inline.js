@@ -660,7 +660,6 @@ webpg.inline = {
                     'data': scontent,
                     'target_id': results_frame.id },
                     function(response) {
-                        webpg.utils.log("DEBUG")(response);
                         if (response.result.signatures && response.result.data)
                             blockType = webpg.constants.PGPBlocks.PGP_SIGNED_MSG;
                         else
@@ -1061,7 +1060,7 @@ webpg.inline = {
             "border: 1px solid gainsboro; clear: left; line-height: 12px;" +
             "left: -1px; text-shadow: none; text-decoration: none; overflow: visible;" +
             "box-sizing: content-box !important; -moz-box-sizing: content-box !important;" +
-            "-webkit-box-sizing: content-box !important; white-space: normal; z-index: 999;");
+            "-webkit-box-sizing: content-box !important; white-space: normal; z-index: 10;");
 
         toolbar.setAttribute("class", "webpg-toolbar");
         var offset = (element.scrollHeight < element.offsetHeight) ?
@@ -1114,7 +1113,7 @@ webpg.inline = {
                     '&nbsp;' +
                 '</span>' +
             '</span>' +
-            '<span style="z-index:4; font: inherit;">' +
+            '<span style="z-index:20; font: inherit;">' +
                 '<ul class="webpg-action-list">' +
                     '<li class="webpg-action-btn" style="font: inherit;">' +
                         '<a class="webpg-toolbar-encrypt">' +
@@ -1294,8 +1293,13 @@ webpg.inline = {
             var element_value = null;
 
             if (element.offsetLeft != toolbar.offsetLeft && element.style.display !== 'none') {
-                if (webpg.jq(element).css('position') === 'relative')
-                  toolbar.style.zIndex = webpg.jq(element).css('z-index') + 1;
+                if (webpg.jq(element).css('position') === 'relative') {
+                  var zindex = webpg.jq(element).css('z-index');
+                  if (!parseInt(zindex))
+                    zindex = 1;
+                    webpg.jq(element).css('z-index', zindex)
+                  toolbar.style.zIndex = zindex + 1;
+                }
 
                 if (webpg.jq(element).parent().css('position') === 'relative')
                   toolbar.style.marginLeft = element.offsetLeft + 1;

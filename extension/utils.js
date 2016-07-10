@@ -14,6 +14,18 @@ webpg.utils = {
             Initializes the webpg.utils object and setups up required overrides.
     */
     init: function() {
+      if (this.detectedBrowser['product'] === "firefox") {
+        if (!this.mozilla.require) {
+          this.mozilla.COMMONJS_URI = 'resource://gre/modules/commonjs';
+          this.mozilla.require = Components.utils.import(this.mozilla.COMMONJS_URI + '/toolkit/require.js', {}).require;
+          if (!window.require)
+            window.require = this.mozilla.require;
+        }
+        this.env = require('sdk/system/environment').env;
+        this.child_process = require('sdk/system/child_process');
+        this.emit = require('sdk/event/core').emit;
+        this.mozilla.ui = require("sdk/ui");
+      }
     },
 
     /*
@@ -427,14 +439,16 @@ webpg.utils = {
 
     log: function(level) {
         if (!level)
-          level = webpg.constants.LOG_LEVEL.INFO;
+          level = webpg.constants.LOG_LEVELS.INFO;
 
-        if (!webpg.constants.debug.LOG)
+        if (webpg.constants.LOG_LEVEL > 0)
             return function() { return false };
 
-        var context = "WebPG || " + webpg.constants.LOG_LEVEL[level] + ":";
+        var context = "WebPG || " + webpg.constants.LOG_LEVELS[level] + ":";
 
         switch (level) {
+          case 'DEBUG':
+            return Function.prototype.bind.call(console.debug, console, context);
           case 'INFO':
             return Function.prototype.bind.call(console.info, console, context);
           case 'WARN':
@@ -447,11 +461,21 @@ webpg.utils = {
     },
 
     logLevel: function(level) {
-      return webpg.constants.LOG_LEVEL[level];
+      return webpg.constants.LOG_LEVELS[level] || 1;
     },
 
+    trace: function() {
+        if (webpg.constants.LOG_LEVEL < webpg.constants.LOG_LEVELS.TRACE)
+            return function() { return false };
+
+        var context = "WebPG:";
+
+        return Function.prototype.bind.call(console.trace, console, context);
+
+    }(),
+
     debug: function() {
-        if (!webpg.constants.debug.LOG)
+        if (webpg.constants.LOG_LEVEL < webpg.constants.LOG_LEVELS.DEBUG)
             return function() { return false };
 
         var context = "WebPG:";
@@ -461,7 +485,7 @@ webpg.utils = {
     }(),
 
     warn: function() {
-        if (!webpg.constants.debug.LOG)
+        if (webpg.constants.LOG_LEVEL < webpg.constants.LOG_LEVELS.WARN)
             return function() { return false };
 
         var context = "WebPG:";
@@ -470,8 +494,8 @@ webpg.utils = {
 
     }(),
 
-    info: function() {
-        if (!webpg.constants.debug.LOG)
+    info: function(msg) {
+        if (webpg.constants.LOG_LEVEL < webpg.constants.LOG_LEVELS.INFO)
             return function() { return false };
 
         var context = "WebPG:";
@@ -481,7 +505,7 @@ webpg.utils = {
     }(),
 
     error: function() {
-        if (!webpg.constants.debug.LOG)
+        if (webpg.constants.LOG_LEVEL < webpg.constants.LOG_LEVELS.ERROR)
             return function() { return false };
 
         var context = "WebPG:";
@@ -936,6 +960,10 @@ webpg.utils = {
      return pgpmsg;
     },
 
+    utf8_decoder: function() {
+      return new TextDecoder("utf-8");
+    }(),
+
     quoted_printable_encode: function(str) {
       return s.replace(/=/g, "=3D").replace(/[^ -~\r\n\t]/g,
         function(v) { return "=" + v.charCodeAt(0).toString(16); });
@@ -1038,7 +1066,6 @@ webpg.utils = {
             data.sender = {
                 'tab': { 'id': tabID }
             };
-
 
             var request = mozDoc.createTextNode("");
 
@@ -1571,7 +1598,7 @@ webpg.utils = {
                   return msg;
                 msgName = msg.replace("_", "--").replace(/[^\"|^_|^a-z|^A-Z|^0-9]/g, '_');
                 var tmsg = chrome.i18n.getMessage(msgName);
-                if (tmsg.length === 0) {
+                if (tmsg && tmsg.length === 0) {
                     // msg names that begin with a number, i.e. "90 days", they
                     //  are stored as "n90 days"; the following detects this
                     //  conversion and removes the preceeding "n".
@@ -1579,8 +1606,10 @@ webpg.utils = {
                     if (m && m.length === 2)
                         msg = m[1];
                     return msg;
-                } else {
+                } else if (tmsg) {
                     return tmsg;
+                } else {
+                    return msg;
                 }
             } else {
                 // msg names that begin with a number, i.e. "90 days", they
@@ -1905,8 +1934,27 @@ webpg.utils = {
     setStatusBarText: function(statusText) {
         if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
             webpg.utils.sendRequest({'msg': 'updateStatusBar', 'statusText': statusText});
-        } else if (webpg.utils.detectedBrowser.vendor === 'google') {
-            webpg.utils.sendRequest({"msg": "setBadgeText", "badgeText": statusText});
+        }
+        webpg.utils.sendRequest({"msg": "setBadgeText", "badgeText": statusText});
+    },
+
+    addActionBadge: function() {
+        if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
+          webpg.action_button = this.mozilla.ui.ActionButton({
+            id: "webpg-action-btn",
+            label: "WebPG",
+            icon: {
+              '16': "chrome://webpg-firefox/content/skin/images/badges/16x16/webpg.png",
+              '32': "chrome://webpg-firefox/content/skin/images/badges/32x32/webpg.png",
+              '36': "chrome://webpg-firefox/content/skin/images/badges/48x48/webpg.png",
+              '64': "chrome://webpg-firefox/content/skin/images/webpg-64.png"
+            },
+            badge: "",
+            onClick: function(state) {
+              webpg.utils.openNewTab("chrome://webpg-firefox/content/key_manager.html");
+            }
+          });
+
         }
     },
 

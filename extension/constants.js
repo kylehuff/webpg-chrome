@@ -1,6 +1,9 @@
 /* <![CDATA[ */
 if (typeof(webpg)=='undefined') { webpg = {}; }
 
+/*
+    Used to identify global variables added to the window object
+*/
 webpg.globalTester = (function(){
     var fields = {};
     var before = function(w){
@@ -12,7 +15,7 @@ webpg.globalTester = (function(){
     var after = function(w){
         for(var field in w){
             if(!fields[field]){
-                 console.log(field + " has been added");
+                 console.debug(field, window[field]);
             }
         };
 
@@ -28,14 +31,14 @@ webpg.globalTester.before(window);
 */
 webpg.constants = {
 
-    debug: {
-        LOG: true
-    },
+    LOG_LEVEL: 10,
 
-    LOG_LEVEL: {
-      INFO: 'INFO',
-      WARN: 'WARN',
-      ERROR: 'ERROR'
+    LOG_LEVELS: {
+      TRACE: 20,
+      DEBUG: 15,
+      INFO: 10,
+      WARN: 5,
+      ERROR: 1
     },
 
     /*

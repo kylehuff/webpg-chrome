@@ -205,7 +205,7 @@ webpg.options = {
                 webpg.jq("#system-error").find(".trust-desc").text(_("There is a problem with your configuration"));
 
                 webpg.jq('#enable-encrypt-to-self-check')[0].checked =
-                    (webpg.preferences.encrypt_to_self.get());
+                    (webpg.preferences.encrypt_to_self.get() === "true");
 
                 if (webpg.preferences.default_key.get() === "")
                     webpg.jq('#enable-encrypt-to-self-check')[0].disabled = true;
@@ -366,7 +366,7 @@ webpg.options = {
                 webpg.jq('#enable-encrypt-to-self-check').button({
                     'label': (webpg.preferences.default_key.get() === "") ?
                              _("No default key set") :
-                                 (webpg.preferences.encrypt_to_self.get()) ?
+                                 (webpg.preferences.encrypt_to_self.get() === "true") ?
                                  _('Enabled') : _('Disabled')
                     }).click(function(e) {
                         var status;
@@ -577,7 +577,7 @@ webpg.options = {
 //                        }
 //                    });
 //                });
-                
+
                 webpg.plugin.gpgGetPreference("keyserver", function(res) {
                   webpg.jq("#gnupg-keyserver-input").val(res.value);
                 });

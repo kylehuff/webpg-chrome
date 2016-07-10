@@ -103,7 +103,7 @@ webpg.jq(function() {
                 webpg.jq(form)[0].style.display = "none";
                 webpg.jq("#genkey-dialog")[0].style.height = "20";
                 webpg.jq("#genkey-dialog")[0].style.display = "none";
-                response = webpg.plugin.gpgGenKey(
+                webpg.plugin.gpgGenKey(
                   form.publicKey_algo.value,
                   form.publicKey_size.value,
                   form.subKey_algo.value,
@@ -115,7 +115,7 @@ webpg.jq(function() {
                   form.passphrase.value,
                   webpg.keymanager.progressMsg
                 );
-                webpg.jq("#genkey-dialog").dialog("option", "buttons", [{ 
+                webpg.jq("#genkey-dialog").dialog("option", "buttons", [{
                   'text': _("Close"),
                   'click': function() {
                     webpg.jq("#genkey-dialog").dialog("close");
@@ -197,30 +197,31 @@ webpg.jq(function() {
                   if (e.target.result.substr(0,15) != "-----BEGIN PGP")
                     e.target.error = true;
                   if (e.target.error) {
-                    webpg.jq("#import-list").html("<ul><li><strong><span class='error-text' style='padding-right:12px;'>" + 
-                      _("Error") + ":</span>" + 
-                      _("There was an error parsing this PGP file") + 
+                    webpg.jq("#import-list").html("<ul><li><strong><span class='error-text' style='padding-right:12px;'>" +
+                      _("Error") + ":</span>" +
+                      _("There was an error parsing this PGP file") +
                       "</strong></li></ul>"
                     );
                     return false;
                   }
                   var result = {'error': true};
-                  result = webpg.plugin.gpgImportKey(e.target.result);
-                  if (result.considered < 1) {
-                    webpg.utils.log("INFO")(result);
-                    msg = ["<ul><li><strong><span class='error-text' style='padding-right:12px;'>", 
-                      _("Error"), ":</span>", _("There was an error importing any keys in this file"),
-                      "</strong></li>"];
-                    msg.push("</ul>");
-                    webpg.jq("#import-list").html(msg.join(''));
-                  } else {
-                    webpg.jq("#importkey_name")[0].value = '';
-                    webpg.jq("#importkey-dialog").dialog("destroy");
-                    webpg.private_scope.search();
-                    webpg.private_scope.$apply();
-                    webpg.public_scope.search();
-                    webpg.public_scope.$apply();
-                  }
+                  webpg.plugin.gpgImportKey(e.target.result, function(result) {
+                    if (result.considered < 1) {
+                      webpg.utils.log("INFO")(result);
+                      msg = ["<ul><li><strong><span class='error-text' style='padding-right:12px;'>",
+                        _("Error"), ":</span>", _("There was an error importing any keys in this file"),
+                        "</strong></li>"];
+                      msg.push("</ul>");
+                      webpg.jq("#import-list").html(msg.join(''));
+                    } else {
+                      webpg.jq("#importkey_name")[0].value = '';
+                      webpg.jq("#importkey-dialog").dialog("destroy");
+                      webpg.private_scope.search();
+                      webpg.private_scope.$apply();
+                      webpg.public_scope.search();
+                      webpg.public_scope.$apply();
+                    }
+                  });
                 };
               })(f);
               reader.readAsBinaryString(f);
@@ -237,8 +238,8 @@ webpg.jq(function() {
         .parent()
           .animate({"opacity": 1.0}, 1, function() {
             webpg.jq("#importkey_button").attr("disabled", true);
-            webpg.jq(this).find("#import-list").html("<ul><li><strong>" + 
-              _("Please use the button above to open a key file (.asc/.txt)") + 
+            webpg.jq(this).find("#import-list").html("<ul><li><strong>" +
+              _("Please use the button above to open a key file (.asc/.txt)") +
               "</strong></li></ul>"
             );
             webpg.jq(this).find("#importkey_name")[0].addEventListener('change', function(e) {

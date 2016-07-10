@@ -47,10 +47,13 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
     webpg.plugin.getPrivateKeyList(false, true, function(data) {
       if (typeof(data)==="string")
         data = JSON.parse(data);
-      if (data.status === "complete")
+      if (typeof(data.data)==="string")
+        data = JSON.parse(data.data);
+      if (data.status !== undefined)
         data.type = 'progress';
       else
         data.type = 'key';
+      webpg.current_scope = 'private';
       webpg.keymanager.keylistprogress(data);
     });
 
@@ -111,8 +114,6 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
           if (webpg.default_key !== null && key.id === webpg.default_key)
             key.default = true;
           webpg.secret_keys[key.id] = key;
-//          webpg.private_scope.search(webpg.private_scope.currentPage);
-//          webpg.private_scope.$apply();
         } else {
           webpg.jq("#public_progressbar")
             .progressbar({'value': Math.floor(Math.random() * 100)})
@@ -130,7 +131,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
       } else {
         if (port)
           port.disconnect();
-        if (webpg.current_seckey/webpg.secret_keycount >= 1) {
+        if (webpg.current_scope == 'private') {
           webpg.jq("#private_progressbar").css({'display': 'none'});
           webpg.current_seckey = 0;
           webpg.seckeylist_built = true;
@@ -158,7 +159,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
     */
     webpg.keymanager.progressMsg = function(evt) {
       var _ = webpg.utils.i18n.gettext;
-      var msg = (webpg.utils.detectedBrowser.vendor === "mozilla") ? evt.detail : evt;
+      var msg = (webpg.utils.detectedBrowser.vendor === "mozilla") ? evt.detail || evt : evt;
 
       var dialog = (webpg.jq("#genkey-dialog").dialog({'autoOpen': false}).dialog("isOpen") === true) ?
         "#genkey" : (webpg.jq("#gensubkey-dialog").dialog({'autoOpen': false}).dialog("isOpen") === true) ?
@@ -175,29 +176,12 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
           webpg.keymanager.genkey_refresh = true;
           webpg.keymanager.genkey_waiting = false;
           var gen_dialog = dialog + "-dialog";
-          function processResult(new_pkeylist) {
-            var generated_key = (dialog === "#gensubkey") ?
-                webpg.jq(gen_dialog).find("#gensubkey-form")[0].key_id.value
-                    : null;
-            if (dialog === "#genkey") {
-              for (var key in new_pkeylist) {
-                if (webpg.secret_keys.hasOwnProperty(key.id) === false) {
-                  generated_key = key;
-                  break;
-                }
-              }
-            }
-            var subkey_index = (dialog === "#gensubkey") ? 0 : null;
-            webpg.secret_keys = new_pkeylist;
-            webpg.jq(dialog + "-status_detail").remove();
-            webpg.jq(dialog + "-status").remove();
-            webpg.jq(dialog + "-form")[0].reset();
-            webpg.jq(dialog + "-form")[0].style.display="inline-block";
-            webpg.jq("#genkey-dialog, #gensubkey-dialog").dialog().dialog("destroy");
-            webpg.private_scope.search(webpg.private_scope.currentPage);
-            webpg.private_scope.$apply();
-          }
-          webpg.plugin.getPrivateKeyList(true, false, processResult);
+          webpg.jq(dialog + "-status_detail").remove();
+          webpg.jq(dialog + "-status").remove();
+          webpg.jq(dialog + "-form")[0].reset();
+          webpg.jq(dialog + "-form")[0].style.display="inline-block";
+          webpg.jq("#genkey-dialog, #gensubkey-dialog").dialog().dialog("destroy");
+          webpg.keymanager.refresh_private_keylist();
         } else if (data.search("failed") > -1) {
           webpg.keymanager.genkey_waiting = false;
           if (!isNaN(data))
@@ -223,34 +207,75 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
       delete evt, msg;
     }
 
+    webpg.keymanager.refresh_keylist = function(keylist) {
+      webpg.jq(".keylist-accordion > h3[aria-expanded=true]").parent().accordion("option", "active", false);
+      if (keylist == "private")
+        webpg.keymanager.refresh_private_keylist();
+      else
+        webpg.keymangaer.refresh_public_keylist();
+    };
+
+    webpg.keymanager.refresh_private_keylist = function() {
+      webpg.seckeylist_built = false;
+      webpg.jq('#tab-privatekeys').click();
+    }
+
+    webpg.keymanager.refresh_public_keylist = function() {
+      webpg.plugin.setTempGPGOption('no-auto-check-trustdb', null, function(res2) {
+        webpg.plugin.getPublicKeyList(true, true, function(key) {
+          if (key.type && key.type == "key") {
+            webpg.public_keys[key.id] = key;
+          } else if (key.status && key.status == "complete") {
+            webpg.background.webpg.public_keys = webpg.public_keys;
+            webpg.background.webpg.public_keycount = Object.keys(webpg.public_keys).length
+            webpg.public_scope.search(webpg.public_scope.currentPage);
+            webpg.public_scope.$apply();
+            webpg.plugin.restoreGPGConfig(function() {
+              webpg.plugin.getNamedKey("akeythatdoesnotexist", true, true);
+            });
+          }
+        });
+      });
+    }
+
     webpg.jq('#tab-privatekeys')
       .text(_("Private Keys"))
       .click(function() {
-        if (webpg.seckeylist_built !== true)
+        if (webpg.seckeylist_built !== true) {
+          webpg.current_scope = 'private';
           webpg.plugin.getPrivateKeyList(false, true, function(data) {
             if (typeof(data)==="string")
               data = JSON.parse(data);
-            if (data.status === "complete")
+            if (typeof(data.data)==="string")
+              data = JSON.parse(data.data);
+            if (data.status !== undefined) {
               data.type = 'progress';
-            else
+            } else {
               data.type = 'key';
+            }
             webpg.keymanager.keylistprogress(data);
           });
+        }
       });
 
     webpg.jq('#tab-publickeys')
       .text(_("Public Keys"))
       .click(function() {
-        if (webpg.pubkeylist_built !== true)
-          webpg.plugin.getPublicKeyList(true, true, function(data) {
+        if (webpg.pubkeylist_built !== true) {
+          webpg.current_scope = 'public';
+          webpg.plugin.getPublicKeyList(true, true, function(data, dat) {
             if (typeof(data)==="string")
               data = JSON.parse(data);
-            if (data.status === "complete")
-              data.type = 'progress'
-            else
+            if (typeof(data.data)==="string")
+              data = JSON.parse(data.data);
+            if (data.status !== undefined) {
+              data.type = 'progress';
+            } else {
               data.type = 'key';
+            }
             webpg.keymanager.keylistprogress(data);}
           );
+        }
       });
 
     webpg.jq('#tab-search').text(_("Search Keyserver"));
@@ -396,14 +421,18 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
 
       function refresh(params) {
         if (params[1] === 'private') {
-          webpg.secret_keys = webpg.plugin.getPrivateKeyList(false, true);
-          webpg.private_scope.search(webpg.private_scope.currentPage);
-          webpg.private_scope.$apply();
+          webpg.plugin.getPrivateKeyList(false, false, function(keys) {
+            webpg.secret_keys = keys;
+            webpg.private_scope.search(webpg.private_scope.currentPage);
+            webpg.private_scope.$apply();
+          });
         } else {
-          webpg.public_keys[params[2]] = webpg.plugin.getNamedKey(params[2], false);
-          webpg.public_keys[params[2]].secret = false;
-          webpg.public_scope.search(webpg.public_scope.currentPage);
-          webpg.public_scope.$apply();
+          webpg.plugin.getNamedKey(params[2], false, false, function(key) {
+            webpg.public_keys[params[2]] = key;
+            webpg.public_keys[params[2]].secret = false;
+            webpg.public_scope.search(webpg.public_scope.currentPage);
+            webpg.public_scope.$apply();
+          });
         }
       }
 
@@ -413,6 +442,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
             webpg.jq('#enable-' + params[2]).click();
           } else {
             webpg.plugin.gpgDisableKey(params[2], function() { refresh(params); });
+            webpg.preferences.enabled_keys.remove(checked_id);
           }
           break;
 
@@ -485,17 +515,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                     new_expire = 1;
                 }
                 function processResult(res) {
-                  webpg.plugin.setTempGPGOption('no-auto-check-trustdb', null, function(res2) {
-                    webpg.plugin.getNamedKey(params[2], false, false, function(key) {
-                      webpg.plugin.restoreGPGConfig();
-                      if (params[1] === 'private')
-                        key.secret = true;
-                      webpg.secret_keys[params[2]] = key;
-                      webpg.private_scope.search(webpg.private_scope.currentPage);
-                      webpg.private_scope.$apply();
-                      webpg.plugin.getNamedKey("a", true, true);
-                    });
-                  });
+                  webpg.keymanager.refresh_keylist("private");
                 };
                 // set to new expiration here;
                 if (subkey_idx > 0) {
@@ -544,7 +564,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                         webpg.jq(".keylist-accordion h3.ui-accordion-header-active").parent().accordion("option", "active", false);
                         webpg.private_scope.search(webpg.private_scope.currentPage);
                         webpg.private_scope.$apply();
-                        webpg.plugin.getNamedKey("a", true, true);
+                        webpg.plugin.getNamedKey("akeythatdoesnotexist", true, true);
                       } else if (params[1] === "subkey") {
                         if (webpg.secret_keys.hasOwnProperty(params[2]))
                           delete webpg.secret_keys[params[2]].subkeys[params[3]];
@@ -625,22 +645,13 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                 webpg.jq("#adduid-status").html(error)[0].style.display="block";
                 function processResult(result) {
                   if (result.error) { //FIXME
+                    webpg.utils.error(result.error);
                     return;
                   }
                   webpg.jq("#adduid-dialog").dialog("close");
                   webpg.jq("#adduid-form")[0].reset();
                   webpg.jq("#adduid-dialog").dialog("destroy");
-                  webpg.plugin.setTempGPGOption('no-auto-check-trustdb', null, function(res2) {
-                    webpg.plugin.getNamedKey(params[2], false, false, function(key) {
-                      webpg.plugin.restoreGPGConfig();
-                      if (params[1] === 'private')
-                        key.secret = true;
-                      webpg.secret_keys[params[2]] = key;
-                      webpg.private_scope.search(webpg.private_scope.currentPage);
-                      webpg.private_scope.$apply();
-                      webpg.plugin.getNamedKey("a", true, true);
-                    });
-                  });
+                  webpg.keymanager.refresh_keylist("private");
                 }
                 webpg.plugin.gpgAddUID(params[2], form.uid_0_name.value,
                   form.uid_0_email.value, form.uid_0_comment.value, processResult);
@@ -825,7 +836,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                                   .accordion({'active': false})
                                   .accordion({"active": 0});
                               webpg.plugin.restoreGPGConfig();
-                              webpg.plugin.getNamedKey("a", true, true);
+                              webpg.plugin.getNamedKey("akeythatdoesnotexist", true, true);
                           });
                   });
                       }
@@ -948,9 +959,11 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                 var desc = webpg.jq('#revkey-desc')[0].value;
                 var revkey_result = webpg.plugin.gpgRevokeKey(params[2],
                     parseInt(params[3], 10), parseInt(reason, 10), desc);
-                webpg.secret_keys = webpg.plugin.getPrivateKeyList(false, true);
-                webpg.private_scope.search(webpg.private_scope.currentPage);
-                webpg.private_scope.$apply();
+                webpg.plugin.getPrivateKeyList(false, false, function(keys) {
+                  webpg.secret_keys = keys;
+                  webpg.private_scope.search(webpg.private_scope.currentPage);
+                  webpg.private_scope.$apply();
+                });
                 webpg.jq("#revkey-confirm").dialog("close");
               }
             }, {
@@ -1029,7 +1042,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                 false;
             }
             if (modified) {
-              webpg.plugin.getNamedKey(params[2], false, true, function(key) {
+              webpg.plugin.getNamedKey(params[2], false, false, function(key) {
                 if (params[1] === "public") {
                   webpg.public_keys[params[2]] = key;
                   webpg.public_scope.search(webpg.public_scope.currentPage);
@@ -1064,39 +1077,13 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
 
                         function processResult(result) {
                           if (result.error) { //FIXME
-                            webpg.utils.log("ERROR")(result);
+                            webpg.utils.error(result);
                             return;
                           }
-                          webpg.plugin.setTempGPGOption('no-auto-check-trustdb', null, function(res2) {
-                            webpg.plugin.getNamedKey(params[2], false, false, function(key) {
-                              webpg.plugin.restoreGPGConfig();
-                              if (params[1] === 'private')
-                                key.secret = true;
-                              webpg.secret_keys[params[2]] = key;
-                              webpg.private_scope.search(webpg.private_scope.currentPage);
-                              webpg.private_scope.$apply();
-                              webpg.plugin.getNamedKey("a", true, true);
-                            });
-                          });
+                          webpg.keymanager.refresh_keylist(params[1]);
                         }
                         webpg.jq( "#deluid-confirm" ).dialog("destroy");
                         webpg.plugin.gpgDeleteUID(params[2], uid_idx, processResult);
-
-//                        // Remove the Key-ID from the params array, since it
-//                        //  no longer exists
-//                        if (!result.error) {
-//                            if (params[1] === 'private') {
-//                              delete webpg.secret_keys[params[2]].uids[uid_idx];
-//                              webpg.private_scope.search();
-//                              webpg.private_scope.$apply();
-//                            }
-
-//                            delete webpg.public_keys[params[2]].uids[params[3]];
-//                            webpg.public_scope.search();
-//                            webpg.public_scope.$apply();
-//                        } else {
-//                          webpg.utils.log()(result);
-//                        }
                     }
                 }, {
                     'text': _("Cancel"),
@@ -1142,14 +1129,18 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                         var revuid_result = webpg.plugin.gpgRevokeUID(params[2],
                             parseInt(params[3], 10) + 1, parseInt(reason, 10), desc);
                         if (params[1] === 'private') {
-                          webpg.secret_keys = webpg.plugin.getPrivateKeyList(false, true);
-                          webpg.private_scope.search(webpg.private_scope.currentPage);
-                          webpg.private_scope.$apply();
+                          webpg.plugin.getPrivateKeyList(false, false, function(keys) {
+                            webpg.secret_keys = keys;
+                            webpg.private_scope.search(webpg.private_scope.currentPage);
+                            webpg.private_scope.$apply();
+                          });
                         }
-                        webpg.public_keys[params[2]] = webpg.plugin.getNamedKey(params[2], false);
-                        webpg.public_keys[params[2]].secret = false;
-                        webpg.public_scope.search(webpg.public_scope.currentPage);
-                        webpg.public_scope.$apply();
+                        webpg.plugin.getNamedKey(params[2], false, false, function(key) {
+                          webpg.public_keys[params[2]] = key;
+                          webpg.public_keys[params[2]].secret = false;
+                          webpg.public_scope.search(webpg.public_scope.currentPage);
+                          webpg.public_scope.$apply();
+                        })
                         webpg.jq("#revuid-confirm").dialog("close");
                     }
                 }, {
@@ -1225,41 +1216,56 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
               "buttons": [{
                 'text': _("Sign"),
                 'click': function() {
-                  var checked = webpg.jq("#createsig-form").children("input:checked");
-                  var error = false;
-                  for (var item in checked) {
-                   if (checked[item].type === "checkbox") {
-                    var sign_result = webpg.plugin.gpgSignUID(params[2],
-                      parseInt(params[3], 10) + 1,
-                      checked[item].name, 1, 1, 1);
-                    error = (error || (sign_result.error && sign_result.gpg_error_code != 65)); // if this is true, there were errors, leave the dialog open
-                    if (sign_result.error && sign_result.gpg_error_code != 65) {
-                      webpg.jq('#img_' + checked[item].name)[0].src = "../skin/images/cancel.png";
-                      lbl_sign_error = webpg.jq('#lbl-sign-err_' + checked[item].name)[0];
-                      lbl_sign_error.style.display = "inline";
-                      lbl_sign_error.style.color = "#f40";
-                      lbl_sign_error.style.margin = "0 0 0 20px";
-                      webpg.jq(lbl_sign_error).html(sign_result.error_string);
-                      webpg.jq(webpg.jq("button", webpg.jq("#createsig-dialog").parent()).children()[0]).text("Close");
-                      webpg.jq(webpg.jq("button", webpg.jq("#createsig-dialog").parent()).children()[1]).text("Try again");
-                    } else {
-                      refresh = true;
-                      if (params[1] === 'private') {
-                        webpg.secret_keys = webpg.plugin.getPrivateKeyList(false, true);
-                        webpg.private_scope.search(webpg.private_scope.currentPage);
-                        webpg.private_scope.$apply();
-                      }
-                      webpg.public_keys[params[2]] = webpg.plugin.getNamedKey(params[2]);
-                      webpg.public_keys[params[2]].secret = false;
-                      webpg.public_scope.search(webpg.public_scope.currentPage);
-                      webpg.public_scope.$apply();
-                      webpg.jq('#img_' + checked[item].name)[0].src = "../skin/images/check.png";
-                      }
-                      webpg.jq('#img_' + checked[item].name).show().next().hide();
+                  let checked = webpg.jq("#createsig-form").children("input:checked");
+                  let checked_length = checked.length;
+                  let error = false;
+                  for (let item in checked) {
+                    if (checked[item].type === "checkbox") {
+                      var checked_item_name = checked[item].name;
+                      webpg.plugin.gpgSignUID(params[2],
+                                              parseInt(params[3], 10) + 1,
+                                              checked_item_name, 1, 1, 1,
+                                              function(sign_result) {
+                        error = (error || (sign_result.error && sign_result.gpg_error_code != 65)); // if this is true, there were errors, leave the dialog open
+                        if (sign_result.error && sign_result.gpg_error_code != 65) {
+                          webpg.jq('#img_' + checked_item_name)[0].src = "../skin/images/cancel.png";
+                          lbl_sign_error = webpg.jq('#lbl-sign-err_' + checked_item_name)[0];
+                          lbl_sign_error.style.display = "inline";
+                          lbl_sign_error.style.color = "#f40";
+                          lbl_sign_error.style.margin = "0 0 0 20px";
+                          webpg.jq(lbl_sign_error).html(sign_result.error_string);
+                          webpg.jq(webpg.jq("button", webpg.jq("#createsig-dialog").parent()).children()[0]).text("Close");
+                          webpg.jq(webpg.jq("button", webpg.jq("#createsig-dialog").parent()).children()[1]).text("Try again");
+                        } else {
+                          checked_length--;
+                          //alert(checked_length);
+                          refresh = (checked_length == 0);
+                          webpg.jq('#img_' + checked_item_name)[0].src = "../skin/images/check.png";
+                          webpg.jq('#img_' + checked_item_name).show().parent().next().hide().prop("checked", false);
+                          webpg.plugin.setTempGPGOption('no-auto-check-trustdb', null, function(res2) {
+                            webpg.plugin.getNamedKey(params[2], false, false, function(key) {
+                              if (params[1] === 'private') {
+                                webpg.secret_keys[params[2]] = key;
+                                webpg.secret_keys[params[2]].secret = true;
+                                webpg.private_scope.search(webpg.private_scope.currentPage);
+                                webpg.private_scope.$apply();
+                              } else {
+                                webpg.public_keys[params[2]] = key;
+                                webpg.public_scope.search(webpg.public_scope.currentPage);
+                                webpg.private_scope.$apply();
+                              }
+                              if (refresh && webpg.jq("#createsig-form").children("input:checked").length == 0) {
+                                webpg.jq("#createsig-dialog").dialog("destroy");
+                                webpg.plugin.restoreGPGConfig(function() {
+                                  webpg.plugin.getNamedKey("akeythatdoesnotexist", true, true);
+                                });
+                              }
+                            });
+                          });
+                        }
+                      });
                     }
                   }
-                  if (!error && refresh)
-                    webpg.jq("#createsig-dialog").dialog("destroy");
                 }
               }, {
                 'text': _("Cancel"),
@@ -1320,7 +1326,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                             .accordion({'active': false})
                             .accordion({"active": 0});
                         webpg.plugin.restoreGPGConfig();
-                        webpg.plugin.getNamedKey("a", true, true);
+                        webpg.plugin.getNamedKey("akeythatdoesnotexist", true, true);
                       });
                     });
 
@@ -1339,7 +1345,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
           break;
 
         default:
-          webpg.utils.log("WARN")("we don't know what to do with ourselves...");
+          webpg.utils.warn("we don't know what to do with ourselves...");
           alert("You attempted to activate " + params[0] +
             ", but this is not yet implemented...");
           break;
@@ -1487,16 +1493,19 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
             selected_tab = (webpg.keymanager.qs.tab && webpg.keymanager.qs.tab > -1) ? webpg.keymanager.qs.tab : 0,
             selected_tab = parseInt(selected_tab, 10);
         scope.openkey = webpg.keymanager.qs.openkey;
-        scope.opensubkey = parseInt(webpg.keymanager.qs.opensubkey, 10);
+        scope.opensubkey = parseInt(webpg.keymanager.qs.opensubkey, 10) || -1;
         webpg.jq(elm[0]).tabs({'active': selected_tab, 'selected': selected_tab});
-        if (selected_tab == 1)
+        if (selected_tab == 1) {
+          webpg.current_scope = 'public';
           webpg.plugin.getPublicKeyList(true, true, function(data) {
-            if (data.status === "complete")
+            if (data.status !== undefined)
               data.type = 'progress'
             else
               data.type = 'key';
-            webpg.keymanager.keylistprogress(data);}
-          );
+
+            webpg.keymanager.keylistprogress(data);
+          });
+        }
       }
     };
   })
@@ -1520,7 +1529,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
         // Create the primary key accordion
         jqueryElm.accordion(pKeyAcOptions);
 
-        if (scope.openkey === scope.key.id)
+        if (scope.openkey === scope.key.id || webpg.keymanager.openkey === scope.key.id)
           jqueryElm.accordion({'active': 0});
 
         // Fix the aria-controls (otherwise aria-controls contains "{{ key.id }}"
@@ -1534,6 +1543,9 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
           if (jqueryElm.accordion("option", "active") === false)
             return;
 
+          if (!scope.key.id)
+            return;
+
           var key,
               uid,
               sig;
@@ -1543,47 +1555,40 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
               key = scope.key;
             else // Fetch the entire key
               key = data;
-            
+
             var keyid = scope.key.id;
 
-//          // If this key is a secret key, we aready have the entire key
-//          if (scope.$parent.ktype === 'private')
-//            key = scope.key;
-//          else // Fetch the entire key
-//            key = webpg.plugin.getNamedKey(scope.key.id);
+            if (Object.keys(key).length > 0) {
+              for (uid in key.uids) {
+                key.uids[uid].missing_signatures = [];
+                key.uids[uid].revoked_signatures = [];
 
-          if (Object.keys(key).length > 0) {
-            for (uid in key.uids) {
-              key.uids[uid].missing_signatures = [];
-              key.uids[uid].revoked_signatures = [];
-
-              for (sig in key.uids[uid].signatures) {
-                if (Object.keys(webpg.public_keys).indexOf(key.uids[uid].signatures[sig].keyid) === -1) {
-                  key.uids[uid].missing_signatures.push(key.uids[uid].signatures[sig].keyid);
-                  if (!key.secret)
-                    delete key.uids[uid].signatures[sig];
-                } else {
-                  if (key.uids[uid].signatures[sig] && key.uids[uid].signatures[sig].revoked === true) {
-                    key.uids[uid].revoked_signatures.push(key.uids[uid].signatures[sig].keyid);
-                  } else if (key.uids[uid].revoked_signatures.indexOf(key.uids[uid].signatures[sig].keyid) !== -1) {
-                    delete key.uids[uid].signatures[sig];
+                for (sig in key.uids[uid].signatures) {
+                  if (Object.keys(webpg.public_keys).indexOf(key.uids[uid].signatures[sig].keyid) === -1) {
+                    key.uids[uid].missing_signatures.push(key.uids[uid].signatures[sig].keyid);
+                    if (!key.secret)
+                      delete key.uids[uid].signatures[sig];
+                  } else {
+                    if (key.uids[uid].signatures[sig] && key.uids[uid].signatures[sig].revoked === true) {
+                      key.uids[uid].revoked_signatures.push(key.uids[uid].signatures[sig].keyid);
+                    } else if (key.uids[uid].revoked_signatures.indexOf(key.uids[uid].signatures[sig].keyid) !== -1) {
+                      delete key.uids[uid].signatures[sig];
+                    }
                   }
                 }
               }
+
+              if (scope.$parent.ktype === 'private')
+                webpg.secret_keys[keyid] = key;
+
+              webpg.public_keys[keyid] = key;
+
             }
-
-            if (scope.$parent.ktype === 'private')
-              webpg.secret_keys[keyid] = key;
-
-            webpg.public_keys[keyid] = key;
-
-          }
 
           webpg.plugin.gpgGetPhotoInfo(key.id, function(photo_info) {
             key.photos_provided = photo_info.photos_provided;
             key.photos = photo_info.photos;
             key.photos_path = photo_info.photos_path;
-            console.log(photo_info);
 
             if (key.photos_provided > 0 && webpg.jq(e.target).hasClass("photo") === false) {
               // When a primary key accordion header is clicked open, do the
@@ -1592,6 +1597,8 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
               //  link for details about this process -
               //  https://github.com/kylehuff/webpg-npapi/wiki/Photo-Support#displaying-photos
               webpg.plugin.getTemporaryPath(function(path) {
+                if (path && path.result)
+                  path = path.result;
                 if (window.navigator.platform.toLowerCase().indexOf("win") > -1)
                   path += "\\key_photos\\";
                 else
@@ -1600,7 +1607,9 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                 var count = webpg.utils.escape(key.photos_provided);
                 var index = webpg.utils.escape(key.nuids);
                 var photo_viewer = [];
-                if (webpg.background.webpg.plugin.webpg_status.plugin.type !== "NATIVEHOST") {
+                var plugin_type = webpg.background.webpg.plugin.webpg_status.plugin.type;
+                var native_api = (plugin_type == "NATIVEHOST" || plugin_type == "NODEJS");
+                if (native_api == false) {
                   var batch_name = "WEBPG_" + new Date().getTime() + ".bat";
                   if (window.navigator.platform.toLowerCase().indexOf("win") > -1)
                     photo_viewer.push("cmd /V:ON /E:ON /C @SETLOCAL & @ECHO OFF & ",
@@ -1696,7 +1705,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                             webpg.public_keys[params[2]].nuids + 1;
                             function processResult(result) {
                               if (result.error) { //FIXME
-                                webpg.utils.log("ERROR")(result);
+                                webpg.utils.error(result);
                                 return;
                               }
                               webpg.plugin.setTempGPGOption('no-auto-check-trustdb', null, function(res2) {
@@ -1707,7 +1716,7 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                                   webpg.secret_keys[params[2]] = key;
                                   webpg.private_scope.search(webpg.private_scope.currentPage);
                                   webpg.private_scope.$apply();
-                                  webpg.plugin.getNamedKey("a", true, true);
+                                  webpg.plugin.getNamedKey("akeythatdoesnotexist", true, true);
                                 });
                               });
                             }
@@ -2350,17 +2359,28 @@ webpg.keymanager = angular.module("webpg.keymanager", [])
                 {
                     'text': _("Delete"),
                     'click': function() {
-                        var delsig_result = webpg.plugin.
-                            gpgDeleteUIDSign(params[2], parseInt(params[3], 10) + 1,
-                            parseInt(params[4], 10) + 1);
-                        if (params[1] === 'private') {
-                          webpg.secret_keys = webpg.plugin.getPrivateKeyList(false, true);
-                          webpg.private_scope.search(webpg.private_scope.currentPage);
-                          webpg.private_scope.$apply();
-                        }
-                        webpg.public_keys[params[2]] = webpg.plugin.getNamedKey(params[2], false);
-                        webpg.public_scope.search(webpg.public_scope.currentPage);
-                        webpg.public_scope.$apply();
+                        webpg.plugin.gpgDeleteUIDSign(
+                          params[2], parseInt(params[3], 10) + 1,
+                          parseInt(params[4], 10) + 1, function(delsig_result) {
+                            webpg.plugin.setTempGPGOption('no-auto-check-trustdb', null, function(res2) {
+                              webpg.plugin.getNamedKey(params[2], false, false, function(key) {
+                                if (params[1] === 'private') {
+                                  webpg.secret_keys[params[2]] = key;
+                                  webpg.secret_keys[params[2]].secret = true;
+                                  webpg.private_scope.search(webpg.private_scope.currentPage);
+                                  webpg.private_scope.$apply();
+                                } else {
+                                  webpg.public_keys[params[2]] = key;
+                                  webpg.public_scope.search(webpg.public_scope.currentPage);
+                                  webpg.private_scope.$apply();
+                                }
+                                webpg.plugin.restoreGPGConfig(function() {
+                                  webpg.plugin.getNamedKey("akeythatdoesnotexist", true, true);
+                                });
+                              });
+                            });
+                          }
+                        );
                         webpg.jq("#delsig-confirm").dialog("close");
                     }
                 }, {

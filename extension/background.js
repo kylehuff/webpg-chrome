@@ -129,34 +129,28 @@ webpg.background = {
         if (webpg.utils.detectedBrowser.vendor === 'google' &&
             webpg.utils.detectedBrowser.version &&
             parseInt(webpg.utils.detectedBrowser.version.split('.')[0]) >= 35) { // Check if this Chrome/Chromium version 35 or higher
-            webpg.nativeMessaging.init();
             webpg.plugin.testValid();
-        } else {
-            webpg.plugin = document.getElementById("webpgPlugin");
-            webpg.plugin.webpg_status = webpg.plugin.get_webpg_status();
-            if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
-                try {
-                    webpg.plugin.QueryInterface(Components.interfaces.nsIObjectLoadingContent).playPlugin();
-                } catch (err) {
-                }
-            }
         }
+
+        webpg.nativeMessaging.init();
+        webpg.plugin.testValid();
 
         webpg.plugin.get_webpg_status(function(res) {
           webpg.plugin.webpg_status = res;
-          webpg.utils.log('INFO')("WebPG NPAPI Plugin valid: " + webpg.plugin.valid + "; version " + webpg.plugin.version);
+          webpg.plugin.valid = (res && res.plugin && !res.error) ? true : false;
+          webpg.utils.info("WebPG NPAPI Plugin valid: " + webpg.plugin.valid + "; version " + webpg.plugin.version);
 
           // Set the users preferred option for the GnuPG binary
           if (webpg.plugin.valid) {
               var gnupgbin = webpg.preferences.gnupgbin.get();
               if (gnupgbin.length > 1) {
                   webpg.plugin.gpgSetBinary(gnupgbin);
-                  webpg.utils.log('INFO')("Setting GnuPG binary to user value: '" + gnupgbin + "'");
+                  webpg.utils.info("Setting GnuPG binary to user value: '" + gnupgbin + "'");
               }
               var gpgconf = webpg.preferences.gpgconf.get();
               if (gpgconf.length > 1) {
                   webpg.plugin.gpgSetGPGConf(gpgconf);
-                  webpg.utils.log('INFO')("Setting GPGCONF binary to user value: '" + gpgconf + "'");
+                  webpg.utils.info("Setting GPGCONF binary to user value: '" + gpgconf + "'");
               }
           }
 
@@ -165,12 +159,12 @@ webpg.background = {
             this.banner_version = "9.4";
 
             if (gnupghome.length > 0)
-                webpg.utils.log('INFO')("Setting GnuPG home directory to user value: '" + gnupghome + "'");
+                webpg.utils.info("Setting GnuPG home directory to user value: '" + gnupghome + "'");
             if (webpg.plugin.webpg_status.openpgp_detected)
-                webpg.utils.log('INFO')("Protocol OpenPGP is valid; v" + webpg.plugin.webpg_status.OpenPGP.version);
+                webpg.utils.info("Protocol OpenPGP is valid; v" + webpg.plugin.webpg_status.OpenPGP.version);
             if (webpg.plugin.webpg_status.gpgconf_detected)
-                webpg.utils.log('INFO')("Protocol GPGCONF is valid; v" + webpg.plugin.webpg_status.GPGCONF.version);
-            //webpg.plugin.gpgSetHomeDir(gnupghome);
+                webpg.utils.info("Protocol GPGCONF is valid; v" + webpg.plugin.webpg_status.GPGCONF.version);
+            webpg.plugin.gpgSetHomeDir(gnupghome);
             webpg.plugin.addEventListener("keygenprogress", webpg.background.gpgGenKeyProgress, false);
             webpg.plugin.addEventListener("keygencomplete", webpg.background.gpgGenKeyComplete, false);
             webpg.plugin.addEventListener("statusprogress", webpg.background.keylistProgress, false);
@@ -199,7 +193,7 @@ webpg.background = {
                   webpg.background.tabIndex = 100;
                   webpg.utils.tabListener.add();
               }
-              webpg.utils.log('INFO')("WebPG background initialized");
+              webpg.utils.info("WebPG background initialized");
             });
             // Display the welcome notice if appropriate
             var banner_version = webpg.preferences.banner_version.get();
@@ -267,8 +261,8 @@ webpg.background = {
           return true;
 
         // refresh the value of gnupghome
-        var gnupghome = webpg.preferences.gnupghome.get() || null,
-            tabID = -1,
+        var tabID = -1,
+            gnupghome = webpg.preferences.gnupghome.get(),
             bypassSendResult = false;
 
         // set the default response to null
@@ -336,7 +330,10 @@ webpg.background = {
                 break;
 
             case 'default_key':
-                response = webpg.preferences.default_key.get();
+                webpg.preferences.default_key.get(function(response) {
+                  sendResponse({'result': response});
+                });
+                bypassSendResult = true;
                 break;
 
             case 'public_keylist':
@@ -372,10 +369,17 @@ webpg.background = {
 
             case 'setBadgeText':
                 try {
+                  if (webpg.utils.detectedBrowser.vendor === 'mozilla') {
+                    if (!webpg.utils.mozilla.tabs)
+                      webpg.utils.mozilla.tabs = webpg.utils.mozilla.require("sdk/tabs");
+                    webpg.action_button.state(webpg.utils.mozilla.tabs.activeTab, {'badge': request.badgeText});
+                  } else {
                     chrome.browserAction.setBadgeText({'text': request.badgeText, 'tabId': sender.tab.id});
+                  }
                 } catch (err) {
-                    webpg.utils.log('ERROR')(err.message);
+                  webpg.utils.error(err);
                 }
+
                 break;
 
             case 'updateStatusBar':
@@ -387,7 +391,7 @@ webpg.background = {
                 break;
 
             case 'decrypt':
-                webpg.utils.log('INFO')("gpgDecrypt requested");
+                webpg.utils.info("gpgDecrypt requested");
                 webpg.plugin.gpgDecrypt(request.data, function(response) {
                   response.original_text = request.data;
                   if (response.error === true)
@@ -417,35 +421,40 @@ webpg.background = {
             case 'sign':
                 var signers = (typeof(request.signers)!=='undefined' &&
                         request.signers !== null &&
-                        request.signers.length > 0) ? request.signers :
-                        webpg.preferences.default_key.get() !== "" ?
-                            [webpg.preferences.default_key.get()] : [];
-                webpg.plugin.gpgSignText(request.selectionData.selectionText,
-                    signers, 2, function(sign_status) {
-                      response = sign_status;
-                      if (!sign_status.error && sign_status.data.length > 0) {
-                        if (typeof(request.message_event)==='undefined' ||
-                            request.message_event !== "gmail" ||
-                            request.message_event !== "roundcube") {
-                          webpg.utils.tabs.sendRequest(sender.tab, {
-                            'msg': 'insertEncryptedData',
-                            'data': sign_status.data,
-                            'pre_selection' : (request.selectionData.pre_selection || ""),
-                            'post_selection' : (request.selectionData.post_selection || ""),
-                            "iframe_id": request.iframe_id
-                          });
+                        request.signers.length > 0) ? request.signers : null;
+                webpg.preferences.default_key.get(function(default_key) {
+                  if (signers == null)
+                    signers = (default_key) ? [default_key.value] || [] : [];
+                  if (signers.length > 0) {
+                    webpg.plugin.gpgSignText(request.selectionData.selectionText,
+                      signers, 2, function(sign_status) {
+                        response = sign_status;
+                        if (!sign_status.error && sign_status.data.length > 0) {
+                          if (typeof(request.message_event)==='undefined' ||
+                              request.message_event !== "gmail" ||
+                              request.message_event !== "roundcube") {
+                            webpg.utils.tabs.sendRequest(sender.tab, {
+                              'msg': 'insertEncryptedData',
+                              'data': sign_status.data,
+                              'pre_selection' : (request.selectionData.pre_selection || ""),
+                              'post_selection' : (request.selectionData.post_selection || ""),
+                              "iframe_id": request.iframe_id
+                            });
+                          }
                         }
                       }
-                    }
-                );
+                    );
+                  }
+                });
                 break;
 
             case 'verify':
+                webpg.utils.info("gpgVerify requested");
                 var content,
                     plaintext = (request.plaintext!==undefined) ?
                       request.plaintext : null;
                 function checkSignatures(response) {
-                  if (response.signatures === null) {
+                  if (response.signatures === undefined || response.signatures === null) {
                     sendResponse({'result': response});
                     return true;
                   }
@@ -507,7 +516,6 @@ webpg.background = {
                   processMessage();
                 };
                 if (request.hasOwnProperty('encoding')) {
-                  console.log(request);
                   if (request.encoding === 'quoted-printable')
                     webpg.plugin.quotedPrintableDecode(request.data, function(res) {
                       cleanData(res, content);
@@ -523,7 +531,7 @@ webpg.background = {
                 break;
 
             case 'async-gpgGenKey':
-                webpg.utils.log('INFO')("async-gpgGenKey requested");
+                webpg.utils.info("async-gpgGenKey requested");
                 webpg.plugin.gpgGenKey(
                         request.data.publicKey_algo,
                         request.data.publicKey_size,
@@ -539,7 +547,7 @@ webpg.background = {
                 break;
 
             case 'async-gpgGenSubKey':
-                webpg.utils.log('INFO')("async-gpgGenSubKey requested");
+                webpg.utils.info("async-gpgGenSubKey requested");
                 webpg.plugin.gpgGenSubKey(
                     request.data.key_id,
                     request.data.subKey_algo,
@@ -553,7 +561,7 @@ webpg.background = {
                 break;
 
             case 'doKeyImport':
-                webpg.utils.log('INFO')("doKeyImport requested");
+                webpg.utils.info("doKeyImport requested");
                 request.bypassSendResult = true;
                 function processResult(import_status) {
                   if (import_status.error || !import_status.imports ||
@@ -569,35 +577,20 @@ webpg.background = {
                     sendResponse({'result': {'import_status': import_status}});
                   }
                   if (request.temp_context) {
-                      if (webpg.plugin.webpg_status.plugin.type !== "NATIVEHOST") {
-                        webpg.plugin.gpgSetHomeDir(gnupghome);
-                      } else {
                         webpg.plugin.gpgSetHomeDir(gnupghome, processResultCallback);
-                      }
                   }
                 };
                 function attemptImport(original_homedir) {
                       try {
-                        if (webpg.plugin.webpg_status.plugin.type !== "NATIVEHOST") {
-                          var import_status = webpg.plugin.gpgImportKey(request.data);
-                          processResult(import_status);
-                        } else {
                           webpg.plugin.gpgImportKey(request.data, processResult);
-                        }
                       } catch (err) {
-                          webpg.utils.log('ERROR')(err);
+                          webpg.utils.error(err);
                       }
                 };
                 if (request.temp_context) {
                     webpg.plugin.getTemporaryPath(function(temp_path) {
-                      if (!temp_path)
-                          temp_path = "/tmp/.gnupg";
-                      if (webpg.plugin.webpg_status.plugin.type !== "NATIVEHOST") {
-                        webpg.plugin.gpgSetHomeDir(temp_path);
-                        attemptImport();
-                      } else {
-                        webpg.plugin.gpgSetHomeDir(temp_path, attemptImport);
-                      }
+                      temp_path = temp_path.result || temp_path || "/tmp/.gnupg";
+                      webpg.plugin.gpgSetHomeDir(temp_path, attemptImport);
                     });
                 } else {
                   attemptImport();
@@ -614,28 +607,23 @@ webpg.background = {
                 break;
 
             case 'encrypt':
-                var sign = (typeof(request.sign)==='undefined' ||
-                      request.sign === false) ? 0 : 1;
-                var signers = (typeof(request.signers)!=='undefined' &&
-                        request.signers !== null &&
-                        request.signers.length > 0) ? request.signers : [];
+                webpg.utils.info("encrypt requested");
                 if (request.recipients.length > 0) {
-                    webpg.utils.log('INFO')(request.data, request.recipients);
                     webpg.plugin.gpgEncrypt(
                         request.data,
                         request.recipients,
-                        sign,
-                        signers,
                         function(response) {
-                          webpg.utils.log('INFO')(response);
-                          if (typeof(request.message_event)==='undefined' || request.message_event !== "gmail")
+                          webpg.utils.info(response);
+                          if (typeof(request.message_event)==='undefined' || request.message_event !== "gmail") {
                               webpg.utils.tabs.sendRequest(sender.tab, {
                                   "msg": "insertEncryptedData",
                                   "data": (response.data) ? response.data : null,
                                   "pre_selection": request.pre_selection,
                                   "post_selection": request.post_selection,
                                   "target_id": request.iframe_id,
-                                  "iframe_id": request.iframe_id});
+                                  "iframe_id": request.iframe_id
+                              });
+                          }
                         }
                     );
                     request.bypassSendResult = true;
@@ -646,29 +634,41 @@ webpg.background = {
                 break;
 
             case 'encryptSign':
-                webpg.utils.log('INFO')("encrypt requested");
+                webpg.utils.info("encrypt-sign requested");
+                webpg.utils.info(request);
                 if (request.recipients && request.recipients.length > 0) {
-                    response = webpg.plugin.gpgEncrypt(request.data,
-                        request.recipients, 1, request.signers);
+                    response = webpg.plugin.gpgEncryptSign(
+                        request.data,
+                        request.recipients,
+                        request.signers,
+                        function(response) {
+                          webpg.utils.info(response);
+                          if (typeof(request.message_event)==='undefined' || request.message_event !== "gmail") {
+                            webpg.utils.tabs.sendRequest(sender.tab, {
+                                "msg": "insertEncryptedData",
+                                "data": (response.data) ? response.data : null,
+                                "pre_selection": request.pre_selection,
+                                "post_selection": request.post_selection,
+                                "target_id": request.iframe_id,
+                                "iframe_id": request.iframe_id
+                            });
+                          }
+                        }
+                    );
+                    return true;
                 } else {
                     response = "";
                 }
-                if (typeof(request.message_event)==='undefined' ||
-                request.message_event !== "gmail" &&
-                response && !response.error)
-                    webpg.utils.tabs.sendRequest(sender.tab, {
-                        "msg": "insertEncryptedData", "data": response.data,
-                        "iframe_id": request.iframe_id});
                 break;
 
             case 'symmetricEncrypt':
-                webpg.utils.log('INFO')("symmetric encryption requested");
+                webpg.utils.info("symmetric encryption requested");
                 var signers = (typeof(request.signers)!=='undefined' &&
                         request.signers !== null &&
                         request.signers.length > 0) ? request.signers : [];
                 var sign = (signers.length > 0) ? 1 : 0;
-                webpg.plugin.gpgSymmetricEncrypt(request.data, sign, signers, function(response) {
-                  webpg.utils.log('INFO')(request);
+                response = webpg.plugin.gpgSymmetricEncrypt(request.data, signers, function(response) {
+                  webpg.utils.info(request);
                   if (request.message_event === "context" || request.message_event === "editor")
                       webpg.utils.tabs.sendRequest(sender.tab, {
                           "msg": "insertEncryptedData",
@@ -677,6 +677,7 @@ webpg.background = {
                           "post_selection": request.post_selection,
                           "iframe_id": request.iframe_id});
                 });
+                return true;
                 break;
 
             case 'sendtoiframe':
@@ -689,31 +690,40 @@ webpg.background = {
                 break;
 
             case 'deleteKey':
-                webpg.utils.log('INFO')("deleteKey requested");
-                if (request.temp_context) {
-                    temp_path = webpg.plugin.getTemporaryPath();
-                    if (!temp_path)
-                        temp_path = "/tmp/.gnupg";
-                    webpg.plugin.gpgSetHomeDir(temp_path);
+                webpg.utils.info("deleteKey requested");
+                var restoreHome = function() {
+                  if (request.temp_context) {
+                      webpg.plugin.gpgSetHomeDir(gnupghome);
+                  }
                 }
-                if (request.key_type === 'public_key'){
-                    response = webpg.plugin.gpgDeletePublicKey(request.key_id);
-                } else if (request.key_type === 'private_key'){
-                    response = webpg.plugin.gpgDeletePrivateKey(request.key_id);
+                var doDelete = function() {
+                  if (request.key_type === 'public_key'){
+                    webpg.plugin.gpgDeletePublicKey(request.key_id, function(res) {
+                      restoreHome();
+                    });
+                  } else if (request.key_type === 'private_key'){
+                    response = webpg.plugin.gpgDeletePrivateKey(request.key_id, function(res) {
+                      restoreHome();
+                    });
+                  }
                 }
                 if (request.temp_context) {
-                    webpg.plugin.gpgSetHomeDir(gnupghome);
+                    webpg.plugin.getTemporaryPath(function(path) {
+                      path = path.result || path || "/tmp/.gnupg";
+                      webpg.plugin.gpgSetHomeDir(path, doDelete);
+                    });
+                } else {
+                  doDelte();
                 }
                 break;
 
             case 'getNamedKey':
-                webpg.utils.log('INFO')("getNamedKey requested");
+                webpg.utils.info("getNamedKey requested");
                 request.bypassSendResult = true;
                 function getNamedKey() {
                   webpg.plugin.getNamedKey(request.key_id, false, false, function(response) {
                     if (request.temp_context) {
-                      if (webpg.plugin.webpg_status.plugin.type !== "NATIVEHOST") {
-                        webpg.plugin.gpgSetHomeDir(gnupghome);
+                      webpg.plugin.gpgSetHomeDir(gnupghome, function() {
                         webpg.plugin.getNamedKey(request.key_id, false, false, function(real_keyring_item) {
                           for (var subkey in real_keyring_item.subkeys) {
                             var subkey_id = real_keyring_item.
@@ -726,41 +736,18 @@ webpg.background = {
                           }
                           sendResponse({'result': response});
                         });
-                      } else {
-                        webpg.plugin.gpgSetHomeDir(gnupghome, function() {
-                          webpg.plugin.getNamedKey(request.key_id, false, false, function(real_keyring_item) {
-                            for (var subkey in real_keyring_item.subkeys) {
-                              var subkey_id = real_keyring_item.
-                                subkeys[subkey].subkey;
-                              if (subkey_id === request.key_id) {
-                                response.in_real_keyring = true;
-                                response.real_keyring_item =
-                                    real_keyring_item;
-                              }
-                            }
-                            sendResponse({'result': response});
-                          });
-                        });
-                      }
+                      });
                     }
                   });
                 }
                 if (request.temp_context) {
-                  if (webpg.plugin.webpg_status.plugin.type !== "NATIVEHOST") {
-                    var temp_path = webpg.plugin.getTemporaryPath();
+                  webpg.plugin.getTemporaryPath(function(temp_path) {
                     if (!temp_path)
                         temp_path = "/tmp/.gnupg";
-                    webpg.plugin.gpgSetHomeDir(temp_path);
-                    getNamedKey();
-                  } else {
-                    webpg.plugin.getTemporaryPath(function(temp_path) {
-                      if (!temp_path)
-                          temp_path = "/tmp/.gnupg";
-                      webpg.plugin.gpgSetHomeDir(temp_path, function() {
-                        getNamedKey();
-                      });
+                    webpg.plugin.gpgSetHomeDir(temp_path, function() {
+                      getNamedKey();
                     });
-                  }
+                  });
                 } else {
                   getNamedKey();
                 }
@@ -818,6 +805,11 @@ webpg.background = {
                                         "msg": "insertPublicKey", "data": response,
                                         "iframe_id": request.iframe_id
                                     });
+                                } else if (res.result) {
+                                    webpg.utils.tabs.sendRequest(sender.tab, {
+                                        "msg": "insertPublicKey", "data": res.result,
+                                        "iframe_id": request.iframe_id
+                                    });
                                 }
                             }
                         );
@@ -839,7 +831,7 @@ webpg.background = {
 
             case 'log':
                 response = null;
-                webpg.utils.log('INFO')("Remote log request recieved; ", request.data);
+                webpg.utils.info("Remote log request recieved; ", request.data);
                 break;
 
             case 'create_menu':
@@ -872,7 +864,7 @@ webpg.background = {
                 break;
 
             case 'sendPGPMIMEMessage':
-                webpg.utils.log('INFO')(request);
+                webpg.utils.info(request);
                 webpg.plugin.sendMessage(request.params, function(response) {
                   sendResponse({'result': response});
                 });
@@ -896,11 +888,26 @@ webpg.background = {
     */
     keylistProgress: function(data) {
       var msgType;
+
+      if (typeof(data.data)==="string")
+        data = JSON.parse(data.data);
+
       if (typeof(data) === "string")
         msgType = (data.substr(2, 6) === "status") ? "progress" : "key";
-      else
-        msgType = data.type
+      else if (data.fingerprint) {
+        msgType = "key";
+        data.type = "key";
+      } else {
+        msgType = data.type;
+      }
+
       if (webpg.utils.detectedBrowser.vendor === "mozilla") {
+          if (!("type" in data))
+            return;
+
+          data.type = (data.type.substr(2, 7) === "keylist") ? "progress" :
+            (data.status) ? data.status : "key";
+
           var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                      .getService(Components.interfaces.nsIWindowMediator);
           var enumerator = wm.getEnumerator(null);
@@ -908,7 +915,7 @@ webpg.background = {
 
           if (webpg.background.requesting_iframe !== undefined) {
               win = webpg.utils.getFrameById(webpg.background.requesting_iframe);
-              var contentWindow = win.contentWindow;
+              var contentWindow = win.contentWindow || win;
               var doc = win.contentDocument;
           } else {
               while(enumerator.hasMoreElements()) {
@@ -929,23 +936,12 @@ webpg.background = {
               delete webpg.background.requesting_iframe;
 
           if (doc) {
-              // Attempt to remove the old listener
-              try {
-                  doc.body.removeEventListener('gpgkeylistprogress', contentWindow.webpg.keymanager.keylistprogress);
-              } catch (err) {
-                  // We don't really care if it didn't already exist
-                  webpg.utils.log('INFO')(err);
-              } finally {
-                  // Add the listener
-                  doc.body.addEventListener('gpgkeylistprogress', contentWindow.webpg.keymanager.keylistprogress);
-              }
+              contentWindow.webpg.keymanager.keylistprogress(data);
 
-              var evtObj = doc.createEvent('CustomEvent');
-              evtObj.initCustomEvent("gpgkeylistprogress", true, true, {'type': msgType, 'data': data});
-              doc.body.dispatchEvent(evtObj);
+              // Attempt to remove the old listener
           }
-          delete data, evtObj;
-      } else if (webpg.utils.detectedBrowser.product === "chrome") {
+          delete data;
+      } else if (webpg.utils.detectedBrowser.product === "chrome" || webpg.utils.detectedBrowser.vendor === "mozilla") {
         try {
           webpg.background.keylistProgressPort.postMessage({"type": msgType, "data": data});
         } catch (e) {
@@ -953,8 +949,13 @@ webpg.background = {
             webpg.background.keylistProgressPort.disconnect();
           if (webpg.background.keylist_tab !== undefined)
             webpg.background.keylistProgressPort = chrome.tabs.connect(webpg.background.keylist_tab, {name: "gpgKeyListProgress"});
-          else
-            webpg.background.keylistProgressPort = chrome.runtime.connect({name: "gpgKeyListProgress"});
+          else {
+            if (webpg.utils.detectedBrowser.product === "chrome") {
+              webpg.background.keylistProgressPort = chrome.runtime.connect({name: "gpgKeyListProgress"});
+            } else {
+              webpg.background.keylistProgressPort = webpg.nativeMessaging.current_port
+            }
+          }
           webpg.background.keylistProgressPort.postMessage({"type": msgType, "data": data});
         }
 
@@ -995,7 +996,7 @@ webpg.background = {
                         doc.body.removeEventListener('progress', contentWindow.webpg.keymanager.progressMsg);
                     } catch (err) {
                         // We don't really care if it didn't already exist
-                        webpg.utils.log('ERROR')(err.message);
+                        webpg.utils.error(err.message);
                     } finally {
                         // Add the listener
                         doc.body.addEventListener('progress', contentWindow.webpg.keymanager.progressMsg);
@@ -1089,6 +1090,8 @@ if (webpg.utils.detectedBrowser.product === "chrome") {
         description: '<url><match>WebPG Key Search</match></url>'
     });
 
+} else if (webpg.utils.detectedBrowser.product === "firefox") {
+    webpg.utils.addActionBadge();
 }
 
 // Listen for the creation of the background DOM and then init webpg.background
@@ -1097,6 +1100,11 @@ window.addEventListener("load", function load() {
     webpg.background.init();
     if (webpg.utils.detectedBrowser.product === 'thunderbird')
         webpg.utils._onRequest.addListener(webpg.background._onRequest);
+}, false);
+
+window.addEventListener("unload", function unload() {
+    window.removeEventListener("unload", unload, false);
+    webpg.plugin.deinit();
 }, false);
 
 // Listen for the content script to send messages to the background page.

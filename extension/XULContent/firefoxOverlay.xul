@@ -92,7 +92,7 @@
     </script>
     <script src="../constants.js"/>
     <script src="../utils.js"/>
-<!--    <script src="../API/libwebpg/ctypes.js"/>-->
+    <script src="../API/libwebpg/nativeMessaging.js"/>
     <script src="../preferences.js"/>
     <script src="../background.js"/>
     <script src="../inline.js"/>
@@ -158,10 +158,4 @@
         </statusbarpanel>
     </statusbar>
     <!-- Status bar -->
-
-    <window id="main-window">
-        <vbox collapsed="true">
-            <html:object id="webpgPlugin" type="application/x-webpg" height="1" width="1" style="visibility:hidden;"></html:object>
-        </vbox>
-    </window>
 </overlay>

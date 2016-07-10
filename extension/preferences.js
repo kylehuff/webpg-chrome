@@ -191,13 +191,18 @@ webpg.preferences = {
             Function: get
                 Provides method to get the preference item
         */
-        get: function() {
+        get: function(callback) {
             try {
-                var encrypt_to = webpg.plugin.gpgGetPreference('encrypt-to').value,
-                    default_key = webpg.plugin.gpgGetPreference('default-key').value,
-                    encrypt_to_self = (default_key !== "" && encrypt_to === default_key) ? 'true' : 'false';
-                webpg.localStorage.setItem('encrypt_to_self', encrypt_to_self);
-                return encypt_to_self;
+                webpg.plugin.gpgGetPreference('encrypt-to', function(encrypt_to) {
+                  encrypt_to = encrypt_to.value;
+                  webpg.plugin.gpgGetPreference('default-key', function(default_key) {
+                    default_key = default_key.value;
+                    let encrypt_to_self = (default_key !== "" && encrypt_to === default_key) ? 'true' : 'false';
+                    webpg.localStorage.setItem('encrypt_to_self', encrypt_to_self);
+                    if (callback)
+                      callback(encrypt_to_self);
+                  })
+                })
             } catch (e) {
                 return webpg.localStorage.getItem('encrypt_to_self');
             }
@@ -212,7 +217,7 @@ webpg.preferences = {
         */
         set: function(value) {
             // if this setting is disabled, remove the value for 'encrypt-to'
-            if (!value) {
+            if (value == false) {
                 webpg.plugin.gpgSetPreference('encrypt-to', 'blank');
             } else {
                 var default_key = webpg.preferences.default_key.get();
@@ -250,7 +255,8 @@ webpg.preferences = {
                 webpg.background.init();
             webpg.plugin = (webpg.plugin.valid) ? webpg.plugin :
                 webpg.background.webpg.plugin;
-            callback();
+            if (callback)
+              callback();
         },
 
         /*
@@ -448,7 +454,10 @@ webpg.preferences = {
                 Provides method to get the preference item
         */
         get: function(callback) {
-            webpg.plugin.gpgGetPreference('default-key', callback);
+            webpg.plugin.gpgGetPreference('default-key', function(result) {
+              if (callback)
+                callback(result);
+            });
         },
 
         /*
@@ -459,7 +468,7 @@ webpg.preferences = {
                 keyid - <str> The KeyID to add to the preference item
         */
         set: function(keyid) {
-            if (webpg.preferences.encrypt_to_self.get() == 'true') {
+            if (webpg.preferences.encrypt_to_self.get() === 'true') {
                 webpg.plugin.gpgSetPreference("encrypt-to", keyid);
             }
             webpg.plugin.gpgSetPreference("default-key", keyid);
@@ -549,7 +558,7 @@ webpg.preferences = {
             var groupstr =
                 this.get(group).toString().replace(RegExp(",", "g"), " ");
 
-            webpg.plugin.gpgSetGroup(group, groupstr);
+            webpg.plugin.gpgSetGroup([group, groupstr]);
 
             return { 'error': false, 'group': group, 'modified': true};
         },
@@ -624,35 +633,37 @@ webpg.preferences = {
         },
 
         delete_group: function(group) {
-          var gpg_groups = webpg.plugin.gpgGetPreference("group");
-          if (gpg_groups.value !== undefined)
-            groups = gpg_groups.value.split(", ");
-          else
-            return false;
+          webpg.plugin.gpgGetPreference("group", function(gpg_groups) {
+            if (gpg_groups.value !== undefined)
+              groups = gpg_groups.value.split(", ");
+            else
+              return false;
 
-          // Clear all the groups, and we will add them back without the group
-          //  specified.
-          webpg.plugin.gpgSetPreference("group", "");
+            // Clear all the groups, and we will add them back without the group
+            //  specified.
+            webpg.plugin.gpgSetPreference("group", "");
 
-          for (var rgroup in groups) {
-            // Break out the group name it's values
-            groups[rgroup].replace(
-              new RegExp("([^?=&]+)(=([^&]*))?", "g"),
-              function($0, $1, $2, $3) {
-                // Set the new group value
-                if ($1.trim() !== group)
-                  webpg.plugin.gpgSetGroup($1.trim(), $3.trim());
-                else
-                  webpg.utils.log("INFO")("Removed '" + $1.trim() + "' from gpg.conf");
-              }
-            );
-          }
-          groups = JSON.parse(webpg.localStorage.getItem("groups"));
-          if (groups.hasOwnProperty(group)) {
-            delete groups[group];
-            webpg.localStorage.setItem("groups", JSON.stringify(groups));
-            webpg.utils.log("INFO")("Removed '" + group + "' from localStorage");
-          }
+            for (var rgroup in groups) {
+              // Break out the group name it's values
+              groups[rgroup].replace(
+                new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+                function($0, $1, $2, $3) {
+                  // Set the new group value
+                  if ($1.trim() !== group)
+                    webpg.plugin.gpgSetGroup($1.trim(), $3.trim());
+                  else
+                    webpg.utils.info("Removed '" + $1.trim() + "' from gpg.conf");
+                }
+              );
+            }
+            groups = JSON.parse(webpg.localStorage.getItem("groups"));
+            if (groups.hasOwnProperty(group)) {
+              delete groups[group];
+              webpg.localStorage.setItem("groups", JSON.stringify(groups));
+              webpg.utils.info("Removed '" + group + "' from localStorage");
+            }
+          });
+
         },
 
         /*

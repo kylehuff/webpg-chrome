@@ -415,7 +415,7 @@ webpg.inline_results = {
                                             var keyobj = fpsi.keys_found[0];
                                             var new_public_key = true;
                                             if (keyobj.in_real_keyring) {
-                                                false;
+                                                new_public_key = false;
                                                 keyobj = keyobj.real_keyring_item;
                                             }
                                             console.log("New key?", new_public_key, fpsi, keyobj, "?");
