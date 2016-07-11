@@ -1,32 +1,32 @@
-<!ENTITY About_WebPG "">
-<!ENTITY Version "">
-<!ENTITY Extension_Information "">
-<!ENTITY Extension_version "">
-<!ENTITY Platform "">
-<!ENTITY Product "">
-<!ENTITY User_Agent "">
-<!ENTITY Language "">
-<!ENTITY Plugin_Information "">
-<!ENTITY Plugin_version "">
-<!ENTITY GnuPG_Information "">
-<!ENTITY GnuPG_version "">
-<!ENTITY GnuPG_binary "">
-<!ENTITY GnuPG_home_directory "">
-<!ENTITY default "">
-<!ENTITY GPGCONF_version "">
-<!ENTITY not_detected "">
-<!ENTITY Assuan_version "">
+<!ENTITY About_WebPG "Tietoja WebPG:sta">
+<!ENTITY Version "Versio">
+<!ENTITY Extension_Information "Tietoa laajennuksesta">
+<!ENTITY Extension_version "Laajennuksen versio">
+<!ENTITY Platform "Alusta">
+<!ENTITY Product "Tuote">
+<!ENTITY User_Agent "Selaimen tunniste (user-agent)">
+<!ENTITY Language "Kieli">
+<!ENTITY Plugin_Information "Tietoa liitännäisestä">
+<!ENTITY Plugin_version "Liitännäisen versio">
+<!ENTITY GnuPG_Information "Tietoa GnuPG:stä">
+<!ENTITY GnuPG_version "GnuPG versio">
+<!ENTITY GnuPG_binary "GNuPG binääri">
+<!ENTITY GnuPG_home_directory "GnuPG kotihakemisto">
+<!ENTITY default "oletus">
+<!ENTITY GPGCONF_version "GPGCONF versio">
+<!ENTITY not_detected "ei löydetty">
+<!ENTITY Assuan_version "Assuan versio">
 <!ENTITY Key_Agent "">
-<!ENTITY Finished "">
+<!ENTITY Finished "Valmis">
 <!ENTITY Translation_Status "">
-<!ENTITY WebPG_Plugin_failed_to_load "">
-<!ENTITY Key_Generation_Complete "">
-<!ENTITY Key_Generation "">
-<!ENTITY Open_Key_Manager "">
-<!ENTITY WebPG_Key_Generation_Failed "">
-<!ENTITY The_generation_of_your_new_key_is_now_complete "">
-<!ENTITY Options "">
-<!ENTITY Key_Manager "">
+<!ENTITY WebPG_Plugin_failed_to_load "WebPG liitännäisen lataaminen epäonnistui.">
+<!ENTITY Key_Generation_Complete "Avain luotiin onnistuneesti.">
+<!ENTITY Key_Generation "Avaimen luonti">
+<!ENTITY Open_Key_Manager "Avaa avainten hallinta">
+<!ENTITY WebPG_Key_Generation_Failed "WebPG avaimen luonti epäonnistui">
+<!ENTITY The_generation_of_your_new_key_is_now_complete "Uuden avaimesi luonti on valmistunut">
+<!ENTITY Options "Asetukset">
+<!ENTITY Key_Manager "Avainten hallinta">
 <!ENTITY Refresh_Key_List "">
 <!ENTITY Generate_New_Key "">
 <!ENTITY Create "">
@@ -41,96 +41,96 @@
 <!ENTITY It_is_safe_to_close_this_window "">
 <!ENTITY key_generation_will_continue_in_the_background "">
 <!ENTITY Close "">
-<!ENTITY Cancel "">
+<!ENTITY Cancel "Peruuta">
 <!ENTITY Import_from_File "">
-<!ENTITY Import "">
-<!ENTITY Error "">
+<!ENTITY Import "Tuo">
+<!ENTITY Error "Virhe">
 <!ENTITY There_was_an_error_parsing_this_PGP_file "">
 <!ENTITY There_was_an_error_importing_any_keys_in_this_file "">
 <!ENTITY Please_use_the_button_above_to_open_a_key_file___asc__txt_ "">
 <!ENTITY User_Guide "">
-<!ENTITY Select_Recipient_s_ "">
-<!ENTITY Export "">
-<!ENTITY Editor "">
-<!ENTITY Search_Filter "">
-<!ENTITY Encrypt "">
-<!ENTITY Insert "">
-<!ENTITY no_action_has_been_selected "">
-<!ENTITY no_action_has_been_successful "">
-<!ENTITY UIDs "">
-<!ENTITY Key_does_not_support_this_operation "">
-<!ENTITY Error_loading_WebPG "">
-<!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "">
-<!ENTITY Suggestions "">
-<!ENTITY The_plugin_was_unable_to_load "">
+<!ENTITY Select_Recipient_s_ "Valitse vastaanottaja(t)">
+<!ENTITY Export "Vie">
+<!ENTITY Editor "Muokkaustyökalu">
+<!ENTITY Search_Filter "Etsi/Suodata">
+<!ENTITY Encrypt "Salaa">
+<!ENTITY Insert "Lisää">
+<!ENTITY no_action_has_been_selected "yhtään toimintoa ei ole valittu">
+<!ENTITY no_action_has_been_successful "yksikään toiminto ei onnistunut">
+<!ENTITY UIDs "UID:t">
+<!ENTITY Key_does_not_support_this_operation "Avain ei tue tätä operaatiota">
+<!ENTITY Error_loading_WebPG "Virhe ladattaessa WebPG:tä">
+<!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "WebPG:n latauksen yhteydessä kohdattiin ongelma">
+<!ENTITY Suggestions "Ehdotukset">
+<!ENTITY The_plugin_was_unable_to_load "lisäkkeen latautuminen epäonnistui">
 <!ENTITY The_Firefox_Click_to_Play_feature_is_enabled "">
 <!ENTITY WebPG_cannot_load_the_required_plugin_with_this_feature_enabled "">
 <!ENTITY The_WebPG_Native_Messaging_Host_was_unreachable "">
-<!ENTITY There_might_be_a_problem_with_the_gpg_installation "">
-<!ENTITY consider_reinstalling_gpg4win "">
-<!ENTITY Error_Details "">
-<!ENTITY Error_in_Method "">
-<!ENTITY Error_Code "">
-<!ENTITY Error_String "">
-<!ENTITY File "">
-<!ENTITY Line "">
-<!ENTITY Unknown_Error "">
-<!ENTITY System_Information "">
-<!ENTITY App_Version "">
-<!ENTITY Sub_product "">
-<!ENTITY Vendor "">
+<!ENTITY There_might_be_a_problem_with_the_gpg_installation "gpg asennuksessasi saattaa olla ongelma">
+<!ENTITY consider_reinstalling_gpg4win "harkitse gpg4win uudelleen asentamista">
+<!ENTITY Error_Details "Virheen yksityiskohdat">
+<!ENTITY Error_in_Method "Virhe menetelmässä">
+<!ENTITY Error_Code "Virhekoodi">
+<!ENTITY Error_String "Virhe merkkijono">
+<!ENTITY File "Tiedosto">
+<!ENTITY Line "Rivi">
+<!ENTITY Unknown_Error "Tuntematon virhe">
+<!ENTITY System_Information "Järjestelmän tiedot">
+<!ENTITY App_Version "Ohjelma versio">
+<!ENTITY Sub_product "Ali-tuote">
+<!ENTITY Vendor "Valmistaja">
 <!ENTITY no_email_address_provided "">
 <!ENTITY Use "">
-<!ENTITY Sign_only "">
-<!ENTITY Sign_and_Encrypt "">
-<!ENTITY Symmetric_Encryption "">
+<!ENTITY Sign_only "Vain allekirjoita">
+<!ENTITY Sign_and_Encrypt "Allekirjoita ja salaa">
+<!ENTITY Symmetric_Encryption "Symmetrinen salaus">
 <!ENTITY Signed_Symmetric_Encryption "">
-<!ENTITY Decrypt "">
-<!ENTITY Verify "">
-<!ENTITY Secure_Editor "">
-<!ENTITY PGP_Signed_Message "">
-<!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "">
-<!ENTITY PGP_Public_Key "">
-<!ENTITY WebPG_Secure_Editor "">
-<!ENTITY Unsecured_Editor "">
+<!ENTITY Decrypt "Pura salaus">
+<!ENTITY Verify "Varmista">
+<!ENTITY Secure_Editor "Turvattu muokkain">
+<!ENTITY PGP_Signed_Message "PGP allekirjoitettu viesti">
+<!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "PGP SALATTU TAI ALLEKIRJOITETTU VIESTI">
+<!ENTITY PGP_Public_Key "PGP julkinen avain">
+<!ENTITY WebPG_Secure_Editor "WebPG Turvattu muokkain">
+<!ENTITY Unsecured_Editor "Turvaamaton muokkain">
 <!ENTITY Loading_keys "">
 <!ENTITY Generating_Key "">
 <!ENTITY Waiting_for_entropy "">
 <!ENTITY Building_key "">
 <!ENTITY please_wait "">
-<!ENTITY Private_Keys "">
-<!ENTITY Public_Keys "">
+<!ENTITY Private_Keys "Yksityiset avaimet">
+<!ENTITY Public_Keys "Julkiset avaimet">
 <!ENTITY Search_Keyserver "">
 <!ENTITY Search_for_Keys_on_Keyserver "">
-<!ENTITY Your_Name "">
-<!ENTITY Your_Email "">
-<!ENTITY Comment "">
-<!ENTITY Passphrase "">
-<!ENTITY Repeat_Passphrase "">
-<!ENTITY Advanced_Options "">
-<!ENTITY Public_Key_Algorithm "">
-<!ENTITY Public_Key_Size "">
-<!ENTITY Private_Key_Algorithm "">
-<!ENTITY Private_Key_Size "">
-<!ENTITY Expire_in "">
-<!ENTITY Never "">
-<!ENTITY n30_days "">
-<!ENTITY n90_days "">
-<!ENTITY n1_year "">
-<!ENTITY Subkey_Options "">
-<!ENTITY encrypt_only "">
-<!ENTITY set_your_own_capabilities "">
-<!ENTITY Sign "">
-<!ENTITY Authenticate "">
-<!ENTITY Revoke_this_Key "">
-<!ENTITY Revoke_this_UID "">
-<!ENTITY Revoke_this_Signature "">
-<!ENTITY Delete_this_Signature "">
-<!ENTITY Delete_this_UID "">
-<!ENTITY Delete_this_Key "">
-<!ENTITY This_key_will_be_permanently_deleted "">
-<!ENTITY Are_you_sure "">
-<!ENTITY Change_Expiration "">
+<!ENTITY Your_Name "Nimesi">
+<!ENTITY Your_Email "Sähköpostiosoitteesi">
+<!ENTITY Comment "Kommentti">
+<!ENTITY Passphrase "Tunnuslause">
+<!ENTITY Repeat_Passphrase "Toista tunnuslause">
+<!ENTITY Advanced_Options "Lisäasetukset">
+<!ENTITY Public_Key_Algorithm "Julkisen avaimen algoritmi">
+<!ENTITY Public_Key_Size "Julkisen avaimen koko">
+<!ENTITY Private_Key_Algorithm "Yksityisen avaimen algoritmi">
+<!ENTITY Private_Key_Size "Yksityisen avaimen koko">
+<!ENTITY Expire_in "Vanhenee">
+<!ENTITY Never "Ei koskaan">
+<!ENTITY n30_days "n30 päivää">
+<!ENTITY n90_days "n90 päivää">
+<!ENTITY n1_year "n1 vuosi">
+<!ENTITY Subkey_Options "Aliavainten asetukset">
+<!ENTITY encrypt_only "vain salaa">
+<!ENTITY set_your_own_capabilities "aseta omat kyvyt">
+<!ENTITY Sign "Allekirjoita">
+<!ENTITY Authenticate "Todenna">
+<!ENTITY Revoke_this_Key "Mitätöi avain">
+<!ENTITY Revoke_this_UID "Mitätöi UID">
+<!ENTITY Revoke_this_Signature "Mitätöi allekirjoitus">
+<!ENTITY Delete_this_Signature "Poista allekirjoitus">
+<!ENTITY Delete_this_UID "Poista UID">
+<!ENTITY Delete_this_Key "Poista UID">
+<!ENTITY This_key_will_be_permanently_deleted "Tämä avain poistetaan pysyvästi">
+<!ENTITY Are_you_sure "Oletko varma">
+<!ENTITY Change_Expiration "Muuta vanhenemista">
 <!ENTITY Sign_this_UID "">
 <!ENTITY Key_Details "">
 <!ENTITY Export_Public_Key "">
@@ -330,22 +330,22 @@
 <!ENTITY Clear_Sign "">
 <!ENTITY Sign_and_Encrypt_this_text "">
 <!ENTITY Import_this_Public_key "">
-<!ENTITY Do_not_use_WebPG_for_this_message "">
+<!ENTITY Do_not_use_WebPG_for_this_message "Älä käytä WebPG:tä tälle viestille">
 <!ENTITY Sign_Inline "">
 <!ENTITY Sign_as_Attachment "">
-<!ENTITY You_do_not_have_any_keys_for "">
-<!ENTITY or "">
+<!ENTITY You_do_not_have_any_keys_for "Sinulla ei ole avaimia, jotka vastaavat">
+<!ENTITY or "tai">
 <!ENTITY WebPG_is_preparing_the_email "">
-<!ENTITY This_message_already_contains_PGP_data "">
-<!ENTITY Would_you_like_to_Encrypt_anyway "">
+<!ENTITY This_message_already_contains_PGP_data "Tämä viesti sisältää jo GPG dataa">
+<!ENTITY Would_you_like_to_Encrypt_anyway "Haluatko joka tapauksessa salata">
 <!ENTITY Expired_keys_found_for "">
 <!ENTITY and "">
 <!ENTITY This_message_will_be_Encrypted "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted "">
-<!ENTITY You_have_more_than_1_public_key_matching_that_address "">
-<!ENTITY The_Key_for "">
-<!ENTITY is_invalid "">
-<!ENTITY Open_the_Key_Manager "">
+<!ENTITY You_have_more_than_1_public_key_matching_that_address "Sinulla on useampi kuin yksi avain, joka vastaa osoitetta">
+<!ENTITY The_Key_for "Avaimet, jotka vastaavat">
+<!ENTITY is_invalid "on epäkelpo">
+<!ENTITY Open_the_Key_Manager "Avaa avainten hallinta">
 <!ENTITY This_message_will_be_Signed "">
 <!ENTITY Sign_Only "">
 <!ENTITY This_message_will_be_Encrypted_using_Symmetric_Encryption "">

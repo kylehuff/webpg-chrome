@@ -1,97 +1,98 @@
-# Translations template for webpg-chrome.
+# Translations template for webpg.
 # Copyright (C) 2012 CURETHEITCH
-# This file is distributed under the same license as the webpg-chrome
+# This file is distributed under the same license as the webpg
 # project.
 # Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: webpg-chrome 0.8.9\n"
+"Project-Id-Version: webpg 0.10.0\n"
 "Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
-"POT-Creation-Date: 2016-07-10 19:53-0400\n"
-"PO-Revision-Date: 2012-10-21 16:57-0400\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2016-07-10 20:34-0400\n"
+"PO-Revision-Date: 2013-04-29 17:37+0000\n"
+"Last-Translator: Ari Takalo <variaatio@iki.fi>\n"
 "Language-Team: none\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-07-11 00:08+0000\n"
+"X-Generator: Launchpad (build 18115)\n"
 "Generated-By: Babel 0.9.6\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: extension/about.js:17 extension/browser_action_menu.js:48
 #: extension/buttonbar.js:278
 msgid "About WebPG"
-msgstr ""
+msgstr "Tietoja WebPG:sta"
 
 #: extension/about.js:40 extension/key_manager.js:62 extension/options.js:601
 #: extension/userdocs.js:21
 msgid "Version"
-msgstr ""
+msgstr "Versio"
 
 #: extension/about.js:48
 msgid "Extension Information"
-msgstr ""
+msgstr "Tietoa laajennuksesta"
 
 #: extension/about.js:51
 msgid "Extension version"
-msgstr ""
+msgstr "Laajennuksen versio"
 
 #: extension/about.js:61 extension/error.js:63
 msgid "Platform"
-msgstr ""
+msgstr "Alusta"
 
 #: extension/about.js:67 extension/error.js:66
 msgid "Product"
-msgstr ""
+msgstr "Tuote"
 
 #: extension/about.js:73 extension/error.js:65
 msgid "User Agent"
-msgstr ""
+msgstr "Selaimen tunniste (user-agent)"
 
 #: extension/about.js:79 extension/error.js:69
 msgid "Language"
-msgstr ""
+msgstr "Kieli"
 
 #: extension/about.js:85
 msgid "Plugin Information"
-msgstr ""
+msgstr "Tietoa liitännäisestä"
 
 #: extension/about.js:88
 msgid "Plugin version"
-msgstr ""
+msgstr "Liitännäisen versio"
 
 #: extension/about.js:106
 msgid "GnuPG Information"
-msgstr ""
+msgstr "Tietoa GnuPG:stä"
 
 #: extension/about.js:109
 msgid "GnuPG version"
-msgstr ""
+msgstr "GnuPG versio"
 
 #: extension/about.js:115 extension/options.js:189
 msgid "GnuPG binary"
-msgstr ""
+msgstr "GNuPG binääri"
 
 #: extension/about.js:121 extension/options.js:184
 msgid "GnuPG home directory"
-msgstr ""
+msgstr "GnuPG kotihakemisto"
 
 #: extension/about.js:130
 msgid "default"
-msgstr ""
+msgstr "oletus"
 
 #: extension/about.js:134
 msgid "GPGCONF version"
-msgstr ""
+msgstr "GPGCONF versio"
 
 #: extension/about.js:140 extension/about.js:146 extension/about.js:152
 msgid "not detected"
-msgstr ""
+msgstr "ei löydetty"
 
 #: extension/about.js:143
 msgid "Assuan version"
-msgstr ""
+msgstr "Assuan versio"
 
 #: extension/about.js:149
 msgid "Key Agent"
@@ -99,7 +100,7 @@ msgstr ""
 
 #: extension/about.js:159 extension/options.js:596
 msgid "Finished"
-msgstr ""
+msgstr "Valmis"
 
 #: extension/about.js:191
 msgid "Translation Status"
@@ -107,27 +108,27 @@ msgstr ""
 
 #: extension/background.js:219
 msgid "WebPG Plugin failed to load"
-msgstr ""
+msgstr "WebPG liitännäisen lataaminen epäonnistui."
 
 #: extension/background.js:1035 extension/background.js:1058
 msgid "Key Generation Complete"
-msgstr ""
+msgstr "Avain luotiin onnistuneesti."
 
 #: extension/background.js:1036 extension/background.js:1061
 msgid "Key Generation"
-msgstr ""
+msgstr "Avaimen luonti"
 
 #: extension/background.js:1045
 msgid "Open Key Manager"
-msgstr ""
+msgstr "Avaa avainten hallinta"
 
 #: extension/background.js:1059
 msgid "WebPG Key Generation Failed"
-msgstr ""
+msgstr "WebPG avaimen luonti epäonnistui"
 
 #: extension/background.js:1060
 msgid "The generation of your new key is now complete"
-msgstr ""
+msgstr "Uuden avaimesi luonti on valmistunut"
 
 #: extension/browser_action_menu.js:44 extension/buttonbar.js:266
 #: extension/inline.js:1219 extension/utils.js:1533
@@ -135,7 +136,7 @@ msgstr ""
 #: extension/XULContent/options.xul:20 extension/XULContent/options.xul:25
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:48
 msgid "Options"
-msgstr ""
+msgstr "Asetukset"
 
 #: extension/browser_action_menu.js:46 extension/buttonbar.js:37
 #: extension/inline.js:1213 extension/utils.js:1554
@@ -143,7 +144,7 @@ msgstr ""
 #: extension/XULContent/options.xul:29
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:44
 msgid "Key Manager"
-msgstr ""
+msgstr "Avainten hallinta"
 
 #: extension/buttonbar.js:20
 msgid "Refresh Key List"
@@ -213,7 +214,7 @@ msgstr ""
 #: extension/key_manager.js:1339 extension/key_manager.js:1727
 #: extension/key_manager.js:2387 extension/key_manager.js:2407
 msgid "Cancel"
-msgstr ""
+msgstr "Peruuta"
 
 #: extension/buttonbar.js:181
 msgid "Import from File"
@@ -223,13 +224,13 @@ msgstr ""
 #: extension/XULContent/firefoxOverlay.xul:73
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:94
 msgid "Import"
-msgstr ""
+msgstr "Tuo"
 
 #: extension/buttonbar.js:201 extension/buttonbar.js:212 extension/error.js:24
 #: extension/key_manager.js:796 extension/key_manager.js:811
 #: extension/key_manager.js:998 extension/key_manager.js:1001
 msgid "Error"
-msgstr ""
+msgstr "Virhe"
 
 #: extension/buttonbar.js:202
 msgid "There was an error parsing this PGP file"
@@ -249,21 +250,21 @@ msgstr ""
 
 #: extension/dialog.js:50
 msgid "Select Recipient(s)"
-msgstr ""
+msgstr "Valitse vastaanottaja(t)"
 
 #: extension/dialog.js:55 extension/dialog.js:220 extension/inline.js:1193
 #: extension/XULContent/firefoxOverlay.xul:80
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:101
 msgid "Export"
-msgstr ""
+msgstr "Vie"
 
 #: extension/dialog.js:57
 msgid "Editor"
-msgstr ""
+msgstr "Muokkaustyökalu"
 
 #: extension/dialog.js:95 extension/key_manager.js:282
 msgid "Search/Filter"
-msgstr ""
+msgstr "Etsi/Suodata"
 
 #: extension/dialog.js:193 extension/inline.js:1121
 #: extension/key_manager.js:346 extension/key_manager.js:2564
@@ -273,43 +274,43 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:762 extension/webmail/gmail/gmail.js:911
 #: extension/webmail/gmail/inbox.js:764 extension/webmail/gmail/inbox.js:913
 msgid "Encrypt"
-msgstr ""
+msgstr "Salaa"
 
 #: extension/dialog.js:233
 msgid "Insert"
-msgstr ""
+msgstr "Lisää"
 
 #: extension/dialog.js:243
 msgid "no action has been selected"
-msgstr ""
+msgstr "yhtään toimintoa ei ole valittu"
 
 #: extension/dialog.js:252
 msgid "no action has been successful"
-msgstr ""
+msgstr "yksikään toiminto ei onnistunut"
 
 #: extension/dialog.js:327 extension/key_manager.js:1446
 msgid "UIDs"
-msgstr ""
+msgstr "UID:t"
 
 #: extension/dialog.js:332
 msgid "Key does not support this operation"
-msgstr ""
+msgstr "Avain ei tue tätä operaatiota"
 
 #: extension/error.js:18
 msgid "Error loading WebPG"
-msgstr ""
+msgstr "Virhe ladattaessa WebPG:tä"
 
 #: extension/error.js:19
 msgid "We encountered a problem while attempting to load WebPG"
-msgstr ""
+msgstr "WebPG:n latauksen yhteydessä kohdattiin ongelma"
 
 #: extension/error.js:25
 msgid "Suggestions"
-msgstr ""
+msgstr "Ehdotukset"
 
 #: extension/error.js:28
 msgid "The plugin was unable to load"
-msgstr ""
+msgstr "lisäkkeen latautuminen epäonnistui"
 
 #: extension/error.js:30
 msgid "The Firefox Click to Play feature is enabled"
@@ -325,55 +326,55 @@ msgstr ""
 
 #: extension/error.js:35
 msgid "There might be a problem with the gpg installation"
-msgstr ""
+msgstr "gpg asennuksessasi saattaa olla ongelma"
 
 #: extension/error.js:37
 msgid "consider reinstalling gpg4win"
-msgstr ""
+msgstr "harkitse gpg4win uudelleen asentamista"
 
 #: extension/error.js:43
 msgid "Error Details"
-msgstr ""
+msgstr "Virheen yksityiskohdat"
 
 #: extension/error.js:44
 msgid "Error in Method"
-msgstr ""
+msgstr "Virhe menetelmässä"
 
 #: extension/error.js:45
 msgid "Error Code"
-msgstr ""
+msgstr "Virhekoodi"
 
 #: extension/error.js:46
 msgid "Error String"
-msgstr ""
+msgstr "Virhe merkkijono"
 
 #: extension/error.js:54
 msgid "File"
-msgstr ""
+msgstr "Tiedosto"
 
 #: extension/error.js:55
 msgid "Line"
-msgstr ""
+msgstr "Rivi"
 
 #: extension/error.js:58
 msgid "Unknown Error"
-msgstr ""
+msgstr "Tuntematon virhe"
 
 #: extension/error.js:62
 msgid "System Information"
-msgstr ""
+msgstr "Järjestelmän tiedot"
 
 #: extension/error.js:64
 msgid "App Version"
-msgstr ""
+msgstr "Ohjelma versio"
 
 #: extension/error.js:67
 msgid "Sub-product"
-msgstr ""
+msgstr "Ali-tuote"
 
 #: extension/error.js:68
 msgid "Vendor"
-msgstr ""
+msgstr "Valmistaja"
 
 #: extension/inline.js:746 extension/key_manager.js:1981
 msgid "no email address provided"
@@ -387,7 +388,7 @@ msgstr ""
 #: extension/key_manager.js:325 extension/webmail/gmail/gmail.js:768
 #: extension/webmail/gmail/inbox.js:770
 msgid "Sign only"
-msgstr ""
+msgstr "Vain allekirjoita"
 
 #: extension/inline.js:1143 extension/XULContent/firefoxOverlay.xul:59
 #: extension/XULContent/thunderbird/composeOverlay.js:93
@@ -395,14 +396,14 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:786 extension/webmail/gmail/gmail.js:925
 #: extension/webmail/gmail/inbox.js:788 extension/webmail/gmail/inbox.js:927
 msgid "Sign and Encrypt"
-msgstr ""
+msgstr "Allekirjoita ja salaa"
 
 #: extension/inline.js:1159
 #: extension/XULContent/thunderbird/composeOverlay.js:95
 #: extension/webmail/gmail/gmail.js:802 extension/webmail/gmail/gmail.js:932
 #: extension/webmail/gmail/inbox.js:804 extension/webmail/gmail/inbox.js:934
 msgid "Symmetric Encryption"
-msgstr ""
+msgstr "Symmetrinen salaus"
 
 #: extension/inline.js:1165 extension/webmail/gmail/gmail.js:809
 #: extension/webmail/gmail/gmail.js:939 extension/webmail/gmail/inbox.js:811
@@ -413,36 +414,36 @@ msgstr ""
 #: extension/inline.js:1181 extension/XULContent/firefoxOverlay.xul:66
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:87
 msgid "Decrypt"
-msgstr ""
+msgstr "Pura salaus"
 
 #: extension/inline.js:1199 extension/XULContent/firefoxOverlay.xul:45
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:66
 msgid "Verify"
-msgstr ""
+msgstr "Varmista"
 
 #: extension/inline.js:1207
 msgid "Secure Editor"
-msgstr ""
+msgstr "Turvattu muokkain"
 
 #: extension/inline.js:1321
 msgid "PGP Signed Message"
-msgstr ""
+msgstr "PGP allekirjoitettu viesti"
 
 #: extension/inline.js:1328 extension/webpg_results.js:159
 msgid "PGP ENCRYPTED OR SIGNED MESSAGE"
-msgstr ""
+msgstr "PGP SALATTU TAI ALLEKIRJOITETTU VIESTI"
 
 #: extension/inline.js:1336
 msgid "PGP Public Key"
-msgstr ""
+msgstr "PGP julkinen avain"
 
 #: extension/inline.js:1350
 msgid "WebPG Secure Editor"
-msgstr ""
+msgstr "WebPG Turvattu muokkain"
 
 #: extension/inline.js:1353
 msgid "Unsecured Editor"
-msgstr ""
+msgstr "Turvaamaton muokkain"
 
 #: extension/key_manager.js:113 extension/key_manager.js:122
 msgid "Loading keys"
@@ -466,11 +467,11 @@ msgstr ""
 
 #: extension/key_manager.js:242
 msgid "Private Keys"
-msgstr ""
+msgstr "Yksityiset avaimet"
 
 #: extension/key_manager.js:262
 msgid "Public Keys"
-msgstr ""
+msgstr "Julkiset avaimet"
 
 #: extension/key_manager.js:281
 msgid "Search Keyserver"
@@ -482,122 +483,122 @@ msgstr ""
 
 #: extension/key_manager.js:284 extension/key_manager.js:355
 msgid "Your Name"
-msgstr ""
+msgstr "Nimesi"
 
 #: extension/key_manager.js:285 extension/key_manager.js:359
 msgid "Your Email"
-msgstr ""
+msgstr "Sähköpostiosoitteesi"
 
 #: extension/key_manager.js:286 extension/key_manager.js:363
 msgid "Comment"
-msgstr ""
+msgstr "Kommentti"
 
 #: extension/key_manager.js:290
 msgid "Passphrase"
-msgstr ""
+msgstr "Tunnuslause"
 
 #: extension/key_manager.js:294
 msgid "Repeat Passphrase"
-msgstr ""
+msgstr "Toista tunnuslause"
 
 #: extension/key_manager.js:295 extension/options.js:181
 msgid "Advanced Options"
-msgstr ""
+msgstr "Lisäasetukset"
 
 #: extension/key_manager.js:296
 msgid "Public Key Algorithm"
-msgstr ""
+msgstr "Julkisen avaimen algoritmi"
 
 #: extension/key_manager.js:297
 msgid "Public Key Size"
-msgstr ""
+msgstr "Julkisen avaimen koko"
 
 #: extension/key_manager.js:298 extension/key_manager.js:318
 msgid "Private Key Algorithm"
-msgstr ""
+msgstr "Yksityisen avaimen algoritmi"
 
 #: extension/key_manager.js:299 extension/key_manager.js:350
 msgid "Private Key Size"
-msgstr ""
+msgstr "Yksityisen avaimen koko"
 
 #: extension/key_manager.js:300 extension/key_manager.js:351
 msgid "Expire in"
-msgstr ""
+msgstr "Vanhenee"
 
 #: extension/key_manager.js:304 extension/key_manager.js:2150
 #: extension/key_manager.js:2533 extension/webpg_results.js:136
 msgid "Never"
-msgstr ""
+msgstr "Ei koskaan"
 
 #: extension/key_manager.js:307
 msgid "n30 days"
-msgstr ""
+msgstr "n30 päivää"
 
 #: extension/key_manager.js:310
 msgid "n90 days"
-msgstr ""
+msgstr "n90 päivää"
 
 #: extension/key_manager.js:313
 msgid "n1 year"
-msgstr ""
+msgstr "n1 vuosi"
 
 #: extension/key_manager.js:317
 msgid "Subkey Options"
-msgstr ""
+msgstr "Aliavainten asetukset"
 
 #: extension/key_manager.js:328 extension/key_manager.js:331
 msgid "encrypt only"
-msgstr ""
+msgstr "vain salaa"
 
 #: extension/key_manager.js:334 extension/key_manager.js:337
 msgid "set your own capabilities"
-msgstr ""
+msgstr "aseta omat kyvyt"
 
 #: extension/key_manager.js:345 extension/key_manager.js:1217
 #: extension/key_manager.js:2562
 msgid "Sign"
-msgstr ""
+msgstr "Allekirjoita"
 
 #: extension/key_manager.js:347 extension/key_manager.js:2566
 msgid "Authenticate"
-msgstr ""
+msgstr "Todenna"
 
 #: extension/key_manager.js:365
 msgid "Revoke this Key"
-msgstr ""
+msgstr "Mitätöi avain"
 
 #: extension/key_manager.js:366
 msgid "Revoke this UID"
-msgstr ""
+msgstr "Mitätöi UID"
 
 #: extension/key_manager.js:367
 msgid "Revoke this Signature"
-msgstr ""
+msgstr "Mitätöi allekirjoitus"
 
 #: extension/key_manager.js:368 extension/key_manager.js:2402
 msgid "Delete this Signature"
-msgstr ""
+msgstr "Poista allekirjoitus"
 
 #: extension/key_manager.js:369 extension/key_manager.js:370
 #: extension/key_manager.js:1073 extension/key_manager.js:2307
 msgid "Delete this UID"
-msgstr ""
+msgstr "Poista UID"
 
 #: extension/key_manager.js:371
 msgid "Delete this Key"
-msgstr ""
+msgstr "Poista UID"
 
 #: extension/key_manager.js:372
 msgid "This key will be permanently deleted"
-msgstr ""
+msgstr "Tämä avain poistetaan pysyvästi"
 
 #: extension/key_manager.js:373
 msgid "Are you sure"
-msgstr ""
+msgstr "Oletko varma"
 
 #: extension/key_manager.js:374 extension/key_manager.js:2280
 msgid "Change Expiration"
-msgstr ""
+msgstr "Muuta vanhenemista"
 
 #: extension/key_manager.js:375 extension/key_manager.js:2305
 msgid "Sign this UID"
@@ -1444,7 +1445,7 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:826 extension/webmail/gmail/gmail.js:946
 #: extension/webmail/gmail/inbox.js:828 extension/webmail/gmail/inbox.js:948
 msgid "Do not use WebPG for this message"
-msgstr ""
+msgstr "Älä käytä WebPG:tä tälle viestille"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:91
 msgid "Sign Inline"
@@ -1457,12 +1458,12 @@ msgstr ""
 #: extension/XULContent/thunderbird/composeOverlay.js:264
 #: extension/webmail/gmail/gmail.js:470 extension/webmail/gmail/inbox.js:472
 msgid "You do not have any keys for"
-msgstr ""
+msgstr "Sinulla ei ole avaimia, jotka vastaavat"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:266
 #: extension/webmail/gmail/gmail.js:472 extension/webmail/gmail/inbox.js:474
 msgid "or"
-msgstr ""
+msgstr "tai"
 
 #: extension/webmail/gmail/gmail.js:263 extension/webmail/gmail/inbox.js:265
 msgid "WebPG is preparing the email"
@@ -1470,11 +1471,11 @@ msgstr ""
 
 #: extension/webmail/gmail/gmail.js:350 extension/webmail/gmail/inbox.js:352
 msgid "This message already contains PGP data"
-msgstr ""
+msgstr "Tämä viesti sisältää jo GPG dataa"
 
 #: extension/webmail/gmail/gmail.js:351 extension/webmail/gmail/inbox.js:353
 msgid "Would you like to Encrypt anyway"
-msgstr ""
+msgstr "Haluatko joka tapauksessa salata"
 
 #: extension/webmail/gmail/gmail.js:475 extension/webmail/gmail/inbox.js:477
 msgid "Expired keys found for"
@@ -1495,19 +1496,19 @@ msgstr ""
 
 #: extension/webmail/gmail/gmail.js:603 extension/webmail/gmail/inbox.js:605
 msgid "You have more than 1 public key matching that address"
-msgstr ""
+msgstr "Sinulla on useampi kuin yksi avain, joka vastaa osoitetta"
 
 #: extension/webmail/gmail/gmail.js:615 extension/webmail/gmail/inbox.js:617
 msgid "The Key for"
-msgstr ""
+msgstr "Avaimet, jotka vastaavat"
 
 #: extension/webmail/gmail/gmail.js:616 extension/webmail/gmail/inbox.js:618
 msgid "is invalid"
-msgstr ""
+msgstr "on epäkelpo"
 
 #: extension/webmail/gmail/gmail.js:621 extension/webmail/gmail/inbox.js:623
 msgid "Open the Key Manager"
-msgstr ""
+msgstr "Avaa avainten hallinta"
 
 #: extension/webmail/gmail/gmail.js:916 extension/webmail/gmail/gmail.js:986
 #: extension/webmail/gmail/inbox.js:918 extension/webmail/gmail/inbox.js:988
@@ -1537,3 +1538,12 @@ msgstr ""
 #: extension/manifest.json:4
 msgid "extDesc"
 msgstr ""
+
+#~ msgid "Would you like to Sign anyway"
+#~ msgstr "Haluatko joka tapauksessa allekirjoittaa"
+
+#~ msgid "Would you like to Encrypt and Sign anyway"
+#~ msgstr "Haluatko joka tapauksessa salata ja allekirjoittaa"
+
+#~ msgid "WebPG Key Manager"
+#~ msgstr "WebPG avainten hallinta"

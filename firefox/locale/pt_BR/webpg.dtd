@@ -1,355 +1,355 @@
-<!ENTITY About_WebPG "">
-<!ENTITY Version "">
-<!ENTITY Extension_Information "">
-<!ENTITY Extension_version "">
-<!ENTITY Platform "">
-<!ENTITY Product "">
-<!ENTITY User_Agent "">
-<!ENTITY Language "">
-<!ENTITY Plugin_Information "">
-<!ENTITY Plugin_version "">
-<!ENTITY GnuPG_Information "">
-<!ENTITY GnuPG_version "">
-<!ENTITY GnuPG_binary "">
-<!ENTITY GnuPG_home_directory "">
-<!ENTITY default "">
-<!ENTITY GPGCONF_version "">
-<!ENTITY not_detected "">
-<!ENTITY Assuan_version "">
+<!ENTITY About_WebPG "Sobre o WebPG">
+<!ENTITY Version "Versão">
+<!ENTITY Extension_Information "Informações da extensão">
+<!ENTITY Extension_version "Versão da extensão">
+<!ENTITY Platform "Plataforma">
+<!ENTITY Product "Produto">
+<!ENTITY User_Agent "Agente de usuário">
+<!ENTITY Language "Idioma">
+<!ENTITY Plugin_Information "Informações sobre plugins">
+<!ENTITY Plugin_version "Versão do plugin">
+<!ENTITY GnuPG_Information "Informações do GNUPG">
+<!ENTITY GnuPG_version "Versão do GnuPG">
+<!ENTITY GnuPG_binary "Executável do GnuPG">
+<!ENTITY GnuPG_home_directory "Diretório raíz do GnuPG">
+<!ENTITY default "padrão">
+<!ENTITY GPGCONF_version "Versão do GPGCONF">
+<!ENTITY not_detected "não detectado">
+<!ENTITY Assuan_version "Versão do Assuan">
 <!ENTITY Key_Agent "">
-<!ENTITY Finished "">
-<!ENTITY Translation_Status "">
-<!ENTITY WebPG_Plugin_failed_to_load "">
-<!ENTITY Key_Generation_Complete "">
-<!ENTITY Key_Generation "">
-<!ENTITY Open_Key_Manager "">
-<!ENTITY WebPG_Key_Generation_Failed "">
-<!ENTITY The_generation_of_your_new_key_is_now_complete "">
-<!ENTITY Options "">
-<!ENTITY Key_Manager "">
+<!ENTITY Finished "Finalizado">
+<!ENTITY Translation_Status "Estado da Tradução">
+<!ENTITY WebPG_Plugin_failed_to_load "Plugin WebPG falhou ao carregar">
+<!ENTITY Key_Generation_Complete "Geração de chaves concluída">
+<!ENTITY Key_Generation "Geração de Chave">
+<!ENTITY Open_Key_Manager "Abrir Gerenciador de Chaves">
+<!ENTITY WebPG_Key_Generation_Failed "Falha na geração de chave do WebPG">
+<!ENTITY The_generation_of_your_new_key_is_now_complete "A geração de sua nova chave está completa">
+<!ENTITY Options "Ajustes">
+<!ENTITY Key_Manager "Gerenciador de Chaves">
 <!ENTITY Refresh_Key_List "">
-<!ENTITY Generate_New_Key "">
-<!ENTITY Create "">
-<!ENTITY Name_Required "">
-<!ENTITY UID_Names_must_be_at_least_5_characters "">
-<!ENTITY UID_Names_cannot_begin_with_a_number "">
-<!ENTITY Not_a_valid_email_address "">
-<!ENTITY Passphrases_do_not_match "">
-<!ENTITY Building_key__please_wait "">
-<!ENTITY This_may_take_a_long_time__5_minutes_or_more__to_complete "">
-<!ENTITY Please_be_patient_while_the_key_is_created "">
-<!ENTITY It_is_safe_to_close_this_window "">
-<!ENTITY key_generation_will_continue_in_the_background "">
-<!ENTITY Close "">
-<!ENTITY Cancel "">
+<!ENTITY Generate_New_Key "Gerar Nova Chave">
+<!ENTITY Create "Criado">
+<!ENTITY Name_Required "Nome exigido">
+<!ENTITY UID_Names_must_be_at_least_5_characters "Nomes UID devem conter pelo menos 5 caracteres">
+<!ENTITY UID_Names_cannot_begin_with_a_number "Nomes UID não podem iniciar com números">
+<!ENTITY Not_a_valid_email_address "Nenhum email válido">
+<!ENTITY Passphrases_do_not_match "Senhas não coincidem">
+<!ENTITY Building_key__please_wait "Criando chave, aguarde, por favor">
+<!ENTITY This_may_take_a_long_time__5_minutes_or_more__to_complete "Isto pode levar algum tempo (5 minutos  ou mais) para concluir">
+<!ENTITY Please_be_patient_while_the_key_is_created "Por favor, seja paciente enquanto a chave é criada">
+<!ENTITY It_is_safe_to_close_this_window "É seguro fechar essa janela">
+<!ENTITY key_generation_will_continue_in_the_background "a geração da chave continuará em segundo-plano">
+<!ENTITY Close "Encerrar">
+<!ENTITY Cancel "Cancelar">
 <!ENTITY Import_from_File "">
-<!ENTITY Import "">
-<!ENTITY Error "">
+<!ENTITY Import "Importação">
+<!ENTITY Error "Erro">
 <!ENTITY There_was_an_error_parsing_this_PGP_file "">
 <!ENTITY There_was_an_error_importing_any_keys_in_this_file "">
 <!ENTITY Please_use_the_button_above_to_open_a_key_file___asc__txt_ "">
 <!ENTITY User_Guide "">
-<!ENTITY Select_Recipient_s_ "">
-<!ENTITY Export "">
-<!ENTITY Editor "">
-<!ENTITY Search_Filter "">
-<!ENTITY Encrypt "">
-<!ENTITY Insert "">
-<!ENTITY no_action_has_been_selected "">
-<!ENTITY no_action_has_been_successful "">
-<!ENTITY UIDs "">
-<!ENTITY Key_does_not_support_this_operation "">
-<!ENTITY Error_loading_WebPG "">
-<!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "">
-<!ENTITY Suggestions "">
-<!ENTITY The_plugin_was_unable_to_load "">
-<!ENTITY The_Firefox_Click_to_Play_feature_is_enabled "">
-<!ENTITY WebPG_cannot_load_the_required_plugin_with_this_feature_enabled "">
+<!ENTITY Select_Recipient_s_ "Selecionar destinatário(s)">
+<!ENTITY Export "Exportar">
+<!ENTITY Editor "Editor">
+<!ENTITY Search_Filter "Busca/Filtro">
+<!ENTITY Encrypt "Criptografar">
+<!ENTITY Insert "Inserir">
+<!ENTITY no_action_has_been_selected "nenhuma ação foi selecionada">
+<!ENTITY no_action_has_been_successful "nenuhma ação obteve sucesso">
+<!ENTITY UIDs "UIDs">
+<!ENTITY Key_does_not_support_this_operation "A chave não suporta essa operação">
+<!ENTITY Error_loading_WebPG "Erro carregando o WebPG">
+<!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "Encontramos um problema ao tentar carregar o WebPG">
+<!ENTITY Suggestions "Sugestões">
+<!ENTITY The_plugin_was_unable_to_load "O plugin não pôde ser carregado">
+<!ENTITY The_Firefox_Click_to_Play_feature_is_enabled "O recurso Click to Play do Firefox está ativado">
+<!ENTITY WebPG_cannot_load_the_required_plugin_with_this_feature_enabled "O WebPG não pode carregar o plugin necessário com este recurso ativado">
 <!ENTITY The_WebPG_Native_Messaging_Host_was_unreachable "">
-<!ENTITY There_might_be_a_problem_with_the_gpg_installation "">
-<!ENTITY consider_reinstalling_gpg4win "">
-<!ENTITY Error_Details "">
-<!ENTITY Error_in_Method "">
-<!ENTITY Error_Code "">
-<!ENTITY Error_String "">
-<!ENTITY File "">
-<!ENTITY Line "">
-<!ENTITY Unknown_Error "">
-<!ENTITY System_Information "">
-<!ENTITY App_Version "">
-<!ENTITY Sub_product "">
-<!ENTITY Vendor "">
-<!ENTITY no_email_address_provided "">
-<!ENTITY Use "">
-<!ENTITY Sign_only "">
-<!ENTITY Sign_and_Encrypt "">
-<!ENTITY Symmetric_Encryption "">
+<!ENTITY There_might_be_a_problem_with_the_gpg_installation "Pode haver um problema com a instalação do gpg">
+<!ENTITY consider_reinstalling_gpg4win "considere reinstalar o gpg4win">
+<!ENTITY Error_Details "Detalhes do erro">
+<!ENTITY Error_in_Method "Erro no Método">
+<!ENTITY Error_Code "Código do erro">
+<!ENTITY Error_String "String do erro">
+<!ENTITY File "Arquivo">
+<!ENTITY Line "Linha">
+<!ENTITY Unknown_Error "Erro Desconhecido">
+<!ENTITY System_Information "Informação do sistema">
+<!ENTITY App_Version "Versão do aplicativo">
+<!ENTITY Sub_product "Subproduto">
+<!ENTITY Vendor "Fornecedor">
+<!ENTITY no_email_address_provided "nenhum endereço de email fornecido">
+<!ENTITY Use "Usar">
+<!ENTITY Sign_only "Somente assinar">
+<!ENTITY Sign_and_Encrypt "Assinar e Criptografar">
+<!ENTITY Symmetric_Encryption "Criptografia simétrica">
 <!ENTITY Signed_Symmetric_Encryption "">
-<!ENTITY Decrypt "">
-<!ENTITY Verify "">
-<!ENTITY Secure_Editor "">
-<!ENTITY PGP_Signed_Message "">
-<!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "">
-<!ENTITY PGP_Public_Key "">
-<!ENTITY WebPG_Secure_Editor "">
-<!ENTITY Unsecured_Editor "">
+<!ENTITY Decrypt "Descriptografar">
+<!ENTITY Verify "Verificar">
+<!ENTITY Secure_Editor "Editor seguro">
+<!ENTITY PGP_Signed_Message "Mensagem assinada com PGP">
+<!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "MENSAGEM  CRIPTOGRAFADA OU ASSINADA COM PGP">
+<!ENTITY PGP_Public_Key "Chave pública PGP">
+<!ENTITY WebPG_Secure_Editor "Editor seguro do WebPG">
+<!ENTITY Unsecured_Editor "Editor inseguro">
 <!ENTITY Loading_keys "">
-<!ENTITY Generating_Key "">
-<!ENTITY Waiting_for_entropy "">
-<!ENTITY Building_key "">
-<!ENTITY please_wait "">
-<!ENTITY Private_Keys "">
-<!ENTITY Public_Keys "">
+<!ENTITY Generating_Key "Gerando a chave">
+<!ENTITY Waiting_for_entropy "Aguardando pela entropia">
+<!ENTITY Building_key "Construindo chave">
+<!ENTITY please_wait "espere, por favor">
+<!ENTITY Private_Keys "Chaves privadas">
+<!ENTITY Public_Keys "Chaves públicas">
 <!ENTITY Search_Keyserver "">
 <!ENTITY Search_for_Keys_on_Keyserver "">
-<!ENTITY Your_Name "">
-<!ENTITY Your_Email "">
-<!ENTITY Comment "">
-<!ENTITY Passphrase "">
-<!ENTITY Repeat_Passphrase "">
-<!ENTITY Advanced_Options "">
-<!ENTITY Public_Key_Algorithm "">
-<!ENTITY Public_Key_Size "">
-<!ENTITY Private_Key_Algorithm "">
-<!ENTITY Private_Key_Size "">
-<!ENTITY Expire_in "">
-<!ENTITY Never "">
-<!ENTITY n30_days "">
-<!ENTITY n90_days "">
-<!ENTITY n1_year "">
-<!ENTITY Subkey_Options "">
-<!ENTITY encrypt_only "">
-<!ENTITY set_your_own_capabilities "">
-<!ENTITY Sign "">
-<!ENTITY Authenticate "">
-<!ENTITY Revoke_this_Key "">
-<!ENTITY Revoke_this_UID "">
-<!ENTITY Revoke_this_Signature "">
-<!ENTITY Delete_this_Signature "">
-<!ENTITY Delete_this_UID "">
-<!ENTITY Delete_this_Key "">
-<!ENTITY This_key_will_be_permanently_deleted "">
-<!ENTITY Are_you_sure "">
-<!ENTITY Change_Expiration "">
-<!ENTITY Sign_this_UID "">
-<!ENTITY Key_Details "">
-<!ENTITY Export_Public_Key "">
-<!ENTITY Add_UID "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_Key "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_UID "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_Signature "">
-<!ENTITY Are_you_sure_you_wish_to_delete_this_Signature "">
-<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_UID "">
-<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_Photo "">
-<!ENTITY New_Expiration_Date "">
-<!ENTITY Never_Expire "">
-<!ENTITY Expiration_Date "">
-<!ENTITY Save "">
-<!ENTITY Delete_this_key "">
-<!ENTITY Add "">
-<!ENTITY There_was_an_error_parsing_this_image_file "">
-<!ENTITY There_was_an_error_adding_this_image_file "">
-<!ENTITY It_is_possible_the_image_contains_EXIF_data "">
-<!ENTITY Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo "">
-<!ENTITY Only_JPEG_image_files_are_supported "">
-<!ENTITY WARNING "">
-<!ENTITY is_quite_large "">
-<!ENTITY Consider_using_a_smaller_image "">
-<!ENTITY Only_one_image_can_be_added "">
-<!ENTITY Copy "">
-<!ENTITY Please_specify_the_revocation_details "">
-<!ENTITY Reason "">
-<!ENTITY No_reason_specified "">
-<!ENTITY Key_has_been_compromised "">
-<!ENTITY Key_is_superseded "">
-<!ENTITY Key_is_no_longer_used "">
-<!ENTITY Description "">
-<!ENTITY Revoke "">
-<!ENTITY Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver "">
-<!ENTITY Publish "">
-<!ENTITY Sending_key_to_Keyserver "">
-<!ENTITY There_was_a_problem_sending_this_key_to_the_Keyserver "">
-<!ENTITY No_Keyserver_defined "">
-<!ENTITY Keyserver "">
-<!ENTITY Try_Again "">
-<!ENTITY Key_Published_to_Keyserver "">
-<!ENTITY Publish_Again "">
-<!ENTITY Publish_to_Keyserver "">
-<!ENTITY Key_not_found_on_keyserver "">
+<!ENTITY Your_Name "Seu nome">
+<!ENTITY Your_Email "Seu email">
+<!ENTITY Comment "Comentário">
+<!ENTITY Passphrase "Frase secreta">
+<!ENTITY Repeat_Passphrase "Repita a frase secreta">
+<!ENTITY Advanced_Options "Opções avançadas">
+<!ENTITY Public_Key_Algorithm "Algoritmo da chave pública">
+<!ENTITY Public_Key_Size "Tamanho da chave pública">
+<!ENTITY Private_Key_Algorithm "Algoritmo da chave privada">
+<!ENTITY Private_Key_Size "Tamanho da chave privada">
+<!ENTITY Expire_in "Expira em">
+<!ENTITY Never "Nunca">
+<!ENTITY n30_days "n30 dias">
+<!ENTITY n90_days "n90 dias">
+<!ENTITY n1_year "n1 ano">
+<!ENTITY Subkey_Options "Opções de subchave">
+<!ENTITY encrypt_only "somente criptografar">
+<!ENTITY set_your_own_capabilities "escolher suas próprias capacidades">
+<!ENTITY Sign "Assinar">
+<!ENTITY Authenticate "Autenticar">
+<!ENTITY Revoke_this_Key "Revogar esta chave">
+<!ENTITY Revoke_this_UID "Revogar esta UID">
+<!ENTITY Revoke_this_Signature "Revogar essa assinatura">
+<!ENTITY Delete_this_Signature "Eliminar essa assinatura">
+<!ENTITY Delete_this_UID "Eliminar essa UID">
+<!ENTITY Delete_this_Key "Eliminar essa chave">
+<!ENTITY This_key_will_be_permanently_deleted "Essa chave será eliminada permanentemente">
+<!ENTITY Are_you_sure "Você tem certeza">
+<!ENTITY Change_Expiration "Alterar validade">
+<!ENTITY Sign_this_UID "Assinar esta UID">
+<!ENTITY Key_Details "Detalhes da chave">
+<!ENTITY Export_Public_Key "Exportar chave pública">
+<!ENTITY Add_UID "Adicionar UID">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_Key "Tem certeza de que deseja revogar esta chave">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_UID "Tem certeza de que deseja revogar esta UID">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_Signature "Tem certeza de que deseja revogar esta assinatura">
+<!ENTITY Are_you_sure_you_wish_to_delete_this_Signature "Tem certeza de que deseja eliminar esta assinatura">
+<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_UID "Tem certeza de que deseja eliminar esta UID permanentemente">
+<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_Photo "Tem certeza de que deseja eliminar esta foto permanentemente">
+<!ENTITY New_Expiration_Date "Nova data de expiração">
+<!ENTITY Never_Expire "Nunca expirar">
+<!ENTITY Expiration_Date "Data de expiração">
+<!ENTITY Save "Salvar">
+<!ENTITY Delete_this_key "Eliminar esta chave">
+<!ENTITY Add "Adicionar">
+<!ENTITY There_was_an_error_parsing_this_image_file "Houve um erro ao interpretar este arquivo de imagem">
+<!ENTITY There_was_an_error_adding_this_image_file "Houve um erro ao adicionar este arquivo de imagem">
+<!ENTITY It_is_possible_the_image_contains_EXIF_data "É possível que a imagem contenha informações EXIF">
+<!ENTITY Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo "Por favor utilize o botão acima para selecionar uma foto JPEG (.jpg/.jpeg)">
+<!ENTITY Only_JPEG_image_files_are_supported "Apenas arquivos de imagem JPEG são suportados">
+<!ENTITY WARNING "AVISO">
+<!ENTITY is_quite_large "é bem grande">
+<!ENTITY Consider_using_a_smaller_image "Considere usar uma imagem menor">
+<!ENTITY Only_one_image_can_be_added "Apenas uma imagem pode ser adicionada">
+<!ENTITY Copy "Copiar">
+<!ENTITY Please_specify_the_revocation_details "Por favor especifique os detalhes de revogação">
+<!ENTITY Reason "Razão">
+<!ENTITY No_reason_specified "Nenhuma razão especificada">
+<!ENTITY Key_has_been_compromised "A chave foi comprometida">
+<!ENTITY Key_is_superseded "A chave é substituída">
+<!ENTITY Key_is_no_longer_used "Chave fora de uso">
+<!ENTITY Description "Descrição">
+<!ENTITY Revoke "Revogar">
+<!ENTITY Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver "Tem certeza de que deseja enviar essa chave ao servidor de chaves">
+<!ENTITY Publish "Enviar">
+<!ENTITY Sending_key_to_Keyserver "Enviando chave ao servidor de chaves">
+<!ENTITY There_was_a_problem_sending_this_key_to_the_Keyserver "Houve um problema ao enviar chave ao servidor de chaves">
+<!ENTITY No_Keyserver_defined "Nenhum servidor de chaves definido">
+<!ENTITY Keyserver "Servidor de chaves">
+<!ENTITY Try_Again "Tentar novamente">
+<!ENTITY Key_Published_to_Keyserver "Chave enviada ao servidor de chaves">
+<!ENTITY Publish_Again "Enviar novamente">
+<!ENTITY Publish_to_Keyserver "Publicar no Keyserver">
+<!ENTITY Key_not_found_on_keyserver "Chave não encontrada no servidor de chaves">
 <!ENTITY Key_updated "">
 <!ENTITY No_changes_to_key "">
-<!ENTITY User_ID_is_no_longer_valid "">
-<!ENTITY Please_select_which_of_your_keys_to_create_the_signature_with "">
-<!ENTITY You_have_not_enabled_any_keys_for_use_with_webpg "">
-<!ENTITY please_click_here "">
-<!ENTITY and_select_1_or_more_keys_for_use_with_webpg "">
-<!ENTITY You_have_not_generated_any_keys "">
-<!ENTITY and_generate_a_key_to_use_with_webpg "">
-<!ENTITY Already_signed_with_this_key "">
-<!ENTITY Signature_added_using_this_key "">
-<!ENTITY Delete_this_Photo "">
-<!ENTITY Searching_for "">
+<!ENTITY User_ID_is_no_longer_valid "A ID de usuário não é mais válida">
+<!ENTITY Please_select_which_of_your_keys_to_create_the_signature_with "Por favor selecione uma de suas chaves para criar a assinatura">
+<!ENTITY You_have_not_enabled_any_keys_for_use_with_webpg "Você não ativou nenhuma chave para usar com o webpg">
+<!ENTITY please_click_here "por favor clique aqui">
+<!ENTITY and_select_1_or_more_keys_for_use_with_webpg "e selecione 1 ou mais chaves para usar com o webpg">
+<!ENTITY You_have_not_generated_any_keys "Você não gerou nenhuma chave">
+<!ENTITY and_generate_a_key_to_use_with_webpg "e crie uma chave para usar com o webpg">
+<!ENTITY Already_signed_with_this_key "Já assinou com esta chave">
+<!ENTITY Signature_added_using_this_key "Assinatura adicionada usando esta chave">
+<!ENTITY Delete_this_Photo "Eliminar esta foto">
+<!ENTITY Searching_for "Buscando por">
 <!ENTITY Search_string_too_ambiguous_or_not_found_on_server "">
-<!ENTITY KeyID "">
+<!ENTITY KeyID "KeyID">
 <!ENTITY IMPORT "">
-<!ENTITY Key_Created "">
-<!ENTITY Expires "">
-<!ENTITY Expired "">
-<!ENTITY User_IDs "">
-<!ENTITY Fingerprint "">
-<!ENTITY Status "">
-<!ENTITY Revoked "">
-<!ENTITY Invalid "">
-<!ENTITY Disabled "">
-<!ENTITY Valid "">
-<!ENTITY Key_Algorithm "">
-<!ENTITY Validity "">
-<!ENTITY Key_Options "">
-<!ENTITY Operations "">
-<!ENTITY Subkeys "">
-<!ENTITY Subkey_Details "">
-<!ENTITY Flags "">
+<!ENTITY Key_Created "Chave criada">
+<!ENTITY Expires "Válida até">
+<!ENTITY Expired "Expirada">
+<!ENTITY User_IDs "IDs de usuário">
+<!ENTITY Fingerprint "Impressão digital">
+<!ENTITY Status "Status">
+<!ENTITY Revoked "Revogada">
+<!ENTITY Invalid "Inválida">
+<!ENTITY Disabled "Desativado">
+<!ENTITY Valid "Válido">
+<!ENTITY Key_Algorithm "Algoritmo da chave">
+<!ENTITY Validity "Validade">
+<!ENTITY Key_Options "Opções de chave">
+<!ENTITY Operations "Operações">
+<!ENTITY Subkeys "Subchaves">
+<!ENTITY Subkey_Details "Detalhes da subchave">
+<!ENTITY Flags "Marcadores">
 <!ENTITY Key_Operations "">
-<!ENTITY Signatures_made_with_keys_not_in_your_keyring_are_omitted "">
-<!ENTITY Created "">
-<!ENTITY User_Photos "">
+<!ENTITY Signatures_made_with_keys_not_in_your_keyring_are_omitted "Assinaturas realizadas com chaves fora do seu chaveiro são omitidas">
+<!ENTITY Created "Criação">
+<!ENTITY User_Photos "Fotos de usuário">
 <!ENTITY User_Photo "">
-<!ENTITY Enable_this_key_for_GnuPG_operations "">
-<!ENTITY This_is_your_default_key "">
-<!ENTITY Make_this_the_default_key_for_GnuPG_operations "">
-<!ENTITY Enabled "">
-<!ENTITY Cannot_unset_your_default_key "">
-<!ENTITY Trust_Assignment "">
-<!ENTITY Unknown "">
-<!ENTITY Marginal "">
-<!ENTITY Full "">
+<!ENTITY Enable_this_key_for_GnuPG_operations "Ativar esta chave para operações GnuPG">
+<!ENTITY This_is_your_default_key "Esta é sua chave padrão">
+<!ENTITY Make_this_the_default_key_for_GnuPG_operations "Tornar esta chave a padrão para operações do GnuPG">
+<!ENTITY Enabled "Ativado">
+<!ENTITY Cannot_unset_your_default_key "Impossível desmarcar sua chave padrão">
+<!ENTITY Trust_Assignment "Atribuição de confiança">
+<!ENTITY Unknown "Desconhecido">
+<!ENTITY Marginal "Relativa">
+<!ENTITY Full "Completa">
 <!ENTITY ultimate "">
-<!ENTITY Group_Assignment "">
+<!ENTITY Group_Assignment "Atribuição de grupo">
 <!ENTITY Select_group_s__below "">
 <!ENTITY None_Selected "">
 <!ENTITY Filter_or_Create_New "">
 <!ENTITY Create_new_group "">
-<!ENTITY Change_Passphrase "">
-<!ENTITY Add_Subkey "">
-<!ENTITY Add_Photo "">
+<!ENTITY Change_Passphrase "Alterar frase secreta">
+<!ENTITY Add_Subkey "Adicionar subchave">
+<!ENTITY Add_Photo "Adicinar foto">
 <!ENTITY Disable_this_key "">
 <!ENTITY Enable_this_key "">
-<!ENTITY Delete_this_Subkey "">
+<!ENTITY Delete_this_Subkey "Eliminar esta subchave">
 <!ENTITY Export_this_key "">
-<!ENTITY Refresh_from_Keyserver "">
-<!ENTITY Cannot_sign_a_revoked_UID "">
+<!ENTITY Refresh_from_Keyserver "Atualizar do Keyserver">
+<!ENTITY Cannot_sign_a_revoked_UID "Impossível assinar uma UID revogada">
 <!ENTITY Revoke_this_key "">
-<!ENTITY Revoke_UID "">
-<!ENTITY Cannot_make_a_revoked_UID_primary "">
+<!ENTITY Revoke_UID "Revogar UID">
+<!ENTITY Cannot_make_a_revoked_UID_primary "Impossível tornar uma UID revogada em UID principal">
 <!ENTITY Make_Primary "">
-<!ENTITY Delete "">
-<!ENTITY This_signature_was_made_with_a_key_that_does_not_belong_to_you "">
-<!ENTITY This_action_cannot_be_undone "">
+<!ENTITY Delete "Eliminar">
+<!ENTITY This_signature_was_made_with_a_key_that_does_not_belong_to_you "Esta assinatura foi realizada com uma chave que não lhe pertence">
+<!ENTITY This_action_cannot_be_undone "Esta ação não pode ser desfeita">
 <!ENTITY Certify "">
 <!ENTITY News "">
 <!ENTITY New_features "">
-<!ENTITY WebPG_Options "">
-<!ENTITY The_WebPG_NPAPI_Plugin_is_valid "">
-<!ENTITY OpenPGP_was_detected "">
-<!ENTITY It_appears_you_have_a_key_agent_configured "">
-<!ENTITY gpgconf_was_detected "">
-<!ENTITY you_can_use_the_signature_methods "">
-<!ENTITY OpenPGP_does_not_appear_to_be_installed "">
-<!ENTITY You_do_not_appear_to_have_a_key_agent_configured "">
-<!ENTITY A_working_key_agent_is_required "">
-<!ENTITY gpgconf_does_not_appear_to_be_installed "">
-<!ENTITY You_will_not_be_able_to_create_signatures "">
-<!ENTITY There_was_a_problem_loading_the_plugin "">
-<!ENTITY the_plugin_might_be_incompatibly_compiled_for_this_architechture "">
-<!ENTITY click_here_for_help_resolving_this_issue "">
-<!ENTITY Enable_Inline_formatting_of_PGP_Messages_and_Keys "">
-<!ENTITY Inline_Options "">
-<!ENTITY Always_encrypt_to_your_default_key_in_addition_to_the_recipient "">
-<!ENTITY Enable_WebPG_GMAIL_integration "">
-<!ENTITY EXPERIMENTAL "">
-<!ENTITY Automatically_Sign_outgoing_messages_in_GMAIL "">
+<!ENTITY WebPG_Options "Opções do WebPG">
+<!ENTITY The_WebPG_NPAPI_Plugin_is_valid "O plugin NPAP do WebPG é válido">
+<!ENTITY OpenPGP_was_detected "O OpenPGP foi identificado">
+<!ENTITY It_appears_you_have_a_key_agent_configured "Parece que você possui um agente de chaves configurado">
+<!ENTITY gpgconf_was_detected "o gpgconf foi identificado">
+<!ENTITY you_can_use_the_signature_methods "você pode usar os métodos de assinatura">
+<!ENTITY OpenPGP_does_not_appear_to_be_installed "O OpenPGP não parece instalado">
+<!ENTITY You_do_not_appear_to_have_a_key_agent_configured "Parece que você não possui um agente de chaves configurado">
+<!ENTITY A_working_key_agent_is_required "Um agente de chaves é necessário">
+<!ENTITY gpgconf_does_not_appear_to_be_installed "gpgconf não parece estar instalado">
+<!ENTITY You_will_not_be_able_to_create_signatures "Você não poderá criar assinaturas">
+<!ENTITY There_was_a_problem_loading_the_plugin "Houve um problema com o plugin">
+<!ENTITY the_plugin_might_be_incompatibly_compiled_for_this_architechture "o plugin possivelmente compilado de modo incompatível com esta arquitetura">
+<!ENTITY click_here_for_help_resolving_this_issue "clique aqui para ajudar a resolver este problema">
+<!ENTITY Enable_Inline_formatting_of_PGP_Messages_and_Keys "Ativar formatação em linha de mensagens e chaves PGP">
+<!ENTITY Inline_Options "Opções em linha">
+<!ENTITY Always_encrypt_to_your_default_key_in_addition_to_the_recipient "Sempre criptografar para sua chave padrão em adição ao destinatário">
+<!ENTITY Enable_WebPG_GMAIL_integration "Ativar integração WebPG do GMAIL">
+<!ENTITY EXPERIMENTAL "EXPERIMENTAL">
+<!ENTITY Automatically_Sign_outgoing_messages_in_GMAIL "Assinar automaticamente mensagens enviadas no GMAIL">
 <!ENTITY Linked_GMAIL_Identities "">
 <!ENTITY Link_new_GMAIL_identity "">
-<!ENTITY GPGCONF_binary "">
-<!ENTITY Your_system_appears_to_be_configured_correctly_for_WebPG "">
-<!ENTITY There_is_a_problem_with_your_configuration "">
-<!ENTITY Inline_formatting_mode "">
-<!ENTITY Window "">
-<!ENTITY Icon "">
-<!ENTITY Sample "">
-<!ENTITY WebPG_Toolbar "">
+<!ENTITY GPGCONF_binary "executável do GPGCONF">
+<!ENTITY Your_system_appears_to_be_configured_correctly_for_WebPG "Seu sistema parece estar configurado corretamente para o WebPG">
+<!ENTITY There_is_a_problem_with_your_configuration "Há um problema com a sua configuração">
+<!ENTITY Inline_formatting_mode "Modo de formatação em linha">
+<!ENTITY Window "Janela">
+<!ENTITY Icon "ícone">
+<!ENTITY Sample "Exemplo">
+<!ENTITY WebPG_Toolbar "Barra de ferramentas do WebPG">
 <!ENTITY No_default_key_set "">
-<!ENTITY WebPG_GMAIL_integration_is_EXPERIMENTAL "">
-<!ENTITY use_at_your_own_risk "">
+<!ENTITY WebPG_GMAIL_integration_is_EXPERIMENTAL "A integração do WebPG com o GMAIL é EXPERIMENTAL">
+<!ENTITY use_at_your_own_risk "use em seu próprio risco">
 <!ENTITY PGP_MIME_Enabled "">
 <!ENTITY PGP_MIME_Disabled "">
 <!ENTITY delete "">
 <!ENTITY WebPG_User_Documentation_Guides "">
 <!ENTITY WebPG_Documentation "">
-<!ENTITY Text_copied_to_clipboard "">
-<!ENTITY There_may_have_been_a_problem_placing_the_data_into_the_clipboard "">
-<!ENTITY TEXT_COPIED "">
-<!ENTITY UNABLE_TO_COPY_TEXT "">
-<!ENTITY COPY_TO_CLIPBOARD "">
-<!ENTITY Verify_this_text "">
-<!ENTITY Decrypt_this_text "">
-<!ENTITY Import_this_Key "">
-<!ENTITY Clear_sign_this_text "">
-<!ENTITY Encrypt_this_text "">
-<!ENTITY Paste_Public_Key "">
-<!ENTITY UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE "">
-<!ENTITY PGP_ENCRYPTED_AND_SIGNED_MESSAGE "">
-<!ENTITY DECRYPTION_FAILED "">
-<!ENTITY NO_SECRET_KEY "">
-<!ENTITY BAD_PASSPHRASE "">
-<!ENTITY DECRYPT_THIS_MESSAGE "">
-<!ENTITY DISPLAY_ORIGINAL "">
-<!ENTITY DETACHED_PGP_SIGNATURE "">
-<!ENTITY PGP_SIGNED_MESSAGE "">
-<!ENTITY THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID "">
-<!ENTITY THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH "">
-<!ENTITY THE_SIGNATURE_ON_THIS_MESSAGE_FAILED "">
-<!ENTITY THE_MESSAGE_MAY_BE_TAMPERED_WITH "">
-<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_KEY "">
-<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY "">
-<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING "">
-<!ENTITY SEARCH_FOR_KEYS_ON_KEYSERVER "">
-<!ENTITY PGP_PUBLIC_KEY "">
-<!ENTITY Names_UIDs_on_Key "">
-<!ENTITY REVOKED "">
+<!ENTITY Text_copied_to_clipboard "Texto copiado para a área de transferência">
+<!ENTITY There_may_have_been_a_problem_placing_the_data_into_the_clipboard "Pode ter ocorrido um problema ao salvar os dados na área de transferência">
+<!ENTITY TEXT_COPIED "TEXTO COPIADO">
+<!ENTITY UNABLE_TO_COPY_TEXT "IMPOSSÍVEL COPIAR TEXTO">
+<!ENTITY COPY_TO_CLIPBOARD "COPIAR PARA ÁREA DE TRANSFERÊNCIA">
+<!ENTITY Verify_this_text "Verificar este texto">
+<!ENTITY Decrypt_this_text "Descriptografar este texto">
+<!ENTITY Import_this_Key "Importar esta chave">
+<!ENTITY Clear_sign_this_text "Assinar este texto de forma transparente">
+<!ENTITY Encrypt_this_text "Criptografar este texto">
+<!ENTITY Paste_Public_Key "Colar chave pública">
+<!ENTITY UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE "INCAPAZ DE DESCRIPTOGRAFAR OU VERIFICAR ESTA MENSAGEM">
+<!ENTITY PGP_ENCRYPTED_AND_SIGNED_MESSAGE "MENSAGEM CRIPTOGRAFADA E ASSINADA COM PGP">
+<!ENTITY DECRYPTION_FAILED "DESCRIPTOGRAFIA FALHOU">
+<!ENTITY NO_SECRET_KEY "NENHUMA CHAVE SECRETA">
+<!ENTITY BAD_PASSPHRASE "FRASE SECRETA ERRADA">
+<!ENTITY DECRYPT_THIS_MESSAGE "DESCRIPTOGRAFAR ESTA MENSAGEM">
+<!ENTITY DISPLAY_ORIGINAL "EXIBIR ORIGINAL">
+<!ENTITY DETACHED_PGP_SIGNATURE "ASSINATURA PGP SEPARADA">
+<!ENTITY PGP_SIGNED_MESSAGE "MENSAGEM ASSINADA COM PGP">
+<!ENTITY THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID "A ASSINATURA NESTA MENSAGEM É INVÁLIDA">
+<!ENTITY THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH "A ASSINATURA PODERIA ESTAR ADULTERADA COM">
+<!ENTITY THE_SIGNATURE_ON_THIS_MESSAGE_FAILED "A ASSINATURA FALHOU NESTA MENSAGEM">
+<!ENTITY THE_MESSAGE_MAY_BE_TAMPERED_WITH "ESTA MENSAGEM PODE ESTAR ADULTERADA COM">
+<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_KEY "ESTA MENSAGEM FOI ASSINADA COM A CHAVE">
+<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY "ESTA MENSAGEM FOI ASSINADA COM UMA CHAVE PÚBLICA EXPIRADA">
+<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING "ESTA MENSAGEM FOI ASSINADA COM UMA CHAVE PÚBLICA FORA DO SEU CHAVEIRO">
+<!ENTITY SEARCH_FOR_KEYS_ON_KEYSERVER "BUSCAR CHAVES NO SERVIDOR DE CHAVES">
+<!ENTITY PGP_PUBLIC_KEY "CHAVE PÚBLICA PGP">
+<!ENTITY Names_UIDs_on_Key "Nomes/UIDs na chave">
+<!ENTITY REVOKED "REVOGADA">
 <!ENTITY EXPIRED "">
-<!ENTITY THIS_KEY_IS_NOT_IN_YOUR_KEYRING "">
-<!ENTITY THIS_KEY_IS_IN_YOUR_KEYRING "">
-<!ENTITY IMPORT_THIS_KEY "">
-<!ENTITY DELETE_THIS_KEY "">
-<!ENTITY HIDE_ORIGINAL "">
-<!ENTITY UNUSABLE_KEY "">
-<!ENTITY NO_USER_ID "">
-<!ENTITY WebPG "">
-<!ENTITY About "">
-<!ENTITY Clear_Sign "">
-<!ENTITY Sign_and_Encrypt_this_text "">
-<!ENTITY Import_this_Public_key "">
-<!ENTITY Do_not_use_WebPG_for_this_message "">
-<!ENTITY Sign_Inline "">
-<!ENTITY Sign_as_Attachment "">
-<!ENTITY You_do_not_have_any_keys_for "">
-<!ENTITY or "">
+<!ENTITY THIS_KEY_IS_NOT_IN_YOUR_KEYRING "ESTA CHAVE NÃO ESTA EM SEU CHAVEIRO">
+<!ENTITY THIS_KEY_IS_IN_YOUR_KEYRING "ESTA CHAVE ESTÁ EM SEU CHAVEIRO">
+<!ENTITY IMPORT_THIS_KEY "IMPORTAR ESTA CHAVE">
+<!ENTITY DELETE_THIS_KEY "ELIMINAR ESTA CHAVE">
+<!ENTITY HIDE_ORIGINAL "OCULTAR ORIGINAL">
+<!ENTITY UNUSABLE_KEY "CHAVE INUTILIZÁVEL">
+<!ENTITY NO_USER_ID "NENHUMA ID DE USUÁRIO">
+<!ENTITY WebPG "WebPG">
+<!ENTITY About "Sobre">
+<!ENTITY Clear_Sign "Assinatura transparente">
+<!ENTITY Sign_and_Encrypt_this_text "Assinar e criptografar este texto">
+<!ENTITY Import_this_Public_key "Importar esta chave pública">
+<!ENTITY Do_not_use_WebPG_for_this_message "Não use o WebPG para essa mensagem">
+<!ENTITY Sign_Inline "Assinar em linha">
+<!ENTITY Sign_as_Attachment "Assinar como anexo">
+<!ENTITY You_do_not_have_any_keys_for "Você não possui nenhuma chave para">
+<!ENTITY or "ou">
 <!ENTITY WebPG_is_preparing_the_email "">
-<!ENTITY This_message_already_contains_PGP_data "">
-<!ENTITY Would_you_like_to_Encrypt_anyway "">
-<!ENTITY Expired_keys_found_for "">
-<!ENTITY and "">
+<!ENTITY This_message_already_contains_PGP_data "Essa mensagem já contém dados PGP">
+<!ENTITY Would_you_like_to_Encrypt_anyway "Gostaria de Criptografar assim mesmo">
+<!ENTITY Expired_keys_found_for "Chaves expiradas encontradas para">
+<!ENTITY and "e">
 <!ENTITY This_message_will_be_Encrypted "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted "">
-<!ENTITY You_have_more_than_1_public_key_matching_that_address "">
-<!ENTITY The_Key_for "">
-<!ENTITY is_invalid "">
-<!ENTITY Open_the_Key_Manager "">
+<!ENTITY You_have_more_than_1_public_key_matching_that_address "Você possui mais de 1 chave pública correspondendo aquele endereço">
+<!ENTITY The_Key_for "A chave para">
+<!ENTITY is_invalid "é inválida">
+<!ENTITY Open_the_Key_Manager "Abrir o Gerenciador de Chaves">
 <!ENTITY This_message_will_be_Signed "">
-<!ENTITY Sign_Only "">
+<!ENTITY Sign_Only "Somente assinar">
 <!ENTITY This_message_will_be_Encrypted_using_Symmetric_Encryption "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted_using_Symmetric_Encryption "">
 <!ENTITY WebPG_is_checking_this_message_for_signatures "">
 <!ENTITY Detected_email_address_is_invalid_ "">
-<!ENTITY extDesc "">
+<!ENTITY extDesc "extDesc">

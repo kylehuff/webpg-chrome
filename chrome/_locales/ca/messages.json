@@ -1,144 +1,144 @@
 {
 	"About_WebPG": {
-		"message": ""
+		"message": "Quant a WebPG"
 	},
 	"Version": {
-		"message": ""
+		"message": "Versió"
 	},
 	"Extension_Information": {
-		"message": ""
+		"message": "Informació sobre l'extensió"
 	},
 	"Extension_version": {
-		"message": ""
+		"message": "Versió de l'extensió"
 	},
 	"Platform": {
-		"message": ""
+		"message": "Plataforma"
 	},
 	"Product": {
-		"message": ""
+		"message": "Producte"
 	},
 	"User_Agent": {
-		"message": ""
+		"message": "Agent d'usuari"
 	},
 	"Language": {
-		"message": ""
+		"message": "Idioma"
 	},
 	"Plugin_Information": {
-		"message": ""
+		"message": "Informació sobre el connector"
 	},
 	"Plugin_version": {
-		"message": ""
+		"message": "Versió del connector"
 	},
 	"GnuPG_Information": {
-		"message": ""
+		"message": "Informació sobre GnuPG"
 	},
 	"GnuPG_version": {
-		"message": ""
+		"message": "Versió de GnuPG"
 	},
 	"GnuPG_binary": {
-		"message": ""
+		"message": "Executable del GnuPG"
 	},
 	"GnuPG_home_directory": {
-		"message": ""
+		"message": "Directori d'usuari de GnuPG"
 	},
 	"default": {
-		"message": ""
+		"message": "predeterminat"
 	},
 	"GPGCONF_version": {
-		"message": ""
+		"message": "Versió de GPGCONF"
 	},
 	"not_detected": {
-		"message": ""
+		"message": "no detectat"
 	},
 	"Assuan_version": {
-		"message": ""
+		"message": "Versió d'Assuan"
 	},
 	"Key_Agent": {
 		"message": ""
 	},
 	"Finished": {
-		"message": ""
+		"message": "S'ha finalitzat"
 	},
 	"Translation_Status": {
-		"message": ""
+		"message": "Estat de la traducció"
 	},
 	"WebPG_Plugin_failed_to_load": {
-		"message": ""
+		"message": "La càrrega del connector WebPG ha fallat"
 	},
 	"Key_Generation_Complete": {
-		"message": ""
+		"message": "Generació de la clau completada"
 	},
 	"Key_Generation": {
-		"message": ""
+		"message": "Generació de claus"
 	},
 	"Open_Key_Manager": {
-		"message": ""
+		"message": "Obriu el Gestor de Claus"
 	},
 	"WebPG_Key_Generation_Failed": {
-		"message": ""
+		"message": "La creació de la clau WebPG ha fallat"
 	},
 	"The_generation_of_your_new_key_is_now_complete": {
-		"message": ""
+		"message": "La seva nova clau s'ha creat"
 	},
 	"Options": {
-		"message": ""
+		"message": "Opcions"
 	},
 	"Key_Manager": {
-		"message": ""
+		"message": "Gestor de claus"
 	},
 	"Refresh_Key_List": {
 		"message": ""
 	},
 	"Generate_New_Key": {
-		"message": ""
+		"message": "Genera Clau Nova"
 	},
 	"Create": {
-		"message": ""
+		"message": "Crea"
 	},
 	"Name_Required": {
-		"message": ""
+		"message": "Nom Requerit"
 	},
 	"UID_Names_must_be_at_least_5_characters": {
-		"message": ""
+		"message": "Els Noms UID han de contenir almenys  caracters"
 	},
 	"UID_Names_cannot_begin_with_a_number": {
-		"message": ""
+		"message": "Els Noms UID no poden començar amb un número"
 	},
 	"Not_a_valid_email_address": {
-		"message": ""
+		"message": "No és una adreça de correu vàlida"
 	},
 	"Passphrases_do_not_match": {
-		"message": ""
+		"message": "Les contrasenyes no coincideixen"
 	},
 	"Building_key__please_wait": {
-		"message": ""
+		"message": "Construïnt una clau, espereu un moment"
 	},
 	"This_may_take_a_long_time__5_minutes_or_more__to_complete": {
-		"message": ""
+		"message": "Això pot trigar una estona llarga a completar-se (5 minuts o més)"
 	},
 	"Please_be_patient_while_the_key_is_created": {
-		"message": ""
+		"message": "Tingueu paciència mentre es crea la clau"
 	},
 	"It_is_safe_to_close_this_window": {
-		"message": ""
+		"message": "Podeu tancar aquesta finestra"
 	},
 	"key_generation_will_continue_in_the_background": {
-		"message": ""
+		"message": "la generació de la clau continuarà en segon plànol"
 	},
 	"Close": {
-		"message": ""
+		"message": "Tanca"
 	},
 	"Cancel": {
-		"message": ""
+		"message": "Cancel·la"
 	},
 	"Import_from_File": {
 		"message": ""
 	},
 	"Import": {
-		"message": ""
+		"message": "Importa"
 	},
 	"Error": {
-		"message": ""
+		"message": "Hi ha hagut un error"
 	},
 	"There_was_an_error_parsing_this_PGP_file": {
 		"message": ""
@@ -153,157 +153,157 @@
 		"message": ""
 	},
 	"Select_Recipient_s_": {
-		"message": ""
+		"message": "Seleccioneu Recipient(s)."
 	},
 	"Export": {
-		"message": ""
+		"message": "Exporta"
 	},
 	"Editor": {
-		"message": ""
+		"message": "Editor"
 	},
 	"Search_Filter": {
-		"message": ""
+		"message": "Buscar/Filtre"
 	},
 	"Encrypt": {
-		"message": ""
+		"message": "Xifra"
 	},
 	"Insert": {
-		"message": ""
+		"message": "Inseriu"
 	},
 	"no_action_has_been_selected": {
-		"message": ""
+		"message": "No heu seleccionat cap acció"
 	},
 	"no_action_has_been_successful": {
-		"message": ""
+		"message": "Cap acció ha conclòs amb èxit"
 	},
 	"UIDs": {
-		"message": ""
+		"message": "UIDs"
 	},
 	"Key_does_not_support_this_operation": {
-		"message": ""
+		"message": "La clau no té suport per aquesta operació"
 	},
 	"Error_loading_WebPG": {
-		"message": ""
+		"message": "S'ha produï un error en carregar WebPG"
 	},
 	"We_encountered_a_problem_while_attempting_to_load_WebPG": {
-		"message": ""
+		"message": "S'ha produït un problema quan s'intentava carregar WebPG"
 	},
 	"Suggestions": {
-		"message": ""
+		"message": "Suggeriments"
 	},
 	"The_plugin_was_unable_to_load": {
-		"message": ""
+		"message": "Ha estat impossible carregar el connector"
 	},
 	"The_Firefox_Click_to_Play_feature_is_enabled": {
-		"message": ""
+		"message": "S'ha activat l'opció Click to Play del Firefox"
 	},
 	"WebPG_cannot_load_the_required_plugin_with_this_feature_enabled": {
-		"message": ""
+		"message": "WebPG no pot carregar el connector necessari amb aquesta opció activa"
 	},
 	"The_WebPG_Native_Messaging_Host_was_unreachable": {
 		"message": ""
 	},
 	"There_might_be_a_problem_with_the_gpg_installation": {
-		"message": ""
+		"message": "Podria haver un problema amb la instal·lació de gpg"
 	},
 	"consider_reinstalling_gpg4win": {
-		"message": ""
+		"message": "Reinstal·li gpg4win"
 	},
 	"Error_Details": {
-		"message": ""
+		"message": "Detalls de l'error"
 	},
 	"Error_in_Method": {
-		"message": ""
+		"message": "Errada en le mètode"
 	},
 	"Error_Code": {
-		"message": ""
+		"message": "Errada de codi"
 	},
 	"Error_String": {
-		"message": ""
+		"message": "Errada a la cadena"
 	},
 	"File": {
-		"message": ""
+		"message": "Fitxer"
 	},
 	"Line": {
-		"message": ""
+		"message": "Línia"
 	},
 	"Unknown_Error": {
-		"message": ""
+		"message": "S'ha produït un error desconegut"
 	},
 	"System_Information": {
-		"message": ""
+		"message": "Informació del sistema"
 	},
 	"App_Version": {
-		"message": ""
+		"message": "Versió de l'aplicació"
 	},
 	"Sub_product": {
-		"message": ""
+		"message": "Subproducte"
 	},
 	"Vendor": {
-		"message": ""
+		"message": "Proveïdor"
 	},
 	"no_email_address_provided": {
-		"message": ""
+		"message": "no heu introduït cap adreça de correu electrònic"
 	},
 	"Use": {
-		"message": ""
+		"message": "Utilitza"
 	},
 	"Sign_only": {
-		"message": ""
+		"message": "Només signa"
 	},
 	"Sign_and_Encrypt": {
-		"message": ""
+		"message": "Signa i xifra"
 	},
 	"Symmetric_Encryption": {
-		"message": ""
+		"message": "Xifratge simètric"
 	},
 	"Signed_Symmetric_Encryption": {
 		"message": ""
 	},
 	"Decrypt": {
-		"message": ""
+		"message": "Desxifra"
 	},
 	"Verify": {
-		"message": ""
+		"message": "Verifica"
 	},
 	"Secure_Editor": {
-		"message": ""
+		"message": "Editor Segur"
 	},
 	"PGP_Signed_Message": {
-		"message": ""
+		"message": "Missatge signat amb PGP"
 	},
 	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "MISSATGE XIFRAT O SIGNAT AMB PGP"
 	},
 	"PGP_Public_Key": {
-		"message": ""
+		"message": "Clau Pública de PGP"
 	},
 	"WebPG_Secure_Editor": {
-		"message": ""
+		"message": "Editor Segur WebPG"
 	},
 	"Unsecured_Editor": {
-		"message": ""
+		"message": "Editor no segur"
 	},
 	"Loading_keys": {
 		"message": ""
 	},
 	"Generating_Key": {
-		"message": ""
+		"message": "S'està generant una clau"
 	},
 	"Waiting_for_entropy": {
-		"message": ""
+		"message": "S'està esperant entropia"
 	},
 	"Building_key": {
-		"message": ""
+		"message": "Construïnt una clau"
 	},
 	"please_wait": {
-		"message": ""
+		"message": "Espereu"
 	},
 	"Private_Keys": {
-		"message": ""
+		"message": "Claus privades"
 	},
 	"Public_Keys": {
-		"message": ""
+		"message": "Claus públiques"
 	},
 	"Search_Keyserver": {
 		"message": ""
@@ -312,226 +312,226 @@
 		"message": ""
 	},
 	"Your_Name": {
-		"message": ""
+		"message": "El vostre nom"
 	},
 	"Your_Email": {
-		"message": ""
+		"message": "La vostra adreça de correu electrònic"
 	},
 	"Comment": {
-		"message": ""
+		"message": "Comentari"
 	},
 	"Passphrase": {
-		"message": ""
+		"message": "Frase de pas"
 	},
 	"Repeat_Passphrase": {
-		"message": ""
+		"message": "Repetiu la frase de pas"
 	},
 	"Advanced_Options": {
-		"message": ""
+		"message": "Opcions avançades"
 	},
 	"Public_Key_Algorithm": {
-		"message": ""
+		"message": "Algorisme de clau pública"
 	},
 	"Public_Key_Size": {
-		"message": ""
+		"message": "Mida de la clau pública"
 	},
 	"Private_Key_Algorithm": {
-		"message": ""
+		"message": "Algorisme de clau privada"
 	},
 	"Private_Key_Size": {
-		"message": ""
+		"message": "Mida de la clau privada"
 	},
 	"Expire_in": {
-		"message": ""
+		"message": "Expira en"
 	},
 	"Never": {
-		"message": ""
+		"message": "Mai"
 	},
 	"n30_days": {
-		"message": ""
+		"message": "n30 dies"
 	},
 	"n90_days": {
-		"message": ""
+		"message": "n90 dies"
 	},
 	"n1_year": {
-		"message": ""
+		"message": "n1 any"
 	},
 	"Subkey_Options": {
-		"message": ""
+		"message": "Opcions de Subclau"
 	},
 	"encrypt_only": {
-		"message": ""
+		"message": "només xifra"
 	},
 	"set_your_own_capabilities": {
-		"message": ""
+		"message": "introduïu les vostres pròpies capacitats"
 	},
 	"Sign": {
-		"message": ""
+		"message": "Signa"
 	},
 	"Authenticate": {
-		"message": ""
+		"message": "Autentica"
 	},
 	"Revoke_this_Key": {
-		"message": ""
+		"message": "Revoca aquesta clau"
 	},
 	"Revoke_this_UID": {
-		"message": ""
+		"message": "Revoca aquest UID"
 	},
 	"Revoke_this_Signature": {
-		"message": ""
+		"message": "Revoca aquesta signatura"
 	},
 	"Delete_this_Signature": {
-		"message": ""
+		"message": "Esborra aquesta signatura"
 	},
 	"Delete_this_UID": {
-		"message": ""
+		"message": "Esborra aquest UID"
 	},
 	"Delete_this_Key": {
-		"message": ""
+		"message": "Esborra aquesta clau"
 	},
 	"This_key_will_be_permanently_deleted": {
-		"message": ""
+		"message": "Aquesta clau serà suprimida permanentment"
 	},
 	"Are_you_sure": {
-		"message": ""
+		"message": "Segur?"
 	},
 	"Change_Expiration": {
-		"message": ""
+		"message": "Canvia el venciment"
 	},
 	"Sign_this_UID": {
-		"message": ""
+		"message": "Signa aquest UID"
 	},
 	"Key_Details": {
-		"message": ""
+		"message": "Detalls de la clau"
 	},
 	"Export_Public_Key": {
-		"message": ""
+		"message": "Exporta la Clau pública"
 	},
 	"Add_UID": {
-		"message": ""
+		"message": "Afegeix UID"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Key": {
-		"message": ""
+		"message": "Segur que voleu revocar aquesta clau"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_UID": {
-		"message": ""
+		"message": "Segur que voleu revocar aquest UID"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Signature": {
-		"message": ""
+		"message": "Segur que voleu revocar aquesta signatura"
 	},
 	"Are_you_sure_you_wish_to_delete_this_Signature": {
-		"message": ""
+		"message": "Segur que voleu eliminar aquesta signatura"
 	},
 	"Are_you_sure_you_want_to_permanently_delete_this_UID": {
-		"message": ""
+		"message": "Segur que voleu eliminar permanentment aquest UID"
 	},
 	"Are_you_sure_you_want_to_permanently_delete_this_Photo": {
-		"message": ""
+		"message": "Segur que voleu eliminar permanentment aquesta foto"
 	},
 	"New_Expiration_Date": {
-		"message": ""
+		"message": "Nova data de venciment"
 	},
 	"Never_Expire": {
-		"message": ""
+		"message": "No expira mai"
 	},
 	"Expiration_Date": {
-		"message": ""
+		"message": "Data de venciment"
 	},
 	"Save": {
-		"message": ""
+		"message": "Desa"
 	},
 	"Delete_this_key": {
-		"message": ""
+		"message": "Suprimeix aquesta clau"
 	},
 	"Add": {
-		"message": ""
+		"message": "Afegeix"
 	},
 	"There_was_an_error_parsing_this_image_file": {
-		"message": ""
+		"message": "S'ha produït un error processant aquest arxiu d'imatge"
 	},
 	"There_was_an_error_adding_this_image_file": {
-		"message": ""
+		"message": "S'ha produït un error quan s'afegia aquest arxiu d'imatge"
 	},
 	"It_is_possible_the_image_contains_EXIF_data": {
-		"message": ""
+		"message": "És possible que la imatge contengui dades EXIF"
 	},
 	"Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo": {
-		"message": ""
+		"message": "Empreu el botó de dalt per seleccionar una imatge JPEG (.jpg/.jpeg)"
 	},
 	"Only_JPEG_image_files_are_supported": {
-		"message": ""
+		"message": "Només es poden fer servir arxius JPEG"
 	},
 	"WARNING": {
-		"message": ""
+		"message": "ATENCIÓ"
 	},
 	"is_quite_large": {
-		"message": ""
+		"message": "té una mida molt gran"
 	},
 	"Consider_using_a_smaller_image": {
-		"message": ""
+		"message": "Considereu emprar una imatge més petita"
 	},
 	"Only_one_image_can_be_added": {
-		"message": ""
+		"message": "Només es pot afegir una imatge"
 	},
 	"Copy": {
-		"message": ""
+		"message": "Copia"
 	},
 	"Please_specify_the_revocation_details": {
-		"message": ""
+		"message": "Especifiqueu els detalls de revocació"
 	},
 	"Reason": {
-		"message": ""
+		"message": "Motiu"
 	},
 	"No_reason_specified": {
-		"message": ""
+		"message": "No s'ha especificat el motiu"
 	},
 	"Key_has_been_compromised": {
-		"message": ""
+		"message": "La clau ha estat compromesa"
 	},
 	"Key_is_superseded": {
-		"message": ""
+		"message": "La clau ha estat substituïda"
 	},
 	"Key_is_no_longer_used": {
-		"message": ""
+		"message": "La clau no es fa servir més"
 	},
 	"Description": {
-		"message": ""
+		"message": "Descripció"
 	},
 	"Revoke": {
-		"message": ""
+		"message": "Revoca"
 	},
 	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "Segur que voleu publicar aquesta clau al servidor de claus?"
 	},
 	"Publish": {
-		"message": ""
+		"message": "Publica"
 	},
 	"Sending_key_to_Keyserver": {
-		"message": ""
+		"message": "S'està enviant la clau al servidor de claus"
 	},
 	"There_was_a_problem_sending_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "S'ha produït un problema quan s'enviava aquesta clau al servidor de claus"
 	},
 	"No_Keyserver_defined": {
-		"message": ""
+		"message": "No s'ha definit cap servidor de claus"
 	},
 	"Keyserver": {
-		"message": ""
+		"message": "Servidor de claus"
 	},
 	"Try_Again": {
-		"message": ""
+		"message": "Torneu-ho a provar"
 	},
 	"Key_Published_to_Keyserver": {
-		"message": ""
+		"message": "Clau publicada al servidor de claus"
 	},
 	"Publish_Again": {
-		"message": ""
+		"message": "Publicar una altra vegada"
 	},
 	"Publish_to_Keyserver": {
-		"message": ""
+		"message": "Publica a un Servidor de Claus"
 	},
 	"Key_not_found_on_keyserver": {
-		"message": ""
+		"message": "La clau no s'ha trobat al servidor de claus"
 	},
 	"Key_updated": {
 		"message": ""
@@ -540,145 +540,145 @@
 		"message": ""
 	},
 	"User_ID_is_no_longer_valid": {
-		"message": ""
+		"message": "La ID d'usuari ja no és vàlida"
 	},
 	"Please_select_which_of_your_keys_to_create_the_signature_with": {
-		"message": ""
+		"message": "Seleccioneu quina de les vostres claus es farà servir per crear la signatura"
 	},
 	"You_have_not_enabled_any_keys_for_use_with_webpg": {
-		"message": ""
+		"message": "No heu habilitat cap clau per emprar amb webpg"
 	},
 	"please_click_here": {
-		"message": ""
+		"message": "Cliqueu aquí"
 	},
 	"and_select_1_or_more_keys_for_use_with_webpg": {
-		"message": ""
+		"message": "i seleccioneu 1 o més claus per fer servir amb webpg"
 	},
 	"You_have_not_generated_any_keys": {
-		"message": ""
+		"message": "No heu generat cap clau"
 	},
 	"and_generate_a_key_to_use_with_webpg": {
-		"message": ""
+		"message": "i genereu una clau per emprar amb webpg"
 	},
 	"Already_signed_with_this_key": {
-		"message": ""
+		"message": "Ja heu signat amb aquesta clau"
 	},
 	"Signature_added_using_this_key": {
-		"message": ""
+		"message": "Signatura afegida fent servir aquesta clau"
 	},
 	"Delete_this_Photo": {
-		"message": ""
+		"message": "Elimina aquesta Foto"
 	},
 	"Searching_for": {
-		"message": ""
+		"message": "S'està buscant"
 	},
 	"Search_string_too_ambiguous_or_not_found_on_server": {
 		"message": ""
 	},
 	"KeyID": {
-		"message": ""
+		"message": "KeyID"
 	},
 	"IMPORT": {
 		"message": ""
 	},
 	"Key_Created": {
-		"message": ""
+		"message": "Clau Creada"
 	},
 	"Expires": {
-		"message": ""
+		"message": "Venciment"
 	},
 	"Expired": {
-		"message": ""
+		"message": "Ha vençut"
 	},
 	"User_IDs": {
-		"message": ""
+		"message": "IDs d'Usuari"
 	},
 	"Fingerprint": {
-		"message": ""
+		"message": "Empremta digital"
 	},
 	"Status": {
-		"message": ""
+		"message": "Estatus"
 	},
 	"Revoked": {
-		"message": ""
+		"message": "S'ha revocat"
 	},
 	"Invalid": {
-		"message": ""
+		"message": "S'ha invalidat"
 	},
 	"Disabled": {
-		"message": ""
+		"message": "Desactivada"
 	},
 	"Valid": {
-		"message": ""
+		"message": "S'ha validat"
 	},
 	"Key_Algorithm": {
-		"message": ""
+		"message": "Clau de l'algorisme"
 	},
 	"Validity": {
-		"message": ""
+		"message": "Validesa"
 	},
 	"Key_Options": {
-		"message": ""
+		"message": "Opcions de la Clau"
 	},
 	"Operations": {
-		"message": ""
+		"message": "Operacions"
 	},
 	"Subkeys": {
-		"message": ""
+		"message": "Subclaus"
 	},
 	"Subkey_Details": {
-		"message": ""
+		"message": "Detalls de la Subclau"
 	},
 	"Flags": {
-		"message": ""
+		"message": "Indicadors"
 	},
 	"Key_Operations": {
 		"message": ""
 	},
 	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
-		"message": ""
+		"message": "omeses"
 	},
 	"Created": {
-		"message": ""
+		"message": "S'ha creat"
 	},
 	"User_Photos": {
-		"message": ""
+		"message": "Fotos d'Usuari"
 	},
 	"User_Photo": {
 		"message": ""
 	},
 	"Enable_this_key_for_GnuPG_operations": {
-		"message": ""
+		"message": "Habilita aquesta clau per operacions amb GnuPG"
 	},
 	"This_is_your_default_key": {
-		"message": ""
+		"message": "Aquesta és la vostra clau predeterminada"
 	},
 	"Make_this_the_default_key_for_GnuPG_operations": {
-		"message": ""
+		"message": "Fes aquesta clau predeterminada per operacions amb GnuPG"
 	},
 	"Enabled": {
-		"message": ""
+		"message": "Activada"
 	},
 	"Cannot_unset_your_default_key": {
-		"message": ""
+		"message": "No es pot canviar la configuració de la vostra clau predeterminada"
 	},
 	"Trust_Assignment": {
-		"message": ""
+		"message": "Assignació de Confiança"
 	},
 	"Unknown": {
-		"message": ""
+		"message": "Es desconeix"
 	},
 	"Marginal": {
-		"message": ""
+		"message": "Marginal"
 	},
 	"Full": {
-		"message": ""
+		"message": "Completa"
 	},
 	"ultimate": {
 		"message": ""
 	},
 	"Group_Assignment": {
-		"message": ""
+		"message": "Assignació de grup"
 	},
 	"Select_group_s__below": {
 		"message": ""
@@ -693,13 +693,13 @@
 		"message": ""
 	},
 	"Change_Passphrase": {
-		"message": ""
+		"message": "Canvi de la frase de pas"
 	},
 	"Add_Subkey": {
-		"message": ""
+		"message": "Afegeix Subclau"
 	},
 	"Add_Photo": {
-		"message": ""
+		"message": "Afegeix Foto"
 	},
 	"Disable_this_key": {
 		"message": ""
@@ -708,37 +708,37 @@
 		"message": ""
 	},
 	"Delete_this_Subkey": {
-		"message": ""
+		"message": "Elimina aquesta Subclau"
 	},
 	"Export_this_key": {
 		"message": ""
 	},
 	"Refresh_from_Keyserver": {
-		"message": ""
+		"message": "Actualitza des d'un Servidor de Claus"
 	},
 	"Cannot_sign_a_revoked_UID": {
-		"message": ""
+		"message": "No es pot signar amb una UID revocada"
 	},
 	"Revoke_this_key": {
 		"message": ""
 	},
 	"Revoke_UID": {
-		"message": ""
+		"message": "Revoca UID"
 	},
 	"Cannot_make_a_revoked_UID_primary": {
-		"message": ""
+		"message": "No es pot establir com a primària una UID revocada"
 	},
 	"Make_Primary": {
 		"message": ""
 	},
 	"Delete": {
-		"message": ""
+		"message": "Suprimeix"
 	},
 	"This_signature_was_made_with_a_key_that_does_not_belong_to_you": {
-		"message": ""
+		"message": "Aquesta signatura ha creat un clau que no us pertany"
 	},
 	"This_action_cannot_be_undone": {
-		"message": ""
+		"message": "Aquesta acció no pot ser desfeta"
 	},
 	"Certify": {
 		"message": ""
@@ -750,64 +750,64 @@
 		"message": ""
 	},
 	"WebPG_Options": {
-		"message": ""
+		"message": "Opcions WebPG"
 	},
 	"The_WebPG_NPAPI_Plugin_is_valid": {
-		"message": ""
+		"message": "El connector NPAPI de WegPG és vàlid"
 	},
 	"OpenPGP_was_detected": {
-		"message": ""
+		"message": "S'ha detectat l'OpenPGP"
 	},
 	"It_appears_you_have_a_key_agent_configured": {
-		"message": ""
+		"message": "Sembla que teniu configurat el key-agent"
 	},
 	"gpgconf_was_detected": {
-		"message": ""
+		"message": "S'ha detectat el gpgconf"
 	},
 	"you_can_use_the_signature_methods": {
-		"message": ""
+		"message": "podeu fer servir els mètodes de signatura"
 	},
 	"OpenPGP_does_not_appear_to_be_installed": {
-		"message": ""
+		"message": "Sembla que l'OpenPGP no està instal·lat"
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
-		"message": ""
+		"message": "No sembla que tingueu un agent de claus configurat"
 	},
 	"A_working_key_agent_is_required": {
-		"message": ""
+		"message": "Cal un agent de claus operatiu"
 	},
 	"gpgconf_does_not_appear_to_be_installed": {
-		"message": ""
+		"message": "No sembla que gpgconf estigui instal·lat"
 	},
 	"You_will_not_be_able_to_create_signatures": {
-		"message": ""
+		"message": "No podreu crear signatures"
 	},
 	"There_was_a_problem_loading_the_plugin": {
-		"message": ""
+		"message": "S'ha produït un problema carregant del connector"
 	},
 	"the_plugin_might_be_incompatibly_compiled_for_this_architechture": {
-		"message": ""
+		"message": "La compilació del connector podria no ser vàlida amb aquesta arquitectura"
 	},
 	"click_here_for_help_resolving_this_issue": {
-		"message": ""
+		"message": "cliqueu aquí per obtenir ajuda sobre com resoldre le problema"
 	},
 	"Enable_Inline_formatting_of_PGP_Messages_and_Keys": {
-		"message": ""
+		"message": "Habilita el formateig incrustat de Missatges i Claus PGP"
 	},
 	"Inline_Options": {
-		"message": ""
+		"message": "Opcions d'incrustació"
 	},
 	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
-		"message": ""
+		"message": "Encripta sempre amb la teva clau per defecte en adició al destinatari"
 	},
 	"Enable_WebPG_GMAIL_integration": {
-		"message": ""
+		"message": "Habilita la integració amb WebPG GMAIL"
 	},
 	"EXPERIMENTAL": {
-		"message": ""
+		"message": "EXPERIMENTAL"
 	},
 	"Automatically_Sign_outgoing_messages_in_GMAIL": {
-		"message": ""
+		"message": "Signa automàticament els missatges enviats a GMAIL"
 	},
 	"Linked_GMAIL_Identities": {
 		"message": ""
@@ -816,37 +816,37 @@
 		"message": ""
 	},
 	"GPGCONF_binary": {
-		"message": ""
+		"message": "Binari GPGCONF"
 	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
-		"message": ""
+		"message": "El vostre sistema sembla estar configurat correctament per al WebPG"
 	},
 	"There_is_a_problem_with_your_configuration": {
-		"message": ""
+		"message": "Hi ha un problema amb la vostra configuració"
 	},
 	"Inline_formatting_mode": {
-		"message": ""
+		"message": "Mode de formateig de l'Incrustat"
 	},
 	"Window": {
-		"message": ""
+		"message": "Finestra"
 	},
 	"Icon": {
-		"message": ""
+		"message": "Icona"
 	},
 	"Sample": {
-		"message": ""
+		"message": "Mostra"
 	},
 	"WebPG_Toolbar": {
-		"message": ""
+		"message": "Barra d'eines  de WebPG"
 	},
 	"No_default_key_set": {
 		"message": ""
 	},
 	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
-		"message": ""
+		"message": "La integració amb WebPG GMAIL és EXPERIMENTAL"
 	},
 	"use_at_your_own_risk": {
-		"message": ""
+		"message": "Fer-ne ús assumint els riscos"
 	},
 	"PGP_MIME_Enabled": {
 		"message": ""
@@ -864,166 +864,166 @@
 		"message": ""
 	},
 	"Text_copied_to_clipboard": {
-		"message": ""
+		"message": "Text copiat al porta-retalls"
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
-		"message": ""
+		"message": "Podria haver un problema en la còpia de les dades al porta-retalls"
 	},
 	"TEXT_COPIED": {
-		"message": ""
+		"message": "TEXT COPIAT"
 	},
 	"UNABLE_TO_COPY_TEXT": {
-		"message": ""
+		"message": "IMPOSSIBLE COPIAR EL TEXT"
 	},
 	"COPY_TO_CLIPBOARD": {
-		"message": ""
+		"message": "COPIA AL PORTA-RETALLS"
 	},
 	"Verify_this_text": {
-		"message": ""
+		"message": "Verifica aquest text"
 	},
 	"Decrypt_this_text": {
-		"message": ""
+		"message": "Desencripta aquest text"
 	},
 	"Import_this_Key": {
-		"message": ""
+		"message": "Importa aquesta Clau"
 	},
 	"Clear_sign_this_text": {
-		"message": ""
+		"message": "Neteja la signatura d'aquest text"
 	},
 	"Encrypt_this_text": {
-		"message": ""
+		"message": "Encripta aquest text"
 	},
 	"Paste_Public_Key": {
-		"message": ""
+		"message": "Enganxa la Clau Pública"
 	},
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
-		"message": ""
+		"message": "IMPOSSIBLE DESENCRIPTAR O VERIFICAR AQUEST MISSATGE"
 	},
 	"PGP_ENCRYPTED_AND_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "MISSATGE ENCRIPTAT I SIGNAT PGP"
 	},
 	"DECRYPTION_FAILED": {
-		"message": ""
+		"message": "EL DESENCRIPTAT HA FALLAT"
 	},
 	"NO_SECRET_KEY": {
-		"message": ""
+		"message": "NO HI HA CLAU SECRETA"
 	},
 	"BAD_PASSPHRASE": {
-		"message": ""
+		"message": "FRASE DE PAS INCORRECTA"
 	},
 	"DECRYPT_THIS_MESSAGE": {
-		"message": ""
+		"message": "DESENCRIPTA AQUEST MISSATGE"
 	},
 	"DISPLAY_ORIGINAL": {
-		"message": ""
+		"message": "MOSTRA L'ORIGINAL"
 	},
 	"DETACHED_PGP_SIGNATURE": {
-		"message": ""
+		"message": "SIGNATURA PGP ADJUNTADA"
 	},
 	"PGP_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "MISSATGE SIGNAT AMB PGP"
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID": {
-		"message": ""
+		"message": "LA SIGNATURA EN AQUEST MISSATGE ÉS INVÀLIDA"
 	},
 	"THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH": {
-		"message": ""
+		"message": "LA SIGNATURA PODRIA HAVER ESTAT ALTERADA"
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
-		"message": ""
+		"message": "LA SIGNATURA A  AQUEST MISSATGE HA FALLAT"
 	},
 	"THE_MESSAGE_MAY_BE_TAMPERED_WITH": {
-		"message": ""
+		"message": "EL MISSATGE PODRIA ESTAR ALTERAT"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_KEY": {
-		"message": ""
+		"message": "AQUEST MISSATGE HA ESTAT SIGNAT AMB CLAU"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY": {
-		"message": ""
+		"message": "AQUEST MISSATGE HA ESTAT SIGNAT AMB UNA CLAU PÚBLICA CADUCADA"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "ANELL DEL CLAUS"
 	},
 	"SEARCH_FOR_KEYS_ON_KEYSERVER": {
-		"message": ""
+		"message": "CERCA CLAUS AL SERVIDOR DE CLAUS"
 	},
 	"PGP_PUBLIC_KEY": {
-		"message": ""
+		"message": "CLAU PÚBLICA PGP"
 	},
 	"Names_UIDs_on_Key": {
-		"message": ""
+		"message": "Noms/UIDs a la Clau"
 	},
 	"REVOKED": {
-		"message": ""
+		"message": "REVOCADA"
 	},
 	"EXPIRED": {
 		"message": ""
 	},
 	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "AQUESTA CLAU NO ES TROBA AL VOSTRE ANELL DE CLAUS"
 	},
 	"THIS_KEY_IS_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "AQUESTA CLAU S'HA TROBAT AL VOSTRE ANELL DE CLAUS"
 	},
 	"IMPORT_THIS_KEY": {
-		"message": ""
+		"message": "IMPORTA AQUESTA CLAU"
 	},
 	"DELETE_THIS_KEY": {
-		"message": ""
+		"message": "ELIMINA AQUESTA CLAU"
 	},
 	"HIDE_ORIGINAL": {
-		"message": ""
+		"message": "AMAGA L'ORIGINAL"
 	},
 	"UNUSABLE_KEY": {
-		"message": ""
+		"message": "CLAU INUSABLE"
 	},
 	"NO_USER_ID": {
-		"message": ""
+		"message": "NO HI HA ID D'USUARI"
 	},
 	"WebPG": {
-		"message": ""
+		"message": "WebPG"
 	},
 	"About": {
-		"message": ""
+		"message": "Quant a"
 	},
 	"Clear_Sign": {
-		"message": ""
+		"message": "Elimina Signatura"
 	},
 	"Sign_and_Encrypt_this_text": {
-		"message": ""
+		"message": "Signa i Encripta aquest text"
 	},
 	"Import_this_Public_key": {
-		"message": ""
+		"message": "Importa aquesta Clau Pública"
 	},
 	"Do_not_use_WebPG_for_this_message": {
-		"message": ""
+		"message": "No empreu WebPG per aquest missatge"
 	},
 	"Sign_Inline": {
-		"message": ""
+		"message": "Signatura incrustada"
 	},
 	"Sign_as_Attachment": {
-		"message": ""
+		"message": "Signa com a Adjunt"
 	},
 	"You_do_not_have_any_keys_for": {
-		"message": ""
+		"message": "No teniu cap clau per"
 	},
 	"or": {
-		"message": ""
+		"message": "o"
 	},
 	"WebPG_is_preparing_the_email": {
 		"message": ""
 	},
 	"This_message_already_contains_PGP_data": {
-		"message": ""
+		"message": "Aquest missatge ja conté les dades PGP"
 	},
 	"Would_you_like_to_Encrypt_anyway": {
-		"message": ""
+		"message": "Voleu xifrar-lo tanmateix"
 	},
 	"Expired_keys_found_for": {
-		"message": ""
+		"message": "Claus trobades que han expirat per"
 	},
 	"and": {
-		"message": ""
+		"message": "i"
 	},
 	"This_message_will_be_Encrypted": {
 		"message": ""
@@ -1032,22 +1032,22 @@
 		"message": ""
 	},
 	"You_have_more_than_1_public_key_matching_that_address": {
-		"message": ""
+		"message": "Teniu més d'una clau pública que coincideix amd aquesta adreça"
 	},
 	"The_Key_for": {
-		"message": ""
+		"message": "La clau per"
 	},
 	"is_invalid": {
-		"message": ""
+		"message": "no és vàlida"
 	},
 	"Open_the_Key_Manager": {
-		"message": ""
+		"message": "Obriu el Gestor de Claus"
 	},
 	"This_message_will_be_Signed": {
 		"message": ""
 	},
 	"Sign_Only": {
-		"message": ""
+		"message": "Només signa"
 	},
 	"This_message_will_be_Encrypted_using_Symmetric_Encryption": {
 		"message": ""

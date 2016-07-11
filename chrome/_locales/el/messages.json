@@ -1,144 +1,144 @@
 {
 	"About_WebPG": {
-		"message": ""
+		"message": "Περί του WebPG"
 	},
 	"Version": {
-		"message": ""
+		"message": "Έκδοση"
 	},
 	"Extension_Information": {
-		"message": ""
+		"message": "Πληροφορίες επέκτασης"
 	},
 	"Extension_version": {
-		"message": ""
+		"message": "Έκδοση επέκτασης"
 	},
 	"Platform": {
-		"message": ""
+		"message": "Πλατφόρμα"
 	},
 	"Product": {
-		"message": ""
+		"message": "Προϊόν"
 	},
 	"User_Agent": {
-		"message": ""
+		"message": "Αντιπρόσωπος χρήστη"
 	},
 	"Language": {
-		"message": ""
+		"message": "Γλώσσα"
 	},
 	"Plugin_Information": {
-		"message": ""
+		"message": "Πληροφορίες προσθέτου"
 	},
 	"Plugin_version": {
-		"message": ""
+		"message": "Έκδοση Πρόσθετου"
 	},
 	"GnuPG_Information": {
-		"message": ""
+		"message": "Πληροφορίες GNUPG"
 	},
 	"GnuPG_version": {
-		"message": ""
+		"message": "Έκδοση GnuPG"
 	},
 	"GnuPG_binary": {
-		"message": ""
+		"message": "Εκτελέσιμο του GnuPG"
 	},
 	"GnuPG_home_directory": {
-		"message": ""
+		"message": "GnuPG κεντρικός φάκελςο"
 	},
 	"default": {
-		"message": ""
+		"message": "προεπιλογή"
 	},
 	"GPGCONF_version": {
-		"message": ""
+		"message": "έκδοση GPGCONF"
 	},
 	"not_detected": {
-		"message": ""
+		"message": "δεν εντοπίστηκε"
 	},
 	"Assuan_version": {
-		"message": ""
+		"message": "έκδοση Assuan"
 	},
 	"Key_Agent": {
 		"message": ""
 	},
 	"Finished": {
-		"message": ""
+		"message": "Ολοκληρώθηκε"
 	},
 	"Translation_Status": {
 		"message": ""
 	},
 	"WebPG_Plugin_failed_to_load": {
-		"message": ""
+		"message": "To WebPG πρόσθετο απέτυχε να φορτωθεί"
 	},
 	"Key_Generation_Complete": {
-		"message": ""
+		"message": "Η δημιουργία του κλειδιού ολοκληρώθηκε"
 	},
 	"Key_Generation": {
-		"message": ""
+		"message": "Δημιουργία κλειδιού"
 	},
 	"Open_Key_Manager": {
-		"message": ""
+		"message": "Open Key Διαχειριστής"
 	},
 	"WebPG_Key_Generation_Failed": {
-		"message": ""
+		"message": "WebPG  Η δημιουργία του κλειδιού απετυχε"
 	},
 	"The_generation_of_your_new_key_is_now_complete": {
-		"message": ""
+		"message": "Ολοκληρώθηκε η δημιουργία του νέου κλειδιού"
 	},
 	"Options": {
-		"message": ""
+		"message": "Επιλογές"
 	},
 	"Key_Manager": {
-		"message": ""
+		"message": "Διαχειριστής κλειδιών"
 	},
 	"Refresh_Key_List": {
 		"message": ""
 	},
 	"Generate_New_Key": {
-		"message": ""
+		"message": "Δημιουργία νέου κλειδιού"
 	},
 	"Create": {
-		"message": ""
+		"message": "Δημιουργία"
 	},
 	"Name_Required": {
-		"message": ""
+		"message": "Χρειάζεται όνομ"
 	},
 	"UID_Names_must_be_at_least_5_characters": {
-		"message": ""
+		"message": "Τα ονόματα UID πρέπει να είναι τουλάχιστον 5 χαρακτήρες"
 	},
 	"UID_Names_cannot_begin_with_a_number": {
-		"message": ""
+		"message": "Τα ονόματα UID δεν μπορούν να ξεκινούν με νούμερο"
 	},
 	"Not_a_valid_email_address": {
-		"message": ""
+		"message": "Άκυρη email διεύθυνση"
 	},
 	"Passphrases_do_not_match": {
-		"message": ""
+		"message": "Οι συνθηματικές φράσεις δεν ταιριάζουν"
 	},
 	"Building_key__please_wait": {
-		"message": ""
+		"message": "Δημιουργώντας το κλειδί, παρακαλώ περιμένετε"
 	},
 	"This_may_take_a_long_time__5_minutes_or_more__to_complete": {
-		"message": ""
+		"message": "ολοκληρωθεί"
 	},
 	"Please_be_patient_while_the_key_is_created": {
-		"message": ""
+		"message": "Παρκαλώ περιμένετε μέχρι να δημιουργηθεί το κλειδί"
 	},
 	"It_is_safe_to_close_this_window": {
-		"message": ""
+		"message": "Είναι ασφαλές να κλείσετε το παράθυρο"
 	},
 	"key_generation_will_continue_in_the_background": {
-		"message": ""
+		"message": "Η δημιουργία του κλειδιού θα συνεχιστεί στο background"
 	},
 	"Close": {
-		"message": ""
+		"message": "Schließen"
 	},
 	"Cancel": {
-		"message": ""
+		"message": "Ακύρωση"
 	},
 	"Import_from_File": {
 		"message": ""
 	},
 	"Import": {
-		"message": ""
+		"message": "Εισαγωγή"
 	},
 	"Error": {
-		"message": ""
+		"message": "Σφάλμα"
 	},
 	"There_was_an_error_parsing_this_PGP_file": {
 		"message": ""
@@ -153,46 +153,46 @@
 		"message": ""
 	},
 	"Select_Recipient_s_": {
-		"message": ""
+		"message": "Επέλεξε Αποδέκτες"
 	},
 	"Export": {
-		"message": ""
+		"message": "Εξαγωγή"
 	},
 	"Editor": {
-		"message": ""
+		"message": "Επεξεργαστής Κειμένου"
 	},
 	"Search_Filter": {
-		"message": ""
+		"message": "Αναζήτηση/Φιλτράρισμα"
 	},
 	"Encrypt": {
-		"message": ""
+		"message": "Κρυπτογράφηση"
 	},
 	"Insert": {
-		"message": ""
+		"message": "Εισαγωγή"
 	},
 	"no_action_has_been_selected": {
-		"message": ""
+		"message": "δεν επιλέχτηκε κάποια ενέργεια"
 	},
 	"no_action_has_been_successful": {
-		"message": ""
+		"message": "καμιά ενέργεια δεν πέτυχε"
 	},
 	"UIDs": {
-		"message": ""
+		"message": "UIDs"
 	},
 	"Key_does_not_support_this_operation": {
-		"message": ""
+		"message": "το κλειδί δεν υποστηρίζει αυτή την λειτουργία"
 	},
 	"Error_loading_WebPG": {
-		"message": ""
+		"message": "Σφάλμα φόρτωσης του WebPG"
 	},
 	"We_encountered_a_problem_while_attempting_to_load_WebPG": {
-		"message": ""
+		"message": "Αντιμετωπίσαμε ένα πρόβλημα κατά την διάρκεια φόρτωσης του WebPG"
 	},
 	"Suggestions": {
-		"message": ""
+		"message": "Συμβουλές"
 	},
 	"The_plugin_was_unable_to_load": {
-		"message": ""
+		"message": "Το πρόσθετο απέτυχε να φορτώσει"
 	},
 	"The_Firefox_Click_to_Play_feature_is_enabled": {
 		"message": ""
@@ -204,106 +204,106 @@
 		"message": ""
 	},
 	"There_might_be_a_problem_with_the_gpg_installation": {
-		"message": ""
+		"message": "Ενδέχεται να υπάρχει πρόβλημα με την εγκατάσταση του gpg"
 	},
 	"consider_reinstalling_gpg4win": {
-		"message": ""
+		"message": "Δοκιμάστε επανεγκατάσταση του gpg4win"
 	},
 	"Error_Details": {
-		"message": ""
+		"message": "Λεπτομέρειες Σφάλματος"
 	},
 	"Error_in_Method": {
-		"message": ""
+		"message": "Σφάλμα στην μέθοδο"
 	},
 	"Error_Code": {
-		"message": ""
+		"message": "Λάθος Κωδικός"
 	},
 	"Error_String": {
-		"message": ""
+		"message": "Λάθος αλφαριθμητικό"
 	},
 	"File": {
-		"message": ""
+		"message": "Αρχείο"
 	},
 	"Line": {
-		"message": ""
+		"message": "Γραμμή"
 	},
 	"Unknown_Error": {
-		"message": ""
+		"message": "Άγνωστο σφάλμα"
 	},
 	"System_Information": {
-		"message": ""
+		"message": "Πληροφορίες Συστήματος"
 	},
 	"App_Version": {
-		"message": ""
+		"message": "Έκδοση Εφαρμογής"
 	},
 	"Sub_product": {
-		"message": ""
+		"message": "Υπο-προϊόν"
 	},
 	"Vendor": {
-		"message": ""
+		"message": "Πωλητής"
 	},
 	"no_email_address_provided": {
-		"message": ""
+		"message": "δεν δόθηκε email διεύθυνση"
 	},
 	"Use": {
 		"message": ""
 	},
 	"Sign_only": {
-		"message": ""
+		"message": "Μόνο υπογραφή"
 	},
 	"Sign_and_Encrypt": {
-		"message": ""
+		"message": "Υπογραφή και κρυπτογράφηση"
 	},
 	"Symmetric_Encryption": {
-		"message": ""
+		"message": "Συμμετρική Κρυπτογράφηση"
 	},
 	"Signed_Symmetric_Encryption": {
 		"message": ""
 	},
 	"Decrypt": {
-		"message": ""
+		"message": "Αποκρυπτογράφηση"
 	},
 	"Verify": {
-		"message": ""
+		"message": "Επαλήθευση"
 	},
 	"Secure_Editor": {
-		"message": ""
+		"message": "Ασφαλής επεξεργαστής κειμένου"
 	},
 	"PGP_Signed_Message": {
-		"message": ""
+		"message": "Μήνυμα υπογρεγραμμένο από PGP"
 	},
 	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "Μήνυμα κρυπτογραφημένο ή υπογεγραμμένο από PGP"
 	},
 	"PGP_Public_Key": {
-		"message": ""
+		"message": "Δημόσιο κλειδί PGP"
 	},
 	"WebPG_Secure_Editor": {
-		"message": ""
+		"message": "Ασφαλης επεξεργαστής κειμένου WEBPG"
 	},
 	"Unsecured_Editor": {
-		"message": ""
+		"message": "Μη ασφαλής επεξεργαστής κειμένου"
 	},
 	"Loading_keys": {
 		"message": ""
 	},
 	"Generating_Key": {
-		"message": ""
+		"message": "Δημιουργία κλειδιού"
 	},
 	"Waiting_for_entropy": {
-		"message": ""
+		"message": "Αναμένοντας την εντροπία"
 	},
 	"Building_key": {
-		"message": ""
+		"message": "Δημιουργώντας το κλειδί"
 	},
 	"please_wait": {
-		"message": ""
+		"message": "παρακαλώ περιμένετε"
 	},
 	"Private_Keys": {
-		"message": ""
+		"message": "Ιδιωτικά κλειδιά"
 	},
 	"Public_Keys": {
-		"message": ""
+		"message": "Δημοσια κλειδιά"
 	},
 	"Search_Keyserver": {
 		"message": ""
@@ -312,136 +312,136 @@
 		"message": ""
 	},
 	"Your_Name": {
-		"message": ""
+		"message": "Το Όνομά σου"
 	},
 	"Your_Email": {
-		"message": ""
+		"message": "Το Email σου"
 	},
 	"Comment": {
-		"message": ""
+		"message": "Σχόλιο"
 	},
 	"Passphrase": {
-		"message": ""
+		"message": "Συνθηματική φράση"
 	},
 	"Repeat_Passphrase": {
-		"message": ""
+		"message": "Επανέλαβε την Συνθηματική φράση"
 	},
 	"Advanced_Options": {
-		"message": ""
+		"message": "Προχωρημένες επιλογές"
 	},
 	"Public_Key_Algorithm": {
-		"message": ""
+		"message": "Αλγλοριθμος δημόσιου κλειδιού"
 	},
 	"Public_Key_Size": {
-		"message": ""
+		"message": "Μέγεθος δημόσιου κλειδιού"
 	},
 	"Private_Key_Algorithm": {
-		"message": ""
+		"message": "Αλγόριθμος ιδιωτικού κλειδιού"
 	},
 	"Private_Key_Size": {
-		"message": ""
+		"message": "μέγεθος ιδιωτικού κλειδιού"
 	},
 	"Expire_in": {
-		"message": ""
+		"message": "Λήγη στις"
 	},
 	"Never": {
-		"message": ""
+		"message": "Ποτέ"
 	},
 	"n30_days": {
-		"message": ""
+		"message": "n30 μέρες"
 	},
 	"n90_days": {
-		"message": ""
+		"message": "n90 μέρες"
 	},
 	"n1_year": {
-		"message": ""
+		"message": "n1 χρόνος"
 	},
 	"Subkey_Options": {
-		"message": ""
+		"message": "Επιλογές υπο-κλειδιού"
 	},
 	"encrypt_only": {
-		"message": ""
+		"message": "μόνο κρυπτογραφία"
 	},
 	"set_your_own_capabilities": {
-		"message": ""
+		"message": "θέσε τις δικές σου δυνατότητες"
 	},
 	"Sign": {
-		"message": ""
+		"message": "Υπογραφή"
 	},
 	"Authenticate": {
-		"message": ""
+		"message": "επαλήθευση ταυτότητας"
 	},
 	"Revoke_this_Key": {
-		"message": ""
+		"message": "ανακάλεσε αυτό το κλειδί"
 	},
 	"Revoke_this_UID": {
-		"message": ""
+		"message": "ανακάλεσε αυτό το UID"
 	},
 	"Revoke_this_Signature": {
-		"message": ""
+		"message": "ανακάλεσε αυτή την υπογραφή"
 	},
 	"Delete_this_Signature": {
-		"message": ""
+		"message": "διέγραψε αυτή την υπογραφή"
 	},
 	"Delete_this_UID": {
-		"message": ""
+		"message": "διέγραψε αυτό το UID"
 	},
 	"Delete_this_Key": {
-		"message": ""
+		"message": "διέγραψε αυτό το κλειδί"
 	},
 	"This_key_will_be_permanently_deleted": {
-		"message": ""
+		"message": "Το κλειδία διαγράφηκε μόνιμα"
 	},
 	"Are_you_sure": {
-		"message": ""
+		"message": "Είσαι σίγουρος(η)"
 	},
 	"Change_Expiration": {
-		"message": ""
+		"message": "Αλλαγή λήξη ισχύος"
 	},
 	"Sign_this_UID": {
-		"message": ""
+		"message": "Υπέγραψε αυτό το UID"
 	},
 	"Key_Details": {
-		"message": ""
+		"message": "Λεπτομέρειες κλειδιού"
 	},
 	"Export_Public_Key": {
-		"message": ""
+		"message": "Εξαγωγή δημόσιου κλειδιού"
 	},
 	"Add_UID": {
-		"message": ""
+		"message": "Προσθήκη UID"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Key": {
-		"message": ""
+		"message": "Είστε σίγουρος ότι θέλετε να ανακαλέσετε αυτό το κλειδί"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_UID": {
-		"message": ""
+		"message": "Είστε σίγουρος ότι θέλετε να ανακαλέσετε αυτό το UID"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Signature": {
-		"message": ""
+		"message": "Είστε σίγουρος ότι θέλετε να ανακαλέσετε αυτή την υπογραφή;"
 	},
 	"Are_you_sure_you_wish_to_delete_this_Signature": {
-		"message": ""
+		"message": "Είστε σίγουρος ότι θέλετε να διαγράψετε αυτή την υπογραφή;"
 	},
 	"Are_you_sure_you_want_to_permanently_delete_this_UID": {
-		"message": ""
+		"message": "Είστε σίγουρος ότι θέλετε να διαγράψετε μόνιμα αυτό το UID"
 	},
 	"Are_you_sure_you_want_to_permanently_delete_this_Photo": {
 		"message": ""
 	},
 	"New_Expiration_Date": {
-		"message": ""
+		"message": "Νέα ημερομηνία Λήξης"
 	},
 	"Never_Expire": {
-		"message": ""
+		"message": "Δεν λήγει ποτέ"
 	},
 	"Expiration_Date": {
-		"message": ""
+		"message": "Ημερομηνία Λήξης"
 	},
 	"Save": {
-		"message": ""
+		"message": "Αποθήκευση"
 	},
 	"Delete_this_key": {
-		"message": ""
+		"message": "Διαγραφή αυτού του κλειδιού"
 	},
 	"Add": {
 		"message": ""
@@ -474,64 +474,64 @@
 		"message": ""
 	},
 	"Copy": {
-		"message": ""
+		"message": "Αντιγραφή"
 	},
 	"Please_specify_the_revocation_details": {
-		"message": ""
+		"message": "Παρακαλώ ορίστε τις λεπτομέρειες ανάκλησης"
 	},
 	"Reason": {
-		"message": ""
+		"message": "Αιτία"
 	},
 	"No_reason_specified": {
-		"message": ""
+		"message": "Δε διευκρινίστηκε αιτία"
 	},
 	"Key_has_been_compromised": {
-		"message": ""
+		"message": "Το κλειδί έχει διαρρεύσει"
 	},
 	"Key_is_superseded": {
-		"message": ""
+		"message": "Το κλειδί έχει παρακαμθεί"
 	},
 	"Key_is_no_longer_used": {
-		"message": ""
+		"message": "Το κλειδί δεν είναι πια σε χρήση"
 	},
 	"Description": {
-		"message": ""
+		"message": "Περιγραφή"
 	},
 	"Revoke": {
-		"message": ""
+		"message": "Ανάκληση"
 	},
 	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "Είστε σίγουρος ότι θέλετε να δημοσιοποιήσετε αυτό το κλειδί στον Keyserver"
 	},
 	"Publish": {
-		"message": ""
+		"message": "Δημοσίευση"
 	},
 	"Sending_key_to_Keyserver": {
-		"message": ""
+		"message": "Στέλνoντας το κλειδί στον Keyserver"
 	},
 	"There_was_a_problem_sending_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "Keyserver"
 	},
 	"No_Keyserver_defined": {
-		"message": ""
+		"message": "Δεν έχει οριστεί Keyserver"
 	},
 	"Keyserver": {
-		"message": ""
+		"message": "Εξυπηρετητής κλειδιών (KeyServer)"
 	},
 	"Try_Again": {
-		"message": ""
+		"message": "Προσπαθήστε ξανά"
 	},
 	"Key_Published_to_Keyserver": {
-		"message": ""
+		"message": "το κλειδί δημοσιεύτηκε στον Keyserver"
 	},
 	"Publish_Again": {
-		"message": ""
+		"message": "Δημοσίευση ξανά"
 	},
 	"Publish_to_Keyserver": {
-		"message": ""
+		"message": "Δημοσιοποίηση στο Keyserver"
 	},
 	"Key_not_found_on_keyserver": {
-		"message": ""
+		"message": "Το κλειδί δεν βρέθηκε στον Keyserver"
 	},
 	"Key_updated": {
 		"message": ""
@@ -540,106 +540,106 @@
 		"message": ""
 	},
 	"User_ID_is_no_longer_valid": {
-		"message": ""
+		"message": "Το User ID δεν είναι πλέον έγκυρο"
 	},
 	"Please_select_which_of_your_keys_to_create_the_signature_with": {
-		"message": ""
+		"message": "Παρακαλώ επιλέξτε κάποιο από τα κλειδιά σας για να υπογράψετε με αυτό"
 	},
 	"You_have_not_enabled_any_keys_for_use_with_webpg": {
-		"message": ""
+		"message": "Δεν έχετε ενεργοποιήσει κάποιο κλειδί για χρήση με το webpg"
 	},
 	"please_click_here": {
-		"message": ""
+		"message": "παρακαλώ κλικάρετε εδώ"
 	},
 	"and_select_1_or_more_keys_for_use_with_webpg": {
-		"message": ""
+		"message": "και επιλέξτε 1 ή περισσότερα κλειδιά για χρήση με το webpg"
 	},
 	"You_have_not_generated_any_keys": {
-		"message": ""
+		"message": "δδεν έχετε δημιουργήσει κανένα κλειδί"
 	},
 	"and_generate_a_key_to_use_with_webpg": {
-		"message": ""
+		"message": "Δκαι δημιουργήστε ένα κλειδία για χρήση με το webpg"
 	},
 	"Already_signed_with_this_key": {
-		"message": ""
+		"message": "dήδη υπογεγραμμένο με αυτό το κλειδί"
 	},
 	"Signature_added_using_this_key": {
-		"message": ""
+		"message": "Η υπογραφή προστέθηκε χρησιμοποιώντας αυτό το κλειδί"
 	},
 	"Delete_this_Photo": {
 		"message": ""
 	},
 	"Searching_for": {
-		"message": ""
+		"message": "Αναζήτηση για"
 	},
 	"Search_string_too_ambiguous_or_not_found_on_server": {
 		"message": ""
 	},
 	"KeyID": {
-		"message": ""
+		"message": "Ταυτότητα κλειδιού"
 	},
 	"IMPORT": {
 		"message": ""
 	},
 	"Key_Created": {
-		"message": ""
+		"message": "Το κλειδί δημιουργήθηκε"
 	},
 	"Expires": {
-		"message": ""
+		"message": "Λήγει"
 	},
 	"Expired": {
-		"message": ""
+		"message": "Έληξε"
 	},
 	"User_IDs": {
-		"message": ""
+		"message": "User IDs"
 	},
 	"Fingerprint": {
-		"message": ""
+		"message": "Αποτύπωμα"
 	},
 	"Status": {
-		"message": ""
+		"message": "Κατάσταση"
 	},
 	"Revoked": {
-		"message": ""
+		"message": "Ανακλήθηκε"
 	},
 	"Invalid": {
-		"message": ""
+		"message": "Άκυρο"
 	},
 	"Disabled": {
-		"message": ""
+		"message": "Απενεργοποιημένο"
 	},
 	"Valid": {
-		"message": ""
+		"message": "Έγκυρο"
 	},
 	"Key_Algorithm": {
-		"message": ""
+		"message": "Αλγόριθμος κλειδιού"
 	},
 	"Validity": {
-		"message": ""
+		"message": "Εγκυρότητα"
 	},
 	"Key_Options": {
-		"message": ""
+		"message": "Επιλογές κλειδιού"
 	},
 	"Operations": {
-		"message": ""
+		"message": "Λειτουργίες"
 	},
 	"Subkeys": {
-		"message": ""
+		"message": "Υποκλειδιά:"
 	},
 	"Subkey_Details": {
-		"message": ""
+		"message": "Λεπτομέρειες υποκλειδιών"
 	},
 	"Flags": {
-		"message": ""
+		"message": "Παράμετροι"
 	},
 	"Key_Operations": {
 		"message": ""
 	},
 	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
-		"message": ""
+		"message": "παραλείπονται"
 	},
 	"Created": {
-		"message": ""
+		"message": "Δημιουργήθηκε"
 	},
 	"User_Photos": {
 		"message": ""
@@ -651,34 +651,34 @@
 		"message": ""
 	},
 	"This_is_your_default_key": {
-		"message": ""
+		"message": "Αυτό είναι το προεπιλεγμένο σου κλειδί"
 	},
 	"Make_this_the_default_key_for_GnuPG_operations": {
 		"message": ""
 	},
 	"Enabled": {
-		"message": ""
+		"message": "Ενεργοποιημένη"
 	},
 	"Cannot_unset_your_default_key": {
-		"message": ""
+		"message": "δεν είναι δυνατό να αποθέσετε το προεπιλεγμένο σας κλειδί"
 	},
 	"Trust_Assignment": {
-		"message": ""
+		"message": "εκχώρηση εμπιστοσύνης"
 	},
 	"Unknown": {
-		"message": ""
+		"message": "Άγνωστος"
 	},
 	"Marginal": {
-		"message": ""
+		"message": "Οριακό"
 	},
 	"Full": {
-		"message": ""
+		"message": "Πλήρες"
 	},
 	"ultimate": {
 		"message": ""
 	},
 	"Group_Assignment": {
-		"message": ""
+		"message": "εκχώρηση Ομάδας"
 	},
 	"Select_group_s__below": {
 		"message": ""
@@ -693,10 +693,10 @@
 		"message": ""
 	},
 	"Change_Passphrase": {
-		"message": ""
+		"message": "Αλλαγή συνθηματικού"
 	},
 	"Add_Subkey": {
-		"message": ""
+		"message": "Προσθήκη υπο-κλειδιού"
 	},
 	"Add_Photo": {
 		"message": ""
@@ -708,37 +708,37 @@
 		"message": ""
 	},
 	"Delete_this_Subkey": {
-		"message": ""
+		"message": "Διέγραψε αυτό το υπο-κλειδί"
 	},
 	"Export_this_key": {
 		"message": ""
 	},
 	"Refresh_from_Keyserver": {
-		"message": ""
+		"message": "Ανανέωση από τον keyserver"
 	},
 	"Cannot_sign_a_revoked_UID": {
-		"message": ""
+		"message": "Δεν είναι δυνατή η υπογραφη ενός ανακλημένου UID"
 	},
 	"Revoke_this_key": {
 		"message": ""
 	},
 	"Revoke_UID": {
-		"message": ""
+		"message": "Ανακάλεσε UID"
 	},
 	"Cannot_make_a_revoked_UID_primary": {
-		"message": ""
+		"message": "Δεν είναι δυνατόν να κάνετε ένα ανακλημένο κλειδία πρωτεύον"
 	},
 	"Make_Primary": {
 		"message": ""
 	},
 	"Delete": {
-		"message": ""
+		"message": "Διαγραφή"
 	},
 	"This_signature_was_made_with_a_key_that_does_not_belong_to_you": {
-		"message": ""
+		"message": "Αυτή η υπογραφή έγινε με ένα κλειδί που δεν σου ανήκει"
 	},
 	"This_action_cannot_be_undone": {
-		"message": ""
+		"message": "Αυτή η ενέργεια δεν μπορεί να ανακληθεί"
 	},
 	"Certify": {
 		"message": ""
@@ -750,61 +750,61 @@
 		"message": ""
 	},
 	"WebPG_Options": {
-		"message": ""
+		"message": "Επιλογές WebPG"
 	},
 	"The_WebPG_NPAPI_Plugin_is_valid": {
-		"message": ""
+		"message": "To πρόσθετο WebPG NPAPI είναι έγκυρο"
 	},
 	"OpenPGP_was_detected": {
-		"message": ""
+		"message": "Εντοπίστηκε το OpenPGP"
 	},
 	"It_appears_you_have_a_key_agent_configured": {
-		"message": ""
+		"message": "Φαίνεται ότι έχετε έναν key-agent ρυθμισμένο"
 	},
 	"gpgconf_was_detected": {
-		"message": ""
+		"message": "εντοπίστηκε το gpgconf"
 	},
 	"you_can_use_the_signature_methods": {
-		"message": ""
+		"message": "δεν μπορείς να χρησιμοποιήσεις τις μεθόδους υπογραφής"
 	},
 	"OpenPGP_does_not_appear_to_be_installed": {
-		"message": ""
+		"message": "Το OpenPGP δεν είναι εγκατεστημένο"
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
-		"message": ""
+		"message": "Δεν φαίνεται να έχεις ένας key-agent ρυθμισμένο"
 	},
 	"A_working_key_agent_is_required": {
-		"message": ""
+		"message": "Ενας ενεργός key-agent απαιτείται"
 	},
 	"gpgconf_does_not_appear_to_be_installed": {
-		"message": ""
+		"message": "Το gpgconf δεν είναι εγκατεστημένο"
 	},
 	"You_will_not_be_able_to_create_signatures": {
-		"message": ""
+		"message": "Δεν θα μπορείς να δημιουργήσεις υπογραφές"
 	},
 	"There_was_a_problem_loading_the_plugin": {
-		"message": ""
+		"message": "Εντοπίστηκε πρόβλημα κατά την φόρτωση του πρόσθετου"
 	},
 	"the_plugin_might_be_incompatibly_compiled_for_this_architechture": {
-		"message": ""
+		"message": "το πρόσθετο ενδέχεται να μην είναι συμβατό με αυτόν τον υπολογιστή"
 	},
 	"click_here_for_help_resolving_this_issue": {
-		"message": ""
+		"message": "Κλικάρετε εδώ για να επιλύσετε το πρόβλημα"
 	},
 	"Enable_Inline_formatting_of_PGP_Messages_and_Keys": {
-		"message": ""
+		"message": "Ενεργοποίηση inline Μορφοποίησης για τα PGP μηνύματα και κλειδιά"
 	},
 	"Inline_Options": {
 		"message": ""
 	},
 	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
-		"message": ""
+		"message": "παραλήπτη"
 	},
 	"Enable_WebPG_GMAIL_integration": {
-		"message": ""
+		"message": "Ενεργοποίση WebPG GMAIl υλοποίησης"
 	},
 	"EXPERIMENTAL": {
-		"message": ""
+		"message": "Πειραματικό"
 	},
 	"Automatically_Sign_outgoing_messages_in_GMAIL": {
 		"message": ""
@@ -816,13 +816,13 @@
 		"message": ""
 	},
 	"GPGCONF_binary": {
-		"message": ""
+		"message": "GPGCONF εκτελέσιμο"
 	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
-		"message": ""
+		"message": "Το σύστημά σου φαίνεται να είναι σωστά ρυθμισμένο για το WebPG"
 	},
 	"There_is_a_problem_with_your_configuration": {
-		"message": ""
+		"message": "Υπάρχει κάποιο πρόβλημα με την ρύθμιση"
 	},
 	"Inline_formatting_mode": {
 		"message": ""
@@ -843,10 +843,10 @@
 		"message": ""
 	},
 	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
-		"message": ""
+		"message": "Η υλοποίηση του WebPG GMAIL είναι πειραματική"
 	},
 	"use_at_your_own_risk": {
-		"message": ""
+		"message": "χρησιμοποιήστε με δική σας ευθύνη"
 	},
 	"PGP_MIME_Enabled": {
 		"message": ""
@@ -864,166 +864,166 @@
 		"message": ""
 	},
 	"Text_copied_to_clipboard": {
-		"message": ""
+		"message": "Το κείμενο αντιγράφτηκε στο πρόχειρο"
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
-		"message": ""
+		"message": "Υπάρχει ένα πρόβλημα κατά την τοποθέτηση δεδομένων στο πρόχειρο"
 	},
 	"TEXT_COPIED": {
-		"message": ""
+		"message": "ΤΟ ΚΕΙΜΕΝΟ ΑΝΤΙΓΡΑΦΤΗΚΕ"
 	},
 	"UNABLE_TO_COPY_TEXT": {
-		"message": ""
+		"message": "ΑΔΥΝΑΤΟ ΝΑ ΑΝΤΙΓΡΑΦΕΙ ΤΟ ΚΕΙΜΕΝΟ"
 	},
 	"COPY_TO_CLIPBOARD": {
-		"message": ""
+		"message": "ΑΝΤΙΓΡΑΦΗ ΣΤΟ ΠΡΟΧΕΙΡΟ"
 	},
 	"Verify_this_text": {
-		"message": ""
+		"message": "Επαληθεύστε αυτό το κείμενο"
 	},
 	"Decrypt_this_text": {
-		"message": ""
+		"message": "ΑΠοκρυπτογραφήστε αυτό το κείμενο"
 	},
 	"Import_this_Key": {
-		"message": ""
+		"message": "Εισαγωγή αυτού του Κλειδιού"
 	},
 	"Clear_sign_this_text": {
-		"message": ""
+		"message": "Φανερή Υπογραφή του κειμένου"
 	},
 	"Encrypt_this_text": {
-		"message": ""
+		"message": "Κρυπτογραφήστε αυτό το κείμενο"
 	},
 	"Paste_Public_Key": {
-		"message": ""
+		"message": "Επικόληση Δημόσιου Κλειδιού"
 	},
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
-		"message": ""
+		"message": "ΑΔΥΝΑΤΟ ΝΑ ΑΠΟΚΡΥΠΤΟΓΡΑΦΗΘΕΙ Η ΝΑ ΕΠΑΛΗΘΕΥΤΕΙ ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ"
 	},
 	"PGP_ENCRYPTED_AND_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "ΜΗΝΥΜΑ ΚΡΥΠΤΟΓΡΑΦΗΜΕΝΟ ΚΑΙ ΥΠΟΓΡΕΓΡΑΜΜΕΝΟ ΜΕ PGP"
 	},
 	"DECRYPTION_FAILED": {
-		"message": ""
+		"message": "Η ΑΠΟΚΡΥΠΤΟΓΡΑΦΗΣΗ ΑΠΕΤΥΧΕ"
 	},
 	"NO_SECRET_KEY": {
-		"message": ""
+		"message": "ΔΕΝ ΒΡΕΘΗΚΕ ΜΥΣΤΙΚΟ ΚΛΕΙΔΙ"
 	},
 	"BAD_PASSPHRASE": {
-		"message": ""
+		"message": "ΛΑΘΟΣ ΣΥΝΘΗΜΑΤΙΚΟ"
 	},
 	"DECRYPT_THIS_MESSAGE": {
-		"message": ""
+		"message": "ΑΠΟΚΡΥΠΤΟΓΡΑΦΗΣΤΕ ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ"
 	},
 	"DISPLAY_ORIGINAL": {
-		"message": ""
+		"message": "ΠΑΡΟΥΣΙΑΣΗ ΠΡΩΤΟΤΥΠΟΥ"
 	},
 	"DETACHED_PGP_SIGNATURE": {
-		"message": ""
+		"message": "ΑΠΕΣΠΑΣΜΕΝΗ PGP ΥΠΟΓΡΑΦΗ"
 	},
 	"PGP_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "ΜΗΝΥΜΑ ΥΠΟΓΕΓΡΑΜΜΕΝΟ ΜΕ PGP"
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID": {
-		"message": ""
+		"message": "H ΥΠΟΓΡΑΦΗ ΣΕ ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΔΕΝ ΙΣΧΥΕΙ"
 	},
 	"THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH": {
-		"message": ""
+		"message": "Η ΥΠΟΓΡΑΦΗ ΜΠΟΡΕΙ ΝΑ ΕΧΕΙ ΠΑΡΑΠΟΙΗΘΕΙ"
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
-		"message": ""
+		"message": "Η ΥΠΟΓΡΑΦΗ ΣΕ ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΑΠΕΤΥΧΕ"
 	},
 	"THE_MESSAGE_MAY_BE_TAMPERED_WITH": {
-		"message": ""
+		"message": "ΤΟ ΜΗΝΥΜΑ ΕΝΔΕΧΕΤΑΙ ΝΑ ΠΑΡΑΠΟΙΗΘΗΚΕ"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_KEY": {
-		"message": ""
+		"message": "ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΥΠΟΓΡΑΦΤΗΚΕ ΜΕ ΚΛΕΙΔΙ"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY": {
-		"message": ""
+		"message": "ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΥΠΟΓΡΑΦΤΗΚΕ ΜΕ ΛΗΓΜΕΝΟ ΔΗΜΟΣΙΟ ΚΛΕΙΔΙ"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "ΣΟΥ"
 	},
 	"SEARCH_FOR_KEYS_ON_KEYSERVER": {
-		"message": ""
+		"message": "ΑΝΑΖΗΤΗΣ ΚΛΕΙΔΙΩΝ ΣΤΟΝ KEYSERVER"
 	},
 	"PGP_PUBLIC_KEY": {
-		"message": ""
+		"message": "ΔΗΜΟΣΙΟ ΚΛΕΙΔΙ PGP"
 	},
 	"Names_UIDs_on_Key": {
-		"message": ""
+		"message": "Ονόματα/ UID στο κλειδί"
 	},
 	"REVOKED": {
-		"message": ""
+		"message": "Ανακαλέστηκε"
 	},
 	"EXPIRED": {
 		"message": ""
 	},
 	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "ΑΥΤΟ ΤΟ ΚΛΕΙΔΙ ΔΕΝ ΕΙΝΑΙ ΣΤΟΝ ΚΥΚΛΟ ΚΛΕΙΔΙΩΝ ΣΟΥ"
 	},
 	"THIS_KEY_IS_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "ΑΥΤΟ ΤΟ ΚΛΕΙΔΙ ΕΙΝΑΙ ΣΤΟΝ ΚΥΚΛΟ ΚΛΕΙΔΙΩΝ ΣΟΥ"
 	},
 	"IMPORT_THIS_KEY": {
-		"message": ""
+		"message": "ΕΙΣΑΓΩΓΗ ΚΛΕΙΔΙΟΥ"
 	},
 	"DELETE_THIS_KEY": {
-		"message": ""
+		"message": "ΔΙΑΓΡΑΦΗ ΚΛΕΙΔΙΟΥ"
 	},
 	"HIDE_ORIGINAL": {
-		"message": ""
+		"message": "ΑΠΟΚΡΥΨΗ ΠΡΩΤΟΤΥΠΟΥ"
 	},
 	"UNUSABLE_KEY": {
-		"message": ""
+		"message": "ΑΚΑΤΑΛΛΗΛΟ ΚΛΕΙΔΙ"
 	},
 	"NO_USER_ID": {
-		"message": ""
+		"message": "ΔΕΝ ΥΠΑΡΧΕΙ USER ID"
 	},
 	"WebPG": {
-		"message": ""
+		"message": "WebPG"
 	},
 	"About": {
-		"message": ""
+		"message": "Περί"
 	},
 	"Clear_Sign": {
-		"message": ""
+		"message": "Φανερή υπογραφή"
 	},
 	"Sign_and_Encrypt_this_text": {
-		"message": ""
+		"message": "ΥΠογραφή και κρυπτογράφηση αυτού του κειμένου"
 	},
 	"Import_this_Public_key": {
-		"message": ""
+		"message": "Εισαγωγή αυτού του δημόσιου κλειδιού"
 	},
 	"Do_not_use_WebPG_for_this_message": {
-		"message": ""
+		"message": "Μην χρησιμοποιείτε WebPG για αυτό το μήνυμα"
 	},
 	"Sign_Inline": {
-		"message": ""
+		"message": "Inline Υπογραφη"
 	},
 	"Sign_as_Attachment": {
-		"message": ""
+		"message": "Υπογραφή μιας επισύναψης"
 	},
 	"You_do_not_have_any_keys_for": {
-		"message": ""
+		"message": "Δεν έχεις καθόλου κλειδιά για"
 	},
 	"or": {
-		"message": ""
+		"message": "ή"
 	},
 	"WebPG_is_preparing_the_email": {
 		"message": ""
 	},
 	"This_message_already_contains_PGP_data": {
-		"message": ""
+		"message": "Αυτό το μήνυμα ήδη περιέχει δεδομένα PGP"
 	},
 	"Would_you_like_to_Encrypt_anyway": {
-		"message": ""
+		"message": "Θα θέλατε να κρυπτογραφήσετε παρολαυτά;"
 	},
 	"Expired_keys_found_for": {
 		"message": ""
 	},
 	"and": {
-		"message": ""
+		"message": "και"
 	},
 	"This_message_will_be_Encrypted": {
 		"message": ""
@@ -1032,16 +1032,16 @@
 		"message": ""
 	},
 	"You_have_more_than_1_public_key_matching_that_address": {
-		"message": ""
+		"message": "διεύθυνση"
 	},
 	"The_Key_for": {
-		"message": ""
+		"message": "Το κλειδία για"
 	},
 	"is_invalid": {
-		"message": ""
+		"message": "είναι άκυρο"
 	},
 	"Open_the_Key_Manager": {
-		"message": ""
+		"message": "Ανοίξτε τον Διαχειριστή Κλειδιών"
 	},
 	"This_message_will_be_Signed": {
 		"message": ""

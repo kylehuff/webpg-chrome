@@ -1,24 +1,21 @@
-# Translations template for webpg.
-# Copyright (C) 2012 CURETHEITCH
-# This file is distributed under the same license as the webpg
-# project.
-# Automatically generated, 2012.
+# Uyghur translation for webpg
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
+# This file is distributed under the same license as the webpg package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: webpg 0.10.0\n"
-"Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-07-10 19:53-0400\n"
-"PO-Revision-Date: 2012-10-21 16:57-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: lt\n"
+"PO-Revision-Date: 2015-10-07 07:39+0000\n"
+"Last-Translator: Eltikin <eltikinuyghur@hotmail.com>\n"
+"Language-Team: Uyghur <ug@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 0.9.6\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Launchpad-Export-Date: 2016-07-11 00:08+0000\n"
+"X-Generator: Launchpad (build 18115)\n"
 
 #: extension/about.js:17 extension/browser_action_menu.js:48
 #: extension/buttonbar.js:278
@@ -28,7 +25,7 @@ msgstr ""
 #: extension/about.js:40 extension/key_manager.js:62 extension/options.js:601
 #: extension/userdocs.js:21
 msgid "Version"
-msgstr ""
+msgstr "نەشرى"
 
 #: extension/about.js:48
 msgid "Extension Information"
@@ -40,19 +37,19 @@ msgstr ""
 
 #: extension/about.js:61 extension/error.js:63
 msgid "Platform"
-msgstr ""
+msgstr "سۇپا"
 
 #: extension/about.js:67 extension/error.js:66
 msgid "Product"
-msgstr ""
+msgstr "مەھسۇلات"
 
 #: extension/about.js:73 extension/error.js:65
 msgid "User Agent"
-msgstr ""
+msgstr "ئىشلەتكۈچى ۋاكالەتچى"
 
 #: extension/about.js:79 extension/error.js:69
 msgid "Language"
-msgstr ""
+msgstr "تىل"
 
 #: extension/about.js:85
 msgid "Plugin Information"
@@ -80,7 +77,7 @@ msgstr ""
 
 #: extension/about.js:130
 msgid "default"
-msgstr ""
+msgstr "كۆڭۈلدىكى"
 
 #: extension/about.js:134
 msgid "GPGCONF version"
@@ -100,7 +97,7 @@ msgstr ""
 
 #: extension/about.js:159 extension/options.js:596
 msgid "Finished"
-msgstr ""
+msgstr "تاماملاندى"
 
 #: extension/about.js:191
 msgid "Translation Status"
@@ -136,7 +133,7 @@ msgstr ""
 #: extension/XULContent/options.xul:20 extension/XULContent/options.xul:25
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:48
 msgid "Options"
-msgstr ""
+msgstr "تاللانما"
 
 #: extension/browser_action_menu.js:46 extension/buttonbar.js:37
 #: extension/inline.js:1213 extension/utils.js:1554
@@ -157,7 +154,7 @@ msgstr ""
 #: extension/buttonbar.js:48 extension/key_manager.js:613
 #: extension/key_manager.js:680
 msgid "Create"
-msgstr ""
+msgstr "ياسا"
 
 #: extension/buttonbar.js:55 extension/key_manager.js:621
 msgid "Name Required"
@@ -177,7 +174,7 @@ msgstr ""
 
 #: extension/buttonbar.js:80 extension/buttonbar.js:82
 msgid "Passphrases do not match"
-msgstr ""
+msgstr "Passphrases ماس كەلمىدى"
 
 #: extension/buttonbar.js:101 extension/key_manager.js:695
 msgid "Building key, please wait"
@@ -203,7 +200,7 @@ msgstr ""
 #: extension/key_manager.js:714 extension/key_manager.js:919
 #: extension/key_manager.js:1017 extension/options.js:351
 msgid "Close"
-msgstr ""
+msgstr "ياپ"
 
 #: extension/buttonbar.js:130 extension/buttonbar.js:231
 #: extension/dialog.js:262 extension/key_manager.js:529
@@ -214,7 +211,7 @@ msgstr ""
 #: extension/key_manager.js:1339 extension/key_manager.js:1727
 #: extension/key_manager.js:2387 extension/key_manager.js:2407
 msgid "Cancel"
-msgstr ""
+msgstr "بولدىلا"
 
 #: extension/buttonbar.js:181
 msgid "Import from File"
@@ -224,13 +221,13 @@ msgstr ""
 #: extension/XULContent/firefoxOverlay.xul:73
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:94
 msgid "Import"
-msgstr ""
+msgstr "ئەكىر"
 
 #: extension/buttonbar.js:201 extension/buttonbar.js:212 extension/error.js:24
 #: extension/key_manager.js:796 extension/key_manager.js:811
 #: extension/key_manager.js:998 extension/key_manager.js:1001
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: extension/buttonbar.js:202
 msgid "There was an error parsing this PGP file"
@@ -256,11 +253,11 @@ msgstr ""
 #: extension/XULContent/firefoxOverlay.xul:80
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:101
 msgid "Export"
-msgstr ""
+msgstr "ئېكسپورت قىل"
 
 #: extension/dialog.js:57
 msgid "Editor"
-msgstr ""
+msgstr "تەھرىرلىگۈچ"
 
 #: extension/dialog.js:95 extension/key_manager.js:282
 msgid "Search/Filter"
@@ -274,11 +271,11 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:762 extension/webmail/gmail/gmail.js:911
 #: extension/webmail/gmail/inbox.js:764 extension/webmail/gmail/inbox.js:913
 msgid "Encrypt"
-msgstr ""
+msgstr "شىفىر"
 
 #: extension/dialog.js:233
 msgid "Insert"
-msgstr ""
+msgstr "قىستۇر"
 
 #: extension/dialog.js:243
 msgid "no action has been selected"
@@ -306,7 +303,7 @@ msgstr ""
 
 #: extension/error.js:25
 msgid "Suggestions"
-msgstr ""
+msgstr "نامزاتلار"
 
 #: extension/error.js:28
 msgid "The plugin was unable to load"
@@ -334,7 +331,7 @@ msgstr ""
 
 #: extension/error.js:43
 msgid "Error Details"
-msgstr ""
+msgstr "خاتالىق تەپسىلاتلىرى"
 
 #: extension/error.js:44
 msgid "Error in Method"
@@ -350,19 +347,19 @@ msgstr ""
 
 #: extension/error.js:54
 msgid "File"
-msgstr ""
+msgstr "ھۆججەت"
 
 #: extension/error.js:55
 msgid "Line"
-msgstr ""
+msgstr "سىزىق"
 
 #: extension/error.js:58
 msgid "Unknown Error"
-msgstr ""
+msgstr "نامەلۇم خاتالىق"
 
 #: extension/error.js:62
 msgid "System Information"
-msgstr ""
+msgstr "سىستېما ئۇچۇرى"
 
 #: extension/error.js:64
 msgid "App Version"
@@ -374,7 +371,7 @@ msgstr ""
 
 #: extension/error.js:68
 msgid "Vendor"
-msgstr ""
+msgstr "تەمىنلىگۈچى"
 
 #: extension/inline.js:746 extension/key_manager.js:1981
 msgid "no email address provided"
@@ -382,7 +379,7 @@ msgstr ""
 
 #: extension/inline.js:1003
 msgid "Use"
-msgstr ""
+msgstr "ئىشلەت"
 
 #: extension/inline.js:1127 extension/key_manager.js:322
 #: extension/key_manager.js:325 extension/webmail/gmail/gmail.js:768
@@ -414,12 +411,12 @@ msgstr ""
 #: extension/inline.js:1181 extension/XULContent/firefoxOverlay.xul:66
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:87
 msgid "Decrypt"
-msgstr ""
+msgstr "شىفىر يەش"
 
 #: extension/inline.js:1199 extension/XULContent/firefoxOverlay.xul:45
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:66
 msgid "Verify"
-msgstr ""
+msgstr "دەلىللە"
 
 #: extension/inline.js:1207
 msgid "Secure Editor"
@@ -491,11 +488,11 @@ msgstr ""
 
 #: extension/key_manager.js:286 extension/key_manager.js:363
 msgid "Comment"
-msgstr ""
+msgstr "ئىزاھات"
 
 #: extension/key_manager.js:290
 msgid "Passphrase"
-msgstr ""
+msgstr "ئىم جۈملىسى"
 
 #: extension/key_manager.js:294
 msgid "Repeat Passphrase"
@@ -503,7 +500,7 @@ msgstr ""
 
 #: extension/key_manager.js:295 extension/options.js:181
 msgid "Advanced Options"
-msgstr ""
+msgstr "ئالىي تاللانما"
 
 #: extension/key_manager.js:296
 msgid "Public Key Algorithm"
@@ -528,7 +525,7 @@ msgstr ""
 #: extension/key_manager.js:304 extension/key_manager.js:2150
 #: extension/key_manager.js:2533 extension/webpg_results.js:136
 msgid "Never"
-msgstr ""
+msgstr "ھەرگىز"
 
 #: extension/key_manager.js:307
 msgid "n30 days"
@@ -557,11 +554,11 @@ msgstr ""
 #: extension/key_manager.js:345 extension/key_manager.js:1217
 #: extension/key_manager.js:2562
 msgid "Sign"
-msgstr ""
+msgstr "ئىمزا"
 
 #: extension/key_manager.js:347 extension/key_manager.js:2566
 msgid "Authenticate"
-msgstr ""
+msgstr "كىملىك دەلىللەش"
 
 #: extension/key_manager.js:365
 msgid "Revoke this Key"
@@ -655,7 +652,7 @@ msgstr ""
 #: extension/key_manager.js:498 extension/options.js:186
 #: extension/options.js:191 extension/options.js:196 extension/options.js:201
 msgid "Save"
-msgstr ""
+msgstr "ساقلا"
 
 #: extension/key_manager.js:553 extension/key_manager.js:2294
 msgid "Delete this key"
@@ -663,7 +660,7 @@ msgstr ""
 
 #: extension/key_manager.js:787
 msgid "Add"
-msgstr ""
+msgstr "قوش"
 
 #: extension/key_manager.js:797
 msgid "There was an error parsing this image file"
@@ -687,7 +684,7 @@ msgstr ""
 
 #: extension/key_manager.js:878
 msgid "WARNING"
-msgstr ""
+msgstr "ئاگاھلاندۇرۇش"
 
 #: extension/key_manager.js:879
 msgid "is quite large"
@@ -703,7 +700,7 @@ msgstr ""
 
 #: extension/key_manager.js:910
 msgid "Copy"
-msgstr ""
+msgstr "كۆچۈر"
 
 #: extension/key_manager.js:935 extension/key_manager.js:1105
 msgid "Please specify the revocation details"
@@ -711,15 +708,15 @@ msgstr ""
 
 #: extension/key_manager.js:936 extension/key_manager.js:1106
 msgid "Reason"
-msgstr ""
+msgstr "سەۋەب"
 
 #: extension/key_manager.js:938 extension/key_manager.js:1108
 msgid "No reason specified"
-msgstr ""
+msgstr "سەۋەبى كۆرسىتىلمىدى"
 
 #: extension/key_manager.js:939
 msgid "Key has been compromised"
-msgstr ""
+msgstr "ئاچقۇچ مۇرەسسە قىلىنغان"
 
 #: extension/key_manager.js:940
 msgid "Key is superseded"
@@ -727,15 +724,15 @@ msgstr ""
 
 #: extension/key_manager.js:941
 msgid "Key is no longer used"
-msgstr ""
+msgstr "ئاچقۇچ ئەمدى ئىشلىتىلمەيدۇ"
 
 #: extension/key_manager.js:943 extension/key_manager.js:1111
 msgid "Description"
-msgstr ""
+msgstr "دېتال چۈشەندۈرۈشى"
 
 #: extension/key_manager.js:956 extension/key_manager.js:1125
 msgid "Revoke"
-msgstr ""
+msgstr "بىكار قىلىش"
 
 #: extension/key_manager.js:981
 msgid "Are you sure you want to Publish this key to the Keyserver"
@@ -743,7 +740,7 @@ msgstr ""
 
 #: extension/key_manager.js:988
 msgid "Publish"
-msgstr ""
+msgstr "ئېلان قىلىش"
 
 #: extension/key_manager.js:991
 msgid "Sending key to Keyserver"
@@ -763,7 +760,7 @@ msgstr ""
 
 #: extension/key_manager.js:1005
 msgid "Try Again"
-msgstr ""
+msgstr "قايتا سىناش"
 
 #: extension/key_manager.js:1010
 msgid "Key Published to Keyserver"
@@ -855,12 +852,12 @@ msgstr ""
 #: extension/key_manager.js:1984 extension/webpg_results.js:138
 #: extension/webpg_results.js:451
 msgid "Expires"
-msgstr ""
+msgstr "ۋاقتى ئۆتتى"
 
 #: extension/key_manager.js:1850 extension/key_manager.js:1861
 #: extension/key_manager.js:1914 extension/key_manager.js:1924
 msgid "Expired"
-msgstr ""
+msgstr "ۋاقتى ئوتكەن"
 
 #: extension/key_manager.js:1853 extension/key_manager.js:1952
 msgid "User IDs"
@@ -868,21 +865,21 @@ msgstr ""
 
 #: extension/key_manager.js:1857 extension/key_manager.js:1918
 msgid "Fingerprint"
-msgstr ""
+msgstr "بارماق ئىزى"
 
 #: extension/key_manager.js:1861 extension/key_manager.js:1923
 #: extension/webpg_results.js:139
 msgid "Status"
-msgstr ""
+msgstr "ھالىتى"
 
 #: extension/key_manager.js:1861 extension/key_manager.js:1924
 #: extension/key_manager.js:1979
 msgid "Revoked"
-msgstr ""
+msgstr "بىكار قىلىنغان"
 
 #: extension/key_manager.js:1861 extension/key_manager.js:1924
 msgid "Invalid"
-msgstr ""
+msgstr "ئىناۋەتسىز"
 
 #: extension/key_manager.js:1861 extension/key_manager.js:1924
 #: extension/key_manager.js:2074 extension/key_manager.js:2102
@@ -891,19 +888,19 @@ msgstr ""
 #: extension/options.js:388 extension/options.js:398 extension/options.js:413
 #: extension/options.js:418
 msgid "Disabled"
-msgstr ""
+msgstr "چەكلەنگەن"
 
 #: extension/key_manager.js:1861 extension/key_manager.js:1924
 msgid "Valid"
-msgstr ""
+msgstr "ئىناۋەتلىك"
 
 #: extension/key_manager.js:1864 extension/key_manager.js:1927
 msgid "Key Algorithm"
-msgstr ""
+msgstr "ئاچقۇچ ئالگورىزىمى"
 
 #: extension/key_manager.js:1867 extension/webpg_results.js:140
 msgid "Validity"
-msgstr ""
+msgstr "ئۈنۈملۈكلۈكى"
 
 #: extension/key_manager.js:1870 extension/key_manager.js:1935
 msgid "Key Options"
@@ -911,7 +908,7 @@ msgstr ""
 
 #: extension/key_manager.js:1882
 msgid "Operations"
-msgstr ""
+msgstr "ھېسابلا"
 
 #: extension/key_manager.js:1893
 msgid "Subkeys"
@@ -923,7 +920,7 @@ msgstr ""
 
 #: extension/key_manager.js:1931
 msgid "Flags"
-msgstr ""
+msgstr "بەلگىلەر"
 
 #: extension/key_manager.js:1941
 msgid "Key Operations"
@@ -936,7 +933,7 @@ msgstr ""
 #: extension/key_manager.js:1983 extension/webpg_results.js:137
 #: extension/webpg_results.js:449
 msgid "Created"
-msgstr ""
+msgstr "قۇرغان ۋاقتى"
 
 #: extension/key_manager.js:1996
 msgid "User Photos"
@@ -964,7 +961,7 @@ msgstr ""
 #: extension/options.js:388 extension/options.js:398 extension/options.js:413
 #: extension/options.js:418
 msgid "Enabled"
-msgstr ""
+msgstr "قوزغىتىلغان"
 
 #: extension/key_manager.js:2081
 msgid "Cannot unset your default key"
@@ -976,15 +973,15 @@ msgstr ""
 
 #: extension/key_manager.js:2149 extension/webpg_results.js:134
 msgid "Unknown"
-msgstr ""
+msgstr "نامەلۇم"
 
 #: extension/key_manager.js:2151
 msgid "Marginal"
-msgstr ""
+msgstr "قىسمەن"
 
 #: extension/key_manager.js:2152
 msgid "Full"
-msgstr ""
+msgstr "تولۇق"
 
 #: extension/key_manager.js:2153
 msgid "ultimate"
@@ -1012,7 +1009,7 @@ msgstr ""
 
 #: extension/key_manager.js:2282
 msgid "Change Passphrase"
-msgstr ""
+msgstr "ئىمنى ئۆزگەرتىش"
 
 #: extension/key_manager.js:2284
 msgid "Add Subkey"
@@ -1064,7 +1061,7 @@ msgstr ""
 
 #: extension/key_manager.js:2345 extension/key_manager.js:2360
 msgid "Delete"
-msgstr ""
+msgstr "ئۆچۈر"
 
 #: extension/key_manager.js:2353
 msgid "This signature was made with a key that does not belong to you"
@@ -1192,16 +1189,16 @@ msgstr ""
 
 #: extension/options.js:249 extension/options.js:274
 msgid "Window"
-msgstr ""
+msgstr "كۆزنەك"
 
 #: extension/options.js:250 extension/options.js:275
 msgid "Icon"
-msgstr ""
+msgstr "سىنبەلگە"
 
 #: extension/options.js:252 extension/options.js:259 extension/options.js:277
 #: extension/options.js:288
 msgid "Sample"
-msgstr ""
+msgstr "مىسال"
 
 #: extension/options.js:255 extension/options.js:284
 msgid "WebPG Toolbar"
@@ -1424,7 +1421,7 @@ msgstr ""
 #: extension/XULContent/options.xul:33
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:52
 msgid "About"
-msgstr ""
+msgstr "ھەققىدە"
 
 #: extension/XULContent/firefoxOverlay.xul:38
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:59
@@ -1463,7 +1460,7 @@ msgstr ""
 #: extension/XULContent/thunderbird/composeOverlay.js:266
 #: extension/webmail/gmail/gmail.js:472 extension/webmail/gmail/inbox.js:474
 msgid "or"
-msgstr ""
+msgstr "ياكى"
 
 #: extension/webmail/gmail/gmail.js:263 extension/webmail/gmail/inbox.js:265
 msgid "WebPG is preparing the email"
@@ -1484,7 +1481,7 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:476 extension/webmail/gmail/gmail.js:504
 #: extension/webmail/gmail/inbox.js:478 extension/webmail/gmail/inbox.js:506
 msgid "and"
-msgstr ""
+msgstr "ۋە"
 
 #: extension/webmail/gmail/gmail.js:484 extension/webmail/gmail/inbox.js:486
 msgid "This message will be Encrypted"
@@ -1538,3 +1535,15 @@ msgstr ""
 #: extension/manifest.json:4
 msgid "extDesc"
 msgstr ""
+
+#~ msgid "Ultimate"
+#~ msgstr "مۇتلەق"
+
+#~ msgid "None"
+#~ msgstr "يوق"
+
+#~ msgid "New group"
+#~ msgstr "يېڭى گۇرۇپپا"
+
+#~ msgid "local"
+#~ msgstr "يەرلىك"

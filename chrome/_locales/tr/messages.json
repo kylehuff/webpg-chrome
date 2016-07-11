@@ -1,144 +1,144 @@
 {
 	"About_WebPG": {
-		"message": ""
+		"message": "WebPG hakkında"
 	},
 	"Version": {
-		"message": ""
+		"message": "Sürüm"
 	},
 	"Extension_Information": {
-		"message": ""
+		"message": "uzantı bilgileri"
 	},
 	"Extension_version": {
-		"message": ""
+		"message": "uzantı sürümü"
 	},
 	"Platform": {
-		"message": ""
+		"message": "Platform"
 	},
 	"Product": {
-		"message": ""
+		"message": "Ürün"
 	},
 	"User_Agent": {
-		"message": ""
+		"message": "Kullanıcı İstemcisi"
 	},
 	"Language": {
-		"message": ""
+		"message": "Dil"
 	},
 	"Plugin_Information": {
-		"message": ""
+		"message": "Eklenti Bilgileri"
 	},
 	"Plugin_version": {
-		"message": ""
+		"message": "Eklenti sürümü"
 	},
 	"GnuPG_Information": {
-		"message": ""
+		"message": "GnuPG Bilgisi"
 	},
 	"GnuPG_version": {
-		"message": ""
+		"message": "GnuPG sürümü"
 	},
 	"GnuPG_binary": {
-		"message": ""
+		"message": "GnuPG çalıştırılabilir dosyası"
 	},
 	"GnuPG_home_directory": {
-		"message": ""
+		"message": "GnuPG ana dizin"
 	},
 	"default": {
-		"message": ""
+		"message": "varsayılan"
 	},
 	"GPGCONF_version": {
-		"message": ""
+		"message": "GPGCONF sürümü"
 	},
 	"not_detected": {
-		"message": ""
+		"message": "algılanamadı"
 	},
 	"Assuan_version": {
-		"message": ""
+		"message": "Assuan  sürümü"
 	},
 	"Key_Agent": {
 		"message": ""
 	},
 	"Finished": {
-		"message": ""
+		"message": "Tamamlandı"
 	},
 	"Translation_Status": {
-		"message": ""
+		"message": "Çeviri Durumu"
 	},
 	"WebPG_Plugin_failed_to_load": {
-		"message": ""
+		"message": "WebPG eklentisini yükleme başarısız oldu"
 	},
 	"Key_Generation_Complete": {
-		"message": ""
+		"message": "Anahtar Üretimi Tamamlandı"
 	},
 	"Key_Generation": {
-		"message": ""
+		"message": "Anahtar Üretimi"
 	},
 	"Open_Key_Manager": {
-		"message": ""
+		"message": "Açık Anahtar Yönetcisi"
 	},
 	"WebPG_Key_Generation_Failed": {
-		"message": ""
+		"message": "WebPG Anahtar Üretimi Başarısız Oldu"
 	},
 	"The_generation_of_your_new_key_is_now_complete": {
-		"message": ""
+		"message": "Yeni anahtarınızın üretimi tamamlandı"
 	},
 	"Options": {
-		"message": ""
+		"message": "Seçenekler"
 	},
 	"Key_Manager": {
-		"message": ""
+		"message": "Anahtar Yöneticisi"
 	},
 	"Refresh_Key_List": {
 		"message": ""
 	},
 	"Generate_New_Key": {
-		"message": ""
+		"message": "Yeni Anahtar Oluştur"
 	},
 	"Create": {
-		"message": ""
+		"message": "Oluştur"
 	},
 	"Name_Required": {
-		"message": ""
+		"message": "İsim Gerekiyor"
 	},
 	"UID_Names_must_be_at_least_5_characters": {
-		"message": ""
+		"message": "UID isimleri en az 5 karakter olmalı"
 	},
 	"UID_Names_cannot_begin_with_a_number": {
-		"message": ""
+		"message": "UID isimleri rakam ile başlayamaz"
 	},
 	"Not_a_valid_email_address": {
-		"message": ""
+		"message": "Geçerli bir eposta adresi değil"
 	},
 	"Passphrases_do_not_match": {
-		"message": ""
+		"message": "Parolalar aynı değil"
 	},
 	"Building_key__please_wait": {
-		"message": ""
+		"message": "Anahtar oluşturuluyor, lütfen bekleyin"
 	},
 	"This_may_take_a_long_time__5_minutes_or_more__to_complete": {
-		"message": ""
+		"message": "Bu işlemin tamamlanması uzun sürebilir (5 dakika veya daha fazla)"
 	},
 	"Please_be_patient_while_the_key_is_created": {
-		"message": ""
+		"message": "Anahtar oluşturulurken lütfen sabırlı olunuz"
 	},
 	"It_is_safe_to_close_this_window": {
-		"message": ""
+		"message": "Bu pencereyi kapatabilirsiniz"
 	},
 	"key_generation_will_continue_in_the_background": {
-		"message": ""
+		"message": "anahtar üretimi arkaplanda devam edecektir"
 	},
 	"Close": {
-		"message": ""
+		"message": "Kapat"
 	},
 	"Cancel": {
-		"message": ""
+		"message": "İptal"
 	},
 	"Import_from_File": {
 		"message": ""
 	},
 	"Import": {
-		"message": ""
+		"message": "İçe Aktar"
 	},
 	"Error": {
-		"message": ""
+		"message": "Hata"
 	},
 	"There_was_an_error_parsing_this_PGP_file": {
 		"message": ""
@@ -153,157 +153,157 @@
 		"message": ""
 	},
 	"Select_Recipient_s_": {
-		"message": ""
+		"message": "Alıcı(ları) Seçiniz"
 	},
 	"Export": {
-		"message": ""
+		"message": "Dışarıya Aktar"
 	},
 	"Editor": {
-		"message": ""
+		"message": "Düzenleyici"
 	},
 	"Search_Filter": {
-		"message": ""
+		"message": "Arama/Filtre"
 	},
 	"Encrypt": {
-		"message": ""
+		"message": "Şifrele"
 	},
 	"Insert": {
-		"message": ""
+		"message": "Ekle"
 	},
 	"no_action_has_been_selected": {
-		"message": ""
+		"message": "bir eylem seçilmedi"
 	},
 	"no_action_has_been_successful": {
-		"message": ""
+		"message": "başarılı olan eylem yok"
 	},
 	"UIDs": {
-		"message": ""
+		"message": "UIDler"
 	},
 	"Key_does_not_support_this_operation": {
-		"message": ""
+		"message": "Anahtar bu işlemi desteklemiyor"
 	},
 	"Error_loading_WebPG": {
-		"message": ""
+		"message": "WebPG yüklenirken hata oluştu"
 	},
 	"We_encountered_a_problem_while_attempting_to_load_WebPG": {
-		"message": ""
+		"message": "WebPG yükleme sırasında bir problemlen karşılaştık"
 	},
 	"Suggestions": {
-		"message": ""
+		"message": "Öneriler"
 	},
 	"The_plugin_was_unable_to_load": {
-		"message": ""
+		"message": "Eklenti yüklenemedi"
 	},
 	"The_Firefox_Click_to_Play_feature_is_enabled": {
-		"message": ""
+		"message": "Firefox Click to Play özelliği aktif"
 	},
 	"WebPG_cannot_load_the_required_plugin_with_this_feature_enabled": {
-		"message": ""
+		"message": "Bu özellik aktifken WebPG gerekli eklentiyi yükleyemez"
 	},
 	"The_WebPG_Native_Messaging_Host_was_unreachable": {
 		"message": ""
 	},
 	"There_might_be_a_problem_with_the_gpg_installation": {
-		"message": ""
+		"message": "gpg kurulumuyla ilgili bir problem olabilir"
 	},
 	"consider_reinstalling_gpg4win": {
-		"message": ""
+		"message": "gpg4win'i tekrar kurmayı deneyin"
 	},
 	"Error_Details": {
-		"message": ""
+		"message": "Hata Ayrıntıları"
 	},
 	"Error_in_Method": {
-		"message": ""
+		"message": "Metodda Hata"
 	},
 	"Error_Code": {
-		"message": ""
+		"message": "Hata Kodu"
 	},
 	"Error_String": {
-		"message": ""
+		"message": "Hata Mesajı"
 	},
 	"File": {
-		"message": ""
+		"message": "Dosya"
 	},
 	"Line": {
-		"message": ""
+		"message": "Satır"
 	},
 	"Unknown_Error": {
-		"message": ""
+		"message": "Bilinmeyen Hata"
 	},
 	"System_Information": {
-		"message": ""
+		"message": "Sistem Bilgisi"
 	},
 	"App_Version": {
-		"message": ""
+		"message": "Uygulama Sürümü"
 	},
 	"Sub_product": {
-		"message": ""
+		"message": "Alt ürün"
 	},
 	"Vendor": {
-		"message": ""
+		"message": "Üretici"
 	},
 	"no_email_address_provided": {
-		"message": ""
+		"message": "eposta adresi belirtilmedi"
 	},
 	"Use": {
-		"message": ""
+		"message": "Kullan"
 	},
 	"Sign_only": {
-		"message": ""
+		"message": "Sadece imzala"
 	},
 	"Sign_and_Encrypt": {
-		"message": ""
+		"message": "İmzala ve Kriptola/Şifrele"
 	},
 	"Symmetric_Encryption": {
-		"message": ""
+		"message": "Simetrik Kriptolama"
 	},
 	"Signed_Symmetric_Encryption": {
 		"message": ""
 	},
 	"Decrypt": {
-		"message": ""
+		"message": "Şifre Çöz"
 	},
 	"Verify": {
-		"message": ""
+		"message": "Doğrula"
 	},
 	"Secure_Editor": {
-		"message": ""
+		"message": "Güvenli Düzenleyici"
 	},
 	"PGP_Signed_Message": {
-		"message": ""
+		"message": "PGP İmzalı Mesaj"
 	},
 	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "PGP ŞİFRELİ VEYA İMZALI MESAJ"
 	},
 	"PGP_Public_Key": {
-		"message": ""
+		"message": "PGP Genel Anahtar"
 	},
 	"WebPG_Secure_Editor": {
-		"message": ""
+		"message": "WebPG Güvenli Düzenleyici"
 	},
 	"Unsecured_Editor": {
-		"message": ""
+		"message": "Güvensiz Düzenleyici"
 	},
 	"Loading_keys": {
 		"message": ""
 	},
 	"Generating_Key": {
-		"message": ""
+		"message": "Anahtar Oluşturuluyor"
 	},
 	"Waiting_for_entropy": {
-		"message": ""
+		"message": "Entropi için bekleniyor"
 	},
 	"Building_key": {
-		"message": ""
+		"message": "Anahtar yaratılıyor"
 	},
 	"please_wait": {
-		"message": ""
+		"message": "lütfen bekleyin"
 	},
 	"Private_Keys": {
-		"message": ""
+		"message": "Özel Anahtarlar"
 	},
 	"Public_Keys": {
-		"message": ""
+		"message": "Genel (Herkese Açık) Anahtarlar"
 	},
 	"Search_Keyserver": {
 		"message": ""
@@ -312,226 +312,226 @@
 		"message": ""
 	},
 	"Your_Name": {
-		"message": ""
+		"message": "Adınız"
 	},
 	"Your_Email": {
-		"message": ""
+		"message": "E-posta Adresiniz"
 	},
 	"Comment": {
-		"message": ""
+		"message": "Açıklama/Yorum"
 	},
 	"Passphrase": {
-		"message": ""
+		"message": "Parola"
 	},
 	"Repeat_Passphrase": {
-		"message": ""
+		"message": "Parolayı Tekrar Girin"
 	},
 	"Advanced_Options": {
-		"message": ""
+		"message": "Gelişmiş Seçenekler"
 	},
 	"Public_Key_Algorithm": {
-		"message": ""
+		"message": "Genel Anahtar Algoritması"
 	},
 	"Public_Key_Size": {
-		"message": ""
+		"message": "Genel Anahtar Boyutu"
 	},
 	"Private_Key_Algorithm": {
-		"message": ""
+		"message": "Özel Anahtar Algoritması"
 	},
 	"Private_Key_Size": {
-		"message": ""
+		"message": "Özel Anahtar Boyutu"
 	},
 	"Expire_in": {
-		"message": ""
+		"message": "Zaman aşımı tarihi"
 	},
 	"Never": {
-		"message": ""
+		"message": "Hiçbir Zaman"
 	},
 	"n30_days": {
-		"message": ""
+		"message": "n30 gün"
 	},
 	"n90_days": {
-		"message": ""
+		"message": "n90 gün"
 	},
 	"n1_year": {
-		"message": ""
+		"message": "n1 yıl"
 	},
 	"Subkey_Options": {
-		"message": ""
+		"message": "Alt-anahtar Seçenekleri"
 	},
 	"encrypt_only": {
-		"message": ""
+		"message": "sadece kriptolama/şifreleme"
 	},
 	"set_your_own_capabilities": {
-		"message": ""
+		"message": "diğer yetenekleri belirleyin"
 	},
 	"Sign": {
-		"message": ""
+		"message": "İmzala"
 	},
 	"Authenticate": {
-		"message": ""
+		"message": "Kimlik Doğrula"
 	},
 	"Revoke_this_Key": {
-		"message": ""
+		"message": "Bu anahtarı geçersiz kıl"
 	},
 	"Revoke_this_UID": {
-		"message": ""
+		"message": "Bu UID'i geçersiz kıl"
 	},
 	"Revoke_this_Signature": {
-		"message": ""
+		"message": "Bu imzayı geçersiz kıl"
 	},
 	"Delete_this_Signature": {
-		"message": ""
+		"message": "Bu imzayı sil"
 	},
 	"Delete_this_UID": {
-		"message": ""
+		"message": "Bu UID'i sil"
 	},
 	"Delete_this_Key": {
-		"message": ""
+		"message": "Bu anahtarı sil"
 	},
 	"This_key_will_be_permanently_deleted": {
-		"message": ""
+		"message": "Bu anahtar kalıcı olarak silinecek"
 	},
 	"Are_you_sure": {
-		"message": ""
+		"message": "Emin misiniz"
 	},
 	"Change_Expiration": {
-		"message": ""
+		"message": "Zaman Aşımı Tarihini Değiştir"
 	},
 	"Sign_this_UID": {
-		"message": ""
+		"message": "Bu UID'i imzala"
 	},
 	"Key_Details": {
-		"message": ""
+		"message": "Anahtar Detayları"
 	},
 	"Export_Public_Key": {
-		"message": ""
+		"message": "Genel Anahtarı Dışa Aktar"
 	},
 	"Add_UID": {
-		"message": ""
+		"message": "UID Ekle"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Key": {
-		"message": ""
+		"message": "Bu anhtarı geçersiz kılmak istediğinize emin misiniz"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_UID": {
-		"message": ""
+		"message": "Bu UID'i geçersiz kılmak istediğinize emin misiniz"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Signature": {
-		"message": ""
+		"message": "Bu imzayı geçersiz kılmak istediğinize emin misiniz"
 	},
 	"Are_you_sure_you_wish_to_delete_this_Signature": {
-		"message": ""
+		"message": "Bu imzayı silmek istediğinize emin misiniz"
 	},
 	"Are_you_sure_you_want_to_permanently_delete_this_UID": {
-		"message": ""
+		"message": "Bu UID'i kalıcı olarak silmek istediğinize emin misiniz"
 	},
 	"Are_you_sure_you_want_to_permanently_delete_this_Photo": {
-		"message": ""
+		"message": "Bu resimi kalıcı olarak silmek istediğinize emin misiniz"
 	},
 	"New_Expiration_Date": {
-		"message": ""
+		"message": "Yeni Zaman Aşım Tarihi"
 	},
 	"Never_Expire": {
-		"message": ""
+		"message": "Zaman Aşımına Uğramasın"
 	},
 	"Expiration_Date": {
-		"message": ""
+		"message": "Son Kullanım Tarihi"
 	},
 	"Save": {
-		"message": ""
+		"message": "Kaydet"
 	},
 	"Delete_this_key": {
-		"message": ""
+		"message": "Bu anahtarı sil"
 	},
 	"Add": {
-		"message": ""
+		"message": "Ekle"
 	},
 	"There_was_an_error_parsing_this_image_file": {
-		"message": ""
+		"message": "Resim dosyası işlenirken bir hata oluştu"
 	},
 	"There_was_an_error_adding_this_image_file": {
-		"message": ""
+		"message": "Resim dosyası eklenirken bir hata oluştu"
 	},
 	"It_is_possible_the_image_contains_EXIF_data": {
-		"message": ""
+		"message": "Resim EXIF verisi içeriyor olabilir"
 	},
 	"Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo": {
-		"message": ""
+		"message": "Bir JPEG (.jpg/.jpeg) resim seçmek için lütfen yukarıdaki düğmeyi kullanın"
 	},
 	"Only_JPEG_image_files_are_supported": {
-		"message": ""
+		"message": "Sadece JPEG resim dosyaları destekleniyor"
 	},
 	"WARNING": {
-		"message": ""
+		"message": "UYARI"
 	},
 	"is_quite_large": {
-		"message": ""
+		"message": "çok büyük"
 	},
 	"Consider_using_a_smaller_image": {
-		"message": ""
+		"message": "Daha küçük bir resim kullanın"
 	},
 	"Only_one_image_can_be_added": {
-		"message": ""
+		"message": "Sadece bir resim eklenebilir"
 	},
 	"Copy": {
-		"message": ""
+		"message": "Kopyala"
 	},
 	"Please_specify_the_revocation_details": {
-		"message": ""
+		"message": "Lütfen iptal detaylarını belirtin"
 	},
 	"Reason": {
-		"message": ""
+		"message": "Sebep"
 	},
 	"No_reason_specified": {
-		"message": ""
+		"message": "Sebep belirtilmemiş"
 	},
 	"Key_has_been_compromised": {
-		"message": ""
+		"message": "Anahtar başkalarının eline geçti"
 	},
 	"Key_is_superseded": {
-		"message": ""
+		"message": "Anahtarın yerine başkası konulmuş ve iptal edilmiştir"
 	},
 	"Key_is_no_longer_used": {
-		"message": ""
+		"message": "Anahtar artık kullanılmıyor"
 	},
 	"Description": {
-		"message": ""
+		"message": "Açıklama"
 	},
 	"Revoke": {
-		"message": ""
+		"message": "İptal Et"
 	},
 	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "Bu anahtarı anahtar sunucusuna göndermek istediğinize emin misiniz"
 	},
 	"Publish": {
-		"message": ""
+		"message": "Yayımla"
 	},
 	"Sending_key_to_Keyserver": {
-		"message": ""
+		"message": "Anahtar sunucusuna gönderiliyor"
 	},
 	"There_was_a_problem_sending_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "Anahtar sunucusuna göndermede bir hata oluştu"
 	},
 	"No_Keyserver_defined": {
-		"message": ""
+		"message": "Anahtar sunucusu belirtilmedi"
 	},
 	"Keyserver": {
-		"message": ""
+		"message": "Anahtar sunucusu"
 	},
 	"Try_Again": {
-		"message": ""
+		"message": "Tekrar Deneyin"
 	},
 	"Key_Published_to_Keyserver": {
-		"message": ""
+		"message": "Anahtar sunucuya gönderildi"
 	},
 	"Publish_Again": {
-		"message": ""
+		"message": "Tekrar Yayımla"
 	},
 	"Publish_to_Keyserver": {
-		"message": ""
+		"message": "Anahtar sunucusuna gönder"
 	},
 	"Key_not_found_on_keyserver": {
-		"message": ""
+		"message": "Anahtar sunucuda bulunamadı"
 	},
 	"Key_updated": {
 		"message": ""
@@ -540,145 +540,145 @@
 		"message": ""
 	},
 	"User_ID_is_no_longer_valid": {
-		"message": ""
+		"message": "Kullanıcı ID artık geçerli değil"
 	},
 	"Please_select_which_of_your_keys_to_create_the_signature_with": {
-		"message": ""
+		"message": "İmzayı hangi anahtarlar ile yaratacağınızı seçin lütfen"
 	},
 	"You_have_not_enabled_any_keys_for_use_with_webpg": {
-		"message": ""
+		"message": "webpg ile kullanmak için bir anahtar seçmediniz"
 	},
 	"please_click_here": {
-		"message": ""
+		"message": "lütfen buraya tıklayın"
 	},
 	"and_select_1_or_more_keys_for_use_with_webpg": {
-		"message": ""
+		"message": "ve webpg ile kullanım için bir veya daha fazla anahtar seçin"
 	},
 	"You_have_not_generated_any_keys": {
-		"message": ""
+		"message": "Bir anahtar yaratmadınız"
 	},
 	"and_generate_a_key_to_use_with_webpg": {
-		"message": ""
+		"message": "ve webpg ile kullanım için bir anahtar yaratın"
 	},
 	"Already_signed_with_this_key": {
-		"message": ""
+		"message": "Zaten bu anahtar ile imzalanmış"
 	},
 	"Signature_added_using_this_key": {
-		"message": ""
+		"message": "İmza bu anahtar kullanılarak eklendi"
 	},
 	"Delete_this_Photo": {
-		"message": ""
+		"message": "Bu resimi sil"
 	},
 	"Searching_for": {
-		"message": ""
+		"message": "Aranan"
 	},
 	"Search_string_too_ambiguous_or_not_found_on_server": {
 		"message": ""
 	},
 	"KeyID": {
-		"message": ""
+		"message": "Anahtar ID"
 	},
 	"IMPORT": {
 		"message": ""
 	},
 	"Key_Created": {
-		"message": ""
+		"message": "Anahtar Yaratıldı"
 	},
 	"Expires": {
-		"message": ""
+		"message": "Son Kullanım"
 	},
 	"Expired": {
-		"message": ""
+		"message": "Süresi geçmiş"
 	},
 	"User_IDs": {
-		"message": ""
+		"message": "Kullanıcı IDleri"
 	},
 	"Fingerprint": {
-		"message": ""
+		"message": "Parmak izi"
 	},
 	"Status": {
-		"message": ""
+		"message": "Durum"
 	},
 	"Revoked": {
-		"message": ""
+		"message": "İptal edildi"
 	},
 	"Invalid": {
-		"message": ""
+		"message": "Geçersiz"
 	},
 	"Disabled": {
-		"message": ""
+		"message": "Devre dışı"
 	},
 	"Valid": {
-		"message": ""
+		"message": "Geçerli"
 	},
 	"Key_Algorithm": {
-		"message": ""
+		"message": "Anahtar Algoritması"
 	},
 	"Validity": {
-		"message": ""
+		"message": "Geçerlilik"
 	},
 	"Key_Options": {
-		"message": ""
+		"message": "Anahtar Seçenekleri"
 	},
 	"Operations": {
-		"message": ""
+		"message": "İşlemler"
 	},
 	"Subkeys": {
-		"message": ""
+		"message": "Alt anahtarlar"
 	},
 	"Subkey_Details": {
-		"message": ""
+		"message": "Alt-anahtar Detayları"
 	},
 	"Flags": {
-		"message": ""
+		"message": "İşaretler"
 	},
 	"Key_Operations": {
 		"message": ""
 	},
 	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
-		"message": ""
+		"message": "Anahtarlıkta bulunmayan anahtarlar ile yapılmış imzalar hariç tutulur"
 	},
 	"Created": {
-		"message": ""
+		"message": "Oluşturulma"
 	},
 	"User_Photos": {
-		"message": ""
+		"message": "Kullanıcı Resimleri"
 	},
 	"User_Photo": {
 		"message": ""
 	},
 	"Enable_this_key_for_GnuPG_operations": {
-		"message": ""
+		"message": "Bu anahtarı GnuPG işlemlerinde kullan"
 	},
 	"This_is_your_default_key": {
-		"message": ""
+		"message": "Bu varsayılan anahtarınız"
 	},
 	"Make_this_the_default_key_for_GnuPG_operations": {
-		"message": ""
+		"message": "Bu anahtarı GnuPG işlemleri için varsayılan olarak belirle"
 	},
 	"Enabled": {
-		"message": ""
+		"message": "Aktif"
 	},
 	"Cannot_unset_your_default_key": {
-		"message": ""
+		"message": "Varsayılan anahtar değiştirilemiyor"
 	},
 	"Trust_Assignment": {
-		"message": ""
+		"message": "Güven Belirleme"
 	},
 	"Unknown": {
-		"message": ""
+		"message": "Bilinmeyen"
 	},
 	"Marginal": {
-		"message": ""
+		"message": "Kısmen"
 	},
 	"Full": {
-		"message": ""
+		"message": "Tam"
 	},
 	"ultimate": {
 		"message": ""
 	},
 	"Group_Assignment": {
-		"message": ""
+		"message": "Grup Belirleme"
 	},
 	"Select_group_s__below": {
 		"message": ""
@@ -693,13 +693,13 @@
 		"message": ""
 	},
 	"Change_Passphrase": {
-		"message": ""
+		"message": "Parolayı Değiştir"
 	},
 	"Add_Subkey": {
-		"message": ""
+		"message": "Alt-anahtar Ekle"
 	},
 	"Add_Photo": {
-		"message": ""
+		"message": "Fotoğraf Ekle"
 	},
 	"Disable_this_key": {
 		"message": ""
@@ -708,37 +708,37 @@
 		"message": ""
 	},
 	"Delete_this_Subkey": {
-		"message": ""
+		"message": "Bu Alt-anahtarı Sil"
 	},
 	"Export_this_key": {
 		"message": ""
 	},
 	"Refresh_from_Keyserver": {
-		"message": ""
+		"message": "Anahtar sunucusundan güncelle"
 	},
 	"Cannot_sign_a_revoked_UID": {
-		"message": ""
+		"message": "Geçersiz kılınmış bir UID ile imzalanamaz"
 	},
 	"Revoke_this_key": {
 		"message": ""
 	},
 	"Revoke_UID": {
-		"message": ""
+		"message": "UID'i geçersiz kıl"
 	},
 	"Cannot_make_a_revoked_UID_primary": {
-		"message": ""
+		"message": "Geçersiz kılınmış bir UID birincil yapılamaz"
 	},
 	"Make_Primary": {
 		"message": ""
 	},
 	"Delete": {
-		"message": ""
+		"message": "Sil"
 	},
 	"This_signature_was_made_with_a_key_that_does_not_belong_to_you": {
-		"message": ""
+		"message": "Bu imza size ait olmayan bir anahtar ile yapılmış"
 	},
 	"This_action_cannot_be_undone": {
-		"message": ""
+		"message": "Bu işlem geri alınamaz"
 	},
 	"Certify": {
 		"message": ""
@@ -750,25 +750,25 @@
 		"message": ""
 	},
 	"WebPG_Options": {
-		"message": ""
+		"message": "WebPG Seçenekleri"
 	},
 	"The_WebPG_NPAPI_Plugin_is_valid": {
-		"message": ""
+		"message": "WebPG NPAPI eklentisi geçersiz"
 	},
 	"OpenPGP_was_detected": {
-		"message": ""
+		"message": "OpenPGP algılandı"
 	},
 	"It_appears_you_have_a_key_agent_configured": {
 		"message": ""
 	},
 	"gpgconf_was_detected": {
-		"message": ""
+		"message": "gpgconf algılandı"
 	},
 	"you_can_use_the_signature_methods": {
-		"message": ""
+		"message": "imza metodlarını kullanabilirsiniz"
 	},
 	"OpenPGP_does_not_appear_to_be_installed": {
-		"message": ""
+		"message": "OpenPGP kurulmamış gibi görünüyor"
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
 		"message": ""
@@ -783,7 +783,7 @@
 		"message": ""
 	},
 	"There_was_a_problem_loading_the_plugin": {
-		"message": ""
+		"message": "eklenti yüklenirken bir sorun çıktı"
 	},
 	"the_plugin_might_be_incompatibly_compiled_for_this_architechture": {
 		"message": ""
@@ -801,10 +801,10 @@
 		"message": ""
 	},
 	"Enable_WebPG_GMAIL_integration": {
-		"message": ""
+		"message": "WebPG GMAIL entegrasyonunu etkinleştir"
 	},
 	"EXPERIMENTAL": {
-		"message": ""
+		"message": "DENEYSEL"
 	},
 	"Automatically_Sign_outgoing_messages_in_GMAIL": {
 		"message": ""
@@ -822,19 +822,19 @@
 		"message": ""
 	},
 	"There_is_a_problem_with_your_configuration": {
-		"message": ""
+		"message": "Yapılandırmanızda bir sorun bulunuyor"
 	},
 	"Inline_formatting_mode": {
 		"message": ""
 	},
 	"Window": {
-		"message": ""
+		"message": "Pencere"
 	},
 	"Icon": {
-		"message": ""
+		"message": "Simge"
 	},
 	"Sample": {
-		"message": ""
+		"message": "Örnek"
 	},
 	"WebPG_Toolbar": {
 		"message": ""
@@ -954,7 +954,7 @@
 		"message": ""
 	},
 	"REVOKED": {
-		"message": ""
+		"message": "GEÇERSİZ KILINDI"
 	},
 	"EXPIRED": {
 		"message": ""
@@ -996,7 +996,7 @@
 		"message": ""
 	},
 	"Do_not_use_WebPG_for_this_message": {
-		"message": ""
+		"message": "Bu mesaj için WebPG kullanılmasın"
 	},
 	"Sign_Inline": {
 		"message": ""
@@ -1005,25 +1005,25 @@
 		"message": ""
 	},
 	"You_do_not_have_any_keys_for": {
-		"message": ""
+		"message": "Bunun için anahtarınız yok"
 	},
 	"or": {
-		"message": ""
+		"message": "veya"
 	},
 	"WebPG_is_preparing_the_email": {
 		"message": ""
 	},
 	"This_message_already_contains_PGP_data": {
-		"message": ""
+		"message": "Bu mesajda zaten PGP verisi var"
 	},
 	"Would_you_like_to_Encrypt_anyway": {
-		"message": ""
+		"message": "Yinede kriptolamak/şifrelemek istermisiniz"
 	},
 	"Expired_keys_found_for": {
-		"message": ""
+		"message": "Anahtarları zaman aşımına uğramış:"
 	},
 	"and": {
-		"message": ""
+		"message": "ve"
 	},
 	"This_message_will_be_Encrypted": {
 		"message": ""
@@ -1032,22 +1032,22 @@
 		"message": ""
 	},
 	"You_have_more_than_1_public_key_matching_that_address": {
-		"message": ""
+		"message": "Bu adresle eşleşen birden fazla genel anahtarınz var"
 	},
 	"The_Key_for": {
-		"message": ""
+		"message": "Anahtar:"
 	},
 	"is_invalid": {
-		"message": ""
+		"message": "geçersiz"
 	},
 	"Open_the_Key_Manager": {
-		"message": ""
+		"message": "Anahtar Yöneticisini Aç"
 	},
 	"This_message_will_be_Signed": {
 		"message": ""
 	},
 	"Sign_Only": {
-		"message": ""
+		"message": "Sadece İmza"
 	},
 	"This_message_will_be_Encrypted_using_Symmetric_Encryption": {
 		"message": ""

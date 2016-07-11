@@ -1,23 +1,24 @@
-# Translations template for webpg-chrome.
+# Translations template for webpg.
 # Copyright (C) 2012 CURETHEITCH
-# This file is distributed under the same license as the webpg-chrome
+# This file is distributed under the same license as the webpg
 # project.
 # Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: webpg-chrome 0.8.9\n"
+"Project-Id-Version: webpg 0.10.0\n"
 "Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
-"POT-Creation-Date: 2016-07-10 19:53-0400\n"
-"PO-Revision-Date: 2012-10-21 16:57-0400\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2016-07-10 20:34-0400\n"
+"PO-Revision-Date: 2013-05-05 11:36+0000\n"
+"Last-Translator: Kyle L. Huff <launchpad@curetheitch.com>\n"
 "Language-Team: none\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-07-11 00:08+0000\n"
+"X-Generator: Launchpad (build 18115)\n"
 "Generated-By: Babel 0.9.6\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: extension/about.js:17 extension/browser_action_menu.js:48
 #: extension/buttonbar.js:278
@@ -1538,38 +1539,8 @@ msgstr ""
 msgid "extDesc"
 msgstr "An extension which provides GnuPG/GPG/PGP related functions to Chrome"
 
-#~ msgid "Would you like to Sign anyway"
-#~ msgstr "Would you like to Sign anyway?"
-
-#~ msgid "Would you like to Encrypt and Sign anyway"
-#~ msgstr "Would you like to Encrypt and Sign anyway?"
-
-#~ msgid "WebPG Key Manager"
-#~ msgstr "WebPG Key Manager"
-
-#~ msgid "Please wait while we build the key list"
-#~ msgstr "Please wait while we build the key list"
-
-#~ msgid "Click to generate a new key"
-#~ msgstr "Click to generate a new key"
-
-#~ msgid "Click to enable key"
-#~ msgstr "Click to enable key"
-
-#~ msgid "Click to set default key"
-#~ msgstr "Click to set default key"
-
-#~ msgid "trust"
-#~ msgstr "trust"
-
 #~ msgid "Ultimate"
 #~ msgstr "Ultimate"
-
-#~ msgid "None"
-#~ msgstr "None"
-
-#~ msgid "New group"
-#~ msgstr "New group"
 
 #~ msgid "Enable this Key"
 #~ msgstr "Enable this Key"
@@ -1598,17 +1569,8 @@ msgstr "An extension which provides GnuPG/GPG/PGP related functions to Chrome"
 #~ msgid "other signature"
 #~ msgstr "other signature"
 
-#~ msgid "Calculating Trust"
-#~ msgstr "Calculating Trust"
-
-#~ msgid "Cannot Publish Keys without gpgconf utility installed"
-#~ msgstr "Cannot Publish Keys without gpgconf utility installed"
-
 #~ msgid "Cannot create signatures without gpgconf utility installed"
 #~ msgstr "Cannot create signatures without gpgconf utility installed"
-
-#~ msgid "Cannot Publish Keys without Keyserver configured"
-#~ msgstr "Cannot Publish Keys without Keyserver configured"
 
 #~ msgid "Cannot sign an expired key"
 #~ msgstr "Cannot sign an expired key"
@@ -1619,20 +1581,41 @@ msgstr "An extension which provides GnuPG/GPG/PGP related functions to Chrome"
 #~ msgid "from this User ID"
 #~ msgstr "from this User ID"
 
-#~ msgid "Please wait while recalculate the trust for this item"
-#~ msgstr "Please wait while recalculate the trust for this item"
+#~ msgid "WebPG Key Manager"
+#~ msgstr "WebPG Key Manager"
 
-#~ msgid "Enable this key for signing"
-#~ msgstr "Enable this key for signing"
+#~ msgid "Click to enable key"
+#~ msgstr "Click to enable key"
 
-#~ msgid "Make this the default key for encryption operations"
-#~ msgstr "Make this the default key for encryption operations"
+#~ msgid "Click to set default key"
+#~ msgstr "Click to set default key"
 
-#~ msgid "Sign outgoing messages in GMAIL"
-#~ msgstr "Sign outgoing messages in GMAIL"
+#~ msgid "trust"
+#~ msgstr "trust"
 
-#~ msgid "libgpgme loaded successfully"
-#~ msgstr "libgpgme loaded successfully"
+#~ msgid "Click to generate a new key"
+#~ msgstr "Click to generate a new key"
 
-#~ msgid "PGP ENCRYPTED MESSAGE"
-#~ msgstr "PGP ENCRYPTED MESSAGE"
+#~ msgid "None"
+#~ msgstr "None"
+
+#~ msgid "New group"
+#~ msgstr "New group"
+
+#~ msgid "Cannot Publish Keys without gpgconf utility installed"
+#~ msgstr "Cannot Publish Keys without gpgconf utility installed"
+
+#~ msgid "Cannot Publish Keys without Keyserver configured"
+#~ msgstr "Cannot Publish Keys without Keyserver configured"
+
+#~ msgid "Would you like to Sign anyway"
+#~ msgstr "Would you like to Sign anyway?"
+
+#~ msgid "Would you like to Encrypt and Sign anyway"
+#~ msgstr "Would you like to Encrypt and Sign anyway?"
+
+#~ msgid "Calculating Trust"
+#~ msgstr "Calculating Trust"
+
+#~ msgid "Please wait while we build the key list"
+#~ msgstr "Please wait while we build the key list"

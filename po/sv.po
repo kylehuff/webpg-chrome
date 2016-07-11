@@ -1,33 +1,34 @@
-# Translations template for webpg-chrome.
+# Translations template for webpg.
 # Copyright (C) 2012 CURETHEITCH
-# This file is distributed under the same license as the webpg-chrome
+# This file is distributed under the same license as the webpg
 # project.
 # Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: webpg-chrome 0.8.9\n"
+"Project-Id-Version: webpg 0.10.0\n"
 "Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
-"POT-Creation-Date: 2016-07-10 19:53-0400\n"
-"PO-Revision-Date: 2012-10-21 16:57-0400\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2016-07-10 20:34-0400\n"
+"PO-Revision-Date: 2013-06-26 20:08+0000\n"
+"Last-Translator: kerlex <Unknown>\n"
 "Language-Team: none\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-07-11 00:08+0000\n"
+"X-Generator: Launchpad (build 18115)\n"
 "Generated-By: Babel 0.9.6\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: extension/about.js:17 extension/browser_action_menu.js:48
 #: extension/buttonbar.js:278
 msgid "About WebPG"
-msgstr ""
+msgstr "Om WebPG"
 
 #: extension/about.js:40 extension/key_manager.js:62 extension/options.js:601
 #: extension/userdocs.js:21
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: extension/about.js:48
 msgid "Extension Information"
@@ -39,23 +40,23 @@ msgstr ""
 
 #: extension/about.js:61 extension/error.js:63
 msgid "Platform"
-msgstr ""
+msgstr "Plattform"
 
 #: extension/about.js:67 extension/error.js:66
 msgid "Product"
-msgstr ""
+msgstr "Produkt"
 
 #: extension/about.js:73 extension/error.js:65
 msgid "User Agent"
-msgstr ""
+msgstr "Klienttyp"
 
 #: extension/about.js:79 extension/error.js:69
 msgid "Language"
-msgstr ""
+msgstr "Språk"
 
 #: extension/about.js:85
 msgid "Plugin Information"
-msgstr ""
+msgstr "Insticksprograminformation"
 
 #: extension/about.js:88
 msgid "Plugin version"
@@ -63,15 +64,15 @@ msgstr ""
 
 #: extension/about.js:106
 msgid "GnuPG Information"
-msgstr ""
+msgstr "GnuPG-information"
 
 #: extension/about.js:109
 msgid "GnuPG version"
-msgstr ""
+msgstr "GnuPG-version"
 
 #: extension/about.js:115 extension/options.js:189
 msgid "GnuPG binary"
-msgstr ""
+msgstr "GnuPG-binärfil"
 
 #: extension/about.js:121 extension/options.js:184
 msgid "GnuPG home directory"
@@ -79,19 +80,19 @@ msgstr ""
 
 #: extension/about.js:130
 msgid "default"
-msgstr ""
+msgstr "förval"
 
 #: extension/about.js:134
 msgid "GPGCONF version"
-msgstr ""
+msgstr "GPGCONF-version"
 
 #: extension/about.js:140 extension/about.js:146 extension/about.js:152
 msgid "not detected"
-msgstr ""
+msgstr "ej upptäckt"
 
 #: extension/about.js:143
 msgid "Assuan version"
-msgstr ""
+msgstr "Assuan-version"
 
 #: extension/about.js:149
 msgid "Key Agent"
@@ -103,7 +104,7 @@ msgstr ""
 
 #: extension/about.js:191
 msgid "Translation Status"
-msgstr ""
+msgstr "Översättningsstatus"
 
 #: extension/background.js:219
 msgid "WebPG Plugin failed to load"
@@ -111,11 +112,11 @@ msgstr ""
 
 #: extension/background.js:1035 extension/background.js:1058
 msgid "Key Generation Complete"
-msgstr ""
+msgstr "Skapandet av nyckeln är klar"
 
 #: extension/background.js:1036 extension/background.js:1061
 msgid "Key Generation"
-msgstr ""
+msgstr "Generera nyckel"
 
 #: extension/background.js:1045
 msgid "Open Key Manager"
@@ -127,7 +128,7 @@ msgstr ""
 
 #: extension/background.js:1060
 msgid "The generation of your new key is now complete"
-msgstr ""
+msgstr "Genereringen av nyckeln är nu klar"
 
 #: extension/browser_action_menu.js:44 extension/buttonbar.js:266
 #: extension/inline.js:1219 extension/utils.js:1533
@@ -135,7 +136,7 @@ msgstr ""
 #: extension/XULContent/options.xul:20 extension/XULContent/options.xul:25
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:48
 msgid "Options"
-msgstr ""
+msgstr "Alternativ"
 
 #: extension/browser_action_menu.js:46 extension/buttonbar.js:37
 #: extension/inline.js:1213 extension/utils.js:1554
@@ -143,7 +144,7 @@ msgstr ""
 #: extension/XULContent/options.xul:29
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:44
 msgid "Key Manager"
-msgstr ""
+msgstr "Nyckelhanterare"
 
 #: extension/buttonbar.js:20
 msgid "Refresh Key List"
@@ -213,7 +214,7 @@ msgstr ""
 #: extension/key_manager.js:1339 extension/key_manager.js:1727
 #: extension/key_manager.js:2387 extension/key_manager.js:2407
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: extension/buttonbar.js:181
 msgid "Import from File"
@@ -223,7 +224,7 @@ msgstr ""
 #: extension/XULContent/firefoxOverlay.xul:73
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:94
 msgid "Import"
-msgstr ""
+msgstr "Importera"
 
 #: extension/buttonbar.js:201 extension/buttonbar.js:212 extension/error.js:24
 #: extension/key_manager.js:796 extension/key_manager.js:811
@@ -249,17 +250,17 @@ msgstr ""
 
 #: extension/dialog.js:50
 msgid "Select Recipient(s)"
-msgstr ""
+msgstr "Välj mottagare"
 
 #: extension/dialog.js:55 extension/dialog.js:220 extension/inline.js:1193
 #: extension/XULContent/firefoxOverlay.xul:80
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:101
 msgid "Export"
-msgstr ""
+msgstr "Exportera"
 
 #: extension/dialog.js:57
 msgid "Editor"
-msgstr ""
+msgstr "Redigerare"
 
 #: extension/dialog.js:95 extension/key_manager.js:282
 msgid "Search/Filter"
@@ -273,11 +274,11 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:762 extension/webmail/gmail/gmail.js:911
 #: extension/webmail/gmail/inbox.js:764 extension/webmail/gmail/inbox.js:913
 msgid "Encrypt"
-msgstr ""
+msgstr "Kryptera"
 
 #: extension/dialog.js:233
 msgid "Insert"
-msgstr ""
+msgstr "Infoga"
 
 #: extension/dialog.js:243
 msgid "no action has been selected"
@@ -305,11 +306,11 @@ msgstr ""
 
 #: extension/error.js:25
 msgid "Suggestions"
-msgstr ""
+msgstr "Förslag"
 
 #: extension/error.js:28
 msgid "The plugin was unable to load"
-msgstr ""
+msgstr "Insticksprogrammet kunde ej laddas"
 
 #: extension/error.js:30
 msgid "The Firefox Click to Play feature is enabled"
@@ -333,7 +334,7 @@ msgstr ""
 
 #: extension/error.js:43
 msgid "Error Details"
-msgstr ""
+msgstr "Felinformation"
 
 #: extension/error.js:44
 msgid "Error in Method"
@@ -341,11 +342,11 @@ msgstr ""
 
 #: extension/error.js:45
 msgid "Error Code"
-msgstr ""
+msgstr "Felkod"
 
 #: extension/error.js:46
 msgid "Error String"
-msgstr ""
+msgstr "Felsträng"
 
 #: extension/error.js:54
 msgid "File"
@@ -353,19 +354,19 @@ msgstr ""
 
 #: extension/error.js:55
 msgid "Line"
-msgstr ""
+msgstr "Rad"
 
 #: extension/error.js:58
 msgid "Unknown Error"
-msgstr ""
+msgstr "Okänt fel"
 
 #: extension/error.js:62
 msgid "System Information"
-msgstr ""
+msgstr "Systeminformation"
 
 #: extension/error.js:64
 msgid "App Version"
-msgstr ""
+msgstr "Appversion"
 
 #: extension/error.js:67
 msgid "Sub-product"
@@ -377,17 +378,17 @@ msgstr ""
 
 #: extension/inline.js:746 extension/key_manager.js:1981
 msgid "no email address provided"
-msgstr ""
+msgstr "ingen emailadress angiven"
 
 #: extension/inline.js:1003
 msgid "Use"
-msgstr ""
+msgstr "Använd"
 
 #: extension/inline.js:1127 extension/key_manager.js:322
 #: extension/key_manager.js:325 extension/webmail/gmail/gmail.js:768
 #: extension/webmail/gmail/inbox.js:770
 msgid "Sign only"
-msgstr ""
+msgstr "Enbart signera"
 
 #: extension/inline.js:1143 extension/XULContent/firefoxOverlay.xul:59
 #: extension/XULContent/thunderbird/composeOverlay.js:93
@@ -395,7 +396,7 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:786 extension/webmail/gmail/gmail.js:925
 #: extension/webmail/gmail/inbox.js:788 extension/webmail/gmail/inbox.js:927
 msgid "Sign and Encrypt"
-msgstr ""
+msgstr "Signera och kryptera"
 
 #: extension/inline.js:1159
 #: extension/XULContent/thunderbird/composeOverlay.js:95
@@ -413,12 +414,12 @@ msgstr ""
 #: extension/inline.js:1181 extension/XULContent/firefoxOverlay.xul:66
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:87
 msgid "Decrypt"
-msgstr ""
+msgstr "Dekryptera"
 
 #: extension/inline.js:1199 extension/XULContent/firefoxOverlay.xul:45
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:66
 msgid "Verify"
-msgstr ""
+msgstr "Verifiera"
 
 #: extension/inline.js:1207
 msgid "Secure Editor"
@@ -466,11 +467,11 @@ msgstr ""
 
 #: extension/key_manager.js:242
 msgid "Private Keys"
-msgstr ""
+msgstr "Privata nycklar"
 
 #: extension/key_manager.js:262
 msgid "Public Keys"
-msgstr ""
+msgstr "Publika nycklar"
 
 #: extension/key_manager.js:281
 msgid "Search Keyserver"
@@ -482,11 +483,11 @@ msgstr ""
 
 #: extension/key_manager.js:284 extension/key_manager.js:355
 msgid "Your Name"
-msgstr ""
+msgstr "Ditt namn"
 
 #: extension/key_manager.js:285 extension/key_manager.js:359
 msgid "Your Email"
-msgstr ""
+msgstr "Din e-postadress"
 
 #: extension/key_manager.js:286 extension/key_manager.js:363
 msgid "Comment"
@@ -527,7 +528,7 @@ msgstr ""
 #: extension/key_manager.js:304 extension/key_manager.js:2150
 #: extension/key_manager.js:2533 extension/webpg_results.js:136
 msgid "Never"
-msgstr ""
+msgstr "Aldrig"
 
 #: extension/key_manager.js:307
 msgid "n30 days"
@@ -556,7 +557,7 @@ msgstr ""
 #: extension/key_manager.js:345 extension/key_manager.js:1217
 #: extension/key_manager.js:2562
 msgid "Sign"
-msgstr ""
+msgstr "Signera"
 
 #: extension/key_manager.js:347 extension/key_manager.js:2566
 msgid "Authenticate"
@@ -593,7 +594,7 @@ msgstr ""
 
 #: extension/key_manager.js:373
 msgid "Are you sure"
-msgstr ""
+msgstr "Är du säker"
 
 #: extension/key_manager.js:374 extension/key_manager.js:2280
 msgid "Change Expiration"
@@ -1483,7 +1484,7 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:476 extension/webmail/gmail/gmail.js:504
 #: extension/webmail/gmail/inbox.js:478 extension/webmail/gmail/inbox.js:506
 msgid "and"
-msgstr ""
+msgstr "och"
 
 #: extension/webmail/gmail/gmail.js:484 extension/webmail/gmail/inbox.js:486
 msgid "This message will be Encrypted"
@@ -1507,7 +1508,7 @@ msgstr ""
 
 #: extension/webmail/gmail/gmail.js:621 extension/webmail/gmail/inbox.js:623
 msgid "Open the Key Manager"
-msgstr ""
+msgstr "Öppna nyckelhanteraren"
 
 #: extension/webmail/gmail/gmail.js:916 extension/webmail/gmail/gmail.js:986
 #: extension/webmail/gmail/inbox.js:918 extension/webmail/gmail/inbox.js:988
@@ -1516,7 +1517,7 @@ msgstr ""
 
 #: extension/webmail/gmail/gmail.js:918 extension/webmail/gmail/inbox.js:920
 msgid "Sign Only"
-msgstr ""
+msgstr "Enbart signera"
 
 #: extension/webmail/gmail/gmail.js:930 extension/webmail/gmail/inbox.js:932
 msgid "This message will be Encrypted using Symmetric Encryption"

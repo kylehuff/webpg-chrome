@@ -1,282 +1,282 @@
-<!ENTITY About_WebPG "">
-<!ENTITY Version "">
-<!ENTITY Extension_Information "">
-<!ENTITY Extension_version "">
-<!ENTITY Platform "">
-<!ENTITY Product "">
-<!ENTITY User_Agent "">
-<!ENTITY Language "">
-<!ENTITY Plugin_Information "">
-<!ENTITY Plugin_version "">
-<!ENTITY GnuPG_Information "">
-<!ENTITY GnuPG_version "">
-<!ENTITY GnuPG_binary "">
-<!ENTITY GnuPG_home_directory "">
-<!ENTITY default "">
-<!ENTITY GPGCONF_version "">
-<!ENTITY not_detected "">
-<!ENTITY Assuan_version "">
+<!ENTITY About_WebPG "WebPG hakkında">
+<!ENTITY Version "Sürüm">
+<!ENTITY Extension_Information "uzantı bilgileri">
+<!ENTITY Extension_version "uzantı sürümü">
+<!ENTITY Platform "Platform">
+<!ENTITY Product "Ürün">
+<!ENTITY User_Agent "Kullanıcı İstemcisi">
+<!ENTITY Language "Dil">
+<!ENTITY Plugin_Information "Eklenti Bilgileri">
+<!ENTITY Plugin_version "Eklenti sürümü">
+<!ENTITY GnuPG_Information "GnuPG Bilgisi">
+<!ENTITY GnuPG_version "GnuPG sürümü">
+<!ENTITY GnuPG_binary "GnuPG çalıştırılabilir dosyası">
+<!ENTITY GnuPG_home_directory "GnuPG ana dizin">
+<!ENTITY default "varsayılan">
+<!ENTITY GPGCONF_version "GPGCONF sürümü">
+<!ENTITY not_detected "algılanamadı">
+<!ENTITY Assuan_version "Assuan  sürümü">
 <!ENTITY Key_Agent "">
-<!ENTITY Finished "">
-<!ENTITY Translation_Status "">
-<!ENTITY WebPG_Plugin_failed_to_load "">
-<!ENTITY Key_Generation_Complete "">
-<!ENTITY Key_Generation "">
-<!ENTITY Open_Key_Manager "">
-<!ENTITY WebPG_Key_Generation_Failed "">
-<!ENTITY The_generation_of_your_new_key_is_now_complete "">
-<!ENTITY Options "">
-<!ENTITY Key_Manager "">
+<!ENTITY Finished "Tamamlandı">
+<!ENTITY Translation_Status "Çeviri Durumu">
+<!ENTITY WebPG_Plugin_failed_to_load "WebPG eklentisini yükleme başarısız oldu">
+<!ENTITY Key_Generation_Complete "Anahtar Üretimi Tamamlandı">
+<!ENTITY Key_Generation "Anahtar Üretimi">
+<!ENTITY Open_Key_Manager "Açık Anahtar Yönetcisi">
+<!ENTITY WebPG_Key_Generation_Failed "WebPG Anahtar Üretimi Başarısız Oldu">
+<!ENTITY The_generation_of_your_new_key_is_now_complete "Yeni anahtarınızın üretimi tamamlandı">
+<!ENTITY Options "Seçenekler">
+<!ENTITY Key_Manager "Anahtar Yöneticisi">
 <!ENTITY Refresh_Key_List "">
-<!ENTITY Generate_New_Key "">
-<!ENTITY Create "">
-<!ENTITY Name_Required "">
-<!ENTITY UID_Names_must_be_at_least_5_characters "">
-<!ENTITY UID_Names_cannot_begin_with_a_number "">
-<!ENTITY Not_a_valid_email_address "">
-<!ENTITY Passphrases_do_not_match "">
-<!ENTITY Building_key__please_wait "">
-<!ENTITY This_may_take_a_long_time__5_minutes_or_more__to_complete "">
-<!ENTITY Please_be_patient_while_the_key_is_created "">
-<!ENTITY It_is_safe_to_close_this_window "">
-<!ENTITY key_generation_will_continue_in_the_background "">
-<!ENTITY Close "">
-<!ENTITY Cancel "">
+<!ENTITY Generate_New_Key "Yeni Anahtar Oluştur">
+<!ENTITY Create "Oluştur">
+<!ENTITY Name_Required "İsim Gerekiyor">
+<!ENTITY UID_Names_must_be_at_least_5_characters "UID isimleri en az 5 karakter olmalı">
+<!ENTITY UID_Names_cannot_begin_with_a_number "UID isimleri rakam ile başlayamaz">
+<!ENTITY Not_a_valid_email_address "Geçerli bir eposta adresi değil">
+<!ENTITY Passphrases_do_not_match "Parolalar aynı değil">
+<!ENTITY Building_key__please_wait "Anahtar oluşturuluyor, lütfen bekleyin">
+<!ENTITY This_may_take_a_long_time__5_minutes_or_more__to_complete "Bu işlemin tamamlanması uzun sürebilir (5 dakika veya daha fazla)">
+<!ENTITY Please_be_patient_while_the_key_is_created "Anahtar oluşturulurken lütfen sabırlı olunuz">
+<!ENTITY It_is_safe_to_close_this_window "Bu pencereyi kapatabilirsiniz">
+<!ENTITY key_generation_will_continue_in_the_background "anahtar üretimi arkaplanda devam edecektir">
+<!ENTITY Close "Kapat">
+<!ENTITY Cancel "İptal">
 <!ENTITY Import_from_File "">
-<!ENTITY Import "">
-<!ENTITY Error "">
+<!ENTITY Import "İçe Aktar">
+<!ENTITY Error "Hata">
 <!ENTITY There_was_an_error_parsing_this_PGP_file "">
 <!ENTITY There_was_an_error_importing_any_keys_in_this_file "">
 <!ENTITY Please_use_the_button_above_to_open_a_key_file___asc__txt_ "">
 <!ENTITY User_Guide "">
-<!ENTITY Select_Recipient_s_ "">
-<!ENTITY Export "">
-<!ENTITY Editor "">
-<!ENTITY Search_Filter "">
-<!ENTITY Encrypt "">
-<!ENTITY Insert "">
-<!ENTITY no_action_has_been_selected "">
-<!ENTITY no_action_has_been_successful "">
-<!ENTITY UIDs "">
-<!ENTITY Key_does_not_support_this_operation "">
-<!ENTITY Error_loading_WebPG "">
-<!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "">
-<!ENTITY Suggestions "">
-<!ENTITY The_plugin_was_unable_to_load "">
-<!ENTITY The_Firefox_Click_to_Play_feature_is_enabled "">
-<!ENTITY WebPG_cannot_load_the_required_plugin_with_this_feature_enabled "">
+<!ENTITY Select_Recipient_s_ "Alıcı(ları) Seçiniz">
+<!ENTITY Export "Dışarıya Aktar">
+<!ENTITY Editor "Düzenleyici">
+<!ENTITY Search_Filter "Arama/Filtre">
+<!ENTITY Encrypt "Şifrele">
+<!ENTITY Insert "Ekle">
+<!ENTITY no_action_has_been_selected "bir eylem seçilmedi">
+<!ENTITY no_action_has_been_successful "başarılı olan eylem yok">
+<!ENTITY UIDs "UIDler">
+<!ENTITY Key_does_not_support_this_operation "Anahtar bu işlemi desteklemiyor">
+<!ENTITY Error_loading_WebPG "WebPG yüklenirken hata oluştu">
+<!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "WebPG yükleme sırasında bir problemlen karşılaştık">
+<!ENTITY Suggestions "Öneriler">
+<!ENTITY The_plugin_was_unable_to_load "Eklenti yüklenemedi">
+<!ENTITY The_Firefox_Click_to_Play_feature_is_enabled "Firefox Click to Play özelliği aktif">
+<!ENTITY WebPG_cannot_load_the_required_plugin_with_this_feature_enabled "Bu özellik aktifken WebPG gerekli eklentiyi yükleyemez">
 <!ENTITY The_WebPG_Native_Messaging_Host_was_unreachable "">
-<!ENTITY There_might_be_a_problem_with_the_gpg_installation "">
-<!ENTITY consider_reinstalling_gpg4win "">
-<!ENTITY Error_Details "">
-<!ENTITY Error_in_Method "">
-<!ENTITY Error_Code "">
-<!ENTITY Error_String "">
-<!ENTITY File "">
-<!ENTITY Line "">
-<!ENTITY Unknown_Error "">
-<!ENTITY System_Information "">
-<!ENTITY App_Version "">
-<!ENTITY Sub_product "">
-<!ENTITY Vendor "">
-<!ENTITY no_email_address_provided "">
-<!ENTITY Use "">
-<!ENTITY Sign_only "">
-<!ENTITY Sign_and_Encrypt "">
-<!ENTITY Symmetric_Encryption "">
+<!ENTITY There_might_be_a_problem_with_the_gpg_installation "gpg kurulumuyla ilgili bir problem olabilir">
+<!ENTITY consider_reinstalling_gpg4win "gpg4win'i tekrar kurmayı deneyin">
+<!ENTITY Error_Details "Hata Ayrıntıları">
+<!ENTITY Error_in_Method "Metodda Hata">
+<!ENTITY Error_Code "Hata Kodu">
+<!ENTITY Error_String "Hata Mesajı">
+<!ENTITY File "Dosya">
+<!ENTITY Line "Satır">
+<!ENTITY Unknown_Error "Bilinmeyen Hata">
+<!ENTITY System_Information "Sistem Bilgisi">
+<!ENTITY App_Version "Uygulama Sürümü">
+<!ENTITY Sub_product "Alt ürün">
+<!ENTITY Vendor "Üretici">
+<!ENTITY no_email_address_provided "eposta adresi belirtilmedi">
+<!ENTITY Use "Kullan">
+<!ENTITY Sign_only "Sadece imzala">
+<!ENTITY Sign_and_Encrypt "İmzala ve Kriptola/Şifrele">
+<!ENTITY Symmetric_Encryption "Simetrik Kriptolama">
 <!ENTITY Signed_Symmetric_Encryption "">
-<!ENTITY Decrypt "">
-<!ENTITY Verify "">
-<!ENTITY Secure_Editor "">
-<!ENTITY PGP_Signed_Message "">
-<!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "">
-<!ENTITY PGP_Public_Key "">
-<!ENTITY WebPG_Secure_Editor "">
-<!ENTITY Unsecured_Editor "">
+<!ENTITY Decrypt "Şifre Çöz">
+<!ENTITY Verify "Doğrula">
+<!ENTITY Secure_Editor "Güvenli Düzenleyici">
+<!ENTITY PGP_Signed_Message "PGP İmzalı Mesaj">
+<!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "PGP ŞİFRELİ VEYA İMZALI MESAJ">
+<!ENTITY PGP_Public_Key "PGP Genel Anahtar">
+<!ENTITY WebPG_Secure_Editor "WebPG Güvenli Düzenleyici">
+<!ENTITY Unsecured_Editor "Güvensiz Düzenleyici">
 <!ENTITY Loading_keys "">
-<!ENTITY Generating_Key "">
-<!ENTITY Waiting_for_entropy "">
-<!ENTITY Building_key "">
-<!ENTITY please_wait "">
-<!ENTITY Private_Keys "">
-<!ENTITY Public_Keys "">
+<!ENTITY Generating_Key "Anahtar Oluşturuluyor">
+<!ENTITY Waiting_for_entropy "Entropi için bekleniyor">
+<!ENTITY Building_key "Anahtar yaratılıyor">
+<!ENTITY please_wait "lütfen bekleyin">
+<!ENTITY Private_Keys "Özel Anahtarlar">
+<!ENTITY Public_Keys "Genel (Herkese Açık) Anahtarlar">
 <!ENTITY Search_Keyserver "">
 <!ENTITY Search_for_Keys_on_Keyserver "">
-<!ENTITY Your_Name "">
-<!ENTITY Your_Email "">
-<!ENTITY Comment "">
-<!ENTITY Passphrase "">
-<!ENTITY Repeat_Passphrase "">
-<!ENTITY Advanced_Options "">
-<!ENTITY Public_Key_Algorithm "">
-<!ENTITY Public_Key_Size "">
-<!ENTITY Private_Key_Algorithm "">
-<!ENTITY Private_Key_Size "">
-<!ENTITY Expire_in "">
-<!ENTITY Never "">
-<!ENTITY n30_days "">
-<!ENTITY n90_days "">
-<!ENTITY n1_year "">
-<!ENTITY Subkey_Options "">
-<!ENTITY encrypt_only "">
-<!ENTITY set_your_own_capabilities "">
-<!ENTITY Sign "">
-<!ENTITY Authenticate "">
-<!ENTITY Revoke_this_Key "">
-<!ENTITY Revoke_this_UID "">
-<!ENTITY Revoke_this_Signature "">
-<!ENTITY Delete_this_Signature "">
-<!ENTITY Delete_this_UID "">
-<!ENTITY Delete_this_Key "">
-<!ENTITY This_key_will_be_permanently_deleted "">
-<!ENTITY Are_you_sure "">
-<!ENTITY Change_Expiration "">
-<!ENTITY Sign_this_UID "">
-<!ENTITY Key_Details "">
-<!ENTITY Export_Public_Key "">
-<!ENTITY Add_UID "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_Key "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_UID "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_Signature "">
-<!ENTITY Are_you_sure_you_wish_to_delete_this_Signature "">
-<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_UID "">
-<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_Photo "">
-<!ENTITY New_Expiration_Date "">
-<!ENTITY Never_Expire "">
-<!ENTITY Expiration_Date "">
-<!ENTITY Save "">
-<!ENTITY Delete_this_key "">
-<!ENTITY Add "">
-<!ENTITY There_was_an_error_parsing_this_image_file "">
-<!ENTITY There_was_an_error_adding_this_image_file "">
-<!ENTITY It_is_possible_the_image_contains_EXIF_data "">
-<!ENTITY Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo "">
-<!ENTITY Only_JPEG_image_files_are_supported "">
-<!ENTITY WARNING "">
-<!ENTITY is_quite_large "">
-<!ENTITY Consider_using_a_smaller_image "">
-<!ENTITY Only_one_image_can_be_added "">
-<!ENTITY Copy "">
-<!ENTITY Please_specify_the_revocation_details "">
-<!ENTITY Reason "">
-<!ENTITY No_reason_specified "">
-<!ENTITY Key_has_been_compromised "">
-<!ENTITY Key_is_superseded "">
-<!ENTITY Key_is_no_longer_used "">
-<!ENTITY Description "">
-<!ENTITY Revoke "">
-<!ENTITY Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver "">
-<!ENTITY Publish "">
-<!ENTITY Sending_key_to_Keyserver "">
-<!ENTITY There_was_a_problem_sending_this_key_to_the_Keyserver "">
-<!ENTITY No_Keyserver_defined "">
-<!ENTITY Keyserver "">
-<!ENTITY Try_Again "">
-<!ENTITY Key_Published_to_Keyserver "">
-<!ENTITY Publish_Again "">
-<!ENTITY Publish_to_Keyserver "">
-<!ENTITY Key_not_found_on_keyserver "">
+<!ENTITY Your_Name "Adınız">
+<!ENTITY Your_Email "E-posta Adresiniz">
+<!ENTITY Comment "Açıklama/Yorum">
+<!ENTITY Passphrase "Parola">
+<!ENTITY Repeat_Passphrase "Parolayı Tekrar Girin">
+<!ENTITY Advanced_Options "Gelişmiş Seçenekler">
+<!ENTITY Public_Key_Algorithm "Genel Anahtar Algoritması">
+<!ENTITY Public_Key_Size "Genel Anahtar Boyutu">
+<!ENTITY Private_Key_Algorithm "Özel Anahtar Algoritması">
+<!ENTITY Private_Key_Size "Özel Anahtar Boyutu">
+<!ENTITY Expire_in "Zaman aşımı tarihi">
+<!ENTITY Never "Hiçbir Zaman">
+<!ENTITY n30_days "n30 gün">
+<!ENTITY n90_days "n90 gün">
+<!ENTITY n1_year "n1 yıl">
+<!ENTITY Subkey_Options "Alt-anahtar Seçenekleri">
+<!ENTITY encrypt_only "sadece kriptolama/şifreleme">
+<!ENTITY set_your_own_capabilities "diğer yetenekleri belirleyin">
+<!ENTITY Sign "İmzala">
+<!ENTITY Authenticate "Kimlik Doğrula">
+<!ENTITY Revoke_this_Key "Bu anahtarı geçersiz kıl">
+<!ENTITY Revoke_this_UID "Bu UID'i geçersiz kıl">
+<!ENTITY Revoke_this_Signature "Bu imzayı geçersiz kıl">
+<!ENTITY Delete_this_Signature "Bu imzayı sil">
+<!ENTITY Delete_this_UID "Bu UID'i sil">
+<!ENTITY Delete_this_Key "Bu anahtarı sil">
+<!ENTITY This_key_will_be_permanently_deleted "Bu anahtar kalıcı olarak silinecek">
+<!ENTITY Are_you_sure "Emin misiniz">
+<!ENTITY Change_Expiration "Zaman Aşımı Tarihini Değiştir">
+<!ENTITY Sign_this_UID "Bu UID'i imzala">
+<!ENTITY Key_Details "Anahtar Detayları">
+<!ENTITY Export_Public_Key "Genel Anahtarı Dışa Aktar">
+<!ENTITY Add_UID "UID Ekle">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_Key "Bu anhtarı geçersiz kılmak istediğinize emin misiniz">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_UID "Bu UID'i geçersiz kılmak istediğinize emin misiniz">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_Signature "Bu imzayı geçersiz kılmak istediğinize emin misiniz">
+<!ENTITY Are_you_sure_you_wish_to_delete_this_Signature "Bu imzayı silmek istediğinize emin misiniz">
+<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_UID "Bu UID'i kalıcı olarak silmek istediğinize emin misiniz">
+<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_Photo "Bu resimi kalıcı olarak silmek istediğinize emin misiniz">
+<!ENTITY New_Expiration_Date "Yeni Zaman Aşım Tarihi">
+<!ENTITY Never_Expire "Zaman Aşımına Uğramasın">
+<!ENTITY Expiration_Date "Son Kullanım Tarihi">
+<!ENTITY Save "Kaydet">
+<!ENTITY Delete_this_key "Bu anahtarı sil">
+<!ENTITY Add "Ekle">
+<!ENTITY There_was_an_error_parsing_this_image_file "Resim dosyası işlenirken bir hata oluştu">
+<!ENTITY There_was_an_error_adding_this_image_file "Resim dosyası eklenirken bir hata oluştu">
+<!ENTITY It_is_possible_the_image_contains_EXIF_data "Resim EXIF verisi içeriyor olabilir">
+<!ENTITY Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo "Bir JPEG (.jpg/.jpeg) resim seçmek için lütfen yukarıdaki düğmeyi kullanın">
+<!ENTITY Only_JPEG_image_files_are_supported "Sadece JPEG resim dosyaları destekleniyor">
+<!ENTITY WARNING "UYARI">
+<!ENTITY is_quite_large "çok büyük">
+<!ENTITY Consider_using_a_smaller_image "Daha küçük bir resim kullanın">
+<!ENTITY Only_one_image_can_be_added "Sadece bir resim eklenebilir">
+<!ENTITY Copy "Kopyala">
+<!ENTITY Please_specify_the_revocation_details "Lütfen iptal detaylarını belirtin">
+<!ENTITY Reason "Sebep">
+<!ENTITY No_reason_specified "Sebep belirtilmemiş">
+<!ENTITY Key_has_been_compromised "Anahtar başkalarının eline geçti">
+<!ENTITY Key_is_superseded "Anahtarın yerine başkası konulmuş ve iptal edilmiştir">
+<!ENTITY Key_is_no_longer_used "Anahtar artık kullanılmıyor">
+<!ENTITY Description "Açıklama">
+<!ENTITY Revoke "İptal Et">
+<!ENTITY Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver "Bu anahtarı anahtar sunucusuna göndermek istediğinize emin misiniz">
+<!ENTITY Publish "Yayımla">
+<!ENTITY Sending_key_to_Keyserver "Anahtar sunucusuna gönderiliyor">
+<!ENTITY There_was_a_problem_sending_this_key_to_the_Keyserver "Anahtar sunucusuna göndermede bir hata oluştu">
+<!ENTITY No_Keyserver_defined "Anahtar sunucusu belirtilmedi">
+<!ENTITY Keyserver "Anahtar sunucusu">
+<!ENTITY Try_Again "Tekrar Deneyin">
+<!ENTITY Key_Published_to_Keyserver "Anahtar sunucuya gönderildi">
+<!ENTITY Publish_Again "Tekrar Yayımla">
+<!ENTITY Publish_to_Keyserver "Anahtar sunucusuna gönder">
+<!ENTITY Key_not_found_on_keyserver "Anahtar sunucuda bulunamadı">
 <!ENTITY Key_updated "">
 <!ENTITY No_changes_to_key "">
-<!ENTITY User_ID_is_no_longer_valid "">
-<!ENTITY Please_select_which_of_your_keys_to_create_the_signature_with "">
-<!ENTITY You_have_not_enabled_any_keys_for_use_with_webpg "">
-<!ENTITY please_click_here "">
-<!ENTITY and_select_1_or_more_keys_for_use_with_webpg "">
-<!ENTITY You_have_not_generated_any_keys "">
-<!ENTITY and_generate_a_key_to_use_with_webpg "">
-<!ENTITY Already_signed_with_this_key "">
-<!ENTITY Signature_added_using_this_key "">
-<!ENTITY Delete_this_Photo "">
-<!ENTITY Searching_for "">
+<!ENTITY User_ID_is_no_longer_valid "Kullanıcı ID artık geçerli değil">
+<!ENTITY Please_select_which_of_your_keys_to_create_the_signature_with "İmzayı hangi anahtarlar ile yaratacağınızı seçin lütfen">
+<!ENTITY You_have_not_enabled_any_keys_for_use_with_webpg "webpg ile kullanmak için bir anahtar seçmediniz">
+<!ENTITY please_click_here "lütfen buraya tıklayın">
+<!ENTITY and_select_1_or_more_keys_for_use_with_webpg "ve webpg ile kullanım için bir veya daha fazla anahtar seçin">
+<!ENTITY You_have_not_generated_any_keys "Bir anahtar yaratmadınız">
+<!ENTITY and_generate_a_key_to_use_with_webpg "ve webpg ile kullanım için bir anahtar yaratın">
+<!ENTITY Already_signed_with_this_key "Zaten bu anahtar ile imzalanmış">
+<!ENTITY Signature_added_using_this_key "İmza bu anahtar kullanılarak eklendi">
+<!ENTITY Delete_this_Photo "Bu resimi sil">
+<!ENTITY Searching_for "Aranan">
 <!ENTITY Search_string_too_ambiguous_or_not_found_on_server "">
-<!ENTITY KeyID "">
+<!ENTITY KeyID "Anahtar ID">
 <!ENTITY IMPORT "">
-<!ENTITY Key_Created "">
-<!ENTITY Expires "">
-<!ENTITY Expired "">
-<!ENTITY User_IDs "">
-<!ENTITY Fingerprint "">
-<!ENTITY Status "">
-<!ENTITY Revoked "">
-<!ENTITY Invalid "">
-<!ENTITY Disabled "">
-<!ENTITY Valid "">
-<!ENTITY Key_Algorithm "">
-<!ENTITY Validity "">
-<!ENTITY Key_Options "">
-<!ENTITY Operations "">
-<!ENTITY Subkeys "">
-<!ENTITY Subkey_Details "">
-<!ENTITY Flags "">
+<!ENTITY Key_Created "Anahtar Yaratıldı">
+<!ENTITY Expires "Son Kullanım">
+<!ENTITY Expired "Süresi geçmiş">
+<!ENTITY User_IDs "Kullanıcı IDleri">
+<!ENTITY Fingerprint "Parmak izi">
+<!ENTITY Status "Durum">
+<!ENTITY Revoked "İptal edildi">
+<!ENTITY Invalid "Geçersiz">
+<!ENTITY Disabled "Devre dışı">
+<!ENTITY Valid "Geçerli">
+<!ENTITY Key_Algorithm "Anahtar Algoritması">
+<!ENTITY Validity "Geçerlilik">
+<!ENTITY Key_Options "Anahtar Seçenekleri">
+<!ENTITY Operations "İşlemler">
+<!ENTITY Subkeys "Alt anahtarlar">
+<!ENTITY Subkey_Details "Alt-anahtar Detayları">
+<!ENTITY Flags "İşaretler">
 <!ENTITY Key_Operations "">
-<!ENTITY Signatures_made_with_keys_not_in_your_keyring_are_omitted "">
-<!ENTITY Created "">
-<!ENTITY User_Photos "">
+<!ENTITY Signatures_made_with_keys_not_in_your_keyring_are_omitted "Anahtarlıkta bulunmayan anahtarlar ile yapılmış imzalar hariç tutulur">
+<!ENTITY Created "Oluşturulma">
+<!ENTITY User_Photos "Kullanıcı Resimleri">
 <!ENTITY User_Photo "">
-<!ENTITY Enable_this_key_for_GnuPG_operations "">
-<!ENTITY This_is_your_default_key "">
-<!ENTITY Make_this_the_default_key_for_GnuPG_operations "">
-<!ENTITY Enabled "">
-<!ENTITY Cannot_unset_your_default_key "">
-<!ENTITY Trust_Assignment "">
-<!ENTITY Unknown "">
-<!ENTITY Marginal "">
-<!ENTITY Full "">
+<!ENTITY Enable_this_key_for_GnuPG_operations "Bu anahtarı GnuPG işlemlerinde kullan">
+<!ENTITY This_is_your_default_key "Bu varsayılan anahtarınız">
+<!ENTITY Make_this_the_default_key_for_GnuPG_operations "Bu anahtarı GnuPG işlemleri için varsayılan olarak belirle">
+<!ENTITY Enabled "Aktif">
+<!ENTITY Cannot_unset_your_default_key "Varsayılan anahtar değiştirilemiyor">
+<!ENTITY Trust_Assignment "Güven Belirleme">
+<!ENTITY Unknown "Bilinmeyen">
+<!ENTITY Marginal "Kısmen">
+<!ENTITY Full "Tam">
 <!ENTITY ultimate "">
-<!ENTITY Group_Assignment "">
+<!ENTITY Group_Assignment "Grup Belirleme">
 <!ENTITY Select_group_s__below "">
 <!ENTITY None_Selected "">
 <!ENTITY Filter_or_Create_New "">
 <!ENTITY Create_new_group "">
-<!ENTITY Change_Passphrase "">
-<!ENTITY Add_Subkey "">
-<!ENTITY Add_Photo "">
+<!ENTITY Change_Passphrase "Parolayı Değiştir">
+<!ENTITY Add_Subkey "Alt-anahtar Ekle">
+<!ENTITY Add_Photo "Fotoğraf Ekle">
 <!ENTITY Disable_this_key "">
 <!ENTITY Enable_this_key "">
-<!ENTITY Delete_this_Subkey "">
+<!ENTITY Delete_this_Subkey "Bu Alt-anahtarı Sil">
 <!ENTITY Export_this_key "">
-<!ENTITY Refresh_from_Keyserver "">
-<!ENTITY Cannot_sign_a_revoked_UID "">
+<!ENTITY Refresh_from_Keyserver "Anahtar sunucusundan güncelle">
+<!ENTITY Cannot_sign_a_revoked_UID "Geçersiz kılınmış bir UID ile imzalanamaz">
 <!ENTITY Revoke_this_key "">
-<!ENTITY Revoke_UID "">
-<!ENTITY Cannot_make_a_revoked_UID_primary "">
+<!ENTITY Revoke_UID "UID'i geçersiz kıl">
+<!ENTITY Cannot_make_a_revoked_UID_primary "Geçersiz kılınmış bir UID birincil yapılamaz">
 <!ENTITY Make_Primary "">
-<!ENTITY Delete "">
-<!ENTITY This_signature_was_made_with_a_key_that_does_not_belong_to_you "">
-<!ENTITY This_action_cannot_be_undone "">
+<!ENTITY Delete "Sil">
+<!ENTITY This_signature_was_made_with_a_key_that_does_not_belong_to_you "Bu imza size ait olmayan bir anahtar ile yapılmış">
+<!ENTITY This_action_cannot_be_undone "Bu işlem geri alınamaz">
 <!ENTITY Certify "">
 <!ENTITY News "">
 <!ENTITY New_features "">
-<!ENTITY WebPG_Options "">
-<!ENTITY The_WebPG_NPAPI_Plugin_is_valid "">
-<!ENTITY OpenPGP_was_detected "">
+<!ENTITY WebPG_Options "WebPG Seçenekleri">
+<!ENTITY The_WebPG_NPAPI_Plugin_is_valid "WebPG NPAPI eklentisi geçersiz">
+<!ENTITY OpenPGP_was_detected "OpenPGP algılandı">
 <!ENTITY It_appears_you_have_a_key_agent_configured "">
-<!ENTITY gpgconf_was_detected "">
-<!ENTITY you_can_use_the_signature_methods "">
-<!ENTITY OpenPGP_does_not_appear_to_be_installed "">
+<!ENTITY gpgconf_was_detected "gpgconf algılandı">
+<!ENTITY you_can_use_the_signature_methods "imza metodlarını kullanabilirsiniz">
+<!ENTITY OpenPGP_does_not_appear_to_be_installed "OpenPGP kurulmamış gibi görünüyor">
 <!ENTITY You_do_not_appear_to_have_a_key_agent_configured "">
 <!ENTITY A_working_key_agent_is_required "">
 <!ENTITY gpgconf_does_not_appear_to_be_installed "">
 <!ENTITY You_will_not_be_able_to_create_signatures "">
-<!ENTITY There_was_a_problem_loading_the_plugin "">
+<!ENTITY There_was_a_problem_loading_the_plugin "eklenti yüklenirken bir sorun çıktı">
 <!ENTITY the_plugin_might_be_incompatibly_compiled_for_this_architechture "">
 <!ENTITY click_here_for_help_resolving_this_issue "">
 <!ENTITY Enable_Inline_formatting_of_PGP_Messages_and_Keys "">
 <!ENTITY Inline_Options "">
 <!ENTITY Always_encrypt_to_your_default_key_in_addition_to_the_recipient "">
-<!ENTITY Enable_WebPG_GMAIL_integration "">
-<!ENTITY EXPERIMENTAL "">
+<!ENTITY Enable_WebPG_GMAIL_integration "WebPG GMAIL entegrasyonunu etkinleştir">
+<!ENTITY EXPERIMENTAL "DENEYSEL">
 <!ENTITY Automatically_Sign_outgoing_messages_in_GMAIL "">
 <!ENTITY Linked_GMAIL_Identities "">
 <!ENTITY Link_new_GMAIL_identity "">
 <!ENTITY GPGCONF_binary "">
 <!ENTITY Your_system_appears_to_be_configured_correctly_for_WebPG "">
-<!ENTITY There_is_a_problem_with_your_configuration "">
+<!ENTITY There_is_a_problem_with_your_configuration "Yapılandırmanızda bir sorun bulunuyor">
 <!ENTITY Inline_formatting_mode "">
-<!ENTITY Window "">
-<!ENTITY Icon "">
-<!ENTITY Sample "">
+<!ENTITY Window "Pencere">
+<!ENTITY Icon "Simge">
+<!ENTITY Sample "Örnek">
 <!ENTITY WebPG_Toolbar "">
 <!ENTITY No_default_key_set "">
 <!ENTITY WebPG_GMAIL_integration_is_EXPERIMENTAL "">
@@ -316,7 +316,7 @@
 <!ENTITY SEARCH_FOR_KEYS_ON_KEYSERVER "">
 <!ENTITY PGP_PUBLIC_KEY "">
 <!ENTITY Names_UIDs_on_Key "">
-<!ENTITY REVOKED "">
+<!ENTITY REVOKED "GEÇERSİZ KILINDI">
 <!ENTITY EXPIRED "">
 <!ENTITY THIS_KEY_IS_NOT_IN_YOUR_KEYRING "">
 <!ENTITY THIS_KEY_IS_IN_YOUR_KEYRING "">
@@ -330,24 +330,24 @@
 <!ENTITY Clear_Sign "">
 <!ENTITY Sign_and_Encrypt_this_text "">
 <!ENTITY Import_this_Public_key "">
-<!ENTITY Do_not_use_WebPG_for_this_message "">
+<!ENTITY Do_not_use_WebPG_for_this_message "Bu mesaj için WebPG kullanılmasın">
 <!ENTITY Sign_Inline "">
 <!ENTITY Sign_as_Attachment "">
-<!ENTITY You_do_not_have_any_keys_for "">
-<!ENTITY or "">
+<!ENTITY You_do_not_have_any_keys_for "Bunun için anahtarınız yok">
+<!ENTITY or "veya">
 <!ENTITY WebPG_is_preparing_the_email "">
-<!ENTITY This_message_already_contains_PGP_data "">
-<!ENTITY Would_you_like_to_Encrypt_anyway "">
-<!ENTITY Expired_keys_found_for "">
-<!ENTITY and "">
+<!ENTITY This_message_already_contains_PGP_data "Bu mesajda zaten PGP verisi var">
+<!ENTITY Would_you_like_to_Encrypt_anyway "Yinede kriptolamak/şifrelemek istermisiniz">
+<!ENTITY Expired_keys_found_for "Anahtarları zaman aşımına uğramış:">
+<!ENTITY and "ve">
 <!ENTITY This_message_will_be_Encrypted "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted "">
-<!ENTITY You_have_more_than_1_public_key_matching_that_address "">
-<!ENTITY The_Key_for "">
-<!ENTITY is_invalid "">
-<!ENTITY Open_the_Key_Manager "">
+<!ENTITY You_have_more_than_1_public_key_matching_that_address "Bu adresle eşleşen birden fazla genel anahtarınz var">
+<!ENTITY The_Key_for "Anahtar:">
+<!ENTITY is_invalid "geçersiz">
+<!ENTITY Open_the_Key_Manager "Anahtar Yöneticisini Aç">
 <!ENTITY This_message_will_be_Signed "">
-<!ENTITY Sign_Only "">
+<!ENTITY Sign_Only "Sadece İmza">
 <!ENTITY This_message_will_be_Encrypted_using_Symmetric_Encryption "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted_using_Symmetric_Encryption "">
 <!ENTITY WebPG_is_checking_this_message_for_signatures "">

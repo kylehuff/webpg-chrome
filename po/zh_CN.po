@@ -1,21 +1,23 @@
-# Translations template for webpg-chrome.
+# Translations template for webpg.
 # Copyright (C) 2012 CURETHEITCH
-# This file is distributed under the same license as the webpg-chrome
+# This file is distributed under the same license as the webpg
 # project.
 # Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: webpg-chrome 0.8.9\n"
+"Project-Id-Version: webpg 0.10.0\n"
 "Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
-"POT-Creation-Date: 2016-07-10 19:53-0400\n"
-"PO-Revision-Date: 2013-03-04 09:43+0800\n"
-"Last-Translator: Easior Lars <easior@fedoraproject.org>\n"
+"POT-Creation-Date: 2016-07-10 20:34-0400\n"
+"PO-Revision-Date: 2013-10-27 15:42+0000\n"
+"Last-Translator: deed02392 <georgehafiz@gmail.com>\n"
 "Language-Team: Chinese(China) <easior@fedoraproject.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-07-11 00:08+0000\n"
+"X-Generator: Launchpad (build 18115)\n"
 "Generated-By: Babel 0.9.6\n"
 
 #: extension/about.js:17 extension/browser_action_menu.js:48
@@ -1482,7 +1484,7 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:476 extension/webmail/gmail/gmail.js:504
 #: extension/webmail/gmail/inbox.js:478 extension/webmail/gmail/inbox.js:506
 msgid "and"
-msgstr ""
+msgstr "和"
 
 #: extension/webmail/gmail/gmail.js:484 extension/webmail/gmail/inbox.js:486
 msgid "This message will be Encrypted"
@@ -1494,15 +1496,15 @@ msgstr ""
 
 #: extension/webmail/gmail/gmail.js:603 extension/webmail/gmail/inbox.js:605
 msgid "You have more than 1 public key matching that address"
-msgstr "您有超过1个公匙配置那个地址"
+msgstr "你有一个以上的公钥与该地址匹配"
 
 #: extension/webmail/gmail/gmail.js:615 extension/webmail/gmail/inbox.js:617
 msgid "The Key for"
-msgstr ""
+msgstr "加密密钥的"
 
 #: extension/webmail/gmail/gmail.js:616 extension/webmail/gmail/inbox.js:618
 msgid "is invalid"
-msgstr "是非法的"
+msgstr "是无效的"
 
 #: extension/webmail/gmail/gmail.js:621 extension/webmail/gmail/inbox.js:623
 msgid "Open the Key Manager"
@@ -1545,9 +1547,6 @@ msgstr ""
 
 #~ msgid "WebPG Key Manager"
 #~ msgstr "WebPG密匙管理器"
-
-#~ msgid "Please wait while we build the key list"
-#~ msgstr "在创建密匙列表时请等待"
 
 #~ msgid "Click to generate a new key"
 #~ msgstr "点击以便产生新密匙"
@@ -1612,14 +1611,5 @@ msgstr ""
 #~ msgid "Are you certain you would like to delete signature"
 #~ msgstr "你确认你要删除签名"
 
-#~ msgid "Please wait while recalculate the trust for this item"
-#~ msgstr "在重新计算该项的信任度时请等待"
-
-#~ msgid "Enable this key for signing"
-#~ msgstr "启用该密匙来签名"
-
-#~ msgid "Make this the default key for encryption operations"
-#~ msgstr "设定该密匙为加密操作的默认密匙"
-
-#~ msgid "Sign outgoing messages in GMAIL"
-#~ msgstr "为GMail中的送出讯息签名"
+#~ msgid "Please wait while we build the key list"
+#~ msgstr "在创建密匙列表时请等待"

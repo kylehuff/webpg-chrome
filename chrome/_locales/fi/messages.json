@@ -1,90 +1,90 @@
 {
 	"About_WebPG": {
-		"message": ""
+		"message": "Tietoja WebPG:sta"
 	},
 	"Version": {
-		"message": ""
+		"message": "Versio"
 	},
 	"Extension_Information": {
-		"message": ""
+		"message": "Tietoa laajennuksesta"
 	},
 	"Extension_version": {
-		"message": ""
+		"message": "Laajennuksen versio"
 	},
 	"Platform": {
-		"message": ""
+		"message": "Alusta"
 	},
 	"Product": {
-		"message": ""
+		"message": "Tuote"
 	},
 	"User_Agent": {
-		"message": ""
+		"message": "Selaimen tunniste (user-agent)"
 	},
 	"Language": {
-		"message": ""
+		"message": "Kieli"
 	},
 	"Plugin_Information": {
-		"message": ""
+		"message": "Tietoa liitännäisestä"
 	},
 	"Plugin_version": {
-		"message": ""
+		"message": "Liitännäisen versio"
 	},
 	"GnuPG_Information": {
-		"message": ""
+		"message": "Tietoa GnuPG:stä"
 	},
 	"GnuPG_version": {
-		"message": ""
+		"message": "GnuPG versio"
 	},
 	"GnuPG_binary": {
-		"message": ""
+		"message": "GNuPG binääri"
 	},
 	"GnuPG_home_directory": {
-		"message": ""
+		"message": "GnuPG kotihakemisto"
 	},
 	"default": {
-		"message": ""
+		"message": "oletus"
 	},
 	"GPGCONF_version": {
-		"message": ""
+		"message": "GPGCONF versio"
 	},
 	"not_detected": {
-		"message": ""
+		"message": "ei löydetty"
 	},
 	"Assuan_version": {
-		"message": ""
+		"message": "Assuan versio"
 	},
 	"Key_Agent": {
 		"message": ""
 	},
 	"Finished": {
-		"message": ""
+		"message": "Valmis"
 	},
 	"Translation_Status": {
 		"message": ""
 	},
 	"WebPG_Plugin_failed_to_load": {
-		"message": ""
+		"message": "WebPG liitännäisen lataaminen epäonnistui."
 	},
 	"Key_Generation_Complete": {
-		"message": ""
+		"message": "Avain luotiin onnistuneesti."
 	},
 	"Key_Generation": {
-		"message": ""
+		"message": "Avaimen luonti"
 	},
 	"Open_Key_Manager": {
-		"message": ""
+		"message": "Avaa avainten hallinta"
 	},
 	"WebPG_Key_Generation_Failed": {
-		"message": ""
+		"message": "WebPG avaimen luonti epäonnistui"
 	},
 	"The_generation_of_your_new_key_is_now_complete": {
-		"message": ""
+		"message": "Uuden avaimesi luonti on valmistunut"
 	},
 	"Options": {
-		"message": ""
+		"message": "Asetukset"
 	},
 	"Key_Manager": {
-		"message": ""
+		"message": "Avainten hallinta"
 	},
 	"Refresh_Key_List": {
 		"message": ""
@@ -129,16 +129,16 @@
 		"message": ""
 	},
 	"Cancel": {
-		"message": ""
+		"message": "Peruuta"
 	},
 	"Import_from_File": {
 		"message": ""
 	},
 	"Import": {
-		"message": ""
+		"message": "Tuo"
 	},
 	"Error": {
-		"message": ""
+		"message": "Virhe"
 	},
 	"There_was_an_error_parsing_this_PGP_file": {
 		"message": ""
@@ -153,46 +153,46 @@
 		"message": ""
 	},
 	"Select_Recipient_s_": {
-		"message": ""
+		"message": "Valitse vastaanottaja(t)"
 	},
 	"Export": {
-		"message": ""
+		"message": "Vie"
 	},
 	"Editor": {
-		"message": ""
+		"message": "Muokkaustyökalu"
 	},
 	"Search_Filter": {
-		"message": ""
+		"message": "Etsi/Suodata"
 	},
 	"Encrypt": {
-		"message": ""
+		"message": "Salaa"
 	},
 	"Insert": {
-		"message": ""
+		"message": "Lisää"
 	},
 	"no_action_has_been_selected": {
-		"message": ""
+		"message": "yhtään toimintoa ei ole valittu"
 	},
 	"no_action_has_been_successful": {
-		"message": ""
+		"message": "yksikään toiminto ei onnistunut"
 	},
 	"UIDs": {
-		"message": ""
+		"message": "UID:t"
 	},
 	"Key_does_not_support_this_operation": {
-		"message": ""
+		"message": "Avain ei tue tätä operaatiota"
 	},
 	"Error_loading_WebPG": {
-		"message": ""
+		"message": "Virhe ladattaessa WebPG:tä"
 	},
 	"We_encountered_a_problem_while_attempting_to_load_WebPG": {
-		"message": ""
+		"message": "WebPG:n latauksen yhteydessä kohdattiin ongelma"
 	},
 	"Suggestions": {
-		"message": ""
+		"message": "Ehdotukset"
 	},
 	"The_plugin_was_unable_to_load": {
-		"message": ""
+		"message": "lisäkkeen latautuminen epäonnistui"
 	},
 	"The_Firefox_Click_to_Play_feature_is_enabled": {
 		"message": ""
@@ -204,43 +204,43 @@
 		"message": ""
 	},
 	"There_might_be_a_problem_with_the_gpg_installation": {
-		"message": ""
+		"message": "gpg asennuksessasi saattaa olla ongelma"
 	},
 	"consider_reinstalling_gpg4win": {
-		"message": ""
+		"message": "harkitse gpg4win uudelleen asentamista"
 	},
 	"Error_Details": {
-		"message": ""
+		"message": "Virheen yksityiskohdat"
 	},
 	"Error_in_Method": {
-		"message": ""
+		"message": "Virhe menetelmässä"
 	},
 	"Error_Code": {
-		"message": ""
+		"message": "Virhekoodi"
 	},
 	"Error_String": {
-		"message": ""
+		"message": "Virhe merkkijono"
 	},
 	"File": {
-		"message": ""
+		"message": "Tiedosto"
 	},
 	"Line": {
-		"message": ""
+		"message": "Rivi"
 	},
 	"Unknown_Error": {
-		"message": ""
+		"message": "Tuntematon virhe"
 	},
 	"System_Information": {
-		"message": ""
+		"message": "Järjestelmän tiedot"
 	},
 	"App_Version": {
-		"message": ""
+		"message": "Ohjelma versio"
 	},
 	"Sub_product": {
-		"message": ""
+		"message": "Ali-tuote"
 	},
 	"Vendor": {
-		"message": ""
+		"message": "Valmistaja"
 	},
 	"no_email_address_provided": {
 		"message": ""
@@ -249,40 +249,40 @@
 		"message": ""
 	},
 	"Sign_only": {
-		"message": ""
+		"message": "Vain allekirjoita"
 	},
 	"Sign_and_Encrypt": {
-		"message": ""
+		"message": "Allekirjoita ja salaa"
 	},
 	"Symmetric_Encryption": {
-		"message": ""
+		"message": "Symmetrinen salaus"
 	},
 	"Signed_Symmetric_Encryption": {
 		"message": ""
 	},
 	"Decrypt": {
-		"message": ""
+		"message": "Pura salaus"
 	},
 	"Verify": {
-		"message": ""
+		"message": "Varmista"
 	},
 	"Secure_Editor": {
-		"message": ""
+		"message": "Turvattu muokkain"
 	},
 	"PGP_Signed_Message": {
-		"message": ""
+		"message": "PGP allekirjoitettu viesti"
 	},
 	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "PGP SALATTU TAI ALLEKIRJOITETTU VIESTI"
 	},
 	"PGP_Public_Key": {
-		"message": ""
+		"message": "PGP julkinen avain"
 	},
 	"WebPG_Secure_Editor": {
-		"message": ""
+		"message": "WebPG Turvattu muokkain"
 	},
 	"Unsecured_Editor": {
-		"message": ""
+		"message": "Turvaamaton muokkain"
 	},
 	"Loading_keys": {
 		"message": ""
@@ -300,10 +300,10 @@
 		"message": ""
 	},
 	"Private_Keys": {
-		"message": ""
+		"message": "Yksityiset avaimet"
 	},
 	"Public_Keys": {
-		"message": ""
+		"message": "Julkiset avaimet"
 	},
 	"Search_Keyserver": {
 		"message": ""
@@ -312,91 +312,91 @@
 		"message": ""
 	},
 	"Your_Name": {
-		"message": ""
+		"message": "Nimesi"
 	},
 	"Your_Email": {
-		"message": ""
+		"message": "Sähköpostiosoitteesi"
 	},
 	"Comment": {
-		"message": ""
+		"message": "Kommentti"
 	},
 	"Passphrase": {
-		"message": ""
+		"message": "Tunnuslause"
 	},
 	"Repeat_Passphrase": {
-		"message": ""
+		"message": "Toista tunnuslause"
 	},
 	"Advanced_Options": {
-		"message": ""
+		"message": "Lisäasetukset"
 	},
 	"Public_Key_Algorithm": {
-		"message": ""
+		"message": "Julkisen avaimen algoritmi"
 	},
 	"Public_Key_Size": {
-		"message": ""
+		"message": "Julkisen avaimen koko"
 	},
 	"Private_Key_Algorithm": {
-		"message": ""
+		"message": "Yksityisen avaimen algoritmi"
 	},
 	"Private_Key_Size": {
-		"message": ""
+		"message": "Yksityisen avaimen koko"
 	},
 	"Expire_in": {
-		"message": ""
+		"message": "Vanhenee"
 	},
 	"Never": {
-		"message": ""
+		"message": "Ei koskaan"
 	},
 	"n30_days": {
-		"message": ""
+		"message": "n30 päivää"
 	},
 	"n90_days": {
-		"message": ""
+		"message": "n90 päivää"
 	},
 	"n1_year": {
-		"message": ""
+		"message": "n1 vuosi"
 	},
 	"Subkey_Options": {
-		"message": ""
+		"message": "Aliavainten asetukset"
 	},
 	"encrypt_only": {
-		"message": ""
+		"message": "vain salaa"
 	},
 	"set_your_own_capabilities": {
-		"message": ""
+		"message": "aseta omat kyvyt"
 	},
 	"Sign": {
-		"message": ""
+		"message": "Allekirjoita"
 	},
 	"Authenticate": {
-		"message": ""
+		"message": "Todenna"
 	},
 	"Revoke_this_Key": {
-		"message": ""
+		"message": "Mitätöi avain"
 	},
 	"Revoke_this_UID": {
-		"message": ""
+		"message": "Mitätöi UID"
 	},
 	"Revoke_this_Signature": {
-		"message": ""
+		"message": "Mitätöi allekirjoitus"
 	},
 	"Delete_this_Signature": {
-		"message": ""
+		"message": "Poista allekirjoitus"
 	},
 	"Delete_this_UID": {
-		"message": ""
+		"message": "Poista UID"
 	},
 	"Delete_this_Key": {
-		"message": ""
+		"message": "Poista UID"
 	},
 	"This_key_will_be_permanently_deleted": {
-		"message": ""
+		"message": "Tämä avain poistetaan pysyvästi"
 	},
 	"Are_you_sure": {
-		"message": ""
+		"message": "Oletko varma"
 	},
 	"Change_Expiration": {
-		"message": ""
+		"message": "Muuta vanhenemista"
 	},
 	"Sign_this_UID": {
 		"message": ""
@@ -996,7 +996,7 @@
 		"message": ""
 	},
 	"Do_not_use_WebPG_for_this_message": {
-		"message": ""
+		"message": "Älä käytä WebPG:tä tälle viestille"
 	},
 	"Sign_Inline": {
 		"message": ""
@@ -1005,19 +1005,19 @@
 		"message": ""
 	},
 	"You_do_not_have_any_keys_for": {
-		"message": ""
+		"message": "Sinulla ei ole avaimia, jotka vastaavat"
 	},
 	"or": {
-		"message": ""
+		"message": "tai"
 	},
 	"WebPG_is_preparing_the_email": {
 		"message": ""
 	},
 	"This_message_already_contains_PGP_data": {
-		"message": ""
+		"message": "Tämä viesti sisältää jo GPG dataa"
 	},
 	"Would_you_like_to_Encrypt_anyway": {
-		"message": ""
+		"message": "Haluatko joka tapauksessa salata"
 	},
 	"Expired_keys_found_for": {
 		"message": ""
@@ -1032,16 +1032,16 @@
 		"message": ""
 	},
 	"You_have_more_than_1_public_key_matching_that_address": {
-		"message": ""
+		"message": "Sinulla on useampi kuin yksi avain, joka vastaa osoitetta"
 	},
 	"The_Key_for": {
-		"message": ""
+		"message": "Avaimet, jotka vastaavat"
 	},
 	"is_invalid": {
-		"message": ""
+		"message": "on epäkelpo"
 	},
 	"Open_the_Key_Manager": {
-		"message": ""
+		"message": "Avaa avainten hallinta"
 	},
 	"This_message_will_be_Signed": {
 		"message": ""

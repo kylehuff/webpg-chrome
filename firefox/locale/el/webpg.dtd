@@ -1,151 +1,151 @@
-<!ENTITY About_WebPG "">
-<!ENTITY Version "">
-<!ENTITY Extension_Information "">
-<!ENTITY Extension_version "">
-<!ENTITY Platform "">
-<!ENTITY Product "">
-<!ENTITY User_Agent "">
-<!ENTITY Language "">
-<!ENTITY Plugin_Information "">
-<!ENTITY Plugin_version "">
-<!ENTITY GnuPG_Information "">
-<!ENTITY GnuPG_version "">
-<!ENTITY GnuPG_binary "">
-<!ENTITY GnuPG_home_directory "">
-<!ENTITY default "">
-<!ENTITY GPGCONF_version "">
-<!ENTITY not_detected "">
-<!ENTITY Assuan_version "">
+<!ENTITY About_WebPG "Περί του WebPG">
+<!ENTITY Version "Έκδοση">
+<!ENTITY Extension_Information "Πληροφορίες επέκτασης">
+<!ENTITY Extension_version "Έκδοση επέκτασης">
+<!ENTITY Platform "Πλατφόρμα">
+<!ENTITY Product "Προϊόν">
+<!ENTITY User_Agent "Αντιπρόσωπος χρήστη">
+<!ENTITY Language "Γλώσσα">
+<!ENTITY Plugin_Information "Πληροφορίες προσθέτου">
+<!ENTITY Plugin_version "Έκδοση Πρόσθετου">
+<!ENTITY GnuPG_Information "Πληροφορίες GNUPG">
+<!ENTITY GnuPG_version "Έκδοση GnuPG">
+<!ENTITY GnuPG_binary "Εκτελέσιμο του GnuPG">
+<!ENTITY GnuPG_home_directory "GnuPG κεντρικός φάκελςο">
+<!ENTITY default "προεπιλογή">
+<!ENTITY GPGCONF_version "έκδοση GPGCONF">
+<!ENTITY not_detected "δεν εντοπίστηκε">
+<!ENTITY Assuan_version "έκδοση Assuan">
 <!ENTITY Key_Agent "">
-<!ENTITY Finished "">
+<!ENTITY Finished "Ολοκληρώθηκε">
 <!ENTITY Translation_Status "">
-<!ENTITY WebPG_Plugin_failed_to_load "">
-<!ENTITY Key_Generation_Complete "">
-<!ENTITY Key_Generation "">
-<!ENTITY Open_Key_Manager "">
-<!ENTITY WebPG_Key_Generation_Failed "">
-<!ENTITY The_generation_of_your_new_key_is_now_complete "">
-<!ENTITY Options "">
-<!ENTITY Key_Manager "">
+<!ENTITY WebPG_Plugin_failed_to_load "To WebPG πρόσθετο απέτυχε να φορτωθεί">
+<!ENTITY Key_Generation_Complete "Η δημιουργία του κλειδιού ολοκληρώθηκε">
+<!ENTITY Key_Generation "Δημιουργία κλειδιού">
+<!ENTITY Open_Key_Manager "Open Key Διαχειριστής">
+<!ENTITY WebPG_Key_Generation_Failed "WebPG  Η δημιουργία του κλειδιού απετυχε">
+<!ENTITY The_generation_of_your_new_key_is_now_complete "Ολοκληρώθηκε η δημιουργία του νέου κλειδιού">
+<!ENTITY Options "Επιλογές">
+<!ENTITY Key_Manager "Διαχειριστής κλειδιών">
 <!ENTITY Refresh_Key_List "">
-<!ENTITY Generate_New_Key "">
-<!ENTITY Create "">
-<!ENTITY Name_Required "">
-<!ENTITY UID_Names_must_be_at_least_5_characters "">
-<!ENTITY UID_Names_cannot_begin_with_a_number "">
-<!ENTITY Not_a_valid_email_address "">
-<!ENTITY Passphrases_do_not_match "">
-<!ENTITY Building_key__please_wait "">
-<!ENTITY This_may_take_a_long_time__5_minutes_or_more__to_complete "">
-<!ENTITY Please_be_patient_while_the_key_is_created "">
-<!ENTITY It_is_safe_to_close_this_window "">
-<!ENTITY key_generation_will_continue_in_the_background "">
-<!ENTITY Close "">
-<!ENTITY Cancel "">
+<!ENTITY Generate_New_Key "Δημιουργία νέου κλειδιού">
+<!ENTITY Create "Δημιουργία">
+<!ENTITY Name_Required "Χρειάζεται όνομ">
+<!ENTITY UID_Names_must_be_at_least_5_characters "Τα ονόματα UID πρέπει να είναι τουλάχιστον 5 χαρακτήρες">
+<!ENTITY UID_Names_cannot_begin_with_a_number "Τα ονόματα UID δεν μπορούν να ξεκινούν με νούμερο">
+<!ENTITY Not_a_valid_email_address "Άκυρη email διεύθυνση">
+<!ENTITY Passphrases_do_not_match "Οι συνθηματικές φράσεις δεν ταιριάζουν">
+<!ENTITY Building_key__please_wait "Δημιουργώντας το κλειδί, παρακαλώ περιμένετε">
+<!ENTITY This_may_take_a_long_time__5_minutes_or_more__to_complete "ολοκληρωθεί">
+<!ENTITY Please_be_patient_while_the_key_is_created "Παρκαλώ περιμένετε μέχρι να δημιουργηθεί το κλειδί">
+<!ENTITY It_is_safe_to_close_this_window "Είναι ασφαλές να κλείσετε το παράθυρο">
+<!ENTITY key_generation_will_continue_in_the_background "Η δημιουργία του κλειδιού θα συνεχιστεί στο background">
+<!ENTITY Close "Schließen">
+<!ENTITY Cancel "Ακύρωση">
 <!ENTITY Import_from_File "">
-<!ENTITY Import "">
-<!ENTITY Error "">
+<!ENTITY Import "Εισαγωγή">
+<!ENTITY Error "Σφάλμα">
 <!ENTITY There_was_an_error_parsing_this_PGP_file "">
 <!ENTITY There_was_an_error_importing_any_keys_in_this_file "">
 <!ENTITY Please_use_the_button_above_to_open_a_key_file___asc__txt_ "">
 <!ENTITY User_Guide "">
-<!ENTITY Select_Recipient_s_ "">
-<!ENTITY Export "">
-<!ENTITY Editor "">
-<!ENTITY Search_Filter "">
-<!ENTITY Encrypt "">
-<!ENTITY Insert "">
-<!ENTITY no_action_has_been_selected "">
-<!ENTITY no_action_has_been_successful "">
-<!ENTITY UIDs "">
-<!ENTITY Key_does_not_support_this_operation "">
-<!ENTITY Error_loading_WebPG "">
-<!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "">
-<!ENTITY Suggestions "">
-<!ENTITY The_plugin_was_unable_to_load "">
+<!ENTITY Select_Recipient_s_ "Επέλεξε Αποδέκτες">
+<!ENTITY Export "Εξαγωγή">
+<!ENTITY Editor "Επεξεργαστής Κειμένου">
+<!ENTITY Search_Filter "Αναζήτηση/Φιλτράρισμα">
+<!ENTITY Encrypt "Κρυπτογράφηση">
+<!ENTITY Insert "Εισαγωγή">
+<!ENTITY no_action_has_been_selected "δεν επιλέχτηκε κάποια ενέργεια">
+<!ENTITY no_action_has_been_successful "καμιά ενέργεια δεν πέτυχε">
+<!ENTITY UIDs "UIDs">
+<!ENTITY Key_does_not_support_this_operation "το κλειδί δεν υποστηρίζει αυτή την λειτουργία">
+<!ENTITY Error_loading_WebPG "Σφάλμα φόρτωσης του WebPG">
+<!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "Αντιμετωπίσαμε ένα πρόβλημα κατά την διάρκεια φόρτωσης του WebPG">
+<!ENTITY Suggestions "Συμβουλές">
+<!ENTITY The_plugin_was_unable_to_load "Το πρόσθετο απέτυχε να φορτώσει">
 <!ENTITY The_Firefox_Click_to_Play_feature_is_enabled "">
 <!ENTITY WebPG_cannot_load_the_required_plugin_with_this_feature_enabled "">
 <!ENTITY The_WebPG_Native_Messaging_Host_was_unreachable "">
-<!ENTITY There_might_be_a_problem_with_the_gpg_installation "">
-<!ENTITY consider_reinstalling_gpg4win "">
-<!ENTITY Error_Details "">
-<!ENTITY Error_in_Method "">
-<!ENTITY Error_Code "">
-<!ENTITY Error_String "">
-<!ENTITY File "">
-<!ENTITY Line "">
-<!ENTITY Unknown_Error "">
-<!ENTITY System_Information "">
-<!ENTITY App_Version "">
-<!ENTITY Sub_product "">
-<!ENTITY Vendor "">
-<!ENTITY no_email_address_provided "">
+<!ENTITY There_might_be_a_problem_with_the_gpg_installation "Ενδέχεται να υπάρχει πρόβλημα με την εγκατάσταση του gpg">
+<!ENTITY consider_reinstalling_gpg4win "Δοκιμάστε επανεγκατάσταση του gpg4win">
+<!ENTITY Error_Details "Λεπτομέρειες Σφάλματος">
+<!ENTITY Error_in_Method "Σφάλμα στην μέθοδο">
+<!ENTITY Error_Code "Λάθος Κωδικός">
+<!ENTITY Error_String "Λάθος αλφαριθμητικό">
+<!ENTITY File "Αρχείο">
+<!ENTITY Line "Γραμμή">
+<!ENTITY Unknown_Error "Άγνωστο σφάλμα">
+<!ENTITY System_Information "Πληροφορίες Συστήματος">
+<!ENTITY App_Version "Έκδοση Εφαρμογής">
+<!ENTITY Sub_product "Υπο-προϊόν">
+<!ENTITY Vendor "Πωλητής">
+<!ENTITY no_email_address_provided "δεν δόθηκε email διεύθυνση">
 <!ENTITY Use "">
-<!ENTITY Sign_only "">
-<!ENTITY Sign_and_Encrypt "">
-<!ENTITY Symmetric_Encryption "">
+<!ENTITY Sign_only "Μόνο υπογραφή">
+<!ENTITY Sign_and_Encrypt "Υπογραφή και κρυπτογράφηση">
+<!ENTITY Symmetric_Encryption "Συμμετρική Κρυπτογράφηση">
 <!ENTITY Signed_Symmetric_Encryption "">
-<!ENTITY Decrypt "">
-<!ENTITY Verify "">
-<!ENTITY Secure_Editor "">
-<!ENTITY PGP_Signed_Message "">
-<!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "">
-<!ENTITY PGP_Public_Key "">
-<!ENTITY WebPG_Secure_Editor "">
-<!ENTITY Unsecured_Editor "">
+<!ENTITY Decrypt "Αποκρυπτογράφηση">
+<!ENTITY Verify "Επαλήθευση">
+<!ENTITY Secure_Editor "Ασφαλής επεξεργαστής κειμένου">
+<!ENTITY PGP_Signed_Message "Μήνυμα υπογρεγραμμένο από PGP">
+<!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "Μήνυμα κρυπτογραφημένο ή υπογεγραμμένο από PGP">
+<!ENTITY PGP_Public_Key "Δημόσιο κλειδί PGP">
+<!ENTITY WebPG_Secure_Editor "Ασφαλης επεξεργαστής κειμένου WEBPG">
+<!ENTITY Unsecured_Editor "Μη ασφαλής επεξεργαστής κειμένου">
 <!ENTITY Loading_keys "">
-<!ENTITY Generating_Key "">
-<!ENTITY Waiting_for_entropy "">
-<!ENTITY Building_key "">
-<!ENTITY please_wait "">
-<!ENTITY Private_Keys "">
-<!ENTITY Public_Keys "">
+<!ENTITY Generating_Key "Δημιουργία κλειδιού">
+<!ENTITY Waiting_for_entropy "Αναμένοντας την εντροπία">
+<!ENTITY Building_key "Δημιουργώντας το κλειδί">
+<!ENTITY please_wait "παρακαλώ περιμένετε">
+<!ENTITY Private_Keys "Ιδιωτικά κλειδιά">
+<!ENTITY Public_Keys "Δημοσια κλειδιά">
 <!ENTITY Search_Keyserver "">
 <!ENTITY Search_for_Keys_on_Keyserver "">
-<!ENTITY Your_Name "">
-<!ENTITY Your_Email "">
-<!ENTITY Comment "">
-<!ENTITY Passphrase "">
-<!ENTITY Repeat_Passphrase "">
-<!ENTITY Advanced_Options "">
-<!ENTITY Public_Key_Algorithm "">
-<!ENTITY Public_Key_Size "">
-<!ENTITY Private_Key_Algorithm "">
-<!ENTITY Private_Key_Size "">
-<!ENTITY Expire_in "">
-<!ENTITY Never "">
-<!ENTITY n30_days "">
-<!ENTITY n90_days "">
-<!ENTITY n1_year "">
-<!ENTITY Subkey_Options "">
-<!ENTITY encrypt_only "">
-<!ENTITY set_your_own_capabilities "">
-<!ENTITY Sign "">
-<!ENTITY Authenticate "">
-<!ENTITY Revoke_this_Key "">
-<!ENTITY Revoke_this_UID "">
-<!ENTITY Revoke_this_Signature "">
-<!ENTITY Delete_this_Signature "">
-<!ENTITY Delete_this_UID "">
-<!ENTITY Delete_this_Key "">
-<!ENTITY This_key_will_be_permanently_deleted "">
-<!ENTITY Are_you_sure "">
-<!ENTITY Change_Expiration "">
-<!ENTITY Sign_this_UID "">
-<!ENTITY Key_Details "">
-<!ENTITY Export_Public_Key "">
-<!ENTITY Add_UID "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_Key "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_UID "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_Signature "">
-<!ENTITY Are_you_sure_you_wish_to_delete_this_Signature "">
-<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_UID "">
+<!ENTITY Your_Name "Το Όνομά σου">
+<!ENTITY Your_Email "Το Email σου">
+<!ENTITY Comment "Σχόλιο">
+<!ENTITY Passphrase "Συνθηματική φράση">
+<!ENTITY Repeat_Passphrase "Επανέλαβε την Συνθηματική φράση">
+<!ENTITY Advanced_Options "Προχωρημένες επιλογές">
+<!ENTITY Public_Key_Algorithm "Αλγλοριθμος δημόσιου κλειδιού">
+<!ENTITY Public_Key_Size "Μέγεθος δημόσιου κλειδιού">
+<!ENTITY Private_Key_Algorithm "Αλγόριθμος ιδιωτικού κλειδιού">
+<!ENTITY Private_Key_Size "μέγεθος ιδιωτικού κλειδιού">
+<!ENTITY Expire_in "Λήγη στις">
+<!ENTITY Never "Ποτέ">
+<!ENTITY n30_days "n30 μέρες">
+<!ENTITY n90_days "n90 μέρες">
+<!ENTITY n1_year "n1 χρόνος">
+<!ENTITY Subkey_Options "Επιλογές υπο-κλειδιού">
+<!ENTITY encrypt_only "μόνο κρυπτογραφία">
+<!ENTITY set_your_own_capabilities "θέσε τις δικές σου δυνατότητες">
+<!ENTITY Sign "Υπογραφή">
+<!ENTITY Authenticate "επαλήθευση ταυτότητας">
+<!ENTITY Revoke_this_Key "ανακάλεσε αυτό το κλειδί">
+<!ENTITY Revoke_this_UID "ανακάλεσε αυτό το UID">
+<!ENTITY Revoke_this_Signature "ανακάλεσε αυτή την υπογραφή">
+<!ENTITY Delete_this_Signature "διέγραψε αυτή την υπογραφή">
+<!ENTITY Delete_this_UID "διέγραψε αυτό το UID">
+<!ENTITY Delete_this_Key "διέγραψε αυτό το κλειδί">
+<!ENTITY This_key_will_be_permanently_deleted "Το κλειδία διαγράφηκε μόνιμα">
+<!ENTITY Are_you_sure "Είσαι σίγουρος(η)">
+<!ENTITY Change_Expiration "Αλλαγή λήξη ισχύος">
+<!ENTITY Sign_this_UID "Υπέγραψε αυτό το UID">
+<!ENTITY Key_Details "Λεπτομέρειες κλειδιού">
+<!ENTITY Export_Public_Key "Εξαγωγή δημόσιου κλειδιού">
+<!ENTITY Add_UID "Προσθήκη UID">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_Key "Είστε σίγουρος ότι θέλετε να ανακαλέσετε αυτό το κλειδί">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_UID "Είστε σίγουρος ότι θέλετε να ανακαλέσετε αυτό το UID">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_Signature "Είστε σίγουρος ότι θέλετε να ανακαλέσετε αυτή την υπογραφή;">
+<!ENTITY Are_you_sure_you_wish_to_delete_this_Signature "Είστε σίγουρος ότι θέλετε να διαγράψετε αυτή την υπογραφή;">
+<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_UID "Είστε σίγουρος ότι θέλετε να διαγράψετε μόνιμα αυτό το UID">
 <!ENTITY Are_you_sure_you_want_to_permanently_delete_this_Photo "">
-<!ENTITY New_Expiration_Date "">
-<!ENTITY Never_Expire "">
-<!ENTITY Expiration_Date "">
-<!ENTITY Save "">
-<!ENTITY Delete_this_key "">
+<!ENTITY New_Expiration_Date "Νέα ημερομηνία Λήξης">
+<!ENTITY Never_Expire "Δεν λήγει ποτέ">
+<!ENTITY Expiration_Date "Ημερομηνία Λήξης">
+<!ENTITY Save "Αποθήκευση">
+<!ENTITY Delete_this_key "Διαγραφή αυτού του κλειδιού">
 <!ENTITY Add "">
 <!ENTITY There_was_an_error_parsing_this_image_file "">
 <!ENTITY There_was_an_error_adding_this_image_file "">
@@ -156,196 +156,196 @@
 <!ENTITY is_quite_large "">
 <!ENTITY Consider_using_a_smaller_image "">
 <!ENTITY Only_one_image_can_be_added "">
-<!ENTITY Copy "">
-<!ENTITY Please_specify_the_revocation_details "">
-<!ENTITY Reason "">
-<!ENTITY No_reason_specified "">
-<!ENTITY Key_has_been_compromised "">
-<!ENTITY Key_is_superseded "">
-<!ENTITY Key_is_no_longer_used "">
-<!ENTITY Description "">
-<!ENTITY Revoke "">
-<!ENTITY Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver "">
-<!ENTITY Publish "">
-<!ENTITY Sending_key_to_Keyserver "">
-<!ENTITY There_was_a_problem_sending_this_key_to_the_Keyserver "">
-<!ENTITY No_Keyserver_defined "">
-<!ENTITY Keyserver "">
-<!ENTITY Try_Again "">
-<!ENTITY Key_Published_to_Keyserver "">
-<!ENTITY Publish_Again "">
-<!ENTITY Publish_to_Keyserver "">
-<!ENTITY Key_not_found_on_keyserver "">
+<!ENTITY Copy "Αντιγραφή">
+<!ENTITY Please_specify_the_revocation_details "Παρακαλώ ορίστε τις λεπτομέρειες ανάκλησης">
+<!ENTITY Reason "Αιτία">
+<!ENTITY No_reason_specified "Δε διευκρινίστηκε αιτία">
+<!ENTITY Key_has_been_compromised "Το κλειδί έχει διαρρεύσει">
+<!ENTITY Key_is_superseded "Το κλειδί έχει παρακαμθεί">
+<!ENTITY Key_is_no_longer_used "Το κλειδί δεν είναι πια σε χρήση">
+<!ENTITY Description "Περιγραφή">
+<!ENTITY Revoke "Ανάκληση">
+<!ENTITY Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver "Είστε σίγουρος ότι θέλετε να δημοσιοποιήσετε αυτό το κλειδί στον Keyserver">
+<!ENTITY Publish "Δημοσίευση">
+<!ENTITY Sending_key_to_Keyserver "Στέλνoντας το κλειδί στον Keyserver">
+<!ENTITY There_was_a_problem_sending_this_key_to_the_Keyserver "Keyserver">
+<!ENTITY No_Keyserver_defined "Δεν έχει οριστεί Keyserver">
+<!ENTITY Keyserver "Εξυπηρετητής κλειδιών (KeyServer)">
+<!ENTITY Try_Again "Προσπαθήστε ξανά">
+<!ENTITY Key_Published_to_Keyserver "το κλειδί δημοσιεύτηκε στον Keyserver">
+<!ENTITY Publish_Again "Δημοσίευση ξανά">
+<!ENTITY Publish_to_Keyserver "Δημοσιοποίηση στο Keyserver">
+<!ENTITY Key_not_found_on_keyserver "Το κλειδί δεν βρέθηκε στον Keyserver">
 <!ENTITY Key_updated "">
 <!ENTITY No_changes_to_key "">
-<!ENTITY User_ID_is_no_longer_valid "">
-<!ENTITY Please_select_which_of_your_keys_to_create_the_signature_with "">
-<!ENTITY You_have_not_enabled_any_keys_for_use_with_webpg "">
-<!ENTITY please_click_here "">
-<!ENTITY and_select_1_or_more_keys_for_use_with_webpg "">
-<!ENTITY You_have_not_generated_any_keys "">
-<!ENTITY and_generate_a_key_to_use_with_webpg "">
-<!ENTITY Already_signed_with_this_key "">
-<!ENTITY Signature_added_using_this_key "">
+<!ENTITY User_ID_is_no_longer_valid "Το User ID δεν είναι πλέον έγκυρο">
+<!ENTITY Please_select_which_of_your_keys_to_create_the_signature_with "Παρακαλώ επιλέξτε κάποιο από τα κλειδιά σας για να υπογράψετε με αυτό">
+<!ENTITY You_have_not_enabled_any_keys_for_use_with_webpg "Δεν έχετε ενεργοποιήσει κάποιο κλειδί για χρήση με το webpg">
+<!ENTITY please_click_here "παρακαλώ κλικάρετε εδώ">
+<!ENTITY and_select_1_or_more_keys_for_use_with_webpg "και επιλέξτε 1 ή περισσότερα κλειδιά για χρήση με το webpg">
+<!ENTITY You_have_not_generated_any_keys "δδεν έχετε δημιουργήσει κανένα κλειδί">
+<!ENTITY and_generate_a_key_to_use_with_webpg "Δκαι δημιουργήστε ένα κλειδία για χρήση με το webpg">
+<!ENTITY Already_signed_with_this_key "dήδη υπογεγραμμένο με αυτό το κλειδί">
+<!ENTITY Signature_added_using_this_key "Η υπογραφή προστέθηκε χρησιμοποιώντας αυτό το κλειδί">
 <!ENTITY Delete_this_Photo "">
-<!ENTITY Searching_for "">
+<!ENTITY Searching_for "Αναζήτηση για">
 <!ENTITY Search_string_too_ambiguous_or_not_found_on_server "">
-<!ENTITY KeyID "">
+<!ENTITY KeyID "Ταυτότητα κλειδιού">
 <!ENTITY IMPORT "">
-<!ENTITY Key_Created "">
-<!ENTITY Expires "">
-<!ENTITY Expired "">
-<!ENTITY User_IDs "">
-<!ENTITY Fingerprint "">
-<!ENTITY Status "">
-<!ENTITY Revoked "">
-<!ENTITY Invalid "">
-<!ENTITY Disabled "">
-<!ENTITY Valid "">
-<!ENTITY Key_Algorithm "">
-<!ENTITY Validity "">
-<!ENTITY Key_Options "">
-<!ENTITY Operations "">
-<!ENTITY Subkeys "">
-<!ENTITY Subkey_Details "">
-<!ENTITY Flags "">
+<!ENTITY Key_Created "Το κλειδί δημιουργήθηκε">
+<!ENTITY Expires "Λήγει">
+<!ENTITY Expired "Έληξε">
+<!ENTITY User_IDs "User IDs">
+<!ENTITY Fingerprint "Αποτύπωμα">
+<!ENTITY Status "Κατάσταση">
+<!ENTITY Revoked "Ανακλήθηκε">
+<!ENTITY Invalid "Άκυρο">
+<!ENTITY Disabled "Απενεργοποιημένο">
+<!ENTITY Valid "Έγκυρο">
+<!ENTITY Key_Algorithm "Αλγόριθμος κλειδιού">
+<!ENTITY Validity "Εγκυρότητα">
+<!ENTITY Key_Options "Επιλογές κλειδιού">
+<!ENTITY Operations "Λειτουργίες">
+<!ENTITY Subkeys "Υποκλειδιά:">
+<!ENTITY Subkey_Details "Λεπτομέρειες υποκλειδιών">
+<!ENTITY Flags "Παράμετροι">
 <!ENTITY Key_Operations "">
-<!ENTITY Signatures_made_with_keys_not_in_your_keyring_are_omitted "">
-<!ENTITY Created "">
+<!ENTITY Signatures_made_with_keys_not_in_your_keyring_are_omitted "παραλείπονται">
+<!ENTITY Created "Δημιουργήθηκε">
 <!ENTITY User_Photos "">
 <!ENTITY User_Photo "">
 <!ENTITY Enable_this_key_for_GnuPG_operations "">
-<!ENTITY This_is_your_default_key "">
+<!ENTITY This_is_your_default_key "Αυτό είναι το προεπιλεγμένο σου κλειδί">
 <!ENTITY Make_this_the_default_key_for_GnuPG_operations "">
-<!ENTITY Enabled "">
-<!ENTITY Cannot_unset_your_default_key "">
-<!ENTITY Trust_Assignment "">
-<!ENTITY Unknown "">
-<!ENTITY Marginal "">
-<!ENTITY Full "">
+<!ENTITY Enabled "Ενεργοποιημένη">
+<!ENTITY Cannot_unset_your_default_key "δεν είναι δυνατό να αποθέσετε το προεπιλεγμένο σας κλειδί">
+<!ENTITY Trust_Assignment "εκχώρηση εμπιστοσύνης">
+<!ENTITY Unknown "Άγνωστος">
+<!ENTITY Marginal "Οριακό">
+<!ENTITY Full "Πλήρες">
 <!ENTITY ultimate "">
-<!ENTITY Group_Assignment "">
+<!ENTITY Group_Assignment "εκχώρηση Ομάδας">
 <!ENTITY Select_group_s__below "">
 <!ENTITY None_Selected "">
 <!ENTITY Filter_or_Create_New "">
 <!ENTITY Create_new_group "">
-<!ENTITY Change_Passphrase "">
-<!ENTITY Add_Subkey "">
+<!ENTITY Change_Passphrase "Αλλαγή συνθηματικού">
+<!ENTITY Add_Subkey "Προσθήκη υπο-κλειδιού">
 <!ENTITY Add_Photo "">
 <!ENTITY Disable_this_key "">
 <!ENTITY Enable_this_key "">
-<!ENTITY Delete_this_Subkey "">
+<!ENTITY Delete_this_Subkey "Διέγραψε αυτό το υπο-κλειδί">
 <!ENTITY Export_this_key "">
-<!ENTITY Refresh_from_Keyserver "">
-<!ENTITY Cannot_sign_a_revoked_UID "">
+<!ENTITY Refresh_from_Keyserver "Ανανέωση από τον keyserver">
+<!ENTITY Cannot_sign_a_revoked_UID "Δεν είναι δυνατή η υπογραφη ενός ανακλημένου UID">
 <!ENTITY Revoke_this_key "">
-<!ENTITY Revoke_UID "">
-<!ENTITY Cannot_make_a_revoked_UID_primary "">
+<!ENTITY Revoke_UID "Ανακάλεσε UID">
+<!ENTITY Cannot_make_a_revoked_UID_primary "Δεν είναι δυνατόν να κάνετε ένα ανακλημένο κλειδία πρωτεύον">
 <!ENTITY Make_Primary "">
-<!ENTITY Delete "">
-<!ENTITY This_signature_was_made_with_a_key_that_does_not_belong_to_you "">
-<!ENTITY This_action_cannot_be_undone "">
+<!ENTITY Delete "Διαγραφή">
+<!ENTITY This_signature_was_made_with_a_key_that_does_not_belong_to_you "Αυτή η υπογραφή έγινε με ένα κλειδί που δεν σου ανήκει">
+<!ENTITY This_action_cannot_be_undone "Αυτή η ενέργεια δεν μπορεί να ανακληθεί">
 <!ENTITY Certify "">
 <!ENTITY News "">
 <!ENTITY New_features "">
-<!ENTITY WebPG_Options "">
-<!ENTITY The_WebPG_NPAPI_Plugin_is_valid "">
-<!ENTITY OpenPGP_was_detected "">
-<!ENTITY It_appears_you_have_a_key_agent_configured "">
-<!ENTITY gpgconf_was_detected "">
-<!ENTITY you_can_use_the_signature_methods "">
-<!ENTITY OpenPGP_does_not_appear_to_be_installed "">
-<!ENTITY You_do_not_appear_to_have_a_key_agent_configured "">
-<!ENTITY A_working_key_agent_is_required "">
-<!ENTITY gpgconf_does_not_appear_to_be_installed "">
-<!ENTITY You_will_not_be_able_to_create_signatures "">
-<!ENTITY There_was_a_problem_loading_the_plugin "">
-<!ENTITY the_plugin_might_be_incompatibly_compiled_for_this_architechture "">
-<!ENTITY click_here_for_help_resolving_this_issue "">
-<!ENTITY Enable_Inline_formatting_of_PGP_Messages_and_Keys "">
+<!ENTITY WebPG_Options "Επιλογές WebPG">
+<!ENTITY The_WebPG_NPAPI_Plugin_is_valid "To πρόσθετο WebPG NPAPI είναι έγκυρο">
+<!ENTITY OpenPGP_was_detected "Εντοπίστηκε το OpenPGP">
+<!ENTITY It_appears_you_have_a_key_agent_configured "Φαίνεται ότι έχετε έναν key-agent ρυθμισμένο">
+<!ENTITY gpgconf_was_detected "εντοπίστηκε το gpgconf">
+<!ENTITY you_can_use_the_signature_methods "δεν μπορείς να χρησιμοποιήσεις τις μεθόδους υπογραφής">
+<!ENTITY OpenPGP_does_not_appear_to_be_installed "Το OpenPGP δεν είναι εγκατεστημένο">
+<!ENTITY You_do_not_appear_to_have_a_key_agent_configured "Δεν φαίνεται να έχεις ένας key-agent ρυθμισμένο">
+<!ENTITY A_working_key_agent_is_required "Ενας ενεργός key-agent απαιτείται">
+<!ENTITY gpgconf_does_not_appear_to_be_installed "Το gpgconf δεν είναι εγκατεστημένο">
+<!ENTITY You_will_not_be_able_to_create_signatures "Δεν θα μπορείς να δημιουργήσεις υπογραφές">
+<!ENTITY There_was_a_problem_loading_the_plugin "Εντοπίστηκε πρόβλημα κατά την φόρτωση του πρόσθετου">
+<!ENTITY the_plugin_might_be_incompatibly_compiled_for_this_architechture "το πρόσθετο ενδέχεται να μην είναι συμβατό με αυτόν τον υπολογιστή">
+<!ENTITY click_here_for_help_resolving_this_issue "Κλικάρετε εδώ για να επιλύσετε το πρόβλημα">
+<!ENTITY Enable_Inline_formatting_of_PGP_Messages_and_Keys "Ενεργοποίηση inline Μορφοποίησης για τα PGP μηνύματα και κλειδιά">
 <!ENTITY Inline_Options "">
-<!ENTITY Always_encrypt_to_your_default_key_in_addition_to_the_recipient "">
-<!ENTITY Enable_WebPG_GMAIL_integration "">
-<!ENTITY EXPERIMENTAL "">
+<!ENTITY Always_encrypt_to_your_default_key_in_addition_to_the_recipient "παραλήπτη">
+<!ENTITY Enable_WebPG_GMAIL_integration "Ενεργοποίση WebPG GMAIl υλοποίησης">
+<!ENTITY EXPERIMENTAL "Πειραματικό">
 <!ENTITY Automatically_Sign_outgoing_messages_in_GMAIL "">
 <!ENTITY Linked_GMAIL_Identities "">
 <!ENTITY Link_new_GMAIL_identity "">
-<!ENTITY GPGCONF_binary "">
-<!ENTITY Your_system_appears_to_be_configured_correctly_for_WebPG "">
-<!ENTITY There_is_a_problem_with_your_configuration "">
+<!ENTITY GPGCONF_binary "GPGCONF εκτελέσιμο">
+<!ENTITY Your_system_appears_to_be_configured_correctly_for_WebPG "Το σύστημά σου φαίνεται να είναι σωστά ρυθμισμένο για το WebPG">
+<!ENTITY There_is_a_problem_with_your_configuration "Υπάρχει κάποιο πρόβλημα με την ρύθμιση">
 <!ENTITY Inline_formatting_mode "">
 <!ENTITY Window "">
 <!ENTITY Icon "">
 <!ENTITY Sample "">
 <!ENTITY WebPG_Toolbar "">
 <!ENTITY No_default_key_set "">
-<!ENTITY WebPG_GMAIL_integration_is_EXPERIMENTAL "">
-<!ENTITY use_at_your_own_risk "">
+<!ENTITY WebPG_GMAIL_integration_is_EXPERIMENTAL "Η υλοποίηση του WebPG GMAIL είναι πειραματική">
+<!ENTITY use_at_your_own_risk "χρησιμοποιήστε με δική σας ευθύνη">
 <!ENTITY PGP_MIME_Enabled "">
 <!ENTITY PGP_MIME_Disabled "">
 <!ENTITY delete "">
 <!ENTITY WebPG_User_Documentation_Guides "">
 <!ENTITY WebPG_Documentation "">
-<!ENTITY Text_copied_to_clipboard "">
-<!ENTITY There_may_have_been_a_problem_placing_the_data_into_the_clipboard "">
-<!ENTITY TEXT_COPIED "">
-<!ENTITY UNABLE_TO_COPY_TEXT "">
-<!ENTITY COPY_TO_CLIPBOARD "">
-<!ENTITY Verify_this_text "">
-<!ENTITY Decrypt_this_text "">
-<!ENTITY Import_this_Key "">
-<!ENTITY Clear_sign_this_text "">
-<!ENTITY Encrypt_this_text "">
-<!ENTITY Paste_Public_Key "">
-<!ENTITY UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE "">
-<!ENTITY PGP_ENCRYPTED_AND_SIGNED_MESSAGE "">
-<!ENTITY DECRYPTION_FAILED "">
-<!ENTITY NO_SECRET_KEY "">
-<!ENTITY BAD_PASSPHRASE "">
-<!ENTITY DECRYPT_THIS_MESSAGE "">
-<!ENTITY DISPLAY_ORIGINAL "">
-<!ENTITY DETACHED_PGP_SIGNATURE "">
-<!ENTITY PGP_SIGNED_MESSAGE "">
-<!ENTITY THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID "">
-<!ENTITY THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH "">
-<!ENTITY THE_SIGNATURE_ON_THIS_MESSAGE_FAILED "">
-<!ENTITY THE_MESSAGE_MAY_BE_TAMPERED_WITH "">
-<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_KEY "">
-<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY "">
-<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING "">
-<!ENTITY SEARCH_FOR_KEYS_ON_KEYSERVER "">
-<!ENTITY PGP_PUBLIC_KEY "">
-<!ENTITY Names_UIDs_on_Key "">
-<!ENTITY REVOKED "">
+<!ENTITY Text_copied_to_clipboard "Το κείμενο αντιγράφτηκε στο πρόχειρο">
+<!ENTITY There_may_have_been_a_problem_placing_the_data_into_the_clipboard "Υπάρχει ένα πρόβλημα κατά την τοποθέτηση δεδομένων στο πρόχειρο">
+<!ENTITY TEXT_COPIED "ΤΟ ΚΕΙΜΕΝΟ ΑΝΤΙΓΡΑΦΤΗΚΕ">
+<!ENTITY UNABLE_TO_COPY_TEXT "ΑΔΥΝΑΤΟ ΝΑ ΑΝΤΙΓΡΑΦΕΙ ΤΟ ΚΕΙΜΕΝΟ">
+<!ENTITY COPY_TO_CLIPBOARD "ΑΝΤΙΓΡΑΦΗ ΣΤΟ ΠΡΟΧΕΙΡΟ">
+<!ENTITY Verify_this_text "Επαληθεύστε αυτό το κείμενο">
+<!ENTITY Decrypt_this_text "ΑΠοκρυπτογραφήστε αυτό το κείμενο">
+<!ENTITY Import_this_Key "Εισαγωγή αυτού του Κλειδιού">
+<!ENTITY Clear_sign_this_text "Φανερή Υπογραφή του κειμένου">
+<!ENTITY Encrypt_this_text "Κρυπτογραφήστε αυτό το κείμενο">
+<!ENTITY Paste_Public_Key "Επικόληση Δημόσιου Κλειδιού">
+<!ENTITY UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE "ΑΔΥΝΑΤΟ ΝΑ ΑΠΟΚΡΥΠΤΟΓΡΑΦΗΘΕΙ Η ΝΑ ΕΠΑΛΗΘΕΥΤΕΙ ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ">
+<!ENTITY PGP_ENCRYPTED_AND_SIGNED_MESSAGE "ΜΗΝΥΜΑ ΚΡΥΠΤΟΓΡΑΦΗΜΕΝΟ ΚΑΙ ΥΠΟΓΡΕΓΡΑΜΜΕΝΟ ΜΕ PGP">
+<!ENTITY DECRYPTION_FAILED "Η ΑΠΟΚΡΥΠΤΟΓΡΑΦΗΣΗ ΑΠΕΤΥΧΕ">
+<!ENTITY NO_SECRET_KEY "ΔΕΝ ΒΡΕΘΗΚΕ ΜΥΣΤΙΚΟ ΚΛΕΙΔΙ">
+<!ENTITY BAD_PASSPHRASE "ΛΑΘΟΣ ΣΥΝΘΗΜΑΤΙΚΟ">
+<!ENTITY DECRYPT_THIS_MESSAGE "ΑΠΟΚΡΥΠΤΟΓΡΑΦΗΣΤΕ ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ">
+<!ENTITY DISPLAY_ORIGINAL "ΠΑΡΟΥΣΙΑΣΗ ΠΡΩΤΟΤΥΠΟΥ">
+<!ENTITY DETACHED_PGP_SIGNATURE "ΑΠΕΣΠΑΣΜΕΝΗ PGP ΥΠΟΓΡΑΦΗ">
+<!ENTITY PGP_SIGNED_MESSAGE "ΜΗΝΥΜΑ ΥΠΟΓΕΓΡΑΜΜΕΝΟ ΜΕ PGP">
+<!ENTITY THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID "H ΥΠΟΓΡΑΦΗ ΣΕ ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΔΕΝ ΙΣΧΥΕΙ">
+<!ENTITY THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH "Η ΥΠΟΓΡΑΦΗ ΜΠΟΡΕΙ ΝΑ ΕΧΕΙ ΠΑΡΑΠΟΙΗΘΕΙ">
+<!ENTITY THE_SIGNATURE_ON_THIS_MESSAGE_FAILED "Η ΥΠΟΓΡΑΦΗ ΣΕ ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΑΠΕΤΥΧΕ">
+<!ENTITY THE_MESSAGE_MAY_BE_TAMPERED_WITH "ΤΟ ΜΗΝΥΜΑ ΕΝΔΕΧΕΤΑΙ ΝΑ ΠΑΡΑΠΟΙΗΘΗΚΕ">
+<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_KEY "ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΥΠΟΓΡΑΦΤΗΚΕ ΜΕ ΚΛΕΙΔΙ">
+<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY "ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΥΠΟΓΡΑΦΤΗΚΕ ΜΕ ΛΗΓΜΕΝΟ ΔΗΜΟΣΙΟ ΚΛΕΙΔΙ">
+<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING "ΣΟΥ">
+<!ENTITY SEARCH_FOR_KEYS_ON_KEYSERVER "ΑΝΑΖΗΤΗΣ ΚΛΕΙΔΙΩΝ ΣΤΟΝ KEYSERVER">
+<!ENTITY PGP_PUBLIC_KEY "ΔΗΜΟΣΙΟ ΚΛΕΙΔΙ PGP">
+<!ENTITY Names_UIDs_on_Key "Ονόματα/ UID στο κλειδί">
+<!ENTITY REVOKED "Ανακαλέστηκε">
 <!ENTITY EXPIRED "">
-<!ENTITY THIS_KEY_IS_NOT_IN_YOUR_KEYRING "">
-<!ENTITY THIS_KEY_IS_IN_YOUR_KEYRING "">
-<!ENTITY IMPORT_THIS_KEY "">
-<!ENTITY DELETE_THIS_KEY "">
-<!ENTITY HIDE_ORIGINAL "">
-<!ENTITY UNUSABLE_KEY "">
-<!ENTITY NO_USER_ID "">
-<!ENTITY WebPG "">
-<!ENTITY About "">
-<!ENTITY Clear_Sign "">
-<!ENTITY Sign_and_Encrypt_this_text "">
-<!ENTITY Import_this_Public_key "">
-<!ENTITY Do_not_use_WebPG_for_this_message "">
-<!ENTITY Sign_Inline "">
-<!ENTITY Sign_as_Attachment "">
-<!ENTITY You_do_not_have_any_keys_for "">
-<!ENTITY or "">
+<!ENTITY THIS_KEY_IS_NOT_IN_YOUR_KEYRING "ΑΥΤΟ ΤΟ ΚΛΕΙΔΙ ΔΕΝ ΕΙΝΑΙ ΣΤΟΝ ΚΥΚΛΟ ΚΛΕΙΔΙΩΝ ΣΟΥ">
+<!ENTITY THIS_KEY_IS_IN_YOUR_KEYRING "ΑΥΤΟ ΤΟ ΚΛΕΙΔΙ ΕΙΝΑΙ ΣΤΟΝ ΚΥΚΛΟ ΚΛΕΙΔΙΩΝ ΣΟΥ">
+<!ENTITY IMPORT_THIS_KEY "ΕΙΣΑΓΩΓΗ ΚΛΕΙΔΙΟΥ">
+<!ENTITY DELETE_THIS_KEY "ΔΙΑΓΡΑΦΗ ΚΛΕΙΔΙΟΥ">
+<!ENTITY HIDE_ORIGINAL "ΑΠΟΚΡΥΨΗ ΠΡΩΤΟΤΥΠΟΥ">
+<!ENTITY UNUSABLE_KEY "ΑΚΑΤΑΛΛΗΛΟ ΚΛΕΙΔΙ">
+<!ENTITY NO_USER_ID "ΔΕΝ ΥΠΑΡΧΕΙ USER ID">
+<!ENTITY WebPG "WebPG">
+<!ENTITY About "Περί">
+<!ENTITY Clear_Sign "Φανερή υπογραφή">
+<!ENTITY Sign_and_Encrypt_this_text "ΥΠογραφή και κρυπτογράφηση αυτού του κειμένου">
+<!ENTITY Import_this_Public_key "Εισαγωγή αυτού του δημόσιου κλειδιού">
+<!ENTITY Do_not_use_WebPG_for_this_message "Μην χρησιμοποιείτε WebPG για αυτό το μήνυμα">
+<!ENTITY Sign_Inline "Inline Υπογραφη">
+<!ENTITY Sign_as_Attachment "Υπογραφή μιας επισύναψης">
+<!ENTITY You_do_not_have_any_keys_for "Δεν έχεις καθόλου κλειδιά για">
+<!ENTITY or "ή">
 <!ENTITY WebPG_is_preparing_the_email "">
-<!ENTITY This_message_already_contains_PGP_data "">
-<!ENTITY Would_you_like_to_Encrypt_anyway "">
+<!ENTITY This_message_already_contains_PGP_data "Αυτό το μήνυμα ήδη περιέχει δεδομένα PGP">
+<!ENTITY Would_you_like_to_Encrypt_anyway "Θα θέλατε να κρυπτογραφήσετε παρολαυτά;">
 <!ENTITY Expired_keys_found_for "">
-<!ENTITY and "">
+<!ENTITY and "και">
 <!ENTITY This_message_will_be_Encrypted "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted "">
-<!ENTITY You_have_more_than_1_public_key_matching_that_address "">
-<!ENTITY The_Key_for "">
-<!ENTITY is_invalid "">
-<!ENTITY Open_the_Key_Manager "">
+<!ENTITY You_have_more_than_1_public_key_matching_that_address "διεύθυνση">
+<!ENTITY The_Key_for "Το κλειδία για">
+<!ENTITY is_invalid "είναι άκυρο">
+<!ENTITY Open_the_Key_Manager "Ανοίξτε τον Διαχειριστή Κλειδιών">
 <!ENTITY This_message_will_be_Signed "">
 <!ENTITY Sign_Only "">
 <!ENTITY This_message_will_be_Encrypted_using_Symmetric_Encryption "">

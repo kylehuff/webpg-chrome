@@ -1,97 +1,98 @@
-# Translations template for webpg-chrome.
+# Translations template for webpg.
 # Copyright (C) 2012 CURETHEITCH
-# This file is distributed under the same license as the webpg-chrome
+# This file is distributed under the same license as the webpg
 # project.
 # Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: webpg-chrome 0.8.9\n"
+"Project-Id-Version: webpg 0.10.0\n"
 "Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
-"POT-Creation-Date: 2016-07-10 19:53-0400\n"
-"PO-Revision-Date: 2012-10-21 16:57-0400\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2016-07-10 20:34-0400\n"
+"PO-Revision-Date: 2013-11-28 21:04+0000\n"
+"Last-Translator: Kyle L. Huff <launchpad@curetheitch.com>\n"
 "Language-Team: none\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-07-11 00:08+0000\n"
+"X-Generator: Launchpad (build 18115)\n"
 "Generated-By: Babel 0.9.6\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: extension/about.js:17 extension/browser_action_menu.js:48
 #: extension/buttonbar.js:278
 msgid "About WebPG"
-msgstr ""
+msgstr "Περί του WebPG"
 
 #: extension/about.js:40 extension/key_manager.js:62 extension/options.js:601
 #: extension/userdocs.js:21
 msgid "Version"
-msgstr ""
+msgstr "Έκδοση"
 
 #: extension/about.js:48
 msgid "Extension Information"
-msgstr ""
+msgstr "Πληροφορίες επέκτασης"
 
 #: extension/about.js:51
 msgid "Extension version"
-msgstr ""
+msgstr "Έκδοση επέκτασης"
 
 #: extension/about.js:61 extension/error.js:63
 msgid "Platform"
-msgstr ""
+msgstr "Πλατφόρμα"
 
 #: extension/about.js:67 extension/error.js:66
 msgid "Product"
-msgstr ""
+msgstr "Προϊόν"
 
 #: extension/about.js:73 extension/error.js:65
 msgid "User Agent"
-msgstr ""
+msgstr "Αντιπρόσωπος χρήστη"
 
 #: extension/about.js:79 extension/error.js:69
 msgid "Language"
-msgstr ""
+msgstr "Γλώσσα"
 
 #: extension/about.js:85
 msgid "Plugin Information"
-msgstr ""
+msgstr "Πληροφορίες προσθέτου"
 
 #: extension/about.js:88
 msgid "Plugin version"
-msgstr ""
+msgstr "Έκδοση Πρόσθετου"
 
 #: extension/about.js:106
 msgid "GnuPG Information"
-msgstr ""
+msgstr "Πληροφορίες GNUPG"
 
 #: extension/about.js:109
 msgid "GnuPG version"
-msgstr ""
+msgstr "Έκδοση GnuPG"
 
 #: extension/about.js:115 extension/options.js:189
 msgid "GnuPG binary"
-msgstr ""
+msgstr "Εκτελέσιμο του GnuPG"
 
 #: extension/about.js:121 extension/options.js:184
 msgid "GnuPG home directory"
-msgstr ""
+msgstr "GnuPG κεντρικός φάκελςο"
 
 #: extension/about.js:130
 msgid "default"
-msgstr ""
+msgstr "προεπιλογή"
 
 #: extension/about.js:134
 msgid "GPGCONF version"
-msgstr ""
+msgstr "έκδοση GPGCONF"
 
 #: extension/about.js:140 extension/about.js:146 extension/about.js:152
 msgid "not detected"
-msgstr ""
+msgstr "δεν εντοπίστηκε"
 
 #: extension/about.js:143
 msgid "Assuan version"
-msgstr ""
+msgstr "έκδοση Assuan"
 
 #: extension/about.js:149
 msgid "Key Agent"
@@ -99,7 +100,7 @@ msgstr ""
 
 #: extension/about.js:159 extension/options.js:596
 msgid "Finished"
-msgstr ""
+msgstr "Ολοκληρώθηκε"
 
 #: extension/about.js:191
 msgid "Translation Status"
@@ -107,27 +108,27 @@ msgstr ""
 
 #: extension/background.js:219
 msgid "WebPG Plugin failed to load"
-msgstr ""
+msgstr "To WebPG πρόσθετο απέτυχε να φορτωθεί"
 
 #: extension/background.js:1035 extension/background.js:1058
 msgid "Key Generation Complete"
-msgstr ""
+msgstr "Η δημιουργία του κλειδιού ολοκληρώθηκε"
 
 #: extension/background.js:1036 extension/background.js:1061
 msgid "Key Generation"
-msgstr ""
+msgstr "Δημιουργία κλειδιού"
 
 #: extension/background.js:1045
 msgid "Open Key Manager"
-msgstr ""
+msgstr "Open Key Διαχειριστής"
 
 #: extension/background.js:1059
 msgid "WebPG Key Generation Failed"
-msgstr ""
+msgstr "WebPG  Η δημιουργία του κλειδιού απετυχε"
 
 #: extension/background.js:1060
 msgid "The generation of your new key is now complete"
-msgstr ""
+msgstr "Ολοκληρώθηκε η δημιουργία του νέου κλειδιού"
 
 #: extension/browser_action_menu.js:44 extension/buttonbar.js:266
 #: extension/inline.js:1219 extension/utils.js:1533
@@ -135,7 +136,7 @@ msgstr ""
 #: extension/XULContent/options.xul:20 extension/XULContent/options.xul:25
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:48
 msgid "Options"
-msgstr ""
+msgstr "Επιλογές"
 
 #: extension/browser_action_menu.js:46 extension/buttonbar.js:37
 #: extension/inline.js:1213 extension/utils.js:1554
@@ -143,7 +144,7 @@ msgstr ""
 #: extension/XULContent/options.xul:29
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:44
 msgid "Key Manager"
-msgstr ""
+msgstr "Διαχειριστής κλειδιών"
 
 #: extension/buttonbar.js:20
 msgid "Refresh Key List"
@@ -151,58 +152,60 @@ msgstr ""
 
 #: extension/buttonbar.js:37
 msgid "Generate New Key"
-msgstr ""
+msgstr "Δημιουργία νέου κλειδιού"
 
 #: extension/buttonbar.js:48 extension/key_manager.js:613
 #: extension/key_manager.js:680
 msgid "Create"
-msgstr ""
+msgstr "Δημιουργία"
 
 #: extension/buttonbar.js:55 extension/key_manager.js:621
 msgid "Name Required"
-msgstr ""
+msgstr "Χρειάζεται όνομ"
 
 #: extension/buttonbar.js:59 extension/key_manager.js:625
 msgid "UID Names must be at least 5 characters"
-msgstr ""
+msgstr "Τα ονόματα UID πρέπει να είναι τουλάχιστον 5 χαρακτήρες"
 
 #: extension/buttonbar.js:63 extension/key_manager.js:629
 msgid "UID Names cannot begin with a number"
-msgstr ""
+msgstr "Τα ονόματα UID δεν μπορούν να ξεκινούν με νούμερο"
 
 #: extension/buttonbar.js:70 extension/key_manager.js:634
 msgid "Not a valid email address"
-msgstr ""
+msgstr "Άκυρη email διεύθυνση"
 
 #: extension/buttonbar.js:80 extension/buttonbar.js:82
 msgid "Passphrases do not match"
-msgstr ""
+msgstr "Οι συνθηματικές φράσεις δεν ταιριάζουν"
 
 #: extension/buttonbar.js:101 extension/key_manager.js:695
 msgid "Building key, please wait"
-msgstr ""
+msgstr "Δημιουργώντας το κλειδί, παρακαλώ περιμένετε"
 
 #: extension/buttonbar.js:102
 msgid "This may take a long time (5 minutes or more) to complete"
 msgstr ""
+"Αυτό μπορεί να διαρκέσει αρκετό χρόνο (5 ή και παραπάνω λεπτά) για να "
+"ολοκληρωθεί"
 
 #: extension/buttonbar.js:102
 msgid "Please be patient while the key is created"
-msgstr ""
+msgstr "Παρκαλώ περιμένετε μέχρι να δημιουργηθεί το κλειδί"
 
 #: extension/buttonbar.js:102
 msgid "It is safe to close this window"
-msgstr ""
+msgstr "Είναι ασφαλές να κλείσετε το παράθυρο"
 
 #: extension/buttonbar.js:102
 msgid "key generation will continue in the background"
-msgstr ""
+msgstr "Η δημιουργία του κλειδιού θα συνεχιστεί στο background"
 
 #: extension/buttonbar.js:119 extension/key_manager.js:193
 #: extension/key_manager.js:714 extension/key_manager.js:919
 #: extension/key_manager.js:1017 extension/options.js:351
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 #: extension/buttonbar.js:130 extension/buttonbar.js:231
 #: extension/dialog.js:262 extension/key_manager.js:529
@@ -213,7 +216,7 @@ msgstr ""
 #: extension/key_manager.js:1339 extension/key_manager.js:1727
 #: extension/key_manager.js:2387 extension/key_manager.js:2407
 msgid "Cancel"
-msgstr ""
+msgstr "Ακύρωση"
 
 #: extension/buttonbar.js:181
 msgid "Import from File"
@@ -223,13 +226,13 @@ msgstr ""
 #: extension/XULContent/firefoxOverlay.xul:73
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:94
 msgid "Import"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: extension/buttonbar.js:201 extension/buttonbar.js:212 extension/error.js:24
 #: extension/key_manager.js:796 extension/key_manager.js:811
 #: extension/key_manager.js:998 extension/key_manager.js:1001
 msgid "Error"
-msgstr ""
+msgstr "Σφάλμα"
 
 #: extension/buttonbar.js:202
 msgid "There was an error parsing this PGP file"
@@ -249,21 +252,21 @@ msgstr ""
 
 #: extension/dialog.js:50
 msgid "Select Recipient(s)"
-msgstr ""
+msgstr "Επέλεξε Αποδέκτες"
 
 #: extension/dialog.js:55 extension/dialog.js:220 extension/inline.js:1193
 #: extension/XULContent/firefoxOverlay.xul:80
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:101
 msgid "Export"
-msgstr ""
+msgstr "Εξαγωγή"
 
 #: extension/dialog.js:57
 msgid "Editor"
-msgstr ""
+msgstr "Επεξεργαστής Κειμένου"
 
 #: extension/dialog.js:95 extension/key_manager.js:282
 msgid "Search/Filter"
-msgstr ""
+msgstr "Αναζήτηση/Φιλτράρισμα"
 
 #: extension/dialog.js:193 extension/inline.js:1121
 #: extension/key_manager.js:346 extension/key_manager.js:2564
@@ -273,43 +276,43 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:762 extension/webmail/gmail/gmail.js:911
 #: extension/webmail/gmail/inbox.js:764 extension/webmail/gmail/inbox.js:913
 msgid "Encrypt"
-msgstr ""
+msgstr "Κρυπτογράφηση"
 
 #: extension/dialog.js:233
 msgid "Insert"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: extension/dialog.js:243
 msgid "no action has been selected"
-msgstr ""
+msgstr "δεν επιλέχτηκε κάποια ενέργεια"
 
 #: extension/dialog.js:252
 msgid "no action has been successful"
-msgstr ""
+msgstr "καμιά ενέργεια δεν πέτυχε"
 
 #: extension/dialog.js:327 extension/key_manager.js:1446
 msgid "UIDs"
-msgstr ""
+msgstr "UIDs"
 
 #: extension/dialog.js:332
 msgid "Key does not support this operation"
-msgstr ""
+msgstr "το κλειδί δεν υποστηρίζει αυτή την λειτουργία"
 
 #: extension/error.js:18
 msgid "Error loading WebPG"
-msgstr ""
+msgstr "Σφάλμα φόρτωσης του WebPG"
 
 #: extension/error.js:19
 msgid "We encountered a problem while attempting to load WebPG"
-msgstr ""
+msgstr "Αντιμετωπίσαμε ένα πρόβλημα κατά την διάρκεια φόρτωσης του WebPG"
 
 #: extension/error.js:25
 msgid "Suggestions"
-msgstr ""
+msgstr "Συμβουλές"
 
 #: extension/error.js:28
 msgid "The plugin was unable to load"
-msgstr ""
+msgstr "Το πρόσθετο απέτυχε να φορτώσει"
 
 #: extension/error.js:30
 msgid "The Firefox Click to Play feature is enabled"
@@ -325,59 +328,59 @@ msgstr ""
 
 #: extension/error.js:35
 msgid "There might be a problem with the gpg installation"
-msgstr ""
+msgstr "Ενδέχεται να υπάρχει πρόβλημα με την εγκατάσταση του gpg"
 
 #: extension/error.js:37
 msgid "consider reinstalling gpg4win"
-msgstr ""
+msgstr "Δοκιμάστε επανεγκατάσταση του gpg4win"
 
 #: extension/error.js:43
 msgid "Error Details"
-msgstr ""
+msgstr "Λεπτομέρειες Σφάλματος"
 
 #: extension/error.js:44
 msgid "Error in Method"
-msgstr ""
+msgstr "Σφάλμα στην μέθοδο"
 
 #: extension/error.js:45
 msgid "Error Code"
-msgstr ""
+msgstr "Λάθος Κωδικός"
 
 #: extension/error.js:46
 msgid "Error String"
-msgstr ""
+msgstr "Λάθος αλφαριθμητικό"
 
 #: extension/error.js:54
 msgid "File"
-msgstr ""
+msgstr "Αρχείο"
 
 #: extension/error.js:55
 msgid "Line"
-msgstr ""
+msgstr "Γραμμή"
 
 #: extension/error.js:58
 msgid "Unknown Error"
-msgstr ""
+msgstr "Άγνωστο σφάλμα"
 
 #: extension/error.js:62
 msgid "System Information"
-msgstr ""
+msgstr "Πληροφορίες Συστήματος"
 
 #: extension/error.js:64
 msgid "App Version"
-msgstr ""
+msgstr "Έκδοση Εφαρμογής"
 
 #: extension/error.js:67
 msgid "Sub-product"
-msgstr ""
+msgstr "Υπο-προϊόν"
 
 #: extension/error.js:68
 msgid "Vendor"
-msgstr ""
+msgstr "Πωλητής"
 
 #: extension/inline.js:746 extension/key_manager.js:1981
 msgid "no email address provided"
-msgstr ""
+msgstr "δεν δόθηκε email διεύθυνση"
 
 #: extension/inline.js:1003
 msgid "Use"
@@ -387,7 +390,7 @@ msgstr ""
 #: extension/key_manager.js:325 extension/webmail/gmail/gmail.js:768
 #: extension/webmail/gmail/inbox.js:770
 msgid "Sign only"
-msgstr ""
+msgstr "Μόνο υπογραφή"
 
 #: extension/inline.js:1143 extension/XULContent/firefoxOverlay.xul:59
 #: extension/XULContent/thunderbird/composeOverlay.js:93
@@ -395,14 +398,14 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:786 extension/webmail/gmail/gmail.js:925
 #: extension/webmail/gmail/inbox.js:788 extension/webmail/gmail/inbox.js:927
 msgid "Sign and Encrypt"
-msgstr ""
+msgstr "Υπογραφή και κρυπτογράφηση"
 
 #: extension/inline.js:1159
 #: extension/XULContent/thunderbird/composeOverlay.js:95
 #: extension/webmail/gmail/gmail.js:802 extension/webmail/gmail/gmail.js:932
 #: extension/webmail/gmail/inbox.js:804 extension/webmail/gmail/inbox.js:934
 msgid "Symmetric Encryption"
-msgstr ""
+msgstr "Συμμετρική Κρυπτογράφηση"
 
 #: extension/inline.js:1165 extension/webmail/gmail/gmail.js:809
 #: extension/webmail/gmail/gmail.js:939 extension/webmail/gmail/inbox.js:811
@@ -413,36 +416,36 @@ msgstr ""
 #: extension/inline.js:1181 extension/XULContent/firefoxOverlay.xul:66
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:87
 msgid "Decrypt"
-msgstr ""
+msgstr "Αποκρυπτογράφηση"
 
 #: extension/inline.js:1199 extension/XULContent/firefoxOverlay.xul:45
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:66
 msgid "Verify"
-msgstr ""
+msgstr "Επαλήθευση"
 
 #: extension/inline.js:1207
 msgid "Secure Editor"
-msgstr ""
+msgstr "Ασφαλής επεξεργαστής κειμένου"
 
 #: extension/inline.js:1321
 msgid "PGP Signed Message"
-msgstr ""
+msgstr "Μήνυμα υπογρεγραμμένο από PGP"
 
 #: extension/inline.js:1328 extension/webpg_results.js:159
 msgid "PGP ENCRYPTED OR SIGNED MESSAGE"
-msgstr ""
+msgstr "Μήνυμα κρυπτογραφημένο ή υπογεγραμμένο από PGP"
 
 #: extension/inline.js:1336
 msgid "PGP Public Key"
-msgstr ""
+msgstr "Δημόσιο κλειδί PGP"
 
 #: extension/inline.js:1350
 msgid "WebPG Secure Editor"
-msgstr ""
+msgstr "Ασφαλης επεξεργαστής κειμένου WEBPG"
 
 #: extension/inline.js:1353
 msgid "Unsecured Editor"
-msgstr ""
+msgstr "Μη ασφαλής επεξεργαστής κειμένου"
 
 #: extension/key_manager.js:113 extension/key_manager.js:122
 msgid "Loading keys"
@@ -450,27 +453,27 @@ msgstr ""
 
 #: extension/key_manager.js:170
 msgid "Generating Key"
-msgstr ""
+msgstr "Δημιουργία κλειδιού"
 
 #: extension/key_manager.js:170 extension/key_manager.js:701
 msgid "Waiting for entropy"
-msgstr ""
+msgstr "Αναμένοντας την εντροπία"
 
 #: extension/key_manager.js:174
 msgid "Building key"
-msgstr ""
+msgstr "Δημιουργώντας το κλειδί"
 
 #: extension/key_manager.js:174
 msgid "please wait"
-msgstr ""
+msgstr "παρακαλώ περιμένετε"
 
 #: extension/key_manager.js:242
 msgid "Private Keys"
-msgstr ""
+msgstr "Ιδιωτικά κλειδιά"
 
 #: extension/key_manager.js:262
 msgid "Public Keys"
-msgstr ""
+msgstr "Δημοσια κλειδιά"
 
 #: extension/key_manager.js:281
 msgid "Search Keyserver"
@@ -482,158 +485,158 @@ msgstr ""
 
 #: extension/key_manager.js:284 extension/key_manager.js:355
 msgid "Your Name"
-msgstr ""
+msgstr "Το Όνομά σου"
 
 #: extension/key_manager.js:285 extension/key_manager.js:359
 msgid "Your Email"
-msgstr ""
+msgstr "Το Email σου"
 
 #: extension/key_manager.js:286 extension/key_manager.js:363
 msgid "Comment"
-msgstr ""
+msgstr "Σχόλιο"
 
 #: extension/key_manager.js:290
 msgid "Passphrase"
-msgstr ""
+msgstr "Συνθηματική φράση"
 
 #: extension/key_manager.js:294
 msgid "Repeat Passphrase"
-msgstr ""
+msgstr "Επανέλαβε την Συνθηματική φράση"
 
 #: extension/key_manager.js:295 extension/options.js:181
 msgid "Advanced Options"
-msgstr ""
+msgstr "Προχωρημένες επιλογές"
 
 #: extension/key_manager.js:296
 msgid "Public Key Algorithm"
-msgstr ""
+msgstr "Αλγλοριθμος δημόσιου κλειδιού"
 
 #: extension/key_manager.js:297
 msgid "Public Key Size"
-msgstr ""
+msgstr "Μέγεθος δημόσιου κλειδιού"
 
 #: extension/key_manager.js:298 extension/key_manager.js:318
 msgid "Private Key Algorithm"
-msgstr ""
+msgstr "Αλγόριθμος ιδιωτικού κλειδιού"
 
 #: extension/key_manager.js:299 extension/key_manager.js:350
 msgid "Private Key Size"
-msgstr ""
+msgstr "μέγεθος ιδιωτικού κλειδιού"
 
 #: extension/key_manager.js:300 extension/key_manager.js:351
 msgid "Expire in"
-msgstr ""
+msgstr "Λήγη στις"
 
 #: extension/key_manager.js:304 extension/key_manager.js:2150
 #: extension/key_manager.js:2533 extension/webpg_results.js:136
 msgid "Never"
-msgstr ""
+msgstr "Ποτέ"
 
 #: extension/key_manager.js:307
 msgid "n30 days"
-msgstr ""
+msgstr "n30 μέρες"
 
 #: extension/key_manager.js:310
 msgid "n90 days"
-msgstr ""
+msgstr "n90 μέρες"
 
 #: extension/key_manager.js:313
 msgid "n1 year"
-msgstr ""
+msgstr "n1 χρόνος"
 
 #: extension/key_manager.js:317
 msgid "Subkey Options"
-msgstr ""
+msgstr "Επιλογές υπο-κλειδιού"
 
 #: extension/key_manager.js:328 extension/key_manager.js:331
 msgid "encrypt only"
-msgstr ""
+msgstr "μόνο κρυπτογραφία"
 
 #: extension/key_manager.js:334 extension/key_manager.js:337
 msgid "set your own capabilities"
-msgstr ""
+msgstr "θέσε τις δικές σου δυνατότητες"
 
 #: extension/key_manager.js:345 extension/key_manager.js:1217
 #: extension/key_manager.js:2562
 msgid "Sign"
-msgstr ""
+msgstr "Υπογραφή"
 
 #: extension/key_manager.js:347 extension/key_manager.js:2566
 msgid "Authenticate"
-msgstr ""
+msgstr "επαλήθευση ταυτότητας"
 
 #: extension/key_manager.js:365
 msgid "Revoke this Key"
-msgstr ""
+msgstr "ανακάλεσε αυτό το κλειδί"
 
 #: extension/key_manager.js:366
 msgid "Revoke this UID"
-msgstr ""
+msgstr "ανακάλεσε αυτό το UID"
 
 #: extension/key_manager.js:367
 msgid "Revoke this Signature"
-msgstr ""
+msgstr "ανακάλεσε αυτή την υπογραφή"
 
 #: extension/key_manager.js:368 extension/key_manager.js:2402
 msgid "Delete this Signature"
-msgstr ""
+msgstr "διέγραψε αυτή την υπογραφή"
 
 #: extension/key_manager.js:369 extension/key_manager.js:370
 #: extension/key_manager.js:1073 extension/key_manager.js:2307
 msgid "Delete this UID"
-msgstr ""
+msgstr "διέγραψε αυτό το UID"
 
 #: extension/key_manager.js:371
 msgid "Delete this Key"
-msgstr ""
+msgstr "διέγραψε αυτό το κλειδί"
 
 #: extension/key_manager.js:372
 msgid "This key will be permanently deleted"
-msgstr ""
+msgstr "Το κλειδία διαγράφηκε μόνιμα"
 
 #: extension/key_manager.js:373
 msgid "Are you sure"
-msgstr ""
+msgstr "Είσαι σίγουρος(η)"
 
 #: extension/key_manager.js:374 extension/key_manager.js:2280
 msgid "Change Expiration"
-msgstr ""
+msgstr "Αλλαγή λήξη ισχύος"
 
 #: extension/key_manager.js:375 extension/key_manager.js:2305
 msgid "Sign this UID"
-msgstr ""
+msgstr "Υπέγραψε αυτό το UID"
 
 #: extension/key_manager.js:376 extension/key_manager.js:1841
 msgid "Key Details"
-msgstr ""
+msgstr "Λεπτομέρειες κλειδιού"
 
 #: extension/key_manager.js:377
 msgid "Export Public Key"
-msgstr ""
+msgstr "Εξαγωγή δημόσιου κλειδιού"
 
 #: extension/key_manager.js:378 extension/key_manager.js:2286
 msgid "Add UID"
-msgstr ""
+msgstr "Προσθήκη UID"
 
 #: extension/key_manager.js:380
 msgid "Are you sure you wish to revoke this Key"
-msgstr ""
+msgstr "Είστε σίγουρος ότι θέλετε να ανακαλέσετε αυτό το κλειδί"
 
 #: extension/key_manager.js:381
 msgid "Are you sure you wish to revoke this UID"
-msgstr ""
+msgstr "Είστε σίγουρος ότι θέλετε να ανακαλέσετε αυτό το UID"
 
 #: extension/key_manager.js:382
 msgid "Are you sure you wish to revoke this Signature"
-msgstr ""
+msgstr "Είστε σίγουρος ότι θέλετε να ανακαλέσετε αυτή την υπογραφή;"
 
 #: extension/key_manager.js:383
 msgid "Are you sure you wish to delete this Signature"
-msgstr ""
+msgstr "Είστε σίγουρος ότι θέλετε να διαγράψετε αυτή την υπογραφή;"
 
 #: extension/key_manager.js:384
 msgid "Are you sure you want to permanently delete this UID"
-msgstr ""
+msgstr "Είστε σίγουρος ότι θέλετε να διαγράψετε μόνιμα αυτό το UID"
 
 #: extension/key_manager.js:385
 msgid "Are you sure you want to permanently delete this Photo"
@@ -641,24 +644,24 @@ msgstr ""
 
 #: extension/key_manager.js:386
 msgid "New Expiration Date"
-msgstr ""
+msgstr "Νέα ημερομηνία Λήξης"
 
 #: extension/key_manager.js:387
 msgid "Never Expire"
-msgstr ""
+msgstr "Δεν λήγει ποτέ"
 
 #: extension/key_manager.js:388
 msgid "Expiration Date"
-msgstr ""
+msgstr "Ημερομηνία Λήξης"
 
 #: extension/key_manager.js:498 extension/options.js:186
 #: extension/options.js:191 extension/options.js:196 extension/options.js:201
 msgid "Save"
-msgstr ""
+msgstr "Αποθήκευση"
 
 #: extension/key_manager.js:553 extension/key_manager.js:2294
 msgid "Delete this key"
-msgstr ""
+msgstr "Διαγραφή αυτού του κλειδιού"
 
 #: extension/key_manager.js:787
 msgid "Add"
@@ -702,83 +705,86 @@ msgstr ""
 
 #: extension/key_manager.js:910
 msgid "Copy"
-msgstr ""
+msgstr "Αντιγραφή"
 
 #: extension/key_manager.js:935 extension/key_manager.js:1105
 msgid "Please specify the revocation details"
-msgstr ""
+msgstr "Παρακαλώ ορίστε τις λεπτομέρειες ανάκλησης"
 
 #: extension/key_manager.js:936 extension/key_manager.js:1106
 msgid "Reason"
-msgstr ""
+msgstr "Αιτία"
 
 #: extension/key_manager.js:938 extension/key_manager.js:1108
 msgid "No reason specified"
-msgstr ""
+msgstr "Δε διευκρινίστηκε αιτία"
 
 #: extension/key_manager.js:939
 msgid "Key has been compromised"
-msgstr ""
+msgstr "Το κλειδί έχει διαρρεύσει"
 
 #: extension/key_manager.js:940
 msgid "Key is superseded"
-msgstr ""
+msgstr "Το κλειδί έχει παρακαμθεί"
 
 #: extension/key_manager.js:941
 msgid "Key is no longer used"
-msgstr ""
+msgstr "Το κλειδί δεν είναι πια σε χρήση"
 
 #: extension/key_manager.js:943 extension/key_manager.js:1111
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: extension/key_manager.js:956 extension/key_manager.js:1125
 msgid "Revoke"
-msgstr ""
+msgstr "Ανάκληση"
 
 #: extension/key_manager.js:981
 msgid "Are you sure you want to Publish this key to the Keyserver"
 msgstr ""
+"Είστε σίγουρος ότι θέλετε να δημοσιοποιήσετε αυτό το κλειδί στον Keyserver"
 
 #: extension/key_manager.js:988
 msgid "Publish"
-msgstr ""
+msgstr "Δημοσίευση"
 
 #: extension/key_manager.js:991
 msgid "Sending key to Keyserver"
-msgstr ""
+msgstr "Στέλνoντας το κλειδί στον Keyserver"
 
 #: extension/key_manager.js:995
 msgid "There was a problem sending this key to the Keyserver"
 msgstr ""
+"Εμφασίστηκε κάποιο πρόβλημα κατά την αποστολή αυτού του κλειδού στον "
+"Keyserver"
 
 #: extension/key_manager.js:999
 msgid "No Keyserver defined"
-msgstr ""
+msgstr "Δεν έχει οριστεί Keyserver"
 
 #: extension/key_manager.js:1002 extension/options.js:199
 msgid "Keyserver"
-msgstr ""
+msgstr "Εξυπηρετητής κλειδιών (KeyServer)"
 
 #: extension/key_manager.js:1005
 msgid "Try Again"
-msgstr ""
+msgstr "Προσπαθήστε ξανά"
 
 #: extension/key_manager.js:1010
 msgid "Key Published to Keyserver"
-msgstr ""
+msgstr "το κλειδί δημοσιεύτηκε στον Keyserver"
 
 #: extension/key_manager.js:1011
 msgid "Publish Again"
-msgstr ""
+msgstr "Δημοσίευση ξανά"
 
 #: extension/key_manager.js:1024 extension/key_manager.js:2302
 msgid "Publish to Keyserver"
-msgstr ""
+msgstr "Δημοσιοποίηση στο Keyserver"
 
 #: extension/key_manager.js:1032 extension/webpg_results.js:348
 msgid "Key not found on keyserver"
-msgstr ""
+msgstr "Το κλειδί δεν βρέθηκε στον Keyserver"
 
 #: extension/key_manager.js:1055
 msgid "Key updated"
@@ -790,39 +796,39 @@ msgstr ""
 
 #: extension/key_manager.js:1109
 msgid "User ID is no longer valid"
-msgstr ""
+msgstr "Το User ID δεν είναι πλέον έγκυρο"
 
 #: extension/key_manager.js:1166
 msgid "Please select which of your keys to create the signature with"
-msgstr ""
+msgstr "Παρακαλώ επιλέξτε κάποιο από τα κλειδιά σας για να υπογράψετε με αυτό"
 
 #: extension/key_manager.js:1178
 msgid "You have not enabled any keys for use with webpg"
-msgstr ""
+msgstr "Δεν έχετε ενεργοποιήσει κάποιο κλειδί για χρήση με το webpg"
 
 #: extension/key_manager.js:1180 extension/key_manager.js:1184
 msgid "please click here"
-msgstr ""
+msgstr "παρακαλώ κλικάρετε εδώ"
 
 #: extension/key_manager.js:1180
 msgid "and select 1 or more keys for use with webpg"
-msgstr ""
+msgstr "και επιλέξτε 1 ή περισσότερα κλειδιά για χρήση με το webpg"
 
 #: extension/key_manager.js:1182
 msgid "You have not generated any keys"
-msgstr ""
+msgstr "δδεν έχετε δημιουργήσει κανένα κλειδί"
 
 #: extension/key_manager.js:1184
 msgid "and generate a key to use with webpg"
-msgstr ""
+msgstr "Δκαι δημιουργήστε ένα κλειδία για χρήση με το webpg"
 
 #: extension/key_manager.js:1197
 msgid "Already signed with this key"
-msgstr ""
+msgstr "dήδη υπογεγραμμένο με αυτό το κλειδί"
 
 #: extension/key_manager.js:1201
 msgid "Signature added using this key"
-msgstr ""
+msgstr "Η υπογραφή προστέθηκε χρησιμοποιώντας αυτό το κλειδί"
 
 #: extension/key_manager.js:1294 extension/key_manager.js:1701
 #: extension/key_manager.js:2316
@@ -831,7 +837,7 @@ msgstr ""
 
 #: extension/key_manager.js:1386
 msgid "Searching for"
-msgstr ""
+msgstr "Αναζήτηση για"
 
 #: extension/key_manager.js:1393
 msgid "Search string too ambiguous or not found on server"
@@ -840,7 +846,7 @@ msgstr ""
 #: extension/key_manager.js:1441 extension/key_manager.js:1844
 #: extension/key_manager.js:1905
 msgid "KeyID"
-msgstr ""
+msgstr "Ταυτότητα κλειδιού"
 
 #: extension/key_manager.js:1463
 msgid "IMPORT"
@@ -848,40 +854,40 @@ msgstr ""
 
 #: extension/key_manager.js:1847 extension/key_manager.js:1909
 msgid "Key Created"
-msgstr ""
+msgstr "Το κλειδί δημιουργήθηκε"
 
 #: extension/key_manager.js:1850 extension/key_manager.js:1913
 #: extension/key_manager.js:1984 extension/webpg_results.js:138
 #: extension/webpg_results.js:451
 msgid "Expires"
-msgstr ""
+msgstr "Λήγει"
 
 #: extension/key_manager.js:1850 extension/key_manager.js:1861
 #: extension/key_manager.js:1914 extension/key_manager.js:1924
 msgid "Expired"
-msgstr ""
+msgstr "Έληξε"
 
 #: extension/key_manager.js:1853 extension/key_manager.js:1952
 msgid "User IDs"
-msgstr ""
+msgstr "User IDs"
 
 #: extension/key_manager.js:1857 extension/key_manager.js:1918
 msgid "Fingerprint"
-msgstr ""
+msgstr "Αποτύπωμα"
 
 #: extension/key_manager.js:1861 extension/key_manager.js:1923
 #: extension/webpg_results.js:139
 msgid "Status"
-msgstr ""
+msgstr "Κατάσταση"
 
 #: extension/key_manager.js:1861 extension/key_manager.js:1924
 #: extension/key_manager.js:1979
 msgid "Revoked"
-msgstr ""
+msgstr "Ανακλήθηκε"
 
 #: extension/key_manager.js:1861 extension/key_manager.js:1924
 msgid "Invalid"
-msgstr ""
+msgstr "Άκυρο"
 
 #: extension/key_manager.js:1861 extension/key_manager.js:1924
 #: extension/key_manager.js:2074 extension/key_manager.js:2102
@@ -890,39 +896,39 @@ msgstr ""
 #: extension/options.js:388 extension/options.js:398 extension/options.js:413
 #: extension/options.js:418
 msgid "Disabled"
-msgstr ""
+msgstr "Απενεργοποιημένο"
 
 #: extension/key_manager.js:1861 extension/key_manager.js:1924
 msgid "Valid"
-msgstr ""
+msgstr "Έγκυρο"
 
 #: extension/key_manager.js:1864 extension/key_manager.js:1927
 msgid "Key Algorithm"
-msgstr ""
+msgstr "Αλγόριθμος κλειδιού"
 
 #: extension/key_manager.js:1867 extension/webpg_results.js:140
 msgid "Validity"
-msgstr ""
+msgstr "Εγκυρότητα"
 
 #: extension/key_manager.js:1870 extension/key_manager.js:1935
 msgid "Key Options"
-msgstr ""
+msgstr "Επιλογές κλειδιού"
 
 #: extension/key_manager.js:1882
 msgid "Operations"
-msgstr ""
+msgstr "Λειτουργίες"
 
 #: extension/key_manager.js:1893
 msgid "Subkeys"
-msgstr ""
+msgstr "Υποκλειδιά:"
 
 #: extension/key_manager.js:1902
 msgid "Subkey Details"
-msgstr ""
+msgstr "Λεπτομέρειες υποκλειδιών"
 
 #: extension/key_manager.js:1931
 msgid "Flags"
-msgstr ""
+msgstr "Παράμετροι"
 
 #: extension/key_manager.js:1941
 msgid "Key Operations"
@@ -931,11 +937,13 @@ msgstr ""
 #: extension/key_manager.js:1973
 msgid "Signatures made with keys not in your keyring are omitted"
 msgstr ""
+"Οι υπογραφές που έγιναν με κλειδία έξω από τον κύκλο κλειδιών σου "
+"παραλείπονται"
 
 #: extension/key_manager.js:1983 extension/webpg_results.js:137
 #: extension/webpg_results.js:449
 msgid "Created"
-msgstr ""
+msgstr "Δημιουργήθηκε"
 
 #: extension/key_manager.js:1996
 msgid "User Photos"
@@ -951,7 +959,7 @@ msgstr ""
 
 #: extension/key_manager.js:2060
 msgid "This is your default key"
-msgstr ""
+msgstr "Αυτό είναι το προεπιλεγμένο σου κλειδί"
 
 #: extension/key_manager.js:2062
 msgid "Make this the default key for GnuPG operations"
@@ -963,27 +971,27 @@ msgstr ""
 #: extension/options.js:388 extension/options.js:398 extension/options.js:413
 #: extension/options.js:418
 msgid "Enabled"
-msgstr ""
+msgstr "Ενεργοποιημένη"
 
 #: extension/key_manager.js:2081
 msgid "Cannot unset your default key"
-msgstr ""
+msgstr "δεν είναι δυνατό να αποθέσετε το προεπιλεγμένο σας κλειδί"
 
 #: extension/key_manager.js:2138
 msgid "Trust Assignment"
-msgstr ""
+msgstr "εκχώρηση εμπιστοσύνης"
 
 #: extension/key_manager.js:2149 extension/webpg_results.js:134
 msgid "Unknown"
-msgstr ""
+msgstr "Άγνωστος"
 
 #: extension/key_manager.js:2151
 msgid "Marginal"
-msgstr ""
+msgstr "Οριακό"
 
 #: extension/key_manager.js:2152
 msgid "Full"
-msgstr ""
+msgstr "Πλήρες"
 
 #: extension/key_manager.js:2153
 msgid "ultimate"
@@ -991,7 +999,7 @@ msgstr ""
 
 #: extension/key_manager.js:2170
 msgid "Group Assignment"
-msgstr ""
+msgstr "εκχώρηση Ομάδας"
 
 #: extension/key_manager.js:2196
 msgid "Select group(s) below"
@@ -1011,11 +1019,11 @@ msgstr ""
 
 #: extension/key_manager.js:2282
 msgid "Change Passphrase"
-msgstr ""
+msgstr "Αλλαγή συνθηματικού"
 
 #: extension/key_manager.js:2284
 msgid "Add Subkey"
-msgstr ""
+msgstr "Προσθήκη υπο-κλειδιού"
 
 #: extension/key_manager.js:2288
 msgid "Add Photo"
@@ -1031,7 +1039,7 @@ msgstr ""
 
 #: extension/key_manager.js:2296
 msgid "Delete this Subkey"
-msgstr ""
+msgstr "Διέγραψε αυτό το υπο-κλειδί"
 
 #: extension/key_manager.js:2298
 msgid "Export this key"
@@ -1039,11 +1047,11 @@ msgstr ""
 
 #: extension/key_manager.js:2300 extension/webpg_results.js:318
 msgid "Refresh from Keyserver"
-msgstr ""
+msgstr "Ανανέωση από τον keyserver"
 
 #: extension/key_manager.js:2305
 msgid "Cannot sign a revoked UID"
-msgstr ""
+msgstr "Δεν είναι δυνατή η υπογραφη ενός ανακλημένου UID"
 
 #: extension/key_manager.js:2309
 msgid "Revoke this key"
@@ -1051,11 +1059,11 @@ msgstr ""
 
 #: extension/key_manager.js:2311
 msgid "Revoke UID"
-msgstr ""
+msgstr "Ανακάλεσε UID"
 
 #: extension/key_manager.js:2314
 msgid "Cannot make a revoked UID primary"
-msgstr ""
+msgstr "Δεν είναι δυνατόν να κάνετε ένα ανακλημένο κλειδία πρωτεύον"
 
 #: extension/key_manager.js:2314
 msgid "Make Primary"
@@ -1063,15 +1071,15 @@ msgstr ""
 
 #: extension/key_manager.js:2345 extension/key_manager.js:2360
 msgid "Delete"
-msgstr ""
+msgstr "Διαγραφή"
 
 #: extension/key_manager.js:2353
 msgid "This signature was made with a key that does not belong to you"
-msgstr ""
+msgstr "Αυτή η υπογραφή έγινε με ένα κλειδί που δεν σου ανήκει"
 
 #: extension/key_manager.js:2353
 msgid "This action cannot be undone"
-msgstr ""
+msgstr "Αυτή η ενέργεια δεν μπορεί να ανακληθεί"
 
 #: extension/key_manager.js:2568
 msgid "Certify"
@@ -1087,63 +1095,63 @@ msgstr ""
 
 #: extension/options.js:23 extension/options.js:153
 msgid "WebPG Options"
-msgstr ""
+msgstr "Επιλογές WebPG"
 
 #: extension/options.js:50
 msgid "The WebPG NPAPI Plugin is valid"
-msgstr ""
+msgstr "To πρόσθετο WebPG NPAPI είναι έγκυρο"
 
 #: extension/options.js:51
 msgid "OpenPGP was detected"
-msgstr ""
+msgstr "Εντοπίστηκε το OpenPGP"
 
 #: extension/options.js:52
 msgid "It appears you have a key-agent configured"
-msgstr ""
+msgstr "Φαίνεται ότι έχετε έναν key-agent ρυθμισμένο"
 
 #: extension/options.js:53
 msgid "gpgconf was detected"
-msgstr ""
+msgstr "εντοπίστηκε το gpgconf"
 
 #: extension/options.js:53
 msgid "you can use the signature methods"
-msgstr ""
+msgstr "δεν μπορείς να χρησιμοποιήσεις τις μεθόδους υπογραφής"
 
 #: extension/options.js:59
 msgid "OpenPGP does not appear to be installed"
-msgstr ""
+msgstr "Το OpenPGP δεν είναι εγκατεστημένο"
 
 #: extension/options.js:67
 msgid "You do not appear to have a key-agent configured"
-msgstr ""
+msgstr "Δεν φαίνεται να έχεις ένας key-agent ρυθμισμένο"
 
 #: extension/options.js:67
 msgid "A working key-agent is required"
-msgstr ""
+msgstr "Ενας ενεργός key-agent απαιτείται"
 
 #: extension/options.js:75
 msgid "gpgconf does not appear to be installed"
-msgstr ""
+msgstr "Το gpgconf δεν είναι εγκατεστημένο"
 
 #: extension/options.js:75
 msgid "You will not be able to create signatures"
-msgstr ""
+msgstr "Δεν θα μπορείς να δημιουργήσεις υπογραφές"
 
 #: extension/options.js:84
 msgid "There was a problem loading the plugin"
-msgstr ""
+msgstr "Εντοπίστηκε πρόβλημα κατά την φόρτωση του πρόσθετου"
 
 #: extension/options.js:84
 msgid "the plugin might be incompatibly compiled for this architechture"
-msgstr ""
+msgstr "το πρόσθετο ενδέχεται να μην είναι συμβατό με αυτόν τον υπολογιστή"
 
 #: extension/options.js:113
 msgid "click here for help resolving this issue"
-msgstr ""
+msgstr "Κλικάρετε εδώ για να επιλύσετε το πρόβλημα"
 
 #: extension/options.js:156
 msgid "Enable Inline formatting of PGP Messages and Keys"
-msgstr ""
+msgstr "Ενεργοποίηση inline Μορφοποίησης για τα PGP μηνύματα και κλειδιά"
 
 #: extension/options.js:158 extension/options.js:341
 msgid "Inline Options"
@@ -1152,14 +1160,16 @@ msgstr ""
 #: extension/options.js:161
 msgid "Always encrypt to your default key in addition to the recipient"
 msgstr ""
+"Πάντα κρυπτογραφήστε με το προεπιλεγμένο κλεδί επιπροσθέτως με αυτό το "
+"παραλήπτη"
 
 #: extension/options.js:164
 msgid "Enable WebPG GMAIL integration"
-msgstr ""
+msgstr "Ενεργοποίση WebPG GMAIl υλοποίησης"
 
 #: extension/options.js:164
 msgid "EXPERIMENTAL"
-msgstr ""
+msgstr "Πειραματικό"
 
 #: extension/options.js:167
 msgid "Automatically Sign outgoing messages in GMAIL"
@@ -1175,15 +1185,15 @@ msgstr ""
 
 #: extension/options.js:194
 msgid "GPGCONF binary"
-msgstr ""
+msgstr "GPGCONF εκτελέσιμο"
 
 #: extension/options.js:203
 msgid "Your system appears to be configured correctly for WebPG"
-msgstr ""
+msgstr "Το σύστημά σου φαίνεται να είναι σωστά ρυθμισμένο για το WebPG"
 
 #: extension/options.js:205
 msgid "There is a problem with your configuration"
-msgstr ""
+msgstr "Υπάρχει κάποιο πρόβλημα με την ρύθμιση"
 
 #: extension/options.js:247 extension/options.js:272
 msgid "Inline formatting mode"
@@ -1212,11 +1222,11 @@ msgstr ""
 
 #: extension/options.js:392
 msgid "WebPG GMAIL integration is EXPERIMENTAL"
-msgstr ""
+msgstr "Η υλοποίηση του WebPG GMAIL είναι πειραματική"
 
 #: extension/options.js:392
 msgid "use at your own risk"
-msgstr ""
+msgstr "χρησιμοποιήστε με δική σας ευθύνη"
 
 #: extension/options.js:429 extension/options.js:438
 msgid "PGP/MIME Enabled"
@@ -1240,19 +1250,19 @@ msgstr ""
 
 #: extension/utils.js:338
 msgid "Text copied to clipboard"
-msgstr ""
+msgstr "Το κείμενο αντιγράφτηκε στο πρόχειρο"
 
 #: extension/utils.js:364
 msgid "There may have been a problem placing the data into the clipboard"
-msgstr ""
+msgstr "Υπάρχει ένα πρόβλημα κατά την τοποθέτηση δεδομένων στο πρόχειρο"
 
 #: extension/utils.js:368
 msgid "TEXT COPIED"
-msgstr ""
+msgstr "ΤΟ ΚΕΙΜΕΝΟ ΑΝΤΙΓΡΑΦΤΗΚΕ"
 
 #: extension/utils.js:368
 msgid "UNABLE TO COPY TEXT"
-msgstr ""
+msgstr "ΑΔΥΝΑΤΟ ΝΑ ΑΝΤΙΓΡΑΦΕΙ ΤΟ ΚΕΙΜΕΝΟ"
 
 #: extension/utils.js:370 extension/webpg_results.js:227
 #: extension/webpg_results.js:258 extension/webpg_results.js:274
@@ -1261,61 +1271,61 @@ msgstr ""
 #: extension/webpg_results.js:470 extension/webpg_results.js:553
 #: extension/webpg_results.js:646
 msgid "COPY TO CLIPBOARD"
-msgstr ""
+msgstr "ΑΝΤΙΓΡΑΦΗ ΣΤΟ ΠΡΟΧΕΙΡΟ"
 
 #: extension/utils.js:1389 extension/XULContent/firefoxOverlay.xul:43
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:64
 msgid "Verify this text"
-msgstr ""
+msgstr "Επαληθεύστε αυτό το κείμενο"
 
 #: extension/utils.js:1411 extension/XULContent/firefoxOverlay.xul:64
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:85
 msgid "Decrypt this text"
-msgstr ""
+msgstr "ΑΠοκρυπτογραφήστε αυτό το κείμενο"
 
 #: extension/utils.js:1433
 msgid "Import this Key"
-msgstr ""
+msgstr "Εισαγωγή αυτού του Κλειδιού"
 
 #: extension/utils.js:1455 extension/XULContent/firefoxOverlay.xul:36
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:57
 msgid "Clear-sign this text"
-msgstr ""
+msgstr "Φανερή Υπογραφή του κειμένου"
 
 #: extension/utils.js:1477 extension/XULContent/firefoxOverlay.xul:50
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:71
 msgid "Encrypt this text"
-msgstr ""
+msgstr "Κρυπτογραφήστε αυτό το κείμενο"
 
 #: extension/utils.js:1499 extension/XULContent/firefoxOverlay.xul:78
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:99
 msgid "Paste Public Key"
-msgstr ""
+msgstr "Επικόληση Δημόσιου Κλειδιού"
 
 #: extension/webpg_overlay.js:303 extension/webpg_results.js:162
 msgid "UNABLE TO DECRYPT OR VERIFY THIS MESSAGE"
-msgstr ""
+msgstr "ΑΔΥΝΑΤΟ ΝΑ ΑΠΟΚΡΥΠΤΟΓΡΑΦΗΘΕΙ Η ΝΑ ΕΠΑΛΗΘΕΥΤΕΙ ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ"
 
 #: extension/webpg_results.js:176 extension/webpg_results.js:622
 msgid "PGP ENCRYPTED AND SIGNED MESSAGE"
-msgstr ""
+msgstr "ΜΗΝΥΜΑ ΚΡΥΠΤΟΓΡΑΦΗΜΕΝΟ ΚΑΙ ΥΠΟΓΡΕΓΡΑΜΜΕΝΟ ΜΕ PGP"
 
 #: extension/webpg_results.js:207 extension/webpg_results.js:212
 #: extension/webpg_results.js:610
 msgid "DECRYPTION FAILED"
-msgstr ""
+msgstr "Η ΑΠΟΚΡΥΠΤΟΓΡΑΦΗΣΗ ΑΠΕΤΥΧΕ"
 
 #: extension/webpg_results.js:207
 msgid "NO SECRET KEY"
-msgstr ""
+msgstr "ΔΕΝ ΒΡΕΘΗΚΕ ΜΥΣΤΙΚΟ ΚΛΕΙΔΙ"
 
 #: extension/webpg_results.js:212 extension/webpg_results.js:610
 msgid "BAD PASSPHRASE"
-msgstr ""
+msgstr "ΛΑΘΟΣ ΣΥΝΘΗΜΑΤΙΚΟ"
 
 #: extension/webpg_results.js:214 extension/webpg_results.js:217
 msgid "DECRYPT THIS MESSAGE"
-msgstr ""
+msgstr "ΑΠΟΚΡΥΠΤΟΓΡΑΦΗΣΤΕ ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ"
 
 #: extension/webpg_results.js:225 extension/webpg_results.js:273
 #: extension/webpg_results.js:303 extension/webpg_results.js:316
@@ -1326,59 +1336,61 @@ msgstr ""
 #: extension/webpg_results.js:645 extension/webpg_results.js:649
 #: extension/webpg_results.js:655
 msgid "DISPLAY ORIGINAL"
-msgstr ""
+msgstr "ΠΑΡΟΥΣΙΑΣΗ ΠΡΩΤΟΤΥΠΟΥ"
 
 #: extension/webpg_results.js:234
 msgid "DETACHED PGP SIGNATURE"
-msgstr ""
+msgstr "ΑΠΕΣΠΑΣΜΕΝΗ PGP ΥΠΟΓΡΑΦΗ"
 
 #: extension/webpg_results.js:236
 msgid "PGP SIGNED MESSAGE"
-msgstr ""
+msgstr "ΜΗΝΥΜΑ ΥΠΟΓΕΓΡΑΜΜΕΝΟ ΜΕ PGP"
 
 #: extension/webpg_results.js:251
 msgid "THE SIGNATURE ON THIS MESSAGE IS INVALID"
-msgstr ""
+msgstr "H ΥΠΟΓΡΑΦΗ ΣΕ ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΔΕΝ ΙΣΧΥΕΙ"
 
 #: extension/webpg_results.js:251
 msgid "THE SIGNATURE MIGHT BE TAMPERED WITH"
-msgstr ""
+msgstr "Η ΥΠΟΓΡΑΦΗ ΜΠΟΡΕΙ ΝΑ ΕΧΕΙ ΠΑΡΑΠΟΙΗΘΕΙ"
 
 #: extension/webpg_results.js:266 extension/webpg_results.js:337
 msgid "THE SIGNATURE ON THIS MESSAGE FAILED"
-msgstr ""
+msgstr "Η ΥΠΟΓΡΑΦΗ ΣΕ ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΑΠΕΤΥΧΕ"
 
 #: extension/webpg_results.js:266 extension/webpg_results.js:337
 msgid "THE MESSAGE MAY BE TAMPERED WITH"
-msgstr ""
+msgstr "ΤΟ ΜΗΝΥΜΑ ΕΝΔΕΧΕΤΑΙ ΝΑ ΠΑΡΑΠΟΙΗΘΗΚΕ"
 
 #: extension/webpg_results.js:300
 msgid "THIS MESSAGE WAS SIGNED WITH KEY"
-msgstr ""
+msgstr "ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΥΠΟΓΡΑΦΤΗΚΕ ΜΕ ΚΛΕΙΔΙ"
 
 #: extension/webpg_results.js:306
 msgid "THIS MESSAGE WAS SIGNED WITH AN EXPIRED PUBLIC KEY"
-msgstr ""
+msgstr "ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΥΠΟΓΡΑΦΤΗΚΕ ΜΕ ΛΗΓΜΕΝΟ ΔΗΜΟΣΙΟ ΚΛΕΙΔΙ"
 
 #: extension/webpg_results.js:321
 msgid "THIS MESSAGE WAS SIGNED WITH A PUBLIC KEY NOT IN YOUR KEYRING"
 msgstr ""
+"ΑΥΤΟ ΤΟ ΜΗΝΥΜΑ ΥΠΟΓΡΑΦΤΗΚΕ ΜΕ ΕΝΑ ΔΗΜΟΣΙΟ ΚΛΕΙΔΙ ΕΚΤΟΣ ΤΟΥ ΚΥΚΛΟΥ ΚΛΕΙΔΙΩΝ "
+"ΣΟΥ"
 
 #: extension/webpg_results.js:333
 msgid "SEARCH FOR KEYS ON KEYSERVER"
-msgstr ""
+msgstr "ΑΝΑΖΗΤΗΣ ΚΛΕΙΔΙΩΝ ΣΤΟΝ KEYSERVER"
 
 #: extension/webpg_results.js:377
 msgid "PGP PUBLIC KEY"
-msgstr ""
+msgstr "ΔΗΜΟΣΙΟ ΚΛΕΙΔΙ PGP"
 
 #: extension/webpg_results.js:422
 msgid "Names/UIDs on Key"
-msgstr ""
+msgstr "Ονόματα/ UID στο κλειδί"
 
 #: extension/webpg_results.js:424
 msgid "REVOKED"
-msgstr ""
+msgstr "Ανακαλέστηκε"
 
 #: extension/webpg_results.js:425
 msgid "EXPIRED"
@@ -1386,83 +1398,83 @@ msgstr ""
 
 #: extension/webpg_results.js:454
 msgid "THIS KEY IS NOT IN YOUR KEYRING"
-msgstr ""
+msgstr "ΑΥΤΟ ΤΟ ΚΛΕΙΔΙ ΔΕΝ ΕΙΝΑΙ ΣΤΟΝ ΚΥΚΛΟ ΚΛΕΙΔΙΩΝ ΣΟΥ"
 
 #: extension/webpg_results.js:460
 msgid "THIS KEY IS IN YOUR KEYRING"
-msgstr ""
+msgstr "ΑΥΤΟ ΤΟ ΚΛΕΙΔΙ ΕΙΝΑΙ ΣΤΟΝ ΚΥΚΛΟ ΚΛΕΙΔΙΩΝ ΣΟΥ"
 
 #: extension/webpg_results.js:465
 msgid "IMPORT THIS KEY"
-msgstr ""
+msgstr "ΕΙΣΑΓΩΓΗ ΚΛΕΙΔΙΟΥ"
 
 #: extension/webpg_results.js:468
 msgid "DELETE THIS KEY"
-msgstr ""
+msgstr "ΔΙΑΓΡΑΦΗ ΚΛΕΙΔΙΟΥ"
 
 #: extension/webpg_results.js:494 extension/webpg_results.js:587
 #: extension/webpg_results.js:652
 msgid "HIDE ORIGINAL"
-msgstr ""
+msgstr "ΑΠΟΚΡΥΨΗ ΠΡΩΤΟΤΥΠΟΥ"
 
 #: extension/webpg_results.js:550 extension/webpg_results.js:552
 msgid "UNUSABLE KEY"
-msgstr ""
+msgstr "ΑΚΑΤΑΛΛΗΛΟ ΚΛΕΙΔΙ"
 
 #: extension/webpg_results.js:550
 msgid "NO USER ID"
-msgstr ""
+msgstr "ΔΕΝ ΥΠΑΡΧΕΙ USER ID"
 
 #: extension/XULContent/firefoxOverlay.xul:19
 #: extension/XULContent/thunderbird/thunderbirdOverlay.xul:16
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:40
 msgid "WebPG"
-msgstr ""
+msgstr "WebPG"
 
 #: extension/XULContent/firefoxOverlay.xul:31
 #: extension/XULContent/options.xul:33
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:52
 msgid "About"
-msgstr ""
+msgstr "Περί"
 
 #: extension/XULContent/firefoxOverlay.xul:38
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:59
 msgid "Clear Sign"
-msgstr ""
+msgstr "Φανερή υπογραφή"
 
 #: extension/XULContent/firefoxOverlay.xul:57
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:78
 msgid "Sign and Encrypt this text"
-msgstr ""
+msgstr "ΥΠογραφή και κρυπτογράφηση αυτού του κειμένου"
 
 #: extension/XULContent/firefoxOverlay.xul:71
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:92
 msgid "Import this Public key"
-msgstr ""
+msgstr "Εισαγωγή αυτού του δημόσιου κλειδιού"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:90
 #: extension/webmail/gmail/gmail.js:826 extension/webmail/gmail/gmail.js:946
 #: extension/webmail/gmail/inbox.js:828 extension/webmail/gmail/inbox.js:948
 msgid "Do not use WebPG for this message"
-msgstr ""
+msgstr "Μην χρησιμοποιείτε WebPG για αυτό το μήνυμα"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:91
 msgid "Sign Inline"
-msgstr ""
+msgstr "Inline Υπογραφη"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:92
 msgid "Sign as Attachment"
-msgstr ""
+msgstr "Υπογραφή μιας επισύναψης"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:264
 #: extension/webmail/gmail/gmail.js:470 extension/webmail/gmail/inbox.js:472
 msgid "You do not have any keys for"
-msgstr ""
+msgstr "Δεν έχεις καθόλου κλειδιά για"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:266
 #: extension/webmail/gmail/gmail.js:472 extension/webmail/gmail/inbox.js:474
 msgid "or"
-msgstr ""
+msgstr "ή"
 
 #: extension/webmail/gmail/gmail.js:263 extension/webmail/gmail/inbox.js:265
 msgid "WebPG is preparing the email"
@@ -1470,11 +1482,11 @@ msgstr ""
 
 #: extension/webmail/gmail/gmail.js:350 extension/webmail/gmail/inbox.js:352
 msgid "This message already contains PGP data"
-msgstr ""
+msgstr "Αυτό το μήνυμα ήδη περιέχει δεδομένα PGP"
 
 #: extension/webmail/gmail/gmail.js:351 extension/webmail/gmail/inbox.js:353
 msgid "Would you like to Encrypt anyway"
-msgstr ""
+msgstr "Θα θέλατε να κρυπτογραφήσετε παρολαυτά;"
 
 #: extension/webmail/gmail/gmail.js:475 extension/webmail/gmail/inbox.js:477
 msgid "Expired keys found for"
@@ -1483,7 +1495,7 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:476 extension/webmail/gmail/gmail.js:504
 #: extension/webmail/gmail/inbox.js:478 extension/webmail/gmail/inbox.js:506
 msgid "and"
-msgstr ""
+msgstr "και"
 
 #: extension/webmail/gmail/gmail.js:484 extension/webmail/gmail/inbox.js:486
 msgid "This message will be Encrypted"
@@ -1496,18 +1508,20 @@ msgstr ""
 #: extension/webmail/gmail/gmail.js:603 extension/webmail/gmail/inbox.js:605
 msgid "You have more than 1 public key matching that address"
 msgstr ""
+"Έχετε περισσότερα από ένα 1 δημόσια κλειδιά που ταιριάζουν με αυτή την "
+"διεύθυνση"
 
 #: extension/webmail/gmail/gmail.js:615 extension/webmail/gmail/inbox.js:617
 msgid "The Key for"
-msgstr ""
+msgstr "Το κλειδία για"
 
 #: extension/webmail/gmail/gmail.js:616 extension/webmail/gmail/inbox.js:618
 msgid "is invalid"
-msgstr ""
+msgstr "είναι άκυρο"
 
 #: extension/webmail/gmail/gmail.js:621 extension/webmail/gmail/inbox.js:623
 msgid "Open the Key Manager"
-msgstr ""
+msgstr "Ανοίξτε τον Διαχειριστή Κλειδιών"
 
 #: extension/webmail/gmail/gmail.js:916 extension/webmail/gmail/gmail.js:986
 #: extension/webmail/gmail/inbox.js:918 extension/webmail/gmail/inbox.js:988
@@ -1537,3 +1551,90 @@ msgstr ""
 #: extension/manifest.json:4
 msgid "extDesc"
 msgstr ""
+
+#~ msgid "Would you like to Sign anyway"
+#~ msgstr "Θα θέλατε να υπογράψετε παρόλαυτα;"
+
+#~ msgid "Would you like to Encrypt and Sign anyway"
+#~ msgstr "Θα θέλατε να κρυπτογραφήσετε και να υπογράψετε παρόλαυτα;"
+
+#~ msgid "WebPG Key Manager"
+#~ msgstr "Διαχειριστής κλειδιών WebPG"
+
+#~ msgid "Please wait while we build the key list"
+#~ msgstr "Παρακαλώ περιμένετε όσο δημιουργήται η λίστα κλειδιών"
+
+#~ msgid "Click to generate a new key"
+#~ msgstr "Κλικάρετε για να παράγετε ένα νέο κλειδί"
+
+#~ msgid "Click to enable key"
+#~ msgstr "Κλικάρετε για να ενεργοποιήσετε το κλειδί"
+
+#~ msgid "Click to set default key"
+#~ msgstr "Κλικάρετε για να θέσετε προεπιλεγμένο κλειδί"
+
+#~ msgid "trust"
+#~ msgstr "Εμπιστοσύνη"
+
+#~ msgid "Ultimate"
+#~ msgstr "Απόλυτα"
+
+#~ msgid "None"
+#~ msgstr "Κανένα"
+
+#~ msgid "New group"
+#~ msgstr "Νέα ομάδα"
+
+#~ msgid "Enable this Key"
+#~ msgstr "Ενεργοποίησε αυτό το κλειδί"
+
+#~ msgid "Disable this Key"
+#~ msgstr "Απενεργοποίησε αυτό το κλειδί"
+
+#~ msgid "Export this Key"
+#~ msgstr "Εξαφωγή αυτού του κλειδιού"
+
+#~ msgid "Revoke this Subkey"
+#~ msgstr "Ανακάλεσε αυτό το υποκλειδί"
+
+#~ msgid "Make primary"
+#~ msgstr "Κάνε πρωταρχικό"
+
+#~ msgid "self-signature"
+#~ msgstr "Αυτό-υπογεγραμμένο"
+
+#~ msgid "local"
+#~ msgstr "τοπικό"
+
+#~ msgid "non-exportable"
+#~ msgstr "μη-εξαγώγιμο"
+
+#~ msgid "other signature"
+#~ msgstr "άλλη υπογραφή"
+
+#~ msgid "Calculating Trust"
+#~ msgstr "Υπολογισμός εμπιστοσύνης"
+
+#~ msgid "Cannot Publish Keys without gpgconf utility installed"
+#~ msgstr ""
+#~ "Δεν είναι δυνατή η δημοσιοποίηση των κλειδιών χωρίς να είναι "
+#~ "εγκατεστημένο το gpgconf"
+
+#~ msgid "Cannot create signatures without gpgconf utility installed"
+#~ msgstr ""
+#~ "Δεν είναι δυνατή η δημιουργία υπογραφών χωρίς να είναι εγκατεστημένο το "
+#~ "gpgconf"
+
+#~ msgid "Cannot Publish Keys without Keyserver configured"
+#~ msgstr ""
+#~ "Δεν είναι δυνατή η δημοσιοποίηση των κλειδιών χωρίς να έχει ρυθμιστεί ο "
+#~ "Keyserver"
+
+#~ msgid "Cannot sign an expired key"
+#~ msgstr "Δεν είναι δυνατή η υπογραφή ληγμένου κλειδιού"
+
+#~ msgid "Are you certain you would like to delete signature"
+#~ msgstr "Είστε βέβαιος ότθ θέλετε να διαγράψετε την υπογραφή"
+
+#~ msgid "from this User ID"
+#~ msgstr "από αυτό το User ID"

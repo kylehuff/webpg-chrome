@@ -3,13 +3,13 @@
 		"message": "O WebPG"
 	},
 	"Version": {
-		"message": ""
+		"message": "Wersja"
 	},
 	"Extension_Information": {
-		"message": ""
+		"message": "Informacje o rozszerzeniu"
 	},
 	"Extension_version": {
-		"message": ""
+		"message": "Wersja rozszerzenia"
 	},
 	"Platform": {
 		"message": "Platforma"
@@ -24,16 +24,16 @@
 		"message": "Język"
 	},
 	"Plugin_Information": {
-		"message": ""
+		"message": "Informacje o wtyczce"
 	},
 	"Plugin_version": {
-		"message": ""
+		"message": "Wersja wtyczki"
 	},
 	"GnuPG_Information": {
-		"message": ""
+		"message": "Informacje o GnuPG"
 	},
 	"GnuPG_version": {
-		"message": ""
+		"message": "Wersja GnuPG"
 	},
 	"GnuPG_binary": {
 		"message": "Program GnuPG"
@@ -42,16 +42,16 @@
 		"message": "Katalog domowy GnuPG"
 	},
 	"default": {
-		"message": ""
+		"message": "domyślnie"
 	},
 	"GPGCONF_version": {
-		"message": ""
+		"message": "Wersja GPGCONF"
 	},
 	"not_detected": {
-		"message": ""
+		"message": "nie wykryta"
 	},
 	"Assuan_version": {
-		"message": ""
+		"message": "Wersja Assuan"
 	},
 	"Key_Agent": {
 		"message": ""
@@ -60,7 +60,7 @@
 		"message": "OK"
 	},
 	"Translation_Status": {
-		"message": ""
+		"message": "Status tłumaczenia"
 	},
 	"WebPG_Plugin_failed_to_load": {
 		"message": "Wtyczka WebPG nie załadowała się poprawnie"
@@ -156,10 +156,10 @@
 		"message": "Wybierz odbiorcę (odbiorców)"
 	},
 	"Export": {
-		"message": ""
+		"message": "Eksportuj"
 	},
 	"Editor": {
-		"message": ""
+		"message": "Edytor"
 	},
 	"Search_Filter": {
 		"message": "Znajdź/Filtruj"
@@ -168,19 +168,19 @@
 		"message": "Zaszyfruj"
 	},
 	"Insert": {
-		"message": ""
+		"message": "Wstaw"
 	},
 	"no_action_has_been_selected": {
-		"message": ""
+		"message": "żadna akcja nie została wybrana"
 	},
 	"no_action_has_been_successful": {
-		"message": ""
+		"message": "żadna akcja nie została wykonana pomyślnie"
 	},
 	"UIDs": {
 		"message": "Tożsamości"
 	},
 	"Key_does_not_support_this_operation": {
-		"message": ""
+		"message": "Klucz nie obsługuje tej operacji"
 	},
 	"Error_loading_WebPG": {
 		"message": "Błąd podczas ładowania WebPG"
@@ -246,7 +246,7 @@
 		"message": "nie podano adresu email"
 	},
 	"Use": {
-		"message": ""
+		"message": "Użyj"
 	},
 	"Sign_only": {
 		"message": "Tylko podpisz"
@@ -261,28 +261,28 @@
 		"message": ""
 	},
 	"Decrypt": {
-		"message": ""
+		"message": "Odszyfruj"
 	},
 	"Verify": {
-		"message": ""
+		"message": "Weryfikuj"
 	},
 	"Secure_Editor": {
-		"message": ""
+		"message": "Bezpieczny edytor"
 	},
 	"PGP_Signed_Message": {
-		"message": ""
+		"message": "Wiadomość podpisana za pomocą PGP"
 	},
 	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
 		"message": "WIADOMOŚĆ ZASZYFROWANA LUB PODPISANA PGP"
 	},
 	"PGP_Public_Key": {
-		"message": ""
+		"message": "Klucz publiczny PGP"
 	},
 	"WebPG_Secure_Editor": {
-		"message": ""
+		"message": "Bezpieczny edytor WebPG"
 	},
 	"Unsecured_Editor": {
-		"message": ""
+		"message": "Niezabezpieczony edytor"
 	},
 	"Loading_keys": {
 		"message": ""
@@ -444,13 +444,13 @@
 		"message": "Usuń ten klucz"
 	},
 	"Add": {
-		"message": ""
+		"message": "Dodaj"
 	},
 	"There_was_an_error_parsing_this_image_file": {
-		"message": ""
+		"message": "Wystąpił błąd podczas czytania obrazka"
 	},
 	"There_was_an_error_adding_this_image_file": {
-		"message": ""
+		"message": "Wystąpił błąd podczas dodawania tego obrazka"
 	},
 	"It_is_possible_the_image_contains_EXIF_data": {
 		"message": ""
@@ -462,10 +462,10 @@
 		"message": ""
 	},
 	"WARNING": {
-		"message": ""
+		"message": "OSTRZEŻENIE"
 	},
 	"is_quite_large": {
-		"message": ""
+		"message": "jest całkiem duży"
 	},
 	"Consider_using_a_smaller_image": {
 		"message": ""
@@ -501,37 +501,37 @@
 		"message": "Wycofaj"
 	},
 	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "Czy na pewno chcesz opublikować klucz na serwerze kluczy"
 	},
 	"Publish": {
-		"message": ""
+		"message": "Publikuj"
 	},
 	"Sending_key_to_Keyserver": {
-		"message": ""
+		"message": "Wysyłanie klucza na serwer kluczy"
 	},
 	"There_was_a_problem_sending_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "Wystąpił problem przy wysyłaniu klucza na serwer kluczy"
 	},
 	"No_Keyserver_defined": {
-		"message": ""
+		"message": "Brak zdefiniowanego serwera kluczy"
 	},
 	"Keyserver": {
-		"message": ""
+		"message": "Serwer kluczy"
 	},
 	"Try_Again": {
-		"message": ""
+		"message": "Spróbuj ponownie"
 	},
 	"Key_Published_to_Keyserver": {
-		"message": ""
+		"message": "Klucz opublikowano na serwerze kluczy"
 	},
 	"Publish_Again": {
-		"message": ""
+		"message": "Publikuj ponownie"
 	},
 	"Publish_to_Keyserver": {
-		"message": ""
+		"message": "Publikuj na serwerze kluczy"
 	},
 	"Key_not_found_on_keyserver": {
-		"message": ""
+		"message": "Klucz nie znaleziony na serwerze kluczy"
 	},
 	"Key_updated": {
 		"message": ""
@@ -642,19 +642,19 @@
 		"message": "Utworzony"
 	},
 	"User_Photos": {
-		"message": ""
+		"message": "Zdjęcia użytkownika"
 	},
 	"User_Photo": {
 		"message": ""
 	},
 	"Enable_this_key_for_GnuPG_operations": {
-		"message": ""
+		"message": "Używaj tego klucza do operacji GnuPG"
 	},
 	"This_is_your_default_key": {
 		"message": "To jest twój domyślny klucz"
 	},
 	"Make_this_the_default_key_for_GnuPG_operations": {
-		"message": ""
+		"message": "Uczyń ten klucz domyślnym do operacji GnuPG"
 	},
 	"Enabled": {
 		"message": "Włączony"
@@ -678,7 +678,7 @@
 		"message": ""
 	},
 	"Group_Assignment": {
-		"message": ""
+		"message": "Pomocnik grup"
 	},
 	"Select_group_s__below": {
 		"message": ""
@@ -699,7 +699,7 @@
 		"message": "Dodaj klucz wewnętrzny"
 	},
 	"Add_Photo": {
-		"message": ""
+		"message": "Dodaj zdjęcie"
 	},
 	"Disable_this_key": {
 		"message": ""
@@ -714,7 +714,7 @@
 		"message": ""
 	},
 	"Refresh_from_Keyserver": {
-		"message": ""
+		"message": "Odśwież z serwera kluczy"
 	},
 	"Cannot_sign_a_revoked_UID": {
 		"message": "Nie można podpisać wycofanej tożsamości"
@@ -756,7 +756,7 @@
 		"message": "Wtyczka WebPG NPAPI jest zainstalowana prawidłowo"
 	},
 	"OpenPGP_was_detected": {
-		"message": ""
+		"message": "Wykryto OpenPGP"
 	},
 	"It_appears_you_have_a_key_agent_configured": {
 		"message": "Wygląda na to że skonfigurowałeś już agenta kluczy"
@@ -768,7 +768,7 @@
 		"message": "możesz używać podpisów elektronicznych"
 	},
 	"OpenPGP_does_not_appear_to_be_installed": {
-		"message": ""
+		"message": "OpenPGP nie wydaje się być zainstalowany"
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
 		"message": "Wygląda na to że nie posiadasz skonfigurowanego agenta kluczy"
@@ -816,7 +816,7 @@
 		"message": ""
 	},
 	"GPGCONF_binary": {
-		"message": ""
+		"message": "biblioteka GPGCONF"
 	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
 		"message": "Twój system wyglądna na skonfigurowany poprawnie do używania WebPG"
@@ -828,13 +828,13 @@
 		"message": ""
 	},
 	"Window": {
-		"message": ""
+		"message": "Okno"
 	},
 	"Icon": {
-		"message": ""
+		"message": "Ikona"
 	},
 	"Sample": {
-		"message": ""
+		"message": "Przykład"
 	},
 	"WebPG_Toolbar": {
 		"message": ""
@@ -870,10 +870,10 @@
 		"message": "Mógł wystąpić problem podczas kopiowania danych do schowka"
 	},
 	"TEXT_COPIED": {
-		"message": ""
+		"message": "TEKST SKOPIOWANY"
 	},
 	"UNABLE_TO_COPY_TEXT": {
-		"message": ""
+		"message": "NIE MOŻNA SKOPIOWAĆ TEKSTU"
 	},
 	"COPY_TO_CLIPBOARD": {
 		"message": "KOPIUJ DO SCHOWKA"
@@ -945,7 +945,7 @@
 		"message": "TA WIADOMOŚĆ ZOSTAŁA PODPISANA KLUCZEM PUBLICZNYM SPOZA TWOJEGO KEYRINGU"
 	},
 	"SEARCH_FOR_KEYS_ON_KEYSERVER": {
-		"message": ""
+		"message": "SZUKAJ KLUCZY NA SERWERZE KLUCZY"
 	},
 	"PGP_PUBLIC_KEY": {
 		"message": "KLUCZ PUBLICZNY PGP"
@@ -981,28 +981,28 @@
 		"message": "BRAK TOŻSAMOŚCI"
 	},
 	"WebPG": {
-		"message": ""
+		"message": "WebPG"
 	},
 	"About": {
-		"message": ""
+		"message": "O programie"
 	},
 	"Clear_Sign": {
-		"message": ""
+		"message": "Wyczyść podpis"
 	},
 	"Sign_and_Encrypt_this_text": {
-		"message": ""
+		"message": "Podpisz i zaszyfruj ten tekst"
 	},
 	"Import_this_Public_key": {
-		"message": ""
+		"message": "Importuj ten klucz publiczny"
 	},
 	"Do_not_use_WebPG_for_this_message": {
 		"message": "Nie używaj WebPG dla tej wiadomości"
 	},
 	"Sign_Inline": {
-		"message": ""
+		"message": "Podpisuj na bieżąco"
 	},
 	"Sign_as_Attachment": {
-		"message": ""
+		"message": "Podpisz w załączniku"
 	},
 	"You_do_not_have_any_keys_for": {
 		"message": "Nie masz żadnych kluczy dla następujących odbiorców:"
@@ -1014,16 +1014,16 @@
 		"message": ""
 	},
 	"This_message_already_contains_PGP_data": {
-		"message": ""
+		"message": "Ta wiadomość już zawiera dane PGP"
 	},
 	"Would_you_like_to_Encrypt_anyway": {
-		"message": ""
+		"message": "Czy mimo to chcesz zaszyfrować"
 	},
 	"Expired_keys_found_for": {
 		"message": ""
 	},
 	"and": {
-		"message": ""
+		"message": "i"
 	},
 	"This_message_will_be_Encrypted": {
 		"message": ""

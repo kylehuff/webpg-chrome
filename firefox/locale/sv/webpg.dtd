@@ -1,32 +1,32 @@
-<!ENTITY About_WebPG "">
-<!ENTITY Version "">
+<!ENTITY About_WebPG "Om WebPG">
+<!ENTITY Version "Version">
 <!ENTITY Extension_Information "">
 <!ENTITY Extension_version "">
-<!ENTITY Platform "">
-<!ENTITY Product "">
-<!ENTITY User_Agent "">
-<!ENTITY Language "">
-<!ENTITY Plugin_Information "">
+<!ENTITY Platform "Plattform">
+<!ENTITY Product "Produkt">
+<!ENTITY User_Agent "Klienttyp">
+<!ENTITY Language "Språk">
+<!ENTITY Plugin_Information "Insticksprograminformation">
 <!ENTITY Plugin_version "">
-<!ENTITY GnuPG_Information "">
-<!ENTITY GnuPG_version "">
-<!ENTITY GnuPG_binary "">
+<!ENTITY GnuPG_Information "GnuPG-information">
+<!ENTITY GnuPG_version "GnuPG-version">
+<!ENTITY GnuPG_binary "GnuPG-binärfil">
 <!ENTITY GnuPG_home_directory "">
-<!ENTITY default "">
-<!ENTITY GPGCONF_version "">
-<!ENTITY not_detected "">
-<!ENTITY Assuan_version "">
+<!ENTITY default "förval">
+<!ENTITY GPGCONF_version "GPGCONF-version">
+<!ENTITY not_detected "ej upptäckt">
+<!ENTITY Assuan_version "Assuan-version">
 <!ENTITY Key_Agent "">
 <!ENTITY Finished "">
-<!ENTITY Translation_Status "">
+<!ENTITY Translation_Status "Översättningsstatus">
 <!ENTITY WebPG_Plugin_failed_to_load "">
-<!ENTITY Key_Generation_Complete "">
-<!ENTITY Key_Generation "">
+<!ENTITY Key_Generation_Complete "Skapandet av nyckeln är klar">
+<!ENTITY Key_Generation "Generera nyckel">
 <!ENTITY Open_Key_Manager "">
 <!ENTITY WebPG_Key_Generation_Failed "">
-<!ENTITY The_generation_of_your_new_key_is_now_complete "">
-<!ENTITY Options "">
-<!ENTITY Key_Manager "">
+<!ENTITY The_generation_of_your_new_key_is_now_complete "Genereringen av nyckeln är nu klar">
+<!ENTITY Options "Alternativ">
+<!ENTITY Key_Manager "Nyckelhanterare">
 <!ENTITY Refresh_Key_List "">
 <!ENTITY Generate_New_Key "">
 <!ENTITY Create "">
@@ -41,52 +41,52 @@
 <!ENTITY It_is_safe_to_close_this_window "">
 <!ENTITY key_generation_will_continue_in_the_background "">
 <!ENTITY Close "">
-<!ENTITY Cancel "">
+<!ENTITY Cancel "Avbryt">
 <!ENTITY Import_from_File "">
-<!ENTITY Import "">
+<!ENTITY Import "Importera">
 <!ENTITY Error "">
 <!ENTITY There_was_an_error_parsing_this_PGP_file "">
 <!ENTITY There_was_an_error_importing_any_keys_in_this_file "">
 <!ENTITY Please_use_the_button_above_to_open_a_key_file___asc__txt_ "">
 <!ENTITY User_Guide "">
-<!ENTITY Select_Recipient_s_ "">
-<!ENTITY Export "">
-<!ENTITY Editor "">
+<!ENTITY Select_Recipient_s_ "Välj mottagare">
+<!ENTITY Export "Exportera">
+<!ENTITY Editor "Redigerare">
 <!ENTITY Search_Filter "">
-<!ENTITY Encrypt "">
-<!ENTITY Insert "">
+<!ENTITY Encrypt "Kryptera">
+<!ENTITY Insert "Infoga">
 <!ENTITY no_action_has_been_selected "">
 <!ENTITY no_action_has_been_successful "">
 <!ENTITY UIDs "">
 <!ENTITY Key_does_not_support_this_operation "">
 <!ENTITY Error_loading_WebPG "">
 <!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "">
-<!ENTITY Suggestions "">
-<!ENTITY The_plugin_was_unable_to_load "">
+<!ENTITY Suggestions "Förslag">
+<!ENTITY The_plugin_was_unable_to_load "Insticksprogrammet kunde ej laddas">
 <!ENTITY The_Firefox_Click_to_Play_feature_is_enabled "">
 <!ENTITY WebPG_cannot_load_the_required_plugin_with_this_feature_enabled "">
 <!ENTITY The_WebPG_Native_Messaging_Host_was_unreachable "">
 <!ENTITY There_might_be_a_problem_with_the_gpg_installation "">
 <!ENTITY consider_reinstalling_gpg4win "">
-<!ENTITY Error_Details "">
+<!ENTITY Error_Details "Felinformation">
 <!ENTITY Error_in_Method "">
-<!ENTITY Error_Code "">
-<!ENTITY Error_String "">
+<!ENTITY Error_Code "Felkod">
+<!ENTITY Error_String "Felsträng">
 <!ENTITY File "">
-<!ENTITY Line "">
-<!ENTITY Unknown_Error "">
-<!ENTITY System_Information "">
-<!ENTITY App_Version "">
+<!ENTITY Line "Rad">
+<!ENTITY Unknown_Error "Okänt fel">
+<!ENTITY System_Information "Systeminformation">
+<!ENTITY App_Version "Appversion">
 <!ENTITY Sub_product "">
 <!ENTITY Vendor "">
-<!ENTITY no_email_address_provided "">
-<!ENTITY Use "">
-<!ENTITY Sign_only "">
-<!ENTITY Sign_and_Encrypt "">
+<!ENTITY no_email_address_provided "ingen emailadress angiven">
+<!ENTITY Use "Använd">
+<!ENTITY Sign_only "Enbart signera">
+<!ENTITY Sign_and_Encrypt "Signera och kryptera">
 <!ENTITY Symmetric_Encryption "">
 <!ENTITY Signed_Symmetric_Encryption "">
-<!ENTITY Decrypt "">
-<!ENTITY Verify "">
+<!ENTITY Decrypt "Dekryptera">
+<!ENTITY Verify "Verifiera">
 <!ENTITY Secure_Editor "">
 <!ENTITY PGP_Signed_Message "">
 <!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "">
@@ -98,12 +98,12 @@
 <!ENTITY Waiting_for_entropy "">
 <!ENTITY Building_key "">
 <!ENTITY please_wait "">
-<!ENTITY Private_Keys "">
-<!ENTITY Public_Keys "">
+<!ENTITY Private_Keys "Privata nycklar">
+<!ENTITY Public_Keys "Publika nycklar">
 <!ENTITY Search_Keyserver "">
 <!ENTITY Search_for_Keys_on_Keyserver "">
-<!ENTITY Your_Name "">
-<!ENTITY Your_Email "">
+<!ENTITY Your_Name "Ditt namn">
+<!ENTITY Your_Email "Din e-postadress">
 <!ENTITY Comment "">
 <!ENTITY Passphrase "">
 <!ENTITY Repeat_Passphrase "">
@@ -113,14 +113,14 @@
 <!ENTITY Private_Key_Algorithm "">
 <!ENTITY Private_Key_Size "">
 <!ENTITY Expire_in "">
-<!ENTITY Never "">
+<!ENTITY Never "Aldrig">
 <!ENTITY n30_days "">
 <!ENTITY n90_days "">
 <!ENTITY n1_year "">
 <!ENTITY Subkey_Options "">
 <!ENTITY encrypt_only "">
 <!ENTITY set_your_own_capabilities "">
-<!ENTITY Sign "">
+<!ENTITY Sign "Signera">
 <!ENTITY Authenticate "">
 <!ENTITY Revoke_this_Key "">
 <!ENTITY Revoke_this_UID "">
@@ -129,7 +129,7 @@
 <!ENTITY Delete_this_UID "">
 <!ENTITY Delete_this_Key "">
 <!ENTITY This_key_will_be_permanently_deleted "">
-<!ENTITY Are_you_sure "">
+<!ENTITY Are_you_sure "Är du säker">
 <!ENTITY Change_Expiration "">
 <!ENTITY Sign_this_UID "">
 <!ENTITY Key_Details "">
@@ -339,15 +339,15 @@
 <!ENTITY This_message_already_contains_PGP_data "">
 <!ENTITY Would_you_like_to_Encrypt_anyway "">
 <!ENTITY Expired_keys_found_for "">
-<!ENTITY and "">
+<!ENTITY and "och">
 <!ENTITY This_message_will_be_Encrypted "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted "">
 <!ENTITY You_have_more_than_1_public_key_matching_that_address "">
 <!ENTITY The_Key_for "">
 <!ENTITY is_invalid "">
-<!ENTITY Open_the_Key_Manager "">
+<!ENTITY Open_the_Key_Manager "Öppna nyckelhanteraren">
 <!ENTITY This_message_will_be_Signed "">
-<!ENTITY Sign_Only "">
+<!ENTITY Sign_Only "Enbart signera">
 <!ENTITY This_message_will_be_Encrypted_using_Symmetric_Encryption "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted_using_Symmetric_Encryption "">
 <!ENTITY WebPG_is_checking_this_message_for_signatures "">

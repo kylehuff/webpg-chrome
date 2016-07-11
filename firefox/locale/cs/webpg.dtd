@@ -1,155 +1,155 @@
-<!ENTITY About_WebPG "">
-<!ENTITY Version "">
-<!ENTITY Extension_Information "">
-<!ENTITY Extension_version "">
-<!ENTITY Platform "">
-<!ENTITY Product "">
-<!ENTITY User_Agent "">
-<!ENTITY Language "">
-<!ENTITY Plugin_Information "">
-<!ENTITY Plugin_version "">
-<!ENTITY GnuPG_Information "">
-<!ENTITY GnuPG_version "">
-<!ENTITY GnuPG_binary "">
-<!ENTITY GnuPG_home_directory "">
-<!ENTITY default "">
-<!ENTITY GPGCONF_version "">
-<!ENTITY not_detected "">
-<!ENTITY Assuan_version "">
+<!ENTITY About_WebPG "O WebPG">
+<!ENTITY Version "Verze">
+<!ENTITY Extension_Information "Informace o rozšíření">
+<!ENTITY Extension_version "Verze rozšíření">
+<!ENTITY Platform "Platforma">
+<!ENTITY Product "Produkt">
+<!ENTITY User_Agent "User Agent">
+<!ENTITY Language "Jazyk">
+<!ENTITY Plugin_Information "Informace o pluginu">
+<!ENTITY Plugin_version "Verze pluginu">
+<!ENTITY GnuPG_Information "Informace o GnuPG">
+<!ENTITY GnuPG_version "Verze GnuPG">
+<!ENTITY GnuPG_binary "Binárka GnuPG">
+<!ENTITY GnuPG_home_directory "Domovský adresář GnuPG">
+<!ENTITY default "výchozí">
+<!ENTITY GPGCONF_version "Verze GPGCONF">
+<!ENTITY not_detected "není detekován">
+<!ENTITY Assuan_version "Asuánská verze">
 <!ENTITY Key_Agent "">
-<!ENTITY Finished "">
-<!ENTITY Translation_Status "">
-<!ENTITY WebPG_Plugin_failed_to_load "">
-<!ENTITY Key_Generation_Complete "">
-<!ENTITY Key_Generation "">
-<!ENTITY Open_Key_Manager "">
-<!ENTITY WebPG_Key_Generation_Failed "">
-<!ENTITY The_generation_of_your_new_key_is_now_complete "">
-<!ENTITY Options "">
-<!ENTITY Key_Manager "">
+<!ENTITY Finished "Dokončeno">
+<!ENTITY Translation_Status "Stav překladu">
+<!ENTITY WebPG_Plugin_failed_to_load "Plugin WebPG se nepodařilo načíst">
+<!ENTITY Key_Generation_Complete "Generování klíče bylo dokončeno">
+<!ENTITY Key_Generation "Generování klíče">
+<!ENTITY Open_Key_Manager "Open Key Manager">
+<!ENTITY WebPG_Key_Generation_Failed "Generování klíče WebPG selhalo">
+<!ENTITY The_generation_of_your_new_key_is_now_complete "Generování Vašeho nového klíče je nyní kompletní">
+<!ENTITY Options "Možnosti">
+<!ENTITY Key_Manager "Správce klíčů">
 <!ENTITY Refresh_Key_List "">
-<!ENTITY Generate_New_Key "">
-<!ENTITY Create "">
-<!ENTITY Name_Required "">
-<!ENTITY UID_Names_must_be_at_least_5_characters "">
-<!ENTITY UID_Names_cannot_begin_with_a_number "">
-<!ENTITY Not_a_valid_email_address "">
-<!ENTITY Passphrases_do_not_match "">
-<!ENTITY Building_key__please_wait "">
-<!ENTITY This_may_take_a_long_time__5_minutes_or_more__to_complete "">
-<!ENTITY Please_be_patient_while_the_key_is_created "">
-<!ENTITY It_is_safe_to_close_this_window "">
-<!ENTITY key_generation_will_continue_in_the_background "">
-<!ENTITY Close "">
-<!ENTITY Cancel "">
+<!ENTITY Generate_New_Key "Generovat nový klíč">
+<!ENTITY Create "Vytvořit">
+<!ENTITY Name_Required "Jméno vyžadováno">
+<!ENTITY UID_Names_must_be_at_least_5_characters "Názvy UID musí být alespoň 5 znaků">
+<!ENTITY UID_Names_cannot_begin_with_a_number "Názvy UID nesmí začínat číslem">
+<!ENTITY Not_a_valid_email_address "Neplatná emailová adresa">
+<!ENTITY Passphrases_do_not_match "Přístupová hesla se liší">
+<!ENTITY Building_key__please_wait "Sestavování klíče, počkejte prosím">
+<!ENTITY This_may_take_a_long_time__5_minutes_or_more__to_complete "Toto může dlouho trvat (5 minut nebo i víc)">
+<!ENTITY Please_be_patient_while_the_key_is_created "Prosím buďte trpěliví, zatímco se klíč vytváří">
+<!ENTITY It_is_safe_to_close_this_window "Můžete bezpečně zavřít okno">
+<!ENTITY key_generation_will_continue_in_the_background "Generování klíče bude pokračovat na pozadí">
+<!ENTITY Close "Zavřít">
+<!ENTITY Cancel "Zrušit">
 <!ENTITY Import_from_File "">
-<!ENTITY Import "">
-<!ENTITY Error "">
+<!ENTITY Import "Importovat">
+<!ENTITY Error "Chyba">
 <!ENTITY There_was_an_error_parsing_this_PGP_file "">
 <!ENTITY There_was_an_error_importing_any_keys_in_this_file "">
 <!ENTITY Please_use_the_button_above_to_open_a_key_file___asc__txt_ "">
 <!ENTITY User_Guide "">
-<!ENTITY Select_Recipient_s_ "">
-<!ENTITY Export "">
-<!ENTITY Editor "">
-<!ENTITY Search_Filter "">
-<!ENTITY Encrypt "">
-<!ENTITY Insert "">
-<!ENTITY no_action_has_been_selected "">
-<!ENTITY no_action_has_been_successful "">
-<!ENTITY UIDs "">
-<!ENTITY Key_does_not_support_this_operation "">
-<!ENTITY Error_loading_WebPG "">
-<!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "">
-<!ENTITY Suggestions "">
-<!ENTITY The_plugin_was_unable_to_load "">
-<!ENTITY The_Firefox_Click_to_Play_feature_is_enabled "">
-<!ENTITY WebPG_cannot_load_the_required_plugin_with_this_feature_enabled "">
+<!ENTITY Select_Recipient_s_ "Vyberte příjemce">
+<!ENTITY Export "Exportovat">
+<!ENTITY Editor "Editor">
+<!ENTITY Search_Filter "Vyhledat/Filtrovat">
+<!ENTITY Encrypt "Zašifrovat">
+<!ENTITY Insert "Vložit">
+<!ENTITY no_action_has_been_selected "nebyla zvolena žádná činnost">
+<!ENTITY no_action_has_been_successful "činnost byla úspěšná">
+<!ENTITY UIDs "UID">
+<!ENTITY Key_does_not_support_this_operation "Klíč nepodporuje tuto operaci">
+<!ENTITY Error_loading_WebPG "Chyba při načítání WebPG">
+<!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "Při pokusu o načtení WebPG jsme narazili na problém">
+<!ENTITY Suggestions "Návrhy">
+<!ENTITY The_plugin_was_unable_to_load "Plugin se nepodařilo načíst">
+<!ENTITY The_Firefox_Click_to_Play_feature_is_enabled "Funkce Firefox Click to Play je zapnuta">
+<!ENTITY WebPG_cannot_load_the_required_plugin_with_this_feature_enabled "WebPG se s touto funkcí zapnutou nepodařilo načíst vyžadovaný plugin">
 <!ENTITY The_WebPG_Native_Messaging_Host_was_unreachable "">
-<!ENTITY There_might_be_a_problem_with_the_gpg_installation "">
-<!ENTITY consider_reinstalling_gpg4win "">
-<!ENTITY Error_Details "">
-<!ENTITY Error_in_Method "">
-<!ENTITY Error_Code "">
-<!ENTITY Error_String "">
-<!ENTITY File "">
-<!ENTITY Line "">
-<!ENTITY Unknown_Error "">
-<!ENTITY System_Information "">
-<!ENTITY App_Version "">
-<!ENTITY Sub_product "">
-<!ENTITY Vendor "">
-<!ENTITY no_email_address_provided "">
-<!ENTITY Use "">
-<!ENTITY Sign_only "">
-<!ENTITY Sign_and_Encrypt "">
-<!ENTITY Symmetric_Encryption "">
+<!ENTITY There_might_be_a_problem_with_the_gpg_installation "Mohlo dojít k potížím s instalací gpg">
+<!ENTITY consider_reinstalling_gpg4win "zvažte reinstalaci gpg4win">
+<!ENTITY Error_Details "Detaily o chybě">
+<!ENTITY Error_in_Method "Chyba v metodě">
+<!ENTITY Error_Code "Kód chyby">
+<!ENTITY Error_String "Chybný řetězec">
+<!ENTITY File "Soubor">
+<!ENTITY Line "Řádek">
+<!ENTITY Unknown_Error "Neznámá chyba">
+<!ENTITY System_Information "Informace o systému">
+<!ENTITY App_Version "Verze aplikace">
+<!ENTITY Sub_product "pod produkt">
+<!ENTITY Vendor "Dodavatel">
+<!ENTITY no_email_address_provided "nebyla poskytnuta žádná e-mailová adresa">
+<!ENTITY Use "Užití">
+<!ENTITY Sign_only "Pouze podepsat">
+<!ENTITY Sign_and_Encrypt "Podepsat a zašifrovat">
+<!ENTITY Symmetric_Encryption "Symetrická šifra">
 <!ENTITY Signed_Symmetric_Encryption "">
-<!ENTITY Decrypt "">
-<!ENTITY Verify "">
-<!ENTITY Secure_Editor "">
-<!ENTITY PGP_Signed_Message "">
-<!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "">
-<!ENTITY PGP_Public_Key "">
-<!ENTITY WebPG_Secure_Editor "">
-<!ENTITY Unsecured_Editor "">
+<!ENTITY Decrypt "Dešifrovat">
+<!ENTITY Verify "Ověřit">
+<!ENTITY Secure_Editor "Zabezpečený editor">
+<!ENTITY PGP_Signed_Message "Zpráva podepsaná PGP">
+<!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "ZPRÁVA ŠIFROVANÁ NEBO PODEPSANÁ PGP">
+<!ENTITY PGP_Public_Key "Veřejný klíč PGP">
+<!ENTITY WebPG_Secure_Editor "Zabezpečený editor WebPG">
+<!ENTITY Unsecured_Editor "Nezabezpečený editor">
 <!ENTITY Loading_keys "">
-<!ENTITY Generating_Key "">
-<!ENTITY Waiting_for_entropy "">
-<!ENTITY Building_key "">
-<!ENTITY please_wait "">
-<!ENTITY Private_Keys "">
-<!ENTITY Public_Keys "">
+<!ENTITY Generating_Key "Generování klíče">
+<!ENTITY Waiting_for_entropy "Čekání na entropii">
+<!ENTITY Building_key "Vytváření klíče">
+<!ENTITY please_wait "prosím počkejte">
+<!ENTITY Private_Keys "Soukromé klíče">
+<!ENTITY Public_Keys "Veřejné klíče">
 <!ENTITY Search_Keyserver "">
 <!ENTITY Search_for_Keys_on_Keyserver "">
-<!ENTITY Your_Name "">
-<!ENTITY Your_Email "">
-<!ENTITY Comment "">
-<!ENTITY Passphrase "">
-<!ENTITY Repeat_Passphrase "">
-<!ENTITY Advanced_Options "">
-<!ENTITY Public_Key_Algorithm "">
-<!ENTITY Public_Key_Size "">
-<!ENTITY Private_Key_Algorithm "">
-<!ENTITY Private_Key_Size "">
-<!ENTITY Expire_in "">
-<!ENTITY Never "">
-<!ENTITY n30_days "">
-<!ENTITY n90_days "">
-<!ENTITY n1_year "">
-<!ENTITY Subkey_Options "">
-<!ENTITY encrypt_only "">
-<!ENTITY set_your_own_capabilities "">
-<!ENTITY Sign "">
-<!ENTITY Authenticate "">
-<!ENTITY Revoke_this_Key "">
-<!ENTITY Revoke_this_UID "">
-<!ENTITY Revoke_this_Signature "">
-<!ENTITY Delete_this_Signature "">
-<!ENTITY Delete_this_UID "">
-<!ENTITY Delete_this_Key "">
-<!ENTITY This_key_will_be_permanently_deleted "">
-<!ENTITY Are_you_sure "">
-<!ENTITY Change_Expiration "">
-<!ENTITY Sign_this_UID "">
-<!ENTITY Key_Details "">
-<!ENTITY Export_Public_Key "">
-<!ENTITY Add_UID "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_Key "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_UID "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_Signature "">
-<!ENTITY Are_you_sure_you_wish_to_delete_this_Signature "">
-<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_UID "">
-<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_Photo "">
-<!ENTITY New_Expiration_Date "">
-<!ENTITY Never_Expire "">
-<!ENTITY Expiration_Date "">
+<!ENTITY Your_Name "Vaše jméno">
+<!ENTITY Your_Email "Váš email">
+<!ENTITY Comment "Komentář">
+<!ENTITY Passphrase "Přístupové heslo">
+<!ENTITY Repeat_Passphrase "Přístupové heslo znovu">
+<!ENTITY Advanced_Options "Pokročilé možnosti">
+<!ENTITY Public_Key_Algorithm "Algoritmus veřejného klíče">
+<!ENTITY Public_Key_Size "Délka veřejného klíče">
+<!ENTITY Private_Key_Algorithm "Algoritmus veřejného klíče">
+<!ENTITY Private_Key_Size "Délka privátního klíče">
+<!ENTITY Expire_in "Vyprší za">
+<!ENTITY Never "Nikdy">
+<!ENTITY n30_days "n30 dní">
+<!ENTITY n90_days "n90 dní">
+<!ENTITY n1_year "n1 rok">
+<!ENTITY Subkey_Options "Možnosti podklíče">
+<!ENTITY encrypt_only "pouze šifrovat">
+<!ENTITY set_your_own_capabilities "nastavit vlastní schopnosti">
+<!ENTITY Sign "Podepsat">
+<!ENTITY Authenticate "Autentizovat">
+<!ENTITY Revoke_this_Key "Zamítnout tento klíč">
+<!ENTITY Revoke_this_UID "Zamítnout toto UID">
+<!ENTITY Revoke_this_Signature "Zamítnout tento podpis">
+<!ENTITY Delete_this_Signature "Smazat tento podpis">
+<!ENTITY Delete_this_UID "Smazat toto UID">
+<!ENTITY Delete_this_Key "Smazat tento klíč">
+<!ENTITY This_key_will_be_permanently_deleted "Tento klíč bude trvale smazán">
+<!ENTITY Are_you_sure "Jste si jisti">
+<!ENTITY Change_Expiration "Změnit platnost">
+<!ENTITY Sign_this_UID "Podepsat toto UID">
+<!ENTITY Key_Details "Informace o klíči">
+<!ENTITY Export_Public_Key "Exportovat veřejný klíč">
+<!ENTITY Add_UID "Přidat UID">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_Key "Určitě chcete zamítnout tento klíč">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_UID "Určitě chcete zamítnout toto UID">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_Signature "Určitě chcete odmítnout tento podpis">
+<!ENTITY Are_you_sure_you_wish_to_delete_this_Signature "Určitě chcete odstranit tento podpis">
+<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_UID "Určitě chcete trvale odstranit">
+<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_Photo "Určitě chcete trvale odstranit tuto fotografii">
+<!ENTITY New_Expiration_Date "Nové datum platnosti">
+<!ENTITY Never_Expire "Nikdy neexpiruje">
+<!ENTITY Expiration_Date "Datum expirace">
 <!ENTITY Save "">
-<!ENTITY Delete_this_key "">
+<!ENTITY Delete_this_key "Smazat tento klíč">
 <!ENTITY Add "">
-<!ENTITY There_was_an_error_parsing_this_image_file "">
-<!ENTITY There_was_an_error_adding_this_image_file "">
-<!ENTITY It_is_possible_the_image_contains_EXIF_data "">
+<!ENTITY There_was_an_error_parsing_this_image_file "Vyskytla se chyba při zpracování tohoto obrázku">
+<!ENTITY There_was_an_error_adding_this_image_file "Vyskytla se chyba při přidávání tohoto obrázku">
+<!ENTITY It_is_possible_the_image_contains_EXIF_data "Je možné, že obrázek obsahuje EXIF data">
 <!ENTITY Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo "">
 <!ENTITY Only_JPEG_image_files_are_supported "">
 <!ENTITY WARNING "">
@@ -157,58 +157,58 @@
 <!ENTITY Consider_using_a_smaller_image "">
 <!ENTITY Only_one_image_can_be_added "">
 <!ENTITY Copy "">
-<!ENTITY Please_specify_the_revocation_details "">
-<!ENTITY Reason "">
-<!ENTITY No_reason_specified "">
-<!ENTITY Key_has_been_compromised "">
-<!ENTITY Key_is_superseded "">
-<!ENTITY Key_is_no_longer_used "">
+<!ENTITY Please_specify_the_revocation_details "Prosím uveďte detaily zamítnutí">
+<!ENTITY Reason "Důvod">
+<!ENTITY No_reason_specified "Důvod nebyl specifikován">
+<!ENTITY Key_has_been_compromised "Klíč byl kompromitován">
+<!ENTITY Key_is_superseded "Klíč je nahrazen">
+<!ENTITY Key_is_no_longer_used "Klíč se již nepoužívá">
 <!ENTITY Description "">
-<!ENTITY Revoke "">
-<!ENTITY Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver "">
-<!ENTITY Publish "">
-<!ENTITY Sending_key_to_Keyserver "">
-<!ENTITY There_was_a_problem_sending_this_key_to_the_Keyserver "">
-<!ENTITY No_Keyserver_defined "">
-<!ENTITY Keyserver "">
-<!ENTITY Try_Again "">
-<!ENTITY Key_Published_to_Keyserver "">
-<!ENTITY Publish_Again "">
+<!ENTITY Revoke "Zamítnout">
+<!ENTITY Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver "Jste si jistý, že chcete zveřejnit tento klíč na Keyserver?">
+<!ENTITY Publish "Zveřejnit">
+<!ENTITY Sending_key_to_Keyserver "Odesílání na Keyserver">
+<!ENTITY There_was_a_problem_sending_this_key_to_the_Keyserver "Vyskytl se problém s odesíláním klíče na Keyserver">
+<!ENTITY No_Keyserver_defined "Nebyl definován Keyserver">
+<!ENTITY Keyserver "Keyserver (Server klíčů)">
+<!ENTITY Try_Again "Zkusit znovu">
+<!ENTITY Key_Published_to_Keyserver "Klíč byl zveřejněn na Keyserver">
+<!ENTITY Publish_Again "Zveřejnit znovu">
 <!ENTITY Publish_to_Keyserver "">
-<!ENTITY Key_not_found_on_keyserver "">
+<!ENTITY Key_not_found_on_keyserver "Klíč nebyl nalezen na Keyserveru">
 <!ENTITY Key_updated "">
 <!ENTITY No_changes_to_key "">
-<!ENTITY User_ID_is_no_longer_valid "">
+<!ENTITY User_ID_is_no_longer_valid "Číslo ID uživatele už není platný">
 <!ENTITY Please_select_which_of_your_keys_to_create_the_signature_with "">
-<!ENTITY You_have_not_enabled_any_keys_for_use_with_webpg "">
-<!ENTITY please_click_here "">
-<!ENTITY and_select_1_or_more_keys_for_use_with_webpg "">
-<!ENTITY You_have_not_generated_any_keys "">
-<!ENTITY and_generate_a_key_to_use_with_webpg "">
-<!ENTITY Already_signed_with_this_key "">
-<!ENTITY Signature_added_using_this_key "">
+<!ENTITY You_have_not_enabled_any_keys_for_use_with_webpg "Nemáte povoleny žádné klíče pro použití s webpg">
+<!ENTITY please_click_here "prosím klikněte zde">
+<!ENTITY and_select_1_or_more_keys_for_use_with_webpg "a zvolte 1 nebo víc klíčů pro použití s webpg">
+<!ENTITY You_have_not_generated_any_keys "Nevygeneroval jste žádný klíč">
+<!ENTITY and_generate_a_key_to_use_with_webpg "a vygenerujte klíč pro použití s webpg">
+<!ENTITY Already_signed_with_this_key "Již podepsán s tímto klíčem">
+<!ENTITY Signature_added_using_this_key "Podpis přidán použitím tohoto klíče">
 <!ENTITY Delete_this_Photo "">
 <!ENTITY Searching_for "">
 <!ENTITY Search_string_too_ambiguous_or_not_found_on_server "">
-<!ENTITY KeyID "">
+<!ENTITY KeyID "ID klíče">
 <!ENTITY IMPORT "">
-<!ENTITY Key_Created "">
-<!ENTITY Expires "">
-<!ENTITY Expired "">
-<!ENTITY User_IDs "">
-<!ENTITY Fingerprint "">
+<!ENTITY Key_Created "Klíč vytvořen">
+<!ENTITY Expires "Vyprší platnost">
+<!ENTITY Expired "Platnost vypršela">
+<!ENTITY User_IDs "Čísla ID uživatele">
+<!ENTITY Fingerprint "Otisk">
 <!ENTITY Status "">
-<!ENTITY Revoked "">
-<!ENTITY Invalid "">
-<!ENTITY Disabled "">
-<!ENTITY Valid "">
-<!ENTITY Key_Algorithm "">
+<!ENTITY Revoked "Zamítnutý">
+<!ENTITY Invalid "Neplatný">
+<!ENTITY Disabled "Zakázáno">
+<!ENTITY Valid "Platný">
+<!ENTITY Key_Algorithm "Algoritmus klíče">
 <!ENTITY Validity "">
-<!ENTITY Key_Options "">
-<!ENTITY Operations "">
-<!ENTITY Subkeys "">
-<!ENTITY Subkey_Details "">
-<!ENTITY Flags "">
+<!ENTITY Key_Options "Možnosti klíče">
+<!ENTITY Operations "Operace">
+<!ENTITY Subkeys "Podklíče">
+<!ENTITY Subkey_Details "Detail podklíče">
+<!ENTITY Flags "Příznaky">
 <!ENTITY Key_Operations "">
 <!ENTITY Signatures_made_with_keys_not_in_your_keyring_are_omitted "">
 <!ENTITY Created "">
@@ -217,10 +217,10 @@
 <!ENTITY Enable_this_key_for_GnuPG_operations "">
 <!ENTITY This_is_your_default_key "">
 <!ENTITY Make_this_the_default_key_for_GnuPG_operations "">
-<!ENTITY Enabled "">
-<!ENTITY Cannot_unset_your_default_key "">
+<!ENTITY Enabled "Povoleno">
+<!ENTITY Cannot_unset_your_default_key "Nelze odnastavit váš výchozí klíč">
 <!ENTITY Trust_Assignment "">
-<!ENTITY Unknown "">
+<!ENTITY Unknown "Neznámý">
 <!ENTITY Marginal "">
 <!ENTITY Full "">
 <!ENTITY ultimate "">
@@ -229,17 +229,17 @@
 <!ENTITY None_Selected "">
 <!ENTITY Filter_or_Create_New "">
 <!ENTITY Create_new_group "">
-<!ENTITY Change_Passphrase "">
-<!ENTITY Add_Subkey "">
-<!ENTITY Add_Photo "">
+<!ENTITY Change_Passphrase "Změnit heslo">
+<!ENTITY Add_Subkey "Přidat podklíč">
+<!ENTITY Add_Photo "Přidat foto">
 <!ENTITY Disable_this_key "">
 <!ENTITY Enable_this_key "">
-<!ENTITY Delete_this_Subkey "">
+<!ENTITY Delete_this_Subkey "Smazat tento podklíč">
 <!ENTITY Export_this_key "">
 <!ENTITY Refresh_from_Keyserver "">
 <!ENTITY Cannot_sign_a_revoked_UID "">
 <!ENTITY Revoke_this_key "">
-<!ENTITY Revoke_UID "">
+<!ENTITY Revoke_UID "Zamítnout UID">
 <!ENTITY Cannot_make_a_revoked_UID_primary "">
 <!ENTITY Make_Primary "">
 <!ENTITY Delete "">
@@ -316,7 +316,7 @@
 <!ENTITY SEARCH_FOR_KEYS_ON_KEYSERVER "">
 <!ENTITY PGP_PUBLIC_KEY "">
 <!ENTITY Names_UIDs_on_Key "">
-<!ENTITY REVOKED "">
+<!ENTITY REVOKED "ZAMÍTNUTO">
 <!ENTITY EXPIRED "">
 <!ENTITY THIS_KEY_IS_NOT_IN_YOUR_KEYRING "">
 <!ENTITY THIS_KEY_IS_IN_YOUR_KEYRING "">
@@ -330,24 +330,24 @@
 <!ENTITY Clear_Sign "">
 <!ENTITY Sign_and_Encrypt_this_text "">
 <!ENTITY Import_this_Public_key "">
-<!ENTITY Do_not_use_WebPG_for_this_message "">
+<!ENTITY Do_not_use_WebPG_for_this_message "Pro tuto zprávu nepoužívat WebPG">
 <!ENTITY Sign_Inline "">
 <!ENTITY Sign_as_Attachment "">
-<!ENTITY You_do_not_have_any_keys_for "">
-<!ENTITY or "">
+<!ENTITY You_do_not_have_any_keys_for "Nemáte žádné klíče pro">
+<!ENTITY or "nebo">
 <!ENTITY WebPG_is_preparing_the_email "">
-<!ENTITY This_message_already_contains_PGP_data "">
-<!ENTITY Would_you_like_to_Encrypt_anyway "">
-<!ENTITY Expired_keys_found_for "">
-<!ENTITY and "">
+<!ENTITY This_message_already_contains_PGP_data "Tato zpráva již obsahuje PGP data">
+<!ENTITY Would_you_like_to_Encrypt_anyway "Přejete si přesto zašifrovat">
+<!ENTITY Expired_keys_found_for "Nalezeny prošlé klíče pro">
+<!ENTITY and "a">
 <!ENTITY This_message_will_be_Encrypted "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted "">
-<!ENTITY You_have_more_than_1_public_key_matching_that_address "">
-<!ENTITY The_Key_for "">
-<!ENTITY is_invalid "">
-<!ENTITY Open_the_Key_Manager "">
+<!ENTITY You_have_more_than_1_public_key_matching_that_address "Pro tuto adresu máte více než 1 veřejný klíč">
+<!ENTITY The_Key_for "Klíč pro">
+<!ENTITY is_invalid "je neplatný">
+<!ENTITY Open_the_Key_Manager "Otevřít správce klíčů">
 <!ENTITY This_message_will_be_Signed "">
-<!ENTITY Sign_Only "">
+<!ENTITY Sign_Only "Pouze podepsat">
 <!ENTITY This_message_will_be_Encrypted_using_Symmetric_Encryption "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted_using_Symmetric_Encryption "">
 <!ENTITY WebPG_is_checking_this_message_for_signatures "">

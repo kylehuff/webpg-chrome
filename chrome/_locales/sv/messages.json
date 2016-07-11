@@ -1,9 +1,9 @@
 {
 	"About_WebPG": {
-		"message": ""
+		"message": "Om WebPG"
 	},
 	"Version": {
-		"message": ""
+		"message": "Version"
 	},
 	"Extension_Information": {
 		"message": ""
@@ -12,46 +12,46 @@
 		"message": ""
 	},
 	"Platform": {
-		"message": ""
+		"message": "Plattform"
 	},
 	"Product": {
-		"message": ""
+		"message": "Produkt"
 	},
 	"User_Agent": {
-		"message": ""
+		"message": "Klienttyp"
 	},
 	"Language": {
-		"message": ""
+		"message": "Språk"
 	},
 	"Plugin_Information": {
-		"message": ""
+		"message": "Insticksprograminformation"
 	},
 	"Plugin_version": {
 		"message": ""
 	},
 	"GnuPG_Information": {
-		"message": ""
+		"message": "GnuPG-information"
 	},
 	"GnuPG_version": {
-		"message": ""
+		"message": "GnuPG-version"
 	},
 	"GnuPG_binary": {
-		"message": ""
+		"message": "GnuPG-binärfil"
 	},
 	"GnuPG_home_directory": {
 		"message": ""
 	},
 	"default": {
-		"message": ""
+		"message": "förval"
 	},
 	"GPGCONF_version": {
-		"message": ""
+		"message": "GPGCONF-version"
 	},
 	"not_detected": {
-		"message": ""
+		"message": "ej upptäckt"
 	},
 	"Assuan_version": {
-		"message": ""
+		"message": "Assuan-version"
 	},
 	"Key_Agent": {
 		"message": ""
@@ -60,16 +60,16 @@
 		"message": ""
 	},
 	"Translation_Status": {
-		"message": ""
+		"message": "Översättningsstatus"
 	},
 	"WebPG_Plugin_failed_to_load": {
 		"message": ""
 	},
 	"Key_Generation_Complete": {
-		"message": ""
+		"message": "Skapandet av nyckeln är klar"
 	},
 	"Key_Generation": {
-		"message": ""
+		"message": "Generera nyckel"
 	},
 	"Open_Key_Manager": {
 		"message": ""
@@ -78,13 +78,13 @@
 		"message": ""
 	},
 	"The_generation_of_your_new_key_is_now_complete": {
-		"message": ""
+		"message": "Genereringen av nyckeln är nu klar"
 	},
 	"Options": {
-		"message": ""
+		"message": "Alternativ"
 	},
 	"Key_Manager": {
-		"message": ""
+		"message": "Nyckelhanterare"
 	},
 	"Refresh_Key_List": {
 		"message": ""
@@ -129,13 +129,13 @@
 		"message": ""
 	},
 	"Cancel": {
-		"message": ""
+		"message": "Avbryt"
 	},
 	"Import_from_File": {
 		"message": ""
 	},
 	"Import": {
-		"message": ""
+		"message": "Importera"
 	},
 	"Error": {
 		"message": ""
@@ -153,22 +153,22 @@
 		"message": ""
 	},
 	"Select_Recipient_s_": {
-		"message": ""
+		"message": "Välj mottagare"
 	},
 	"Export": {
-		"message": ""
+		"message": "Exportera"
 	},
 	"Editor": {
-		"message": ""
+		"message": "Redigerare"
 	},
 	"Search_Filter": {
 		"message": ""
 	},
 	"Encrypt": {
-		"message": ""
+		"message": "Kryptera"
 	},
 	"Insert": {
-		"message": ""
+		"message": "Infoga"
 	},
 	"no_action_has_been_selected": {
 		"message": ""
@@ -189,10 +189,10 @@
 		"message": ""
 	},
 	"Suggestions": {
-		"message": ""
+		"message": "Förslag"
 	},
 	"The_plugin_was_unable_to_load": {
-		"message": ""
+		"message": "Insticksprogrammet kunde ej laddas"
 	},
 	"The_Firefox_Click_to_Play_feature_is_enabled": {
 		"message": ""
@@ -210,31 +210,31 @@
 		"message": ""
 	},
 	"Error_Details": {
-		"message": ""
+		"message": "Felinformation"
 	},
 	"Error_in_Method": {
 		"message": ""
 	},
 	"Error_Code": {
-		"message": ""
+		"message": "Felkod"
 	},
 	"Error_String": {
-		"message": ""
+		"message": "Felsträng"
 	},
 	"File": {
 		"message": ""
 	},
 	"Line": {
-		"message": ""
+		"message": "Rad"
 	},
 	"Unknown_Error": {
-		"message": ""
+		"message": "Okänt fel"
 	},
 	"System_Information": {
-		"message": ""
+		"message": "Systeminformation"
 	},
 	"App_Version": {
-		"message": ""
+		"message": "Appversion"
 	},
 	"Sub_product": {
 		"message": ""
@@ -243,16 +243,16 @@
 		"message": ""
 	},
 	"no_email_address_provided": {
-		"message": ""
+		"message": "ingen emailadress angiven"
 	},
 	"Use": {
-		"message": ""
+		"message": "Använd"
 	},
 	"Sign_only": {
-		"message": ""
+		"message": "Enbart signera"
 	},
 	"Sign_and_Encrypt": {
-		"message": ""
+		"message": "Signera och kryptera"
 	},
 	"Symmetric_Encryption": {
 		"message": ""
@@ -261,10 +261,10 @@
 		"message": ""
 	},
 	"Decrypt": {
-		"message": ""
+		"message": "Dekryptera"
 	},
 	"Verify": {
-		"message": ""
+		"message": "Verifiera"
 	},
 	"Secure_Editor": {
 		"message": ""
@@ -300,10 +300,10 @@
 		"message": ""
 	},
 	"Private_Keys": {
-		"message": ""
+		"message": "Privata nycklar"
 	},
 	"Public_Keys": {
-		"message": ""
+		"message": "Publika nycklar"
 	},
 	"Search_Keyserver": {
 		"message": ""
@@ -312,10 +312,10 @@
 		"message": ""
 	},
 	"Your_Name": {
-		"message": ""
+		"message": "Ditt namn"
 	},
 	"Your_Email": {
-		"message": ""
+		"message": "Din e-postadress"
 	},
 	"Comment": {
 		"message": ""
@@ -345,7 +345,7 @@
 		"message": ""
 	},
 	"Never": {
-		"message": ""
+		"message": "Aldrig"
 	},
 	"n30_days": {
 		"message": ""
@@ -366,7 +366,7 @@
 		"message": ""
 	},
 	"Sign": {
-		"message": ""
+		"message": "Signera"
 	},
 	"Authenticate": {
 		"message": ""
@@ -393,7 +393,7 @@
 		"message": ""
 	},
 	"Are_you_sure": {
-		"message": ""
+		"message": "Är du säker"
 	},
 	"Change_Expiration": {
 		"message": ""
@@ -1023,7 +1023,7 @@
 		"message": ""
 	},
 	"and": {
-		"message": ""
+		"message": "och"
 	},
 	"This_message_will_be_Encrypted": {
 		"message": ""
@@ -1041,13 +1041,13 @@
 		"message": ""
 	},
 	"Open_the_Key_Manager": {
-		"message": ""
+		"message": "Öppna nyckelhanteraren"
 	},
 	"This_message_will_be_Signed": {
 		"message": ""
 	},
 	"Sign_Only": {
-		"message": ""
+		"message": "Enbart signera"
 	},
 	"This_message_will_be_Encrypted_using_Symmetric_Encryption": {
 		"message": ""

@@ -1023,7 +1023,7 @@
 		"message": ""
 	},
 	"and": {
-		"message": ""
+		"message": "和"
 	},
 	"This_message_will_be_Encrypted": {
 		"message": ""
@@ -1032,13 +1032,13 @@
 		"message": ""
 	},
 	"You_have_more_than_1_public_key_matching_that_address": {
-		"message": "您有超过1个公匙配置那个地址"
+		"message": "你有一个以上的公钥与该地址匹配"
 	},
 	"The_Key_for": {
-		"message": ""
+		"message": "加密密钥的"
 	},
 	"is_invalid": {
-		"message": "是非法的"
+		"message": "是无效的"
 	},
 	"Open_the_Key_Manager": {
 		"message": "打开密匙管理器"

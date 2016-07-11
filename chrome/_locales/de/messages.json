@@ -3,13 +3,13 @@
 		"message": "Über WebPG"
 	},
 	"Version": {
-		"message": ""
+		"message": "Version"
 	},
 	"Extension_Information": {
-		"message": ""
+		"message": "Informationen zum Add-on"
 	},
 	"Extension_version": {
-		"message": ""
+		"message": "Version des add-on"
 	},
 	"Platform": {
 		"message": "Plattform"
@@ -24,16 +24,16 @@
 		"message": "Sprache"
 	},
 	"Plugin_Information": {
-		"message": ""
+		"message": "Plugin Information"
 	},
 	"Plugin_version": {
-		"message": ""
+		"message": "Version des Plugins:"
 	},
 	"GnuPG_Information": {
-		"message": ""
+		"message": "GnuPG Information"
 	},
 	"GnuPG_version": {
-		"message": ""
+		"message": "GnuPG Version"
 	},
 	"GnuPG_binary": {
 		"message": "GnuPG-Programm"
@@ -42,25 +42,25 @@
 		"message": "GnuPG Home-Directory"
 	},
 	"default": {
-		"message": ""
+		"message": "Grundeinstellung"
 	},
 	"GPGCONF_version": {
-		"message": ""
+		"message": "GPGCONF Version"
 	},
 	"not_detected": {
-		"message": ""
+		"message": "nicht gefunden"
 	},
 	"Assuan_version": {
-		"message": ""
+		"message": "Assuan Version"
 	},
 	"Key_Agent": {
 		"message": ""
 	},
 	"Finished": {
-		"message": "Fertig"
+		"message": "Abgeschlossen"
 	},
 	"Translation_Status": {
-		"message": ""
+		"message": "Übersetzungsstatus"
 	},
 	"WebPG_Plugin_failed_to_load": {
 		"message": "WebPG Plugin konnte nicht geladen werden"
@@ -156,10 +156,10 @@
 		"message": "einen oder mehrere Empfänger auswählen"
 	},
 	"Export": {
-		"message": ""
+		"message": "Exportieren"
 	},
 	"Editor": {
-		"message": ""
+		"message": "Editor"
 	},
 	"Search_Filter": {
 		"message": "Suchfilter"
@@ -168,19 +168,19 @@
 		"message": "Verschlüsseln"
 	},
 	"Insert": {
-		"message": ""
+		"message": "Einfügen"
 	},
 	"no_action_has_been_selected": {
-		"message": ""
+		"message": "Es wurde keine Aktion ausgewählt"
 	},
 	"no_action_has_been_successful": {
-		"message": ""
+		"message": "keine Aufgabe konnte fertiggestellt werde"
 	},
 	"UIDs": {
 		"message": "UIDs"
 	},
 	"Key_does_not_support_this_operation": {
-		"message": ""
+		"message": "Dieser Vorgang wird vom Schlüssel nicht unterstützt"
 	},
 	"Error_loading_WebPG": {
 		"message": "Fehler beim Laden von WebPG"
@@ -195,10 +195,10 @@
 		"message": "Das Plugin konnte nicht geladen werden"
 	},
 	"The_Firefox_Click_to_Play_feature_is_enabled": {
-		"message": ""
+		"message": "Die Click-to-Play-Funtkion für Firefox ist aktiviert"
 	},
 	"WebPG_cannot_load_the_required_plugin_with_this_feature_enabled": {
-		"message": ""
+		"message": "aktiviert ist"
 	},
 	"The_WebPG_Native_Messaging_Host_was_unreachable": {
 		"message": ""
@@ -246,7 +246,7 @@
 		"message": "Keine E-Mail-Adresse angegeben"
 	},
 	"Use": {
-		"message": ""
+		"message": "Verwende"
 	},
 	"Sign_only": {
 		"message": "Nur signieren"
@@ -264,25 +264,25 @@
 		"message": "Entschlüsseln"
 	},
 	"Verify": {
-		"message": ""
+		"message": "Überprüfen"
 	},
 	"Secure_Editor": {
-		"message": ""
+		"message": "sicherer Editor"
 	},
 	"PGP_Signed_Message": {
-		"message": ""
+		"message": "PGP signierte Nachricht"
 	},
 	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
 		"message": "PGP VERSCHLÜSSELTE ODER SIGNIERTE NACHRICHT"
 	},
 	"PGP_Public_Key": {
-		"message": ""
+		"message": "öffentlicher Schlüssel (PGP)"
 	},
 	"WebPG_Secure_Editor": {
-		"message": ""
+		"message": "WebPG sicherer Editor"
 	},
 	"Unsecured_Editor": {
-		"message": ""
+		"message": "nicht sicherer Editor"
 	},
 	"Loading_keys": {
 		"message": ""
@@ -426,7 +426,7 @@
 		"message": "Sind Sie sicher, dass Sie diese UID dauerhaft löschen wollen"
 	},
 	"Are_you_sure_you_want_to_permanently_delete_this_Photo": {
-		"message": ""
+		"message": "Sind Sie sicher, dass Sie dieses Photo unwiderruflich löschen wollen"
 	},
 	"New_Expiration_Date": {
 		"message": "Neues Ablaufdatum"
@@ -444,34 +444,34 @@
 		"message": "Diesen Schlüssel löschen"
 	},
 	"Add": {
-		"message": ""
+		"message": "Hinzufügen"
 	},
 	"There_was_an_error_parsing_this_image_file": {
-		"message": ""
+		"message": "Es gab einen Fehler beim verarbeiten des Bildes"
 	},
 	"There_was_an_error_adding_this_image_file": {
-		"message": ""
+		"message": "Es gab einen Fehler beim hinzufügen des Bildes"
 	},
 	"It_is_possible_the_image_contains_EXIF_data": {
-		"message": ""
+		"message": "Das Bild enthält möglicherweise EXIF-Daten"
 	},
 	"Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo": {
-		"message": ""
+		"message": "hinzuzufügen"
 	},
 	"Only_JPEG_image_files_are_supported": {
-		"message": ""
+		"message": "Es werden nur JPEG (.jpg/.jpeg) Bilder unterstützt"
 	},
 	"WARNING": {
-		"message": ""
+		"message": "ACHTUNG"
 	},
 	"is_quite_large": {
-		"message": ""
+		"message": "ist ziemlich groß"
 	},
 	"Consider_using_a_smaller_image": {
-		"message": ""
+		"message": "Benutze besser ein kleineres Bild"
 	},
 	"Only_one_image_can_be_added": {
-		"message": ""
+		"message": "Es kann nur ein Bild hinzugefügt werden"
 	},
 	"Copy": {
 		"message": "Kopieren"
@@ -501,37 +501,37 @@
 		"message": "Widerrufen"
 	},
 	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "veröffentlichen möchten"
 	},
 	"Publish": {
-		"message": ""
+		"message": "Veröffentlichen"
 	},
 	"Sending_key_to_Keyserver": {
-		"message": ""
+		"message": "Schlüssel wird an Schlüssel-Server gesendet"
 	},
 	"There_was_a_problem_sending_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "festgestellt worden"
 	},
 	"No_Keyserver_defined": {
-		"message": ""
+		"message": "Keine Schlüssel-Server definiert"
 	},
 	"Keyserver": {
-		"message": ""
+		"message": "Schlüssel-Server"
 	},
 	"Try_Again": {
-		"message": ""
+		"message": "Erneut versuchen"
 	},
 	"Key_Published_to_Keyserver": {
-		"message": ""
+		"message": "Schlüssel wurde über den Schlüssel-Server veröffentlicht"
 	},
 	"Publish_Again": {
-		"message": ""
+		"message": "Erneut veröffentlichen"
 	},
 	"Publish_to_Keyserver": {
-		"message": ""
+		"message": "Auf Schlüssel-Server veröffentlichen"
 	},
 	"Key_not_found_on_keyserver": {
-		"message": ""
+		"message": "Schlüssel wurde auf dem Schlüssel-Server nicht gefunden"
 	},
 	"Key_updated": {
 		"message": ""
@@ -567,7 +567,7 @@
 		"message": "Unterschrift hinzugefügt unter Verwendung dieses Schlüssels"
 	},
 	"Delete_this_Photo": {
-		"message": ""
+		"message": "Dieses Photo löschen"
 	},
 	"Searching_for": {
 		"message": "Suchen nach"
@@ -642,19 +642,19 @@
 		"message": "Erzeugt"
 	},
 	"User_Photos": {
-		"message": ""
+		"message": "Benutzer-Fotos"
 	},
 	"User_Photo": {
 		"message": ""
 	},
 	"Enable_this_key_for_GnuPG_operations": {
-		"message": ""
+		"message": "Aktiviere diesen Schlüssel für GnuPG"
 	},
 	"This_is_your_default_key": {
 		"message": "Dies ist Ihr Standardschlüssel"
 	},
 	"Make_this_the_default_key_for_GnuPG_operations": {
-		"message": ""
+		"message": "Mache diesen Schlüssel zum Standard in GnuPG"
 	},
 	"Enabled": {
 		"message": "Aktiviert"
@@ -678,7 +678,7 @@
 		"message": ""
 	},
 	"Group_Assignment": {
-		"message": ""
+		"message": "Gruppenzuordnung"
 	},
 	"Select_group_s__below": {
 		"message": ""
@@ -699,7 +699,7 @@
 		"message": "Unterschlüssel hinzufügen"
 	},
 	"Add_Photo": {
-		"message": ""
+		"message": "Foto hinzufügen"
 	},
 	"Disable_this_key": {
 		"message": ""
@@ -714,7 +714,7 @@
 		"message": ""
 	},
 	"Refresh_from_Keyserver": {
-		"message": ""
+		"message": "Von Schlüssel-Server aktualisieren"
 	},
 	"Cannot_sign_a_revoked_UID": {
 		"message": "Kann keine widerrufene UID signieren"
@@ -756,7 +756,7 @@
 		"message": "Das WebPG-NPAPI-Plugin ist gültig"
 	},
 	"OpenPGP_was_detected": {
-		"message": ""
+		"message": "OpenPGP wurde gefunden"
 	},
 	"It_appears_you_have_a_key_agent_configured": {
 		"message": "Es scheint, als hätten Sie einen Schlüsselagenten konfiguriert"
@@ -768,7 +768,7 @@
 		"message": "Sie können die Signaturmethoden anwenden"
 	},
 	"OpenPGP_does_not_appear_to_be_installed": {
-		"message": ""
+		"message": "OpenPGP scheint nicht installiert zu sein"
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
 		"message": "Sie scheinen keinen Schlüsselagenten konfiguriert zu haben"
@@ -795,7 +795,7 @@
 		"message": "Aktivieren Sie die Inline-Formatierung von PGP-Nachrichten und -Schlüsseln"
 	},
 	"Inline_Options": {
-		"message": ""
+		"message": "Eingebette Optionen"
 	},
 	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
 		"message": "verschlüsseln"
@@ -807,7 +807,7 @@
 		"message": "EXPERIMENTELL"
 	},
 	"Automatically_Sign_outgoing_messages_in_GMAIL": {
-		"message": ""
+		"message": "Unterschreibe ausgehende Nachrichten in GMAIL automatisch"
 	},
 	"Linked_GMAIL_Identities": {
 		"message": ""
@@ -816,7 +816,7 @@
 		"message": ""
 	},
 	"GPGCONF_binary": {
-		"message": ""
+		"message": "GPGCONF-Binärdatei"
 	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
 		"message": "Ihr System scheint korrekt für WebPG konfiguriert zu sein"
@@ -825,19 +825,19 @@
 		"message": "Es gibt ein Problem mit Ihrer Konfiguration"
 	},
 	"Inline_formatting_mode": {
-		"message": ""
+		"message": "Formattierungsmodus für Eingebettetes"
 	},
 	"Window": {
-		"message": ""
+		"message": "Fenster"
 	},
 	"Icon": {
-		"message": ""
+		"message": "Icon"
 	},
 	"Sample": {
-		"message": ""
+		"message": "Beispiel"
 	},
 	"WebPG_Toolbar": {
-		"message": ""
+		"message": "WebPG Toolbar"
 	},
 	"No_default_key_set": {
 		"message": ""
@@ -870,10 +870,10 @@
 		"message": "Zwischenablage"
 	},
 	"TEXT_COPIED": {
-		"message": ""
+		"message": "TEXT KOPIERT"
 	},
 	"UNABLE_TO_COPY_TEXT": {
-		"message": ""
+		"message": "KOPIEREN DES TEXTES NICHT MÖGLICH"
 	},
 	"COPY_TO_CLIPBOARD": {
 		"message": "IN ZWISCHENABLAGE KOPIEREN"
@@ -945,7 +945,7 @@
 		"message": "ÖFFENTLICHEN SCHLÜSSEL SIGNIERT:"
 	},
 	"SEARCH_FOR_KEYS_ON_KEYSERVER": {
-		"message": ""
+		"message": "AUF SCHLÜSSEL-SERVER NACH SCHLÜSSELN SUCHEN"
 	},
 	"PGP_PUBLIC_KEY": {
 		"message": "ÖFFENTLICHER PGP SCHLÜSSEL"
@@ -981,28 +981,28 @@
 		"message": "KEINE BENUTZER-ID"
 	},
 	"WebPG": {
-		"message": ""
+		"message": "WebPG"
 	},
 	"About": {
-		"message": ""
+		"message": "Über"
 	},
 	"Clear_Sign": {
-		"message": ""
+		"message": "Entferne Unterschrift"
 	},
 	"Sign_and_Encrypt_this_text": {
-		"message": ""
+		"message": "Unterschreibe und verschlüssele diesen Text"
 	},
 	"Import_this_Public_key": {
-		"message": ""
+		"message": "Diesen öffentlichen Schlüssel importieren"
 	},
 	"Do_not_use_WebPG_for_this_message": {
 		"message": "Verwenden Sie WebPG nicht für diese Nachricht"
 	},
 	"Sign_Inline": {
-		"message": ""
+		"message": "Unterschreibe im Text"
 	},
 	"Sign_as_Attachment": {
-		"message": ""
+		"message": "Unterschreibe als Anhang"
 	},
 	"You_do_not_have_any_keys_for": {
 		"message": "Sie haben keinen Schlüssel für"
@@ -1014,16 +1014,16 @@
 		"message": ""
 	},
 	"This_message_already_contains_PGP_data": {
-		"message": ""
+		"message": "Diese Nachricht enthält bereits PGP-Daten"
 	},
 	"Would_you_like_to_Encrypt_anyway": {
-		"message": ""
+		"message": "Wollen Sie trotzdem verschlüsseln?"
 	},
 	"Expired_keys_found_for": {
-		"message": ""
+		"message": "nicht mehr gültige Schlüssel gefunden für"
 	},
 	"and": {
-		"message": ""
+		"message": "und"
 	},
 	"This_message_will_be_Encrypted": {
 		"message": ""
@@ -1047,7 +1047,7 @@
 		"message": ""
 	},
 	"Sign_Only": {
-		"message": ""
+		"message": "nur signieren"
 	},
 	"This_message_will_be_Encrypted_using_Symmetric_Encryption": {
 		"message": ""

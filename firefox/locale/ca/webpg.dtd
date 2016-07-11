@@ -1,353 +1,353 @@
-<!ENTITY About_WebPG "">
-<!ENTITY Version "">
-<!ENTITY Extension_Information "">
-<!ENTITY Extension_version "">
-<!ENTITY Platform "">
-<!ENTITY Product "">
-<!ENTITY User_Agent "">
-<!ENTITY Language "">
-<!ENTITY Plugin_Information "">
-<!ENTITY Plugin_version "">
-<!ENTITY GnuPG_Information "">
-<!ENTITY GnuPG_version "">
-<!ENTITY GnuPG_binary "">
-<!ENTITY GnuPG_home_directory "">
-<!ENTITY default "">
-<!ENTITY GPGCONF_version "">
-<!ENTITY not_detected "">
-<!ENTITY Assuan_version "">
+<!ENTITY About_WebPG "Quant a WebPG">
+<!ENTITY Version "Versió">
+<!ENTITY Extension_Information "Informació sobre l'extensió">
+<!ENTITY Extension_version "Versió de l'extensió">
+<!ENTITY Platform "Plataforma">
+<!ENTITY Product "Producte">
+<!ENTITY User_Agent "Agent d'usuari">
+<!ENTITY Language "Idioma">
+<!ENTITY Plugin_Information "Informació sobre el connector">
+<!ENTITY Plugin_version "Versió del connector">
+<!ENTITY GnuPG_Information "Informació sobre GnuPG">
+<!ENTITY GnuPG_version "Versió de GnuPG">
+<!ENTITY GnuPG_binary "Executable del GnuPG">
+<!ENTITY GnuPG_home_directory "Directori d'usuari de GnuPG">
+<!ENTITY default "predeterminat">
+<!ENTITY GPGCONF_version "Versió de GPGCONF">
+<!ENTITY not_detected "no detectat">
+<!ENTITY Assuan_version "Versió d'Assuan">
 <!ENTITY Key_Agent "">
-<!ENTITY Finished "">
-<!ENTITY Translation_Status "">
-<!ENTITY WebPG_Plugin_failed_to_load "">
-<!ENTITY Key_Generation_Complete "">
-<!ENTITY Key_Generation "">
-<!ENTITY Open_Key_Manager "">
-<!ENTITY WebPG_Key_Generation_Failed "">
-<!ENTITY The_generation_of_your_new_key_is_now_complete "">
-<!ENTITY Options "">
-<!ENTITY Key_Manager "">
+<!ENTITY Finished "S'ha finalitzat">
+<!ENTITY Translation_Status "Estat de la traducció">
+<!ENTITY WebPG_Plugin_failed_to_load "La càrrega del connector WebPG ha fallat">
+<!ENTITY Key_Generation_Complete "Generació de la clau completada">
+<!ENTITY Key_Generation "Generació de claus">
+<!ENTITY Open_Key_Manager "Obriu el Gestor de Claus">
+<!ENTITY WebPG_Key_Generation_Failed "La creació de la clau WebPG ha fallat">
+<!ENTITY The_generation_of_your_new_key_is_now_complete "La seva nova clau s'ha creat">
+<!ENTITY Options "Opcions">
+<!ENTITY Key_Manager "Gestor de claus">
 <!ENTITY Refresh_Key_List "">
-<!ENTITY Generate_New_Key "">
-<!ENTITY Create "">
-<!ENTITY Name_Required "">
-<!ENTITY UID_Names_must_be_at_least_5_characters "">
-<!ENTITY UID_Names_cannot_begin_with_a_number "">
-<!ENTITY Not_a_valid_email_address "">
-<!ENTITY Passphrases_do_not_match "">
-<!ENTITY Building_key__please_wait "">
-<!ENTITY This_may_take_a_long_time__5_minutes_or_more__to_complete "">
-<!ENTITY Please_be_patient_while_the_key_is_created "">
-<!ENTITY It_is_safe_to_close_this_window "">
-<!ENTITY key_generation_will_continue_in_the_background "">
-<!ENTITY Close "">
-<!ENTITY Cancel "">
+<!ENTITY Generate_New_Key "Genera Clau Nova">
+<!ENTITY Create "Crea">
+<!ENTITY Name_Required "Nom Requerit">
+<!ENTITY UID_Names_must_be_at_least_5_characters "Els Noms UID han de contenir almenys  caracters">
+<!ENTITY UID_Names_cannot_begin_with_a_number "Els Noms UID no poden començar amb un número">
+<!ENTITY Not_a_valid_email_address "No és una adreça de correu vàlida">
+<!ENTITY Passphrases_do_not_match "Les contrasenyes no coincideixen">
+<!ENTITY Building_key__please_wait "Construïnt una clau, espereu un moment">
+<!ENTITY This_may_take_a_long_time__5_minutes_or_more__to_complete "Això pot trigar una estona llarga a completar-se (5 minuts o més)">
+<!ENTITY Please_be_patient_while_the_key_is_created "Tingueu paciència mentre es crea la clau">
+<!ENTITY It_is_safe_to_close_this_window "Podeu tancar aquesta finestra">
+<!ENTITY key_generation_will_continue_in_the_background "la generació de la clau continuarà en segon plànol">
+<!ENTITY Close "Tanca">
+<!ENTITY Cancel "Cancel·la">
 <!ENTITY Import_from_File "">
-<!ENTITY Import "">
-<!ENTITY Error "">
+<!ENTITY Import "Importa">
+<!ENTITY Error "Hi ha hagut un error">
 <!ENTITY There_was_an_error_parsing_this_PGP_file "">
 <!ENTITY There_was_an_error_importing_any_keys_in_this_file "">
 <!ENTITY Please_use_the_button_above_to_open_a_key_file___asc__txt_ "">
 <!ENTITY User_Guide "">
-<!ENTITY Select_Recipient_s_ "">
-<!ENTITY Export "">
-<!ENTITY Editor "">
-<!ENTITY Search_Filter "">
-<!ENTITY Encrypt "">
-<!ENTITY Insert "">
-<!ENTITY no_action_has_been_selected "">
-<!ENTITY no_action_has_been_successful "">
-<!ENTITY UIDs "">
-<!ENTITY Key_does_not_support_this_operation "">
-<!ENTITY Error_loading_WebPG "">
-<!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "">
-<!ENTITY Suggestions "">
-<!ENTITY The_plugin_was_unable_to_load "">
-<!ENTITY The_Firefox_Click_to_Play_feature_is_enabled "">
-<!ENTITY WebPG_cannot_load_the_required_plugin_with_this_feature_enabled "">
+<!ENTITY Select_Recipient_s_ "Seleccioneu Recipient(s).">
+<!ENTITY Export "Exporta">
+<!ENTITY Editor "Editor">
+<!ENTITY Search_Filter "Buscar/Filtre">
+<!ENTITY Encrypt "Xifra">
+<!ENTITY Insert "Inseriu">
+<!ENTITY no_action_has_been_selected "No heu seleccionat cap acció">
+<!ENTITY no_action_has_been_successful "Cap acció ha conclòs amb èxit">
+<!ENTITY UIDs "UIDs">
+<!ENTITY Key_does_not_support_this_operation "La clau no té suport per aquesta operació">
+<!ENTITY Error_loading_WebPG "S'ha produï un error en carregar WebPG">
+<!ENTITY We_encountered_a_problem_while_attempting_to_load_WebPG "S'ha produït un problema quan s'intentava carregar WebPG">
+<!ENTITY Suggestions "Suggeriments">
+<!ENTITY The_plugin_was_unable_to_load "Ha estat impossible carregar el connector">
+<!ENTITY The_Firefox_Click_to_Play_feature_is_enabled "S'ha activat l'opció Click to Play del Firefox">
+<!ENTITY WebPG_cannot_load_the_required_plugin_with_this_feature_enabled "WebPG no pot carregar el connector necessari amb aquesta opció activa">
 <!ENTITY The_WebPG_Native_Messaging_Host_was_unreachable "">
-<!ENTITY There_might_be_a_problem_with_the_gpg_installation "">
-<!ENTITY consider_reinstalling_gpg4win "">
-<!ENTITY Error_Details "">
-<!ENTITY Error_in_Method "">
-<!ENTITY Error_Code "">
-<!ENTITY Error_String "">
-<!ENTITY File "">
-<!ENTITY Line "">
-<!ENTITY Unknown_Error "">
-<!ENTITY System_Information "">
-<!ENTITY App_Version "">
-<!ENTITY Sub_product "">
-<!ENTITY Vendor "">
-<!ENTITY no_email_address_provided "">
-<!ENTITY Use "">
-<!ENTITY Sign_only "">
-<!ENTITY Sign_and_Encrypt "">
-<!ENTITY Symmetric_Encryption "">
+<!ENTITY There_might_be_a_problem_with_the_gpg_installation "Podria haver un problema amb la instal·lació de gpg">
+<!ENTITY consider_reinstalling_gpg4win "Reinstal·li gpg4win">
+<!ENTITY Error_Details "Detalls de l'error">
+<!ENTITY Error_in_Method "Errada en le mètode">
+<!ENTITY Error_Code "Errada de codi">
+<!ENTITY Error_String "Errada a la cadena">
+<!ENTITY File "Fitxer">
+<!ENTITY Line "Línia">
+<!ENTITY Unknown_Error "S'ha produït un error desconegut">
+<!ENTITY System_Information "Informació del sistema">
+<!ENTITY App_Version "Versió de l'aplicació">
+<!ENTITY Sub_product "Subproducte">
+<!ENTITY Vendor "Proveïdor">
+<!ENTITY no_email_address_provided "no heu introduït cap adreça de correu electrònic">
+<!ENTITY Use "Utilitza">
+<!ENTITY Sign_only "Només signa">
+<!ENTITY Sign_and_Encrypt "Signa i xifra">
+<!ENTITY Symmetric_Encryption "Xifratge simètric">
 <!ENTITY Signed_Symmetric_Encryption "">
-<!ENTITY Decrypt "">
-<!ENTITY Verify "">
-<!ENTITY Secure_Editor "">
-<!ENTITY PGP_Signed_Message "">
-<!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "">
-<!ENTITY PGP_Public_Key "">
-<!ENTITY WebPG_Secure_Editor "">
-<!ENTITY Unsecured_Editor "">
+<!ENTITY Decrypt "Desxifra">
+<!ENTITY Verify "Verifica">
+<!ENTITY Secure_Editor "Editor Segur">
+<!ENTITY PGP_Signed_Message "Missatge signat amb PGP">
+<!ENTITY PGP_ENCRYPTED_OR_SIGNED_MESSAGE "MISSATGE XIFRAT O SIGNAT AMB PGP">
+<!ENTITY PGP_Public_Key "Clau Pública de PGP">
+<!ENTITY WebPG_Secure_Editor "Editor Segur WebPG">
+<!ENTITY Unsecured_Editor "Editor no segur">
 <!ENTITY Loading_keys "">
-<!ENTITY Generating_Key "">
-<!ENTITY Waiting_for_entropy "">
-<!ENTITY Building_key "">
-<!ENTITY please_wait "">
-<!ENTITY Private_Keys "">
-<!ENTITY Public_Keys "">
+<!ENTITY Generating_Key "S'està generant una clau">
+<!ENTITY Waiting_for_entropy "S'està esperant entropia">
+<!ENTITY Building_key "Construïnt una clau">
+<!ENTITY please_wait "Espereu">
+<!ENTITY Private_Keys "Claus privades">
+<!ENTITY Public_Keys "Claus públiques">
 <!ENTITY Search_Keyserver "">
 <!ENTITY Search_for_Keys_on_Keyserver "">
-<!ENTITY Your_Name "">
-<!ENTITY Your_Email "">
-<!ENTITY Comment "">
-<!ENTITY Passphrase "">
-<!ENTITY Repeat_Passphrase "">
-<!ENTITY Advanced_Options "">
-<!ENTITY Public_Key_Algorithm "">
-<!ENTITY Public_Key_Size "">
-<!ENTITY Private_Key_Algorithm "">
-<!ENTITY Private_Key_Size "">
-<!ENTITY Expire_in "">
-<!ENTITY Never "">
-<!ENTITY n30_days "">
-<!ENTITY n90_days "">
-<!ENTITY n1_year "">
-<!ENTITY Subkey_Options "">
-<!ENTITY encrypt_only "">
-<!ENTITY set_your_own_capabilities "">
-<!ENTITY Sign "">
-<!ENTITY Authenticate "">
-<!ENTITY Revoke_this_Key "">
-<!ENTITY Revoke_this_UID "">
-<!ENTITY Revoke_this_Signature "">
-<!ENTITY Delete_this_Signature "">
-<!ENTITY Delete_this_UID "">
-<!ENTITY Delete_this_Key "">
-<!ENTITY This_key_will_be_permanently_deleted "">
-<!ENTITY Are_you_sure "">
-<!ENTITY Change_Expiration "">
-<!ENTITY Sign_this_UID "">
-<!ENTITY Key_Details "">
-<!ENTITY Export_Public_Key "">
-<!ENTITY Add_UID "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_Key "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_UID "">
-<!ENTITY Are_you_sure_you_wish_to_revoke_this_Signature "">
-<!ENTITY Are_you_sure_you_wish_to_delete_this_Signature "">
-<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_UID "">
-<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_Photo "">
-<!ENTITY New_Expiration_Date "">
-<!ENTITY Never_Expire "">
-<!ENTITY Expiration_Date "">
-<!ENTITY Save "">
-<!ENTITY Delete_this_key "">
-<!ENTITY Add "">
-<!ENTITY There_was_an_error_parsing_this_image_file "">
-<!ENTITY There_was_an_error_adding_this_image_file "">
-<!ENTITY It_is_possible_the_image_contains_EXIF_data "">
-<!ENTITY Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo "">
-<!ENTITY Only_JPEG_image_files_are_supported "">
-<!ENTITY WARNING "">
-<!ENTITY is_quite_large "">
-<!ENTITY Consider_using_a_smaller_image "">
-<!ENTITY Only_one_image_can_be_added "">
-<!ENTITY Copy "">
-<!ENTITY Please_specify_the_revocation_details "">
-<!ENTITY Reason "">
-<!ENTITY No_reason_specified "">
-<!ENTITY Key_has_been_compromised "">
-<!ENTITY Key_is_superseded "">
-<!ENTITY Key_is_no_longer_used "">
-<!ENTITY Description "">
-<!ENTITY Revoke "">
-<!ENTITY Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver "">
-<!ENTITY Publish "">
-<!ENTITY Sending_key_to_Keyserver "">
-<!ENTITY There_was_a_problem_sending_this_key_to_the_Keyserver "">
-<!ENTITY No_Keyserver_defined "">
-<!ENTITY Keyserver "">
-<!ENTITY Try_Again "">
-<!ENTITY Key_Published_to_Keyserver "">
-<!ENTITY Publish_Again "">
-<!ENTITY Publish_to_Keyserver "">
-<!ENTITY Key_not_found_on_keyserver "">
+<!ENTITY Your_Name "El vostre nom">
+<!ENTITY Your_Email "La vostra adreça de correu electrònic">
+<!ENTITY Comment "Comentari">
+<!ENTITY Passphrase "Frase de pas">
+<!ENTITY Repeat_Passphrase "Repetiu la frase de pas">
+<!ENTITY Advanced_Options "Opcions avançades">
+<!ENTITY Public_Key_Algorithm "Algorisme de clau pública">
+<!ENTITY Public_Key_Size "Mida de la clau pública">
+<!ENTITY Private_Key_Algorithm "Algorisme de clau privada">
+<!ENTITY Private_Key_Size "Mida de la clau privada">
+<!ENTITY Expire_in "Expira en">
+<!ENTITY Never "Mai">
+<!ENTITY n30_days "n30 dies">
+<!ENTITY n90_days "n90 dies">
+<!ENTITY n1_year "n1 any">
+<!ENTITY Subkey_Options "Opcions de Subclau">
+<!ENTITY encrypt_only "només xifra">
+<!ENTITY set_your_own_capabilities "introduïu les vostres pròpies capacitats">
+<!ENTITY Sign "Signa">
+<!ENTITY Authenticate "Autentica">
+<!ENTITY Revoke_this_Key "Revoca aquesta clau">
+<!ENTITY Revoke_this_UID "Revoca aquest UID">
+<!ENTITY Revoke_this_Signature "Revoca aquesta signatura">
+<!ENTITY Delete_this_Signature "Esborra aquesta signatura">
+<!ENTITY Delete_this_UID "Esborra aquest UID">
+<!ENTITY Delete_this_Key "Esborra aquesta clau">
+<!ENTITY This_key_will_be_permanently_deleted "Aquesta clau serà suprimida permanentment">
+<!ENTITY Are_you_sure "Segur?">
+<!ENTITY Change_Expiration "Canvia el venciment">
+<!ENTITY Sign_this_UID "Signa aquest UID">
+<!ENTITY Key_Details "Detalls de la clau">
+<!ENTITY Export_Public_Key "Exporta la Clau pública">
+<!ENTITY Add_UID "Afegeix UID">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_Key "Segur que voleu revocar aquesta clau">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_UID "Segur que voleu revocar aquest UID">
+<!ENTITY Are_you_sure_you_wish_to_revoke_this_Signature "Segur que voleu revocar aquesta signatura">
+<!ENTITY Are_you_sure_you_wish_to_delete_this_Signature "Segur que voleu eliminar aquesta signatura">
+<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_UID "Segur que voleu eliminar permanentment aquest UID">
+<!ENTITY Are_you_sure_you_want_to_permanently_delete_this_Photo "Segur que voleu eliminar permanentment aquesta foto">
+<!ENTITY New_Expiration_Date "Nova data de venciment">
+<!ENTITY Never_Expire "No expira mai">
+<!ENTITY Expiration_Date "Data de venciment">
+<!ENTITY Save "Desa">
+<!ENTITY Delete_this_key "Suprimeix aquesta clau">
+<!ENTITY Add "Afegeix">
+<!ENTITY There_was_an_error_parsing_this_image_file "S'ha produït un error processant aquest arxiu d'imatge">
+<!ENTITY There_was_an_error_adding_this_image_file "S'ha produït un error quan s'afegia aquest arxiu d'imatge">
+<!ENTITY It_is_possible_the_image_contains_EXIF_data "És possible que la imatge contengui dades EXIF">
+<!ENTITY Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo "Empreu el botó de dalt per seleccionar una imatge JPEG (.jpg/.jpeg)">
+<!ENTITY Only_JPEG_image_files_are_supported "Només es poden fer servir arxius JPEG">
+<!ENTITY WARNING "ATENCIÓ">
+<!ENTITY is_quite_large "té una mida molt gran">
+<!ENTITY Consider_using_a_smaller_image "Considereu emprar una imatge més petita">
+<!ENTITY Only_one_image_can_be_added "Només es pot afegir una imatge">
+<!ENTITY Copy "Copia">
+<!ENTITY Please_specify_the_revocation_details "Especifiqueu els detalls de revocació">
+<!ENTITY Reason "Motiu">
+<!ENTITY No_reason_specified "No s'ha especificat el motiu">
+<!ENTITY Key_has_been_compromised "La clau ha estat compromesa">
+<!ENTITY Key_is_superseded "La clau ha estat substituïda">
+<!ENTITY Key_is_no_longer_used "La clau no es fa servir més">
+<!ENTITY Description "Descripció">
+<!ENTITY Revoke "Revoca">
+<!ENTITY Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver "Segur que voleu publicar aquesta clau al servidor de claus?">
+<!ENTITY Publish "Publica">
+<!ENTITY Sending_key_to_Keyserver "S'està enviant la clau al servidor de claus">
+<!ENTITY There_was_a_problem_sending_this_key_to_the_Keyserver "S'ha produït un problema quan s'enviava aquesta clau al servidor de claus">
+<!ENTITY No_Keyserver_defined "No s'ha definit cap servidor de claus">
+<!ENTITY Keyserver "Servidor de claus">
+<!ENTITY Try_Again "Torneu-ho a provar">
+<!ENTITY Key_Published_to_Keyserver "Clau publicada al servidor de claus">
+<!ENTITY Publish_Again "Publicar una altra vegada">
+<!ENTITY Publish_to_Keyserver "Publica a un Servidor de Claus">
+<!ENTITY Key_not_found_on_keyserver "La clau no s'ha trobat al servidor de claus">
 <!ENTITY Key_updated "">
 <!ENTITY No_changes_to_key "">
-<!ENTITY User_ID_is_no_longer_valid "">
-<!ENTITY Please_select_which_of_your_keys_to_create_the_signature_with "">
-<!ENTITY You_have_not_enabled_any_keys_for_use_with_webpg "">
-<!ENTITY please_click_here "">
-<!ENTITY and_select_1_or_more_keys_for_use_with_webpg "">
-<!ENTITY You_have_not_generated_any_keys "">
-<!ENTITY and_generate_a_key_to_use_with_webpg "">
-<!ENTITY Already_signed_with_this_key "">
-<!ENTITY Signature_added_using_this_key "">
-<!ENTITY Delete_this_Photo "">
-<!ENTITY Searching_for "">
+<!ENTITY User_ID_is_no_longer_valid "La ID d'usuari ja no és vàlida">
+<!ENTITY Please_select_which_of_your_keys_to_create_the_signature_with "Seleccioneu quina de les vostres claus es farà servir per crear la signatura">
+<!ENTITY You_have_not_enabled_any_keys_for_use_with_webpg "No heu habilitat cap clau per emprar amb webpg">
+<!ENTITY please_click_here "Cliqueu aquí">
+<!ENTITY and_select_1_or_more_keys_for_use_with_webpg "i seleccioneu 1 o més claus per fer servir amb webpg">
+<!ENTITY You_have_not_generated_any_keys "No heu generat cap clau">
+<!ENTITY and_generate_a_key_to_use_with_webpg "i genereu una clau per emprar amb webpg">
+<!ENTITY Already_signed_with_this_key "Ja heu signat amb aquesta clau">
+<!ENTITY Signature_added_using_this_key "Signatura afegida fent servir aquesta clau">
+<!ENTITY Delete_this_Photo "Elimina aquesta Foto">
+<!ENTITY Searching_for "S'està buscant">
 <!ENTITY Search_string_too_ambiguous_or_not_found_on_server "">
-<!ENTITY KeyID "">
+<!ENTITY KeyID "KeyID">
 <!ENTITY IMPORT "">
-<!ENTITY Key_Created "">
-<!ENTITY Expires "">
-<!ENTITY Expired "">
-<!ENTITY User_IDs "">
-<!ENTITY Fingerprint "">
-<!ENTITY Status "">
-<!ENTITY Revoked "">
-<!ENTITY Invalid "">
-<!ENTITY Disabled "">
-<!ENTITY Valid "">
-<!ENTITY Key_Algorithm "">
-<!ENTITY Validity "">
-<!ENTITY Key_Options "">
-<!ENTITY Operations "">
-<!ENTITY Subkeys "">
-<!ENTITY Subkey_Details "">
-<!ENTITY Flags "">
+<!ENTITY Key_Created "Clau Creada">
+<!ENTITY Expires "Venciment">
+<!ENTITY Expired "Ha vençut">
+<!ENTITY User_IDs "IDs d'Usuari">
+<!ENTITY Fingerprint "Empremta digital">
+<!ENTITY Status "Estatus">
+<!ENTITY Revoked "S'ha revocat">
+<!ENTITY Invalid "S'ha invalidat">
+<!ENTITY Disabled "Desactivada">
+<!ENTITY Valid "S'ha validat">
+<!ENTITY Key_Algorithm "Clau de l'algorisme">
+<!ENTITY Validity "Validesa">
+<!ENTITY Key_Options "Opcions de la Clau">
+<!ENTITY Operations "Operacions">
+<!ENTITY Subkeys "Subclaus">
+<!ENTITY Subkey_Details "Detalls de la Subclau">
+<!ENTITY Flags "Indicadors">
 <!ENTITY Key_Operations "">
-<!ENTITY Signatures_made_with_keys_not_in_your_keyring_are_omitted "">
-<!ENTITY Created "">
-<!ENTITY User_Photos "">
+<!ENTITY Signatures_made_with_keys_not_in_your_keyring_are_omitted "omeses">
+<!ENTITY Created "S'ha creat">
+<!ENTITY User_Photos "Fotos d'Usuari">
 <!ENTITY User_Photo "">
-<!ENTITY Enable_this_key_for_GnuPG_operations "">
-<!ENTITY This_is_your_default_key "">
-<!ENTITY Make_this_the_default_key_for_GnuPG_operations "">
-<!ENTITY Enabled "">
-<!ENTITY Cannot_unset_your_default_key "">
-<!ENTITY Trust_Assignment "">
-<!ENTITY Unknown "">
-<!ENTITY Marginal "">
-<!ENTITY Full "">
+<!ENTITY Enable_this_key_for_GnuPG_operations "Habilita aquesta clau per operacions amb GnuPG">
+<!ENTITY This_is_your_default_key "Aquesta és la vostra clau predeterminada">
+<!ENTITY Make_this_the_default_key_for_GnuPG_operations "Fes aquesta clau predeterminada per operacions amb GnuPG">
+<!ENTITY Enabled "Activada">
+<!ENTITY Cannot_unset_your_default_key "No es pot canviar la configuració de la vostra clau predeterminada">
+<!ENTITY Trust_Assignment "Assignació de Confiança">
+<!ENTITY Unknown "Es desconeix">
+<!ENTITY Marginal "Marginal">
+<!ENTITY Full "Completa">
 <!ENTITY ultimate "">
-<!ENTITY Group_Assignment "">
+<!ENTITY Group_Assignment "Assignació de grup">
 <!ENTITY Select_group_s__below "">
 <!ENTITY None_Selected "">
 <!ENTITY Filter_or_Create_New "">
 <!ENTITY Create_new_group "">
-<!ENTITY Change_Passphrase "">
-<!ENTITY Add_Subkey "">
-<!ENTITY Add_Photo "">
+<!ENTITY Change_Passphrase "Canvi de la frase de pas">
+<!ENTITY Add_Subkey "Afegeix Subclau">
+<!ENTITY Add_Photo "Afegeix Foto">
 <!ENTITY Disable_this_key "">
 <!ENTITY Enable_this_key "">
-<!ENTITY Delete_this_Subkey "">
+<!ENTITY Delete_this_Subkey "Elimina aquesta Subclau">
 <!ENTITY Export_this_key "">
-<!ENTITY Refresh_from_Keyserver "">
-<!ENTITY Cannot_sign_a_revoked_UID "">
+<!ENTITY Refresh_from_Keyserver "Actualitza des d'un Servidor de Claus">
+<!ENTITY Cannot_sign_a_revoked_UID "No es pot signar amb una UID revocada">
 <!ENTITY Revoke_this_key "">
-<!ENTITY Revoke_UID "">
-<!ENTITY Cannot_make_a_revoked_UID_primary "">
+<!ENTITY Revoke_UID "Revoca UID">
+<!ENTITY Cannot_make_a_revoked_UID_primary "No es pot establir com a primària una UID revocada">
 <!ENTITY Make_Primary "">
-<!ENTITY Delete "">
-<!ENTITY This_signature_was_made_with_a_key_that_does_not_belong_to_you "">
-<!ENTITY This_action_cannot_be_undone "">
+<!ENTITY Delete "Suprimeix">
+<!ENTITY This_signature_was_made_with_a_key_that_does_not_belong_to_you "Aquesta signatura ha creat un clau que no us pertany">
+<!ENTITY This_action_cannot_be_undone "Aquesta acció no pot ser desfeta">
 <!ENTITY Certify "">
 <!ENTITY News "">
 <!ENTITY New_features "">
-<!ENTITY WebPG_Options "">
-<!ENTITY The_WebPG_NPAPI_Plugin_is_valid "">
-<!ENTITY OpenPGP_was_detected "">
-<!ENTITY It_appears_you_have_a_key_agent_configured "">
-<!ENTITY gpgconf_was_detected "">
-<!ENTITY you_can_use_the_signature_methods "">
-<!ENTITY OpenPGP_does_not_appear_to_be_installed "">
-<!ENTITY You_do_not_appear_to_have_a_key_agent_configured "">
-<!ENTITY A_working_key_agent_is_required "">
-<!ENTITY gpgconf_does_not_appear_to_be_installed "">
-<!ENTITY You_will_not_be_able_to_create_signatures "">
-<!ENTITY There_was_a_problem_loading_the_plugin "">
-<!ENTITY the_plugin_might_be_incompatibly_compiled_for_this_architechture "">
-<!ENTITY click_here_for_help_resolving_this_issue "">
-<!ENTITY Enable_Inline_formatting_of_PGP_Messages_and_Keys "">
-<!ENTITY Inline_Options "">
-<!ENTITY Always_encrypt_to_your_default_key_in_addition_to_the_recipient "">
-<!ENTITY Enable_WebPG_GMAIL_integration "">
-<!ENTITY EXPERIMENTAL "">
-<!ENTITY Automatically_Sign_outgoing_messages_in_GMAIL "">
+<!ENTITY WebPG_Options "Opcions WebPG">
+<!ENTITY The_WebPG_NPAPI_Plugin_is_valid "El connector NPAPI de WegPG és vàlid">
+<!ENTITY OpenPGP_was_detected "S'ha detectat l'OpenPGP">
+<!ENTITY It_appears_you_have_a_key_agent_configured "Sembla que teniu configurat el key-agent">
+<!ENTITY gpgconf_was_detected "S'ha detectat el gpgconf">
+<!ENTITY you_can_use_the_signature_methods "podeu fer servir els mètodes de signatura">
+<!ENTITY OpenPGP_does_not_appear_to_be_installed "Sembla que l'OpenPGP no està instal·lat">
+<!ENTITY You_do_not_appear_to_have_a_key_agent_configured "No sembla que tingueu un agent de claus configurat">
+<!ENTITY A_working_key_agent_is_required "Cal un agent de claus operatiu">
+<!ENTITY gpgconf_does_not_appear_to_be_installed "No sembla que gpgconf estigui instal·lat">
+<!ENTITY You_will_not_be_able_to_create_signatures "No podreu crear signatures">
+<!ENTITY There_was_a_problem_loading_the_plugin "S'ha produït un problema carregant del connector">
+<!ENTITY the_plugin_might_be_incompatibly_compiled_for_this_architechture "La compilació del connector podria no ser vàlida amb aquesta arquitectura">
+<!ENTITY click_here_for_help_resolving_this_issue "cliqueu aquí per obtenir ajuda sobre com resoldre le problema">
+<!ENTITY Enable_Inline_formatting_of_PGP_Messages_and_Keys "Habilita el formateig incrustat de Missatges i Claus PGP">
+<!ENTITY Inline_Options "Opcions d'incrustació">
+<!ENTITY Always_encrypt_to_your_default_key_in_addition_to_the_recipient "Encripta sempre amb la teva clau per defecte en adició al destinatari">
+<!ENTITY Enable_WebPG_GMAIL_integration "Habilita la integració amb WebPG GMAIL">
+<!ENTITY EXPERIMENTAL "EXPERIMENTAL">
+<!ENTITY Automatically_Sign_outgoing_messages_in_GMAIL "Signa automàticament els missatges enviats a GMAIL">
 <!ENTITY Linked_GMAIL_Identities "">
 <!ENTITY Link_new_GMAIL_identity "">
-<!ENTITY GPGCONF_binary "">
-<!ENTITY Your_system_appears_to_be_configured_correctly_for_WebPG "">
-<!ENTITY There_is_a_problem_with_your_configuration "">
-<!ENTITY Inline_formatting_mode "">
-<!ENTITY Window "">
-<!ENTITY Icon "">
-<!ENTITY Sample "">
-<!ENTITY WebPG_Toolbar "">
+<!ENTITY GPGCONF_binary "Binari GPGCONF">
+<!ENTITY Your_system_appears_to_be_configured_correctly_for_WebPG "El vostre sistema sembla estar configurat correctament per al WebPG">
+<!ENTITY There_is_a_problem_with_your_configuration "Hi ha un problema amb la vostra configuració">
+<!ENTITY Inline_formatting_mode "Mode de formateig de l'Incrustat">
+<!ENTITY Window "Finestra">
+<!ENTITY Icon "Icona">
+<!ENTITY Sample "Mostra">
+<!ENTITY WebPG_Toolbar "Barra d'eines  de WebPG">
 <!ENTITY No_default_key_set "">
-<!ENTITY WebPG_GMAIL_integration_is_EXPERIMENTAL "">
-<!ENTITY use_at_your_own_risk "">
+<!ENTITY WebPG_GMAIL_integration_is_EXPERIMENTAL "La integració amb WebPG GMAIL és EXPERIMENTAL">
+<!ENTITY use_at_your_own_risk "Fer-ne ús assumint els riscos">
 <!ENTITY PGP_MIME_Enabled "">
 <!ENTITY PGP_MIME_Disabled "">
 <!ENTITY delete "">
 <!ENTITY WebPG_User_Documentation_Guides "">
 <!ENTITY WebPG_Documentation "">
-<!ENTITY Text_copied_to_clipboard "">
-<!ENTITY There_may_have_been_a_problem_placing_the_data_into_the_clipboard "">
-<!ENTITY TEXT_COPIED "">
-<!ENTITY UNABLE_TO_COPY_TEXT "">
-<!ENTITY COPY_TO_CLIPBOARD "">
-<!ENTITY Verify_this_text "">
-<!ENTITY Decrypt_this_text "">
-<!ENTITY Import_this_Key "">
-<!ENTITY Clear_sign_this_text "">
-<!ENTITY Encrypt_this_text "">
-<!ENTITY Paste_Public_Key "">
-<!ENTITY UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE "">
-<!ENTITY PGP_ENCRYPTED_AND_SIGNED_MESSAGE "">
-<!ENTITY DECRYPTION_FAILED "">
-<!ENTITY NO_SECRET_KEY "">
-<!ENTITY BAD_PASSPHRASE "">
-<!ENTITY DECRYPT_THIS_MESSAGE "">
-<!ENTITY DISPLAY_ORIGINAL "">
-<!ENTITY DETACHED_PGP_SIGNATURE "">
-<!ENTITY PGP_SIGNED_MESSAGE "">
-<!ENTITY THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID "">
-<!ENTITY THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH "">
-<!ENTITY THE_SIGNATURE_ON_THIS_MESSAGE_FAILED "">
-<!ENTITY THE_MESSAGE_MAY_BE_TAMPERED_WITH "">
-<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_KEY "">
-<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY "">
-<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING "">
-<!ENTITY SEARCH_FOR_KEYS_ON_KEYSERVER "">
-<!ENTITY PGP_PUBLIC_KEY "">
-<!ENTITY Names_UIDs_on_Key "">
-<!ENTITY REVOKED "">
+<!ENTITY Text_copied_to_clipboard "Text copiat al porta-retalls">
+<!ENTITY There_may_have_been_a_problem_placing_the_data_into_the_clipboard "Podria haver un problema en la còpia de les dades al porta-retalls">
+<!ENTITY TEXT_COPIED "TEXT COPIAT">
+<!ENTITY UNABLE_TO_COPY_TEXT "IMPOSSIBLE COPIAR EL TEXT">
+<!ENTITY COPY_TO_CLIPBOARD "COPIA AL PORTA-RETALLS">
+<!ENTITY Verify_this_text "Verifica aquest text">
+<!ENTITY Decrypt_this_text "Desencripta aquest text">
+<!ENTITY Import_this_Key "Importa aquesta Clau">
+<!ENTITY Clear_sign_this_text "Neteja la signatura d'aquest text">
+<!ENTITY Encrypt_this_text "Encripta aquest text">
+<!ENTITY Paste_Public_Key "Enganxa la Clau Pública">
+<!ENTITY UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE "IMPOSSIBLE DESENCRIPTAR O VERIFICAR AQUEST MISSATGE">
+<!ENTITY PGP_ENCRYPTED_AND_SIGNED_MESSAGE "MISSATGE ENCRIPTAT I SIGNAT PGP">
+<!ENTITY DECRYPTION_FAILED "EL DESENCRIPTAT HA FALLAT">
+<!ENTITY NO_SECRET_KEY "NO HI HA CLAU SECRETA">
+<!ENTITY BAD_PASSPHRASE "FRASE DE PAS INCORRECTA">
+<!ENTITY DECRYPT_THIS_MESSAGE "DESENCRIPTA AQUEST MISSATGE">
+<!ENTITY DISPLAY_ORIGINAL "MOSTRA L'ORIGINAL">
+<!ENTITY DETACHED_PGP_SIGNATURE "SIGNATURA PGP ADJUNTADA">
+<!ENTITY PGP_SIGNED_MESSAGE "MISSATGE SIGNAT AMB PGP">
+<!ENTITY THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID "LA SIGNATURA EN AQUEST MISSATGE ÉS INVÀLIDA">
+<!ENTITY THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH "LA SIGNATURA PODRIA HAVER ESTAT ALTERADA">
+<!ENTITY THE_SIGNATURE_ON_THIS_MESSAGE_FAILED "LA SIGNATURA A  AQUEST MISSATGE HA FALLAT">
+<!ENTITY THE_MESSAGE_MAY_BE_TAMPERED_WITH "EL MISSATGE PODRIA ESTAR ALTERAT">
+<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_KEY "AQUEST MISSATGE HA ESTAT SIGNAT AMB CLAU">
+<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY "AQUEST MISSATGE HA ESTAT SIGNAT AMB UNA CLAU PÚBLICA CADUCADA">
+<!ENTITY THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING "ANELL DEL CLAUS">
+<!ENTITY SEARCH_FOR_KEYS_ON_KEYSERVER "CERCA CLAUS AL SERVIDOR DE CLAUS">
+<!ENTITY PGP_PUBLIC_KEY "CLAU PÚBLICA PGP">
+<!ENTITY Names_UIDs_on_Key "Noms/UIDs a la Clau">
+<!ENTITY REVOKED "REVOCADA">
 <!ENTITY EXPIRED "">
-<!ENTITY THIS_KEY_IS_NOT_IN_YOUR_KEYRING "">
-<!ENTITY THIS_KEY_IS_IN_YOUR_KEYRING "">
-<!ENTITY IMPORT_THIS_KEY "">
-<!ENTITY DELETE_THIS_KEY "">
-<!ENTITY HIDE_ORIGINAL "">
-<!ENTITY UNUSABLE_KEY "">
-<!ENTITY NO_USER_ID "">
-<!ENTITY WebPG "">
-<!ENTITY About "">
-<!ENTITY Clear_Sign "">
-<!ENTITY Sign_and_Encrypt_this_text "">
-<!ENTITY Import_this_Public_key "">
-<!ENTITY Do_not_use_WebPG_for_this_message "">
-<!ENTITY Sign_Inline "">
-<!ENTITY Sign_as_Attachment "">
-<!ENTITY You_do_not_have_any_keys_for "">
-<!ENTITY or "">
+<!ENTITY THIS_KEY_IS_NOT_IN_YOUR_KEYRING "AQUESTA CLAU NO ES TROBA AL VOSTRE ANELL DE CLAUS">
+<!ENTITY THIS_KEY_IS_IN_YOUR_KEYRING "AQUESTA CLAU S'HA TROBAT AL VOSTRE ANELL DE CLAUS">
+<!ENTITY IMPORT_THIS_KEY "IMPORTA AQUESTA CLAU">
+<!ENTITY DELETE_THIS_KEY "ELIMINA AQUESTA CLAU">
+<!ENTITY HIDE_ORIGINAL "AMAGA L'ORIGINAL">
+<!ENTITY UNUSABLE_KEY "CLAU INUSABLE">
+<!ENTITY NO_USER_ID "NO HI HA ID D'USUARI">
+<!ENTITY WebPG "WebPG">
+<!ENTITY About "Quant a">
+<!ENTITY Clear_Sign "Elimina Signatura">
+<!ENTITY Sign_and_Encrypt_this_text "Signa i Encripta aquest text">
+<!ENTITY Import_this_Public_key "Importa aquesta Clau Pública">
+<!ENTITY Do_not_use_WebPG_for_this_message "No empreu WebPG per aquest missatge">
+<!ENTITY Sign_Inline "Signatura incrustada">
+<!ENTITY Sign_as_Attachment "Signa com a Adjunt">
+<!ENTITY You_do_not_have_any_keys_for "No teniu cap clau per">
+<!ENTITY or "o">
 <!ENTITY WebPG_is_preparing_the_email "">
-<!ENTITY This_message_already_contains_PGP_data "">
-<!ENTITY Would_you_like_to_Encrypt_anyway "">
-<!ENTITY Expired_keys_found_for "">
-<!ENTITY and "">
+<!ENTITY This_message_already_contains_PGP_data "Aquest missatge ja conté les dades PGP">
+<!ENTITY Would_you_like_to_Encrypt_anyway "Voleu xifrar-lo tanmateix">
+<!ENTITY Expired_keys_found_for "Claus trobades que han expirat per">
+<!ENTITY and "i">
 <!ENTITY This_message_will_be_Encrypted "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted "">
-<!ENTITY You_have_more_than_1_public_key_matching_that_address "">
-<!ENTITY The_Key_for "">
-<!ENTITY is_invalid "">
-<!ENTITY Open_the_Key_Manager "">
+<!ENTITY You_have_more_than_1_public_key_matching_that_address "Teniu més d'una clau pública que coincideix amd aquesta adreça">
+<!ENTITY The_Key_for "La clau per">
+<!ENTITY is_invalid "no és vàlida">
+<!ENTITY Open_the_Key_Manager "Obriu el Gestor de Claus">
 <!ENTITY This_message_will_be_Signed "">
-<!ENTITY Sign_Only "">
+<!ENTITY Sign_Only "Només signa">
 <!ENTITY This_message_will_be_Encrypted_using_Symmetric_Encryption "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted_using_Symmetric_Encryption "">
 <!ENTITY WebPG_is_checking_this_message_for_signatures "">

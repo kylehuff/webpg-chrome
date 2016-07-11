@@ -1,54 +1,54 @@
 {
 	"About_WebPG": {
-		"message": ""
+		"message": "A proposito di WebPG"
 	},
 	"Version": {
-		"message": ""
+		"message": "Versione"
 	},
 	"Extension_Information": {
-		"message": ""
+		"message": "Informazioni sull'estensione"
 	},
 	"Extension_version": {
-		"message": ""
+		"message": "Versione dell'estensione"
 	},
 	"Platform": {
-		"message": ""
+		"message": "Piattaforma"
 	},
 	"Product": {
-		"message": ""
+		"message": "Prodotto"
 	},
 	"User_Agent": {
-		"message": ""
+		"message": "User agent"
 	},
 	"Language": {
-		"message": ""
+		"message": "Lingua"
 	},
 	"Plugin_Information": {
-		"message": ""
+		"message": "Informazioni sul plugin"
 	},
 	"Plugin_version": {
-		"message": ""
+		"message": "Versione del plugin"
 	},
 	"GnuPG_Information": {
-		"message": ""
+		"message": "Informazioni su GnuPG"
 	},
 	"GnuPG_version": {
-		"message": ""
+		"message": "Versione di GnuPG"
 	},
 	"GnuPG_binary": {
-		"message": ""
+		"message": "Binario di GnuPG"
 	},
 	"GnuPG_home_directory": {
-		"message": ""
+		"message": "Cartella home di GnuPG"
 	},
 	"default": {
-		"message": ""
+		"message": "predefinito"
 	},
 	"GPGCONF_version": {
-		"message": ""
+		"message": "Versione di GPGCONF"
 	},
 	"not_detected": {
-		"message": ""
+		"message": "non trovato"
 	},
 	"Assuan_version": {
 		"message": ""
@@ -60,85 +60,85 @@
 		"message": ""
 	},
 	"Translation_Status": {
-		"message": ""
+		"message": "Stato della traduzione"
 	},
 	"WebPG_Plugin_failed_to_load": {
-		"message": ""
+		"message": "Errore di caricamento del plugin WebPG"
 	},
 	"Key_Generation_Complete": {
-		"message": ""
+		"message": "Generazione della chiave completata"
 	},
 	"Key_Generation": {
-		"message": ""
+		"message": "Generazione della chiave"
 	},
 	"Open_Key_Manager": {
-		"message": ""
+		"message": "Apri il gestore delle chiavi"
 	},
 	"WebPG_Key_Generation_Failed": {
-		"message": ""
+		"message": "Generazione della chiave tramite WebPG fallita"
 	},
 	"The_generation_of_your_new_key_is_now_complete": {
-		"message": ""
+		"message": "La generazione della tua nuova chiave è stata ultimata"
 	},
 	"Options": {
-		"message": ""
+		"message": "Opzioni"
 	},
 	"Key_Manager": {
-		"message": ""
+		"message": "Gestore delle chiavi"
 	},
 	"Refresh_Key_List": {
 		"message": ""
 	},
 	"Generate_New_Key": {
-		"message": ""
+		"message": "Genera nuova chiave"
 	},
 	"Create": {
-		"message": ""
+		"message": "Crea"
 	},
 	"Name_Required": {
-		"message": ""
+		"message": "Nome richiesto"
 	},
 	"UID_Names_must_be_at_least_5_characters": {
-		"message": ""
+		"message": "L'ID utente deve avere almeno 5 caratteri"
 	},
 	"UID_Names_cannot_begin_with_a_number": {
-		"message": ""
+		"message": "L'ID utente non può cominciare con un numero"
 	},
 	"Not_a_valid_email_address": {
-		"message": ""
+		"message": "Indirizzo email non valido"
 	},
 	"Passphrases_do_not_match": {
-		"message": ""
+		"message": "Le passphrase non corrispondono"
 	},
 	"Building_key__please_wait": {
-		"message": ""
+		"message": "Creazione della chiave, si prega di attendere"
 	},
 	"This_may_take_a_long_time__5_minutes_or_more__to_complete": {
-		"message": ""
+		"message": "Questo può richiedere parecchio tempo (5 minuti o più) per il completamento"
 	},
 	"Please_be_patient_while_the_key_is_created": {
-		"message": ""
+		"message": "Prego attendere mentre la chiave viene generata"
 	},
 	"It_is_safe_to_close_this_window": {
-		"message": ""
+		"message": "Ora è possibile chiudere questa finestra"
 	},
 	"key_generation_will_continue_in_the_background": {
-		"message": ""
+		"message": "la generazione della chiave continuerà in background"
 	},
 	"Close": {
-		"message": ""
+		"message": "Chiudi"
 	},
 	"Cancel": {
-		"message": ""
+		"message": "Annulla"
 	},
 	"Import_from_File": {
 		"message": ""
 	},
 	"Import": {
-		"message": ""
+		"message": "Importa"
 	},
 	"Error": {
-		"message": ""
+		"message": "Errore"
 	},
 	"There_was_an_error_parsing_this_PGP_file": {
 		"message": ""
@@ -153,157 +153,157 @@
 		"message": ""
 	},
 	"Select_Recipient_s_": {
-		"message": ""
+		"message": "Seleziona i destinatari"
 	},
 	"Export": {
-		"message": ""
+		"message": "Esporta"
 	},
 	"Editor": {
-		"message": ""
+		"message": "Editor"
 	},
 	"Search_Filter": {
-		"message": ""
+		"message": "Cerca/Filtro"
 	},
 	"Encrypt": {
-		"message": ""
+		"message": "Cifra"
 	},
 	"Insert": {
-		"message": ""
+		"message": "Inserisci"
 	},
 	"no_action_has_been_selected": {
-		"message": ""
+		"message": "non è stata selezionata nessuna azione"
 	},
 	"no_action_has_been_successful": {
-		"message": ""
+		"message": "nessuna azione è riuscita"
 	},
 	"UIDs": {
-		"message": ""
+		"message": "ID utente"
 	},
 	"Key_does_not_support_this_operation": {
-		"message": ""
+		"message": "La chiave non supporta questa operazione"
 	},
 	"Error_loading_WebPG": {
-		"message": ""
+		"message": "Errore nel caricamento di WebPG"
 	},
 	"We_encountered_a_problem_while_attempting_to_load_WebPG": {
-		"message": ""
+		"message": "Abbiamo riscontrato un problema durante il caricamento di WebPG"
 	},
 	"Suggestions": {
-		"message": ""
+		"message": "Suggerimenti"
 	},
 	"The_plugin_was_unable_to_load": {
-		"message": ""
+		"message": "Caricamento del plugin fallito"
 	},
 	"The_Firefox_Click_to_Play_feature_is_enabled": {
-		"message": ""
+		"message": "La funzione Click to Play di Firefox è abilitata"
 	},
 	"WebPG_cannot_load_the_required_plugin_with_this_feature_enabled": {
-		"message": ""
+		"message": "abilitata"
 	},
 	"The_WebPG_Native_Messaging_Host_was_unreachable": {
 		"message": ""
 	},
 	"There_might_be_a_problem_with_the_gpg_installation": {
-		"message": ""
+		"message": "Potrebbe esserci un problema con l'installazione di gpg"
 	},
 	"consider_reinstalling_gpg4win": {
-		"message": ""
+		"message": "considera di reinstallare gpg4win"
 	},
 	"Error_Details": {
-		"message": ""
+		"message": "Dettagli dell'errore"
 	},
 	"Error_in_Method": {
-		"message": ""
+		"message": "Errore nel metodo"
 	},
 	"Error_Code": {
-		"message": ""
+		"message": "Codice d'errore"
 	},
 	"Error_String": {
-		"message": ""
+		"message": "Messaggio d'errore"
 	},
 	"File": {
-		"message": ""
+		"message": "File"
 	},
 	"Line": {
-		"message": ""
+		"message": "Riga"
 	},
 	"Unknown_Error": {
-		"message": ""
+		"message": "Errore sconosciuto"
 	},
 	"System_Information": {
-		"message": ""
+		"message": "Informazioni di sistema"
 	},
 	"App_Version": {
-		"message": ""
+		"message": "Versione dell'applicazione"
 	},
 	"Sub_product": {
-		"message": ""
+		"message": "Sotto-prodotto"
 	},
 	"Vendor": {
-		"message": ""
+		"message": "Fornitore"
 	},
 	"no_email_address_provided": {
-		"message": ""
+		"message": "nessun indirizzo email fornito"
 	},
 	"Use": {
-		"message": ""
+		"message": "Usa"
 	},
 	"Sign_only": {
-		"message": ""
+		"message": "Firma soltanto"
 	},
 	"Sign_and_Encrypt": {
-		"message": ""
+		"message": "Firma e cifra"
 	},
 	"Symmetric_Encryption": {
-		"message": ""
+		"message": "Cifratura simmetrica"
 	},
 	"Signed_Symmetric_Encryption": {
 		"message": ""
 	},
 	"Decrypt": {
-		"message": ""
+		"message": "Decifra"
 	},
 	"Verify": {
-		"message": ""
+		"message": "Verifica"
 	},
 	"Secure_Editor": {
-		"message": ""
+		"message": "Editor sicuro"
 	},
 	"PGP_Signed_Message": {
-		"message": ""
+		"message": "Messaggio PGP firmato"
 	},
 	"PGP_ENCRYPTED_OR_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "MESSAGGIO PGP CIFRATO O FIRMATO"
 	},
 	"PGP_Public_Key": {
-		"message": ""
+		"message": "Chiave pubblica PGP"
 	},
 	"WebPG_Secure_Editor": {
-		"message": ""
+		"message": "Editor sicuro di WebPG"
 	},
 	"Unsecured_Editor": {
-		"message": ""
+		"message": "Editor insicuro"
 	},
 	"Loading_keys": {
 		"message": ""
 	},
 	"Generating_Key": {
-		"message": ""
+		"message": "Generazione della chiave"
 	},
 	"Waiting_for_entropy": {
-		"message": ""
+		"message": "In attesa di entropia"
 	},
 	"Building_key": {
-		"message": ""
+		"message": "Creazione della chiave"
 	},
 	"please_wait": {
-		"message": ""
+		"message": "attendere"
 	},
 	"Private_Keys": {
-		"message": ""
+		"message": "Chiavi private"
 	},
 	"Public_Keys": {
-		"message": ""
+		"message": "Chiavi pubbliche"
 	},
 	"Search_Keyserver": {
 		"message": ""
@@ -312,226 +312,226 @@
 		"message": ""
 	},
 	"Your_Name": {
-		"message": ""
+		"message": "Il tuo nome"
 	},
 	"Your_Email": {
-		"message": ""
+		"message": "La tua email"
 	},
 	"Comment": {
-		"message": ""
+		"message": "Commento"
 	},
 	"Passphrase": {
-		"message": ""
+		"message": "Passphrase"
 	},
 	"Repeat_Passphrase": {
-		"message": ""
+		"message": "Ripeti la passphrase"
 	},
 	"Advanced_Options": {
-		"message": ""
+		"message": "Opzioni avanzate"
 	},
 	"Public_Key_Algorithm": {
-		"message": ""
+		"message": "Algoritmo a chiave pubblica"
 	},
 	"Public_Key_Size": {
-		"message": ""
+		"message": "Dimensione della chiave pubblica"
 	},
 	"Private_Key_Algorithm": {
-		"message": ""
+		"message": "Algoritmo a chiave privata"
 	},
 	"Private_Key_Size": {
-		"message": ""
+		"message": "Dimensione della chiave privata"
 	},
 	"Expire_in": {
-		"message": ""
+		"message": "Scade tra"
 	},
 	"Never": {
-		"message": ""
+		"message": "Mai"
 	},
 	"n30_days": {
-		"message": ""
+		"message": "n30 giorni"
 	},
 	"n90_days": {
-		"message": ""
+		"message": "90 giorni"
 	},
 	"n1_year": {
-		"message": ""
+		"message": "n1 anno"
 	},
 	"Subkey_Options": {
-		"message": ""
+		"message": "Opzioni della sottochiave"
 	},
 	"encrypt_only": {
-		"message": ""
+		"message": "cifra soltanto"
 	},
 	"set_your_own_capabilities": {
-		"message": ""
+		"message": "imposta le tue capacità"
 	},
 	"Sign": {
-		"message": ""
+		"message": "Firma"
 	},
 	"Authenticate": {
-		"message": ""
+		"message": "Autentica"
 	},
 	"Revoke_this_Key": {
-		"message": ""
+		"message": "Revoca questa chiave"
 	},
 	"Revoke_this_UID": {
-		"message": ""
+		"message": "Revoca questo ID utente"
 	},
 	"Revoke_this_Signature": {
-		"message": ""
+		"message": "Revoca questa firma"
 	},
 	"Delete_this_Signature": {
-		"message": ""
+		"message": "Elimina questa firma"
 	},
 	"Delete_this_UID": {
-		"message": ""
+		"message": "Elimina questo ID utente"
 	},
 	"Delete_this_Key": {
-		"message": ""
+		"message": "Elimina questa chiave"
 	},
 	"This_key_will_be_permanently_deleted": {
-		"message": ""
+		"message": "Questa chiave verrà eliminata permanentemente"
 	},
 	"Are_you_sure": {
-		"message": ""
+		"message": "Sei sicuro"
 	},
 	"Change_Expiration": {
-		"message": ""
+		"message": "Cambia scadenza"
 	},
 	"Sign_this_UID": {
-		"message": ""
+		"message": "Firma questo ID utente"
 	},
 	"Key_Details": {
-		"message": ""
+		"message": "Dettagli della chiave"
 	},
 	"Export_Public_Key": {
-		"message": ""
+		"message": "Esporta la chiave pubblica"
 	},
 	"Add_UID": {
-		"message": ""
+		"message": "Aggiungi ID utente"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Key": {
-		"message": ""
+		"message": "Sei sicuro di voler revocare questa chiave"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_UID": {
-		"message": ""
+		"message": "Sei sicuro di voler revocare questo ID utente"
 	},
 	"Are_you_sure_you_wish_to_revoke_this_Signature": {
-		"message": ""
+		"message": "Sei sicuro di voler revocare questa firma"
 	},
 	"Are_you_sure_you_wish_to_delete_this_Signature": {
-		"message": ""
+		"message": "Sei sicuro di voler eliminare questa firma"
 	},
 	"Are_you_sure_you_want_to_permanently_delete_this_UID": {
-		"message": ""
+		"message": "Sei sicuro di voler eliminare permanentemente questo ID utente"
 	},
 	"Are_you_sure_you_want_to_permanently_delete_this_Photo": {
-		"message": ""
+		"message": "Sei sicuro di voler eliminare permanentemente questa foto"
 	},
 	"New_Expiration_Date": {
-		"message": ""
+		"message": "Nuova data di scadenza"
 	},
 	"Never_Expire": {
-		"message": ""
+		"message": "Non scade mai"
 	},
 	"Expiration_Date": {
-		"message": ""
+		"message": "Data di scadenza"
 	},
 	"Save": {
-		"message": ""
+		"message": "Salva"
 	},
 	"Delete_this_key": {
-		"message": ""
+		"message": "Elimina questa chiave"
 	},
 	"Add": {
-		"message": ""
+		"message": "Aggiungi"
 	},
 	"There_was_an_error_parsing_this_image_file": {
-		"message": ""
+		"message": "Si è verificato un errore durante l'aggiunta di questa immagine"
 	},
 	"There_was_an_error_adding_this_image_file": {
-		"message": ""
+		"message": "Si è verificato un errore durante l'aggiunta di questa immagine"
 	},
 	"It_is_possible_the_image_contains_EXIF_data": {
-		"message": ""
+		"message": "L'immagine potrebbe contenere metadati"
 	},
 	"Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo": {
-		"message": ""
+		"message": "jpeg)"
 	},
 	"Only_JPEG_image_files_are_supported": {
-		"message": ""
+		"message": "Solo le immagini in formato JPEG sono supportate"
 	},
 	"WARNING": {
-		"message": ""
+		"message": "AVVISO"
 	},
 	"is_quite_large": {
-		"message": ""
+		"message": "è piuttosto grande"
 	},
 	"Consider_using_a_smaller_image": {
-		"message": ""
+		"message": "Considera di utilizzare un'immagine più piccola"
 	},
 	"Only_one_image_can_be_added": {
-		"message": ""
+		"message": "Solo un'immagine può essere aggiunta"
 	},
 	"Copy": {
-		"message": ""
+		"message": "Copia"
 	},
 	"Please_specify_the_revocation_details": {
-		"message": ""
+		"message": "Specificai dettagli della revoca"
 	},
 	"Reason": {
-		"message": ""
+		"message": "Motivo"
 	},
 	"No_reason_specified": {
-		"message": ""
+		"message": "Nessun motivo specificato"
 	},
 	"Key_has_been_compromised": {
-		"message": ""
+		"message": "La chiave è stata compromessa"
 	},
 	"Key_is_superseded": {
-		"message": ""
+		"message": "La chiave è stata sostituita"
 	},
 	"Key_is_no_longer_used": {
-		"message": ""
+		"message": "La chiave non è più usata"
 	},
 	"Description": {
-		"message": ""
+		"message": "Descrizione"
 	},
 	"Revoke": {
-		"message": ""
+		"message": "Revoca"
 	},
 	"Are_you_sure_you_want_to_Publish_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "Sei sicuro di voler pubblicare questa chiave sul keyserver"
 	},
 	"Publish": {
-		"message": ""
+		"message": "Pubblica"
 	},
 	"Sending_key_to_Keyserver": {
-		"message": ""
+		"message": "Invio la chiave al keyserver"
 	},
 	"There_was_a_problem_sending_this_key_to_the_Keyserver": {
-		"message": ""
+		"message": "Si è verificato un problema durante l'invio della chiave al keyserver"
 	},
 	"No_Keyserver_defined": {
-		"message": ""
+		"message": "Nessun keyserver definito"
 	},
 	"Keyserver": {
-		"message": ""
+		"message": "Keyserver"
 	},
 	"Try_Again": {
-		"message": ""
+		"message": "Riprova"
 	},
 	"Key_Published_to_Keyserver": {
-		"message": ""
+		"message": "Chiave pubblicata sul keyserver"
 	},
 	"Publish_Again": {
-		"message": ""
+		"message": "Pubblica ancora"
 	},
 	"Publish_to_Keyserver": {
-		"message": ""
+		"message": "Pubblica su keyserver"
 	},
 	"Key_not_found_on_keyserver": {
-		"message": ""
+		"message": "Chiave non trovata sul keyserver"
 	},
 	"Key_updated": {
 		"message": ""
@@ -540,139 +540,139 @@
 		"message": ""
 	},
 	"User_ID_is_no_longer_valid": {
-		"message": ""
+		"message": "L'ID utente non è più valido"
 	},
 	"Please_select_which_of_your_keys_to_create_the_signature_with": {
-		"message": ""
+		"message": "Seleziona quale delle tue chiavi vuoi usare per firmare"
 	},
 	"You_have_not_enabled_any_keys_for_use_with_webpg": {
-		"message": ""
+		"message": "Non hai abilitato nessuna chiave per l'uso con webpg"
 	},
 	"please_click_here": {
-		"message": ""
+		"message": "clicca qui"
 	},
 	"and_select_1_or_more_keys_for_use_with_webpg": {
-		"message": ""
+		"message": "e seleziona una o più chiavi da usare con webpg"
 	},
 	"You_have_not_generated_any_keys": {
-		"message": ""
+		"message": "Non hai generato alcuna chiave"
 	},
 	"and_generate_a_key_to_use_with_webpg": {
-		"message": ""
+		"message": "e genera una chiave da usare con webpg"
 	},
 	"Already_signed_with_this_key": {
-		"message": ""
+		"message": "Già firmato con questa chiave"
 	},
 	"Signature_added_using_this_key": {
-		"message": ""
+		"message": "Firma aggiunta usando questa chiave"
 	},
 	"Delete_this_Photo": {
-		"message": ""
+		"message": "Elimina questa foto"
 	},
 	"Searching_for": {
-		"message": ""
+		"message": "Cerca"
 	},
 	"Search_string_too_ambiguous_or_not_found_on_server": {
 		"message": ""
 	},
 	"KeyID": {
-		"message": ""
+		"message": "KeyID"
 	},
 	"IMPORT": {
 		"message": ""
 	},
 	"Key_Created": {
-		"message": ""
+		"message": "Chiave creata"
 	},
 	"Expires": {
-		"message": ""
+		"message": "Scade"
 	},
 	"Expired": {
-		"message": ""
+		"message": "Scaduta"
 	},
 	"User_IDs": {
-		"message": ""
+		"message": "ID utente"
 	},
 	"Fingerprint": {
-		"message": ""
+		"message": "Impronta digitale"
 	},
 	"Status": {
-		"message": ""
+		"message": "Stato"
 	},
 	"Revoked": {
-		"message": ""
+		"message": "Revocata"
 	},
 	"Invalid": {
-		"message": ""
+		"message": "Non valida"
 	},
 	"Disabled": {
-		"message": ""
+		"message": "Disabilitate"
 	},
 	"Valid": {
-		"message": ""
+		"message": "Valida"
 	},
 	"Key_Algorithm": {
-		"message": ""
+		"message": "Algoritmo della chiave"
 	},
 	"Validity": {
-		"message": ""
+		"message": "Validità"
 	},
 	"Key_Options": {
-		"message": ""
+		"message": "Opzioni della chiave"
 	},
 	"Operations": {
-		"message": ""
+		"message": "Operazioni"
 	},
 	"Subkeys": {
-		"message": ""
+		"message": "Sottochiavi"
 	},
 	"Subkey_Details": {
-		"message": ""
+		"message": "Dettagli della sottochiave"
 	},
 	"Flags": {
-		"message": ""
+		"message": "Etichette"
 	},
 	"Key_Operations": {
 		"message": ""
 	},
 	"Signatures_made_with_keys_not_in_your_keyring_are_omitted": {
-		"message": ""
+		"message": "Le firme eseguite con chiavi non presenti nel tuo portachiavi sono omesse"
 	},
 	"Created": {
-		"message": ""
+		"message": "Creato"
 	},
 	"User_Photos": {
-		"message": ""
+		"message": "Foto utente"
 	},
 	"User_Photo": {
 		"message": ""
 	},
 	"Enable_this_key_for_GnuPG_operations": {
-		"message": ""
+		"message": "Abilita questa chiave per le operazioni di GnuPG"
 	},
 	"This_is_your_default_key": {
-		"message": ""
+		"message": "Questa è la tua chiave predefinita"
 	},
 	"Make_this_the_default_key_for_GnuPG_operations": {
-		"message": ""
+		"message": "Imposta questa chiave come predefinita per le operazioni di GnuPG"
 	},
 	"Enabled": {
-		"message": ""
+		"message": "Abilitato"
 	},
 	"Cannot_unset_your_default_key": {
-		"message": ""
+		"message": "Impossibile utilizzare la tua chiave predefinita"
 	},
 	"Trust_Assignment": {
-		"message": ""
+		"message": "Livello di fiducia"
 	},
 	"Unknown": {
-		"message": ""
+		"message": "Sconosciuto"
 	},
 	"Marginal": {
-		"message": ""
+		"message": "Marginale"
 	},
 	"Full": {
-		"message": ""
+		"message": "Piena"
 	},
 	"ultimate": {
 		"message": ""
@@ -693,13 +693,13 @@
 		"message": ""
 	},
 	"Change_Passphrase": {
-		"message": ""
+		"message": "Cambia passphrase"
 	},
 	"Add_Subkey": {
-		"message": ""
+		"message": "Aggiungi sottochiave"
 	},
 	"Add_Photo": {
-		"message": ""
+		"message": "Aggiungi foto"
 	},
 	"Disable_this_key": {
 		"message": ""
@@ -708,37 +708,37 @@
 		"message": ""
 	},
 	"Delete_this_Subkey": {
-		"message": ""
+		"message": "Elimina questa sottochiave"
 	},
 	"Export_this_key": {
 		"message": ""
 	},
 	"Refresh_from_Keyserver": {
-		"message": ""
+		"message": "Aggiorna da keyserver"
 	},
 	"Cannot_sign_a_revoked_UID": {
-		"message": ""
+		"message": "Impossibile firmare un ID utente revocato"
 	},
 	"Revoke_this_key": {
 		"message": ""
 	},
 	"Revoke_UID": {
-		"message": ""
+		"message": "Revoca ID utente"
 	},
 	"Cannot_make_a_revoked_UID_primary": {
-		"message": ""
+		"message": "Impossibile rendere primario un ID utente revocato"
 	},
 	"Make_Primary": {
 		"message": ""
 	},
 	"Delete": {
-		"message": ""
+		"message": "Elimina"
 	},
 	"This_signature_was_made_with_a_key_that_does_not_belong_to_you": {
-		"message": ""
+		"message": "Questa firma è stata fatta con una chiave che non ti appartiene"
 	},
 	"This_action_cannot_be_undone": {
-		"message": ""
+		"message": "Questa operazione non può essere annullata"
 	},
 	"Certify": {
 		"message": ""
@@ -750,46 +750,46 @@
 		"message": ""
 	},
 	"WebPG_Options": {
-		"message": ""
+		"message": "Opzioni di WebPG"
 	},
 	"The_WebPG_NPAPI_Plugin_is_valid": {
-		"message": ""
+		"message": "Il plugin NPAPI WebPG è valido"
 	},
 	"OpenPGP_was_detected": {
-		"message": ""
+		"message": "OpenPGP è stato individuato"
 	},
 	"It_appears_you_have_a_key_agent_configured": {
-		"message": ""
+		"message": "Sembra che tu abbia un key-agent configurato"
 	},
 	"gpgconf_was_detected": {
-		"message": ""
+		"message": "gpgconf è stato individuato"
 	},
 	"you_can_use_the_signature_methods": {
-		"message": ""
+		"message": "puoi usare questo metodo di firma"
 	},
 	"OpenPGP_does_not_appear_to_be_installed": {
-		"message": ""
+		"message": "OpenPGP non sembra installato correttamente"
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
-		"message": ""
+		"message": "Non sembra che tu abbia un key-agent configurato"
 	},
 	"A_working_key_agent_is_required": {
-		"message": ""
+		"message": "Un key-agent funzionante è richiesto"
 	},
 	"gpgconf_does_not_appear_to_be_installed": {
-		"message": ""
+		"message": "sembra che gpgconf non sia installato correttamente"
 	},
 	"You_will_not_be_able_to_create_signatures": {
-		"message": ""
+		"message": "Non sarai in grado di firmare"
 	},
 	"There_was_a_problem_loading_the_plugin": {
-		"message": ""
+		"message": "Si è verificato un problema durante il caricamento del plugin"
 	},
 	"the_plugin_might_be_incompatibly_compiled_for_this_architechture": {
-		"message": ""
+		"message": "architettura"
 	},
 	"click_here_for_help_resolving_this_issue": {
-		"message": ""
+		"message": "clicca qui per un aiuto nel risolvere questo problema"
 	},
 	"Enable_Inline_formatting_of_PGP_Messages_and_Keys": {
 		"message": ""
@@ -798,16 +798,16 @@
 		"message": ""
 	},
 	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
-		"message": ""
+		"message": "Cifra sempre usando la tua chiave predefinita oltre a quella del ricevente"
 	},
 	"Enable_WebPG_GMAIL_integration": {
-		"message": ""
+		"message": "Abilita l'integrazione di WebPG in GMAIL"
 	},
 	"EXPERIMENTAL": {
-		"message": ""
+		"message": "SPERIMENTALE"
 	},
 	"Automatically_Sign_outgoing_messages_in_GMAIL": {
-		"message": ""
+		"message": "Firma automaticamente i messaggi in uscita in GMAIL"
 	},
 	"Linked_GMAIL_Identities": {
 		"message": ""
@@ -816,13 +816,13 @@
 		"message": ""
 	},
 	"GPGCONF_binary": {
-		"message": ""
+		"message": "Eseguibile GPGCONF"
 	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
-		"message": ""
+		"message": "Il tuo sistema sembra configurato correttamente per WebPG"
 	},
 	"There_is_a_problem_with_your_configuration": {
-		"message": ""
+		"message": "Si è verificato un probema con la tua configurazione"
 	},
 	"Inline_formatting_mode": {
 		"message": ""
@@ -834,19 +834,19 @@
 		"message": ""
 	},
 	"Sample": {
-		"message": ""
+		"message": "Esempio"
 	},
 	"WebPG_Toolbar": {
-		"message": ""
+		"message": "Barra degli strumenti di WebPG"
 	},
 	"No_default_key_set": {
 		"message": ""
 	},
 	"WebPG_GMAIL_integration_is_EXPERIMENTAL": {
-		"message": ""
+		"message": "L'integrazione di WebPG in GMAIL è SPERIMENTALW"
 	},
 	"use_at_your_own_risk": {
-		"message": ""
+		"message": "usa a tuo rischio"
 	},
 	"PGP_MIME_Enabled": {
 		"message": ""
@@ -864,166 +864,166 @@
 		"message": ""
 	},
 	"Text_copied_to_clipboard": {
-		"message": ""
+		"message": "Testo copiato negli appunti"
 	},
 	"There_may_have_been_a_problem_placing_the_data_into_the_clipboard": {
-		"message": ""
+		"message": "Potrebbe essersi verificato un problema copiando i dati negli appunti"
 	},
 	"TEXT_COPIED": {
-		"message": ""
+		"message": "TESTO COPIATO"
 	},
 	"UNABLE_TO_COPY_TEXT": {
-		"message": ""
+		"message": "IMPOSSIBILE COPIARE IL TESTO"
 	},
 	"COPY_TO_CLIPBOARD": {
-		"message": ""
+		"message": "COPIA NEGLI APPUNTI"
 	},
 	"Verify_this_text": {
-		"message": ""
+		"message": "Verifica questo testo"
 	},
 	"Decrypt_this_text": {
-		"message": ""
+		"message": "Decifra questo testo"
 	},
 	"Import_this_Key": {
-		"message": ""
+		"message": "Importa questa chiave"
 	},
 	"Clear_sign_this_text": {
-		"message": ""
+		"message": "Firma in chiaro questo testo"
 	},
 	"Encrypt_this_text": {
-		"message": ""
+		"message": "Cifra questo testo"
 	},
 	"Paste_Public_Key": {
-		"message": ""
+		"message": "Incolla chiave pubblica"
 	},
 	"UNABLE_TO_DECRYPT_OR_VERIFY_THIS_MESSAGE": {
-		"message": ""
+		"message": "IMPOSSIBILE DECIFRARE O VERIFICARE QUESTO MESSAGGIO"
 	},
 	"PGP_ENCRYPTED_AND_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "MESSAGGIO CIFRATO E FIRMATO CON PGP"
 	},
 	"DECRYPTION_FAILED": {
-		"message": ""
+		"message": "DECIFRAZIONE FALLITA"
 	},
 	"NO_SECRET_KEY": {
-		"message": ""
+		"message": "NESSUNA CHIAVE SEGRETA"
 	},
 	"BAD_PASSPHRASE": {
-		"message": ""
+		"message": "PASSPHRASE SBAGLIATA"
 	},
 	"DECRYPT_THIS_MESSAGE": {
-		"message": ""
+		"message": "DECIFRA QEUSTO MESSAGGIO"
 	},
 	"DISPLAY_ORIGINAL": {
-		"message": ""
+		"message": "MOSTRA ORIGINALE"
 	},
 	"DETACHED_PGP_SIGNATURE": {
-		"message": ""
+		"message": "FIRMA PGP STACCATA"
 	},
 	"PGP_SIGNED_MESSAGE": {
-		"message": ""
+		"message": "MESSAGGIO FIRMATO CON PGP"
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_IS_INVALID": {
-		"message": ""
+		"message": "LA FIRMA SU QUESTO MESSAGGIO NON E' VALIDA"
 	},
 	"THE_SIGNATURE_MIGHT_BE_TAMPERED_WITH": {
-		"message": ""
+		"message": "LA FIRMA PUO' ESSERE STATA MANOMESSA"
 	},
 	"THE_SIGNATURE_ON_THIS_MESSAGE_FAILED": {
-		"message": ""
+		"message": "LA FIRMA DI QUESTO MESSAGGIO E' FALLITA"
 	},
 	"THE_MESSAGE_MAY_BE_TAMPERED_WITH": {
-		"message": ""
+		"message": "IL MESSAGGIO PUO' ESSERE MANOMESSO"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_KEY": {
-		"message": ""
+		"message": "QUESTO MESSAGGIO E' STATO FIRMATO CON LA CHIAVE"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_AN_EXPIRED_PUBLIC_KEY": {
-		"message": ""
+		"message": "QUESTO MESSAGGIO E' STATO FIRMATO CON UNA CHIAVE PUBBLICA SCADUTA"
 	},
 	"THIS_MESSAGE_WAS_SIGNED_WITH_A_PUBLIC_KEY_NOT_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "TUO PORTACHIAVI"
 	},
 	"SEARCH_FOR_KEYS_ON_KEYSERVER": {
-		"message": ""
+		"message": "CERCA CHIAVI SUL KEYSERVER"
 	},
 	"PGP_PUBLIC_KEY": {
-		"message": ""
+		"message": "CHIAVE PUBBLICA PGP"
 	},
 	"Names_UIDs_on_Key": {
-		"message": ""
+		"message": "Nomi/ID utente sulla chiave"
 	},
 	"REVOKED": {
-		"message": ""
+		"message": "REVOCATO"
 	},
 	"EXPIRED": {
 		"message": ""
 	},
 	"THIS_KEY_IS_NOT_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "LA CHIAVE NON E' PRESENTE NEL TUO PORTACHIAVI"
 	},
 	"THIS_KEY_IS_IN_YOUR_KEYRING": {
-		"message": ""
+		"message": "QUESTA CHIAVE NON E' PRESENTE NEL TUO PORTACHIAVI"
 	},
 	"IMPORT_THIS_KEY": {
-		"message": ""
+		"message": "IMPORTA QUESTA CHIAVE"
 	},
 	"DELETE_THIS_KEY": {
-		"message": ""
+		"message": "ELIMINA QUESTA CHIAVE"
 	},
 	"HIDE_ORIGINAL": {
-		"message": ""
+		"message": "NASCONDI L'ORIGINALE"
 	},
 	"UNUSABLE_KEY": {
-		"message": ""
+		"message": "CHIAVE INUTILIZZABILE"
 	},
 	"NO_USER_ID": {
-		"message": ""
+		"message": "NESSUN ID UTENTE"
 	},
 	"WebPG": {
-		"message": ""
+		"message": "WebPG"
 	},
 	"About": {
 		"message": ""
 	},
 	"Clear_Sign": {
-		"message": ""
+		"message": "Firma in chiaro"
 	},
 	"Sign_and_Encrypt_this_text": {
-		"message": ""
+		"message": "Firma e cifra questo testo"
 	},
 	"Import_this_Public_key": {
-		"message": ""
+		"message": "Importa questa chiave pubblica"
 	},
 	"Do_not_use_WebPG_for_this_message": {
-		"message": ""
+		"message": "Non usare WebPG per questo messaggio"
 	},
 	"Sign_Inline": {
-		"message": ""
+		"message": "Firma nel messaggio"
 	},
 	"Sign_as_Attachment": {
-		"message": ""
+		"message": "Fima in allegato"
 	},
 	"You_do_not_have_any_keys_for": {
-		"message": ""
+		"message": "Non hai alcuna chiave per"
 	},
 	"or": {
-		"message": ""
+		"message": "o"
 	},
 	"WebPG_is_preparing_the_email": {
 		"message": ""
 	},
 	"This_message_already_contains_PGP_data": {
-		"message": ""
+		"message": "Questo messaggio contiene già dati PGP"
 	},
 	"Would_you_like_to_Encrypt_anyway": {
-		"message": ""
+		"message": "Vuoi cifrare ugualmente"
 	},
 	"Expired_keys_found_for": {
-		"message": ""
+		"message": "Trovate chiavi scadute per"
 	},
 	"and": {
-		"message": ""
+		"message": "e"
 	},
 	"This_message_will_be_Encrypted": {
 		"message": ""
@@ -1032,22 +1032,22 @@
 		"message": ""
 	},
 	"You_have_more_than_1_public_key_matching_that_address": {
-		"message": ""
+		"message": "Hai più di una chiave pubblica corrispondente a questo indirizzo"
 	},
 	"The_Key_for": {
-		"message": ""
+		"message": "La chiave per"
 	},
 	"is_invalid": {
-		"message": ""
+		"message": "non è valido"
 	},
 	"Open_the_Key_Manager": {
-		"message": ""
+		"message": "Apri il gestore delle chiavi"
 	},
 	"This_message_will_be_Signed": {
 		"message": ""
 	},
 	"Sign_Only": {
-		"message": ""
+		"message": "Firma soltanto"
 	},
 	"This_message_will_be_Encrypted_using_Symmetric_Encryption": {
 		"message": ""

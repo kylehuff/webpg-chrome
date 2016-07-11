@@ -339,12 +339,12 @@
 <!ENTITY This_message_already_contains_PGP_data "该讯息已包含了PGP数据">
 <!ENTITY Would_you_like_to_Encrypt_anyway "无论如何，你都要加密吗？">
 <!ENTITY Expired_keys_found_for "">
-<!ENTITY and "">
+<!ENTITY and "和">
 <!ENTITY This_message_will_be_Encrypted "">
 <!ENTITY This_message_will_be_Signed_and_Encrypted "">
-<!ENTITY You_have_more_than_1_public_key_matching_that_address "您有超过1个公匙配置那个地址">
-<!ENTITY The_Key_for "">
-<!ENTITY is_invalid "是非法的">
+<!ENTITY You_have_more_than_1_public_key_matching_that_address "你有一个以上的公钥与该地址匹配">
+<!ENTITY The_Key_for "加密密钥的">
+<!ENTITY is_invalid "是无效的">
 <!ENTITY Open_the_Key_Manager "打开密匙管理器">
 <!ENTITY This_message_will_be_Signed "">
 <!ENTITY Sign_Only "">

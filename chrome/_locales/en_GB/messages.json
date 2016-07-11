@@ -6,10 +6,10 @@
 		"message": "Version"
 	},
 	"Extension_Information": {
-		"message": ""
+		"message": "Extension Information"
 	},
 	"Extension_version": {
-		"message": ""
+		"message": "Extension version"
 	},
 	"Platform": {
 		"message": "Platform"
@@ -24,16 +24,16 @@
 		"message": "Language"
 	},
 	"Plugin_Information": {
-		"message": ""
+		"message": "Plugin Information"
 	},
 	"Plugin_version": {
-		"message": ""
+		"message": "Plugin version"
 	},
 	"GnuPG_Information": {
-		"message": ""
+		"message": "GnuPG Information"
 	},
 	"GnuPG_version": {
-		"message": ""
+		"message": "GnuPG version"
 	},
 	"GnuPG_binary": {
 		"message": "GnuPG binary"
@@ -42,16 +42,16 @@
 		"message": "GnuPG home directory"
 	},
 	"default": {
-		"message": ""
+		"message": "default"
 	},
 	"GPGCONF_version": {
-		"message": ""
+		"message": "GPGCONF version"
 	},
 	"not_detected": {
-		"message": ""
+		"message": "not detected"
 	},
 	"Assuan_version": {
-		"message": ""
+		"message": "Assuan version"
 	},
 	"Key_Agent": {
 		"message": ""
@@ -60,7 +60,7 @@
 		"message": "Finished"
 	},
 	"Translation_Status": {
-		"message": ""
+		"message": "Translation Status"
 	},
 	"WebPG_Plugin_failed_to_load": {
 		"message": "WebPG Plugin failed to load"
@@ -195,10 +195,10 @@
 		"message": "The plugin was unable to load"
 	},
 	"The_Firefox_Click_to_Play_feature_is_enabled": {
-		"message": ""
+		"message": "The Firefox Click to Play feature is enabled"
 	},
 	"WebPG_cannot_load_the_required_plugin_with_this_feature_enabled": {
-		"message": ""
+		"message": "WebPG cannot load the required plugin with this feature enabled"
 	},
 	"The_WebPG_Native_Messaging_Host_was_unreachable": {
 		"message": ""
@@ -246,7 +246,7 @@
 		"message": "no email address provided"
 	},
 	"Use": {
-		"message": ""
+		"message": "Use"
 	},
 	"Sign_only": {
 		"message": "Sign only"
@@ -426,7 +426,7 @@
 		"message": "Are you sure you want to permanently delete this UID"
 	},
 	"Are_you_sure_you_want_to_permanently_delete_this_Photo": {
-		"message": ""
+		"message": "Are you sure you want to permanently delete this Photo"
 	},
 	"New_Expiration_Date": {
 		"message": "New Expiration Date"
@@ -444,34 +444,34 @@
 		"message": "Delete this key"
 	},
 	"Add": {
-		"message": ""
+		"message": "Add"
 	},
 	"There_was_an_error_parsing_this_image_file": {
-		"message": ""
+		"message": "There was an error parsing this image file"
 	},
 	"There_was_an_error_adding_this_image_file": {
-		"message": ""
+		"message": "There was an error adding this image file"
 	},
 	"It_is_possible_the_image_contains_EXIF_data": {
-		"message": ""
+		"message": "It is possible the image contains EXIF data"
 	},
 	"Please_use_the_button_above_to_select_a_JPEG___jpg__jpeg__photo": {
-		"message": ""
+		"message": "Please use the button above to select a JPEG (.jpg/.jpeg) photo"
 	},
 	"Only_JPEG_image_files_are_supported": {
-		"message": ""
+		"message": "Only JPEG image files are supported"
 	},
 	"WARNING": {
-		"message": ""
+		"message": "WARNING"
 	},
 	"is_quite_large": {
-		"message": ""
+		"message": "is quite large"
 	},
 	"Consider_using_a_smaller_image": {
-		"message": ""
+		"message": "Consider using a smaller image"
 	},
 	"Only_one_image_can_be_added": {
-		"message": ""
+		"message": "Only one image can be added"
 	},
 	"Copy": {
 		"message": "Copy"
@@ -567,7 +567,7 @@
 		"message": "Signature added using this key"
 	},
 	"Delete_this_Photo": {
-		"message": ""
+		"message": "Delete this Photo"
 	},
 	"Searching_for": {
 		"message": "Searching for"
@@ -642,19 +642,19 @@
 		"message": "Created"
 	},
 	"User_Photos": {
-		"message": ""
+		"message": "User Photos"
 	},
 	"User_Photo": {
 		"message": ""
 	},
 	"Enable_this_key_for_GnuPG_operations": {
-		"message": ""
+		"message": "Enable this key for GnuPG operations"
 	},
 	"This_is_your_default_key": {
 		"message": "This is your default key"
 	},
 	"Make_this_the_default_key_for_GnuPG_operations": {
-		"message": ""
+		"message": "Make this the default key for GnuPG operations"
 	},
 	"Enabled": {
 		"message": "Enabled"
@@ -699,7 +699,7 @@
 		"message": "Add Subkey"
 	},
 	"Add_Photo": {
-		"message": ""
+		"message": "Add Photo"
 	},
 	"Disable_this_key": {
 		"message": ""
@@ -756,7 +756,7 @@
 		"message": "The WebPG NPAPI Plugin is valid"
 	},
 	"OpenPGP_was_detected": {
-		"message": ""
+		"message": "OpenPGP was detected"
 	},
 	"It_appears_you_have_a_key_agent_configured": {
 		"message": "It appears you have a key-agent configured"
@@ -768,7 +768,7 @@
 		"message": "you can use the signature methods"
 	},
 	"OpenPGP_does_not_appear_to_be_installed": {
-		"message": ""
+		"message": "OpenPGP does not appear to be installed"
 	},
 	"You_do_not_appear_to_have_a_key_agent_configured": {
 		"message": "You do not appear to have a key-agent configured"
@@ -795,7 +795,7 @@
 		"message": "Enable Inline formatting of PGP Messages and Keys"
 	},
 	"Inline_Options": {
-		"message": ""
+		"message": "Inline Options"
 	},
 	"Always_encrypt_to_your_default_key_in_addition_to_the_recipient": {
 		"message": "Always encrypt to your default key in addition to the recipient"
@@ -807,7 +807,7 @@
 		"message": "EXPERIMENTAL"
 	},
 	"Automatically_Sign_outgoing_messages_in_GMAIL": {
-		"message": ""
+		"message": "Automatically Sign outgoing messages in GMAIL"
 	},
 	"Linked_GMAIL_Identities": {
 		"message": ""
@@ -816,7 +816,7 @@
 		"message": ""
 	},
 	"GPGCONF_binary": {
-		"message": ""
+		"message": "GPGCONF binary"
 	},
 	"Your_system_appears_to_be_configured_correctly_for_WebPG": {
 		"message": "Your system appears to be configured correctly for WebPG"
@@ -825,19 +825,19 @@
 		"message": "There is a problem with your configuration"
 	},
 	"Inline_formatting_mode": {
-		"message": ""
+		"message": "Inline formatting mode"
 	},
 	"Window": {
-		"message": ""
+		"message": "Window"
 	},
 	"Icon": {
-		"message": ""
+		"message": "Icon"
 	},
 	"Sample": {
-		"message": ""
+		"message": "Sample"
 	},
 	"WebPG_Toolbar": {
-		"message": ""
+		"message": "WebPG Toolbar"
 	},
 	"No_default_key_set": {
 		"message": ""
@@ -870,10 +870,10 @@
 		"message": "There may have been a problem placing the data into the clipboard"
 	},
 	"TEXT_COPIED": {
-		"message": ""
+		"message": "TEXT COPIED"
 	},
 	"UNABLE_TO_COPY_TEXT": {
-		"message": ""
+		"message": "UNABLE TO COPY TEXT"
 	},
 	"COPY_TO_CLIPBOARD": {
 		"message": "COPY TO CLIPBOARD"
@@ -981,28 +981,28 @@
 		"message": "NO USER ID"
 	},
 	"WebPG": {
-		"message": ""
+		"message": "WebPG"
 	},
 	"About": {
-		"message": ""
+		"message": "About"
 	},
 	"Clear_Sign": {
-		"message": ""
+		"message": "Clear Sign"
 	},
 	"Sign_and_Encrypt_this_text": {
-		"message": ""
+		"message": "Sign and Encrypt this text"
 	},
 	"Import_this_Public_key": {
-		"message": ""
+		"message": "Import this Public key"
 	},
 	"Do_not_use_WebPG_for_this_message": {
 		"message": "Do not use WebPG for this message"
 	},
 	"Sign_Inline": {
-		"message": ""
+		"message": "Sign Inline"
 	},
 	"Sign_as_Attachment": {
-		"message": ""
+		"message": "Sign as Attachment"
 	},
 	"You_do_not_have_any_keys_for": {
 		"message": "You do not have any keys for"
@@ -1020,10 +1020,10 @@
 		"message": "Would you like to Encrypt anyway?"
 	},
 	"Expired_keys_found_for": {
-		"message": ""
+		"message": "Expired keys found for"
 	},
 	"and": {
-		"message": ""
+		"message": "and"
 	},
 	"This_message_will_be_Encrypted": {
 		"message": ""
@@ -1047,7 +1047,7 @@
 		"message": ""
 	},
 	"Sign_Only": {
-		"message": ""
+		"message": "Sign Only"
 	},
 	"This_message_will_be_Encrypted_using_Symmetric_Encryption": {
 		"message": ""

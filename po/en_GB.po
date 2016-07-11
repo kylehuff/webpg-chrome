@@ -1,23 +1,24 @@
-# Translations template for webpg-chrome.
+# Translations template for webpg.
 # Copyright (C) 2012 CURETHEITCH
-# This file is distributed under the same license as the webpg-chrome
+# This file is distributed under the same license as the webpg
 # project.
 # Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: webpg-chrome 0.8.9\n"
+"Project-Id-Version: webpg 0.10.0\n"
 "Report-Msgid-Bugs-To: webpg-translations@webpg.org\n"
-"POT-Creation-Date: 2016-07-10 19:53-0400\n"
-"PO-Revision-Date: 2012-10-21 16:57-0400\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2016-07-10 20:34-0400\n"
+"PO-Revision-Date: 2015-01-25 04:45+0000\n"
+"Last-Translator: Max Harmony <launchpad@maxh.me.uk>\n"
 "Language-Team: none\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-07-11 00:08+0000\n"
+"X-Generator: Launchpad (build 18115)\n"
 "Generated-By: Babel 0.9.6\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: extension/about.js:17 extension/browser_action_menu.js:48
 #: extension/buttonbar.js:278
@@ -31,11 +32,11 @@ msgstr "Version"
 
 #: extension/about.js:48
 msgid "Extension Information"
-msgstr ""
+msgstr "Extension Information"
 
 #: extension/about.js:51
 msgid "Extension version"
-msgstr ""
+msgstr "Extension version"
 
 #: extension/about.js:61 extension/error.js:63
 msgid "Platform"
@@ -55,19 +56,19 @@ msgstr "Language"
 
 #: extension/about.js:85
 msgid "Plugin Information"
-msgstr ""
+msgstr "Plugin Information"
 
 #: extension/about.js:88
 msgid "Plugin version"
-msgstr ""
+msgstr "Plugin version"
 
 #: extension/about.js:106
 msgid "GnuPG Information"
-msgstr ""
+msgstr "GnuPG Information"
 
 #: extension/about.js:109
 msgid "GnuPG version"
-msgstr ""
+msgstr "GnuPG version"
 
 #: extension/about.js:115 extension/options.js:189
 msgid "GnuPG binary"
@@ -79,19 +80,19 @@ msgstr "GnuPG home directory"
 
 #: extension/about.js:130
 msgid "default"
-msgstr ""
+msgstr "default"
 
 #: extension/about.js:134
 msgid "GPGCONF version"
-msgstr ""
+msgstr "GPGCONF version"
 
 #: extension/about.js:140 extension/about.js:146 extension/about.js:152
 msgid "not detected"
-msgstr ""
+msgstr "not detected"
 
 #: extension/about.js:143
 msgid "Assuan version"
-msgstr ""
+msgstr "Assuan version"
 
 #: extension/about.js:149
 msgid "Key Agent"
@@ -103,7 +104,7 @@ msgstr "Finished"
 
 #: extension/about.js:191
 msgid "Translation Status"
-msgstr ""
+msgstr "Translation Status"
 
 #: extension/background.js:219
 msgid "WebPG Plugin failed to load"
@@ -313,11 +314,11 @@ msgstr "The plugin was unable to load"
 
 #: extension/error.js:30
 msgid "The Firefox Click to Play feature is enabled"
-msgstr ""
+msgstr "The Firefox Click to Play feature is enabled"
 
 #: extension/error.js:31
 msgid "WebPG cannot load the required plugin with this feature enabled"
-msgstr ""
+msgstr "WebPG cannot load the required plugin with this feature enabled"
 
 #: extension/error.js:33
 msgid "The WebPG Native Messaging Host was unreachable"
@@ -381,7 +382,7 @@ msgstr "no email address provided"
 
 #: extension/inline.js:1003
 msgid "Use"
-msgstr ""
+msgstr "Use"
 
 #: extension/inline.js:1127 extension/key_manager.js:322
 #: extension/key_manager.js:325 extension/webmail/gmail/gmail.js:768
@@ -637,7 +638,7 @@ msgstr "Are you sure you want to permanently delete this UID"
 
 #: extension/key_manager.js:385
 msgid "Are you sure you want to permanently delete this Photo"
-msgstr ""
+msgstr "Are you sure you want to permanently delete this Photo"
 
 #: extension/key_manager.js:386
 msgid "New Expiration Date"
@@ -662,43 +663,43 @@ msgstr "Delete this key"
 
 #: extension/key_manager.js:787
 msgid "Add"
-msgstr ""
+msgstr "Add"
 
 #: extension/key_manager.js:797
 msgid "There was an error parsing this image file"
-msgstr ""
+msgstr "There was an error parsing this image file"
 
 #: extension/key_manager.js:811
 msgid "There was an error adding this image file"
-msgstr ""
+msgstr "There was an error adding this image file"
 
 #: extension/key_manager.js:814
 msgid "It is possible the image contains EXIF data"
-msgstr ""
+msgstr "It is possible the image contains EXIF data"
 
 #: extension/key_manager.js:862
 msgid "Please use the button above to select a JPEG (.jpg/.jpeg) photo"
-msgstr ""
+msgstr "Please use the button above to select a JPEG (.jpg/.jpeg) photo"
 
 #: extension/key_manager.js:873
 msgid "Only JPEG image files are supported"
-msgstr ""
+msgstr "Only JPEG image files are supported"
 
 #: extension/key_manager.js:878
 msgid "WARNING"
-msgstr ""
+msgstr "WARNING"
 
 #: extension/key_manager.js:879
 msgid "is quite large"
-msgstr ""
+msgstr "is quite large"
 
 #: extension/key_manager.js:879
 msgid "Consider using a smaller image"
-msgstr ""
+msgstr "Consider using a smaller image"
 
 #: extension/key_manager.js:883
 msgid "Only one image can be added"
-msgstr ""
+msgstr "Only one image can be added"
 
 #: extension/key_manager.js:910
 msgid "Copy"
@@ -827,7 +828,7 @@ msgstr "Signature added using this key"
 #: extension/key_manager.js:1294 extension/key_manager.js:1701
 #: extension/key_manager.js:2316
 msgid "Delete this Photo"
-msgstr ""
+msgstr "Delete this Photo"
 
 #: extension/key_manager.js:1386
 msgid "Searching for"
@@ -939,7 +940,7 @@ msgstr "Created"
 
 #: extension/key_manager.js:1996
 msgid "User Photos"
-msgstr ""
+msgstr "User Photos"
 
 #: extension/key_manager.js:2001
 msgid "User Photo"
@@ -947,7 +948,7 @@ msgstr ""
 
 #: extension/key_manager.js:2042
 msgid "Enable this key for GnuPG operations"
-msgstr ""
+msgstr "Enable this key for GnuPG operations"
 
 #: extension/key_manager.js:2060
 msgid "This is your default key"
@@ -955,7 +956,7 @@ msgstr "This is your default key"
 
 #: extension/key_manager.js:2062
 msgid "Make this the default key for GnuPG operations"
-msgstr ""
+msgstr "Make this the default key for GnuPG operations"
 
 #: extension/key_manager.js:2074 extension/key_manager.js:2101
 #: extension/options.js:225 extension/options.js:235 extension/options.js:319
@@ -1019,7 +1020,7 @@ msgstr "Add Subkey"
 
 #: extension/key_manager.js:2288
 msgid "Add Photo"
-msgstr ""
+msgstr "Add Photo"
 
 #: extension/key_manager.js:2290
 msgid "Disable this key"
@@ -1095,7 +1096,7 @@ msgstr "The WebPG NPAPI Plugin is valid"
 
 #: extension/options.js:51
 msgid "OpenPGP was detected"
-msgstr ""
+msgstr "OpenPGP was detected"
 
 #: extension/options.js:52
 msgid "It appears you have a key-agent configured"
@@ -1111,7 +1112,7 @@ msgstr "you can use the signature methods"
 
 #: extension/options.js:59
 msgid "OpenPGP does not appear to be installed"
-msgstr ""
+msgstr "OpenPGP does not appear to be installed"
 
 #: extension/options.js:67
 msgid "You do not appear to have a key-agent configured"
@@ -1147,7 +1148,7 @@ msgstr "Enable Inline formatting of PGP Messages and Keys"
 
 #: extension/options.js:158 extension/options.js:341
 msgid "Inline Options"
-msgstr ""
+msgstr "Inline Options"
 
 #: extension/options.js:161
 msgid "Always encrypt to your default key in addition to the recipient"
@@ -1163,7 +1164,7 @@ msgstr "EXPERIMENTAL"
 
 #: extension/options.js:167
 msgid "Automatically Sign outgoing messages in GMAIL"
-msgstr ""
+msgstr "Automatically Sign outgoing messages in GMAIL"
 
 #: extension/options.js:170
 msgid "Linked GMAIL Identities"
@@ -1175,7 +1176,7 @@ msgstr ""
 
 #: extension/options.js:194
 msgid "GPGCONF binary"
-msgstr ""
+msgstr "GPGCONF binary"
 
 #: extension/options.js:203
 msgid "Your system appears to be configured correctly for WebPG"
@@ -1187,24 +1188,24 @@ msgstr "There is a problem with your configuration"
 
 #: extension/options.js:247 extension/options.js:272
 msgid "Inline formatting mode"
-msgstr ""
+msgstr "Inline formatting mode"
 
 #: extension/options.js:249 extension/options.js:274
 msgid "Window"
-msgstr ""
+msgstr "Window"
 
 #: extension/options.js:250 extension/options.js:275
 msgid "Icon"
-msgstr ""
+msgstr "Icon"
 
 #: extension/options.js:252 extension/options.js:259 extension/options.js:277
 #: extension/options.js:288
 msgid "Sample"
-msgstr ""
+msgstr "Sample"
 
 #: extension/options.js:255 extension/options.js:284
 msgid "WebPG Toolbar"
-msgstr ""
+msgstr "WebPG Toolbar"
 
 #: extension/options.js:368
 msgid "No default key set"
@@ -1248,11 +1249,11 @@ msgstr "There may have been a problem placing the data into the clipboard"
 
 #: extension/utils.js:368
 msgid "TEXT COPIED"
-msgstr ""
+msgstr "TEXT COPIED"
 
 #: extension/utils.js:368
 msgid "UNABLE TO COPY TEXT"
-msgstr ""
+msgstr "UNABLE TO COPY TEXT"
 
 #: extension/utils.js:370 extension/webpg_results.js:227
 #: extension/webpg_results.js:258 extension/webpg_results.js:274
@@ -1417,28 +1418,28 @@ msgstr "NO USER ID"
 #: extension/XULContent/thunderbird/thunderbirdOverlay.xul:16
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:40
 msgid "WebPG"
-msgstr ""
+msgstr "WebPG"
 
 #: extension/XULContent/firefoxOverlay.xul:31
 #: extension/XULContent/options.xul:33
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:52
 msgid "About"
-msgstr ""
+msgstr "About"
 
 #: extension/XULContent/firefoxOverlay.xul:38
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:59
 msgid "Clear Sign"
-msgstr ""
+msgstr "Clear Sign"
 
 #: extension/XULContent/firefoxOverlay.xul:57
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:78
 msgid "Sign and Encrypt this text"
-msgstr ""
+msgstr "Sign and Encrypt this text"
 
 #: extension/XULContent/firefoxOverlay.xul:71
 #: extension/XULContent/thunderbird/thunderbirdUtils.js:92
 msgid "Import this Public key"
-msgstr ""
+msgstr "Import this Public key"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:90
 #: extension/webmail/gmail/gmail.js:826 extension/webmail/gmail/gmail.js:946
@@ -1448,11 +1449,11 @@ msgstr "Do not use WebPG for this message"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:91
 msgid "Sign Inline"
-msgstr ""
+msgstr "Sign Inline"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:92
 msgid "Sign as Attachment"
-msgstr ""
+msgstr "Sign as Attachment"
 
 #: extension/XULContent/thunderbird/composeOverlay.js:264
 #: extension/webmail/gmail/gmail.js:470 extension/webmail/gmail/inbox.js:472
@@ -1478,12 +1479,12 @@ msgstr "Would you like to Encrypt anyway?"
 
 #: extension/webmail/gmail/gmail.js:475 extension/webmail/gmail/inbox.js:477
 msgid "Expired keys found for"
-msgstr ""
+msgstr "Expired keys found for"
 
 #: extension/webmail/gmail/gmail.js:476 extension/webmail/gmail/gmail.js:504
 #: extension/webmail/gmail/inbox.js:478 extension/webmail/gmail/inbox.js:506
 msgid "and"
-msgstr ""
+msgstr "and"
 
 #: extension/webmail/gmail/gmail.js:484 extension/webmail/gmail/inbox.js:486
 msgid "This message will be Encrypted"
@@ -1516,7 +1517,7 @@ msgstr ""
 
 #: extension/webmail/gmail/gmail.js:918 extension/webmail/gmail/inbox.js:920
 msgid "Sign Only"
-msgstr ""
+msgstr "Sign Only"
 
 #: extension/webmail/gmail/gmail.js:930 extension/webmail/gmail/inbox.js:932
 msgid "This message will be Encrypted using Symmetric Encryption"
@@ -1538,56 +1539,23 @@ msgstr ""
 msgid "extDesc"
 msgstr "An extension which provides GnuPG/GPG/PGP related functions to Chrome"
 
-#~ msgid "Would you like to Sign anyway"
-#~ msgstr "Would you like to Sign anyway?"
-
-#~ msgid "Would you like to Encrypt and Sign anyway"
-#~ msgstr "Would you like to Encrypt and Sign anyway?"
-
-#~ msgid "WebPG Key Manager"
-#~ msgstr "WebPG Key Manager"
-
-#~ msgid "Please wait while we build the key list"
-#~ msgstr "Please wait while we build the key list"
-
-#~ msgid "Click to generate a new key"
-#~ msgstr "Click to generate a new key"
-
-#~ msgid "Click to enable key"
-#~ msgstr "Click to enable key"
-
-#~ msgid "Click to set default key"
-#~ msgstr "Click to set default key"
-
-#~ msgid "trust"
-#~ msgstr "trust"
-
 #~ msgid "Ultimate"
 #~ msgstr "Ultimate"
-
-#~ msgid "None"
-#~ msgstr "None"
-
-#~ msgid "New group"
-#~ msgstr "New group"
 
 #~ msgid "Enable this Key"
 #~ msgstr "Enable this Key"
 
-#~ msgid "Disable this Key"
-#~ msgstr "Disable this key"
-
 #~ msgid "Export this Key"
 #~ msgstr "Export this Key"
 
-#~ msgid "Revoke this Subkey"
-#~ msgstr "Revoke this key"
+#~ msgid "self-signature"
+#~ msgstr "self-signature"
 
 #~ msgid "Make primary"
 #~ msgstr "Make primary"
 
-#~ msgid "self-signature"
-#~ msgstr "self-signature"
+#~ msgid "other signature"
+#~ msgstr "other signature"
 
 #~ msgid "local"
 #~ msgstr "local"
@@ -1595,44 +1563,65 @@ msgstr "An extension which provides GnuPG/GPG/PGP related functions to Chrome"
 #~ msgid "non-exportable"
 #~ msgstr "non-exportable"
 
-#~ msgid "other signature"
-#~ msgstr "other signature"
-
-#~ msgid "Calculating Trust"
-#~ msgstr "Calculating Trust"
-
-#~ msgid "Cannot Publish Keys without gpgconf utility installed"
-#~ msgstr "Cannot Publish Keys without gpgconf utility installed"
+#~ msgid "Cannot sign an expired key"
+#~ msgstr "Cannot sign an expired key"
 
 #~ msgid "Cannot create signatures without gpgconf utility installed"
 #~ msgstr "Cannot create signatures without gpgconf utility installed"
 
-#~ msgid "Cannot Publish Keys without Keyserver configured"
-#~ msgstr "Cannot Publish Keys without Keyserver configured"
+#~ msgid "from this User ID"
+#~ msgstr "from this User ID"
 
-#~ msgid "Cannot sign an expired key"
-#~ msgstr "Cannot sign an expired key"
+#~ msgid "WebPG Key Manager"
+#~ msgstr "WebPG Key Manager"
+
+#~ msgid "Click to generate a new key"
+#~ msgstr "Click to generate a new key"
+
+#~ msgid "Click to enable key"
+#~ msgstr "Click to enable key"
+
+#~ msgid "trust"
+#~ msgstr "trust"
+
+#~ msgid "Click to set default key"
+#~ msgstr "Click to set default key"
+
+#~ msgid "Disable this Key"
+#~ msgstr "Disable this key"
+
+#~ msgid "Revoke this Subkey"
+#~ msgstr "Revoke this key"
 
 #~ msgid "Are you certain you would like to delete signature"
 #~ msgstr "Are you certain you would like to delete this signature"
 
-#~ msgid "from this User ID"
-#~ msgstr "from this User ID"
+#~ msgid "None"
+#~ msgstr "None"
 
-#~ msgid "Please wait while recalculate the trust for this item"
-#~ msgstr "Please wait while recalculate the trust for this item"
+#~ msgid "New group"
+#~ msgstr "New group"
 
-#~ msgid "Enable this key for signing"
-#~ msgstr "Enable this key for signing"
+#~ msgid "Cannot Publish Keys without gpgconf utility installed"
+#~ msgstr "Cannot Publish Keys without gpgconf utility installed"
 
-#~ msgid "Make this the default key for encryption operations"
-#~ msgstr "Make this the default key for encryption operations"
+#~ msgid "Cannot Publish Keys without Keyserver configured"
+#~ msgstr "Cannot Publish Keys without Keyserver configured"
 
-#~ msgid "Sign outgoing messages in GMAIL"
-#~ msgstr "Sign outgoing messages in GMAIL"
+#~ msgid "Would you like to Sign anyway"
+#~ msgstr "Would you like to Sign anyway?"
 
-#~ msgid "libgpgme loaded successfully"
-#~ msgstr "libgpgme loaded successfully"
+#~ msgid "Would you like to Encrypt and Sign anyway"
+#~ msgstr "Would you like to Encrypt and Sign anyway?"
 
-#~ msgid "PGP ENCRYPTED MESSAGE"
-#~ msgstr "PGP ENCRYPTED MESSAGE"
+#~ msgid "Calculating Trust"
+#~ msgstr "Calculating Trust"
+
+#~ msgid "Please wait while we build the key list"
+#~ msgstr "Please wait while we build the key list"
+
+#~ msgid "Building Key list"
+#~ msgstr "Building Key list"
+
+#~ msgid "Please wait while we calculate the trust for this item"
+#~ msgstr "Please wait while we calculate the trust for this item"
