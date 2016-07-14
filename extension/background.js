@@ -588,9 +588,9 @@ webpg.background = {
                       }
                 };
                 if (request.temp_context) {
-                    webpg.plugin.getTemporaryPath(function(temp_path) {
-                      temp_path = temp_path.result || temp_path || "/tmp/.gnupg";
-                      webpg.plugin.gpgSetHomeDir(temp_path, attemptImport);
+                    webpg.plugin.getTemporaryPath(function(path) {
+                      path = path.result || path || "/tmp/.gnupg";
+                      webpg.plugin.gpgSetHomeDir(path, attemptImport);
                     });
                 } else {
                   attemptImport();
@@ -720,7 +720,7 @@ webpg.background = {
             case 'getNamedKey':
                 webpg.utils.info("getNamedKey requested");
                 request.bypassSendResult = true;
-                function getNamedKey() {
+                var getNamedKey = function() {
                   webpg.plugin.getNamedKey(request.key_id, false, false, function(response) {
                     if (request.temp_context) {
                       webpg.plugin.gpgSetHomeDir(gnupghome, function() {
@@ -741,10 +741,9 @@ webpg.background = {
                   });
                 }
                 if (request.temp_context) {
-                  webpg.plugin.getTemporaryPath(function(temp_path) {
-                    if (!temp_path)
-                        temp_path = "/tmp/.gnupg";
-                    webpg.plugin.gpgSetHomeDir(temp_path, function() {
+                  webpg.plugin.getTemporaryPath(function(path) {
+                    path = path.result || temp_path || "/tmp/.gnupg";
+                    webpg.plugin.gpgSetHomeDir(path, function() {
                       getNamedKey();
                     });
                   });
@@ -872,6 +871,7 @@ webpg.background = {
                 break;
 
         }
+
         // Return the response and let the connection be cleaned up.
         if (request.bypassSendResult !== true)
           sendResponse({'result': response});

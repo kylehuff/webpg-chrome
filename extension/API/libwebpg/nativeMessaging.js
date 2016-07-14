@@ -172,13 +172,18 @@ webpg.nativeMessaging = {
       let func = result.func || result.type || undefined;
       if (func === "onkeygencomplete")
         func = "onkeygenprogress";
+      let _id = result._id || func;
+
       if (func !== undefined) {
-        let cb = port.callbacks[func] || undefined;
+        let cb = port.callbacks[func][_id] || port.callbacks[func] || undefined;
+
         delete result.func;
-        if (cb) {
+        delete result._id;
+
+        if (cb && typeof(cb) === "function") {
           cb(result);
           if (func !== "onstatusprogress" && (func !== "onkeygenprogress" && result.type !== "onkeygencomplete"))
-            delete port.callbacks[func];
+            delete port.callbacks[func][_id]
         }
       }
     };
@@ -274,28 +279,15 @@ webpg.nativeMessaging = {
           )
         ) ? "onkeygenprogress" : func
 
-    port.callbacks[func] = callback;
+    // generate a unique id for this invocation if one isn't provided
+    if (args._id == undefined)
+      args._id = (func.search("progress") > -1) ? func : new Date().getTime() + parseInt(Math.random()*0xffffffff);
+
+    port.callbacks[func] = port.callbacks[func] || {};
+    port.callbacks[func][args._id] = callback;
+
     port.postMessage(args);
-    /*return;
-    if (callback && (args.async===true || (args.params && args.params.async))) {
-      var port = webpg.nativeMessaging.port();
-      webpg.nativeMessaging.addListener(port, callback);
-      port.postMessage(args);
-    } else {
-      webpg.nativeMessaging.sendMessage(args,
-        function(res) {
-          if (callback && typeof(callback) === "function") {
-            if (webpg.utils.detectedBrowser.product === "chrome" && chrome.runtime.lastError)
-              callback(chrome.runtime.lastError);
-            else
-              callback(res);
-            return res;
-          } else {
-            return res;
-          }
-        }
-      );
-    }*/
+
   },
 
   getFunctionName: function() {

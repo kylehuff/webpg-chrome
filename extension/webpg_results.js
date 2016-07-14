@@ -395,7 +395,7 @@ webpg.inline_results = {
                             for (var imported in import_status.imports) {
                                 if (import_status.imports[imported].fingerprint != "unknown"
                                 && import_status.imports[imported].result === "Success") {
-                                    key_id = import_status.imports[imported].fingerprint;
+                                    var key_id = import_status.imports[imported].fingerprint;
                                     webpg.utils.sendRequest({
                                         'msg': "getNamedKey",
                                         'key_id': key_id,
