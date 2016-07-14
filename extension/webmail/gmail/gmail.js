@@ -1198,7 +1198,7 @@ webpg.gmail = {
                             window.content.wrappedJSObject.GLOBALS;
             }
             // Obtain the class list (which contains the msg ID)
-            msgClassList = node.className.split(" ");
+            msgClassList = (e.previousSibling.firstChild.classList.contains('a3s')) ? e.previousSibling.firstChild.className.split(" ") :  node.className.split(" ");
             if (msgClassList.hasOwnProperty(2)) {
               msgID = msgClassList[2];
               // Obtain the users email address
