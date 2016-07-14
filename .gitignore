@@ -1,4 +1,6 @@
-build/
+firefox/build/
+firefox/output
+chrome/output
 /plugins
 webpg-*-*.zip
 changelog-*.txt

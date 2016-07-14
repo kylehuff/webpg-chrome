@@ -95,7 +95,8 @@ cd $TMP_DIR
 
 # generate the XPI file
 echo "Generating $APP_NAME.xpi..."
-zip -r ../$APP_NAME.xpi * -x '*.svn*'
+mkdir -pv ../output
+zip -r ../output/$APP_NAME.xpi * -x '*.svn*'
 
 cd "$ROOT_DIR"
 

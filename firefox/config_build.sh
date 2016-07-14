@@ -8,5 +8,5 @@ CLEAN_UP=1
 ROOT_FILES="../AUTHORS ../COPYING"
 ROOT_DIRS="defaults locale"
 BEFORE_BUILD="rm -rf ../extension/META-INF"
-#AFTER_BUILD="xpisign -f -k /home/kylehuff/.ssl/codesigning.pem ${APP_NAME}.xpi ${APP_NAME}_s.xpi && firefox ${APP_NAME}_s.xpi"
-AFTER_BUILD="firefox ${APP_NAME}.xpi"
+#AFTER_BUILD="xpisign -f -k ~/.ssl/codesigning.pem output/${APP_NAME}.xpi output/${APP_NAME}_s.xpi && firefox output/${APP_NAME}_s.xpi"
+AFTER_BUILD="firefox output/${APP_NAME}.xpi"
