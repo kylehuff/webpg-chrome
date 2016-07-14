@@ -318,6 +318,7 @@ webpg.plugin = {
     if (navigator.userAgent.toLowerCase().search("chrome") === -1) {
       webpg.nativeMessaging.sendMessage({"func": "get_webpg_status"}, function(res) {
         webpg.plugin.valid = (res && res.plugin && !res.error) ? true : false;
+        webpg.plugin.webpg_status = res;
       });
     } else {
       // Check if the native messaging port is valid
