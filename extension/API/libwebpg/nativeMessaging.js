@@ -136,14 +136,16 @@ webpg.nativeMessaging = {
       };
       this.onMessage.addListener = function(callback) {
         //webpg.utils.debug("adding listener");
+
         process.stdout.on('data', function (data) {
           let data_array = Uint8Array.from(data, (c) => c.charCodeAt(0));
           port.parse(data_array, callback);
         });
 
-        //process.stderr.on('data', function (data) {
-          //webpg.utils.info(data);
-        //});
+        process.stderr.on('data', function (data) {
+          if (data.trim().length > 0)
+            webpg.utils.info(data);
+        });
 
         process.on('close', function(code) {
           webpg.utils.debug("pid", process.pid, "closed with exit code", process.exitCode);

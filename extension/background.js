@@ -391,7 +391,7 @@ webpg.background = {
                 break;
 
             case 'decrypt':
-                webpg.utils.info("gpgDecrypt requested");
+                webpg.utils.debug("gpgDecrypt requested");
                 webpg.plugin.gpgDecrypt(request.data, function(response) {
                   response.original_text = request.data;
                   if (response.error === true)
@@ -449,7 +449,7 @@ webpg.background = {
                 break;
 
             case 'verify':
-                webpg.utils.info("gpgVerify requested");
+                webpg.utils.debug("gpgVerify requested");
                 var content,
                     plaintext = (request.plaintext!==undefined) ?
                       request.plaintext : null;
@@ -531,7 +531,7 @@ webpg.background = {
                 break;
 
             case 'async-gpgGenKey':
-                webpg.utils.info("async-gpgGenKey requested");
+                webpg.utils.debug("async-gpgGenKey requested");
                 webpg.plugin.gpgGenKey(
                         request.data.publicKey_algo,
                         request.data.publicKey_size,
@@ -547,7 +547,7 @@ webpg.background = {
                 break;
 
             case 'async-gpgGenSubKey':
-                webpg.utils.info("async-gpgGenSubKey requested");
+                webpg.utils.debug("async-gpgGenSubKey requested");
                 webpg.plugin.gpgGenSubKey(
                     request.data.key_id,
                     request.data.subKey_algo,
@@ -561,7 +561,7 @@ webpg.background = {
                 break;
 
             case 'doKeyImport':
-                webpg.utils.info("doKeyImport requested");
+                webpg.utils.debug("doKeyImport requested");
                 request.bypassSendResult = true;
                 function processResult(import_status) {
                   if (import_status.error || !import_status.imports ||
@@ -607,7 +607,7 @@ webpg.background = {
                 break;
 
             case 'encrypt':
-                webpg.utils.info("encrypt requested");
+                webpg.utils.debug("encrypt requested");
                 if (request.recipients.length > 0) {
                     webpg.plugin.gpgEncrypt(
                         request.data,
@@ -634,8 +634,7 @@ webpg.background = {
                 break;
 
             case 'encryptSign':
-                webpg.utils.info("encrypt-sign requested");
-                webpg.utils.info(request);
+                webpg.utils.debug("encrypt-sign requested");
                 if (request.recipients && request.recipients.length > 0) {
                     response = webpg.plugin.gpgEncryptSign(
                         request.data,
@@ -662,7 +661,7 @@ webpg.background = {
                 break;
 
             case 'symmetricEncrypt':
-                webpg.utils.info("symmetric encryption requested");
+                webpg.utils.debug("symmetric encryption requested");
                 var signers = (typeof(request.signers)!=='undefined' &&
                         request.signers !== null &&
                         request.signers.length > 0) ? request.signers : [];
@@ -690,7 +689,7 @@ webpg.background = {
                 break;
 
             case 'deleteKey':
-                webpg.utils.info("deleteKey requested");
+                webpg.utils.debug("deleteKey requested");
                 var restoreHome = function() {
                   if (request.temp_context) {
                       webpg.plugin.gpgSetHomeDir(gnupghome);
@@ -718,7 +717,7 @@ webpg.background = {
                 break;
 
             case 'getNamedKey':
-                webpg.utils.info("getNamedKey requested");
+                webpg.utils.debug("getNamedKey requested");
                 request.bypassSendResult = true;
                 var getNamedKey = function() {
                   webpg.plugin.getNamedKey(request.key_id, false, false, function(response) {
@@ -863,7 +862,7 @@ webpg.background = {
                 break;
 
             case 'sendPGPMIMEMessage':
-                webpg.utils.info(request);
+                webpg.utils.debug(request);
                 webpg.plugin.sendMessage(request.params, function(response) {
                   sendResponse({'result': response});
                 });
